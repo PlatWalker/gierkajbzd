@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     private Camera playerCamera;    //reference to player camera
 
     [SerializeField]
-    private float playerSpeed = 0.1f;  //player speed
+    private float playerSpeed = 0.2f;  //player speed
     [SerializeField]
     private float rotateSpeed;  //player rotate speed (frames per second you can rotate)
     [SerializeField]
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
 
     Animator characterAnimator;
 
-    // Start is called before the first frame update
+    // Start is called before the first frame updatedd
     void Awake()
     {
         inputHandler = GetComponent<InputHandler>();
@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour
     {
         UpdateCharacterPosition();
         UpdateCharacterRotation();
+        UpdateCharacterAnimation();
     }
 
     private void UpdateCharacterPosition()
