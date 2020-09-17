@@ -16,7 +16,25 @@ namespace JG
         public float moveAmount;
         public Vector3 rotateDirection;
 
+        [Header("States")]
+        public bool isGrounded;
+
+        [Header("References")]
+        public new Transform camera;
+
+
+        [Header("Movement Stats")]
+        public float frontRayOffset = 0.5f;
+        public float movementSpeed = 10;
+        public float adaptSpeed = 1;
+        public float rotationSpeed = 50;
+
+        [HideInInspector]
+        public LayerMask ignoreForGroundCheck;
+
+        [HideInInspector]
         public string locomotionId = "locomotion";
+        [HideInInspector]
         public string attackStateId = "attackState";
 
         public override void Init()
@@ -27,11 +45,11 @@ namespace JG
             State locomotion = new State(
                 new List<StateAction>() //Fixed Update
                 {
-                    new InputManager(this),
+                    new MovePlayer(this),
                 },
                 new List<StateAction>() //Update
                 {
-
+                    new InputManager(this),
                 },
                 new List<StateAction>() //Late Update
                 {
@@ -55,6 +73,9 @@ namespace JG
                 );
 
 
+            //Ignoring this layers
+            ignoreForGroundCheck = ~(1 << 9 | 1 << 10);
+
             //States registration
             RegisterState(locomotionId, locomotion);
             RegisterState(attackStateId, attackState);
@@ -65,11 +86,13 @@ namespace JG
 
         private void Update()
         {
+            delta = Time.deltaTime;
             Tick();
         }
 
         private void FixedUpdate()
         {
+            delta = Time.fixedDeltaTime;
             FixedTick();
         }
 

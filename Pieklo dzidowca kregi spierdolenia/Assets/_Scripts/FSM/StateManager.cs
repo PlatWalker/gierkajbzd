@@ -12,9 +12,14 @@ namespace JG
         State currentState;
         Dictionary<string, State> allStates = new Dictionary<string, State>();
 
+        [HideInInspector]
+        public Transform mTransform;    //objects transform
+         
         // Start is called before the first frame update
         void Start()
         {
+            mTransform = transform;
+
             Init();
         }
 

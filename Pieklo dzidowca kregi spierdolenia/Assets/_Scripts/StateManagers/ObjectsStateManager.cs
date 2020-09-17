@@ -15,11 +15,14 @@ namespace JG
         [Header("Controller Values")]
         public float vertical;
         public float horizontal;
+        public bool lockOn;
+        public float delta;
 
         public override void Init()
         {
             animator = GetComponentInChildren<Animator>();
             rigidbody = GetComponentInChildren<Rigidbody>();
+            animator.applyRootMotion = false;
         }
 
     }

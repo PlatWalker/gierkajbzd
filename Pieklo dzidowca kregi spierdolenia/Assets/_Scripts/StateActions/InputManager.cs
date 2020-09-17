@@ -31,26 +31,26 @@ namespace JG
 
         public override bool Execute() //executing and defining player inputs
         {
-            bool retVal = false;    //value of our players attack state
+            bool retVal;    //value of our players attack state
 
             stateManager.horizontal = Input.GetAxis("Horizontal");
             stateManager.vertical = Input.GetAxis("Vertical");
 
-            mouseRight = Input.GetMouseButton((1));
+            mouseRight = Input.GetMouseButton((1)); //right mouse button
             //Rt = Input.GetButton("Rt");
-            mouseLeft = Input.GetMouseButton((0));
+            mouseLeft = Input.GetMouseButton((0)); //left mouse button
             //Lt = Input.GetButton("Lt");
 
-            inventoryInput = Input.GetButton("Inventory");
+            //inventoryInput = Input.GetButton("Inventory");
 
-            b_Input = Input.GetButton("B");
-            y_Input = Input.GetButton("X");
-            x_Input = Input.GetButton("Y");
+            //b_Input = Input.GetButton("B");
+            //y_Input = Input.GetButton("X");
+            //x_Input = Input.GetButton("Y");
 
-            leftArrow = Input.GetButton("Left");
-            rightArrow = Input.GetButton("Right");
-            upArrow = Input.GetButton("Up");
-            downArrow = Input.GetButton("Down");
+            //leftArrow = Input.GetButton("Left");
+            //rightArrow = Input.GetButton("Right");
+            //upArrow = Input.GetButton("Up");
+            //downArrow = Input.GetButton("Down");
 
             //calcualte players move amount
             stateManager.moveAmount = Mathf.Clamp01(Mathf.Abs(stateManager.horizontal) + Mathf.Abs(stateManager.vertical));
@@ -64,7 +64,7 @@ namespace JG
         {
             if (mouseLeft)
             {
-                isAttacking = true;
+                //isAttacking = true;
             }
 
             //Logic for interrupting an attack (it will happen at the same frame)
@@ -85,6 +85,8 @@ namespace JG
 
             return isAttacking;
         }
+
+       
     }
 }
 
