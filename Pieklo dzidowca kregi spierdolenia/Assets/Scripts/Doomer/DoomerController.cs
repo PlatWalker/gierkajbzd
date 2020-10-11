@@ -10,12 +10,12 @@ public class DoomerController : MonoBehaviour
 {
     [SerializeField] public Transform mainCharacterTransform;
     [SerializeField] private float movementSpeed=0.034f;
-    [SerializeField] private float movementRushSpeed=0.066f;
-    [SerializeField] private float jumpSpeed = 0.1f;
+    [SerializeField] private float movementRushSpeed=0.05f;
+    private float jumpSpeed = 0.08f;
     [SerializeField] private float aggroRadius=10.0f;
-    [SerializeField] private float attackRadius=1.5f;
-    [SerializeField] private float firstAttackRadius = 3.0f;
-    [SerializeField] private float rotationSpeed = 0.1f;
+    private float attackRadius=1.0f;
+    private float firstAttackRadius = 4.0f;
+    [SerializeField] private float rotationSpeed = 0.15f;
     private Vector3 jumpDirection;
     private Vector3 spawnPoint;
     private Animator doomerAnimator;

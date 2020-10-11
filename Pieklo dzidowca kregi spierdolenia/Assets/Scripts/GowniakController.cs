@@ -34,7 +34,8 @@ public class GowniakController : MonoBehaviour
         {
             if (_isInAggroState != value)
             {
-                Debug.Log($"Aggro {(value ? "Triggered" : "Stopped")}");
+                //zakomentowuje to bo mnie wkurza jak mi co chwile wyskakuje ~kumdzio
+                //Debug.Log($"Aggro {(value ? "Triggered" : "Stopped")}");
                 _isInAggroState = value;
             }
         }
@@ -47,7 +48,8 @@ public class GowniakController : MonoBehaviour
         {
             if (_isInChaseState != value)
             {
-                Debug.Log($"Chase {(value ? "Triggered" : "Stopped")}");
+                //zakomentowuje to bo mnie wkurza jak mi co chwile wyskakuje ~kumdzio
+                //Debug.Log($"Chase {(value ? "Triggered" : "Stopped")}");
                 _isInChaseState = value;
                     _gowniakAnimator.SetBool("Move", value);
             }
@@ -61,7 +63,8 @@ public class GowniakController : MonoBehaviour
         {
             if (_isInAttackState != value)
             {
-                Debug.Log($"Attack {(value ? "Triggered" : "Stopped")}");
+                //zakomentowuje to bo mnie wkurza jak mi co chwile wyskakuje ~kumdzio
+                //Debug.Log($"Attack {(value ? "Triggered" : "Stopped")}");
                 _isInAttackState = value;
                 _gowniakAnimator.SetBool("Move", !value);
                 _gowniakAnimator.SetBool("Attack", value);
@@ -133,6 +136,7 @@ public class GowniakController : MonoBehaviour
 
     private void UpdateEnemyRotation(Vector3 direction)
     {
+        //tutaj na pewno trzeba zmienić bo na teraz to gówniak będzie się obracał w ciągu jednej klatki
         this.gameObject.transform.LookAt(direction);
     }
 
