@@ -18,18 +18,16 @@ public class MonkeyController : MonoBehaviour
     [SerializeField] private float rotationSpeed = 0.15f;
     [SerializeField] private GameObject projectileObject;
     [SerializeField] private Transform projectileSpawnPoint;
+    [SerializeField] private float throwPower=1.0f;
 
     private Vector3 spawnPoint;
-    private float runTimer = 0.0f;
     private Animator monkeyAnimator;
-    private bool spawnProjectile;
-   
+
 
     // Start is called before the first frame update
     void Start()
     {
         monkeyAnimator = GetComponent<Animator>();
-        spawnProjectile = true;
         spawnPoint = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
     }
 
@@ -53,21 +51,19 @@ public class MonkeyController : MonoBehaviour
                 {
                     UpdateEnemyRotation(mainCharacterTransform.position - this.transform.position );
                     isAttacking = true;
-                    if((monkeyAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1.0) > 0.65)//trzeba dodać by sprawdzało czy odpowiednia animacja poza jej długością
+                    if (monkeyAnimator.GetBool("spawnProjectile"))
                     {
-                        if (spawnProjectile)
-                        {
-                            //tutaj tworze pocisk
-                            Instantiate(projectileObject, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
-                            spawnProjectile = false;
-                            //tutaj dodać rzut bananem - żeby leciał i się kręcił.
-                        }
+                        //tutaj tworze pocisk
+                        GameObject projectile = Instantiate(projectileObject, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
+                        Rigidbody rigidbody = projectile.GetComponent<Rigidbody>();
+                        Vector3 throwDirection = (mainCharacterTransform.position - projectile.transform.position);
+                        throwDirection.y += 2;
+                        throwDirection *= throwPower;
+                        rigidbody.AddForce(throwDirection,ForceMode.Impulse);
+                        monkeyAnimator.SetBool("spawnProjectile", false);
+                        
+                        //tutaj dodać rzut bananem - żeby leciał i się kręcił.
                     }
-                    else
-                    {
-                        spawnProjectile = true;
-                    }
-                    Debug.Log("Czas animacji: " + (monkeyAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1.0));
                     //attacking code goes here
                 }
             }
