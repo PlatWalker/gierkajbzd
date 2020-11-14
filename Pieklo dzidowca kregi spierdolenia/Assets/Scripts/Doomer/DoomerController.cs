@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
 
-public class DoomerController : MonoBehaviour
+public class DoomerController : MonoBehaviour,Damageable
 {
     [SerializeField] public Transform mainCharacterTransform;
     [SerializeField] private float movementSpeed=0.034f;
@@ -22,6 +22,8 @@ public class DoomerController : MonoBehaviour
     private bool hasDoneAggro;
     private bool hasDoneSpecialAttack;
     private bool isUsingChargedAttack;
+    [SerializeField] private int maxHealth = 100;
+    private int currentHealth;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +33,7 @@ public class DoomerController : MonoBehaviour
         hasDoneSpecialAttack = false;
         hasDoneAggro = false;
         isUsingChargedAttack = false;
+        currentHealth = maxHealth;
     }
 
     // Update is called once per frame
@@ -142,6 +145,11 @@ public class DoomerController : MonoBehaviour
         this.gameObject.transform.rotation = Quaternion.LookRotation(newDirection);
         this.gameObject.transform.Rotate(0.0f, 90.0f, 0.0f); // removing Bug of gizmos
 
+    }
+
+    public float getHealthPercentage()
+    {
+        return (float)currentHealth / (float)maxHealth;
     }
 
 }

@@ -7,7 +7,7 @@ public class ProjectilesLimiter : MonoBehaviour
     private static long nextID = 0;
     private static long IdToBeDestroyed = -1;
     private long ID;
-    [SerializeField] private int projectilesLimit=10;
+    private int projectilesLimit=500;
     private int pLimit;
 
     public ProjectilesLimiter()

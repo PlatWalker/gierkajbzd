@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 using UnityEditor.Rendering;
 using UnityEngine;
 
-public class MonkeyController : MonoBehaviour
+public class MonkeyController : MonoBehaviour,Damageable
 {
     [SerializeField] public Transform mainCharacterTransform;
     [SerializeField] private float movementSpeed = 0.14f;
@@ -19,9 +19,12 @@ public class MonkeyController : MonoBehaviour
     [SerializeField] private GameObject projectileObject;
     [SerializeField] private Transform projectileSpawnPoint;
     [SerializeField] private float throwPower=1.0f;
+    [SerializeField] private int maxHealth = 100;
+
 
     private Vector3 spawnPoint;
     private Animator monkeyAnimator;
+    [SerializeField]private int currentHealth; //zminić by nie było serialize po testach
 
 
     // Start is called before the first frame update
@@ -29,6 +32,7 @@ public class MonkeyController : MonoBehaviour
     {
         monkeyAnimator = GetComponent<Animator>();
         spawnPoint = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
+        currentHealth = maxHealth;
     }
 
     // Update is called once per frame
@@ -119,5 +123,10 @@ public class MonkeyController : MonoBehaviour
     {
         Vector3 newDirection = Vector3.RotateTowards(this.gameObject.transform.forward, direction, rotationSpeed, 0.0f);
         this.gameObject.transform.rotation = Quaternion.LookRotation(newDirection);
+    }
+
+    public float getHealthPercentage()
+    {
+        return (float)this.currentHealth / this.maxHealth;
     }
 }

@@ -5,7 +5,7 @@ using System.Timers;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
-public class GowniakController : MonoBehaviour
+public class GowniakController : MonoBehaviour,Damageable
 {
     [SerializeField] public Transform mainCharacterTransform;
 
@@ -26,6 +26,9 @@ public class GowniakController : MonoBehaviour
     private bool _isInChaseState;
 
     private bool _isInAttackState;
+
+    [SerializeField] private int maxHealth = 100;
+    private int currentHealth;
 
     private bool IsInAggroState
     {
@@ -83,6 +86,7 @@ public class GowniakController : MonoBehaviour
         spawnPoint = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y,
             this.gameObject.transform.position.z);
         _gowniakAnimator = GetComponent<Animator>();
+        currentHealth = maxHealth;
     }
 
     // Update is called once per frame
@@ -163,5 +167,10 @@ public class GowniakController : MonoBehaviour
             _gowniakAnimator.SetBool(aggroRadiusTriggerName, false);
             IsInAggroState = false;
         }
+    }
+
+    public float getHealthPercentage()
+    {
+        return (float)currentHealth / (float)maxHealth;
     }
 }
