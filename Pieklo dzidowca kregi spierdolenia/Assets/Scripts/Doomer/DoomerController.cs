@@ -6,22 +6,24 @@ using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
 
-public class DoomerController : MonoBehaviour
+public class DoomerController : MonoBehaviour,Damageable
 {
     [SerializeField] public Transform mainCharacterTransform;
     [SerializeField] private float movementSpeed=0.034f;
-    [SerializeField] private float movementRushSpeed=0.066f;
-    [SerializeField] private float jumpSpeed = 0.1f;
+    [SerializeField] private float movementRushSpeed=0.05f;
+    private float jumpSpeed = 0.08f;
     [SerializeField] private float aggroRadius=10.0f;
-    [SerializeField] private float attackRadius=1.5f;
-    [SerializeField] private float firstAttackRadius = 3.0f;
-    [SerializeField] private float rotationSpeed = 0.1f;
+    private float attackRadius=1.0f;
+    private float firstAttackRadius = 4.0f;
+    [SerializeField] private float rotationSpeed = 0.15f;
     private Vector3 jumpDirection;
     private Vector3 spawnPoint;
     private Animator doomerAnimator;
     private bool hasDoneAggro;
     private bool hasDoneSpecialAttack;
     private bool isUsingChargedAttack;
+    [SerializeField] private int maxHealth = 100;
+    private int currentHealth;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +33,7 @@ public class DoomerController : MonoBehaviour
         hasDoneSpecialAttack = false;
         hasDoneAggro = false;
         isUsingChargedAttack = false;
+        currentHealth = maxHealth;
     }
 
     // Update is called once per frame
@@ -142,6 +145,11 @@ public class DoomerController : MonoBehaviour
         this.gameObject.transform.rotation = Quaternion.LookRotation(newDirection);
         this.gameObject.transform.Rotate(0.0f, 90.0f, 0.0f); // removing Bug of gizmos
 
+    }
+
+    public float getHealthPercentage()
+    {
+        return (float)currentHealth / (float)maxHealth;
     }
 
 }
