@@ -1,6 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿///<summary>
+///Created by kumdzio
+///</summary>
+
 using UnityEngine;
 
 public class AggroController : StateMachineBehaviour

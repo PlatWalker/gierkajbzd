@@ -1,5 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿///<summary>
+///Created by Kumdzio
+///</summary>
+
+
 using UnityEngine;
 
 public class HealthBar : MonoBehaviour
@@ -11,10 +14,10 @@ public class HealthBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (!(this.transform.parent.gameObject.TryGetComponent<Damageable>(out parentScript))) Destroy(this.gameObject);
         cameraTransform = GameObject.Find("Main Camera").GetComponent<Transform>();
         healthBarTransform = this.gameObject.GetComponent<Transform>();
         renderer = this.gameObject.GetComponent<SpriteRenderer>();
-        if (!(this.transform.parent.gameObject.TryGetComponent<Damageable>(out parentScript))) Destroy(this.gameObject);
     }
 
     // Update is called once per frame

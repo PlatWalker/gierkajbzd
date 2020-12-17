@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel.Design.Serialization;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
-using UnityEditor.Rendering;
+﻿///<summary>
+///Created By Kumdzio
+///</summary>
+
 using UnityEngine;
 
 public class MonkeyController : MonoBehaviour,Damageable

@@ -1,18 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿///<summary>
+///Created by Kumdzio
+///</summary>
 
-public class Fightable : MonoBehaviour
+
+public interface Fightable 
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    void SetDamage(int damageAmount, DamageTypes damageType);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    void SetDamage(int damageAmount, DamageTypes damageType, int criticalMultiplier, float criticalChance);
 }
