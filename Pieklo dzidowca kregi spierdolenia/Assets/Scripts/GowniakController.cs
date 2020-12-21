@@ -1,7 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿///<summary>
+/// Created by Szwagier
+///Edited by kumdzio
+///</summary>
+
+
 using System.Diagnostics;
-using System.Timers;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 

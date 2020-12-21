@@ -1,7 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿///<summary>
+///Created by Kumdzio
+///</summary>
+
+
 using UnityEngine;
-using UnityEngine.Video;
 
 public class SecondAtkActivator : StateMachineBehaviour
 {

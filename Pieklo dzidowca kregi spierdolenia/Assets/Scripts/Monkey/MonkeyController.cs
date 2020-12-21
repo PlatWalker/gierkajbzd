@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel.Design.Serialization;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
-using UnityEditor.Rendering;
+﻿///<summary>
+///Created By Kumdzio
+///</summary>
+
 using UnityEngine;
 
 public class MonkeyController : MonoBehaviour,Damageable
@@ -24,6 +21,7 @@ public class MonkeyController : MonoBehaviour,Damageable
 
     private Vector3 spawnPoint;
     private Animator monkeyAnimator;
+    EasyAnimatorController easyMonkeyAnimator;
     [SerializeField]private int currentHealth; //zminić by nie było serialize po testach
 
 
@@ -31,6 +29,8 @@ public class MonkeyController : MonoBehaviour,Damageable
     void Start()
     {
         monkeyAnimator = GetComponent<Animator>();
+        string[] ignoredBooleans = new string[] { "spawnProjectile" };
+        easyMonkeyAnimator = new EasyAnimatorController(GetComponent<Animator>(),ignoredBooleans);
         spawnPoint = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
         currentHealth = maxHealth;
     }
@@ -88,23 +88,27 @@ public class MonkeyController : MonoBehaviour,Damageable
 
         if (isAttacking)
         {
-            monkeyAnimator.SetBool("isAttacking", true);
-            monkeyAnimator.SetBool("isWalking", false);
+            //monkeyAnimator.SetBool("isAttacking", true);
+            //monkeyAnimator.SetBool("isWalking", false);
+            easyMonkeyAnimator.setBooleanTrue("isAttacking");
         }
         else if(isWalking)
         {
-            monkeyAnimator.SetBool("isAttacking", false);
-            monkeyAnimator.SetBool("isWalking", true);
+            //monkeyAnimator.SetBool("isAttacking", false);
+            //monkeyAnimator.SetBool("isWalking", true);
+            easyMonkeyAnimator.setBooleanTrue("isWalking");
         }
         else
         {
-            monkeyAnimator.SetBool("isAttacking", false);
-            monkeyAnimator.SetBool("isWalking", false);
+            easyMonkeyAnimator.ResetAllBooleans();
+            //monkeyAnimator.SetBool("isAttacking", false);
+            //monkeyAnimator.SetBool("isWalking", false);
         }
 
         if (isDead)
         {
-            monkeyAnimator.SetBool("isDead", isDead);
+            //monkeyAnimator.SetBool("isDead", isDead);
+            easyMonkeyAnimator.setBooleanTrue("isDead");
         }
     }
 

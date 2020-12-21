@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel.Design.Serialization;
-using System.Security.Cryptography;
-using TMPro;
+﻿///<summary>
+///Created By Kumdzio
+///</summary>
+
+
+
 using UnityEngine;
 
 public class DoomerController : MonoBehaviour,Damageable
@@ -39,6 +39,20 @@ public class DoomerController : MonoBehaviour,Damageable
     // Update is called once per frame
     void FixedUpdate()
     {
+        Debug.Log(doomerAnimator.parameters);
+        foreach (AnimatorControllerParameter parametr in doomerAnimator.parameters)
+        {
+            Debug.Log("AnimatorController name:" + doomerAnimator.name);
+            Debug.Log("Ilość parametrów:" + doomerAnimator.parameters.Length);
+            Debug.Log("type: "+parametr.type);
+            Debug.Log(parametr.type == AnimatorControllerParameterType.Bool);
+            Debug.Log("getType(): "+parametr.GetType());
+            Debug.Log("defaultBool: "+parametr.defaultBool);
+            Debug.Log("name: "+parametr.name);
+            Debug.Log("nameHash: "+parametr.nameHash);
+            Debug.Log("toString(): "+parametr.ToString());
+        }
+        
         float distanceToMainChar = Vector3.Distance(this.gameObject.transform.position, mainCharacterTransform.position);
         hasDoneAggro = doomerAnimator.GetBool("hasFinishedAggro");
         hasDoneSpecialAttack = doomerAnimator.GetBool("hasFinishedFirstAttack");
