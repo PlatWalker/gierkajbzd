@@ -1,5 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿///<summary>
+///Created by Kumdzio
+///</summary>
+
+
 using UnityEngine;
 
 public class SecondAtkDeactivator : StateMachineBehaviour

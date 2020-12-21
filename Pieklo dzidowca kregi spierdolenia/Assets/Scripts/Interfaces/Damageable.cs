@@ -1,6 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿///<summary>
+///Created By Kumdzio
+///</summary>
+
 
 public interface Damageable{
     //każdy obiekt który będzie mógł być uszkodzony musi mieć metodę zwracającą
