@@ -13,7 +13,6 @@ public enum Movement
 }
 
 
-
 public class InputController : Singleton<InputController>
 {
     // This is status of input, holds bool values for each input
@@ -29,8 +28,6 @@ public class InputController : Singleton<InputController>
     public Vector3 mousePositionFlat;
 
     protected InputController() { }
-
-
 
     private void Update()
     {
@@ -55,6 +52,7 @@ public class InputController : Singleton<InputController>
     {
         return Input.GetKey(k);
     }
+
     void UpdateMousePosition()
     {
         //mousePositionFlat = new Vector3(Input.mousePosition.x, Input.mousePosition.y);

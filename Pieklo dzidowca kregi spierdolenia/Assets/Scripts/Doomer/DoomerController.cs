@@ -39,6 +39,7 @@ public class DoomerController : MonoBehaviour,Damageable
     // Update is called once per frame
     void FixedUpdate()
     {
+        /*
         Debug.Log(doomerAnimator.parameters);
         foreach (AnimatorControllerParameter parametr in doomerAnimator.parameters)
         {
@@ -52,7 +53,8 @@ public class DoomerController : MonoBehaviour,Damageable
             Debug.Log("nameHash: "+parametr.nameHash);
             Debug.Log("toString(): "+parametr.ToString());
         }
-        
+        */
+
         float distanceToMainChar = Vector3.Distance(this.gameObject.transform.position, mainCharacterTransform.position);
         hasDoneAggro = doomerAnimator.GetBool("hasFinishedAggro");
         hasDoneSpecialAttack = doomerAnimator.GetBool("hasFinishedFirstAttack");
@@ -131,7 +133,8 @@ public class DoomerController : MonoBehaviour,Damageable
         direction = Vector3.Normalize(direction);
         this.gameObject.transform.position += direction * movementSpeed;
     }
-    void UpdateEnemyPosition(Vector3 direction,float speedModifier)
+
+    void UpdateEnemyPosition(Vector3 direction, float speedModifier)
     {
         direction = Vector3.Normalize(direction);
         if (isUsingChargedAttack)
