@@ -104,19 +104,14 @@ namespace JG
         {
             if(playerStates.isGrounded)
             {
-                float amount = playerStates.moveAmount;
-                float forwardVal = 0f;
-
-                if (amount > 0 && amount < 0.5f)
+                if (playerStates.moveAmount <= 0.01f)
                 {
-                    forwardVal = 0.05f;
+                   playerStates.animator.SetBool("Run", false);
                 }
-                else if(amount > 0.05f)
+                else
                 {
-                    forwardVal = 1;
-                }    
-
-                playerStates.animator.SetFloat("forward", forwardVal, 0.2f, playerStates.delta);
+                    playerStates.animator.SetBool("Run", true);
+                }
             }
             else
             {

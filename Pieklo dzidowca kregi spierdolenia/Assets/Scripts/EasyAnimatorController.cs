@@ -11,7 +11,7 @@ public class EasyAnimatorController
     private string[] booleansNames;
     private string currentTrueBoolean;
 
-    public EasyAnimatorController(Animator _animator,string[] ignoredBooleansArray)
+    public EasyAnimatorController(Animator _animator, string[] ignoredBooleansArray)
     {
         this.animator = _animator;
 
