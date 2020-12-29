@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// By Tails, Edited by Silver
+/// </summary>
+
 public class PlayerController : MonoBehaviour
 {
     private InputHandler inputHandler;
