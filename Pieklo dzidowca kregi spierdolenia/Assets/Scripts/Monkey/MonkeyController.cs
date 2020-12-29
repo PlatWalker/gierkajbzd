@@ -4,7 +4,7 @@
 
 using UnityEngine;
 
-public class MonkeyController : MonoBehaviour,Damageable
+public class MonkeyController : MonoBehaviour
 {
     [SerializeField] public Transform mainCharacterTransform;
     [SerializeField] private float movementSpeed = 0.14f;

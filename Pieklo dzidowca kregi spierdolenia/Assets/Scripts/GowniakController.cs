@@ -8,7 +8,7 @@ using System.Diagnostics;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
-public class GowniakController : MonoBehaviour,Damageable
+public class GowniakController : MonoBehaviour
 {
     [SerializeField] public Transform mainCharacterTransform;
 

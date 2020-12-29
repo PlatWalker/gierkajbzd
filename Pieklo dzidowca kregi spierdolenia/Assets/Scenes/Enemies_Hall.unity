@@ -294,12 +294,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b8d0f21c4ac4bd46a31f84a1a276236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCharacterTransform: {fileID: 1567557347}
-  movementSpeed: 0.034
-  movementRushSpeed: 0.05
-  aggroRadius: 10
-  rotationSpeed: 0.15
-  maxHealth: 100
+  _movementSpeed: 0.034
+  _rotationSpeed: 0.15
+  _mainCharacterTransform: {fileID: 1567557347}
+  _aggroRadius: 10
+  movementRushSpeed: 2
+  jumpSpeed: 1.08
+  _maxHealth: 100
 --- !u!95 &422609024
 Animator:
   serializedVersion: 3

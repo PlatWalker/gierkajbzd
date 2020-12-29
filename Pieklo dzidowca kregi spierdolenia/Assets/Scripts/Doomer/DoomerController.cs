@@ -2,38 +2,105 @@
 ///Created By Kumdzio
 ///</summary>
 
-
-
 using UnityEngine;
 
-public class DoomerController : MonoBehaviour,Damageable
+public class DoomerController : MonoBehaviour, IMove, IFight
 {
-    [SerializeField] public Transform mainCharacterTransform;
-    [SerializeField] private float movementSpeed=0.034f;
-    [SerializeField] private float movementRushSpeed=0.05f;
-    private float jumpSpeed = 0.08f;
-    [SerializeField] private float aggroRadius=10.0f;
-    private float attackRadius=1.0f;
+    [SerializeField] private float _movementSpeed = 0.034f;
+    public float MovementSpeed
+    {
+        get
+        {
+            return _movementSpeed;
+        }
+        private set
+        {
+            _movementSpeed = value;
+        }
+    }
+
+    [SerializeField] private float _rotationSpeed = 0.15f;
+    public float RotationSpeed
+    {
+        get
+        {
+            return _rotationSpeed;
+        }
+        private set
+        {
+            _rotationSpeed = value;
+        }
+    }
+
+    [SerializeField]private Transform _mainCharacterTransform;
+    public Transform MainCharacterTransform
+    {
+        get
+        {
+            return _mainCharacterTransform;
+        }
+        
+    }
+    
+    [SerializeField] private float _aggroRadius = 10.0f;
+    public float AggroRadius
+    {
+        get
+        {
+            return _aggroRadius;
+        }
+        private set
+        {
+            _aggroRadius = value;
+        }
+    }
+
+    public float AttackRadius { get; private set; } = 1.0f;
+
+    [SerializeField] private float movementRushSpeed=1.05f;
+
+    [SerializeField] private float jumpSpeed = 1.08f;
+
     private float firstAttackRadius = 4.0f;
-    [SerializeField] private float rotationSpeed = 0.15f;
+
     private Vector3 jumpDirection;
+
     private Vector3 spawnPoint;
+
     private Animator doomerAnimator;
+
     private bool hasDoneAggro;
+
     private bool hasDoneSpecialAttack;
+
     private bool isUsingChargedAttack;
-    [SerializeField] private int maxHealth = 100;
-    private int currentHealth;
+
+    [SerializeField] private int _maxHealth = 100;
+    public int MaxHealth
+    {
+        get
+        {
+            return _maxHealth;
+        }
+        private set
+        {
+            _maxHealth = value;
+        }
+    }
+
+    public int CurrentHealth { get; private set; }
+    
+
 
     // Start is called before the first frame update
     void Start()
     {
-        spawnPoint = new Vector3(this.gameObject.transform.position.x,this.gameObject.transform.position.y,this.gameObject.transform.position.z);
+        spawnPoint = new Vector3(gameObject.transform.position.x,gameObject.transform.position.y,gameObject.transform.position.z);
         doomerAnimator = GetComponent<Animator>();
         hasDoneSpecialAttack = false;
         hasDoneAggro = false;
         isUsingChargedAttack = false;
-        currentHealth = maxHealth;
+        CurrentHealth = _maxHealth;
     }
 
     // Update is called once per frame
@@ -55,7 +122,7 @@ public class DoomerController : MonoBehaviour,Damageable
         }
         */
 
-        float distanceToMainChar = Vector3.Distance(this.gameObject.transform.position, mainCharacterTransform.position);
+        float distanceToMainChar = Vector3.Distance(gameObject.transform.position, _mainCharacterTransform.position);
         hasDoneAggro = doomerAnimator.GetBool("hasFinishedAggro");
         hasDoneSpecialAttack = doomerAnimator.GetBool("hasFinishedFirstAttack");
         if (hasDoneSpecialAttack)
@@ -63,12 +130,12 @@ public class DoomerController : MonoBehaviour,Damageable
             isUsingChargedAttack = false;
         }
 
-        if (distanceToMainChar < aggroRadius && distanceToMainChar > attackRadius)// checking if main char is visible for enemy and should not attack
+        if (distanceToMainChar < _aggroRadius && distanceToMainChar > AttackRadius)// checking if main char is visible for enemy and should not attack
         {
             doomerAnimator.SetBool("isSeeingPlayer", true);
             doomerAnimator.SetBool("shouldReturnToSpawn", false);
             doomerAnimator.SetBool("isPlayerReached", false);
-            UpdateEnemyRotation(mainCharacterTransform.position);
+            UpdateEnemyRotation(_mainCharacterTransform.position);
             if (hasDoneAggro)
             {
                 if (distanceToMainChar <= firstAttackRadius && !hasDoneSpecialAttack) //checking if should start special attack
@@ -77,10 +144,10 @@ public class DoomerController : MonoBehaviour,Damageable
                     isUsingChargedAttack = true;
                     if (jumpDirection == new Vector3(0.0f,0.0f,0.0f)) 
                     {
-                        jumpDirection = mainCharacterTransform.position; //saving jump direction so enemy cannot change direction in air
+                        jumpDirection = _mainCharacterTransform.position; //saving jump direction so enemy cannot change direction in air
                             
                     }
-                    if (Vector3.Distance(jumpDirection, this.gameObject.transform.position) > 0.5f)
+                    if (Vector3.Distance(jumpDirection, gameObject.transform.position) > 0.5f)
                     {
                         //any direction given here to UpdateEnemyPostion will be ignored
                         UpdateEnemyPosition(jumpDirection, jumpSpeed);
@@ -89,21 +156,21 @@ public class DoomerController : MonoBehaviour,Damageable
                 else if(hasDoneSpecialAttack)
                 {
                     //if attack has been made just move in normal speed to player
-                    UpdateEnemyPosition(new Vector3(mainCharacterTransform.position.x - this.gameObject.transform.position.x, 0, mainCharacterTransform.position.z - this.gameObject.transform.position.z));
+                    UpdateEnemyPosition(new Vector3(_mainCharacterTransform.position.x - gameObject.transform.position.x, 0, _mainCharacterTransform.position.z - gameObject.transform.position.z));
                 }
                 else
                 { 
                     //when attack has been not made and cannot be made yet move to player inc harge
-                    UpdateEnemyPosition(new Vector3(mainCharacterTransform.position.x - this.gameObject.transform.position.x, 0, mainCharacterTransform.position.z - this.gameObject.transform.position.z),movementRushSpeed);
+                    UpdateEnemyPosition(new Vector3(_mainCharacterTransform.position.x - gameObject.transform.position.x, 0, _mainCharacterTransform.position.z - gameObject.transform.position.z),movementRushSpeed);
                 }
 
             }            
         }
-        else if (distanceToMainChar <= attackRadius)
+        else if (distanceToMainChar <= AttackRadius)
         {
             if (distanceToMainChar > 0.3)
             {
-                UpdateEnemyRotation(mainCharacterTransform.position);
+                UpdateEnemyRotation(MainCharacterTransform.position);
             }
             doomerAnimator.SetBool("isSeeingPlayer", true);
             doomerAnimator.SetBool("shouldReturnToSpawn", false);
@@ -115,11 +182,11 @@ public class DoomerController : MonoBehaviour,Damageable
         {
             doomerAnimator.SetBool("isSeeingPlayer", false);
             doomerAnimator.SetBool("isPlayerReached", false);
-            if (Vector3.Distance(this.gameObject.transform.position, spawnPoint) > 2.0f)
+            if (Vector3.Distance(gameObject.transform.position, spawnPoint) > 2.0f)
             {
                 doomerAnimator.SetBool("shouldReturnToSpawn", true);
                 UpdateEnemyRotation(new Vector3(spawnPoint.x, 0, spawnPoint.z));
-                UpdateEnemyPosition(new Vector3(spawnPoint.x - this.gameObject.transform.position.x, 0, spawnPoint.z - this.gameObject.transform.position.z));
+                UpdateEnemyPosition(new Vector3(spawnPoint.x - gameObject.transform.position.x, 0, spawnPoint.z - gameObject.transform.position.z));
             }
             else
             { 
@@ -131,23 +198,31 @@ public class DoomerController : MonoBehaviour,Damageable
     void UpdateEnemyPosition(Vector3 direction)
     {
         direction = Vector3.Normalize(direction);
-        this.gameObject.transform.position += direction * movementSpeed;
+        this.UpdateEnemyPositionNormalized(direction);
     }
 
     void UpdateEnemyPosition(Vector3 direction, float speedModifier)
     {
-        direction = Vector3.Normalize(direction);
         if (isUsingChargedAttack)
         {
             direction = new Vector3(
-                jumpDirection.x - this.gameObject.transform.position.x,
-                jumpDirection.y - this.gameObject.transform.position.y,
-                jumpDirection.z - this.gameObject.transform.position.z
+                jumpDirection.x - gameObject.transform.position.x,
+                jumpDirection.y - gameObject.transform.position.y,
+                jumpDirection.z - gameObject.transform.position.z
                 );
-            direction = Vector3.Normalize(direction);
         }
-         this.gameObject.transform.position += direction * (movementSpeed+speedModifier);
+        direction = Vector3.Normalize(direction);
+
+        direction *= speedModifier;
+        this.UpdateEnemyPositionNormalized(direction);
     }
+
+    void UpdateEnemyPositionNormalized(Vector3 normalizedDirection)
+    {
+        gameObject.transform.position += normalizedDirection * MovementSpeed;
+    }
+
+
 
     void UpdateEnemyRotation(Vector3 direction)
     {
@@ -156,17 +231,32 @@ public class DoomerController : MonoBehaviour,Damageable
             direction.x = jumpDirection.x;
             direction.z = jumpDirection.z;
         }
-        this.gameObject.transform.Rotate(0.0f, -90.0f, 0.0f); //reApply Bug of gizmos
-        Vector3 targetDirection = direction - this.gameObject.transform.position;
-        Vector3 newDirection = Vector3.RotateTowards(this.gameObject.transform.forward, targetDirection, rotationSpeed, 0.0f);
-        this.gameObject.transform.rotation = Quaternion.LookRotation(newDirection);
-        this.gameObject.transform.Rotate(0.0f, 90.0f, 0.0f); // removing Bug of gizmos
+        gameObject.transform.Rotate(0.0f, -90.0f, 0.0f); //reApply Bug of gizmos
+        Vector3 targetDirection = direction - gameObject.transform.position;
+        Vector3 newDirection = Vector3.RotateTowards(gameObject.transform.forward, targetDirection, _rotationSpeed, 0.0f);
+        gameObject.transform.rotation = Quaternion.LookRotation(newDirection);
+        gameObject.transform.Rotate(0.0f, 90.0f, 0.0f); // removing Bug of gizmos
 
     }
 
-    public float getHealthPercentage()
+    public float GetHealthPercentage()
     {
-        return (float)currentHealth / (float)maxHealth;
+        return (float)CurrentHealth / (float)_maxHealth;
+    }
+
+    //for now damage types are ignored
+    public void SetDamage(int damageAmount, DamageType damageType)
+    {
+        CurrentHealth -= damageAmount;
+    }
+    
+    public void SetDamage(int damageAmount, DamageType damageType, int criticalMultiplier, float criticalChance)
+    {
+        if (Random.Range(0.0f, 1.0f) <= criticalChance)
+        {
+            damageAmount *= criticalMultiplier;
+        }
+        this.SetDamage(damageAmount, damageType);
     }
 
 }
