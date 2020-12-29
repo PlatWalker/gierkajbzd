@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
         movementVector += Vector3.left * Convert.ToInt32(InputController.Instance.movementInputStatus.left);
         movementVector += Vector3.right * Convert.ToInt32(InputController.Instance.movementInputStatus.right);
         // Applying above calculations
-        transform.position += movementVector * playerSpeed;
+        transform.position += movementVector.normalized * playerSpeed;
     }
 
     private void UpdateCharacterRotation()
