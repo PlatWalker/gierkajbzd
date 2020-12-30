@@ -1,6 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+/// <summary>
+/// By Tails, edited by Silver
+/// </summary>
 
 
 // This is key mapping
@@ -12,6 +17,10 @@ public enum Movement
     right = KeyCode.D
 }
 
+public enum Attack
+{
+    basic = KeyCode.F
+}
 
 public class InputController : Singleton<InputController>
 {
@@ -23,16 +32,28 @@ public class InputController : Singleton<InputController>
         public bool left;
         public bool right;
     }
+
+    public struct AttackInputStatus
+    {
+        public bool basic;
+    }
     // this is instance of above struct, unless we can make the strut a "singleton" this will do for now.
     public MovementInputStatus movementInputStatus;
+    public AttackInputStatus attackInputStatus;
     public Vector3 mousePositionFlat;
 
     protected InputController() { }
 
     private void Update()
     {
+        UpdateAttackInput();
         UpdateMovementInput();
-        UpdateMousePosition();
+        //UpdateMousePosition();
+    }
+
+    private void UpdateAttackInput()
+    {
+        attackInputStatus.basic = Pressed((KeyCode)Attack.basic);
     }
 
     void UpdateMovementInput()
@@ -53,14 +74,14 @@ public class InputController : Singleton<InputController>
         return Input.GetKey(k);
     }
 
-    void UpdateMousePosition()
-    {
-        //mousePositionFlat = new Vector3(Input.mousePosition.x, Input.mousePosition.y);
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Physics.Raycast(ray, out RaycastHit hitInfo, maxDistance: 300f);
-        mousePositionFlat = hitInfo.point;
+    //void UpdateMousePosition()
+    //{
+    //    //mousePositionFlat = new Vector3(Input.mousePosition.x, Input.mousePosition.y);
+    //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //    Physics.Raycast(ray, out RaycastHit hitInfo, maxDistance: 300f);
+    //    mousePositionFlat = hitInfo.point;
         
-    }
+    //}
     
 
 }

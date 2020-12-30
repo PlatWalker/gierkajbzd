@@ -3,7 +3,7 @@ using UnityEngine;
 public class Interactable : MonoBehaviour
 {
     [SerializeField]
-    private Transform interactionTransform;
+    private readonly Transform interactionTransform = null;
 
     public float radius = 2f;
 

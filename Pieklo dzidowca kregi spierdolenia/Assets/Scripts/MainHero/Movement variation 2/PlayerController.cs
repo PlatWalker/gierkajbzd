@@ -62,8 +62,7 @@ public class PlayerController : MonoBehaviour
     {
         if (movementVector.magnitude == 0) return;
 
-        var rotation = Quaternion.LookRotation(movementVector);
-        transform.rotation = rotation;
+        transform.rotation = Quaternion.LookRotation(movementVector);
     }
     
     private void UpdateCharacterAnimation()
@@ -77,5 +76,14 @@ public class PlayerController : MonoBehaviour
         {
             characterAnimator.SetBool("Run", false);
         }
+
+        if (InputController.Instance.attackInputStatus.basic)
+        {
+            //characterAnimator.SetLayerWeight(characterAnimator.GetLayerIndex("Upper Body Attack"), 1);
+            //characterAnimator.SetLayerWeight(characterAnimator.GetLayerIndex("Upper Body Run"), 0);
+
+            characterAnimator.SetBool("Basic attack", true);
+        }
+
     }
 }
