@@ -17,11 +17,9 @@ namespace JG
      
         //Inventory
         bool inventoryInput;
-
+        
         //Prompts
-        private bool b_Input;
-        private readonly bool y_Input = false;
-        private bool x_Input;
+        bool b_Input, y_Input, x_Input;
 
         //Dpad
         bool leftArrow, rightArrow, upArrow, downArrow;
