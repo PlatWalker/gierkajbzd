@@ -90,4 +90,14 @@ public class EasyAnimatorController
     {
         return currentTrueBoolean;
     }
+
+    public bool GetBool(string name)
+    {
+        return animator.GetBool(name);
+    }
+
+    public void SetBoolDirectly(string name,bool value)
+    {
+        animator.SetBool(name, value);
+    }
 }
