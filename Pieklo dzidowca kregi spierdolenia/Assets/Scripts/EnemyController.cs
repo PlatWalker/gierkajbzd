@@ -6,15 +6,7 @@ using UnityEngine;
 
 public abstract class EnemyController : MonoBehaviour, IMove, IFight
 {
-    [SerializeField] private Transform _mainCharacterTransform = null;
-    public virtual Transform MainCharacterTransform
-    {
-        get
-        {
-            return _mainCharacterTransform;
-        }
-    }
-
+    [Header("Movement")]
     [SerializeField] private float _movementSpeed = 0.15f;
     public virtual float MovementSpeed
     {
@@ -28,6 +20,30 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
         }
     }
 
+    [SerializeField] private float _rotationSpeed = 0.15f;
+    public virtual float RotationSpeed
+    {
+        get
+        {
+            return _rotationSpeed;
+        }
+        protected set
+        {
+            _rotationSpeed = value;
+        }
+    }
+
+    [Header("Attact target transform")]
+    [SerializeField] private Transform _mainCharacterTransform = null;
+    public virtual Transform MainCharacterTransform
+    {
+        get
+        {
+            return _mainCharacterTransform;
+        }
+    }
+
+    [Header("Fight")]
     [SerializeField] private float _aggroRadius = 20.0f;
     public virtual float AggroRadius
     {
@@ -51,19 +67,6 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
         protected set
         {
             _attackRadius = value;
-        }
-    }
-
-    [SerializeField] private float _rotationSpeed = 0.15f;
-    public virtual float RotationSpeed
-    {
-        get
-        {
-            return _rotationSpeed;
-        }
-        protected set
-        {
-            _rotationSpeed = value;
         }
     }
 

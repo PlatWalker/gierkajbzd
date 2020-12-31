@@ -6,10 +6,12 @@ using UnityEngine;
 
 public class MonkeyController : EnemyController
 {
+    [Header("Running from player")]
     [SerializeField] private float runAwayRadius = 5.0f;
 
     [SerializeField] private float runSpeedDebuff = 0.7f;
 
+    [Header("Projectile")]
     [SerializeField] private GameObject projectileObject =  null;
 
     [SerializeField] private Transform projectileSpawnPoint = null;
