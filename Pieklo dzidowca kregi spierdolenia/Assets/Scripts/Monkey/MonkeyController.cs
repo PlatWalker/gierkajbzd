@@ -4,25 +4,98 @@
 
 using UnityEngine;
 
-public class MonkeyController : MonoBehaviour
+public class MonkeyController : MonoBehaviour, IMove, IFight
 {
-    [SerializeField] public Transform mainCharacterTransform;
-    [SerializeField] private float movementSpeed = 0.14f;
-    [SerializeField] private float aggroRadius = 20.0f;
-    [SerializeField] private float attackRadius = 8.5f;
-    [SerializeField] private float runRadius = 5.0f;
+    [SerializeField] private Transform _mainCharacterTransform;
+    public Transform MainCharacterTransform
+    {
+        get
+        {
+            return _mainCharacterTransform;
+        }
+    }
+
+    [SerializeField] private float _movementSpeed = 0.14f;
+    public float MovementSpeed
+    {
+        get
+        {
+            return _movementSpeed;
+        }
+        private set
+        {
+            _movementSpeed = value;
+        }
+    }
+
+    [SerializeField] private float _aggroRadius = 20.0f;
+    public float AggroRadius
+    {
+        get
+        {
+            return _aggroRadius;
+        }
+        private set
+        {
+            _aggroRadius = value;
+        }
+    }
+
+    [SerializeField] private float _attackRadius = 8.5f;
+    public float AttackRadius
+    {
+        get
+        {
+            return _attackRadius;
+        }
+        set
+        {
+            _attackRadius = value;
+        }
+    }
+
+    [SerializeField] private float runAwayRadius = 5.0f;
+
     [SerializeField] private float runSpeedDebuff = 0.7f;
-    [SerializeField] private float rotationSpeed = 0.15f;
+
+    [SerializeField] private float _rotationSpeed = 0.15f;
+    public float RotationSpeed
+    {
+        get
+        {
+            return _rotationSpeed;
+        }
+        private set
+        {
+            _rotationSpeed = value;
+        }
+    }
+
     [SerializeField] private GameObject projectileObject;
+
     [SerializeField] private Transform projectileSpawnPoint;
+
     [SerializeField] private float throwPower=1.0f;
-    [SerializeField] private int maxHealth = 100;
+
+    [SerializeField] private int _maxHealth = 100;
+    public int MaxHealth
+    {
+        get
+        {
+            return _maxHealth;
+        }
+        private set
+        {
+            _maxHealth = value;
+        }
+    }
+    public int CurrentHealth { get; private set; }
 
 
     private Vector3 spawnPoint;
     private Animator monkeyAnimator;
     EasyAnimatorController easyMonkeyAnimator;
-    [SerializeField]private int currentHealth; //zminić by nie było serialize po testach
+   
 
 
     // Start is called before the first frame update
@@ -32,7 +105,7 @@ public class MonkeyController : MonoBehaviour
         string[] ignoredBooleans = new string[] { "spawnProjectile" };
         easyMonkeyAnimator = new EasyAnimatorController(GetComponent<Animator>(),ignoredBooleans);
         spawnPoint = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
-        currentHealth = maxHealth;
+        CurrentHealth = _maxHealth;
     }
 
     //OnValidate is called when script is loaded and everytime when value is changed
@@ -47,28 +120,28 @@ public class MonkeyController : MonoBehaviour
     void FixedUpdate()
     {
         bool isWalking = false, isAttacking = false, isDead = false;
-        float distanceToMainChar = Vector3.Distance(this.gameObject.transform.position, mainCharacterTransform.position);
-        if (distanceToMainChar < aggroRadius)// checking if main char is visible for enemy
+        float distanceToMainChar = Vector3.Distance(this.gameObject.transform.position, _mainCharacterTransform.position);
+        if (distanceToMainChar < _aggroRadius)// checking if main char is visible for enemy
         {
-            if (distanceToMainChar < attackRadius) //checking if main char is in attack range
+            if (distanceToMainChar < _attackRadius) //checking if main char is in attack range
             {
-                if (distanceToMainChar < runRadius)
+                if (distanceToMainChar < runAwayRadius)
                 {
                     //move enemy in opposite direction than main char and with speed debuff
-                    UpdateEnemyPosition(new Vector3(this.gameObject.transform.position.x - mainCharacterTransform.position.x, 0, this.gameObject.transform.position.z - mainCharacterTransform.position.z),runSpeedDebuff);
-                    UpdateEnemyRotation(this.transform.position-mainCharacterTransform.position);
+                    UpdateEnemyPosition(new Vector3(this.gameObject.transform.position.x - _mainCharacterTransform.position.x, 0, this.gameObject.transform.position.z - _mainCharacterTransform.position.z),runSpeedDebuff);
+                    UpdateEnemyRotation(this.transform.position-_mainCharacterTransform.position);
                     isWalking = true;
                 }
                 else
                 {
-                    UpdateEnemyRotation(mainCharacterTransform.position - this.transform.position );
+                    UpdateEnemyRotation(_mainCharacterTransform.position - this.transform.position );
                     isAttacking = true;
                     if (monkeyAnimator.GetBool("spawnProjectile"))
                     {
                         //tutaj tworze pocisk
                         GameObject projectile = Instantiate(projectileObject, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
                         Rigidbody rigidbody = projectile.GetComponent<Rigidbody>();
-                        Vector3 throwDirection = (mainCharacterTransform.position - projectile.transform.position);
+                        Vector3 throwDirection = (_mainCharacterTransform.position - projectile.transform.position);
                         throwDirection.y += 2;
                         throwDirection *= throwPower;
                         rigidbody.AddForce(throwDirection,ForceMode.Impulse);
@@ -82,8 +155,8 @@ public class MonkeyController : MonoBehaviour
             else
             {
                 //if main char is not in attack range then get closer
-                UpdateEnemyRotation(mainCharacterTransform.position - this.transform.position);
-                UpdateEnemyPosition(new Vector3(mainCharacterTransform.position.x - this.gameObject.transform.position.x, 0, mainCharacterTransform.position.z - this.gameObject.transform.position.z));
+                UpdateEnemyRotation(_mainCharacterTransform.position - this.transform.position);
+                UpdateEnemyPosition(new Vector3(_mainCharacterTransform.position.x - this.gameObject.transform.position.x, 0, _mainCharacterTransform.position.z - this.gameObject.transform.position.z));
                 isWalking = true;
             }
         }
@@ -123,22 +196,37 @@ public class MonkeyController : MonoBehaviour
     void UpdateEnemyPosition(Vector3 direction,float speedDebuff)
     {
         direction = Vector3.Normalize(direction);
-        this.gameObject.transform.position += direction * movementSpeed * speedDebuff;
+        this.gameObject.transform.position += direction * _movementSpeed * speedDebuff;
     }
     void UpdateEnemyPosition(Vector3 direction)
     {
         direction = Vector3.Normalize(direction);
-        this.gameObject.transform.position += direction * movementSpeed;
+        this.gameObject.transform.position += direction * _movementSpeed;
     }
 
     void UpdateEnemyRotation(Vector3 direction)
     {
-        Vector3 newDirection = Vector3.RotateTowards(this.gameObject.transform.forward, direction, rotationSpeed, 0.0f);
+        Vector3 newDirection = Vector3.RotateTowards(this.gameObject.transform.forward, direction, _rotationSpeed, 0.0f);
         this.gameObject.transform.rotation = Quaternion.LookRotation(newDirection);
     }
 
-    public float getHealthPercentage()
+    public float GetHealthPercentage()
     {
-        return (float)this.currentHealth / this.maxHealth;
+        return (float)CurrentHealth / (float)_maxHealth;
+    }
+
+    //for now damage types are ignored
+    public void SetDamage(int damageAmount, DamageType damageType)
+    {
+        CurrentHealth -= damageAmount;
+    }
+
+    public void SetDamage(int damageAmount, DamageType damageType, int criticalMultiplier, float criticalChance)
+    {
+        if (Random.Range(0.0f, 1.0f) <= criticalChance)
+        {
+            damageAmount *= criticalMultiplier;
+        }
+        this.SetDamage(damageAmount, damageType);
     }
 }

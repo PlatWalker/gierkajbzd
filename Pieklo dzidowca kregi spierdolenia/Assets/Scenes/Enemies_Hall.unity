@@ -445,18 +445,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70f531dce30267548a90f40512801ea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCharacterTransform: {fileID: 1567557347}
-  movementSpeed: 0.09
-  aggroRadius: 10
-  attackRadius: 6
-  runRadius: 5
+  _mainCharacterTransform: {fileID: 1567557347}
+  _movementSpeed: 0.14
+  _aggroRadius: 20
+  _attackRadius: 8.5
+  runAwayRadius: 5
   runSpeedDebuff: 0.7
-  rotationSpeed: 0.3
+  _rotationSpeed: 0.15
   projectileObject: {fileID: 6098825241959534323, guid: 8efa137217a315c4ab1b5c23c8bbe038, type: 3}
   projectileSpawnPoint: {fileID: 579788698}
-  throwPower: 0.6
-  maxHealth: 100
-  currentHealth: 0
+  throwPower: 0.2
+  _maxHealth: 100
 --- !u!95 &584620626
 Animator:
   serializedVersion: 3
@@ -944,6 +943,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5319815682568363400, guid: f78de11a0dfd320488932970eedf1d7e, type: 3}
+      propertyPath: m_Mass
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5319815682568363401, guid: f78de11a0dfd320488932970eedf1d7e, type: 3}
+      propertyPath: m_Radius
+      value: 0.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 5319815682568363401, guid: f78de11a0dfd320488932970eedf1d7e, type: 3}
+      propertyPath: m_Center.z
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5319815682568363401, guid: f78de11a0dfd320488932970eedf1d7e, type: 3}
+      propertyPath: m_Height
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5319815682568363401, guid: f78de11a0dfd320488932970eedf1d7e, type: 3}
+      propertyPath: m_Center.y
+      value: 0.9
+      objectReference: {fileID: 0}
     - target: {fileID: 5319815682568363403, guid: f78de11a0dfd320488932970eedf1d7e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 139.59
