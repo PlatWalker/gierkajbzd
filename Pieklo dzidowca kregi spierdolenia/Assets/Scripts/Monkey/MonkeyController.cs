@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class MonkeyController : MonoBehaviour, IMove, IFight
 {
-    [SerializeField] private Transform _mainCharacterTransform;
+    [SerializeField] private Transform _mainCharacterTransform = null;
     public Transform MainCharacterTransform
     {
         get
@@ -71,11 +71,13 @@ public class MonkeyController : MonoBehaviour, IMove, IFight
         }
     }
 
-    [SerializeField] private GameObject projectileObject;
+    [SerializeField] private GameObject projectileObject =  null;
 
-    [SerializeField] private Transform projectileSpawnPoint;
+    [SerializeField] private Transform projectileSpawnPoint = null;
 
     [SerializeField] private float throwPower=1.0f;
+
+    [SerializeField] private float throwTargetHeight = 1.8f;
 
     [SerializeField] private int _maxHealth = 100;
     public int MaxHealth
@@ -104,7 +106,9 @@ public class MonkeyController : MonoBehaviour, IMove, IFight
         monkeyAnimator = GetComponent<Animator>();
         string[] ignoredBooleans = new string[] { "spawnProjectile" };
         easyMonkeyAnimator = new EasyAnimatorController(GetComponent<Animator>(),ignoredBooleans);
-        spawnPoint = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
+        spawnPoint = new Vector3(gameObject.transform.position.x,
+                                gameObject.transform.position.y, 
+                                gameObject.transform.position.z);
         CurrentHealth = _maxHealth;
     }
 
@@ -120,7 +124,7 @@ public class MonkeyController : MonoBehaviour, IMove, IFight
     void FixedUpdate()
     {
         bool isWalking = false, isAttacking = false, isDead = false;
-        float distanceToMainChar = Vector3.Distance(this.gameObject.transform.position, _mainCharacterTransform.position);
+        float distanceToMainChar = Vector3.Distance(gameObject.transform.position, _mainCharacterTransform.position);
         if (distanceToMainChar < _aggroRadius)// checking if main char is visible for enemy
         {
             if (distanceToMainChar < _attackRadius) //checking if main char is in attack range
@@ -128,42 +132,47 @@ public class MonkeyController : MonoBehaviour, IMove, IFight
                 if (distanceToMainChar < runAwayRadius)
                 {
                     //move enemy in opposite direction than main char and with speed debuff
-                    UpdateEnemyPosition(new Vector3(this.gameObject.transform.position.x - _mainCharacterTransform.position.x, 0, this.gameObject.transform.position.z - _mainCharacterTransform.position.z),runSpeedDebuff);
-                    UpdateEnemyRotation(this.transform.position-_mainCharacterTransform.position);
+                    UpdateEnemyPosition(new Vector3(gameObject.transform.position.x - _mainCharacterTransform.position.x,
+                                                    0,
+                                                    gameObject.transform.position.z - _mainCharacterTransform.position.z),runSpeedDebuff);
+                    UpdateEnemyRotation(gameObject.transform.position-_mainCharacterTransform.position);
                     isWalking = true;
                 }
                 else
                 {
-                    UpdateEnemyRotation(_mainCharacterTransform.position - this.transform.position );
+                    UpdateEnemyRotation(_mainCharacterTransform.position - gameObject.transform.position );
                     isAttacking = true;
                     if (monkeyAnimator.GetBool("spawnProjectile"))
-                    {
-                        //tutaj tworze pocisk
+                    { 
                         GameObject projectile = Instantiate(projectileObject, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
                         Rigidbody rigidbody = projectile.GetComponent<Rigidbody>();
                         Vector3 throwDirection = (_mainCharacterTransform.position - projectile.transform.position);
-                        throwDirection.y += 2;
+                        throwDirection.y += throwTargetHeight;
                         throwDirection *= throwPower;
                         rigidbody.AddForce(throwDirection,ForceMode.Impulse);
                         monkeyAnimator.SetBool("spawnProjectile", false);
                         
-                        //tutaj dodać rzut bananem - żeby leciał i się kręcił.
+                        //Here add some rotatiom of banana
                     }
-                    //attacking code goes here
+                    
                 }
             }
             else
             {
                 //if main char is not in attack range then get closer
-                UpdateEnemyRotation(_mainCharacterTransform.position - this.transform.position);
-                UpdateEnemyPosition(new Vector3(_mainCharacterTransform.position.x - this.gameObject.transform.position.x, 0, _mainCharacterTransform.position.z - this.gameObject.transform.position.z));
+                UpdateEnemyRotation(_mainCharacterTransform.position - gameObject.transform.position);
+                UpdateEnemyPosition(new Vector3(_mainCharacterTransform.position.x - gameObject.transform.position.x,
+                                                0,
+                                                _mainCharacterTransform.position.z - gameObject.transform.position.z));
                 isWalking = true;
             }
         }
         else if (Vector3.Distance(this.gameObject.transform.position, spawnPoint) > 2.0f) //if main char is not visible and this enemy is far form spawn point then go back to spawn
         {
-            UpdateEnemyRotation(new Vector3(spawnPoint.x, 0, spawnPoint.z)-this.transform.position);
-            UpdateEnemyPosition(new Vector3(spawnPoint.x - this.gameObject.transform.position.x, 0, spawnPoint.z - this.gameObject.transform.position.z));
+            UpdateEnemyRotation(new Vector3(spawnPoint.x, 0, spawnPoint.z) - gameObject.transform.position);
+            UpdateEnemyPosition(new Vector3(spawnPoint.x - gameObject.transform.position.x,
+                                            0,
+                                            spawnPoint.z - gameObject.transform.position.z));
             isWalking = true;
         }
 

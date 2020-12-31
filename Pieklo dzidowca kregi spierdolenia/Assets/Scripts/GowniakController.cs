@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class GowniakController : MonoBehaviour, IMove, IFight
 {
-    [SerializeField] private Transform mainCharacterTransform;
+    [SerializeField] private Transform mainCharacterTransform = null;
     public Transform MainCharacterTransform
     {
         get

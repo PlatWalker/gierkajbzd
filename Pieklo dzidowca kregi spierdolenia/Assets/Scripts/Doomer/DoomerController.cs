@@ -1,5 +1,5 @@
 ﻿///<summary>
-///Created By Kumdzio
+///Created by Kumdzio
 ///</summary>
 
 using UnityEngine;
@@ -32,7 +32,8 @@ public class DoomerController : MonoBehaviour, IMove, IFight
         }
     }
 
-    [SerializeField]private Transform _mainCharacterTransform;
+   
+    [SerializeField]private Transform _mainCharacterTransform = null;
     public Transform MainCharacterTransform
     {
         get
