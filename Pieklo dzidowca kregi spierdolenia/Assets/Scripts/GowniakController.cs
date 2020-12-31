@@ -1,17 +1,16 @@
 ﻿///<summary>
 /// Created by Szwagier
-///Edited by kumdzio
+///Edited by Kumdzio
 ///</summary>
 
 
 using System.Diagnostics;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 public class GowniakController : MonoBehaviour, IMove, IFight
 {
     [SerializeField] private Transform mainCharacterTransform;
-    public Transform MainCharacterTransfrom
+    public Transform MainCharacterTransform
     {
         get
         {
@@ -19,19 +18,19 @@ public class GowniakController : MonoBehaviour, IMove, IFight
         }
     }
 
-    [SerializeField] private float movementSpeed = 0.1f;
+    [SerializeField] private float _movementSpeed = 0.1f;
     public float MovementSpeed
     {
         get
         {
-            return movementSpeed;
+            return _movementSpeed;
         }
         private set
         {
-            movementSpeed = value;
+            _movementSpeed = value;
         }
     }
-    
+
     [SerializeField] private float _rotationSpeed = 0.15f;
     public float RotationSpeed
     {
@@ -45,34 +44,60 @@ public class GowniakController : MonoBehaviour, IMove, IFight
         }
     }
 
-    [SerializeField] private float aggroRadius = 10.0f;
+    [SerializeField] private float _aggroRadius = 10.0f;
+    public float AggroRadius
+    {
+        get
+        {
+            return _aggroRadius;
+        }
+        private set
+        {
+            _aggroRadius = value;
+        }
+    }
 
     [SerializeField] private float aggroMaxTimeMs = 5000f;
 
-    [SerializeField] private float attackRadius = 1.5f;
+    [SerializeField] private float _attackRadius = 1.5f;
+    public float AttackRadius
+    {
+        get
+        {
+            return _attackRadius;
+        }
+        set
+        {
+            _attackRadius = value;
+        }
+    }
 
     private Vector3 spawnPoint;
 
     private Stopwatch _aggroTimer;
 
-    private bool _isInAggroState;
-
     private bool _isInChaseState;
 
     private bool _isInAttackState;
 
-    [SerializeField] private int maxHealth = 100;
-    private int currentHealth;
-
-    private bool IsInAggroState
+    [SerializeField] private int _maxHealth = 100;
+    public int MaxHealth
     {
-        get => _isInAggroState;
-        set
+        get
         {
-        	_isInAggroState = value;
+            return _maxHealth;
+        }
+        private set
+        {
+            _maxHealth = value;
         }
     }
-    
+
+    public int CurrentHealth { get; private set; }
+
+
+    private bool IsInAggroState { get; set; }
+
     private bool IsInChaseState
     {
         get => _isInChaseState;
@@ -85,7 +110,7 @@ public class GowniakController : MonoBehaviour, IMove, IFight
             }
         }
     }
-    
+
     private bool IsInAttackState
     {
         get => _isInAttackState;
@@ -109,72 +134,89 @@ public class GowniakController : MonoBehaviour, IMove, IFight
     private void Start()
     {
         spawnPoint = new Vector3(
-							gameObject.transform.position.x, 
-							gameObject.transform.position.y,
-            				gameObject.transform.position.z);
+                            gameObject.transform.position.x,
+                            gameObject.transform.position.y,
+                            gameObject.transform.position.z);
         _gowniakAnimator = GetComponent<Animator>();
-        currentHealth = maxHealth;
+        CurrentHealth = _maxHealth;
+    }
+
+    //OnValidate is called when script is loaded and everytime when value is changed
+    //in the inspector
+    void OnValidate()
+    {
+        //here will be code to handle debuging and balance changes in values
+        //for example there have to be check if the AggroRadius is bigger that AttackRadius etc.
     }
 
     // Update is called once per frame
     private void FixedUpdate()
     {
         float distanceToMainChar =
-            Vector3.Distance(this.gameObject.transform.position, mainCharacterTransform.position);
+            Vector3.Distance(gameObject.transform.position, mainCharacterTransform.position);
 
         HandleAggro();
 
-        if (distanceToMainChar < aggroRadius) // checking if main char is visible for enemy
+        if (distanceToMainChar < _aggroRadius) // checking if main char is visible for enemy
         {
             _aggroTimer = _aggroTimer != null && _aggroTimer.IsRunning ? _aggroTimer : Stopwatch.StartNew();
 
             UpdateEnemyRotation(new Vector3(mainCharacterTransform.position.x, 0, mainCharacterTransform.position.z));
-            
-                if (distanceToMainChar < attackRadius) //checking if main char is in attack range
-                {
-                    _aggroTimer = null; // stop aggroTimer, Attack commenced
-                    IsInAttackState = true;
-                }
-                else if (distanceToMainChar > attackRadius && AggroExpiredCommenceChase())
-                {
-                    _aggroTimer = null;
-                    IsInChaseState = true;
-                    IsInAttackState = false;
-                    UpdateEnemyPosition(new Vector3(mainCharacterTransform.position.x - this.gameObject.transform.position.x, 0, mainCharacterTransform.position.z - this.gameObject.transform.position.z));
-                }
-                else
-                {
-                    IsInAttackState = false;
-                    if (IsInChaseState)
-                        UpdateEnemyPosition(new Vector3(mainCharacterTransform.position.x - this.gameObject.transform.position.x, 0, mainCharacterTransform.position.z - this.gameObject.transform.position.z));
-                }
+
+            if (distanceToMainChar < _attackRadius) //checking if main char is in attack range
+            {
+                _aggroTimer = null; // stop aggroTimer, Attack commenced
+                IsInAttackState = true;
+            }
+            else if (distanceToMainChar > _attackRadius && AggroExpiredCommenceChase())
+            {
+                _aggroTimer = null;
+                IsInChaseState = true;
+                IsInAttackState = false;
+                UpdateEnemyPosition(new Vector3(mainCharacterTransform.position.x - gameObject.transform.position.x,
+                                                0,
+                                                mainCharacterTransform.position.z - gameObject.transform.position.z));
+            }
+            else
+            {
+                IsInAttackState = false;
+                if (IsInChaseState)
+                    UpdateEnemyPosition(new Vector3(mainCharacterTransform.position.x - gameObject.transform.position.x,
+                                                    0,
+                                                    mainCharacterTransform.position.z - gameObject.transform.position.z));
+            }
         }
-        else if (Vector3.Distance(this.gameObject.transform.position, spawnPoint) > aggroRadius)
+        else if (Vector3.Distance(gameObject.transform.position, spawnPoint) > _aggroRadius)
         {
             _aggroTimer = null; // stop aggroTimer, main char outside of aggro radius
             IsInChaseState = false;
             IsInAttackState = false;
-             UpdateEnemyRotation(new Vector3(spawnPoint.x,0,spawnPoint.z));
-             UpdateEnemyPosition(new Vector3(spawnPoint.x-this.gameObject.transform.position.x,0,spawnPoint.z-this.gameObject.transform.position.z));
+            UpdateEnemyRotation(new Vector3(spawnPoint.x, 0, spawnPoint.z));
+            UpdateEnemyPosition(new Vector3(spawnPoint.x - gameObject.transform.position.x,
+                                            0, 
+                                            spawnPoint.z - gameObject.transform.position.z));
         }
     }
 
     private void UpdateEnemyPosition(Vector3 direction)
     {
         direction = Vector3.Normalize(direction);
-        this.gameObject.transform.position += direction * movementSpeed;
+        this.gameObject.transform.position += direction * _movementSpeed;
     }
 
     private void UpdateEnemyRotation(Vector3 direction)
     {
-        //tutaj na pewno trzeba zmienić bo na teraz to gówniak będzie się obracał w ciągu jednej klatki
-        this.gameObject.transform.LookAt(direction);
+        gameObject.transform.Rotate(0.0f, -90.0f, 0.0f); //reApply Bug of gizmos
+        Vector3 targetDirection = direction - gameObject.transform.position;
+        Vector3 newDirection = Vector3.RotateTowards(gameObject.transform.forward, targetDirection, _rotationSpeed, 0.0f);
+        gameObject.transform.rotation = Quaternion.LookRotation(newDirection);
+        gameObject.transform.Rotate(0.0f, 90.0f, 0.0f); // removing Bug of gizmos
     }
 
     private void HandleAggro()
     {
         const string aggroRadiusTriggerName = "InAggroRadius";
-        
+
         if (_aggroTimer != null && _aggroTimer.IsRunning)
         {
             if (_aggroTimer.ElapsedMilliseconds <= aggroMaxTimeMs)
@@ -196,8 +238,23 @@ public class GowniakController : MonoBehaviour, IMove, IFight
         }
     }
 
-    public float getHealthPercentage()
+    public float GetHealthPercentage()
     {
-        return (float)currentHealth / (float)maxHealth;
+        return (float)CurrentHealth / (float)_maxHealth;
+    }
+
+    //for now damage types are ignored
+    public void SetDamage(int damageAmount, DamageType damageType)
+    {
+        CurrentHealth -= damageAmount;
+    }
+
+    public void SetDamage(int damageAmount, DamageType damageType, int criticalMultiplier, float criticalChance)
+    {
+        if (Random.Range(0.0f, 1.0f) <= criticalChance)
+        {
+            damageAmount *= criticalMultiplier;
+        }
+        this.SetDamage(damageAmount, damageType);
     }
 }

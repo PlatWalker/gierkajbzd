@@ -103,6 +103,14 @@ public class DoomerController : MonoBehaviour, IMove, IFight
         CurrentHealth = _maxHealth;
     }
 
+    //OnValidate is called when script is loaded and everytime when value is changed
+    //in the inspector
+    void OnValidate()
+    {
+        //here will be code to handle debuging and balance changes in values
+        //for example there have to be check if the AggroRadius is bigger that AttackRadius etc.
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
