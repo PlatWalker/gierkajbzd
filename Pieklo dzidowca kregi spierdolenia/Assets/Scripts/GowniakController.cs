@@ -8,11 +8,42 @@ using System.Diagnostics;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
-public class GowniakController : MonoBehaviour
+public class GowniakController : MonoBehaviour, IMove, IFight
 {
-    [SerializeField] public Transform mainCharacterTransform;
+    [SerializeField] private Transform mainCharacterTransform;
+    public Transform MainCharacterTransfrom
+    {
+        get
+        {
+            return mainCharacterTransform;
+        }
+    }
 
     [SerializeField] private float movementSpeed = 0.1f;
+    public float MovementSpeed
+    {
+        get
+        {
+            return movementSpeed;
+        }
+        private set
+        {
+            movementSpeed = value;
+        }
+    }
+    
+    [SerializeField] private float _rotationSpeed = 0.15f;
+    public float RotationSpeed
+    {
+        get
+        {
+            return _rotationSpeed;
+        }
+        private set
+        {
+            _rotationSpeed = value;
+        }
+    }
 
     [SerializeField] private float aggroRadius = 10.0f;
 
@@ -38,12 +69,7 @@ public class GowniakController : MonoBehaviour
         get => _isInAggroState;
         set
         {
-            if (_isInAggroState != value)
-            {
-                //zakomentowuje to bo mnie wkurza jak mi co chwile wyskakuje ~kumdzio
-                //Debug.Log($"Aggro {(value ? "Triggered" : "Stopped")}");
-                _isInAggroState = value;
-            }
+        	_isInAggroState = value;
         }
     }
     
@@ -54,10 +80,8 @@ public class GowniakController : MonoBehaviour
         {
             if (_isInChaseState != value)
             {
-                //zakomentowuje to bo mnie wkurza jak mi co chwile wyskakuje ~kumdzio
-                //Debug.Log($"Chase {(value ? "Triggered" : "Stopped")}");
                 _isInChaseState = value;
-                    _gowniakAnimator.SetBool("Move", value);
+                _gowniakAnimator.SetBool("Move", value);
             }
         }
     }
@@ -69,8 +93,6 @@ public class GowniakController : MonoBehaviour
         {
             if (_isInAttackState != value)
             {
-                //zakomentowuje to bo mnie wkurza jak mi co chwile wyskakuje ~kumdzio
-                //Debug.Log($"Attack {(value ? "Triggered" : "Stopped")}");
                 _isInAttackState = value;
                 _gowniakAnimator.SetBool("Move", !value);
                 _gowniakAnimator.SetBool("Attack", value);
@@ -86,8 +108,10 @@ public class GowniakController : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        spawnPoint = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y,
-            this.gameObject.transform.position.z);
+        spawnPoint = new Vector3(
+							gameObject.transform.position.x, 
+							gameObject.transform.position.y,
+            				gameObject.transform.position.z);
         _gowniakAnimator = GetComponent<Animator>();
         currentHealth = maxHealth;
     }
