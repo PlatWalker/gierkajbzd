@@ -1,124 +1,41 @@
-﻿using System.Collections.ObjectModel;
-using System.Collections.Generic;
-using System;
+﻿using UnityEngine;
 
 /// <summary>
 /// Made by Sharashino
 /// </summary>
 namespace jbzdy.CharacterStats
 {
-    [Serializable]
-    public class CharacterStats
+    public class CharacterStats : MonoBehaviour
     {
-        public float baseValue;
+        public int currentHealth { get; private set; }
 
-        public virtual float Value
+        [SerializeField] private Stat Health;
+        [SerializeField] private Stat Mana;
+        [SerializeField] private Stat Armor;
+        [SerializeField] private Stat Strenght;
+        [SerializeField] private Stat Agility;
+        [SerializeField] private Stat Intelligence;
+        [SerializeField] private Stat Vitality;
+        [SerializeField] private Stat Luck;
+
+        public void TakeDamage(int damage)
         {
-            get
+            damage -= Armor.GetBaseValue();
+            currentHealth -= damage;
+
+            Debug.Log(transform.name + " takes " + damage + " damage");
+
+            if (currentHealth <= 0)
             {
-                if (isDirty || baseValue != lastBaseValue)
-                {
-                    lastBaseValue = baseValue;
-                    value = CalculateFinalValue();
-                    isDirty = false;
-                }
-                return value;
+                CharacterDie();
             }
         }
 
-        protected bool isDirty = true;
-        protected float value;
-        protected float lastBaseValue = float.MinValue;
-        protected readonly List<Stats> statModifiers;
-        public readonly ReadOnlyCollection<Stats> StatModifiers;
-
-        public CharacterStats()
+        private void CharacterDie()
         {
-            statModifiers = new List<Stats>();
-            StatModifiers = statModifiers.AsReadOnly();
-        }
-
-        public CharacterStats(float baseValue) : this()
-        {
-            this.baseValue = baseValue;
-        }
-
-        public virtual void AddModifier(Stats stat)
-        {
-            isDirty = true;
-            statModifiers.Add(stat);
-            statModifiers.Sort(CompareModifierOrders);
-        }
-
-        public virtual bool RemoveModifier(Stats stat)
-        {
-            if (statModifiers.Remove(stat))
-            {
-                isDirty = true;
-                return true;
-            }
-
-            return false;
-        }
-
-        public virtual bool RemoveAllModifiersFromSource(object source)
-        {
-            bool didRemove = false;
-
-            for (int i = statModifiers.Count - 1; i >= 0; i--)
-            {
-                if (statModifiers[i].Source == source)
-                {
-                    isDirty = true;
-                    didRemove = true;
-                    statModifiers.RemoveAt(i);
-                }
-            }
-            return didRemove;
-        }
-
-        protected virtual int CompareModifierOrders(Stats a, Stats b)
-        {
-            if (a.ReadOrder < b.ReadOrder)
-            {
-                return -1;
-            }
-            else if (a.ReadOrder > b.ReadOrder)
-            {
-                return 1;
-            }
-            return 0; //if(a.ReadOrder == b.ReadOrder)
-        }
-
-        protected virtual float CalculateFinalValue()
-        {
-            float finalValue = baseValue;
-            float sumPercentAdd = 0;
-
-            for (int i = 0; i < statModifiers.Count; i++)
-            {
-                Stats modifier = statModifiers[i];
-                if (modifier.Type == StatModType.Flat)
-                {
-                    finalValue += modifier.Value;
-                }
-                else if (modifier.Type == StatModType.PercentAdd)
-                {
-                    sumPercentAdd += modifier.Value;
-
-                    if (i + 1 >= statModifiers.Count || statModifiers[i + 1].Type != StatModType.PercentAdd)
-                    {
-                        finalValue *= 1 + sumPercentAdd;
-                        sumPercentAdd = 0;
-                    }
-                }
-                else if (modifier.Type == StatModType.PercentMult)
-                {
-                    finalValue *= 1 + modifier.Value;
-                }
-            }
-
-            return (float)Math.Round(finalValue, 4);
+            //Die lol
+            //Overwritten
+            Debug.Log(transform.name + " died");
         }
     }
 }
