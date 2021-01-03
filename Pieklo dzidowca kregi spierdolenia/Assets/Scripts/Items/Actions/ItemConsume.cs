@@ -1,24 +1,28 @@
 ﻿using UnityEngine;
+using jbzdy.CharacterStats;
 
 /// <summary>
 /// Made by sharashino
 /// 
 /// Każdy obiekt który gracz może skonsumować powinien mieć tą klase
 /// </summary>
-public class ItemConsume : Interactables
+namespace jbzdy.Items
 {
-    [SerializeField] ConsumableItem consumable;
-
-    public override void Interact()
+    public class ItemConsume : Interactables
     {
-        base.Interact();
-        ConsumeItem();
-    }
+        [SerializeField] ConsumableItem consumable;
 
-    private void ConsumeItem()
-    {
-        Debug.Log("Consuming " + consumable.itemName);
+        public override void Interact()
+        {
+            base.Interact();
+            ConsumeItem();
+        }
 
-        //Destroy(gameObject);
+        private void ConsumeItem()
+        {
+            Debug.Log("Consuming " + consumable.itemName);
+            PlayerManager.instance.ConsumeItem(consumable);
+        }
     }
 }
+

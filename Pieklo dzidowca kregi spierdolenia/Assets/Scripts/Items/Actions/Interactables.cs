@@ -26,7 +26,7 @@ public class Interactables : MonoBehaviour
 
     public virtual void Interact()
     {
-
+        
     }
 
     public void OnFocused(Transform playerTransform)
@@ -42,10 +42,6 @@ public class Interactables : MonoBehaviour
         playerTransform = null;
         hasInteracted = false;
     }
-    public float GetRadius()
-    {
-        return radius;
-    }
 
     private void OnTriggerEnter(Collider collider)
     {
@@ -59,5 +55,9 @@ public class Interactables : MonoBehaviour
         {
             return;
         }
+    }
+    public float GetRadius()
+    {
+        return radius;
     }
 }
