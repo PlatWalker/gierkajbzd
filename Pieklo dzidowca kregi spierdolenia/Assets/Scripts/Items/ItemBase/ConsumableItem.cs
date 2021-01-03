@@ -9,3 +9,6 @@ public class ConsumableItem : Item
     public int healthModifier;
     public int manaModifier;
 }
+
+
+

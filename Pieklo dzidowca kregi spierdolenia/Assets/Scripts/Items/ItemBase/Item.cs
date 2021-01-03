@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
+using System;
 
 [CreateAssetMenu(fileName = "NewItem", menuName ="Items/New Item")]
 public class Item : ScriptableObject
@@ -8,4 +10,16 @@ public class Item : ScriptableObject
     public Sprite itemIcon = null;
     public GameObject itemObject;
     public bool canPickUp;
+}
+
+public enum StatModifierType
+{
+    Health,
+    Mana,
+    Armor,
+    Strenght,
+    Agility,
+    Intelligence,
+    Vitality,
+    Luck
 }
