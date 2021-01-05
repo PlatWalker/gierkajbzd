@@ -12,11 +12,11 @@ public class MonkeyController : EnemyController
     [SerializeField] private float runSpeedDebuff = 0.7f;
 
     [Header("Projectile")]
-    [SerializeField] private GameObject projectileObject =  null;
+    [SerializeField] private GameObject projectileObject = null;
 
     [SerializeField] private Transform projectileSpawnPoint = null;
 
-    [SerializeField] private float throwPower=1.0f;
+    [SerializeField] private float throwPower = 1.0f;
 
     [SerializeField] private float throwTargetHeight = 1.8f;
 
@@ -25,77 +25,78 @@ public class MonkeyController : EnemyController
     {
         base.Start();
         string[] ignoredBooleans = new string[] { "spawnProjectile" };
-        easyAnimator = new EasyAnimatorController(GetComponent<Animator>(),ignoredBooleans);
+        easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), ignoredBooleans);
     }
 
     //OnValidate is called when script is loaded and everytime when value is changed
     //in the inspector
     override protected void OnValidate()
     {
-        //here will be code to handle debuging and balance changes in values
-        //for example there have to be check if the AggroRadius is bigger that AttackRadius etc.
         base.OnValidate();
+        if (runAwayRadius >= AttackRadius)
+        {
+            Debug.Log("Run Away Radius cannot be bigger or equal to Attack Radius!");
+            runAwayRadius = AttackRadius - 0.1f;
+        }
+        if (runSpeedDebuff < 0.1 || runSpeedDebuff > 2f)
+        {
+            Debug.Log("Run Speed Debuff have to be inside range <0.1,2.0>");
+            if (runSpeedDebuff < 0.1)
+            {
+                runSpeedDebuff = 0.1f;
+            }
+            else
+            {
+                runSpeedDebuff = 2f;
+            }
+        }
+        if (projectileObject == null)
+        {
+            Debug.Log("Projectile Object for Monkey is not set!");
+        }
+        if (projectileSpawnPoint == null)
+        {
+            Debug.Log("Projectile spawn point for Monkey is not set!");
+        }
+        if (throwPower <= 0f || throwPower > 10f )
+        {
+            Debug.Log("Projectile throw power have to be bigger than 0 and connot be bigger than 10");
+            if (throwPower <= 0f)
+            {
+                throwPower = 0.1f;
+            }
+            else
+            {
+                throwPower = 10f;
+            }
+        }
     }
 
     // Update is called once per frame
     override protected void FixedUpdate()
     {
         float distanceToMainChar = Vector3.Distance(gameObject.transform.position, MainCharacterTransform.position);
-        if (distanceToMainChar < AggroRadius)// checking if main char is visible for enemy
+        if (distanceToMainChar < AggroRadius)
         {
-            if (distanceToMainChar < AttackRadius) //checking if main char is in attack range
+            if (distanceToMainChar < AttackRadius)
             {
                 if (distanceToMainChar < runAwayRadius)
                 {
-                    //move enemy in opposite direction than main char and with speed debuff
-                    /*UpdateEnemyPosition(new Vector3(gameObject.transform.position.x - MainCharacterTransform.position.x,
-                                                    0,
-                                                    gameObject.transform.position.z - MainCharacterTransform.position.z),runSpeedDebuff);
-                    UpdateEnemyRotation(gameObject.transform.position-MainCharacterTransform.position);*/
-                    Move(true,runSpeedDebuff,MainCharacterTransform.position);
-                    easyAnimator.setBooleanTrue("isWalking");
+                    RunFromDanger();
                 }
                 else
                 {
-                    //UpdateEnemyRotation(MainCharacterTransform.position - gameObject.transform.position );
-                    Move(false, 0f, MainCharacterTransform.position);
-                    easyAnimator.setBooleanTrue("isAttacking");
-                    if (easyAnimator.GetBool("spawnProjectile"))
-                    { 
-                        GameObject projectile = Instantiate(projectileObject, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
-                        Rigidbody rigidbody = projectile.GetComponent<Rigidbody>();
-                        Vector3 throwDirection = (MainCharacterTransform.position - projectile.transform.position);
-                        throwDirection.y += throwTargetHeight;
-                        throwDirection *= throwPower;
-                        rigidbody.AddForce(throwDirection,ForceMode.Impulse);
-                        easyAnimator.SetBoolDirectly("spawnProjectile", false);
-                        
-                        //Here add some rotatiom of banana
-                    }
-                    
+                    Attack();
                 }
             }
             else
             {
-                //if main char is not in attack range then get closer
-                /*UpdateEnemyRotation(MainCharacterTransform.position - gameObject.transform.position);
-                UpdateEnemyPosition(new Vector3(MainCharacterTransform.position.x - gameObject.transform.position.x,
-                                                0,
-                                                MainCharacterTransform.position.z - gameObject.transform.position.z),
-                                                1.0f);*/
-                Move(false, 1f, MainCharacterTransform.position);
-                easyAnimator.setBooleanTrue("isWalking");
+                GetCloser();
             }
         }
-        else if (Vector3.Distance(this.gameObject.transform.position, SpawnPoint) > 2.0f) //if main char is not visible and this enemy is far form spawn point then go back to spawn
+        else if (Vector3.Distance(this.gameObject.transform.position, SpawnPoint) > 2.0f)
         {
-            /*UpdateEnemyRotation(new Vector3(SpawnPoint.x, 0, SpawnPoint.z) - gameObject.transform.position);
-            UpdateEnemyPosition(new Vector3(SpawnPoint.x - gameObject.transform.position.x,
-                                            0,
-                                            SpawnPoint.z - gameObject.transform.position.z),
-                                            1.0f);*/
-            Move(false, 1f, SpawnPoint);
-            easyAnimator.setBooleanTrue("isWalking");
+            GoBackToSpawn();
         }
         else
         {
@@ -106,5 +107,41 @@ public class MonkeyController : EnemyController
         {
             easyAnimator.setBooleanTrue("isDead");
         }
+    }
+
+    private void GoBackToSpawn()
+    {
+        Move(false, 1f, SpawnPoint);
+        easyAnimator.setBooleanTrue("isWalking");
+    }
+
+    private void GetCloser()
+    {
+        Move(false, 1f, MainCharacterTransform.position);
+        easyAnimator.setBooleanTrue("isWalking");
+    }
+
+    private void Attack()
+    {
+        Move(false, 0f, MainCharacterTransform.position);
+        easyAnimator.setBooleanTrue("isAttacking");
+        if (easyAnimator.GetBool("spawnProjectile"))
+        {
+            GameObject projectile = Instantiate(projectileObject, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
+            Rigidbody rigidbody = projectile.GetComponent<Rigidbody>();
+            Vector3 throwDirection = (MainCharacterTransform.position - projectile.transform.position);
+            throwDirection.y += throwTargetHeight;
+            throwDirection *= throwPower;
+            rigidbody.AddForce(throwDirection, ForceMode.Impulse);
+            easyAnimator.SetBoolDirectly("spawnProjectile", false);
+
+            //Here add some rotatiom of projectile
+        }
+    }
+
+    private void RunFromDanger()
+    {
+        Move(true, runSpeedDebuff, MainCharacterTransform.position);
+        easyAnimator.setBooleanTrue("isWalking");
     }
 }
