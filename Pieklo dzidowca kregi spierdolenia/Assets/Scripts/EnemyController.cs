@@ -138,19 +138,6 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     // Update is called once per frame
     protected abstract void FixedUpdate();
 
-    /*protected virtual void UpdateEnemyPosition(Vector3 direction, float speedScale)
-    {
-        direction = Vector3.Normalize(direction);
-        this.gameObject.transform.position += direction * _movementSpeed * speedScale;
-    }
-
-
-    protected virtual void UpdateEnemyRotation(Vector3 direction)
-    {
-        Vector3 newDirection = Vector3.RotateTowards(gameObject.transform.forward, direction, _rotationSpeed, 0.0f);
-        this.gameObject.transform.rotation = Quaternion.LookRotation(newDirection);
-    }*/
-
     protected virtual void Move(bool shouldRunAway, float speedModifier, Vector3 target)
     {
         Vector3 direction = new Vector3(target.x - gameObject.transform.position.x,

@@ -97,6 +97,10 @@ public class MonkeyController : EnemyController
             Move(false, 1f, SpawnPoint);
             easyAnimator.setBooleanTrue("isWalking");
         }
+        else
+        {
+            easyAnimator.ResetAllBooleans();
+        }
 
         if (CurrentHealth<=0)
         {

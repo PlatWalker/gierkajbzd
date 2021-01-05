@@ -64,13 +64,14 @@ public class EasyAnimatorController
 
     public bool setBooleanTrue(string booleanName)
     {
+        if (currentTrueBoolean == booleanName) return true;
         foreach (string name in booleansNames)
         {
             if (name == booleanName)
             {
+                animator.SetBool(name, true);
                 animator.SetBool(currentTrueBoolean, false);
-                currentTrueBoolean = name;
-                animator.SetBool(currentTrueBoolean, true);
+                currentTrueBoolean = name;                
                 return true;
             }
         }
