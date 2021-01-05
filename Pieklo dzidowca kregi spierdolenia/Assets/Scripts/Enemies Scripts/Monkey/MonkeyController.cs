@@ -105,26 +105,26 @@ public class MonkeyController : EnemyController
 
         if (CurrentHealth<=0)
         {
-            easyAnimator.setBooleanTrue("isDead");
+            easyAnimator.SetBooleanTrue("isDead");
         }
     }
 
     private void GoBackToSpawn()
     {
         Move(false, 1f, SpawnPoint);
-        easyAnimator.setBooleanTrue("isWalking");
+        easyAnimator.SetBooleanTrue("isWalking");
     }
 
     private void GetCloser()
     {
         Move(false, 1f, MainCharacterTransform.position);
-        easyAnimator.setBooleanTrue("isWalking");
+        easyAnimator.SetBooleanTrue("isWalking");
     }
 
     private void Attack()
     {
         Move(false, 0f, MainCharacterTransform.position);
-        easyAnimator.setBooleanTrue("isAttacking");
+        easyAnimator.SetBooleanTrue("isAttacking");
         if (easyAnimator.GetBool("spawnProjectile"))
         {
             GameObject projectile = Instantiate(projectileObject, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
@@ -142,6 +142,6 @@ public class MonkeyController : EnemyController
     private void RunFromDanger()
     {
         Move(true, runSpeedDebuff, MainCharacterTransform.position);
-        easyAnimator.setBooleanTrue("isWalking");
+        easyAnimator.SetBooleanTrue("isWalking");
     }
 }

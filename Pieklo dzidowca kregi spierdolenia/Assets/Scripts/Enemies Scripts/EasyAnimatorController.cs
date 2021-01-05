@@ -62,7 +62,7 @@ public class EasyAnimatorController
         currentTrueBoolean = booleansNames[0];
     }
 
-    public bool setBooleanTrue(string booleanName)
+    public bool SetBooleanTrue(string booleanName)
     {
         if (currentTrueBoolean == booleanName) return true;
         foreach (string name in booleansNames)
