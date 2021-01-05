@@ -136,46 +136,9 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     }
 
     // Update is called once per frame
-    protected virtual void FixedUpdate()
-    {
-        float distanceToMainChar = Vector3.Distance(gameObject.transform.position, _mainCharacterTransform.position);
-        if (distanceToMainChar < _aggroRadius)// checking if main char is visible for enemy
-        {
-            UpdateEnemyRotation(_mainCharacterTransform.position - gameObject.transform.position);
-            if (distanceToMainChar < _attackRadius) //checking if main char is in attack range
-            {
-                easyAnimator.setBooleanTrue("isAttacking");
-            }
-            else
-            {
-                //if main char is not in attack range then get closer
-                UpdateEnemyPosition(new Vector3(_mainCharacterTransform.position.x - gameObject.transform.position.x,
-                                                0,
-                                                _mainCharacterTransform.position.z - gameObject.transform.position.z),
-                                                1.0f);
-                easyAnimator.setBooleanTrue("isWalking");
-            }
-        }
-        else if (Vector3.Distance(this.gameObject.transform.position, SpawnPoint) > 2.0f) //if main char is not visible and this enemy is far form spawn point then go back to spawn
-        {
-            UpdateEnemyRotation(new Vector3(SpawnPoint.x, 0, SpawnPoint.z) - gameObject.transform.position);
-            UpdateEnemyPosition(new Vector3(SpawnPoint.x - gameObject.transform.position.x,
-                                            0,
-                                            SpawnPoint.z - gameObject.transform.position.z),
-                                            1.0f);
-            easyAnimator.setBooleanTrue("isWalking");
-        }
-        else //when mainchar is not visible and reached spawn point
-        {
-            easyAnimator.ResetAllBooleans();
-        }
-        if (CurrentHealth<1)
-        {
-            easyAnimator.setBooleanTrue("isDead");
-        }
-    }
+    protected abstract void FixedUpdate();
 
-    protected virtual void UpdateEnemyPosition(Vector3 direction, float speedScale)
+    /*protected virtual void UpdateEnemyPosition(Vector3 direction, float speedScale)
     {
         direction = Vector3.Normalize(direction);
         this.gameObject.transform.position += direction * _movementSpeed * speedScale;
@@ -186,7 +149,28 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     {
         Vector3 newDirection = Vector3.RotateTowards(gameObject.transform.forward, direction, _rotationSpeed, 0.0f);
         this.gameObject.transform.rotation = Quaternion.LookRotation(newDirection);
+    }*/
+
+    protected virtual void Move(bool shouldRunAway, float speedModifier, Vector3 target)
+    {
+        Vector3 direction = new Vector3(target.x - gameObject.transform.position.x,
+                                0,
+                                target.z - gameObject.transform.position.z);
+
+        if (shouldRunAway)
+        {
+            direction = new Vector3(gameObject.transform.position.x - target.x,
+                                            0,
+                                            gameObject.transform.position.z - target.z);
+        }
+
+        direction = Vector3.Normalize(direction);
+        this.gameObject.transform.position += direction * MovementSpeed * speedModifier;
+
+        Vector3 newDirection = Vector3.RotateTowards(gameObject.transform.forward, direction, RotationSpeed, 0.0f);
+        this.gameObject.transform.rotation = Quaternion.LookRotation(newDirection);
     }
+
 
     public virtual float GetHealthPercentage()
     {

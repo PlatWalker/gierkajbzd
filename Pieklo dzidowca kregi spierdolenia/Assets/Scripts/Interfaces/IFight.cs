@@ -13,8 +13,4 @@ public interface IFight : IDamageable
 
     float AttackRadius { get; }
 
-    void SetDamage(int damageAmount, DamageType damageType);
-
-    void SetDamage(int damageAmount, DamageType damageType, int criticalMultiplier, float criticalChance);
-
 }

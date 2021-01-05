@@ -48,15 +48,17 @@ public class MonkeyController : EnemyController
                 if (distanceToMainChar < runAwayRadius)
                 {
                     //move enemy in opposite direction than main char and with speed debuff
-                    UpdateEnemyPosition(new Vector3(gameObject.transform.position.x - MainCharacterTransform.position.x,
+                    /*UpdateEnemyPosition(new Vector3(gameObject.transform.position.x - MainCharacterTransform.position.x,
                                                     0,
                                                     gameObject.transform.position.z - MainCharacterTransform.position.z),runSpeedDebuff);
-                    UpdateEnemyRotation(gameObject.transform.position-MainCharacterTransform.position);
+                    UpdateEnemyRotation(gameObject.transform.position-MainCharacterTransform.position);*/
+                    Move(true,runSpeedDebuff,MainCharacterTransform.position);
                     easyAnimator.setBooleanTrue("isWalking");
                 }
                 else
                 {
-                    UpdateEnemyRotation(MainCharacterTransform.position - gameObject.transform.position );
+                    //UpdateEnemyRotation(MainCharacterTransform.position - gameObject.transform.position );
+                    Move(false, 0f, MainCharacterTransform.position);
                     easyAnimator.setBooleanTrue("isAttacking");
                     if (easyAnimator.GetBool("spawnProjectile"))
                     { 
@@ -76,21 +78,23 @@ public class MonkeyController : EnemyController
             else
             {
                 //if main char is not in attack range then get closer
-                UpdateEnemyRotation(MainCharacterTransform.position - gameObject.transform.position);
+                /*UpdateEnemyRotation(MainCharacterTransform.position - gameObject.transform.position);
                 UpdateEnemyPosition(new Vector3(MainCharacterTransform.position.x - gameObject.transform.position.x,
                                                 0,
                                                 MainCharacterTransform.position.z - gameObject.transform.position.z),
-                                                1.0f);
+                                                1.0f);*/
+                Move(false, 1f, MainCharacterTransform.position);
                 easyAnimator.setBooleanTrue("isWalking");
             }
         }
         else if (Vector3.Distance(this.gameObject.transform.position, SpawnPoint) > 2.0f) //if main char is not visible and this enemy is far form spawn point then go back to spawn
         {
-            UpdateEnemyRotation(new Vector3(SpawnPoint.x, 0, SpawnPoint.z) - gameObject.transform.position);
+            /*UpdateEnemyRotation(new Vector3(SpawnPoint.x, 0, SpawnPoint.z) - gameObject.transform.position);
             UpdateEnemyPosition(new Vector3(SpawnPoint.x - gameObject.transform.position.x,
                                             0,
                                             SpawnPoint.z - gameObject.transform.position.z),
-                                            1.0f);
+                                            1.0f);*/
+            Move(false, 1f, SpawnPoint);
             easyAnimator.setBooleanTrue("isWalking");
         }
 

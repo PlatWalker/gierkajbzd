@@ -359,7 +359,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e8d8400606665c74ebde1b67c7cafa0f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 195.45709
+      value: 195.73
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e8d8400606665c74ebde1b67c7cafa0f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -367,7 +367,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e8d8400606665c74ebde1b67c7cafa0f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 131.01604
+      value: 131.2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e8d8400606665c74ebde1b67c7cafa0f, type: 3}
       propertyPath: m_LocalRotation.x
@@ -445,17 +445,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70f531dce30267548a90f40512801ea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainCharacterTransform: {fileID: 1567557347}
   _movementSpeed: 0.14
+  _rotationSpeed: 0.15
+  _mainCharacterTransform: {fileID: 1567557347}
   _aggroRadius: 20
   _attackRadius: 8.5
+  _maxHealth: 100
   runAwayRadius: 5
   runSpeedDebuff: 0.7
-  _rotationSpeed: 0.15
   projectileObject: {fileID: 6098825241959534323, guid: 8efa137217a315c4ab1b5c23c8bbe038, type: 3}
   projectileSpawnPoint: {fileID: 579788698}
   throwPower: 0.2
-  _maxHealth: 100
+  throwTargetHeight: 1.8
 --- !u!95 &584620626
 Animator:
   serializedVersion: 3
