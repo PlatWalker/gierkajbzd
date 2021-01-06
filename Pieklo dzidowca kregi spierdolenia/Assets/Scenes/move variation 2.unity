@@ -629,6 +629,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5077250166321254931, guid: 7dc93a165012957409522052bd683ebf, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5077250166321254931, guid: 7dc93a165012957409522052bd683ebf, type: 3}
+      propertyPath: m_Size.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5077250166321254931, guid: 7dc93a165012957409522052bd683ebf, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5077250166321254931, guid: 7dc93a165012957409522052bd683ebf, type: 3}
+      propertyPath: m_Size.z
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5193311533026083833, guid: 7dc93a165012957409522052bd683ebf, type: 3}
       propertyPath: m_Name
       value: Apple
@@ -693,8 +709,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 3667608408225883372}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c384e59bc2c3f6542889d2b132e28edb, type: 3}
+  m_Script: {fileID: 11500000, guid: 918770fcebf943a4e97ac687b4e0af55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 3
-  consumable: {fileID: 11400000, guid: 1305b32088121e14b92d18b0ccabd1fa, type: 2}
+  item: {fileID: 11400000, guid: 1305b32088121e14b92d18b0ccabd1fa, type: 2}

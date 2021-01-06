@@ -21,7 +21,6 @@ namespace jbzdy.Items
         private void ConsumeItem()
         {
             Debug.Log("Consuming " + consumable.itemName);
-            PlayerManager.instance.ConsumeItem(consumable);
         }
     }
 }

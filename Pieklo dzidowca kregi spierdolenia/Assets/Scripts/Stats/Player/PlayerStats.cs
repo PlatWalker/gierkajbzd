@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// Made by sharashino
+/// napisane przez Sharashino
+/// 
+/// Skrypt ze statystykami dla gracza
 /// </summary>
 namespace jbzdy.CharacterStats
 {
@@ -9,7 +11,7 @@ namespace jbzdy.CharacterStats
     {
         public void ConsumeItem(ConsumableItem itemToConsume)
         {
-            SetHealth(itemToConsume.healthModifier);
+            Heal(itemToConsume.healthModifier);
         }
 
         private void Update()
@@ -17,6 +19,11 @@ namespace jbzdy.CharacterStats
             if (Input.GetKeyDown(KeyCode.T))
             {
                 TakeDamage(5);
+            }
+
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                Heal(5);
             }
         }
     }

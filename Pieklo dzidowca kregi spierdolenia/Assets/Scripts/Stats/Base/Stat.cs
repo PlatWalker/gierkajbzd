@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 
 /// <summary>
-/// Made by sharashino
+/// Napisane przez Sharashino
+/// 
+/// Skrypt definiujący czym jest statystyka i umożliwiającym operacje na tej wartości
 /// </summary>
 namespace jbzdy.CharacterStats
 {
@@ -28,6 +30,7 @@ namespace jbzdy.CharacterStats
                 modifiers.Add(modifier);
             }
         }
+
         public void RemoveModifier(int modifier)
         {
             if (modifier != 0)

@@ -1,8 +1,10 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
-/// Made by Sharashino
+/// Napisane przez Sharashino
+/// 
+/// [PROTOTYP]
+/// Kontroluje input myszki gracza, wybiera co gracz focusuje
 /// </summary>
 public class Clicker : MonoBehaviour
 {
@@ -21,10 +23,6 @@ public class Clicker : MonoBehaviour
 
                 if (interactable != null)
                 {
-                    
-                    //Focus player on object
-                    float intRadius = interactable.GetRadius();
-
                     SetFocus(interactable);
                 }
                 else if(interactable == null)
@@ -47,7 +45,7 @@ public class Clicker : MonoBehaviour
             focus = newFocus;
         }
 
-        newFocus.OnFocused(transform);
+        newFocus.OnFocused();
     } 
 
     private void RemoveFocus()

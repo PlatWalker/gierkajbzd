@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 /// <summary>
 /// Napisane przez Sharashino
+/// 
+/// Główna klasa rzeczy z którymi możemy wchodzić w interakcję, obecnie przyciskiem E (Sklepy, skrzynie, lootowanie, interakcja z postaciami)
 /// </summary>
 public class Interactables : MonoBehaviour
 {
@@ -9,17 +12,20 @@ public class Interactables : MonoBehaviour
     private bool isFocused = false;
     private Transform playerTransform;
     private bool hasInteracted;
+    private float distance;
 
     private void Update()
     {
-        if (isFocused && !hasInteracted)
+        if(playerTransform != null)
         {
-            float distance = Vector3.Distance(playerTransform.position, transform.position);
-            
-            if(distance <= radius)
+            distance = Vector3.Distance(playerTransform.position, transform.position);
+
+            if (distance <= radius)
             {
-                Interact();
-                hasInteracted = true;
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    Interact();
+                }
             }
         }
     }
@@ -29,11 +35,10 @@ public class Interactables : MonoBehaviour
         
     }
 
-    public void OnFocused(Transform playerTransform)
+    public void OnFocused()
     {
         isFocused = true;
         hasInteracted = false;
-        this.playerTransform = playerTransform;
     }
 
     public void OnDefocused()
@@ -55,9 +60,5 @@ public class Interactables : MonoBehaviour
         {
             return;
         }
-    }
-    public float GetRadius()
-    {
-        return radius;
     }
 }

@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// Made by Sharashino
+/// Napisane przez Sharashino
+/// 
+/// Skrypt definiujący statystyki postaci 
 /// </summary>
 namespace jbzdy.CharacterStats
 {
@@ -13,7 +15,7 @@ namespace jbzdy.CharacterStats
             instance = this;
         }
 
-        public int CurrentHealth { get; private set; }
+        public int MaxHealth { get; private set; }
         [SerializeField] private Stat Health;
         [SerializeField] private Stat Mana;
         [SerializeField] private Stat Armor;
@@ -25,18 +27,18 @@ namespace jbzdy.CharacterStats
 
         private void Start()
         {
-            CurrentHealth = Health.GetBaseValue();
+            MaxHealth = Health.GetBaseValue();
         }
 
-        public void SetHealth(int health)
+        public void Heal(int health)
         {
-            if(CurrentHealth + health > Health.GetBaseValue())
+            if(MaxHealth + health > Health.GetBaseValue())
             {
-                return;
+                Health.AddModifier(5);
             }
             else
             {
-                CurrentHealth += health;
+                MaxHealth += health;
             }
         }
 
@@ -46,11 +48,11 @@ namespace jbzdy.CharacterStats
             damage -= Armor.GetBaseValue();
             damage = Mathf.Clamp(damage, 0, int.MaxValue);
 
-            CurrentHealth -= damage;
+            MaxHealth -= damage;
 
             Debug.Log(transform.name + " takes " + damage + " damage");
 
-            if (CurrentHealth <= 0)
+            if (MaxHealth <= 0)
             {
                 CharacterDie();
             }
