@@ -138,10 +138,7 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     }
 
     // Update is called once per frame
-    protected virtual void FixedUpdate()
-    {
-        if (turnOffAI) return;
-    }
+    protected abstract void FixedUpdate();
 
     protected virtual void Move(bool shouldRunAway, float speedModifier, Vector3 target)
     {
@@ -182,5 +179,9 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
             damageAmount *= criticalMultiplier;
         }
         this.SetDamage(damageAmount, damageType);
+    }
+    public void SwitchAI()
+    {
+        turnOffAI = !turnOffAI;
     }
 }
