@@ -9,7 +9,7 @@ public class EasyAnimatorController
 {
     private Animator animator;
     private string[] booleansNames;
-    private string currentTrueBoolean;
+    private string currentTrueBoolean=null;
 
     public EasyAnimatorController(Animator _animator, string[] ignoredBooleansArray)
     {
@@ -59,7 +59,7 @@ public class EasyAnimatorController
                 }
             }
         }
-        currentTrueBoolean = booleansNames[0];
+        currentTrueBoolean = null;
     }
 
     public bool SetBooleanTrue(string booleanName)
@@ -70,7 +70,7 @@ public class EasyAnimatorController
             if (name == booleanName)
             {
                 animator.SetBool(name, true);
-                animator.SetBool(currentTrueBoolean, false);
+                if(currentTrueBoolean != null) animator.SetBool(currentTrueBoolean, false);
                 currentTrueBoolean = name;                
                 return true;
             }
@@ -85,6 +85,7 @@ public class EasyAnimatorController
         {
             animator.SetBool(name, false);
         }
+        currentTrueBoolean = null;
     }
 
     public string GetCurrentTrueBoolean()
@@ -92,12 +93,12 @@ public class EasyAnimatorController
         return currentTrueBoolean;
     }
 
-    public bool GetBool(string name)
+    public bool GetBoolean(string name)
     {
         return animator.GetBool(name);
     }
 
-    public void SetBoolDirectly(string name,bool value)
+    public void SetBooleanDirectly(string name,bool value)
     {
         animator.SetBool(name, value);
     }

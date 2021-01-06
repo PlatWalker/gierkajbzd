@@ -75,6 +75,7 @@ public class MonkeyController : EnemyController
     // Update is called once per frame
     override protected void FixedUpdate()
     {
+        if (turnOffAI) return;
         float distanceToMainChar = Vector3.Distance(gameObject.transform.position, MainCharacterTransform.position);
         if (distanceToMainChar < AggroRadius)
         {
@@ -125,7 +126,7 @@ public class MonkeyController : EnemyController
     {
         Move(false, 0f, MainCharacterTransform.position);
         easyAnimator.SetBooleanTrue("isAttacking");
-        if (easyAnimator.GetBool("spawnProjectile"))
+        if (easyAnimator.GetBoolean("spawnProjectile"))
         {
             GameObject projectile = Instantiate(projectileObject, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
             Rigidbody rigidbody = projectile.GetComponent<Rigidbody>();
@@ -133,7 +134,7 @@ public class MonkeyController : EnemyController
             throwDirection.y += throwTargetHeight;
             throwDirection *= throwPower;
             rigidbody.AddForce(throwDirection, ForceMode.Impulse);
-            easyAnimator.SetBoolDirectly("spawnProjectile", false);
+            easyAnimator.SetBooleanDirectly("spawnProjectile", false);
 
             //Here add some rotatiom of projectile
         }

@@ -6,6 +6,8 @@ using UnityEngine;
 
 public abstract class EnemyController : MonoBehaviour, IMove, IFight
 {
+    [Header("Artifical Intelligence")]
+    [SerializeField] protected bool turnOffAI = false;
     [Header("Movement")]
     [SerializeField] private float _movementSpeed = 0.15f;
     public virtual float MovementSpeed
@@ -136,7 +138,10 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     }
 
     // Update is called once per frame
-    protected abstract void FixedUpdate();
+    protected virtual void FixedUpdate()
+    {
+        if (turnOffAI) return;
+    }
 
     protected virtual void Move(bool shouldRunAway, float speedModifier, Vector3 target)
     {
