@@ -58,13 +58,11 @@ public class GowniakController : EnemyController
             }
             else if (aggroCommenced)
             {
-                UnityEngine.Debug.Log(1);
                 easyAnimator.SetBooleanTrue("Move");
                 Move(false, 1f, MainCharacterTransform.position);
             }
             else
             {
-                UnityEngine.Debug.Log(2);
                 easyAnimator.SetBooleanTrue("InAggroRadius");
                 if (_aggroTimer != null && _aggroTimer.IsRunning && _aggroTimer.ElapsedMilliseconds > aggroMaxTimeMs)
                 {
@@ -81,7 +79,6 @@ public class GowniakController : EnemyController
         }
         else
         {
-            UnityEngine.Debug.Log(3);
             easyAnimator.ResetAllBooleans();
         }
         gameObject.transform.Rotate(0.0f, 90.0f, 0.0f); // removing Bug of gizmos
