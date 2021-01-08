@@ -21,8 +21,9 @@ public class Inventory : MonoBehaviour
     public delegate void OnItemChanged();   //Delegate 
     public OnItemChanged onItemChangedCallback; //Kiedy coś zmienia sie w naszym inventory wywołujemy tą funkcję żeby wiedzieć kiedy updatować ui
 
-    [SerializeField] private List<Item> inventoryItems = new List<Item>();
+    public List<Item> inventoryItems = new List<Item>();
     [SerializeField] private int inventorySpace = 20;
+
 
     public bool AddItem(Item itemToAdd)
     {

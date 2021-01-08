@@ -12,6 +12,20 @@ public class Item : ScriptableObject
     public Sprite itemIcon = null;
     public GameObject itemObject;
     public bool canPickUp;
+
+    public virtual void Use()
+    {
+        //Using the default Item
+        //
+        //ja tak jak kot siedem żyć i baluje całą noc
+
+        Debug.Log("Using " + itemName);
+    }
+
+    public void RemoveFromInventory()
+    {
+        Inventory.instance.RemoveItem(this);
+    }
 }
 
 public enum StatModifierType
