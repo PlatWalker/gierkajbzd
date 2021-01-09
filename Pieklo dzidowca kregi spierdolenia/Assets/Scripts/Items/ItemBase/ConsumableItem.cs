@@ -2,6 +2,8 @@
 
 /// <summary>
 /// Napisane przez sharashino 
+/// 
+/// Przedmioty które możemy skonsumować
 /// </summary>
 [CreateAssetMenu(fileName = "NewConsumableItem", menuName = "Items/New Consumable Item")]
 public class ConsumableItem : Item

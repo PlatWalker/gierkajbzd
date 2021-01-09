@@ -2,6 +2,8 @@
 
 /// <summary>
 /// Napisane przez sharashino 
+/// 
+/// Przedmioty które możemy ubrać
 /// </summary>
 [CreateAssetMenu(fileName = "NewEquipableItem", menuName = "Items/New Equipable Item")]
 public class EquipableItem : Item

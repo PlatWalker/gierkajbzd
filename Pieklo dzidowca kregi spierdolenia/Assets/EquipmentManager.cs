@@ -1,7 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// Napisane przez sharashino
+/// 
+/// Manager tego co gracz ma aktualnie zaekwipowane
+/// 
+/// W niedalekiej przyszłości będzie odpowiadać za logike ekwipowania itemów
+/// </summary>
 public class EquipmentManager : MonoBehaviour
 {
     #region singleton
@@ -17,12 +22,12 @@ public class EquipmentManager : MonoBehaviour
     private Inventory inventory;
 
     public delegate void OnEquipmentChange(EquipableItem itemToEquip, EquipableItem itemToRemove);
-
     public OnEquipmentChange onEquipmentChange;
 
     private void Start()
     {
         inventory = Inventory.instance;
+
         int slotsNumber = System.Enum.GetNames(typeof(EquipmentSlot)).Length;
         currentEquipment = new EquipableItem[slotsNumber];
     }

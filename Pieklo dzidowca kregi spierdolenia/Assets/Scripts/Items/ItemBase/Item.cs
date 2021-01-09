@@ -3,7 +3,6 @@
 /// <summary>
 /// Napisane przez Sharashino
 /// </summary>
-
 [CreateAssetMenu(fileName = "NewItem", menuName ="Items/New Item")]
 public class Item : ScriptableObject
 {
