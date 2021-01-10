@@ -19,6 +19,8 @@ public class DoomerController : EnemyController
     private bool hasDoneAggro;
 
     private bool hasDoneSpecialAttack;
+    
+    private float normalSpeedModifier = 1f;
 
 
 
@@ -102,16 +104,19 @@ public class DoomerController : EnemyController
                             
                     }
 
-                    if (Vector3.Distance(jumpDirection, gameObject.transform.position) > 0.5f)
+                    if (Vector3.Distance(jumpDirection, gameObject.transform.position) > AttackRadius)
                     {
-                        //any direction given here to UpdateEnemyPostion will be ignored
                         Move(false, jumpSpeed, jumpDirection);
+                    }
+                    else
+                    {
+                        easyAnimator.SetBooleanDirectly("hasFinishedFirstAttack",true);
                     }
                 }
                 else if(hasDoneSpecialAttack)
                 {
                     //if attack has been made just move in normal speed to player
-                    Move(false, 1f, MainCharacterTransform.position);
+                    Move(false, normalSpeedModifier, MainCharacterTransform.position);
                 }
                 else
                 {
@@ -137,7 +142,7 @@ public class DoomerController : EnemyController
             if (Vector3.Distance(transform.position, SpawnPoint) > 2.0f)
             {
                 easyAnimator.SetBooleanDirectly("shouldReturnToSpawn", true);
-                Move(false, 1f, SpawnPoint);
+                Move(false, normalSpeedModifier, SpawnPoint);
             }
             else
             { 
