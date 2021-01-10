@@ -13,7 +13,7 @@ public class GowniakController : EnemyController
 
     private bool aggroCommenced = false;
 
-    private Stopwatch _aggroTimer;
+    private Stopwatch aggroTimer;
 
 
 
@@ -37,15 +37,15 @@ public class GowniakController : EnemyController
     {
         if (turnOffAI) return;
 
-        gameObject.transform.Rotate(0.0f, -90.0f, 0.0f); //reApply Bug of gizmos
+        transform.Rotate(0.0f, -90.0f, 0.0f); //reApply Bug of gizmos
 
         float distanceToMainChar =
-            Vector3.Distance(gameObject.transform.position, MainCharacterTransform.position);
+            Vector3.Distance(transform.position, MainCharacterTransform.position);
 
 
         if (distanceToMainChar < AggroRadius) // checking if main char is visible for enemy
         {
-            _aggroTimer = (_aggroTimer != null && _aggroTimer.IsRunning)||aggroCommenced ? _aggroTimer : Stopwatch.StartNew();
+            aggroTimer = (aggroTimer != null && aggroTimer.IsRunning)||aggroCommenced ? aggroTimer : Stopwatch.StartNew();
 
             Move(false, 0f, MainCharacterTransform.position);
 
@@ -64,16 +64,16 @@ public class GowniakController : EnemyController
             else
             {
                 easyAnimator.SetBooleanTrue("InAggroRadius");
-                if (_aggroTimer != null && _aggroTimer.IsRunning && _aggroTimer.ElapsedMilliseconds > aggroMaxTimeMs)
+                if (aggroTimer != null && aggroTimer.IsRunning && aggroTimer.ElapsedMilliseconds > aggroMaxTimeMs)
                 {
                     aggroCommenced = true;
-                    _aggroTimer = null;
+                    aggroTimer = null;
                 }
             }
         }
-        else if (Vector3.Distance(gameObject.transform.position, SpawnPoint) > 2f)
+        else if (Vector3.Distance(transform.position, SpawnPoint) > 2f)
         {
-            _aggroTimer = null; // stop aggroTimer, main char outside of aggro radius
+            aggroTimer = null; // stop aggroTimer, main char outside of aggro radius
             easyAnimator.SetBooleanTrue("Move");
             Move(false, 1f, SpawnPoint);
         }
@@ -81,6 +81,6 @@ public class GowniakController : EnemyController
         {
             easyAnimator.ResetAllBooleans();
         }
-        gameObject.transform.Rotate(0.0f, 90.0f, 0.0f); // removing Bug of gizmos
+        transform.Rotate(0.0f, 90.0f, 0.0f); // removing Bug of gizmos
     }
 }

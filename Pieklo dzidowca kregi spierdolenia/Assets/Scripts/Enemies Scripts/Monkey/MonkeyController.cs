@@ -1,9 +1,7 @@
-﻿///<summary>
-///Created By Kumdzio
-///</summary>
-
-using UnityEngine;
-
+﻿using UnityEngine;
+/// <summary>
+/// Created By Kumdzio
+/// </summary>
 public class MonkeyController : EnemyController
 {
     [Header("Running from player")]
@@ -35,12 +33,12 @@ public class MonkeyController : EnemyController
         base.OnValidate();
         if (runAwayRadius >= AttackRadius)
         {
-            Debug.Log("Run Away Radius cannot be bigger or equal to Attack Radius!");
+            Debug.Log(transform.name + ": Run Away Radius cannot be bigger or equal to Attack Radius!");
             runAwayRadius = AttackRadius - 0.1f;
         }
         if (runSpeedDebuff < 0.1 || runSpeedDebuff > 2f)
         {
-            Debug.Log("Run Speed Debuff have to be inside range <0.1,2.0>");
+            Debug.Log(transform.name + ": Run Speed Debuff have to be inside range <0.1,2.0>");
             if (runSpeedDebuff < 0.1)
             {
                 runSpeedDebuff = 0.1f;
@@ -52,15 +50,15 @@ public class MonkeyController : EnemyController
         }
         if (projectileObject == null)
         {
-            Debug.Log("Projectile Object for Monkey is not set!");
+            Debug.Log(transform.name + ": Projectile Object for Monkey is not set!");
         }
         if (projectileSpawnPoint == null)
         {
-            Debug.Log("Projectile spawn point for Monkey is not set!");
+            Debug.Log(transform.name + ": Projectile spawn point for Monkey is not set!");
         }
         if (throwPower <= 0f || throwPower > 10f )
         {
-            Debug.Log("Projectile throw power have to be bigger than 0 and connot be bigger than 10");
+            Debug.Log(transform.name + ": Projectile throw power have to be bigger than 0 and connot be bigger than 10");
             if (throwPower <= 0f)
             {
                 throwPower = 0.1f;
@@ -76,7 +74,9 @@ public class MonkeyController : EnemyController
     override protected void FixedUpdate()
     {
         if (turnOffAI) return;
-        float distanceToMainChar = Vector3.Distance(gameObject.transform.position, MainCharacterTransform.position);
+        
+        float distanceToMainChar = Vector3.Distance(transform.position, MainCharacterTransform.position);
+        
         if (distanceToMainChar < AggroRadius)
         {
             if (distanceToMainChar < AttackRadius)
@@ -95,7 +95,7 @@ public class MonkeyController : EnemyController
                 GetCloser();
             }
         }
-        else if (Vector3.Distance(this.gameObject.transform.position, SpawnPoint) > 2.0f)
+        else if (Vector3.Distance(transform.position, SpawnPoint) > 2.0f)
         {
             GoBackToSpawn();
         }
@@ -124,13 +124,19 @@ public class MonkeyController : EnemyController
 
     private void Attack()
     {
+
         Move(false, 0f, MainCharacterTransform.position);
+
         easyAnimator.SetBooleanTrue("isAttacking");
+        
         if (easyAnimator.GetBoolean("spawnProjectile"))
         {
+
             GameObject projectile = Instantiate(projectileObject, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
+            
             Rigidbody rigidbody = projectile.GetComponent<Rigidbody>();
             Vector3 throwDirection = (MainCharacterTransform.position - projectile.transform.position);
+
             throwDirection.y += throwTargetHeight;
             throwDirection *= throwPower;
             rigidbody.AddForce(throwDirection, ForceMode.Impulse);
@@ -139,7 +145,7 @@ public class MonkeyController : EnemyController
             //Here add some rotatiom of projectile
         }
     }
-
+    
     private void RunFromDanger()
     {
         Move(true, runSpeedDebuff, MainCharacterTransform.position);

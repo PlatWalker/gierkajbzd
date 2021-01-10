@@ -39,7 +39,9 @@ public class DoomerController : EnemyController
 
         if (movementRushSpeedModifier <= 0f || movementRushSpeedModifier >5f)
         {
-            Debug.Log("Movement Rush Speed Modifier have to be in range (0,5>");
+
+            Debug.Log(transform.name + ": Movement Rush Speed Modifier have to be in range (0,5>");
+
             if (movementRushSpeedModifier <= 0f)
             {
                 movementRushSpeedModifier = 0.1f;
@@ -52,7 +54,9 @@ public class DoomerController : EnemyController
 
         if (jumpSpeed < 1f || jumpSpeed > 5f)
         {
-            Debug.Log("Jump Speed have to be in range <1,5>");
+
+            Debug.Log(transform.name + ": Jump Speed have to be in range <1,5>");
+
             if (jumpSpeed < 1f)
             {
                 jumpSpeed = 1;
@@ -67,29 +71,37 @@ public class DoomerController : EnemyController
     // Update is called once per frame
     override protected void FixedUpdate()
     {
+
         if (turnOffAI) return;
-        gameObject.transform.Rotate(0.0f, -90.0f, 0.0f); //reApply Bug of gizmos have to be removed vefore endig this method
+        transform.Rotate(0.0f, -90.0f, 0.0f); //reApply Bug of gizmos have to be removed vefore endig this method
         easyAnimator.ResetAllBooleans();
 
-        float distanceToMainChar = Vector3.Distance(gameObject.transform.position, MainCharacterTransform.position);
+        float distanceToMainChar = Vector3.Distance(transform.position, MainCharacterTransform.position);
+       
         hasDoneAggro = easyAnimator.GetBoolean("hasFinishedAggro");
         hasDoneSpecialAttack = easyAnimator.GetBoolean("hasFinishedFirstAttack");
 
         if (distanceToMainChar < AggroRadius && distanceToMainChar > AttackRadius)// checking if main char is visible for enemy and should not attack
         {
+
             easyAnimator.SetBooleanDirectly("isSeeingPlayer",true);
             Move(false, 0.0f, MainCharacterTransform.position);
+
             if (hasDoneAggro)
             {
+
                 if (distanceToMainChar <= firstAttackRadius && !hasDoneSpecialAttack) //checking if should start special attack
                 {
+
                     easyAnimator.SetBooleanDirectly("isPlayerReached",true);
                     easyAnimator.SetBooleanDirectly("isSeeingPlayer", true);//thanks to this animator know when start animation of jump
+                    
                     if (jumpDirection == new Vector3(0.0f,0.0f,0.0f)) 
                     {
                         jumpDirection = MainCharacterTransform.position; //saving jump direction so enemy cannot change direction in air
                             
                     }
+
                     if (Vector3.Distance(jumpDirection, gameObject.transform.position) > 0.5f)
                     {
                         //any direction given here to UpdateEnemyPostion will be ignored
@@ -122,7 +134,7 @@ public class DoomerController : EnemyController
         }
         else
         {
-            if (Vector3.Distance(gameObject.transform.position, SpawnPoint) > 2.0f)
+            if (Vector3.Distance(transform.position, SpawnPoint) > 2.0f)
             {
                 easyAnimator.SetBooleanDirectly("shouldReturnToSpawn", true);
                 Move(false, 1f, SpawnPoint);
@@ -132,6 +144,6 @@ public class DoomerController : EnemyController
                 easyAnimator.ResetAllBooleans();
             }
         }
-        gameObject.transform.Rotate(0.0f, 90.0f, 0.0f); // removing Bug of gizmos - have to be reapplied before calculations
+        transform.Rotate(0.0f, 90.0f, 0.0f); // removing Bug of gizmos - have to be reapplied before calculations
     }
 }
