@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class AISwitcher : MonoBehaviour
 {
-    [SerializeField] EnemyController enemyController;
-    [SerializeField] Material material1;
-    [SerializeField] Material material2;
+    [SerializeField] private EnemyController enemyController;
+    [SerializeField] private Material material1;
+    [SerializeField] private Material material2;
 
-    bool material = false;
-    Renderer mesh;
+    private bool material = false;
+    private Renderer mesh;
     // Start is called before the first frame update
     void Start()
     {
