@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using jbzdy.StatCreation;
+
 /// <summary>
 /// Napisane przez Sharashino
 /// 
@@ -12,26 +13,26 @@ namespace jbzdy.CharacterStats
     {
         [SerializeField] private ExperienceManager experienceManager;
 
-
-        public List<Stat> modifiableStatsList = new List<Stat>();
+        [HideInInspector] public List<Stat> modifiableStatsList = new List<Stat>();
 
         private void Start()
         {
             EquipmentManager.instance.onEquipmentChange += OnEquipmentChanged;
+            AddModifiableStats();
         }
 
         void OnEquipmentChanged (EquipableItem itemToEquip, EquipableItem oldItem)
         {
             if(itemToEquip != null)
             {
-                ReturnArmor().AddModifier(itemToEquip.armorModifier);
-                ReturnDamage().AddModifier(itemToEquip.damageModifier);
+                Armor.AddModifier(itemToEquip.armorModifier);
+                Damage.AddModifier(itemToEquip.damageModifier);
             }
 
             if (oldItem != null)
             {
-                ReturnArmor().RemoveModifier(itemToEquip.armorModifier);
-                ReturnDamage().RemoveModifier(itemToEquip.damageModifier);
+                Armor.RemoveModifier(itemToEquip.armorModifier);
+                Damage.RemoveModifier(itemToEquip.damageModifier);
             }
         }
 
@@ -49,16 +50,15 @@ namespace jbzdy.CharacterStats
 
             if (Input.GetKeyDown(KeyCode.X))
             {
-                AddXP(10);
+                experienceManager.AddXP(10);
             }
 
             if(Input.GetKeyDown(KeyCode.P))
             {
-                AddModifiableStats();
+                    
                 experienceManager.LevelUp();
             }
         }
-
 
         public void AddModifiableStats()
         {

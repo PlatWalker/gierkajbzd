@@ -19,12 +19,11 @@ namespace jbzdy.StatCreation
         [SerializeField] private List<StatBox> statBoxes;
         [SerializeField] private List<Stat> modifiableStats;
         [SerializeField] private Text pointsLeft;
+        [SerializeField] private Text levelNumber;
         [SerializeField] private int pointsToAdd;
 
-        public void TurnStatCreator(int pointsToAdd)
+        private void Start()
         {
-            gameObject.SetActive(true);
-            FillStatBoxes(pointsToAdd);
         }
 
         private void Update()
@@ -32,16 +31,32 @@ namespace jbzdy.StatCreation
             pointsLeft.text = GetPointsToAdd().ToString();
         }
 
-        private void FillStatBoxes(int pointsToAdd)
+        public void OnApplyPress()
+        {
+            for (int i = 0; i < statBoxes.Count; i++)
+            {
+                Debug.Log(modifiableStats[i].SetBaseValue(statBoxes[i].statValue));
+                modifiableStats[i].SetBaseValue(statBoxes[i].statValue);
+
+            }
+            gameObject.SetActive(false);
+        }
+
+        public void FillStatBoxes(int pointsToAdd)
         {
             modifiableStats = playerStats.modifiableStatsList;
             pointsLeft.text = pointsToAdd.ToString();
             this.pointsToAdd = pointsToAdd;
+            levelNumber.text = playerStats.ReturnLevel().ToString();
 
-            foreach (StatBox statBox in GetComponentsInChildren<StatBox>())
+            if(statBoxes.Count < 5)
             {
-                statBoxes.Add(statBox);
+                foreach (StatBox statBox in GetComponentsInChildren<StatBox>())
+                {
+                    statBoxes.Add(statBox);
+                }
             }
+
 
             for (int i = 0; i < modifiableStats.Count; i++)
             {
@@ -49,6 +64,13 @@ namespace jbzdy.StatCreation
                 statBoxes[i].statValue = modifiableStats[i].GetBaseValue();
                 statBoxes[i].statValueText.text = statBoxes[i].statValue.ToString();
             }
+        }
+
+        
+
+        public PlayerStats GetPlayerStats()
+        {
+            return playerStats;
         }
 
         public int GetPointsToAdd()

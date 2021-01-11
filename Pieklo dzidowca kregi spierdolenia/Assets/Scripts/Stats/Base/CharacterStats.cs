@@ -21,13 +21,18 @@ namespace jbzdy.CharacterStats
         }
         #endregion
 
+        [Header("Experience stats")]
         [SerializeField] private int ExperiencePoints;
         [SerializeField] private int Level;
+
+        [Header("Soft stats")]
         [SerializeField] private int MaxHealth;
         [SerializeField] private Stat Health;
         [SerializeField] private Stat Mana;
-        [SerializeField] private Stat Armor;
-        [SerializeField] private Stat Damage;
+        [SerializeField] protected Stat Armor;
+        [SerializeField] protected Stat Damage;
+
+        [Header("Hard stats")]
         [SerializeField] private Stat Strenght;
         [SerializeField] private Stat Agility;
         [SerializeField] private Stat Intelligence;
@@ -40,7 +45,6 @@ namespace jbzdy.CharacterStats
         {
             MaxHealth = Health.GetBaseValue();
         }
-
 
         #region Getters & Setters
 
@@ -80,10 +84,29 @@ namespace jbzdy.CharacterStats
         {
             return Vitality;
         }
-
         public Stat ReturnLuck()
         {
             return Luck;
+        }
+        public void SetLuck(int value)
+        {
+            Luck.SetBaseValue(value);
+        }
+        public int ReturnLevel()
+        {
+            return Level;
+        }
+        public void AddToLevel(int value)
+        {
+            Level += value;
+        }
+        public int GetExperiencePoints()
+        {
+            return ExperiencePoints;
+        }
+        public void SetExperiencePoints(int value)
+        {
+            ExperiencePoints += value;
         }
 
         #endregion
@@ -99,24 +122,6 @@ namespace jbzdy.CharacterStats
             {
                 MaxHealth += health;
             }
-        }
-
-        public void AddXP(int xp)
-        {
-            ExperiencePoints += xp;
-
-            if(ExperiencePoints >= toNextLevel)
-            {
-                Level++;
-                LevelUp();
-            }
-        }
-
-        public void LevelUp()
-        {
-            toNextLevel *= 2;
-            Debug.Log("Level up!");
-            Debug.Log("To next level: " + toNextLevel);
         }
 
         public void TakeDamage(int damage)
