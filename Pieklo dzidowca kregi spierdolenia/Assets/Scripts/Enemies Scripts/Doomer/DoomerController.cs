@@ -14,7 +14,7 @@ public class DoomerController : EnemyController
     [SerializeField] private float firstAttackRadius = 4.0f;
 
    
-    private Vector3 jumpDirection;
+    private Vector3 jumpDirection = Vector3.zero;
 
     private bool hasDoneAggro;
 
@@ -87,7 +87,7 @@ public class DoomerController : EnemyController
         {
 
             easyAnimator.SetBooleanDirectly("isSeeingPlayer",true);
-            Move(false, 0.0f, MainCharacterTransform.position);
+            MoveTo(false, 0.0f, MainCharacterTransform.position);
 
             if (hasDoneAggro)
             {
@@ -98,7 +98,7 @@ public class DoomerController : EnemyController
                     easyAnimator.SetBooleanDirectly("isPlayerReached",true);
                     easyAnimator.SetBooleanDirectly("isSeeingPlayer", true);//thanks to this animator know when start animation of jump
                     
-                    if (jumpDirection == new Vector3(0.0f,0.0f,0.0f)) 
+                    if (jumpDirection == Vector3.zero) 
                     {
                         jumpDirection = MainCharacterTransform.position; //saving jump direction so enemy cannot change direction in air
                             
@@ -106,7 +106,7 @@ public class DoomerController : EnemyController
 
                     if (Vector3.Distance(jumpDirection, gameObject.transform.position) > AttackRadius)
                     {
-                        Move(false, jumpSpeed, jumpDirection);
+                        MoveTo(false, jumpSpeed, jumpDirection);
                     }
                     else
                     {
@@ -116,12 +116,12 @@ public class DoomerController : EnemyController
                 else if(hasDoneSpecialAttack)
                 {
                     //if attack has been made just move in normal speed to player
-                    Move(false, normalSpeedModifier, MainCharacterTransform.position);
+                    MoveTo(false, normalSpeedModifier, MainCharacterTransform.position);
                 }
                 else
                 {
                     //when attack has been not made and cannot be made yet move to player in charge
-                    Move(false, movementRushSpeedModifier, MainCharacterTransform.position);
+                    MoveTo(false, movementRushSpeedModifier, MainCharacterTransform.position);
                 }
 
             }            
@@ -130,7 +130,7 @@ public class DoomerController : EnemyController
         {
             if (distanceToMainChar > 0.3)
             {
-                Move(false, 0.0f, MainCharacterTransform.position);
+                MoveTo(false, 0.0f, MainCharacterTransform.position);
             }
             easyAnimator.SetBooleanDirectly("isPlayerReached", true);
             easyAnimator.SetBooleanDirectly("isPlayerReached", true);
@@ -142,7 +142,7 @@ public class DoomerController : EnemyController
             if (Vector3.Distance(transform.position, SpawnPoint) > 2.0f)
             {
                 easyAnimator.SetBooleanDirectly("shouldReturnToSpawn", true);
-                Move(false, normalSpeedModifier, SpawnPoint);
+                MoveTo(false, normalSpeedModifier, SpawnPoint);
             }
             else
             { 

@@ -7,7 +7,7 @@ public class MonkeyController : EnemyController
     [Header("Running from player")]
     [SerializeField] private float runAwayRadius = 5.0f;
 
-    [SerializeField] private float runSpeedDebuff = 0.7f;
+    [SerializeField] private float runSpeedModifier = 0.7f;
 
     [Header("Projectile")]
     [SerializeField] private GameObject projectileObject = null;
@@ -17,6 +17,8 @@ public class MonkeyController : EnemyController
     [SerializeField] private float throwPower = 1.0f;
 
     [SerializeField] private float throwTargetHeight = 1.8f;
+
+    private float normalSpeedModifier = 1f;
 
     // Start is called before the first frame update
     override protected void Start()
@@ -36,16 +38,16 @@ public class MonkeyController : EnemyController
             Debug.Log(transform.name + ": Run Away Radius cannot be bigger or equal to Attack Radius!");
             runAwayRadius = AttackRadius - 0.1f;
         }
-        if (runSpeedDebuff < 0.1 || runSpeedDebuff > 2f)
+        if (runSpeedModifier < 0.1 || runSpeedModifier > 2f)
         {
             Debug.Log(transform.name + ": Run Speed Debuff have to be inside range <0.1,2.0>");
-            if (runSpeedDebuff < 0.1)
+            if (runSpeedModifier < 0.1)
             {
-                runSpeedDebuff = 0.1f;
+                runSpeedModifier = 0.1f;
             }
             else
             {
-                runSpeedDebuff = 2f;
+                runSpeedModifier = 2f;
             }
         }
         if (projectileObject == null)
@@ -112,20 +114,20 @@ public class MonkeyController : EnemyController
 
     private void GoBackToSpawn()
     {
-        Move(false, 1f, SpawnPoint);
+        MoveTo(false, normalSpeedModifier, SpawnPoint);
         easyAnimator.SetBooleanTrue("isWalking");
     }
 
     private void GetCloser()
     {
-        Move(false, 1f, MainCharacterTransform.position);
+        MoveTo(false, normalSpeedModifier, MainCharacterTransform.position);
         easyAnimator.SetBooleanTrue("isWalking");
     }
 
     private void Attack()
     {
 
-        Move(false, 0f, MainCharacterTransform.position);
+        MoveTo(false, 0f, MainCharacterTransform.position);
 
         easyAnimator.SetBooleanTrue("isAttacking");
         
@@ -148,7 +150,7 @@ public class MonkeyController : EnemyController
     
     private void RunFromDanger()
     {
-        Move(true, runSpeedDebuff, MainCharacterTransform.position);
+        MoveTo(true, runSpeedModifier, MainCharacterTransform.position);
         easyAnimator.SetBooleanTrue("isWalking");
     }
 }

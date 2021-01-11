@@ -146,7 +146,7 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     /// <param name="shouldRunAway"> Decides if enemy should run away from target.</param>
     /// <param name="speedModifier"> Modifies speed of enemy. 1.0f is normal speed. 0f is just rotating.</param>
     /// <param name="target"> Target position in game world.</param>
-    protected virtual void Move(bool shouldRunAway, float speedModifier, Vector3 target)
+    protected virtual void MoveTo(bool shouldRunAway, float speedModifier, Vector3 target)
     {
         Vector3 direction = new Vector3(target.x - transform.position.x,
                                 0,

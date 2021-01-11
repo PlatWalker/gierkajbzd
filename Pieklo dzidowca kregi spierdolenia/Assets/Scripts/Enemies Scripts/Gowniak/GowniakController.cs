@@ -15,6 +15,8 @@ public class GowniakController : EnemyController
 
     private Stopwatch aggroTimer;
 
+    private float normalSpeedModifier = 1f;
+
 
 
     // Start is called before the first frame update
@@ -47,7 +49,7 @@ public class GowniakController : EnemyController
         {
             aggroTimer = (aggroTimer != null && aggroTimer.IsRunning)||aggroCommenced ? aggroTimer : Stopwatch.StartNew();
 
-            Move(false, 0f, MainCharacterTransform.position);
+            MoveTo(false, 0f, MainCharacterTransform.position);
 
             if (distanceToMainChar < AttackRadius) //checking if main char is in attack range
             {
@@ -59,7 +61,7 @@ public class GowniakController : EnemyController
             else if (aggroCommenced)
             {
                 easyAnimator.SetBooleanTrue("Move");
-                Move(false, 1f, MainCharacterTransform.position);
+                MoveTo(false, normalSpeedModifier, MainCharacterTransform.position);
             }
             else
             {
@@ -75,7 +77,7 @@ public class GowniakController : EnemyController
         {
             aggroTimer = null; // stop aggroTimer, main char outside of aggro radius
             easyAnimator.SetBooleanTrue("Move");
-            Move(false, 1f, SpawnPoint);
+            MoveTo(false, normalSpeedModifier, SpawnPoint);
         }
         else
         {
