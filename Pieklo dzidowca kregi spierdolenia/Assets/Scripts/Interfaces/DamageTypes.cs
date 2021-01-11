@@ -1,6 +1,10 @@
-﻿public enum DamageTypes
+﻿/// <summary>
+/// Crteted by Kumdzio
+/// </summary>
+
+public enum DamageType
 {
     Spierdolenie,
-    CloseCombat,
+    CloseCombat,    //for now there are only example damage types
     Dystansowa
 }

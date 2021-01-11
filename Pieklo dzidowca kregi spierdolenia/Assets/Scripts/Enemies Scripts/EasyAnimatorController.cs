@@ -9,7 +9,7 @@ public class EasyAnimatorController
 {
     private Animator animator;
     private string[] booleansNames;
-    private string currentTrueBoolean;
+    private string currentTrueBoolean=null;
 
     public EasyAnimatorController(Animator _animator, string[] ignoredBooleansArray)
     {
@@ -59,18 +59,19 @@ public class EasyAnimatorController
                 }
             }
         }
-        currentTrueBoolean = booleansNames[0];
+        currentTrueBoolean = null;
     }
 
-    public bool setBooleanTrue(string booleanName)
+    public bool SetBooleanTrue(string booleanName)
     {
+        if (currentTrueBoolean == booleanName) return true;
         foreach (string name in booleansNames)
         {
             if (name == booleanName)
             {
-                animator.SetBool(currentTrueBoolean, false);
-                currentTrueBoolean = name;
-                animator.SetBool(currentTrueBoolean, true);
+                animator.SetBool(name, true);
+                if(currentTrueBoolean != null) animator.SetBool(currentTrueBoolean, false);
+                currentTrueBoolean = name;                
                 return true;
             }
         }
@@ -84,10 +85,21 @@ public class EasyAnimatorController
         {
             animator.SetBool(name, false);
         }
+        currentTrueBoolean = null;
     }
 
     public string GetCurrentTrueBoolean()
     {
         return currentTrueBoolean;
+    }
+
+    public bool GetBoolean(string name)
+    {
+        return animator.GetBool(name);
+    }
+
+    public void SetBooleanDirectly(string name,bool value)
+    {
+        animator.SetBool(name, value);
     }
 }

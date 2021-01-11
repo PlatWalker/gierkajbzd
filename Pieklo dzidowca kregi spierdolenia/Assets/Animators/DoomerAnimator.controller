@@ -173,6 +173,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: shouldReturnToSpawn
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isPlayerReached
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6438707615569266247}
   m_Solo: 0
