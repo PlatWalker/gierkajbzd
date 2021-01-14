@@ -11,7 +11,7 @@ public class CameraController : MonoBehaviour
     public GameObject player;
 
     [SerializeField]
-    public Vector3 offset;
+    private Vector3 offset;
 
     private void Awake()
     {
