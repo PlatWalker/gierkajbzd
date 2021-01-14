@@ -22,24 +22,22 @@ namespace jbzdy.CharacterStats
         #endregion
 
         [Header("Experience stats")]
-        [SerializeField] private int ExperiencePoints;
-        [SerializeField] private int Level;
+        [SerializeField] private int _ExperiencePoints;
+        [SerializeField] private int _Level;
 
         [Header("Soft stats")]
-        [SerializeField] private int MaxHealth;
-        [SerializeField] private Stat Health;
-        [SerializeField] private Stat Mana;
-        [SerializeField] protected Stat Armor;
-        [SerializeField] protected Stat Damage;
+        [SerializeField] private int _MaxHealth;
+        [SerializeField] private Stat _Health;
+        [SerializeField] private Stat _Mana;
+        [SerializeField] protected Stat _Armor;
+        [SerializeField] protected Stat _Damage;
 
         [Header("Hard stats")]
-        [SerializeField] private Stat Strenght;
-        [SerializeField] private Stat Agility;
-        [SerializeField] private Stat Intelligence;
-        [SerializeField] private Stat Vitality;
-        [SerializeField] private Stat Luck;
-
-        public int toNextLevel;
+        [SerializeField] private Stat _Strenght;
+        [SerializeField] private Stat _Agility;
+        [SerializeField] private Stat _Intelligence;
+        [SerializeField] private Stat _Vitality;
+        [SerializeField] private Stat _Luck;
 
         private void Start()
         {
@@ -48,65 +46,146 @@ namespace jbzdy.CharacterStats
 
         #region Getters & Setters
 
-        public int GetMaxHealth()
+        public int ExperiencePoints
         {
-            return MaxHealth;
+            get
+            {
+                return _ExperiencePoints;
+            }
+            set
+            {
+                _ExperiencePoints = value;
+            }
         }
-        public Stat ReturnHealth()
+        public int Level
         {
-            return Health;
+            get
+            {
+                return _Level;
+            }
+            private set
+            {
+                _Level = value;
+            }
         }
-        public Stat ReturnMana()
+        public int MaxHealth 
         {
-            return Mana;
+            get
+            {
+                return _MaxHealth;
+            }
+            set 
+            {
+                _MaxHealth = value;
+            } 
         }
-        public Stat ReturnArmor()
+        public Stat Health
         {
-            return Armor;
+            get
+            {
+                return _Health;
+            }
+            set
+            {
+                _Health = value;
+            }
         }
-        public Stat ReturnDamage()
+        public Stat Mana
         {
-            return Damage;
+            get
+            {
+                return _Mana;
+            }
+            set
+            {
+                _Mana = value;
+            }
         }
-        public Stat ReturnStrenght()
+        public Stat Armor
         {
-            return Strenght;
+            get
+            {
+                return _Armor;
+            }
+            set
+            {
+                _Armor = value;
+            }
         }
-        public Stat ReturnAgility()
+        public Stat Damage
         {
-            return Agility;
+            get
+            {
+                return _Damage;
+            }
+            set
+            {
+                _Damage = value;
+            }
         }
-        public Stat ReturnIntelligence()
+        public Stat Strenght
         {
-            return Intelligence;
+            get
+            {
+                return _Strenght;
+            }
+            set
+            {
+                _Strenght = value;
+            }
         }
-        public Stat ReturnVitality()
+        public Stat Agility
         {
-            return Vitality;
+            get
+            {
+                return _Agility;
+            }
+            set
+            {
+                _Agility = value;
+            }
         }
-        public Stat ReturnLuck()
+        public Stat Intelligence
         {
-            return Luck;
+            get
+            {
+                return _Intelligence;
+            }
+            set
+            {
+                _Intelligence = value;
+            }
         }
-        public void SetLuck(int value)
+        public Stat Vitality
         {
-            Luck.SetBaseValue(value);
+            get
+            {
+                return _Vitality;
+            }
+            set
+            {
+                _Vitality = value;
+            }
         }
-        public int ReturnLevel()
+        public Stat Luck
         {
-            return Level;
+            get
+            {
+                return _Luck;
+            }
+            set
+            {
+                _Luck = value;
+            }
         }
+      
         public void AddToLevel(int value)
         {
-            Level += value;
-        }
-        public int GetExperiencePoints()
-        {
-            return ExperiencePoints;
+            _Level += value;
         }
         public void SetExperiencePoints(int value)
         {
-            ExperiencePoints += value;
+            _ExperiencePoints += value;
         }
 
         #endregion

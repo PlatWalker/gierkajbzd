@@ -12,9 +12,9 @@ namespace jbzdy.StatCreation
     public class ExperienceManager : MonoBehaviour
     {
         [SerializeField] private PlayerStats playerStats;
-        public StatCreator statCreator;
-        public int statPoint;
-        public int toNextLevel;
+        [SerializeField] private StatCreator statCreator;
+        [SerializeField] private int statPoint;
+        [SerializeField] private int toNextLevel;
 
         private void Start()
         {
@@ -25,7 +25,7 @@ namespace jbzdy.StatCreation
         {
             //Wywoływanie wszystkiego co powinno się wydarzyć podczas kiedy gracz zdobywa poziom
             CalculateNextLevelXP();
-            statCreator.GetPlayerStats().AddToLevel(1);
+            statCreator.PlayerStats.AddToLevel(1);
             statCreator.FillStatBoxes(statPoint);
             statCreator.gameObject.SetActive(true);
         }
@@ -40,7 +40,7 @@ namespace jbzdy.StatCreation
         {
             playerStats.SetExperiencePoints(xpPoints);
 
-            if(playerStats.GetExperiencePoints() >= toNextLevel)
+            if(playerStats.ExperiencePoints >= toNextLevel)
             {
                 LevelUp();
             }

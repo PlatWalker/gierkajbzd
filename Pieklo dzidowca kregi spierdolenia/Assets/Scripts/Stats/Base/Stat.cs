@@ -11,14 +11,22 @@ namespace jbzdy.CharacterStats
     [System.Serializable]
     public class Stat
     {
-        public string statName;
-        [SerializeField] private int baseValue;
+        [SerializeField] private string _statName;
+        [SerializeField] private int _baseValue;
 
         public List<int> modifiers = new List<int>();
 
+        public string StatName
+        {
+            get
+            {
+                return _statName;
+            }
+        }
+
         public int GetBaseValue()
         {
-            int finalValue = baseValue;
+            int finalValue = _baseValue;
             modifiers.ForEach(x => finalValue += x);
 
             return finalValue;
@@ -26,7 +34,7 @@ namespace jbzdy.CharacterStats
 
         public int SetBaseValue(int value)
         {
-            return baseValue = value;
+            return _baseValue = value;
         }
 
         public void AddModifier(int modifier)

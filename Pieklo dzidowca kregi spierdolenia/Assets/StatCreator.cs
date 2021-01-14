@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using jbzdy.CharacterStats;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using jbzdy.CharacterStats;
 
 /// <summary>
 /// Napisane przez sharashino
@@ -15,39 +15,49 @@ namespace jbzdy.StatCreation
     [System.Serializable]
     public class StatCreator : MonoBehaviour
     {
-        [SerializeField] private PlayerStats playerStats;
-        [SerializeField] private List<StatBox> statBoxes;
-        [SerializeField] private List<Stat> modifiableStats;
         [SerializeField] private Text pointsLeft;
         [SerializeField] private Text levelNumber;
-        [SerializeField] private int pointsToAdd;
+        [SerializeField] private PlayerStats _playerStats;
+        [SerializeField] private int _pointsToAdd;
+        [SerializeField] private List<StatBox> statBoxes;
+        [SerializeField] private List<Stat> modifiableStats;
 
-        private void Start()
+        public int PointsToAdd 
+        { 
+            get
+            {
+                return _pointsToAdd;
+            } 
+        }
+
+        public PlayerStats PlayerStats
         {
+            get
+            {
+                return _playerStats;
+            }
         }
 
         private void Update()
         {
-            pointsLeft.text = GetPointsToAdd().ToString();
+            pointsLeft.text = PointsToAdd.ToString();
         }
 
         public void OnApplyPress()
         {
             for (int i = 0; i < statBoxes.Count; i++)
             {
-                Debug.Log(modifiableStats[i].SetBaseValue(statBoxes[i].statValue));
-                modifiableStats[i].SetBaseValue(statBoxes[i].statValue);
-
+                modifiableStats[i].SetBaseValue(statBoxes[i].StatValue);
             }
             gameObject.SetActive(false);
         }
 
         public void FillStatBoxes(int pointsToAdd)
         {
-            modifiableStats = playerStats.modifiableStatsList;
+            modifiableStats = PlayerStats.modifiableStatsList;
             pointsLeft.text = pointsToAdd.ToString();
-            this.pointsToAdd = pointsToAdd;
-            levelNumber.text = playerStats.ReturnLevel().ToString();
+            _pointsToAdd = pointsToAdd;
+            levelNumber.text = PlayerStats.Level.ToString();
 
             if(statBoxes.Count < 5)
             {
@@ -57,43 +67,21 @@ namespace jbzdy.StatCreation
                 }
             }
 
-
             for (int i = 0; i < modifiableStats.Count; i++)
             {
-                statBoxes[i].statName.text = modifiableStats[i].statName;
-                statBoxes[i].statValue = modifiableStats[i].GetBaseValue();
-                statBoxes[i].statValueText.text = statBoxes[i].statValue.ToString();
+                statBoxes[i].StatName.text = modifiableStats[i].StatName;
+                statBoxes[i].StatValue = modifiableStats[i].GetBaseValue();
+                statBoxes[i].StatValueText.text = statBoxes[i].StatValue.ToString();
             }
-        }
-
-        
-
-        public PlayerStats GetPlayerStats()
-        {
-            return playerStats;
-        }
-
-        public int GetPointsToAdd()
-        {
-            return pointsToAdd;
         }
 
         public void AddPointsToAdd(int value)
         {
-            pointsToAdd += value;
+            _pointsToAdd += value;
         }
         public void SubtractPointsToAdd(int value)
         {
-            pointsToAdd -= value;
+            _pointsToAdd -= value;
         }
-    }
-
-    public enum StatType
-    {
-        Strenght,
-        Agility,
-        Intelligence,
-        Vitality,
-        Luck
     }
 }

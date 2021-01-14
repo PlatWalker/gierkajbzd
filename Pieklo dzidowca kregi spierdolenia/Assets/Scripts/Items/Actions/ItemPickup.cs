@@ -9,7 +9,7 @@
 /// </summary>
 public class ItemPickup : Interactables
 {
-    [SerializeField] public Item item;
+    [SerializeField] private Item item;
 
     public override void Interact()
     {

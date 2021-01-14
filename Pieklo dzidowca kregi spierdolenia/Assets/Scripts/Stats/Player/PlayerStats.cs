@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using jbzdy.StatCreation;
+using System;
 
 /// <summary>
 /// Napisane przez Sharashino
@@ -38,6 +39,11 @@ namespace jbzdy.CharacterStats
 
         private void Update()
         {
+            TestingCheats();
+        }
+
+        private void TestingCheats()
+        {
             if (Input.GetKeyDown(KeyCode.T))
             {
                 TakeDamage(5);
@@ -53,20 +59,20 @@ namespace jbzdy.CharacterStats
                 experienceManager.AddXP(10);
             }
 
-            if(Input.GetKeyDown(KeyCode.P))
+            if (Input.GetKeyDown(KeyCode.P))
             {
-                    
+
                 experienceManager.LevelUp();
             }
         }
 
         public void AddModifiableStats()
         {
-            modifiableStatsList.Add(ReturnStrenght());
-            modifiableStatsList.Add(ReturnAgility());
-            modifiableStatsList.Add(ReturnIntelligence());
-            modifiableStatsList.Add(ReturnVitality());
-            modifiableStatsList.Add(ReturnLuck());
+            modifiableStatsList.Add(Strenght);
+            modifiableStatsList.Add(Agility);
+            modifiableStatsList.Add(Intelligence);
+            modifiableStatsList.Add(Vitality);
+            modifiableStatsList.Add(Luck);
         }
     }
 }

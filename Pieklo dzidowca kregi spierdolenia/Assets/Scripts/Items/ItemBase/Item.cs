@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using jbzdy.StatCreation;
-
 
 /// <summary>
 /// Napisane przez Sharashino
@@ -8,9 +6,6 @@ using jbzdy.StatCreation;
 [CreateAssetMenu(fileName = "NewItem", menuName ="Items/New Item")]
 public class Item : ScriptableObject
 {
-    public StatCreator xd;
-
-
     public string itemName = "New Item";
     public string itemDesc = "It must be awesome";
     public Sprite itemIcon = null;
