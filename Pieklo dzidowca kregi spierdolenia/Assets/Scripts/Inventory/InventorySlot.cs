@@ -16,7 +16,7 @@ public class InventorySlot : MonoBehaviour
     public void AddItem(Item itemToAdd)
     {
         slotItem = itemToAdd;
-        itemIcon.sprite = slotItem.itemIcon;
+        itemIcon.sprite = slotItem.ItemIcon;
         itemIcon.enabled = true;
         removeButton.gameObject.SetActive(true);
     }

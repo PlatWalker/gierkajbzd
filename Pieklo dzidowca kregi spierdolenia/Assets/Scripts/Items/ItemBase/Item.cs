@@ -6,11 +6,70 @@
 [CreateAssetMenu(fileName = "NewItem", menuName ="Items/New Item")]
 public class Item : ScriptableObject
 {
-    public string itemName = "New Item";
-    public string itemDesc = "It must be awesome";
-    public Sprite itemIcon = null;
-    public GameObject itemObject;
-    public bool canPickUp;
+    [SerializeField] private string itemName = "New Item";
+    [SerializeField] private string itemDesc = "It must be awesome";
+    [SerializeField] private Sprite itemIcon = null;
+    [SerializeField] private GameObject itemObject;
+    [SerializeField] private bool canPickUp;
+
+    #region properties
+
+    public string ItemName
+    {
+        get
+        {
+            return itemName;
+        }
+        set
+        {
+            itemName = value;
+        }
+    }
+    public string ItemDesc
+    {
+        get
+        {
+            return itemDesc;
+        }
+        set
+        {
+            itemDesc = value;
+        }
+    }
+    public Sprite ItemIcon
+    {
+        get
+        {
+            return itemIcon;
+        }
+        set
+        {
+            itemIcon = value;
+        }
+    }
+    public GameObject ItemObject
+    {
+        get
+        {
+            return itemObject;
+        }
+        set
+        {
+            itemObject = value;
+        }
+    }
+    public bool CanPickUp
+    {
+        get
+        {
+            return canPickUp;
+        }
+        set
+        {
+            canPickUp = value;
+        }
+    }
+    #endregion
 
     public virtual void Use()
     {

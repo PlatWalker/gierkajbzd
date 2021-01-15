@@ -20,7 +20,7 @@ namespace jbzdy.Items
 
         private void ConsumeItem()
         {
-            Debug.Log("Consuming " + consumable.itemName);
+            Debug.Log("Consuming " + consumable.ItemName);
         }
     }
 }

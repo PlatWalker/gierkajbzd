@@ -12,7 +12,7 @@ public class ItemInteract : Interactables
 
     public override void Interact()
     {
-        if(item.canPickUp)
+        if(item.CanPickUp)
         {
             base.Interact();
             PickUpItem();

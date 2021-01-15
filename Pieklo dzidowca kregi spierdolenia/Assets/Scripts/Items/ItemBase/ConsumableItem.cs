@@ -19,7 +19,7 @@ public class ConsumableItem : Item
         //
         //Mocht ik onder het hakkuh bezwijken
         
-        Debug.Log("Consuming " + itemName);
+        Debug.Log("Consuming " + ItemName);
     }
 }
 
