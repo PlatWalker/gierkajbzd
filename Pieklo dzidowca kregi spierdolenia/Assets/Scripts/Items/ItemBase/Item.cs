@@ -69,6 +69,7 @@ public class Item : ScriptableObject
             canPickUp = value;
         }
     }
+
     #endregion
 
     public virtual void Use()

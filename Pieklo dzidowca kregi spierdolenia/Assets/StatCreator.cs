@@ -47,7 +47,7 @@ namespace jbzdy.StatCreation
         {
             for (int i = 0; i < statBoxes.Count; i++)
             {
-                modifiableStats[i].SetBaseValue(statBoxes[i].StatValue);
+                modifiableStats[i].BaseValue = (statBoxes[i].StatValue);
             }
             gameObject.SetActive(false);
         }
@@ -70,7 +70,7 @@ namespace jbzdy.StatCreation
             for (int i = 0; i < modifiableStats.Count; i++)
             {
                 statBoxes[i].StatName.text = modifiableStats[i].StatName;
-                statBoxes[i].StatValue = modifiableStats[i].GetBaseValue();
+                statBoxes[i].StatValue = modifiableStats[i].BaseValue;
                 statBoxes[i].StatValueText.text = statBoxes[i].StatValue.ToString();
             }
         }

@@ -24,17 +24,19 @@ namespace jbzdy.CharacterStats
             }
         }
 
-        public int GetBaseValue()
+        public int BaseValue
         {
-            int finalValue = _baseValue;
-            modifiers.ForEach(x => finalValue += x);
+            get
+            {
+                int finalValue = _baseValue;
+                modifiers.ForEach(x => finalValue += x);
 
-            return finalValue;
-        }
-
-        public int SetBaseValue(int value)
-        {
-            return _baseValue = value;
+                return finalValue;
+            }
+            set
+            {
+                _baseValue = value;
+            }
         }
 
         public void AddModifier(int modifier)

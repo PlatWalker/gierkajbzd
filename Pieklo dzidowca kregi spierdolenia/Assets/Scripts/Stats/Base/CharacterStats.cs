@@ -41,7 +41,7 @@ namespace jbzdy.CharacterStats
 
         private void Start()
         {
-            MaxHealth = Health.GetBaseValue();
+            MaxHealth = Health.BaseValue;
         }
 
         #region Getters & Setters
@@ -193,7 +193,7 @@ namespace jbzdy.CharacterStats
 
         public void Heal(int health)
         {
-            if(MaxHealth + health > Health.GetBaseValue())
+            if(MaxHealth + health > Health.BaseValue)
             {
                 Health.AddModifier(5);
             }
@@ -206,7 +206,7 @@ namespace jbzdy.CharacterStats
         public void TakeDamage(int damage)
         {
             //logic for damage reduction goes here
-            damage -= Armor.GetBaseValue();
+            damage -= Armor.BaseValue;
             damage = Mathf.Clamp(damage, 0, int.MaxValue);
 
             MaxHealth -= damage;
