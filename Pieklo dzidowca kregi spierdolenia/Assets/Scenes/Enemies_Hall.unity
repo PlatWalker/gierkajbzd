@@ -358,7 +358,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2a9499d0e8a7c85469c6caa41c62932b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.000002861023
+      value: 0.06
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2a9499d0e8a7c85469c6caa41c62932b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -453,6 +453,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!136 &422609025
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 422609021}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &579788697
 GameObject:
   m_ObjectHideFlags: 0
@@ -586,7 +600,7 @@ MonoBehaviour:
   _attackRadius: 8.5
   _maxHealth: 100
   runAwayRadius: 5
-  runSpeedDebuff: 0.7
+  runSpeedModifier: 0.7
   projectileObject: {fileID: 6098825241959534323, guid: 8efa137217a315c4ab1b5c23c8bbe038, type: 3}
   projectileSpawnPoint: {fileID: 579788698}
   throwPower: 0.2
@@ -1288,6 +1302,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5319815682568363412, guid: f78de11a0dfd320488932970eedf1d7e, type: 3}
   m_PrefabInstance: {fileID: 1567557346}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1990895653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990895652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9614570d4fdfa9c45859bfb9d04ea728, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throwPower: 20
 --- !u!1 &2019764443
 GameObject:
   m_ObjectHideFlags: 0
