@@ -381,12 +381,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bc33293542a5964abedf06ad26a0c87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCharacterTransform: {fileID: 1700259527}
-  movementSpeed: 0.1
-  aggroRadius: 10
+  turnOffAI: 0
+  _movementSpeed: 0.15
+  _rotationSpeed: 0.15
+  _mainCharacterTransform: {fileID: 1700259527}
+  _aggroRadius: 20
+  _attackRadius: 1.5
+  _maxHealth: 100
   aggroMaxTimeMs: 5000
-  attackRadius: 1.5
-  maxHealth: 100
 --- !u!1 &610713560
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,18 +550,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70f531dce30267548a90f40512801ea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCharacterTransform: {fileID: 1700259527}
-  movementSpeed: 0.09
-  aggroRadius: 10
-  attackRadius: 6
-  runRadius: 5
-  runSpeedDebuff: 0.7
-  rotationSpeed: 0.3
+  turnOffAI: 0
+  _movementSpeed: 0.15
+  _rotationSpeed: 0.15
+  _mainCharacterTransform: {fileID: 1700259527}
+  _aggroRadius: 20
+  _attackRadius: 5
+  _maxHealth: 100
+  runAwayRadius: 1.4
+  runSpeedModifier: 0.7
   projectileObject: {fileID: 6098825241959534323, guid: 8efa137217a315c4ab1b5c23c8bbe038, type: 3}
   projectileSpawnPoint: {fileID: 625614574}
   throwPower: 0.6
-  maxHealth: 100
-  currentHealth: 0
+  throwTargetHeight: 1.8
 --- !u!136 &664716154
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -911,12 +914,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b8d0f21c4ac4bd46a31f84a1a276236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCharacterTransform: {fileID: 1700259527}
-  movementSpeed: 0.034
-  movementRushSpeed: 0.05
-  aggroRadius: 10
-  rotationSpeed: 0.15
-  maxHealth: 100
+  turnOffAI: 0
+  _movementSpeed: 0.15
+  _rotationSpeed: 0.15
+  _mainCharacterTransform: {fileID: 1700259527}
+  _aggroRadius: 20
+  _attackRadius: 1.5
+  _maxHealth: 100
+  movementRushSpeedModifier: 1.05
+  jumpSpeed: 1.08
+  firstAttackRadius: 4
 --- !u!4 &1230067269 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2a9499d0e8a7c85469c6caa41c62932b, type: 3}
@@ -1268,6 +1275,10 @@ PrefabInstance:
     - target: {fileID: 5319815682568363412, guid: f78de11a0dfd320488932970eedf1d7e, type: 3}
       propertyPath: m_Name
       value: Movement variation 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5319815682568363414, guid: f78de11a0dfd320488932970eedf1d7e, type: 3}
+      propertyPath: playerSpeed
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f78de11a0dfd320488932970eedf1d7e, type: 3}
