@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
+/// <summary>
+/// Created by Kumdzio
+/// </summary>
 public class ProjectilesSpawn : StateMachineBehaviour
 {
     private bool onlyOneProjectile;

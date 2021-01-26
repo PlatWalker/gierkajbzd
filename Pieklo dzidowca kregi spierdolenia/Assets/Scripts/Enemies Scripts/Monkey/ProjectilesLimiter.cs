@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
+/// <summary>
+/// Created by Kumdzio
+/// </summary>
 public class ProjectilesLimiter : MonoBehaviour
 {
     private static long nextID = 0;
