@@ -23,6 +23,7 @@ public class ShootControl : MonoBehaviour
         projectileObject.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
         Rigidbody rigidbody = projectileObject.AddComponent<Rigidbody>();
         rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        rigidbody.useGravity = false;
     }
 
     // Update is called once per frame
@@ -32,21 +33,20 @@ public class ShootControl : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            RaycastHit hit = new RaycastHit();
+            RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log(hit.collider.gameObject.name);
                 GameObject projectile = Instantiate(projectileObject, (transform.position + new Vector3(0,2,0)), transform.rotation);
 
                 projectile.AddComponent<BulletController>();
                 projectile.GetComponent<BulletController>().SetUp(timeToDestruction, damageAmount, typeOfDamage, critMultiplier, critChance);
 
                 Rigidbody rigidbody = projectile.GetComponent<Rigidbody>();
-                Vector3 throwDirection = (hit.point - projectile.transform.position);
-                Debug.Log(hit.point);
-
+                Vector3 throwDirection= (hit.point - projectile.transform.position);
                 throwDirection.y += throwTargetHeight;
+
+
                 throwDirection = throwDirection.normalized;
                 throwDirection *= throwPower;
                 rigidbody.AddForce(throwDirection, ForceMode.Impulse);
