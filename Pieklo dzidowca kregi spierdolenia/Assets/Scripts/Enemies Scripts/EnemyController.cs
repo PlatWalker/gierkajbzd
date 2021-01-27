@@ -193,11 +193,11 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     /// <param name="damageType"> Type of received damage.</param>
     /// <param name="criticalMultiplier"> Determines how much the damage is multiplied.</param>
     /// <param name="criticalChance"> What is the chance that critical hit will land. Have to be in range 0f-1f.</param>
-    public virtual void SetDamage(int damageAmount, DamageType damageType, int criticalMultiplier, float criticalChance)
+    public virtual void SetDamage(int damageAmount, DamageType damageType, float criticalMultiplier, float criticalChance)
     {
         if (Random.Range(0.0f, 1.0f) <= criticalChance)
         {
-            damageAmount *= criticalMultiplier;
+            damageAmount =(int)(damageAmount * criticalMultiplier);
         }
         this.SetDamage(damageAmount, damageType);
     }
