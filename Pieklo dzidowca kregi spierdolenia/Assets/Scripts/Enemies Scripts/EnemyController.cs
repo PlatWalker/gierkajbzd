@@ -7,6 +7,21 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
 {
     [Header("Artifical Intelligence")]
     [SerializeField] protected bool turnOffAI = false;
+    public bool Alive { get; protected set; }
+    [SerializeField] private float _disappearAfter = 5.0f;
+    public float DisappearAfter 
+    {
+        get
+        {
+            return _disappearAfter;
+        }
+        protected set
+        {
+            _disappearAfter = value;
+        }
+    }
+    protected float DisappearTimer { get; set; }
+
     [Header("Movement")]
     [SerializeField] private float _movementSpeed = 0.15f;
     public virtual float MovementSpeed
@@ -102,6 +117,9 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
                                 transform.position.y,
                                 transform.position.z);
         CurrentHealth = MaxHealth;
+        Alive = true;
+        DisappearTimer = 0f;
+        GetComponent<Animator>().SetFloat("IdleSpeedMultiplier", Random.Range(0.9f, 1.1f));
     }
 
     //OnValidate is called when script is loaded and everytime when value is changed

@@ -74,7 +74,17 @@ public class DoomerController : EnemyController
     override protected void FixedUpdate()
     {
 
-        if (turnOffAI) return;
+        if (CurrentHealth <= 0)
+        {
+            Alive = false;
+            DisappearTimer += Time.deltaTime;
+            if (DisappearTimer >= DisappearAfter) Destroy(this.gameObject);
+            easyAnimator.SetBooleanDirectly("isDying", true);
+        }
+
+        if (turnOffAI || !Alive ) return;
+
+
         transform.Rotate(0.0f, -90.0f, 0.0f); //reApply Bug of gizmos have to be removed vefore endig this method
         easyAnimator.ResetAllBooleans();
 
