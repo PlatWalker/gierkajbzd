@@ -85,7 +85,6 @@ public class DoomerController : EnemyController
         if (turnOffAI || !Alive ) return;
 
 
-        transform.Rotate(0.0f, -90.0f, 0.0f); //reApply Bug of gizmos have to be removed vefore endig this method
         easyAnimator.ResetAllBooleans();
 
         float distanceToMainChar = Vector3.Distance(transform.position, MainCharacterTransform.position);
@@ -159,6 +158,5 @@ public class DoomerController : EnemyController
                 easyAnimator.ResetAllBooleans();
             }
         }
-        transform.Rotate(0.0f, 90.0f, 0.0f); // removing Bug of gizmos - have to be reapplied before calculations
     }
 }
