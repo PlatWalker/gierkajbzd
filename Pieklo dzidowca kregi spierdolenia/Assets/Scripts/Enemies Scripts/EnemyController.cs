@@ -230,4 +230,19 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
         animationPlayPreviousSpeed = GetComponent<Animator>().speed;
         GetComponent<Animator>().speed = temp;
     }
+
+    protected bool PlayerVisible()
+    {
+        //Debug.DrawRay(transform.position, (MainCharacterTransform.position - transform.position), Color.cyan, 0.5f);
+        RaycastHit hit;
+        if (Physics.Raycast((transform.position + new Vector3(0f, 1f, 0f)), ((MainCharacterTransform.position + new Vector3(0f,0f,0f)) - transform.position), out hit, AggroRadius))
+        {
+            Debug.DrawRay((transform.position + new Vector3(0f, 1f, 0f)), ((hit.transform.position + new Vector3(0f, 0f, 0f)) - transform.position), Color.cyan, 0.0f);
+            if (hit.transform == MainCharacterTransform)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

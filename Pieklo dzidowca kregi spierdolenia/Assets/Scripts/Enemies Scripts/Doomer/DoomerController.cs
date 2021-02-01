@@ -93,7 +93,7 @@ public class DoomerController : EnemyController
         hasDoneAggro = easyAnimator.GetBoolean("hasFinishedAggro");
         hasDoneSpecialAttack = easyAnimator.GetBoolean("hasFinishedFirstAttack");
 
-        if (distanceToMainChar < AggroRadius && distanceToMainChar > AttackRadius)// checking if main char is visible for enemy and should not attack
+        if (distanceToMainChar < AggroRadius && distanceToMainChar > AttackRadius && PlayerVisible())// checking if main char is visible for enemy and should not attack
         {
 
             easyAnimator.SetBooleanDirectly("isSeeingPlayer",true);
@@ -136,7 +136,7 @@ public class DoomerController : EnemyController
 
             }            
         }
-        else if (distanceToMainChar <= AttackRadius)
+        else if (distanceToMainChar <= AttackRadius && PlayerVisible())
         {
             if (distanceToMainChar > 0.3)
             {
