@@ -21,6 +21,7 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
         }
     }
     protected float DisappearTimer { get; set; }
+    public bool TriggeredByAttack { get; protected set; }
 
     [Header("Movement")]
     [SerializeField] private float _movementSpeed = 0.15f;
@@ -58,6 +59,7 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
             return _mainCharacterTransform;
         }
     }
+    public Vector3 GoToPoint { get; protected set; }
 
     [Header("Fight")]
     [SerializeField] private float _aggroRadius = 20.0f;
@@ -70,6 +72,19 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
         protected set
         {
             _aggroRadius = value;
+        }
+    }
+
+    [SerializeField] private float _aggroByAttackRadius = 50.0f;
+    public virtual float AggroByAttackRadius
+    {
+        get
+        {
+            return _aggroByAttackRadius;
+        }
+        protected set
+        {
+            AggroByAttackRadius = value;
         }
     }
 
@@ -118,8 +133,9 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
                                 transform.position.z);
         CurrentHealth = MaxHealth;
         Alive = true;
-        DisappearTimer = 0f;
+        //DisappearTimer = 0f;
         GetComponent<Animator>().SetFloat("IdleSpeedMultiplier", Random.Range(0.9f, 1.1f));
+        //TriggeredByAttack = false;
     }
 
     //OnValidate is called when script is loaded and everytime when value is changed
@@ -202,6 +218,8 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     {
         //for now damage types are ignored
         CurrentHealth -= damageAmount;
+
+        TriggerByAttack();
     }
 
     /// <summary>
@@ -231,6 +249,10 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
         GetComponent<Animator>().speed = temp;
     }
 
+    /// <summary>
+    /// Method that is checking if player is visible for enemy who is calling this method.
+    /// </summary>
+    /// <returns>True if player is visible otherwise false</returns>
     protected bool PlayerVisible()
     {
         //Debug.DrawRay(transform.position, (MainCharacterTransform.position - transform.position), Color.cyan, 0.5f);
@@ -244,5 +266,17 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
             }
         }
         return false;
+    }
+
+    /// <summary>
+    /// Method that is called to handle aggro when attacked from distance greater than aggro radius
+    /// </summary>
+    protected void TriggerByAttack()
+    {
+        if(Vector3.Distance(transform.position,MainCharacterTransform.position) <= AggroByAttackRadius)
+        {
+            TriggeredByAttack = true;
+            GoToPoint = MainCharacterTransform.position;
+        }
     }
 }

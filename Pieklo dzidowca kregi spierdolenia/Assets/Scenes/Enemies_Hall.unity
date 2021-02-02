@@ -576,6 +576,7 @@ MonoBehaviour:
   _rotationSpeed: 1
   _mainCharacterTransform: {fileID: 1567557347}
   _aggroRadius: 15
+  _aggroByAttackRadius: 50
   _attackRadius: 8.5
   _maxHealth: 100
   runAwayRadius: 5
@@ -751,6 +752,7 @@ MonoBehaviour:
   _rotationSpeed: 0.15
   _mainCharacterTransform: {fileID: 1567557347}
   _aggroRadius: 10
+  _aggroByAttackRadius: 50
   _attackRadius: 1.5
   _maxHealth: 100
   aggroMaxTimeMs: 2000
@@ -765,7 +767,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 24d9229b05d8c1a40a670efabd74c4c0, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -1010,6 +1012,7 @@ MonoBehaviour:
   _rotationSpeed: 0.4
   _mainCharacterTransform: {fileID: 1567557347}
   _aggroRadius: 10
+  _aggroByAttackRadius: 50
   _attackRadius: 1.5
   _maxHealth: 100
   movementRushSpeedModifier: 1.05
@@ -1323,7 +1326,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4601f3fa788ee3242bbf4e04d063cd11, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.000002861023
+      value: 0.19
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4601f3fa788ee3242bbf4e04d063cd11, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1404,7 +1407,7 @@ GameObject:
   - component: {fileID: 2019764444}
   m_Layer: 0
   m_Name: Terrain
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

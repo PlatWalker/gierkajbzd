@@ -16,11 +16,11 @@ public class DoomerController : EnemyController
    
     private Vector3 jumpDirection = Vector3.zero;
 
-    private bool hasDoneAggro;
+    private static bool hasDoneAggro;
 
     private bool hasDoneSpecialAttack;
     
-    private float normalSpeedModifier = 1f;
+    private const float normalSpeedModifier = 1f;
 
 
 
@@ -29,8 +29,6 @@ public class DoomerController : EnemyController
     {
         base.Start();
         easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), new string[] {"hasFinishedAggro","hasFinishedFirstAttack","shouldUseSecondAttack"});
-        hasDoneSpecialAttack = false;
-        hasDoneAggro = false;
     }
 
     //OnValidate is called when script is loaded and everytime when value is changed
@@ -89,7 +87,7 @@ public class DoomerController : EnemyController
 
         float distanceToMainChar = Vector3.Distance(transform.position, MainCharacterTransform.position);
        
-        hasDoneAggro = easyAnimator.GetBoolean("hasFinishedAggro");
+        easyAnimator.SetBooleanDirectly("hasFinishedAggro",hasDoneAggro);
         hasDoneSpecialAttack = easyAnimator.GetBoolean("hasFinishedFirstAttack");
 
         if (distanceToMainChar < AggroRadius && distanceToMainChar > AttackRadius && PlayerVisible())// checking if main char is visible for enemy and should not attack
@@ -142,11 +140,33 @@ public class DoomerController : EnemyController
                 MoveTo(false, 0.0f, MainCharacterTransform.position);
             }
             easyAnimator.SetBooleanDirectly("isPlayerReached", true);
-            easyAnimator.SetBooleanDirectly("isPlayerReached", true);
             //tutaj zadawanie obrażeń - collider i te sprawy
             //dodać tutaj sprawdzenie czy zakończono atak specjalnt i jesli tak to normalne obrażenia a jak nie to dodatkowe obrażenia
         }
-        else
+        else if(TriggeredByAttack)
+        {
+            float speed;
+            if (hasDoneSpecialAttack)
+            {
+                speed = normalSpeedModifier;
+            }
+            else
+            {
+                speed = movementRushSpeedModifier;
+            }
+
+            easyAnimator.SetBooleanDirectly("isSeeingPlayer", true);
+
+            if (Vector3.Distance(GoToPoint, transform.position) > 1f)
+            {
+                MoveTo(false, speed, GoToPoint);
+            }
+            else
+            {
+                TriggeredByAttack = false;
+            }
+
+        }else
         {
             if (Vector3.Distance(transform.position, SpawnPoint) > 2.0f)
             {
