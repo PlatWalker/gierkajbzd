@@ -16,7 +16,7 @@ public class DoomerController : EnemyController
    
     private Vector3 jumpDirection = Vector3.zero;
 
-    private static bool hasDoneAggro;
+    public static bool HasDoneAggro { get; set; }
 
     private bool hasDoneSpecialAttack;
     
@@ -28,7 +28,8 @@ public class DoomerController : EnemyController
     override protected void Start()
     {
         base.Start();
-        easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), new string[] {"hasFinishedAggro","hasFinishedFirstAttack","shouldUseSecondAttack"});
+        easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), new string[] {"shouldUseSecondAttack"});
+        hasDoneSpecialAttack = false;
     }
 
     //OnValidate is called when script is loaded and everytime when value is changed
@@ -71,40 +72,20 @@ public class DoomerController : EnemyController
     // Update is called once per frame
     override protected void FixedUpdate()
     {
-
-        if (CurrentHealth <= 0)
-        {
-            Alive = false;
-            DisappearTimer += Time.deltaTime;
-            if (DisappearTimer >= DisappearAfter) Destroy(this.gameObject);
-            easyAnimator.SetBooleanDirectly("isDying", true);
-        }
+        HandleDying();
 
         if (turnOffAI || !Alive ) return;
 
 
-        easyAnimator.ResetAllBooleans();
-
         float distanceToMainChar = Vector3.Distance(transform.position, MainCharacterTransform.position);
-       
-        easyAnimator.SetBooleanDirectly("hasFinishedAggro",hasDoneAggro);
-        hasDoneSpecialAttack = easyAnimator.GetBoolean("hasFinishedFirstAttack");
 
         if (distanceToMainChar < AggroRadius && distanceToMainChar > AttackRadius && PlayerVisible())// checking if main char is visible for enemy and should not attack
         {
-
-            easyAnimator.SetBooleanDirectly("isSeeingPlayer",true);
-            MoveTo(false, 0.0f, MainCharacterTransform.position);
-
-            if (hasDoneAggro)
+            if (HasDoneAggro)
             {
 
                 if (distanceToMainChar <= firstAttackRadius && !hasDoneSpecialAttack) //checking if should start special attack
                 {
-
-                    easyAnimator.SetBooleanDirectly("isPlayerReached",true);
-                    easyAnimator.SetBooleanDirectly("isSeeingPlayer", true);//thanks to this animator know when start animation of jump
-                    
                     if (jumpDirection == Vector3.zero) 
                     {
                         jumpDirection = MainCharacterTransform.position; //saving jump direction so enemy cannot change direction in air
@@ -114,23 +95,31 @@ public class DoomerController : EnemyController
                     if (Vector3.Distance(jumpDirection, gameObject.transform.position) > AttackRadius)
                     {
                         MoveTo(false, jumpSpeed, jumpDirection);
+                        easyAnimator.SetBooleanTrue("isJumping");
                     }
                     else
                     {
-                        easyAnimator.SetBooleanDirectly("hasFinishedFirstAttack",true);
+                        hasDoneSpecialAttack = true;
                     }
                 }
                 else if(hasDoneSpecialAttack)
                 {
                     //if attack has been made just move in normal speed to player
                     MoveTo(false, normalSpeedModifier, MainCharacterTransform.position);
+                    easyAnimator.SetBooleanTrue("isWalking");
                 }
                 else
                 {
                     //when attack has been not made and cannot be made yet move to player in charge
                     MoveTo(false, movementRushSpeedModifier, MainCharacterTransform.position);
+                    easyAnimator.SetBooleanTrue("isRunning");
                 }
 
+            }
+            else
+            {
+                easyAnimator.SetBooleanTrue("isAggroing");
+                MoveTo(false, 0f, MainCharacterTransform.position);
             }            
         }
         else if (distanceToMainChar <= AttackRadius && PlayerVisible())
@@ -139,27 +128,26 @@ public class DoomerController : EnemyController
             {
                 MoveTo(false, 0.0f, MainCharacterTransform.position);
             }
-            easyAnimator.SetBooleanDirectly("isPlayerReached", true);
+            easyAnimator.SetBooleanTrue("isAttacking");
             //tutaj zadawanie obrażeń - collider i te sprawy
             //dodać tutaj sprawdzenie czy zakończono atak specjalnt i jesli tak to normalne obrażenia a jak nie to dodatkowe obrażenia
         }
         else if(TriggeredByAttack)
         {
-            float speed;
-            if (hasDoneSpecialAttack)
-            {
-                speed = normalSpeedModifier;
-            }
-            else
-            {
-                speed = movementRushSpeedModifier;
-            }
-
-            easyAnimator.SetBooleanDirectly("isSeeingPlayer", true);
+            
 
             if (Vector3.Distance(GoToPoint, transform.position) > 1f)
             {
-                MoveTo(false, speed, GoToPoint);
+                if (hasDoneSpecialAttack)
+                {
+                    MoveTo(false, normalSpeedModifier, GoToPoint);
+                    easyAnimator.SetBooleanTrue("isWalking");
+                }
+                else
+                {
+                    MoveTo(false, movementRushSpeedModifier, GoToPoint);
+                    easyAnimator.SetBooleanTrue("isRunning");
+                }
             }
             else
             {
@@ -170,13 +158,19 @@ public class DoomerController : EnemyController
         {
             if (Vector3.Distance(transform.position, SpawnPoint) > 2.0f)
             {
-                easyAnimator.SetBooleanDirectly("shouldReturnToSpawn", true);
+                easyAnimator.SetBooleanTrue("isWalking");
                 MoveTo(false, normalSpeedModifier, SpawnPoint);
             }
             else
-            { 
-                easyAnimator.ResetAllBooleans();
+            {
+                easyAnimator.SetBooleanTrue("isIdling");
             }
+            
         }
+    }
+    override public void SetDamage(int damageAmount, DamageType damageType)
+    {
+        if (!HasDoneAggro) HasDoneAggro = true;
+        base.SetDamage(damageAmount, damageType);
     }
 }

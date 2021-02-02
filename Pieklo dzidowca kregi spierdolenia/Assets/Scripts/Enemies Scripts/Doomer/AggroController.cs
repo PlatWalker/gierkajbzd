@@ -11,7 +11,7 @@ public class AggroController : StateMachineBehaviour
     {
         if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.99 && animator.GetCurrentAnimatorStateInfo(0).IsName("Armature|Aggro"))
         {
-            animator.SetBool("hasFinishedAggro", true);
+            DoomerController.HasDoneAggro = true;
         }
     }
 }

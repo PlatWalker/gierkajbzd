@@ -134,7 +134,7 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
         CurrentHealth = MaxHealth;
         Alive = true;
         //DisappearTimer = 0f;
-        GetComponent<Animator>().SetFloat("IdleSpeedMultiplier", Random.Range(0.9f, 1.1f));
+        GetComponent<Animator>().SetFloat("IdleSpeedMultiplier", Random.Range(0.900001f, 1.100001f));
         //TriggeredByAttack = false;
     }
 
@@ -257,7 +257,8 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     {
         //Debug.DrawRay(transform.position, (MainCharacterTransform.position - transform.position), Color.cyan, 0.5f);
         RaycastHit hit;
-        if (Physics.Raycast((transform.position + new Vector3(0f, 1f, 0f)), ((MainCharacterTransform.position + new Vector3(0f,0f,0f)) - transform.position), out hit, AggroRadius))
+        LayerMask NotEnemiesMask = ~LayerMask.GetMask("Enemies");
+        if (Physics.Raycast((transform.position + new Vector3(0f, 1f, 0f)), ((MainCharacterTransform.position + new Vector3(0f,0f,0f)) - transform.position), out hit, AggroRadius, NotEnemiesMask))
         {
             Debug.DrawRay((transform.position + new Vector3(0f, 1f, 0f)), ((hit.transform.position + new Vector3(0f, 0f, 0f)) - transform.position), Color.cyan, 0.0f);
             if (hit.transform == MainCharacterTransform)
@@ -277,6 +278,22 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
         {
             TriggeredByAttack = true;
             GoToPoint = MainCharacterTransform.position;
+        }
+    }
+
+    /// <summary>
+    /// Method which is dedstroying collider when enemy died and counting to destroy whole model.
+    /// </summary>
+    protected void HandleDying()
+    {
+        if (CurrentHealth <= 0)
+        {
+            Destroy(gameObject.GetComponent<Collider>());
+            Destroy(gameObject.GetComponent<Rigidbody>());
+            Alive = false;
+            DisappearTimer += Time.deltaTime;
+            if (DisappearTimer >= DisappearAfter) Destroy(this.gameObject);
+            easyAnimator.SetBooleanTrue("isDying");
         }
     }
 }
