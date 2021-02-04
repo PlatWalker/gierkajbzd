@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 /// <summary>
 /// Created by Kumdzio.
 /// Abstract class with all needed tolls for simple AI.
@@ -182,6 +183,7 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     /// <param name="target"> Target position in game world.</param>
     protected virtual void MoveTo(bool shouldRunAway, float speedModifier, Vector3 target)
     {
+        /*
         Vector3 direction = new Vector3(target.x - transform.position.x,
                                 0,
                                 target.z - transform.position.z);
@@ -198,6 +200,20 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
 
         Vector3 newDirection = Vector3.RotateTowards(gameObject.transform.forward, direction, RotationSpeed, 0.0f);
         transform.rotation = Quaternion.LookRotation(newDirection);
+        */
+        if(speedModifier>0) 
+        {
+            GetComponent<NavMeshAgent>().destination = target;
+        }
+        else
+        {
+            Vector3 direction = new Vector3(target.x - transform.position.x,
+                                0,
+                                target.z - transform.position.z);
+            direction = Vector3.Normalize(direction);
+            Vector3 newDirection = Vector3.RotateTowards(gameObject.transform.forward, direction, RotationSpeed, 0.0f);
+            transform.rotation = Quaternion.LookRotation(newDirection);
+        }
     }
 
     /// <summary>
