@@ -22,7 +22,10 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
         }
     }
     protected float DisappearTimer { get; set; }
+    public NavMeshAgent NavAgent { get; private set; }
     public bool TriggeredByAttack { get; protected set; }
+    [SerializeField] protected int updateLogicEveryXFrames = 3;
+    protected int framesCounter;
 
     [Header("Movement")]
     [SerializeField] private float _movementSpeed = 0.15f;
@@ -134,9 +137,8 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
                                 transform.position.z);
         CurrentHealth = MaxHealth;
         Alive = true;
-        //DisappearTimer = 0f;
         GetComponent<Animator>().SetFloat("IdleSpeedMultiplier", Random.Range(0.900001f, 1.100001f));
-        //TriggeredByAttack = false;
+        NavAgent = GetComponent<NavMeshAgent>();
     }
 
     //OnValidate is called when script is loaded and everytime when value is changed
@@ -148,62 +150,44 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
         if (MovementSpeed < 0)
         {
             Debug.Log(transform.name + ": Movement speed cannot be lower than 0");
-            MovementSpeed = 0.0f;
         }
         if(MovementSpeed >= 5f)
         {
             Debug.Log(transform.name + ": Movement speed cannot be bigger that 5");
-            MovementSpeed = 5.0f;
         }
         if (MaxHealth <= 0)
         {
             Debug.Log(transform.name + ": MaxHealth cannot be less than 1");
-            MaxHealth = 1;
         }
         if (AttackRadius < 0.5f)
         {
             Debug.Log(transform.name + ": Attack Radius cannot be lower than 0.5");
-            AttackRadius = 0.5f;
         }
         if (AttackRadius >= AggroRadius)
         {
             Debug.Log(transform.name+": Attack radius cannot be bigger that Aggro radius");
-            AttackRadius = AggroRadius-0.01f;
         }
     }
 
     // Update is called once per frame
     protected abstract void FixedUpdate();
     /// <summary>
-    /// Method to move enemy. Can be used towards target, run away from target or just simply rotate 
-    /// enemy when speedModifier=0f
+    /// Method to set destination point for enemy - shouldn't have been updated every frame.
     /// </summary>
-    /// <param name="shouldRunAway"> Decides if enemy should run away from target.</param>
-    /// <param name="speedModifier"> Modifies speed of enemy. 1.0f is normal speed. 0f is just rotating.</param>
-    /// <param name="target"> Target position in game world.</param>
-    protected virtual void MoveTo(bool shouldRunAway, float speedModifier, Vector3 target)
+    /// <param name="target">Destination point of path</param>
+    /// <param name="speed">Speed of travel. 0 = just rotate</param>
+    protected virtual void MoveTo(Vector3 target,float speed, float stopDistance)
     {
-        /*
-        Vector3 direction = new Vector3(target.x - transform.position.x,
-                                0,
-                                target.z - transform.position.z);
+        if (Vector3.Distance(target, NavAgent.destination) < 1f) return;
 
-        if (shouldRunAway)
+        if (NavAgent.stoppingDistance != stopDistance)
         {
-            direction = new Vector3(transform.position.x - target.x,
-                                    0,
-                                    transform.position.z - target.z);
+            NavAgent.stoppingDistance = stopDistance;
         }
-
-        direction = Vector3.Normalize(direction);
-        transform.position += direction * MovementSpeed * speedModifier;
-
-        Vector3 newDirection = Vector3.RotateTowards(gameObject.transform.forward, direction, RotationSpeed, 0.0f);
-        transform.rotation = Quaternion.LookRotation(newDirection);
-        */
-        if(speedModifier>0) 
+        if(speed>0) 
         {
-            GetComponent<NavMeshAgent>().destination = target;
+            NavAgent.speed = speed;
+            NavAgent.SetDestination(target);
         }
         else
         {
@@ -266,17 +250,15 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     }
 
     /// <summary>
-    /// Method that is checking if player is visible for enemy who is calling this method.
+    /// Method that is checking if player is visible in the aggro radius for enemy who is calling this method.
     /// </summary>
     /// <returns>True if player is visible otherwise false</returns>
     protected bool PlayerVisible()
     {
-        //Debug.DrawRay(transform.position, (MainCharacterTransform.position - transform.position), Color.cyan, 0.5f);
         RaycastHit hit;
         LayerMask NotEnemiesMask = ~LayerMask.GetMask("Enemies");
-        if (Physics.Raycast((transform.position + new Vector3(0f, 1f, 0f)), ((MainCharacterTransform.position + new Vector3(0f,0f,0f)) - transform.position), out hit, AggroRadius, NotEnemiesMask))
+        if (Physics.Raycast((transform.position + new Vector3(0f, 1f, 0f)), (MainCharacterTransform.position - transform.position), out hit, AggroRadius, NotEnemiesMask))
         {
-            Debug.DrawRay((transform.position + new Vector3(0f, 1f, 0f)), ((hit.transform.position + new Vector3(0f, 0f, 0f)) - transform.position), Color.cyan, 0.0f);
             if (hit.transform == MainCharacterTransform)
             {
                 return true;
@@ -292,7 +274,6 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     {
         if(Vector3.Distance(transform.position,MainCharacterTransform.position) <= AggroByAttackRadius)
         {
-            TriggeredByAttack = true;
             GoToPoint = MainCharacterTransform.position;
         }
     }
@@ -300,16 +281,13 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     /// <summary>
     /// Method which is dedstroying collider when enemy died and counting to destroy whole model.
     /// </summary>
-    protected void HandleDying()
+    protected void Die()
     {
-        if (CurrentHealth <= 0)
-        {
-            Destroy(gameObject.GetComponent<Collider>());
-            Destroy(gameObject.GetComponent<Rigidbody>());
-            Alive = false;
-            DisappearTimer += Time.deltaTime;
-            if (DisappearTimer >= DisappearAfter) Destroy(this.gameObject);
-            easyAnimator.SetBooleanTrue("isDying");
-        }
+        Destroy(gameObject.GetComponent<Collider>());
+        Destroy(gameObject.GetComponent<Rigidbody>());
+        Alive = false;
+        DisappearTimer += Time.deltaTime;
+        if (DisappearTimer >= DisappearAfter) Destroy(this.gameObject);
+        easyAnimator.SetBooleanTrue("isDying");
     }
 }

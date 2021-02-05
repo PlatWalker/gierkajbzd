@@ -114,20 +114,20 @@ public class MonkeyController : EnemyController
 
     private void GoBackToSpawn()
     {
-        MoveTo(false, normalSpeedModifier, SpawnPoint);
+        //MoveTo(false, normalSpeedModifier, SpawnPoint);
         easyAnimator.SetBooleanTrue("isWalking");
     }
 
     private void GetCloser()
     {
-        MoveTo(false, normalSpeedModifier, MainCharacterTransform.position);
+        //MoveTo(false, normalSpeedModifier, MainCharacterTransform.position);
         easyAnimator.SetBooleanTrue("isWalking");
     }
 
     private void Attack()
     {
 
-        MoveTo(false, 0f, MainCharacterTransform.position);
+        //MoveTo(false, 0f, MainCharacterTransform.position);
 
         easyAnimator.SetBooleanTrue("isAttacking");
         
@@ -150,7 +150,7 @@ public class MonkeyController : EnemyController
     
     private void RunFromDanger()
     {
-        MoveTo(true, runSpeedModifier, MainCharacterTransform.position);
+       //MoveTo(true, runSpeedModifier, MainCharacterTransform.position);
         easyAnimator.SetBooleanTrue("isWalking");
     }
 }
