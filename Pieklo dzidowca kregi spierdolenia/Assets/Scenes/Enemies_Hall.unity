@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 94115639}
   m_Layer: 0
   m_Name: Cube (24)
-  m_TagString: EditorOnly
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -232,7 +232,7 @@ GameObject:
   - component: {fileID: 120525222}
   m_Layer: 0
   m_Name: Cube (7)
-  m_TagString: EditorOnly
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -458,7 +458,7 @@ GameObject:
   - component: {fileID: 154583868}
   m_Layer: 0
   m_Name: Cube (15)
-  m_TagString: EditorOnly
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -553,7 +553,7 @@ GameObject:
   - component: {fileID: 168029700}
   m_Layer: 0
   m_Name: Cube (22)
-  m_TagString: EditorOnly
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -890,7 +890,7 @@ GameObject:
   - component: {fileID: 373777518}
   m_Layer: 0
   m_Name: Cube (13)
-  m_TagString: EditorOnly
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -985,7 +985,7 @@ GameObject:
   - component: {fileID: 437646919}
   m_Layer: 0
   m_Name: Cube (10)
-  m_TagString: EditorOnly
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -1110,7 +1110,7 @@ GameObject:
   - component: {fileID: 581167844}
   m_Layer: 0
   m_Name: Cube (2)
-  m_TagString: EditorOnly
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -1295,6 +1295,9 @@ MonoBehaviour:
   updateLogicEveryXFrames: 3
   _movementSpeed: 0.14
   _rotationSpeed: 1
+  _timeBetweenPatrolSteps: 2
+  _maxPatrolSteps: 5
+  _patrolMaxDistance: 3
   _mainCharacterTransform: {fileID: 1567557347}
   _aggroRadius: 15
   _aggroByAttackRadius: 50
@@ -1369,7 +1372,7 @@ GameObject:
   - component: {fileID: 663937522}
   m_Layer: 0
   m_Name: Cube (5)
-  m_TagString: EditorOnly
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -1464,7 +1467,7 @@ GameObject:
   - component: {fileID: 842937236}
   m_Layer: 0
   m_Name: Cube (16)
-  m_TagString: EditorOnly
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -1559,7 +1562,7 @@ GameObject:
   - component: {fileID: 861929398}
   m_Layer: 0
   m_Name: Cube (19)
-  m_TagString: EditorOnly
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -1654,7 +1657,7 @@ GameObject:
   - component: {fileID: 887314637}
   m_Layer: 0
   m_Name: Cube (4)
-  m_TagString: EditorOnly
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -1844,7 +1847,7 @@ GameObject:
   - component: {fileID: 1320024821}
   m_Layer: 0
   m_Name: Cube (14)
-  m_TagString: EditorOnly
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -1939,7 +1942,7 @@ GameObject:
   - component: {fileID: 1377155971}
   m_Layer: 0
   m_Name: Cube (20)
-  m_TagString: EditorOnly
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -2034,7 +2037,7 @@ GameObject:
   - component: {fileID: 1484822856}
   m_Layer: 0
   m_Name: Cube (3)
-  m_TagString: EditorOnly
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -2129,7 +2132,7 @@ GameObject:
   - component: {fileID: 1491544438}
   m_Layer: 0
   m_Name: Cube (25)
-  m_TagString: EditorOnly
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -2224,7 +2227,7 @@ GameObject:
   - component: {fileID: 1526029691}
   m_Layer: 0
   m_Name: Cube (21)
-  m_TagString: EditorOnly
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -2327,6 +2330,9 @@ MonoBehaviour:
   updateLogicEveryXFrames: 3
   _movementSpeed: 0.1
   _rotationSpeed: 0.15
+  _timeBetweenPatrolSteps: 2
+  _maxPatrolSteps: 5
+  _patrolMaxDistance: 3
   _mainCharacterTransform: {fileID: 1567557347}
   _aggroRadius: 10
   _aggroByAttackRadius: 50
@@ -2490,7 +2496,7 @@ GameObject:
   - component: {fileID: 1555952382}
   m_Layer: 0
   m_Name: Cube (6)
-  m_TagString: EditorOnly
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -2699,7 +2705,7 @@ GameObject:
   - component: {fileID: 1575570540}
   m_Layer: 0
   m_Name: Cube (12)
-  m_TagString: EditorOnly
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -2799,9 +2805,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnOffAI: 0
   _disappearAfter: 10
-  updateLogicEveryXFrames: 3
+  updateLogicEveryXFrames: 0
   _movementSpeed: 5
   _rotationSpeed: 900
+  _timeBetweenPatrolSteps: 2
+  _maxPatrolSteps: 5
+  _patrolMaxDistance: 3
   _mainCharacterTransform: {fileID: 1567557347}
   _aggroRadius: 10
   _aggroByAttackRadius: 50
@@ -2900,7 +2909,7 @@ GameObject:
   - component: {fileID: 1670358959}
   m_Layer: 0
   m_Name: Cube (11)
-  m_TagString: EditorOnly
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -3093,7 +3102,7 @@ GameObject:
   - component: {fileID: 1795600201}
   m_Layer: 0
   m_Name: Cube (23)
-  m_TagString: EditorOnly
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -3492,7 +3501,7 @@ GameObject:
   - component: {fileID: 2054658703}
   m_Layer: 0
   m_Name: Cube (8)
-  m_TagString: EditorOnly
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -3587,7 +3596,7 @@ GameObject:
   - component: {fileID: 2061911019}
   m_Layer: 0
   m_Name: Cube (18)
-  m_TagString: EditorOnly
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -3682,7 +3691,7 @@ GameObject:
   - component: {fileID: 2088178823}
   m_Layer: 0
   m_Name: Cube (9)
-  m_TagString: EditorOnly
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -3872,7 +3881,7 @@ GameObject:
   - component: {fileID: 2111674956}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: EditorOnly
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -3967,7 +3976,7 @@ GameObject:
   - component: {fileID: 2123430837}
   m_Layer: 0
   m_Name: Cube (17)
-  m_TagString: EditorOnly
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8

@@ -20,6 +20,9 @@ public class DoomerController : EnemyController
     public static bool HasDoneAggro { get; set; }
 
     private bool hasDoneSpecialAttack;
+    private float distanceToMainChar;
+    private bool playerIsVisible;
+    private bool playerWasVisible;
 
 
 
@@ -39,7 +42,7 @@ public class DoomerController : EnemyController
     override protected void OnValidate()
     {
         base.OnValidate();
-        NavAgent.angularSpeed = RotationSpeed;
+        if(NavAgent) NavAgent.angularSpeed = RotationSpeed;
 
         //dodać sprawdzanie
     }
@@ -82,6 +85,17 @@ public class DoomerController : EnemyController
                 MoveTo(SpawnPoint, MovementSpeed, AttackRadius);
                 break;
             case DoomerState.Patrol:
+                MultiUseTimer += Time.deltaTime;
+                if (MultiUseTimer >= TimeBetweenPatrolSteps)
+                {
+                    PatrolStepsCounter++;
+                    SaveAndGoToPoint(ChooseNewPatrollingPoint());
+                }
+                if (PatrolStepsCounter >= MaxPatrolSteps)
+                {
+                    PatrolStepsCounter = 0;
+                    IsPatroling = false;
+                }
                 break;
             case DoomerState.Attack:
 
@@ -98,20 +112,28 @@ public class DoomerController : EnemyController
             case DoomerState.Dying:
                 Die();
                 break;
-            case DoomerState.AttackTriggered:
+            case DoomerState.GoingToPoint:
+                //if this is first frame of state going to point then should save position where go to
+                if (!ShouldGoToPoint) SaveAndGoToPoint(MainCharacterTransform.position);
+
+                //if did jumped then go there in normal walking speed
                 if (hasDoneSpecialAttack)
                 {
                     MoveTo(GoToPoint, MovementSpeed, AttackRadius);
                     easyAnimator.SetBooleanTrue("isWalking");
                 }
+                //else in charge speed
                 else
                 {
-                    MoveTo(GoToPoint, movementRushSpeed, firstAttackRadius);
+                    MoveTo(GoToPoint, movementRushSpeed, AttackRadius);
                     easyAnimator.SetBooleanTrue("isRunning");
                 }
+                //check if should end going to the point
                 if (Vector3.Distance(transform.position, GoToPoint) < AttackRadius)
                 {
-                    TriggeredByAttack = false;
+                    ShouldGoToPoint = false;
+                    state = DoomerState.Patrol;
+                    MultiUseTimer = 0f;
                 }
                 break;
             case DoomerState.AIOff:
@@ -130,6 +152,7 @@ public class DoomerController : EnemyController
             return;
         }
 
+        //Alpha version of performance booster
         if (framesCounter == updateLogicEveryXFrames)
         {
             framesCounter = 0;
@@ -140,45 +163,65 @@ public class DoomerController : EnemyController
             return;
         }
         
-        float distanceToMainChar = Vector3.Distance(transform.position, MainCharacterTransform.position);
+        distanceToMainChar = Vector3.Distance(transform.position, MainCharacterTransform.position);
+        playerIsVisible = IsPlayerVisible();
 
-        if (distanceToMainChar > AttackRadius && PlayerVisible())// checking if main char is visible for enemy and should not attack
+        if (playerIsVisible)
         {
-            if (HasDoneAggro)
+            //in this case it means that player is closer that aggroRadius but further than attackRadius
+            if (distanceToMainChar > AttackRadius)
             {
+                if (HasDoneAggro)
+                {
+                    //checking if should start special attack
+                    if (distanceToMainChar <= firstAttackRadius && !hasDoneSpecialAttack)
+                    {
+                        state = DoomerState.ChargedAttack;
+                    }
+                    else if (hasDoneSpecialAttack)
+                    {
+                        //if attack has been made just move in normal speed to player
+                        state = DoomerState.Walk;
+                    }
+                    else
+                    {
+                        //when attack has been not made and cannot be made yet move to player in charge
+                        state = DoomerState.Run;
+                    }
 
-                if (distanceToMainChar <= firstAttackRadius && !hasDoneSpecialAttack) //checking if should start special attack
-                {
-                    state = DoomerState.ChargedAttack;
                 }
-                else if (hasDoneSpecialAttack)
-                {
-                    //if attack has been made just move in normal speed to player
-                    state = DoomerState.Walk;
-                }
+                //if aggro has not been made then do it
                 else
                 {
-                    //when attack has been not made and cannot be made yet move to player in charge
-                    state = DoomerState.Run;
+                    state = DoomerState.Aggro;
                 }
-
             }
-            else
+            //if in range just attack player
+            else if (distanceToMainChar <= AttackRadius)
             {
-                state = DoomerState.Aggro;
+                state = DoomerState.Attack;
             }
-        }
-        else if (distanceToMainChar <= AttackRadius && PlayerVisible())
+        }//if not seeing player check if should go somewhere
+        else if (ShouldGoToPoint)
         {
-            state = DoomerState.Attack;
+            state = DoomerState.GoingToPoint;
         }
-        else if (TriggeredByAttack)
-        {
-            state = DoomerState.AttackTriggered;
-        }
+        //it means that player is not visible and dont have to go anywhere now
         else
         {
-            if (Vector3.Distance(transform.position, SpawnPoint) > 2.0f)
+            //if was not returning back or beeing idle means that i was seeing player 
+            //so i should go and check where did he go
+            if (playerWasVisible)
+            {
+                IsPatroling = true;
+                state = DoomerState.GoingToPoint;
+            }
+            else if (IsPatroling)
+            {
+                state = DoomerState.Patrol;
+            }
+            //if was returning back and not reached spawn then stay doing this
+            else if (Vector3.Distance(transform.position, SpawnPoint) > 2.0f)
             {
                 state = DoomerState.Return;
             }
@@ -188,6 +231,7 @@ public class DoomerController : EnemyController
             }
 
         }
+        playerWasVisible = playerIsVisible;
     }
     override public void SetDamage(int damageAmount, DamageType damageType)
     {
@@ -206,7 +250,7 @@ public class DoomerController : EnemyController
         Attack,
         Aggro,
         Dying,
-        AttackTriggered,
+        GoingToPoint,
         AIOff
     }
 }
