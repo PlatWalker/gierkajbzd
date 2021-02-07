@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5cfa0aea10dfb64aba98cf0de3706fb, type: 3}
+  m_Name: BloedeProba1
+  m_EditorClassIdentifier: 
+  NodeLinks:
+  - BaseNodeGuid: cd5a763f-6ad3-400d-a98a-38a97aa59921
+    PortName: Next
+    TargetNodeGuid: 8864acd8-9c59-4579-9770-c7f5eeb39629
+  - BaseNodeGuid: 8864acd8-9c59-4579-9770-c7f5eeb39629
+    PortName: 'Siema, psojebco '
+    TargetNodeGuid: d6bad077-7f69-4766-a778-62679edb4b98
+  - BaseNodeGuid: d6bad077-7f69-4766-a778-62679edb4b98
+    PortName: "Tak, m\xF3j mem nie trafi\u0142 na g\u0142\xF3wn\u0105"
+    TargetNodeGuid: 4af9f5d6-baea-4d24-a63c-08bbb8b86aaf
+  - BaseNodeGuid: 4af9f5d6-baea-4d24-a63c-08bbb8b86aaf
+    PortName: "Wcale nie by\u0142 chujowy!"
+    TargetNodeGuid: 3142fc6e-13c5-4f00-8d49-48cd867618bb
+  - BaseNodeGuid: 4af9f5d6-baea-4d24-a63c-08bbb8b86aaf
+    PortName: "M\xF3j mem mia\u0142 wi\u0119cej plus\xF3w ni\u017C inne memy na g\u0142\xF3wnej"
+    TargetNodeGuid: 261adbce-24c7-4f2a-bb50-3b4b229faf2e
+  - BaseNodeGuid: 261adbce-24c7-4f2a-bb50-3b4b229faf2e
+    PortName: "A da\u0142oby si\u0119 zrobi\u0107, aby wyl\u0105dowa\u0142 na g\u0142\xF3wnej?"
+    TargetNodeGuid: 6019ea87-233e-4f26-a0d0-44ed977e06bc
+  - BaseNodeGuid: 6019ea87-233e-4f26-a0d0-44ed977e06bc
+    PortName: Ale ja nie mam psa
+    TargetNodeGuid: 44e5ceca-329c-4ab2-aa0c-e0d1062aefe2
+  - BaseNodeGuid: d6bad077-7f69-4766-a778-62679edb4b98
+    PortName: "Tak, z twoj\u0105 mord\u0105 kutasiarzu"
+    TargetNodeGuid: 0736ddb2-426c-4af6-b176-9b0ba19b1a57
+  DialogueNodeDatas:
+  - NodeGUID: 8864acd8-9c59-4579-9770-c7f5eeb39629
+    DialogueText: 
+    Position: {x: 220, y: 199}
+  - NodeGUID: 3142fc6e-13c5-4f00-8d49-48cd867618bb
+    DialogueText: "Owszem, by\u0142 chujowy. Co to w og\xF3le ma by\u0107 za mem?!
+      A gdzie nosacz, albo piese\u0142? To przecie\u017C w og\xF3le nie jest \u015Bmieszne.
+      We\u017A wypierdalaj."
+    Position: {x: 1559, y: -156}
+  - NodeGUID: 4af9f5d6-baea-4d24-a63c-08bbb8b86aaf
+    DialogueText: "Skoro tw\xF3j mem nie trafi\u0142 na g\u0142\xF3wn\u0105, to znaczy,
+      \u017Ce by\u0142 chujowy. Mia\u0142 za ma\u0142o plus\xF3w."
+    Position: {x: 909, y: 36}
+  - NodeGUID: 261adbce-24c7-4f2a-bb50-3b4b229faf2e
+    DialogueText: "A co mnie obchodz\u0105 plusy? Turmalin\u0119 te\u017C by\u0107
+      chcia\u0142 widzie\u0107 na g\u0142\xF3wnej?"
+    Position: {x: 1566, y: 84}
+  - NodeGUID: 6019ea87-233e-4f26-a0d0-44ed977e06bc
+    DialogueText: "Tak, przynie\u015B mi swojego psa."
+    Position: {x: 2182, y: 10}
+  - NodeGUID: 44e5ceca-329c-4ab2-aa0c-e0d1062aefe2
+    DialogueText: "To na chuj mi zawracasz dup\u0119?"
+    Position: {x: 2562, y: 35}
+  - NodeGUID: 0736ddb2-426c-4af6-b176-9b0ba19b1a57
+    DialogueText: "O\u017Cesz ty chuju. Dla w\u0142asnego bezpiecze\u0144stwa lepiej
+      usu\u0144 konto"
+    Position: {x: 958, y: 274}
+  - NodeGUID: d6bad077-7f69-4766-a778-62679edb4b98
+    DialogueText: "Masz jaki\u015B problem?"
+    Position: {x: 517, y: 199}
