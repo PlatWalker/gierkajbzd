@@ -25,6 +25,30 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     [SerializeField] protected int updateLogicEveryXFrames = 3;
     protected int framesCounter;
     public bool SeesPlayer { get; protected set; }
+    [SerializeField] float _otherEnemiesTriggerRadius = 20f;
+    public float OtherEnemiesTriggerRadius
+    {
+        get
+        {
+            return _otherEnemiesTriggerRadius;
+        }
+        protected set
+        {
+            _otherEnemiesTriggerRadius = value;
+        }
+    }
+    [SerializeField] private bool _triggeringNearEnemies = true;
+    public bool TriggeringNearEnemies
+    {
+        get
+        {
+            return _triggeringNearEnemies;
+        }
+        protected set
+        {
+            _triggeringNearEnemies = value;
+        }
+    }
 
     [Header("Movement")]
     [SerializeField] private float _movementSpeed = 0.15f;
@@ -40,7 +64,17 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
         }
     }
 
-    public bool ShouldGoToPoint { get; protected set; }
+    public bool ShouldGoToPoint { get; set; }
+    public Vector3 GoToPoint {
+        get 
+        { 
+            return GoToPoint; 
+        } 
+        set 
+        { 
+            if (ShouldGoToPoint) GoToPoint = value;
+        } 
+    }
 
     [SerializeField] private float _rotationSpeed = 0.15f;
     public virtual float RotationSpeed
@@ -106,7 +140,6 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
             return _mainCharacterTransform;
         }
     }
-    public Vector3 GoToPoint { get; protected set; }
 
     [Header("Fight")]
     [SerializeField] private float _aggroRadius = 20.0f;
@@ -329,8 +362,8 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     {
         if(Vector3.Distance(transform.position,goToPoint) <= AggroByAttackRadius)
         {
-            GoToPoint = goToPoint;
             ShouldGoToPoint = true;
+            GoToPoint = goToPoint;
         }
     }
 
@@ -377,6 +410,31 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
                 Random.Range(transform.position.z - PatrolMaxDistance,
                              transform.position.z + PatrolMaxDistance));
         return newPoint;
+    }
+
+    /// <summary>
+    /// Method to trigger near enemies
+    /// </summary>
+    /// <returns>Number of enemies triggered</returns>
+    protected int TriggerNearEnemies(Vector3 target)
+    {
+        if (!TriggeringNearEnemies) return 0;
+
+        int numberOfEnemiesTriggered = 0;
+        GameObject [] FoundEnemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
+
+        foreach (GameObject enemyObject in FoundEnemyObjects)
+        {
+            if (Vector3.Distance(transform.position, enemyObject.transform.position) > OtherEnemiesTriggerRadius) continue;
+            EnemyController enemyController;
+            if(enemyObject.TryGetComponent<EnemyController>(out enemyController))
+            {
+                numberOfEnemiesTriggered++;
+                enemyController.SaveAndGoToPoint(target);
+            }
+        }
+
+        return numberOfEnemiesTriggered;
     }
 
     /// <summary>

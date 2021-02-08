@@ -13,13 +13,28 @@ public class DoomerController : EnemyController
 
     [SerializeField] private float firstAttackRadius = 4.0f;
 
-    DoomerState state;
+    private enum DoomerState
+    {
+        Idle,
+        Attack,
+        ChargedAttack,
+        Chase,
+        Return,
+        Patrol,
+        Aggro,
+        Dying,
+        HaveSeenPlayer,
+        AIOff
+    }
+
+    DoomerState currentState;
+    DoomerState resumeState;
    
     private Vector3 jumpDirection = Vector3.zero;
 
     public static bool HasDoneAggro { get; set; }
-
     private bool hasDoneSpecialAttack;
+
     private float distanceToMainChar;
     private bool playerIsVisible;
     private bool playerWasVisible;
@@ -32,7 +47,7 @@ public class DoomerController : EnemyController
         base.Start();
         easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), new string[] {"shouldUseSecondAttack"});
         hasDoneSpecialAttack = false;
-        state = DoomerState.Idle;
+        currentState = DoomerState.Idle;
         NavAgent.angularSpeed = RotationSpeed;
         NavAgent.acceleration = 100;
     }
@@ -47,22 +62,54 @@ public class DoomerController : EnemyController
         //dodać sprawdzanie
     }
 
-    // Update is called once per frame
-    override protected void FixedUpdate()
+
+    private void Update()
     {
-        switch (state)
+        if (CurrentHealth <= 0)
+        {
+            MultiUseTimer = 0f;
+            currentState = DoomerState.Dying;
+            return;
+        }
+
+        //Beta version of performance booster
+        bool updateLogicFrame = false;
+        if (framesCounter == updateLogicEveryXFrames)
+        {
+            framesCounter = 0;
+            updateLogicFrame = true;
+        }
+        else
+        {
+            framesCounter++;
+        }
+
+        if (updateLogicFrame)
+        {
+            distanceToMainChar = Vector3.Distance(transform.position, MainCharacterTransform.position);
+            playerIsVisible = IsPlayerVisible();
+        }
+
+        switch (currentState)
         {
             case DoomerState.Idle:
-                easyAnimator.SetBooleanTrue("isIdling");
+                {
+                    easyAnimator.SetBooleanTrue("isIdling");
+
+                    if (!updateLogicFrame) break;
+
+                    if (playerIsVisible)
+                    
+
+                    break;
+                }
+
+            case DoomerState.Attack:
+                MoveTo(MainCharacterTransform.position, 0.0f, AttackRadius);
+
+                easyAnimator.SetBooleanTrue("isAttacking");
                 break;
-            case DoomerState.Walk:
-                MoveTo(MainCharacterTransform.position, MovementSpeed, AttackRadius);
-                easyAnimator.SetBooleanTrue("isWalking");
-                break;
-            case DoomerState.Run:
-                MoveTo(MainCharacterTransform.position, movementRushSpeed, AttackRadius);
-                easyAnimator.SetBooleanTrue("isRunning");
-                break;
+
             case DoomerState.ChargedAttack:
                 if (jumpDirection == Vector3.zero)
                 {
@@ -80,158 +127,74 @@ public class DoomerController : EnemyController
                     hasDoneSpecialAttack = true;
                 }
                 break;
+
+            case DoomerState.Chase:
+                if (hasDoneSpecialAttack)
+                {
+                    MoveTo(MainCharacterTransform.position, MovementSpeed, AttackRadius);
+                    easyAnimator.SetBooleanTrue("isWalking");
+                }
+                else 
+                {
+                    MoveTo(MainCharacterTransform.position, movementRushSpeed, AttackRadius);
+                    easyAnimator.SetBooleanTrue("isRunning");
+                }
+                
+                break;
+
             case DoomerState.Return:
                 easyAnimator.SetBooleanTrue("isWalking");
                 MoveTo(SpawnPoint, MovementSpeed, AttackRadius);
                 break;
+
             case DoomerState.Patrol:
                 MultiUseTimer += Time.deltaTime;
+
                 if (MultiUseTimer >= TimeBetweenPatrolSteps)
                 {
                     PatrolStepsCounter++;
                     SaveAndGoToPoint(ChooseNewPatrollingPoint());
                 }
+
                 if (PatrolStepsCounter >= MaxPatrolSteps)
                 {
                     PatrolStepsCounter = 0;
                     IsPatroling = false;
+                    MultiUseTimer = 0f;
                 }
                 break;
-            case DoomerState.Attack:
 
-                MoveTo(MainCharacterTransform.position, 0.0f, AttackRadius);
-
-                easyAnimator.SetBooleanTrue("isAttacking");
-                //tutaj zadawanie obrażeń - collider i te sprawy
-                //dodać tutaj sprawdzenie czy zakończono atak specjalnt i jesli tak to normalne obrażenia a jak nie to dodatkowe obrażenia
-                break;
             case DoomerState.Aggro:
                 easyAnimator.SetBooleanTrue("isAggroing");
                 MoveTo(MainCharacterTransform.position, 0f, AttackRadius);
                 break;
+
             case DoomerState.Dying:
                 Die();
                 break;
-            case DoomerState.GoingToPoint:
-                //if this is first frame of state going to point then should save position where go to
-                if (!ShouldGoToPoint) SaveAndGoToPoint(MainCharacterTransform.position);
 
-                //if did jumped then go there in normal walking speed
+            case DoomerState.HaveSeenPlayer:
                 if (hasDoneSpecialAttack)
                 {
                     MoveTo(GoToPoint, MovementSpeed, AttackRadius);
                     easyAnimator.SetBooleanTrue("isWalking");
                 }
-                //else in charge speed
                 else
                 {
                     MoveTo(GoToPoint, movementRushSpeed, AttackRadius);
                     easyAnimator.SetBooleanTrue("isRunning");
                 }
-                //check if should end going to the point
-                if (Vector3.Distance(transform.position, GoToPoint) < AttackRadius)
-                {
-                    ShouldGoToPoint = false;
-                    state = DoomerState.Patrol;
-                    MultiUseTimer = 0f;
-                }
                 break;
+
             case DoomerState.AIOff:
                 return;
+
             default:
-                Debug.Log("Some doomer is in weird and unrecognized state");
+                Debug.Log("Some doomer is in werid and unrecognized state in Update");
                 break;
         }
-    }
 
-    private void Update()
-    {
-        if (CurrentHealth <= 0)
-        {
-            state = DoomerState.Dying;
-            return;
-        }
-
-        //Alpha version of performance booster
-        if (framesCounter == updateLogicEveryXFrames)
-        {
-            framesCounter = 0;
-        }
-        else
-        {
-            framesCounter++;
-            return;
-        }
-        
-        distanceToMainChar = Vector3.Distance(transform.position, MainCharacterTransform.position);
-        playerIsVisible = IsPlayerVisible();
-
-        if (playerIsVisible)
-        {
-            //in this case it means that player is closer that aggroRadius but further than attackRadius
-            if (distanceToMainChar > AttackRadius)
-            {
-                if (HasDoneAggro)
-                {
-                    //checking if should start special attack
-                    if (distanceToMainChar <= firstAttackRadius && !hasDoneSpecialAttack)
-                    {
-                        state = DoomerState.ChargedAttack;
-                    }
-                    else if (hasDoneSpecialAttack)
-                    {
-                        //if attack has been made just move in normal speed to player
-                        state = DoomerState.Walk;
-                    }
-                    else
-                    {
-                        //when attack has been not made and cannot be made yet move to player in charge
-                        state = DoomerState.Run;
-                    }
-
-                }
-                //if aggro has not been made then do it
-                else
-                {
-                    state = DoomerState.Aggro;
-                }
-            }
-            //if in range just attack player
-            else if (distanceToMainChar <= AttackRadius)
-            {
-                state = DoomerState.Attack;
-            }
-        }//if not seeing player check if should go somewhere
-        else if (ShouldGoToPoint)
-        {
-            state = DoomerState.GoingToPoint;
-        }
-        //it means that player is not visible and dont have to go anywhere now
-        else
-        {
-            //if was not returning back or beeing idle means that i was seeing player 
-            //so i should go and check where did he go
-            if (playerWasVisible)
-            {
-                IsPatroling = true;
-                state = DoomerState.GoingToPoint;
-            }
-            else if (IsPatroling)
-            {
-                state = DoomerState.Patrol;
-            }
-            //if was returning back and not reached spawn then stay doing this
-            else if (Vector3.Distance(transform.position, SpawnPoint) > 2.0f)
-            {
-                state = DoomerState.Return;
-            }
-            else
-            {
-                state = DoomerState.Idle;
-            }
-
-        }
-        playerWasVisible = playerIsVisible;
+        if(updateLogicFrame) playerWasVisible = playerIsVisible;
     }
     override public void SetDamage(int damageAmount, DamageType damageType)
     {
@@ -239,18 +202,5 @@ public class DoomerController : EnemyController
         base.SetDamage(damageAmount, damageType);
     }
 
-    private enum DoomerState
-    {
-        Idle,
-        Walk,
-        Run,
-        ChargedAttack,
-        Return,
-        Patrol,
-        Attack,
-        Aggro,
-        Dying,
-        GoingToPoint,
-        AIOff
-    }
+   
 }
