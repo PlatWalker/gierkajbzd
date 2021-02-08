@@ -374,8 +374,8 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
 
                 transform.position.y,
 
-                Random.Range(transform.position.x - PatrolMaxDistance,
-                             transform.position.x + PatrolMaxDistance));
+                Random.Range(transform.position.z - PatrolMaxDistance,
+                             transform.position.z + PatrolMaxDistance));
         return newPoint;
     }
 
