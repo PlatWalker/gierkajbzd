@@ -35,11 +35,11 @@ public class GowniakController : EnemyController
     //}
 
     // Update is called once per frame
-    override protected void FixedUpdate()
+    override protected void Update()
     {
         if (turnOffAI) return;
 
-        transform.Rotate(0.0f, -90.0f, 0.0f); //reApply Bug of gizmos
+        transform.Rotate(0f, -90.0f, 0.0f); //reApply Bug of gizmos
 
         float distanceToMainChar =
             Vector3.Distance(transform.position, MainCharacterTransform.position);
@@ -84,5 +84,10 @@ public class GowniakController : EnemyController
             easyAnimator.ResetAllBooleans();
         }
         transform.Rotate(0.0f, 90.0f, 0.0f); // removing Bug of gizmos
+    }
+
+    protected override bool HandleTriggerByEnemy(Vector3 target)
+    {
+        return false;
     }
 }

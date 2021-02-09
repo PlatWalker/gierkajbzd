@@ -49,6 +49,10 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
             _triggeringNearEnemies = value;
         }
     }
+    protected float distanceToMainChar;
+    protected bool playerIsVisible;
+   
+    protected string CurrentAnimation; //debug only
 
     [Header("Movement")]
     [SerializeField] private float _movementSpeed = 0.15f;
@@ -64,17 +68,7 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
         }
     }
 
-    public bool ShouldGoToPoint { get; set; }
-    public Vector3 GoToPoint {
-        get 
-        { 
-            return GoToPoint; 
-        } 
-        set 
-        { 
-            if (ShouldGoToPoint) GoToPoint = value;
-        } 
-    }
+    public Vector3 GoToPoint { get; protected set; }
 
     [SerializeField] private float _rotationSpeed = 0.15f;
     public virtual float RotationSpeed
@@ -112,7 +106,6 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
             _maxPatrolSteps = value;
         }
     }
-    public bool IsPatroling { get; protected set; }
 
     public NavMeshAgent NavAgent { get; private set; }
 
@@ -249,7 +242,7 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     }
 
     // Update is called once per frame
-    protected abstract void FixedUpdate();
+    protected abstract void Update();
     /// <summary>
     /// Method to set destination point for enemy - shouldn't have been updated every frame.
     /// </summary>
@@ -305,8 +298,6 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     {
         //for now damage types are ignored
         CurrentHealth -= damageAmount;
-
-        SaveAndGoToPoint(MainCharacterTransform.position);
     }
 
     /// <summary>
@@ -328,7 +319,7 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     /// <summary>
     /// Method to pause enemy AI
     /// </summary>
-    public void SwitchAI()
+    public virtual void SwitchAI()
     {
         turnOffAI = !turnOffAI;
         float temp = animationPlayPreviousSpeed;
@@ -352,19 +343,6 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
             }
         }
         return false;
-    }
-
-    /// <summary>
-    /// Method that is called to save current location of player and succesfully go there
-    /// Process can be break by changing ShouldGoToPoint to false
-    /// </summary>
-    protected void SaveAndGoToPoint(Vector3 goToPoint)
-    {
-        if(Vector3.Distance(transform.position,goToPoint) <= AggroByAttackRadius)
-        {
-            ShouldGoToPoint = true;
-            GoToPoint = goToPoint;
-        }
     }
 
     protected Vector3 ChooseNewPatrollingPoint()
@@ -429,22 +407,30 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
             EnemyController enemyController;
             if(enemyObject.TryGetComponent<EnemyController>(out enemyController))
             {
-                numberOfEnemiesTriggered++;
-                enemyController.SaveAndGoToPoint(target);
+                if (enemyController.HandleTriggerByEnemy(target))
+                {
+                    numberOfEnemiesTriggered++;
+                }
             }
         }
 
         return numberOfEnemiesTriggered;
     }
 
+    protected abstract bool HandleTriggerByEnemy(Vector3 target);
+
     /// <summary>
     /// Method which is destroying collider when enemy died and counting to destroy whole model.
     /// </summary>
     protected void Die()
     {
-        Destroy(gameObject.GetComponent<Collider>());
-        Destroy(gameObject.GetComponent<Rigidbody>());
-        Alive = false;
+        if (Alive)
+        {
+            Destroy(gameObject.GetComponent<Collider>());
+            Destroy(gameObject.GetComponent<Rigidbody>());
+            Alive = false;
+            GoToPoint = transform.position;
+        }
         MultiUseTimer += Time.deltaTime;
         if (MultiUseTimer >= DisappearAfter) Destroy(this.gameObject);
         easyAnimator.SetBooleanTrue("isDying");

@@ -73,7 +73,7 @@ public class MonkeyController : EnemyController
     }
 
     // Update is called once per frame
-    override protected void FixedUpdate()
+    override protected void Update()
     {
         if (turnOffAI) return;
         
@@ -147,7 +147,12 @@ public class MonkeyController : EnemyController
             //Here add some rotatiom of projectile
         }
     }
-    
+
+    protected override bool HandleTriggerByEnemy(Vector3 target)
+    {
+        return false;
+    }
+
     private void RunFromDanger()
     {
        //MoveTo(true, runSpeedModifier, MainCharacterTransform.position);
