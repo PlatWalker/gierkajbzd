@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using TMPro;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using jbzdy.DialogueSystem.DataContainers;
-using System.Linq;
-using System;
 
 namespace jbzdy.DialogueSystem.managers
 {
@@ -60,5 +57,4 @@ namespace jbzdy.DialogueSystem.managers
             return text;
         }
     }
-
 }
