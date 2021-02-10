@@ -1,10 +1,13 @@
 ﻿using System;
 using UnityEngine;
 
-[Serializable]
-public class DialogueNodeData
+namespace jbzdy.DialogueSystem.DataContainers
 {
-    public string NodeGUID;
-    public string DialogueText;
-    public Vector2 Position;
+    [Serializable]
+    public class DialogueNodeData
+    {
+        public string NodeGUID;
+        public string DialogueText;
+        public Vector2 Position;
+    }
 }

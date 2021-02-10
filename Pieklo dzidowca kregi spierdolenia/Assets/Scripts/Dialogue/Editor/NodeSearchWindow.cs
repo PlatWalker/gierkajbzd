@@ -1,52 +1,65 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
+using UnityEngine.UIElements;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
-using UnityEditor;
-using UnityEngine.UIElements;
 
-public class NodeSearchWindow : ScriptableObject, ISearchWindowProvider
+namespace jbzdy.DialogueSystem.Editor
 {
-    private DialogueGraphView graphView;
-    private EditorWindow window;
-    private Texture2D icon;
-
-    public void Init(EditorWindow window, DialogueGraphView graphView)
+    public class NodeSearchWindow : ScriptableObject, ISearchWindowProvider
     {
-        this.window = window;
-        this.graphView = graphView;
+        private EditorWindow _window;
+        private DialogueGraphView _graphView;
+        private Texture2D _indentationIcon;
 
-        //hehe
-        icon = new Texture2D(1, 1);
-        icon.SetPixel(0, 0, new Color(0, 0, 0, 0));
-    }
-
-    public List<SearchTreeEntry> CreateSearchTree(SearchWindowContext context)
-    {
-        var tree = new List<SearchTreeEntry>
+        public void Configure(EditorWindow window, DialogueGraphView graphView)
         {
-            new SearchTreeGroupEntry(new GUIContent("Create Elements"), 0),
-            new SearchTreeGroupEntry(new GUIContent("Dialogue"), 1),
-            new SearchTreeEntry(new GUIContent("Dialogue Node"))
+            _window = window;
+            _graphView = graphView;
+
+            //Transparent 1px indentation icon as a hack
+            _indentationIcon = new Texture2D(1, 1);
+            _indentationIcon.SetPixel(0, 0, new Color(0, 0, 0, 0));
+            _indentationIcon.Apply();
+        }
+
+        public List<SearchTreeEntry> CreateSearchTree(SearchWindowContext context)
+        {
+            var tree = new List<SearchTreeEntry>
             {
-                userData = new DialogueNode(), level = 2
-            }
-        };
+                new SearchTreeGroupEntry(new GUIContent("Create Node"), 0),
+                new SearchTreeGroupEntry(new GUIContent("Dialogue"), 1),
+                new SearchTreeEntry(new GUIContent("Dialogue Node", _indentationIcon))
+                {
+                    level = 2, userData = new DialogueNode()
+                },
+                new SearchTreeEntry(new GUIContent("Comment Block",_indentationIcon))
+                {
+                    level = 1,
+                    userData = new Group()
+                }
+            };
 
-        return tree;
-    }
+            return tree;
+        }
 
-    public bool OnSelectEntry(SearchTreeEntry SearchTreeEntry, SearchWindowContext context)
-    {
-        Vector2 worldMousePos = window.rootVisualElement.ChangeCoordinatesTo(window.rootVisualElement.parent, context.screenMousePosition - window.position.position);
-        Vector2 localMousePos = graphView.contentViewContainer.WorldToLocal(worldMousePos);
-
-        switch (SearchTreeEntry.userData)
+        public bool OnSelectEntry(SearchTreeEntry SearchTreeEntry, SearchWindowContext context)
         {
-            case DialogueNode dialogueNode:
-                graphView.CreateNode("New Dialogue Node", localMousePos);
-                return true;
-            default:
-                return false;
+            //Editor window-based mouse position
+            var mousePosition = _window.rootVisualElement.ChangeCoordinatesTo(_window.rootVisualElement.parent,
+                context.screenMousePosition - _window.position.position);
+            var graphMousePosition = _graphView.contentViewContainer.WorldToLocal(mousePosition);
+            switch (SearchTreeEntry.userData)
+            {
+                case DialogueNode dialogueNode:
+                    _graphView.CreateNewDialogueNode("Dialogue Node", graphMousePosition);
+                    return true;
+                case Group group:
+                    var rect = new Rect(graphMousePosition, _graphView.DefaultCommentBlockSize);
+                    _graphView.CreateCommentBlock(rect);
+                    return true;
+            }
+            return false;
         }
     }
 }

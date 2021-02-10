@@ -1,83 +1,118 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
-using UnityEditor.UIElements;
-using UnityEngine.UIElements;
 using UnityEditor.Experimental.GraphView;
+using UnityEditor.UIElements;
+using UnityEngine;
+using UnityEngine.UIElements;
+using jbzdy.DialogueSystem.DataContainers;
 
-public class DialogueGraph : EditorWindow
+namespace jbzdy.DialogueSystem.Editor
 {
-    private DialogueGraphView graphView;
-
-    private string fileName = "New Narrative";
-
-    [MenuItem("Graphs/Dialogue Graph")]
-    public static void OpenDialogueGraphWindow()
+    public class DialogueGraph : EditorWindow
     {
-        var window = GetWindow<DialogueGraph>();
-        window.titleContent = new GUIContent("Dialogue Graph");
-    }
+        private string _fileName = "New Narrative";
 
-    private void OnEnable()
-    {
-        ConstructGraphView();
-        GenerateToolbar();
-        GenerateMinimap();
-    }
+        private DialogueGraphView _graphView;
+        private DialogueContainer _dialogueContainer;
 
-    private void GenerateMinimap()
-    {
-        MiniMap miniMap = new MiniMap { anchored = true };
-        miniMap.SetPosition(new Rect(10, 500, 200, 140));
-        graphView.Add(miniMap);
-    }
-
-    private void OnDisable()
-    {
-        rootVisualElement.Remove(graphView);
-    }
-
-    private void ConstructGraphView()
-    {
-        graphView = new DialogueGraphView(this)
+        [MenuItem("Graph/Narrative Graph")]
+        public static void CreateGraphViewWindow()
         {
-            name = "Dialogue Graph"
-        };
-
-        graphView.StretchToParentSize();
-        rootVisualElement.Add(graphView);
-    }
-
-    private void GenerateToolbar()
-    {
-        Toolbar toolbar = new Toolbar();
-
-        TextField fileNameTextField = new TextField("File Name:");
-        fileNameTextField.SetValueWithoutNotify(fileName);
-        fileNameTextField.MarkDirtyRepaint();
-        fileNameTextField.RegisterValueChangedCallback(evt => fileName = evt.newValue);
-        toolbar.Add(fileNameTextField);
-
-        toolbar.Add(new Button(() => RequestDataOperation(true)) { text = "Save Data" });
-        toolbar.Add(new Button(() => RequestDataOperation(false)) { text = "Load Data" });
-        rootVisualElement.Add(toolbar);
-    }
-
-    private void RequestDataOperation(bool save)
-    {
-        if(string.IsNullOrEmpty(fileName))
-        {
-            EditorUtility.DisplayDialog("Invalid filename", "Please enter a valid file name", "OK");
+            var window = GetWindow<DialogueGraph>();
+            window.titleContent = new GUIContent("Narrative Graph");
         }
 
-        GraphSaveUtility saveUtility = GraphSaveUtility.GetInstance(graphView);
-
-        if(save)
+        private void ConstructGraphView()
         {
-            saveUtility.SaveGraph(fileName);
+            _graphView = new DialogueGraphView(this)
+            {
+                name = "Narrative Graph",
+            };
+            _graphView.StretchToParentSize();
+            rootVisualElement.Add(_graphView);
         }
-        else
+
+        private void GenerateToolbar()
         {
-            saveUtility.LoadGraph(fileName);
+            var toolbar = new Toolbar();
+
+            var fileNameTextField = new TextField("File Name:");
+            fileNameTextField.SetValueWithoutNotify(_fileName);
+            fileNameTextField.MarkDirtyRepaint();
+            fileNameTextField.RegisterValueChangedCallback(evt => _fileName = evt.newValue);
+            toolbar.Add(fileNameTextField);
+
+            toolbar.Add(new Button(() => RequestDataOperation(true)) { text = "Save Data" });
+
+            toolbar.Add(new Button(() => RequestDataOperation(false)) { text = "Load Data" });
+            // toolbar.Add(new Button(() => _graphView.CreateNewDialogueNode("Dialogue Node")) {text = "New Node",});
+            rootVisualElement.Add(toolbar);
+        }
+
+        private void RequestDataOperation(bool save)
+        {
+            if (!string.IsNullOrEmpty(_fileName))
+            {
+                var saveUtility = GraphSaveUtility.GetInstance(_graphView);
+                if (save)
+                    saveUtility.SaveGraph(_fileName);
+                else
+                    saveUtility.LoadNarrative(_fileName);
+            }
+            else
+            {
+                EditorUtility.DisplayDialog("Invalid File name", "Please Enter a valid filename", "OK");
+            }
+        }
+
+        private void OnEnable()
+        {
+            ConstructGraphView();
+            GenerateToolbar();
+            GenerateMiniMap();
+            GenerateBlackBoard();
+        }
+
+        private void GenerateMiniMap()
+        {
+            var miniMap = new MiniMap { anchored = true };
+            miniMap.SetPosition(new Rect(10, 350, 200, 140));
+            _graphView.Add(miniMap);
+        }
+
+        private void GenerateBlackBoard()
+        {
+            var blackboard = new Blackboard(_graphView);
+            blackboard.Add(new BlackboardSection { title = "Exposed Variables" });
+            blackboard.addItemRequested = _blackboard =>
+            {
+                _graphView.AddPropertyToBlackBoard(ExposedProperty.CreateInstance(), false);
+            };
+            blackboard.editTextRequested = (_blackboard, element, newValue) =>
+            {
+                var oldPropertyName = ((BlackboardField)element).text;
+                if (_graphView.ExposedProperties.Any(x => x.PropertyName == newValue))
+                {
+                    EditorUtility.DisplayDialog("Error", "This property name already exists, please chose another one.",
+                        "OK");
+                    return;
+                }
+
+                var targetIndex = _graphView.ExposedProperties.FindIndex(x => x.PropertyName == oldPropertyName);
+                _graphView.ExposedProperties[targetIndex].PropertyName = newValue;
+                ((BlackboardField)element).text = newValue;
+            };
+            blackboard.SetPosition(new Rect(10, 30, 200, 300));
+            _graphView.Add(blackboard);
+            _graphView.Blackboard = blackboard;
+        }
+
+        private void OnDisable()
+        {
+            rootVisualElement.Remove(_graphView);
         }
     }
 }
