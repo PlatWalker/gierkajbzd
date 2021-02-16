@@ -69,25 +69,7 @@ public class DoomerController : EnemyController
             currentState = DoomerState.Dying;
         }
 
-        //Beta version of performance booster
-        bool updateLogicFrame = false;
-        if (framesCounter == updateLogicEveryXFrames)
-        {
-            framesCounter = 0;
-            updateLogicFrame = true;
-        }
-        else
-        {
-            framesCounter++;
-        }
-
-        //code below is strongly undebuggable -you have to remember that distance to main char is 
-        //updating/counted again only every (see: updateLogicEveryXFrames) frames
-        if (updateLogicFrame)
-        {
-            distanceToMainChar = Vector3.Distance(transform.position, MainCharacterTransform.position);
-            playerIsVisible = IsPlayerVisible();
-        }
+        HandleLogicPerformaceBoost();
 
         switch (currentState)
         {
@@ -354,7 +336,7 @@ public class DoomerController : EnemyController
     override public void SetDamage(int damageAmount, DamageType damageType)
     {
         if (!HasDoneAggro) HasDoneAggro = true;
-        if (currentState != DoomerState.ChargedAttack)
+        if (currentState == DoomerState.Idle || currentState == DoomerState.Patrol || currentState == DoomerState.Return || currentState == DoomerState.HaveSeenPlayer)
         {
             GoToPoint = MainCharacterTransform.position;
             currentState = DoomerState.HaveSeenPlayer;

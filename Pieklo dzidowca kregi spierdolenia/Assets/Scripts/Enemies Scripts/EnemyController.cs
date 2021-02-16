@@ -51,7 +51,8 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     }
     protected float distanceToMainChar;
     protected bool playerIsVisible;
-   
+    protected bool updateLogicFrame;
+
     protected string CurrentAnimation; //debug only
 
     [Header("Movement")]
@@ -198,9 +199,11 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        ////comment below is showing only how to initialize easyAniamtorController
-        //string[] ignoredBooleans = new string[] { "ignoredBooleanName1", "ignoredBooleanName2" };
-        //easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), ignoredBooleans);
+        /*comment below is showing only how to initialize easyAniamtorController
+         * string[] ignoredBooleans = new string[] { "ignoredBooleanName1", "ignoredBooleanName2" };
+         * easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), ignoredBooleans);
+         */
+
         SpawnPoint = new Vector3(transform.position.x,
                                 transform.position.y,
                                 transform.position.z);
@@ -243,6 +246,7 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
 
     // Update is called once per frame
     protected abstract void Update();
+
     /// <summary>
     /// Method to set destination point for enemy - shouldn't have been updated every frame.
     /// </summary>
@@ -404,6 +408,8 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
         foreach (GameObject enemyObject in FoundEnemyObjects)
         {
             if (Vector3.Distance(transform.position, enemyObject.transform.position) > OtherEnemiesTriggerRadius) continue;
+            if (enemyObject.transform == transform) continue;
+
             EnemyController enemyController;
             if(enemyObject.TryGetComponent<EnemyController>(out enemyController))
             {
@@ -434,5 +440,28 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
         MultiUseTimer += Time.deltaTime;
         if (MultiUseTimer >= DisappearAfter) Destroy(this.gameObject);
         easyAnimator.SetBooleanTrue("isDying");
+    }
+
+    protected void HandleLogicPerformaceBoost()
+    {
+        //Beta version of performance booster
+        updateLogicFrame = false;
+        if (framesCounter == updateLogicEveryXFrames)
+        {
+            framesCounter = 0;
+            updateLogicFrame = true;
+        }
+        else
+        {
+            framesCounter++;
+        }
+
+        //code below is strongly undebuggable -you have to remember that distance to main char is 
+        //updating/counted again only every (see: updateLogicEveryXFrames) frames
+        if (updateLogicFrame)
+        {
+            distanceToMainChar = Vector3.Distance(transform.position, MainCharacterTransform.position);
+            playerIsVisible = IsPlayerVisible();
+        }
     }
 }
