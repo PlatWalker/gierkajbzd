@@ -1,6 +1,6 @@
 ﻿///<summary>
 /// Created by Szwagier
-///Edited by Kumdzio
+/// STRONGLY Edited by Kumdzio
 ///</summary>
 
 
@@ -10,8 +10,11 @@ using UnityEngine;
 public class GowniakController : EnemyController
 {
     [SerializeField] private float aggroMaxTimeMs = 5000f;
+    [SerializeField] private float spawnWanderRadius = 15f;
+    [SerializeField] private float maxWanderDistance = 3f;
+    [SerializeField] private float minWanderDistance = 1f;
 
-    private bool aggroCommenced = false;
+    private static bool aggroCommenced;
 
     private Stopwatch aggroTimer;
 
@@ -62,102 +65,78 @@ public class GowniakController : EnemyController
         {
             case GowniakState.Aggro:
                 {
+                    easyAnimator.SetBooleanTrue("Aggro");
 
+
+                    if (!updateLogicFrame) break;
+
+                    if (aggroTimer != null && aggroTimer.IsRunning && aggroTimer.ElapsedMilliseconds > aggroMaxTimeMs)
+                    {
+                        aggroCommenced = true;
+                        aggroTimer = null;
+                    }
+                    if (aggroCommenced)
+                    {
+                        aggroTimer = null;
+                        currentState = GowniakState.Chase;
+                    }
+                    if (!playerIsVisible)
+                    {
+                        aggroTimer = null;
+                        currentState = GowniakState.Wander;
+                    }
                 }
                 break;
             case GowniakState.AIOff:
-                {
-
-                }
-                break;
+                return;
             case GowniakState.Attack:
                 {
+                    easyAnimator.SetBooleanTrue("Attack");
+                    //attack code goes here
 
+                    if (!updateLogicFrame) break;
                 }
                 break;
             case GowniakState.Chase:
                 {
+                    MoveTo(MainCharacterTransform.position, MovementSpeed, AttackRadius);
+                    easyAnimator.SetBooleanTrue("Move");
 
+                    if (!updateLogicFrame) break;
                 }
                 break;
             case GowniakState.Dying:
                 {
-
+                    Die();
                 }
                 break;
             case GowniakState.Idle:
                 {
+                    easyAnimator.SetBooleanTrue("Idle");
 
+                    if (!updateLogicFrame) break;
                 }
                 break;
             case GowniakState.Wander:
                 {
-                    
+                    //some code to times to times move
+                    MoveTo(GoToPoint, MovementSpeed, AttackRadius);
+                    if (Vector3.Distance(transform.position, GoToPoint) <= AttackRadius)
+                    {
+                        easyAnimator.SetBooleanTrue("Idle");
+                    }
+                    else
+                    {
+                        easyAnimator.SetBooleanTrue("Move");
+                    }
+
+                    if (!updateLogicFrame) break;
                 }
                 break;
             default:
                 UnityEngine.Debug.Log("Some Gowniak is in strange and unrecognized state");
                 break;
         }
-
-
-
-
-
-
-
-
-
-
-
-        //below old style delete when done
-        if (turnOffAI) return;
-
-        transform.Rotate(0f, -90.0f, 0.0f); //reApply Bug of gizmos
-
-        float distanceToMainChar =
-            Vector3.Distance(transform.position, MainCharacterTransform.position);
-
-
-        if (distanceToMainChar < AggroRadius) // checking if main char is visible for enemy
-        {
-            aggroTimer = (aggroTimer != null && aggroTimer.IsRunning) || aggroCommenced ? aggroTimer : Stopwatch.StartNew();
-
-            //MoveTo(false, 0f, MainCharacterTransform.position);
-
-            if (distanceToMainChar < AttackRadius) //checking if main char is in attack range
-            {
-                easyAnimator.SetBooleanTrue("Attack");
-
-                //attack code goes here
-
-            }
-            else if (aggroCommenced)
-            {
-                easyAnimator.SetBooleanTrue("Move");
-                //MoveTo(false, normalSpeedModifier, MainCharacterTransform.position);
-            }
-            else
-            {
-                easyAnimator.SetBooleanTrue("InAggroRadius");
-                if (aggroTimer != null && aggroTimer.IsRunning && aggroTimer.ElapsedMilliseconds > aggroMaxTimeMs)
-                {
-                    aggroCommenced = true;
-                    aggroTimer = null;
-                }
-            }
-        }
-        else if (Vector3.Distance(transform.position, SpawnPoint) > 2f)
-        {
-            aggroTimer = null; // stop aggroTimer, main char outside of aggro radius
-            easyAnimator.SetBooleanTrue("Move");
-            // MoveTo(false, normalSpeedModifier, SpawnPoint);
-        }
-        else
-        {
-            easyAnimator.ResetAllBooleans();
-        }
-        transform.Rotate(0.0f, 90.0f, 0.0f); // removing Bug of gizmos
     }
 
     protected override bool HandleTriggerByEnemy(Vector3 target)
@@ -178,5 +157,35 @@ public class GowniakController : EnemyController
             currentState = resumeState;
 
         }
+    }
+
+    override public void SetDamage(int damageAmount, DamageType damageType)
+    {
+        if (currentState == GowniakState.Idle || currentState == GowniakState.Wander)
+        {
+            GoToPoint = GenerateNewDestination(currentState==GowniakState.Wander);
+        }
+        base.SetDamage(damageAmount, damageType);
+    }
+
+    private Vector3 GenerateNewDestination(bool WanderTowardsSpawn)
+    {
+        const int TryXTimes = 10;
+        int tryCounter = 0;
+        Vector3 newPoint = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        if (WanderTowardsSpawn)
+        {
+            while (tryCounter < TryXTimes && Vector3.Distance(newPoint, SpawnPoint) > Vector3.Distance(transform.position,SpawnPoint))
+            {
+                tryCounter++;
+                newPoint.x = transform.position.x + Random.Range(-maxWanderDistance, maxWanderDistance);
+                newPoint.z = transform.position.z + Random.Range(-maxWanderDistance, maxWanderDistance);
+            }
+        }
+        else
+        {
+            while(tryCounter<TryXTimes)
+        }
+        return newPoint;
     }
 }
