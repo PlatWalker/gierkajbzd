@@ -65,7 +65,6 @@ public class DoomerController : EnemyController
         
         if (CurrentHealth <= 0 && Alive)
         {
-            MultiUseTimer = 0f;
             currentState = DoomerState.Dying;
         }
 

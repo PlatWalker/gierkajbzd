@@ -9,10 +9,11 @@ using UnityEngine;
 
 public class GowniakController : EnemyController
 {
-    [SerializeField] private float aggroMaxTimeMs = 5000f;
+    [SerializeField] private float aggroMaxTime = 5000f;
     [SerializeField] private float spawnWanderRadius = 15f;
     [SerializeField] private float maxWanderDistance = 3f;
     [SerializeField] private float minWanderDistance = 1f;
+    [SerializeField] private float wanderEveryXSeconds = 3f;
 
     private static bool aggroCommenced;
 
@@ -55,7 +56,6 @@ public class GowniakController : EnemyController
     {
         if (CurrentHealth <= 0 && Alive)
         {
-            MultiUseTimer = 0f;
             currentState = GowniakState.Dying;
         }
 
@@ -65,24 +65,20 @@ public class GowniakController : EnemyController
         {
             case GowniakState.Aggro:
                 {
+                    MultiUseTimer += Time.deltaTime;
                     easyAnimator.SetBooleanTrue("Aggro");
 
 
                     if (!updateLogicFrame) break;
 
-                    if (aggroTimer != null && aggroTimer.IsRunning && aggroTimer.ElapsedMilliseconds > aggroMaxTimeMs)
+                    if (MultiUseTimer > aggroMaxTime)
                     {
-                        aggroCommenced = true;
-                        aggroTimer = null;
-                    }
-                    if (aggroCommenced)
-                    {
-                        aggroTimer = null;
+                        MultiUseTimer = 0;
                         currentState = GowniakState.Chase;
                     }
                     if (!playerIsVisible)
                     {
-                        aggroTimer = null;
+                        MultiUseTimer = 0;
                         currentState = GowniakState.Wander;
                     }
                 }
@@ -119,8 +115,10 @@ public class GowniakController : EnemyController
                 break;
             case GowniakState.Wander:
                 {
-                    //some code to times to times move
+                    MultiUseTimer += Time.deltaTime;
+
                     MoveTo(GoToPoint, MovementSpeed, AttackRadius);
+
                     if (Vector3.Distance(transform.position, GoToPoint) <= AttackRadius)
                     {
                         easyAnimator.SetBooleanTrue("Idle");
@@ -131,6 +129,26 @@ public class GowniakController : EnemyController
                     }
 
                     if (!updateLogicFrame) break;
+
+                    if (playerIsVisible)
+                    {
+                        MultiUseTimer = 0f;
+                        currentState = GowniakState.Chase;
+                        break;
+                    }
+
+                    if (Vector3.Distance(transform.position, SpawnPoint) <= spawnWanderRadius)
+                    {
+                        MultiUseTimer = 0f;
+                        currentState = GowniakState.Idle;
+                        break;
+                    }
+
+                    if (MultiUseTimer >= wanderEveryXSeconds)
+                    {
+                        MultiUseTimer = 0f;
+                        GoToPoint = GenerateNewDestination(true);
+                    }
                 }
                 break;
             default:
@@ -184,7 +202,31 @@ public class GowniakController : EnemyController
         }
         else
         {
-            while(tryCounter<TryXTimes)
+            while (tryCounter < TryXTimes && Vector3.Distance(newPoint,SpawnPoint)>spawnWanderRadius)
+            {
+                tryCounter++;
+                newPoint.x = transform.position.x + Random.Range(-maxWanderDistance, maxWanderDistance);
+                newPoint.z = transform.position.z + Random.Range(-maxWanderDistance, maxWanderDistance);
+            }
+        }
+
+        //if reached final iteration, check if the newPoint is correct
+        if (tryCounter == TryXTimes)
+        {
+            if (WanderTowardsSpawn)
+            {
+                if (Vector3.Distance(newPoint, SpawnPoint) > Vector3.Distance(transform.position, SpawnPoint))
+                {
+                    newPoint = transform.position;
+                }
+            }
+            else
+            {
+                if(Vector3.Distance(newPoint, SpawnPoint) > spawnWanderRadius)
+                {
+                    newPoint = transform.position;
+                }
+            }
         }
         return newPoint;
     }

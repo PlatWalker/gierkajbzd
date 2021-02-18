@@ -436,6 +436,7 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
             Destroy(gameObject.GetComponent<Rigidbody>());
             Alive = false;
             GoToPoint = transform.position;
+            MultiUseTimer = 0f;
         }
         MultiUseTimer += Time.deltaTime;
         if (MultiUseTimer >= DisappearAfter) Destroy(this.gameObject);
