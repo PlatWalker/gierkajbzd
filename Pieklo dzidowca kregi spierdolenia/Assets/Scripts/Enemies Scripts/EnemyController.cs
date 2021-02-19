@@ -108,7 +108,7 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
         }
     }
 
-    public NavMeshAgent NavAgent { get; private set; }
+    public NavMeshAgent NavAgent { get; protected set; }
 
     public int PatrolStepsCounter { get; protected set; }
 

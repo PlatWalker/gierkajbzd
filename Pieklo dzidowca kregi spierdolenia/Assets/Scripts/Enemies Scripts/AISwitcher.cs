@@ -27,7 +27,7 @@ public class AISwitcher : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.transform.name == gameObject.transform.name)
+                if (hit.transform == transform)
                 {
                     if (!material)
                     {

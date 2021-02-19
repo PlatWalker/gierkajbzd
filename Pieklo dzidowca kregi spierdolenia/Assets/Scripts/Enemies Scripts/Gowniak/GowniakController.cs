@@ -6,10 +6,11 @@
 
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class GowniakController : EnemyController
 {
-    [SerializeField] private float aggroMaxTime = 5000f;
+    [SerializeField] private float aggroMaxTime = 2f;
     [SerializeField] private float spawnWanderRadius = 15f;
     [SerializeField] private float maxWanderDistance = 3f;
     [SerializeField] private float minWanderDistance = 1f;
@@ -40,7 +41,7 @@ public class GowniakController : EnemyController
     {
         base.Start();
         easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), new string[] { });
-
+        NavAgent = GetComponent<NavMeshAgent>();
     }
 
     //OnValidate is called when script is loaded and everytime when value is changed
@@ -79,7 +80,7 @@ public class GowniakController : EnemyController
                     if (!playerIsVisible)
                     {
                         MultiUseTimer = 0;
-                        currentState = GowniakState.Wander;
+                        currentState = GowniakState.Idle;
                     }
                 }
                 break;
@@ -91,6 +92,16 @@ public class GowniakController : EnemyController
                     //attack code goes here
 
                     if (!updateLogicFrame) break;
+
+                    if (!playerIsVisible)
+                    {
+                        currentState = GowniakState.Wander;
+                    }
+                    if (distanceToMainChar > AttackRadius)
+                    {
+                        currentState = GowniakState.Chase;
+                    }
+
                 }
                 break;
             case GowniakState.Chase:
@@ -99,6 +110,16 @@ public class GowniakController : EnemyController
                     easyAnimator.SetBooleanTrue("Move");
 
                     if (!updateLogicFrame) break;
+
+                    if (distanceToMainChar <= AttackRadius)
+                    {
+                        currentState = GowniakState.Attack;
+                        break;
+                    }
+                    if (!playerIsVisible)
+                    {
+                        currentState = GowniakState.Wander;
+                    }
                 }
                 break;
             case GowniakState.Dying:
@@ -111,6 +132,18 @@ public class GowniakController : EnemyController
                     easyAnimator.SetBooleanTrue("Idle");
 
                     if (!updateLogicFrame) break;
+
+                    if (playerIsVisible)
+                    {
+                        if (aggroCommenced)
+                        {
+                            currentState = GowniakState.Chase;
+                        }
+                        else
+                        {
+                            currentState = GowniakState.Aggro;
+                        }
+                    }
                 }
                 break;
             case GowniakState.Wander:
@@ -118,7 +151,6 @@ public class GowniakController : EnemyController
                     MultiUseTimer += Time.deltaTime;
 
                     MoveTo(GoToPoint, MovementSpeed, AttackRadius);
-
                     if (Vector3.Distance(transform.position, GoToPoint) <= AttackRadius)
                     {
                         easyAnimator.SetBooleanTrue("Idle");
@@ -127,6 +159,7 @@ public class GowniakController : EnemyController
                     {
                         easyAnimator.SetBooleanTrue("Move");
                     }
+
 
                     if (!updateLogicFrame) break;
 
