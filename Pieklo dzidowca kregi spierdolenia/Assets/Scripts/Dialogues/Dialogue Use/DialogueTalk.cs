@@ -13,8 +13,10 @@ namespace jbzdy.DialogueSystem.Actions
         [SerializeField] private AudioSource audioSource;
         private EventStatCheck eventStatCheck;
         private DialogueNodeData currentDialogueNodeData;
-        private EventNodeData lastEventNodeData;
+        private StatCheckNodeData lastStatCheckNodeData;
         private DialogueNodeData lastDialogueNodeData;
+
+        private List<StatCheckNodeData> statCheckNodeDatas = new List<StatCheckNodeData>();
 
         private void Awake()
         {
@@ -84,16 +86,10 @@ namespace jbzdy.DialogueSystem.Actions
 
         private void RunNode(StatCheckNodeData nodeData)
         {
+            statCheckNodeDatas.Add(nodeData);
+
             Debug.Log(nodeData.statCheckType + " | " + nodeData.statCheckValue);
             CheckNodeType(GetNextNode(nodeData));
-        }
-
-        private void ManageStatCheck(EventNodeData nodeData)
-        {
-            eventStatCheck = (EventStatCheck)nodeData.DialogueEventSO;
-
-            string statCheckType = eventStatCheck.statCheckType.ToString();
-            string statCheckValue = eventStatCheck.statCheckValue.ToString();
         }
 
         private void RunNode(EndNodeData _nodeData)
@@ -128,13 +124,14 @@ namespace jbzdy.DialogueSystem.Actions
                 UnityAction tempAciton = null;
                 tempAciton += () =>
                 {
-                    CheckNodeType(GetNodeByGuid(nodePort.InputGuid));
+                    statCheckNodeDatas.Clear();
                     audioSource.Stop();
+                    CheckNodeType(GetNodeByGuid(nodePort.InputGuid));
                 };
                 unityActions.Add(tempAciton);
             }
 
-            dialogueController.SetButtons(texts, unityActions);
+            dialogueController.SetButtons(texts, unityActions, statCheckNodeDatas);
         }
     }
 }
