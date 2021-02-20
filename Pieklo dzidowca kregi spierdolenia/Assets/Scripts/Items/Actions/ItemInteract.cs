@@ -1,28 +1,30 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// Made by sharashino
 /// 
 /// Każdy obiekt z którym możemy wejść w interakcję musi mieć tą klase
 /// </summary>
-public class ItemInteract : Interactables
+namespace jbzdy.Actions.Interaction
 {
-    [SerializeField] private Item item;
-
-    public override void Interact()
+    public class ItemInteract : Interactables
     {
-        if(item.CanPickUp)
+        [SerializeField] private Item item;
+
+        public override void Interact()
         {
-            base.Interact();
-            PickUpItem();
+            if (item.CanPickUp)
+            {
+                base.Interact();
+                PickUpItem();
+            }
         }
-    }
 
-    private void PickUpItem()
-    {
-        Debug.Log("picking up " +item.name);
+        private void PickUpItem()
+        {
+            Debug.Log("picking up " + item.name);
 
-        Destroy(gameObject);
+            Destroy(gameObject);
+        }
     }
 }

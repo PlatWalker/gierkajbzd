@@ -7,26 +7,30 @@
 /// 
 /// Posiada nadpisywalną metode z Interactables dla zmienienia logiki podczas interakcji z obiektem (tutaj podnoszenie przedmiotu)
 /// </summary>
-public class ItemPickup : Interactables
+namespace jbzdy.Actions.Interaction
 {
-    [SerializeField] private Item item;
-
-    public override void Interact()
+    public class ItemPickup : Interactables
     {
-        base.Interact();
-        PickUp();
-    }
+        [SerializeField] private Item item;
 
-    private void PickUp()
-    {
-        Debug.Log("Picking up item: " +item.name);
-
-        bool wasPickedUp = Inventory.instance.AddItem(item);
-
-        if (wasPickedUp)
+        public override void Interact()
         {
-            //Remove object from scene
-            //Destroy(gameObject);
+            base.Interact();
+            PickUp();
+        }
+
+        private void PickUp()
+        {
+            Debug.Log("Picking up item: " + item.name);
+
+            bool wasPickedUp = Inventory.instance.AddItem(item);
+
+            if (wasPickedUp)
+            {
+                //Remove object from scene
+                //Destroy(gameObject);
+            }
         }
     }
 }
+
