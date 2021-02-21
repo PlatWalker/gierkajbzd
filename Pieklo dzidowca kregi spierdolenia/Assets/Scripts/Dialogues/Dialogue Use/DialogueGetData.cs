@@ -1,4 +1,5 @@
 using UnityEngine;
+using jbzdy.DialogueSystem.SO;
 
 public class DialogueGetData : MonoBehaviour
 {

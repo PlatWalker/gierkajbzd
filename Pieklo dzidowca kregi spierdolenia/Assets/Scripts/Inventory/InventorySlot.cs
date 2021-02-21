@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using jbzdy.Items;
+using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>

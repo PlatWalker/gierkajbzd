@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using jbzdy.Items;
+using jbzdy.Items.Enums;
+using UnityEngine;
 
 /// <summary>
 /// Napisane przez sharashino

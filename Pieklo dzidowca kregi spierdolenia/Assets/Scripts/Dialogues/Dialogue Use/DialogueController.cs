@@ -2,10 +2,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using jbzdy.CharacterStats;
+using jbzdy.DialogueSystem.SO;
 using jbzdy.DialogueSystem.Enums;
 using System.Collections.Generic;
-using jbzdy.CharacterStats;
-using System;
 
 namespace jbzdy.DialogueSystem.Actions
 {

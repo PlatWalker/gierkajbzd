@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
+using jbzdy.DialogueSystem.SO;
 using System.Collections.Generic;
 using jbzdy.DialogueSystem.Enums;
 using jbzdy.DialogueSystem.Editor;

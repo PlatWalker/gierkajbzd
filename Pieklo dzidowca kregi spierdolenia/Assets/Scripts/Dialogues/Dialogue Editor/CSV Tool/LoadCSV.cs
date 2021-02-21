@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
+using jbzdy.DialogueSystem.SO;
 using System.Collections.Generic;
 using jbzdy.DialogueSystem.Enums;
 using System.Text.RegularExpressions;

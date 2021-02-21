@@ -1,4 +1,5 @@
 using System;
+using jbzdy.DialogueSystem.SO;
 using jbzdy.DialogueSystem.CSV;
 using jbzdy.DialogueSystem.Enums;
 using System.Collections.Generic;

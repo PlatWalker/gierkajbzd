@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using UnityEngine;
+using jbzdy.DialogueSystem.SO;
 using System.Collections.Generic;
 using jbzdy.DialogueSystem.Enums;
 

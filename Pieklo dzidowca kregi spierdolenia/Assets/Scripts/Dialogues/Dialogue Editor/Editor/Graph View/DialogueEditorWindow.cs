@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
+using jbzdy.DialogueSystem.SO;
 using jbzdy.DialogueSystem.Enums;
 using jbzdy.DialogueSystem.SaveLoad;
 

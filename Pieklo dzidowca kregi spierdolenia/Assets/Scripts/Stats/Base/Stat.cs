@@ -6,7 +6,7 @@ using System.Collections.Generic;
 /// 
 /// Skrypt definiujący czym jest statystyka i umożliwiającym operacje na tej wartości
 /// </summary>
-namespace jbzdy.CharacterStats
+namespace jbzdy.CharacterStats.Stats
 {
     [System.Serializable]
     public class Stat

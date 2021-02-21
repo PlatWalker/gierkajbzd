@@ -1,9 +1,8 @@
 using UnityEngine;
 using UnityEngine.Events;
+using jbzdy.DialogueSystem.SO;
 using jbzdy.DialogueSystem.Enums;
 using System.Collections.Generic;
-using jbzdy.DialogueSystem.Events;
-using System;
 
 namespace jbzdy.DialogueSystem.Actions
 {
@@ -11,7 +10,6 @@ namespace jbzdy.DialogueSystem.Actions
     {
         [SerializeField] private DialogueController dialogueController;
         [SerializeField] private AudioSource audioSource;
-        private EventStatCheck eventStatCheck;
         private DialogueNodeData currentDialogueNodeData;
         private StatCheckNodeData lastStatCheckNodeData;
         private DialogueNodeData lastDialogueNodeData;
@@ -52,7 +50,6 @@ namespace jbzdy.DialogueSystem.Actions
                     break;
             }
         }
-
 
         private void RunNode(StartNodeData _nodeData)
         {
