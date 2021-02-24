@@ -12,16 +12,14 @@ namespace jbzdy.DialogueSystem.CSV
 {
     public class LoadCSV
     {
-        private string csvDirectoryName = "Resources/Dialogue/CSV File";
-        private string csvFileName = "DialogueCSV_Load.csv";
+        private readonly string csvDirectoryName = "Resources/Dialogue/CSV File";
+        private readonly string csvFileName = "DialogueCSV_Load.csv";
 
         public void Load()
         {
             string text = File.ReadAllText($"{Application.dataPath}/{csvDirectoryName}/{csvFileName}");
             List<List<string>> result = ParseCSV(text);
-
             List<string> headers = result[0];
-
             List<DialogueContainerSO> dialogueContainers = Helper.FindAllObjectFromResources<DialogueContainerSO>();
 
             foreach (DialogueContainerSO dialogueContainer in dialogueContainers)
@@ -39,19 +37,19 @@ namespace jbzdy.DialogueSystem.CSV
             }
         }
 
-        private void LoadInToNode(List<List<string>> _result, List<string> _headers, DialogueNodeData _nodeData)
+        private void LoadInToNode(List<List<string>> result, List<string> headers, DialogueNodeData nodeData)
         {
-            foreach (List<string> line in _result)
+            foreach (List<string> line in result)
             {
-                if (line[0] == _nodeData.NodeGuid)
+                if (line[0] == nodeData.NodeGuid)
                 {
                     for (int i = 0; i < line.Count; i++)
                     {
                         foreach (LanguageType languageType in (LanguageType[])Enum.GetValues(typeof(LanguageType)))
                         {
-                            if (_headers[i] == languageType.ToString())
+                            if (headers[i] == languageType.ToString())
                             {
-                                _nodeData.TextLanguages.Find(x => x.LanguageType == languageType).LanguageGenericType = line[i];
+                                nodeData.TextLanguages.Find(x => x.LanguageType == languageType).LanguageGenericType = line[i];
                             }
                         }
                     }
@@ -59,19 +57,19 @@ namespace jbzdy.DialogueSystem.CSV
             }
         }
 
-        private void LoadInToNodePort(List<List<string>> _result, List<string> _headers, DialogueNodePort _nodePort)
+        private void LoadInToNodePort(List<List<string>> result, List<string> headers, DialogueNodePort nodePort)
         {
-            foreach (List<string> line in _result)
+            foreach (List<string> line in result)
             {
-                if (line[0] == _nodePort.PortGuid)
+                if (line[0] == nodePort.PortGuid)
                 {
                     for (int i = 0; i < line.Count; i++)
                     {
                         foreach (LanguageType languageType in (LanguageType[])Enum.GetValues(typeof(LanguageType)))
                         {
-                            if (_headers[i] == languageType.ToString())
+                            if (headers[i] == languageType.ToString())
                             {
-                                _nodePort.TextLanguages.Find(x => x.LanguageType == languageType).LanguageGenericType = line[i];
+                                nodePort.TextLanguages.Find(x => x.LanguageType == languageType).LanguageGenericType = line[i];
                             }
                         }
                     }

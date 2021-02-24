@@ -9,11 +9,11 @@ namespace jbzdy.DialogueSystem.CSV
 {
     public class SaveCSV
     {
-        private string csvDirectoryName = "Resources/Dialogue/CSV File";
-        private string csvFileName = "DialogueCSV_Save.csv";
-        private string csvSeparator = ",";
+        private readonly string csvDirectoryName = "Resources/Dialogue/CSV File";
+        private readonly string csvFileName = "DialogueCSV_Save.csv";
+        private readonly string csvSeparator = ",";
+        private readonly string idName = "Guid ID";
         private List<string> csvHeader;
-        private string idName = "Guid ID";
 
         public void Save()
         {
@@ -55,12 +55,12 @@ namespace jbzdy.DialogueSystem.CSV
             }
         }
 
-        private void AppendToFile(List<string> _strings)
+        private void AppendToFile(List<string> strings)
         {
             using (StreamWriter sw = File.AppendText(GetFilePath()))
             {
                 string finalString = "";
-                foreach (string text in _strings)
+                foreach (string text in strings)
                 {
                     if (finalString != "")
                     {
