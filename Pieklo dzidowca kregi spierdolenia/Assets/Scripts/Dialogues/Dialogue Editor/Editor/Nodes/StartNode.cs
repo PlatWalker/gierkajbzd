@@ -15,13 +15,13 @@ namespace jbzdy.DialogueSystem.Nodes
             styleSheets.Add(styleSheet);
         }
 
-        public StartNode(Vector2 _position, DialogueEditorWindow _editorWindow, DialogueGraphView _graphView)
+        public StartNode(Vector2 position, DialogueEditorWindow newEditorWindow, DialogueGraphView newGraphView)
         {
-            editorWindow = _editorWindow;
-            graphView = _graphView;
+            editorWindow = newEditorWindow;
+            graphView = newGraphView;
 
             title = "Start";
-            SetPosition(new Rect(_position, defaultNodeSize));
+            SetPosition(new Rect(position, defaultNodeSize));
             nodeGuid = Guid.NewGuid().ToString();
 
             AddOutputPort("Output", Port.Capacity.Single);

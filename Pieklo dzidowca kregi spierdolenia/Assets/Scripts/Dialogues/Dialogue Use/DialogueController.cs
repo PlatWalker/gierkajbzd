@@ -58,38 +58,38 @@ namespace jbzdy.DialogueSystem.Actions
             buttonsTexts.Add(buttonText04);
         }
 
-        public void ShowDialogueUI(bool _show)
+        public void ShowDialogueUI(bool show)
         {
-            dialogueUI.SetActive(_show);
+            dialogueUI.SetActive(show);
         }
 
-        public void SetText(string _name, string _textBox)
+        public void SetText(string newName, string newTextBox)
         {
-            textName.text = _name;
-            textBox.text = _textBox;
+            textName.text = newName;
+            textBox.text = newTextBox;
         }
 
-        public void SetImage(Sprite _image, DialogueFaceImageType _dialogueFaceImageType)
+        public void SetImage(Sprite image, DialogueFaceImageType dialogueFaceImageType)
         {
             leftImageGO.SetActive(false);
             rigthImageGO.SetActive(false);
 
-            if (_image != null)
+            if (image != null)
             {
-                if (_dialogueFaceImageType == DialogueFaceImageType.Left)
+                if (dialogueFaceImageType == DialogueFaceImageType.Left)
                 {
-                    leftImage.sprite = _image;
+                    leftImage.sprite = image;
                     leftImageGO.SetActive(true);
                 }
                 else
                 {
-                    rigthImage.sprite = _image;
+                    rigthImage.sprite = image;
                     rigthImageGO.SetActive(true);
                 }
             }
         }
 
-        public void SetButtons(List<string> _texts, List<UnityAction> _unityActions, List<StatCheckNodeData> statCheckNodeDatas)
+        public void SetButtons(List<string> texts, List<UnityAction> unityActions, List<StatCheckNodeData> statCheckNodeDatas)
         {
             buttons.ForEach(button => button.gameObject.SetActive(false));
             UnityAction statCheck = null;
@@ -105,13 +105,13 @@ namespace jbzdy.DialogueSystem.Actions
                 {
                     int playerValue = AddMatchingPlayerValues(statCheckNodeDatas[i]);
 
-                    buttonsTexts[i].text = "[" + statCheckNodeDatas[i].statCheckType + " " + playerValue + "/" + statCheckNodeDatas[i].statCheckValue + "]" + _texts[i];
+                    buttonsTexts[i].text = "[" + statCheckNodeDatas[i].statCheckType + " " + playerValue + "/" + statCheckNodeDatas[i].statCheckValue + "]" + texts[i];
                     buttons[i].gameObject.SetActive(true);
                     buttons[i].onClick = new Button.ButtonClickedEvent();
 
                     if(HasPassedCheck(statCheckNodeDatas[i]))
                     {
-                        buttons[i].onClick.AddListener(_unityActions[i]);
+                        buttons[i].onClick.AddListener(unityActions[i]);
                     }
                     else
                     {
@@ -120,12 +120,12 @@ namespace jbzdy.DialogueSystem.Actions
                 }
             }
 
-            for (int i = statCheckNodeDatas.Count; i < _texts.Count; i++)
+            for (int i = statCheckNodeDatas.Count; i < texts.Count; i++)
             {
-                buttonsTexts[i].text = _texts[i];
+                buttonsTexts[i].text = texts[i];
                 buttons[i].gameObject.SetActive(true);
                 buttons[i].onClick = new Button.ButtonClickedEvent();
-                buttons[i].onClick.AddListener(_unityActions[i]);
+                buttons[i].onClick.AddListener(unityActions[i]);
             }
         }
 

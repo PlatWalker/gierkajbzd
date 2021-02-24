@@ -23,16 +23,16 @@ namespace jbzdy.DialogueSystem.Nodes
            
         }
 
-        public StatCheckNode(Vector2 _position, DialogueEditorWindow _editorWindow, DialogueGraphView _graphView)
+        public StatCheckNode(Vector2 position, DialogueEditorWindow newEditorWindow, DialogueGraphView newGraphView)
         {
             StyleSheet styleSheet = Resources.Load<StyleSheet>("StatCheckNodeStyleSheet");
             styleSheets.Add(styleSheet); 
             
-            editorWindow = _editorWindow;
-            graphView = _graphView;
+            editorWindow = newEditorWindow;
+            graphView = newGraphView;
 
             title = "Stat Check";
-            SetPosition(new Rect(_position, defaultNodeSize));
+            SetPosition(new Rect(position, defaultNodeSize));
             nodeGuid = Guid.NewGuid().ToString();
 
             AddInputPort("Input", Port.Capacity.Multi);

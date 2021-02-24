@@ -5,19 +5,19 @@ public class DialogueGetData : MonoBehaviour
 {
     [SerializeField] protected DialogueContainerSO dialogueContainer;
 
-    protected BaseNodeData GetNodeByGuid(string _targetNodeGuid)
+    protected BaseNodeData GetNodeByGuid(string targetNodeGuid)
     {
-        return dialogueContainer.AllNodes.Find(node => node.NodeGuid == _targetNodeGuid);
+        return dialogueContainer.AllNodes.Find(node => node.NodeGuid == targetNodeGuid);
     }
 
-    protected BaseNodeData GetNodeByNodePort(DialogueNodePort _nodePort)
+    protected BaseNodeData GetNodeByNodePort(DialogueNodePort nodePort)
     {
-        return dialogueContainer.AllNodes.Find(node => node.NodeGuid == _nodePort.InputGuid);
+        return dialogueContainer.AllNodes.Find(node => node.NodeGuid == nodePort.InputGuid);
     }
 
-    protected BaseNodeData GetNextNode(BaseNodeData _baseNodeData)
+    protected BaseNodeData GetNextNode(BaseNodeData baseNodeData)
     {
-        NodeLinkData nodeLinkData = dialogueContainer.NodeLinkDatas.Find(egde => egde.BaseNodeGuid == _baseNodeData.NodeGuid);
+        NodeLinkData nodeLinkData = dialogueContainer.NodeLinkDatas.Find(egde => egde.BaseNodeGuid == baseNodeData.NodeGuid);
 
         return GetNodeByGuid(nodeLinkData.TargetNodeGuid);
     }

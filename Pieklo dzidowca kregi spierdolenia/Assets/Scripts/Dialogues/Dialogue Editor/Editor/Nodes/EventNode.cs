@@ -26,16 +26,16 @@ namespace jbzdy.DialogueSystem.Nodes
            
         }
 
-        public EventNode(Vector2 _position, DialogueEditorWindow _editorWindow, DialogueGraphView _graphView)
+        public EventNode(Vector2 position, DialogueEditorWindow newEditorWindow, DialogueGraphView newGraphView)
         {
             StyleSheet styleSheet = Resources.Load<StyleSheet>("EventNodeStyleSheet");
             styleSheets.Add(styleSheet);
 
-            editorWindow = _editorWindow;
-            graphView = _graphView;
+            editorWindow = newEditorWindow;
+            graphView = newGraphView;
 
             title = "Event";
-            SetPosition(new Rect(_position, defaultNodeSize));
+            SetPosition(new Rect(position, defaultNodeSize));
             nodeGuid = Guid.NewGuid().ToString();
 
             AddInputPort("Input", Port.Capacity.Multi);

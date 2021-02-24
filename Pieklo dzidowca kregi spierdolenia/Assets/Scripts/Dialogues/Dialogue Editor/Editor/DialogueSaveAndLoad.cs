@@ -293,12 +293,12 @@ namespace jbzdy.DialogueSystem.SaveLoad
             }
         }
 
-        private void LinkNodesTogether(Port _outputPort, Port _inputPort)
+        private void LinkNodesTogether(Port outputPort, Port inputPort)
         {
             Edge tempEdge = new Edge()
             {
-                output = _outputPort,
-                input = _inputPort
+                output = outputPort,
+                input = inputPort
             };
             tempEdge.input.Connect(tempEdge);
             tempEdge.output.Connect(tempEdge);

@@ -11,7 +11,6 @@ namespace jbzdy.DialogueSystem.Actions
         [SerializeField] private DialogueController dialogueController;
         [SerializeField] private AudioSource audioSource;
         private DialogueNodeData currentDialogueNodeData;
-        private StatCheckNodeData lastStatCheckNodeData;
         private DialogueNodeData lastDialogueNodeData;
 
         private List<StatCheckNodeData> statCheckNodeDatas = new List<StatCheckNodeData>();
@@ -27,9 +26,9 @@ namespace jbzdy.DialogueSystem.Actions
             dialogueController.ShowDialogueUI(true);
         }
 
-        private void CheckNodeType(BaseNodeData _baseNodeData)
+        private void CheckNodeType(BaseNodeData baseNodeData)
         {
-            switch (_baseNodeData)
+            switch (baseNodeData)
             {
                 case StartNodeData nodeData:
                     RunNode(nodeData);
@@ -51,34 +50,34 @@ namespace jbzdy.DialogueSystem.Actions
             }
         }
 
-        private void RunNode(StartNodeData _nodeData)
+        private void RunNode(StartNodeData nodeData)
         {
             CheckNodeType(GetNextNode(dialogueContainer.StartNodeDatas[0]));
         }
 
-        private void RunNode(DialogueNodeData _nodeData)
+        private void RunNode(DialogueNodeData nodeData)
         {
-            if (currentDialogueNodeData != _nodeData)
+            if (currentDialogueNodeData != nodeData)
             {
                 lastDialogueNodeData = currentDialogueNodeData;
-                currentDialogueNodeData = _nodeData;
+                currentDialogueNodeData = nodeData;
             }
 
-            dialogueController.SetText(_nodeData.Name, _nodeData.TextLanguages.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType);
-            dialogueController.SetImage(_nodeData.Sprite, _nodeData.DialogueFaceImageType);
-            MakeButtons(_nodeData.DialogueNodePorts);
+            dialogueController.SetText(nodeData.Name, nodeData.TextLanguages.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType);
+            dialogueController.SetImage(nodeData.Sprite, nodeData.DialogueFaceImageType);
+            MakeButtons(nodeData.DialogueNodePorts);
 
-            audioSource.clip = _nodeData.AudioClips.Find(clip => clip.LanguageType == LanguageController.Instance.Language).LanguageGenericType;
+            audioSource.clip = nodeData.AudioClips.Find(clip => clip.LanguageType == LanguageController.Instance.Language).LanguageGenericType;
             audioSource.Play();
         }
         
-        private void RunNode(EventNodeData _nodeData)
+        private void RunNode(EventNodeData nodeData)
         {
-            if (_nodeData.DialogueEventSO != null)
+            if (nodeData.DialogueEventSO != null)
             {
-                _nodeData.DialogueEventSO.RunEvent();
+                nodeData.DialogueEventSO.RunEvent();
             }
-            CheckNodeType(GetNextNode(_nodeData));
+            CheckNodeType(GetNextNode(nodeData));
         }
 
         private void RunNode(StatCheckNodeData nodeData)
@@ -89,9 +88,9 @@ namespace jbzdy.DialogueSystem.Actions
             CheckNodeType(GetNextNode(nodeData));
         }
 
-        private void RunNode(EndNodeData _nodeData)
+        private void RunNode(EndNodeData nodeData)
         {
-            switch (_nodeData.EndNodeType)
+            switch (nodeData.EndNodeType)
             {
                 case EndNodeType.End:
                     dialogueController.ShowDialogueUI(false);
@@ -110,12 +109,12 @@ namespace jbzdy.DialogueSystem.Actions
             }
         }
 
-        private void MakeButtons(List<DialogueNodePort> _nodePorts)
+        private void MakeButtons(List<DialogueNodePort> nodePorts)
         {
             List<string> texts = new List<string>();
             List<UnityAction> unityActions = new List<UnityAction>();
 
-            foreach (DialogueNodePort nodePort in _nodePorts)
+            foreach (DialogueNodePort nodePort in nodePorts)
             {
                 texts.Add(nodePort.TextLanguages.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType);
                 UnityAction tempAciton = null;

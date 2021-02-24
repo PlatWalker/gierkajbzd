@@ -38,16 +38,16 @@ namespace jbzdy.DialogueSystem.Nodes
             
         }
 
-        public DialogueNode(Vector2 _position, DialogueEditorWindow _editorWindow, DialogueGraphView _graphView)
+        public DialogueNode(Vector2 position, DialogueEditorWindow newEditorWindow, DialogueGraphView newGraphView)
         {
             StyleSheet styleSheet = Resources.Load<StyleSheet>("DialogueNodeStyleSheet");
             styleSheets.Add(styleSheet);
 
-            editorWindow = _editorWindow;
-            graphView = _graphView;
+            editorWindow = newEditorWindow;
+            graphView = newGraphView;
 
             title = "Dialogue";
-            SetPosition(new Rect(_position, defaultNodeSize));
+            SetPosition(new Rect(position, defaultNodeSize));
             nodeGuid = Guid.NewGuid().ToString();
 
             AddInputPort("Input", Port.Capacity.Multi);
@@ -183,11 +183,11 @@ namespace jbzdy.DialogueSystem.Nodes
             name_Field.SetValueWithoutNotify(nameText);
         }
 
-        public Port AddChoicePort(BaseNode _baseNode, DialogueNodePort _dialogueNodePort = null)
+        public Port AddChoicePort(BaseNode newBaseNode, DialogueNodePort newDialogueNodePort = null)
         {
             Port port = GetPortInstance(Direction.Output);
 
-            int outputPortCount = _baseNode.outputContainer.Query("connector").ToList().Count();
+            int outputPortCount = newBaseNode.outputContainer.Query("connector").ToList().Count();
             string outputPortName = $"Continue";
 
             DialogueNodePort dialogueNodePort = new DialogueNodePort();
@@ -202,13 +202,13 @@ namespace jbzdy.DialogueSystem.Nodes
                 });
             }
 
-            if (_dialogueNodePort != null)
+            if (newDialogueNodePort != null)
             {
-                dialogueNodePort.InputGuid = _dialogueNodePort.InputGuid;
-                dialogueNodePort.OutputGuid = _dialogueNodePort.OutputGuid;
-                dialogueNodePort.PortGuid = _dialogueNodePort.PortGuid;
+                dialogueNodePort.InputGuid = newDialogueNodePort.InputGuid;
+                dialogueNodePort.OutputGuid = newDialogueNodePort.OutputGuid;
+                dialogueNodePort.PortGuid = newDialogueNodePort.PortGuid;
 
-                foreach (LanguageGeneric<string> languageGeneric in _dialogueNodePort.TextLanguages)
+                foreach (LanguageGeneric<string> languageGeneric in newDialogueNodePort.TextLanguages)
                 {
                     dialogueNodePort.TextLanguages.Find(language => language.LanguageType == languageGeneric.LanguageType).LanguageGenericType = languageGeneric.LanguageGenericType;
                 }
@@ -224,7 +224,7 @@ namespace jbzdy.DialogueSystem.Nodes
             port.contentContainer.Add(dialogueNodePort.TextField);
 
             // Delete button
-            Button deleteButton = new Button(() => DeletePort(_baseNode, port))
+            Button deleteButton = new Button(() => DeletePort(newBaseNode, port))
             {
                 text = "X",
             };
@@ -236,22 +236,22 @@ namespace jbzdy.DialogueSystem.Nodes
 
             dialogueNodePorts.Add(dialogueNodePort);
 
-            _baseNode.outputContainer.Add(port);
+            newBaseNode.outputContainer.Add(port);
 
             // Refresh
-            _baseNode.RefreshPorts();
-            _baseNode.RefreshExpandedState();
+            newBaseNode.RefreshPorts();
+            newBaseNode.RefreshExpandedState();
 
             return port;
         }
 
 
-        private void DeletePort(BaseNode _node, Port _port)
+        private void DeletePort(BaseNode delNode, Port delPort)
         {
-            DialogueNodePort tmp = dialogueNodePorts.Find(port => port.MyPort == _port);
+            DialogueNodePort tmp = dialogueNodePorts.Find(port => port.MyPort == delPort);
             dialogueNodePorts.Remove(tmp);
 
-            IEnumerable<Edge> portEdge = graphView.edges.ToList().Where(edge => edge.output == _port);
+            IEnumerable<Edge> portEdge = graphView.edges.ToList().Where(edge => edge.output == delPort);
 
             if (portEdge.Any())
             {
@@ -261,11 +261,11 @@ namespace jbzdy.DialogueSystem.Nodes
                 graphView.RemoveElement(edge);
             }
 
-            _node.outputContainer.Remove(_port);
+            delNode.outputContainer.Remove(delPort);
 
             // Refresh
-            _node.RefreshPorts();
-            _node.RefreshExpandedState();
+            delNode.RefreshPorts();
+            delNode.RefreshExpandedState();
         }
     }
 }

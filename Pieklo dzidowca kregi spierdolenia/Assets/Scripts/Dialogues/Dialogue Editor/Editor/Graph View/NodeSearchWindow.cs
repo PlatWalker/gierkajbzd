@@ -13,10 +13,10 @@ namespace jbzdy.DialogueSystem.Editor
 
         private Texture2D pic;
 
-        public void Configure(DialogueEditorWindow _editorWindow, DialogueGraphView _graphView)
+        public void Configure(DialogueEditorWindow newEditorWindow, DialogueGraphView newGraphView)
         {
-            editorWindow = _editorWindow;
-            graphView = _graphView;
+            editorWindow = newEditorWindow;
+            graphView = newGraphView;
 
             pic = new Texture2D(1, 1);
             pic.SetPixel(0, 0, new Color(0, 0, 0, 0));
@@ -41,47 +41,47 @@ namespace jbzdy.DialogueSystem.Editor
             return tree;
         }
 
-        private SearchTreeEntry AddNodeSearch(string _name, BaseNode _baseNode)
+        private SearchTreeEntry AddNodeSearch(string name, BaseNode baseNode)
         {
-            SearchTreeEntry tmp = new SearchTreeEntry(new GUIContent(_name, pic))
+            SearchTreeEntry tempEntry = new SearchTreeEntry(new GUIContent(name, pic))
             {
                 level = 2,
-                userData = _baseNode
+                userData = baseNode
             };
 
-            return tmp;
+            return tempEntry;
         }
 
-        public bool OnSelectEntry(SearchTreeEntry _SearchTreeEntry, SearchWindowContext _context)
+        public bool OnSelectEntry(SearchTreeEntry searchTreeEntry, SearchWindowContext context)
         {
             Vector2 mousePosition = editorWindow.rootVisualElement.ChangeCoordinatesTo
                 (
-                editorWindow.rootVisualElement.parent, _context.screenMousePosition - editorWindow.position.position
+                editorWindow.rootVisualElement.parent, context.screenMousePosition - editorWindow.position.position
                 );
 
             Vector2 graphMousePosition = graphView.contentViewContainer.WorldToLocal(mousePosition);
 
-            return CheckForNodeType(_SearchTreeEntry, graphMousePosition);
+            return CheckForNodeType(searchTreeEntry, graphMousePosition);
         }
 
-        private bool CheckForNodeType(SearchTreeEntry _searchTreeEntry, Vector2 _pos)
+        private bool CheckForNodeType(SearchTreeEntry searchTreeEntry, Vector2 pos)
         {
-            switch (_searchTreeEntry.userData)
+            switch (searchTreeEntry.userData)
             {
-                case StartNode node:
-                    graphView.AddElement(graphView.CreateStartNode(_pos));
+                case StartNode startNode:
+                    graphView.AddElement(graphView.CreateStartNode(pos));
                     return true;
-                case DialogueNode node:
-                    graphView.AddElement(graphView.CreateDialogueNode(_pos));
+                case DialogueNode dialogueNode:
+                    graphView.AddElement(graphView.CreateDialogueNode(pos));
                     return true;
-                case EventNode node:
-                    graphView.AddElement(graphView.CreateEventNode(_pos));
+                case EventNode eventNode:
+                    graphView.AddElement(graphView.CreateEventNode(pos));
                     return true;
-                case StatCheckNode node:
-                    graphView.AddElement(graphView.CreateStatCheckNode(_pos));
+                case StatCheckNode statCheckNode:
+                    graphView.AddElement(graphView.CreateStatCheckNode(pos));
                     return true;
-                case EndNode node:
-                    graphView.AddElement(graphView.CreateEndNode(_pos));
+                case EndNode endNode:
+                    graphView.AddElement(graphView.CreateEndNode(pos));
                     return true;
                 default:
                     break;

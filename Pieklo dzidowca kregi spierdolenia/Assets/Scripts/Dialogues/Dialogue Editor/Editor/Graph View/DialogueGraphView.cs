@@ -13,9 +13,9 @@ namespace jbzdy.DialogueSystem.Editor
         private DialogueEditorWindow editorWindow;
         private NodeSearchWindow searchWindow;
 
-        public DialogueGraphView(DialogueEditorWindow _editorWindow)
+        public DialogueGraphView(DialogueEditorWindow newEditorWindow)
         {
-            editorWindow = _editorWindow;
+            editorWindow = newEditorWindow;
 
             StyleSheet tmpStyleSheet = Resources.Load<StyleSheet>(styleSheetsName);
             styleSheets.Add(tmpStyleSheet);
@@ -68,37 +68,37 @@ namespace jbzdy.DialogueSystem.Editor
             }
         }
 
-        public StartNode CreateStartNode(Vector2 _pos)
+        public StartNode CreateStartNode(Vector2 pos)
         {
-            StartNode tmp = new StartNode(_pos, editorWindow, this);
+            StartNode tmp = new StartNode(pos, editorWindow, this);
 
             return tmp;
         }
 
-        public EndNode CreateEndNode(Vector2 _pos)
+        public EndNode CreateEndNode(Vector2 pos)
         {
-            EndNode tmp = new EndNode(_pos, editorWindow, this);
+            EndNode tmp = new EndNode(pos, editorWindow, this);
 
             return tmp;
         }
 
-        public EventNode CreateEventNode(Vector2 _pos)
+        public EventNode CreateEventNode(Vector2 pos)
         {
-            EventNode tmp = new EventNode(_pos, editorWindow, this);
+            EventNode tmp = new EventNode(pos, editorWindow, this);
 
             return tmp;
         }
 
-        public StatCheckNode CreateStatCheckNode(Vector2 _pos)
+        public StatCheckNode CreateStatCheckNode(Vector2 pos)
         {
-            StatCheckNode tmp = new StatCheckNode(_pos, editorWindow, this);
+            StatCheckNode tmp = new StatCheckNode(pos, editorWindow, this);
 
             return tmp;
         }
 
-        public DialogueNode CreateDialogueNode(Vector2 _pos)
+        public DialogueNode CreateDialogueNode(Vector2 pos)
         {
-            DialogueNode tmp = new DialogueNode(_pos, editorWindow, this);
+            DialogueNode tmp = new DialogueNode(pos, editorWindow, this);
 
             return tmp;
         }

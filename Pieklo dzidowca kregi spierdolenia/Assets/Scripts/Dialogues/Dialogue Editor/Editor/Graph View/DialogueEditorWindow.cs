@@ -23,9 +23,9 @@ namespace jbzdy.DialogueSystem.Editor
         public LanguageType LanguageType { get => languageType; set => languageType = value; }
 
         [OnOpenAsset(1)]
-        public static bool ShowWindow(int _instanceId, int line)
+        public static bool ShowWindow(int instanceId)
         {
-            UnityEngine.Object item = EditorUtility.InstanceIDToObject(_instanceId);
+            UnityEngine.Object item = EditorUtility.InstanceIDToObject(instanceId);
 
             if (item is DialogueContainerSO)
             {
@@ -123,10 +123,10 @@ namespace jbzdy.DialogueSystem.Editor
             }
         }
 
-        private void Language(LanguageType _language, ToolbarMenu _toolbarMenu)
+        private void Language(LanguageType language, ToolbarMenu _toolbarMenu)
         {
-            toolbarMenu.text = "Language: " + _language.ToString();
-            languageType = _language;
+            toolbarMenu.text = "Language: " + language.ToString();
+            languageType = language;
             graphView.LanguageReload();
         }
     }
