@@ -1,13 +1,13 @@
-﻿using UnityEngine;
-using jbzdy.CharacterStats;
+﻿using jbzdy.Items;
+using UnityEngine;
 
 /// <summary>
 /// Made by sharashino
 /// 
 /// Każdy obiekt który gracz może skonsumować powinien mieć tą klase
 /// </summary>
-namespace jbzdy.Items
-{
+namespace jbzdy.Actions.Interaction
+{ 
     public class ItemConsume : Interactables
     {
         [SerializeField] ConsumableItem consumable;
@@ -24,4 +24,5 @@ namespace jbzdy.Items
         }
     }
 }
+
 

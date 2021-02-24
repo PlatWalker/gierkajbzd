@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
+using jbzdy.Items;
 using jbzdy.StatCreation;
-using System;
+using System.Collections.Generic;
+using jbzdy.CharacterStats.Stats;
 
 /// <summary>
 /// Napisane przez Sharashino

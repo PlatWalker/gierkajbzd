@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 using jbzdy.CharacterStats;
+using jbzdy.CharacterStats.Stats;
+using System.Collections.Generic;
 
 /// <summary>
 /// Napisane przez sharashino
