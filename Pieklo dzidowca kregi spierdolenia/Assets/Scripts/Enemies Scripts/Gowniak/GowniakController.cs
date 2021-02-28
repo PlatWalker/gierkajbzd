@@ -18,10 +18,6 @@ public class GowniakController : EnemyController
 
     private static bool aggroCommenced;
 
-    private Stopwatch aggroTimer;
-
-    private float normalSpeedModifier = 1f;
-
     GowniakState currentState;
     GowniakState resumeState;
 
@@ -145,7 +141,7 @@ public class GowniakController : EnemyController
                         }
                     }
                 }
-                break;
+                break; 
             case GowniakState.Wander:
                 {
                     MultiUseTimer += Time.deltaTime;

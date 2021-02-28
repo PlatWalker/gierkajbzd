@@ -43,8 +43,6 @@ public class DoomerController : EnemyController
         easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), new string[] {"shouldUseSecondAttack"});
         hasDoneSpecialAttack = false;
         currentState = DoomerState.Idle;
-        NavAgent.angularSpeed = RotationSpeed;
-        NavAgent.acceleration = 100;
     }
 
     //OnValidate is called when script is loaded and everytime when value is changed

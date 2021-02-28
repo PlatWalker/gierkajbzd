@@ -212,6 +212,8 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
         GetComponent<Animator>().SetFloat("IdleSpeedMultiplier", Random.Range(0.900001f, 1.100001f));
         NavAgent = GetComponent<NavMeshAgent>();
         SeesPlayer = false;
+        NavAgent.angularSpeed = RotationSpeed;
+        NavAgent.acceleration = 100;
     }
 
     //OnValidate is called when script is loaded and everytime when value is changed
@@ -443,6 +445,10 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
         easyAnimator.SetBooleanTrue("isDying");
     }
 
+    /// <summary>
+    /// Method which have to be called once per every frame update in every enemy controller which want to use the performace boost.
+    /// If not using this method you have to calculate distanceToMainChar and playerIsVisible manually instead
+    /// </summary>
     protected void HandleLogicPerformaceBoost()
     {
         //Beta version of performance booster

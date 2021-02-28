@@ -18,7 +18,19 @@ public class MonkeyController : EnemyController
 
     [SerializeField] private float throwTargetHeight = 1.8f;
 
-    private float normalSpeedModifier = 1f;
+    private enum MonkeyState
+    {
+        Idle,
+        Chase,
+        Attack,
+        Run,
+        Search,
+        Dying,
+        AIOff
+    }
+
+    private MonkeyState currentState;
+    private MonkeyState resumeState;
 
     // Start is called before the first frame update
     override protected void Start()
@@ -26,12 +38,14 @@ public class MonkeyController : EnemyController
         base.Start();
         string[] ignoredBooleans = new string[] { "spawnProjectile" };
         easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), ignoredBooleans);
+        currentState = MonkeyState.Idle;
     }
 
     //OnValidate is called when script is loaded and everytime when value is changed
     //in the inspector
     override protected void OnValidate()
     {
+        /*
         base.OnValidate();
         if (runAwayRadius >= AttackRadius)
         {
@@ -70,15 +84,70 @@ public class MonkeyController : EnemyController
                 throwPower = 10f;
             }
         }
+        */
+
+        //there will be some debug protections some day
+        //some day...
     }
 
     // Update is called once per frame
     override protected void Update()
     {
         if (turnOffAI) return;
+
+        HandleLogicPerformaceBoost();
         
-        float distanceToMainChar = Vector3.Distance(transform.position, MainCharacterTransform.position);
-        
+        switch (currentState)
+        {
+            case MonkeyState.AIOff:
+                {
+
+                }
+                break;
+            case MonkeyState.Attack:
+                {
+
+                }
+                break;
+            case MonkeyState.Chase:
+                {
+
+                }
+                break;
+            case MonkeyState.Dying:
+                {
+
+                }
+                break;
+            case MonkeyState.Idle:
+                {
+
+                }
+                break;
+            case MonkeyState.Run:
+                {
+
+                }
+                break;
+            case MonkeyState.Search:
+                {
+
+                }
+                break;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
         if (distanceToMainChar < AggroRadius)
         {
             if (distanceToMainChar < AttackRadius)
@@ -157,5 +226,19 @@ public class MonkeyController : EnemyController
     {
        //MoveTo(true, runSpeedModifier, MainCharacterTransform.position);
         easyAnimator.SetBooleanTrue("isWalking");
+    }
+
+    override public void SwitchAI()
+    {
+        base.SwitchAI();
+        if (turnOffAI)
+        {
+            resumeState = currentState;
+            currentState = MonkeyState.AIOff;
+        }
+        else
+        {
+            currentState = resumeState;
+        }
     }
 }
