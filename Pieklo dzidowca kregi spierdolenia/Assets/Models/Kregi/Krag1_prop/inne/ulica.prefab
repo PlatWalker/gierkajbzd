@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7628702976168128756}
   - component: {fileID: 5485066458721607914}
   - component: {fileID: 8478036534242480880}
+  - component: {fileID: 601100630599149821}
   m_Layer: 0
   m_Name: Plane.060
   m_TagString: Untagged
@@ -81,6 +82,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &601100630599149821
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573980839561538042}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.14503595, y: 0.021580696, z: 0.0003204094}
+  m_Center: {x: 0.000060118735, y: 0.06394305, z: 0.0001506802}
 --- !u!1 &3063167634987028413
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,6 +139,7 @@ GameObject:
   - component: {fileID: 3224415634438253338}
   - component: {fileID: 1432744462286715618}
   - component: {fileID: 4894643357831291589}
+  - component: {fileID: 5453597458509393190}
   m_Layer: 0
   m_Name: Plane.023
   m_TagString: Untagged
@@ -195,6 +210,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5453597458509393190
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5258076779184143449}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.02, y: 0.02, z: 0.00018824164}
+  m_Center: {x: -0.00015080301, y: 8.208608e-12, z: -0.00009412053}
 --- !u!1 &8836058601465567226
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,6 +234,7 @@ GameObject:
   - component: {fileID: 5455087934767345492}
   - component: {fileID: 5560618460084890519}
   - component: {fileID: 9007911722222048034}
+  - component: {fileID: 5854280438506998306}
   m_Layer: 0
   m_Name: Plane.062
   m_TagString: Untagged
@@ -276,3 +305,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5854280438506998306
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8836058601465567226}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.14499268, y: 0.022197016, z: 0.00029089532}
+  m_Center: {x: 0.000038437545, y: -0.071299195, z: 0.00016544113}
