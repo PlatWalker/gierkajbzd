@@ -1,6 +1,5 @@
 ﻿///<summary>
-/// Created by Szwagier
-/// STRONGLY Edited by Kumdzio
+/// Created by Kumdzio
 ///</summary>
 
 
@@ -10,6 +9,8 @@ using UnityEngine.AI;
 
 public class GowniakController : EnemyController
 {
+
+    [Header("Gowniak specific")]
     [SerializeField] private float aggroMaxTime = 2f;
     [SerializeField] private float spawnWanderRadius = 15f;
     [SerializeField] private float maxWanderDistance = 3f;
@@ -219,18 +220,42 @@ public class GowniakController : EnemyController
     {
         const int TryXTimes = 10;
         int tryCounter = 0;
+
         Vector3 newPoint = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+
         if (WanderTowardsSpawn)
         {
-            while (tryCounter < TryXTimes && Vector3.Distance(newPoint, SpawnPoint) > Vector3.Distance(transform.position,SpawnPoint))
+            //generating point closer to spawn than enemy is now
+            while (tryCounter < TryXTimes )
             {
                 tryCounter++;
-                newPoint.x = transform.position.x + Random.Range(-maxWanderDistance, maxWanderDistance);
-                newPoint.z = transform.position.z + Random.Range(-maxWanderDistance, maxWanderDistance);
+                if (transform.position.z > SpawnPoint.z)
+                {
+                    newPoint.z = transform.position.z + Random.Range(-maxWanderDistance, -minWanderDistance);
+                }
+                else
+                {
+                    newPoint.z = transform.position.z + Random.Range(minWanderDistance, maxWanderDistance);
+                }
+
+                if(transform.position.x > SpawnPoint.x)
+                {
+                    newPoint.x = transform.position.x + Random.Range(-maxWanderDistance, -minWanderDistance);
+                }
+                else
+                {
+                    newPoint.x = transform.position.x + Random.Range(minWanderDistance, maxWanderDistance);
+                }
+                if (Vector3.Distance(newPoint, SpawnPoint) < Vector3.Distance(transform.position, SpawnPoint))
+                {
+                    break;
+                }
+
             }
         }
         else
         {
+            //generating point to wander near spawn
             while (tryCounter < TryXTimes && Vector3.Distance(newPoint,SpawnPoint)>spawnWanderRadius)
             {
                 tryCounter++;
@@ -246,14 +271,14 @@ public class GowniakController : EnemyController
             {
                 if (Vector3.Distance(newPoint, SpawnPoint) > Vector3.Distance(transform.position, SpawnPoint))
                 {
-                    newPoint = transform.position;
+                    return transform.position;
                 }
             }
             else
             {
                 if(Vector3.Distance(newPoint, SpawnPoint) > spawnWanderRadius)
                 {
-                    newPoint = transform.position;
+                    return transform.position;
                 }
             }
         }

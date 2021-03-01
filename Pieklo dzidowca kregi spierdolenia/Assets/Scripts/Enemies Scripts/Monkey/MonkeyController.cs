@@ -148,7 +148,7 @@ public class MonkeyController : EnemyController
 
 
 
-        if (distanceToMainChar < AggroRadius)
+        /*if (distanceToMainChar < AggroRadius)
         {
             if (distanceToMainChar < AttackRadius)
             {
@@ -178,7 +178,7 @@ public class MonkeyController : EnemyController
         if (CurrentHealth<=0)
         {
             easyAnimator.SetBooleanTrue("isDead");
-        }
+        }*/
     }
 
     private void GoBackToSpawn()
