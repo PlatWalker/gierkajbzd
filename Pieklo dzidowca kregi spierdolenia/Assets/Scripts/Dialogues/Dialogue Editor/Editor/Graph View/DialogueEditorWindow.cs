@@ -23,7 +23,7 @@ namespace jbzdy.DialogueSystem.Editor
         public LanguageType LanguageType { get => languageType; set => languageType = value; }
 
         [OnOpenAsset(1)]
-        public static bool ShowWindow(int instanceId)
+        public static bool ShowWindow(int instanceId, int line)
         {
             UnityEngine.Object item = EditorUtility.InstanceIDToObject(instanceId);
 
