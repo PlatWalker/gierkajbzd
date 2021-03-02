@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using jbzdy.DialogueSystem.SO;
 
+/// <summary>
+/// Napisane przez sharashino
+/// 
+/// Event w dialogu odpowiadający za walke
+/// </summary>
 namespace jbzdy.DialogueSystem.Events
 {
     [System.Serializable]

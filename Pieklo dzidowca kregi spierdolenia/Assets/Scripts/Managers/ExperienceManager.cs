@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using jbzdy.StatCreation;
 using jbzdy.CharacterStats;
 
 /// <summary>
@@ -7,7 +8,7 @@ using jbzdy.CharacterStats;
 /// Zaołożeniem tego skryptu jest monitorowanie oraz umożliwianie zapisu postępu poziomów w grze
 /// </summary>
 
-namespace jbzdy.StatCreation
+namespace jbzdy.Managers
 {
     public class ExperienceManager : MonoBehaviour
     {

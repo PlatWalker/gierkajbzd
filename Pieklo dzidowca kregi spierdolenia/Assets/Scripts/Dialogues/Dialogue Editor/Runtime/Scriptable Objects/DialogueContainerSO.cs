@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using jbzdy.DialogueSystem.Enums;
 using UnityEditor.Experimental.GraphView;
 
+/// <summary>
+/// Napisane przez sharashino
+/// 
+/// ScriptableObject zawierający cały dialog w wersji graficznej jak i tekstowej
+/// </summary>
 namespace jbzdy.DialogueSystem.SO
 {
     [System.Serializable]

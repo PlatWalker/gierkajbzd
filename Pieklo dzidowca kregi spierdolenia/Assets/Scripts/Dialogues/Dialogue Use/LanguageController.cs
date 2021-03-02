@@ -1,6 +1,11 @@
-using UnityEngine;
+﻿using UnityEngine;
 using jbzdy.DialogueSystem.Enums;
 
+/// <summary>
+/// Napisane przez sharashino
+/// 
+/// Skrypt odpowiadający za wersję językową gry
+/// </summary>
 namespace jbzdy.DialogueSystem.Actions
 {
     public class LanguageController : MonoBehaviour
