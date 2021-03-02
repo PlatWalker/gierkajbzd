@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using jbzdy.Items;
-using jbzdy.StatCreation;
+using jbzdy.Managers;
 using System.Collections.Generic;
 using jbzdy.CharacterStats.Stats;
 
