@@ -1,6 +1,11 @@
 ﻿using jbzdy.DialogueSystem.SO;
 using UnityEngine;
 
+/// <summary>
+/// Napisane przez sharashino
+/// 
+/// Event w dialogu odpowiadający za otwarcie sklepu
+/// </summary>
 namespace jbzdy.DialogueSystem.Events
 {
     [System.Serializable]

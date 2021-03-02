@@ -1,4 +1,4 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -7,6 +7,11 @@ using jbzdy.DialogueSystem.SO;
 using jbzdy.DialogueSystem.Enums;
 using System.Collections.Generic;
 
+/// <summary>
+/// Napisane przez sharashino
+/// 
+/// Controller odpowiadający za wyświetlanie okna z dialogiem
+/// </summary>
 namespace jbzdy.DialogueSystem.Actions
 {
     public class DialogueController : MonoBehaviour

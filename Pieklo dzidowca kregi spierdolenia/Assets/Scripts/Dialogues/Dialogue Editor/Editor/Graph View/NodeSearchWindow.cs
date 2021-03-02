@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using jbzdy.DialogueSystem.Nodes;
 using UnityEditor.Experimental.GraphView;
 
+/// <summary>
+/// Napisane przez sharashino
+/// 
+/// Skrypty wyszukiwarki nodów w GraphView
+/// </summary>
 namespace jbzdy.DialogueSystem.Editor
 {
     public class NodeSearchWindow : ScriptableObject, ISearchWindowProvider
