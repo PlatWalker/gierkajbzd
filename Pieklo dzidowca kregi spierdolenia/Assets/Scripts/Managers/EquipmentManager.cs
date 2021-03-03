@@ -9,64 +9,68 @@ using UnityEngine;
 /// 
 /// W niedalekiej przyszłości będzie odpowiadać za logike ekwipowania itemów
 /// </summary>
-public class EquipmentManager : MonoBehaviour
+namespace jbzdy.Managers
 {
-    #region singleton
-    public static EquipmentManager instance;
-
-    private void Awake()
+    public class EquipmentManager : MonoBehaviour
     {
-        instance = this;
-    }
-    #endregion
+        #region singleton
+        public static EquipmentManager instance;
 
-    private EquipableItem[] currentEquipment;
-    private Inventory inventory;
-
-    public delegate void OnEquipmentChange(EquipableItem itemToEquip, EquipableItem itemToRemove);
-    public OnEquipmentChange onEquipmentChange;
-
-    private void Start()
-    {
-        inventory = Inventory.instance;
-
-        int slotsNumber = System.Enum.GetNames(typeof(EquipmentSlot)).Length;
-        currentEquipment = new EquipableItem[slotsNumber];
-    }
-
-    public void EquipItem(EquipableItem itemToEquip)
-    {
-        int slotIndex = (int)itemToEquip.equipmentSlot;
-
-        EquipableItem oldItem = null;
-
-        if(currentEquipment[slotIndex] != null)
+        private void Awake()
         {
-            oldItem = currentEquipment[slotIndex];
-            inventory.AddItem(oldItem);
+            instance = this;
+        }
+        #endregion
+
+        private EquipableItem[] currentEquipment;
+        private Inventory inventory;
+
+        public delegate void OnEquipmentChange(EquipableItem itemToEquip, EquipableItem itemToRemove);
+        public OnEquipmentChange onEquipmentChange;
+
+        private void Start()
+        {
+            inventory = Inventory.instance;
+
+            int slotsNumber = System.Enum.GetNames(typeof(EquipmentSlot)).Length;
+            currentEquipment = new EquipableItem[slotsNumber];
         }
 
-        if(onEquipmentChange != null)
+        public void EquipItem(EquipableItem itemToEquip)
         {
-            onEquipmentChange.Invoke(itemToEquip, oldItem);
-        }
+            int slotIndex = (int)itemToEquip.equipmentSlot;
 
-        currentEquipment[slotIndex] = itemToEquip;
-    }
+            EquipableItem oldItem = null;
 
-    public void UnequipItem(int itemIndex)
-    {
-        if(currentEquipment[itemIndex] != null)
-        {
-            EquipableItem oldItem = currentEquipment[itemIndex];
-            inventory.AddItem(oldItem);
-
-            currentEquipment[itemIndex] = null;
+            if (currentEquipment[slotIndex] != null)
+            {
+                oldItem = currentEquipment[slotIndex];
+                inventory.AddItem(oldItem);
+            }
 
             if (onEquipmentChange != null)
             {
-                onEquipmentChange.Invoke(null, oldItem);
+                onEquipmentChange.Invoke(itemToEquip, oldItem);
+            }
+
+            currentEquipment[slotIndex] = itemToEquip;
+        }
+
+        public void UnequipItem(int itemIndex)
+        {
+            if (currentEquipment[itemIndex] != null)
+            {
+                EquipableItem oldItem = currentEquipment[itemIndex];
+                inventory.AddItem(oldItem);
+
+                currentEquipment[itemIndex] = null;
+
+                if (onEquipmentChange != null)
+                {
+                    onEquipmentChange.Invoke(null, oldItem);
+                }
             }
         }
     }
+
 }

@@ -1,9 +1,14 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 using jbzdy.DialogueSystem.SO;
 using jbzdy.DialogueSystem.Enums;
 using System.Collections.Generic;
 
+/// <summary>
+/// Napisane przez sharashino
+/// 
+/// Skrypt odpowiadający za odczytywanie danych z ScriptableObjectu i wrzucanie ich do okna z dialogiem (DialogueController)
+/// </summary>
 namespace jbzdy.DialogueSystem.Actions
 {
     public class DialogueTalk : DialogueGetData

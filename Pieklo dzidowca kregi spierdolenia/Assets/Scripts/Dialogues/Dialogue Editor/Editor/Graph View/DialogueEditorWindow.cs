@@ -8,6 +8,11 @@ using jbzdy.DialogueSystem.SO;
 using jbzdy.DialogueSystem.Enums;
 using jbzdy.DialogueSystem.SaveLoad;
 
+/// <summary>
+/// Napisane przez sharashino
+/// 
+/// Skrypt odpowiadający za wyświetlanie okna z edytorem dialogów
+/// </summary>
 namespace jbzdy.DialogueSystem.Editor
 {
     public class DialogueEditorWindow : EditorWindow

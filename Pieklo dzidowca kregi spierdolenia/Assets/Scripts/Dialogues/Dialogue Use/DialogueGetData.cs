@@ -1,6 +1,11 @@
-using UnityEngine;
+﻿using UnityEngine;
 using jbzdy.DialogueSystem.SO;
 
+/// <summary>
+/// Napisane przez sharashino
+/// 
+/// Skrypt pobierający dane z ScriptableObject'a z dialogiem
+/// </summary>
 public class DialogueGetData : MonoBehaviour
 {
     [SerializeField] protected DialogueContainerSO dialogueContainer;

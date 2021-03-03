@@ -1,5 +1,6 @@
-﻿using jbzdy.Items.Enums;
-using UnityEngine;
+﻿using UnityEngine;
+using jbzdy.Managers;
+using jbzdy.Items.Enums;
 
 /// <summary>
 /// Napisane przez sharashino 
