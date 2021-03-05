@@ -13,8 +13,8 @@ namespace jbzdy.DialogueSystem.Actions
 {
     public class DialogueTalk : DialogueGetData
     {
-        [SerializeField] private DialogueController dialogueController;
-        [SerializeField] private AudioSource audioSource;
+        [SerializeField] private DialogueController dialogueController = default;
+        [SerializeField] private AudioSource audioSource = default;
         private DialogueNodeData currentDialogueNodeData;
         private DialogueNodeData lastDialogueNodeData;
 

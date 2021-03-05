@@ -16,12 +16,12 @@ namespace jbzdy.StatCreation
     [System.Serializable]
     public class StatCreator : MonoBehaviour
     {
-        [SerializeField] private Text pointsLeft;
-        [SerializeField] private Text levelNumber;
-        [SerializeField] private PlayerStats _playerStats;
-        [SerializeField] private int _pointsToAdd;
-        [SerializeField] private List<StatBox> statBoxes;
-        [SerializeField] private List<Stat> modifiableStats;
+        [SerializeField] private Text pointsLeft = default;
+        [SerializeField] private Text levelNumber = default;
+        [SerializeField] private PlayerStats _playerStats = default;
+        [SerializeField] private int _pointsToAdd = default;
+        [SerializeField] private List<StatBox> statBoxes = default;
+        [SerializeField] private List<Stat> modifiableStats = default;
 
         public int PointsToAdd 
         { 

@@ -13,7 +13,7 @@ namespace jbzdy.CharacterStats
 {
     public class PlayerStats : CharacterStats
     {
-        [SerializeField] private ExperienceManager experienceManager;
+        [SerializeField] private ExperienceManager experienceManager = default;
 
         [HideInInspector] public List<Stat> modifiableStatsList = new List<Stat>();
 

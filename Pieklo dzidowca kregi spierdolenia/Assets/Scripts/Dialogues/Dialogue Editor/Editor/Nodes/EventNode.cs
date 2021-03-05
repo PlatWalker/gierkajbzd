@@ -13,9 +13,6 @@ namespace jbzdy.DialogueSystem.Nodes
     {
         private DialogueEventSO dialogueEvent;
         private ObjectField objectField;
-        private EnumField enumField;
-        private TextField textField;
-        private string textFieldText = "";
         private StatCheckType checkType = StatCheckType.Exp;
 
         public DialogueEventSO DialogueEvent { get => dialogueEvent; set => dialogueEvent = value; }

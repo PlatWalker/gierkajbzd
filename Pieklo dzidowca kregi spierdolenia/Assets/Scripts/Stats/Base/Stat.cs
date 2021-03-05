@@ -11,8 +11,8 @@ namespace jbzdy.CharacterStats.Stats
     [System.Serializable]
     public class Stat
     {
-        [SerializeField] private string _statName;
-        [SerializeField] private int _baseValue;
+        [SerializeField] private string _statName = default;
+        [SerializeField] private int _baseValue = default;
 
         public List<int> modifiers = new List<int>();
 
