@@ -93,45 +93,81 @@ public class MonkeyController : EnemyController
     // Update is called once per frame
     override protected void Update()
     {
-        if (turnOffAI) return;
 
         HandleLogicPerformaceBoost();
         
         switch (currentState)
         {
             case MonkeyState.AIOff:
-                {
-
-                }
-                break;
+                return;
             case MonkeyState.Attack:
                 {
+                    MoveTo(MainCharacterTransform.position,0,AttackRadius);
+                    easyAnimator.SetBooleanTrue("isAttacking");
 
+                    if (easyAnimator.GetBoolean("spawnProjectile"))
+                    {
+
+                        GameObject projectile = Instantiate(projectileObject, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
+
+                        Rigidbody rigidbody = projectile.GetComponent<Rigidbody>();
+                        Vector3 throwDirection = (MainCharacterTransform.position - projectile.transform.position);
+
+                        throwDirection.y += throwTargetHeight;
+                        throwDirection *= throwPower;
+                        rigidbody.AddForce(throwDirection, ForceMode.Impulse);
+                        easyAnimator.SetBooleanDirectly("spawnProjectile", false);
+
+                        //Here add some rotatiom of projectile
+                    }
+
+                    if (updateLogicFrame)
+                    {
+
+                    }
                 }
                 break;
             case MonkeyState.Chase:
                 {
+                    MoveTo(MainCharacterTransform.position, MovementSpeed, AttackRadius);
+                    easyAnimator.SetBooleanTrue("isWalking");
 
+                    if (updateLogicFrame)
+                    {
+                        
+                    }
                 }
                 break;
             case MonkeyState.Dying:
                 {
-
+                    Die();
                 }
                 break;
             case MonkeyState.Idle:
                 {
 
+                    if (updateLogicFrame)
+                    {
+
+                    }
                 }
                 break;
             case MonkeyState.Run:
                 {
 
+                    if (updateLogicFrame)
+                    {
+
+                    }
                 }
                 break;
             case MonkeyState.Search:
                 {
 
+                    if (updateLogicFrame)
+                    {
+
+                    }
                 }
                 break;
         }
@@ -189,32 +225,13 @@ public class MonkeyController : EnemyController
 
     private void GetCloser()
     {
-        //MoveTo(false, normalSpeedModifier, MainCharacterTransform.position);
-        easyAnimator.SetBooleanTrue("isWalking");
+        
     }
 
     private void Attack()
     {
 
-        //MoveTo(false, 0f, MainCharacterTransform.position);
-
-        easyAnimator.SetBooleanTrue("isAttacking");
         
-        if (easyAnimator.GetBoolean("spawnProjectile"))
-        {
-
-            GameObject projectile = Instantiate(projectileObject, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
-            
-            Rigidbody rigidbody = projectile.GetComponent<Rigidbody>();
-            Vector3 throwDirection = (MainCharacterTransform.position - projectile.transform.position);
-
-            throwDirection.y += throwTargetHeight;
-            throwDirection *= throwPower;
-            rigidbody.AddForce(throwDirection, ForceMode.Impulse);
-            easyAnimator.SetBooleanDirectly("spawnProjectile", false);
-
-            //Here add some rotatiom of projectile
-        }
     }
 
     protected override bool HandleTriggerByEnemy(Vector3 target)

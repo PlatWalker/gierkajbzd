@@ -17,7 +17,7 @@ public class GowniakController : EnemyController
     [SerializeField] private float minWanderDistance = 1f;
     [SerializeField] private float wanderEveryXSeconds = 3f;
 
-    private static bool aggroCommenced;
+    private static bool aggroCommenced=false;
 
     GowniakState currentState;
     GowniakState resumeState;

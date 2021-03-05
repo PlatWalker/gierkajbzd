@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class AISwitcher : MonoBehaviour
 {
-    [SerializeField] private EnemyController enemyController;
-    [SerializeField] private Material material1;
-    [SerializeField] private Material material2;
+    [SerializeField] private EnemyController enemyController=null;
+    [SerializeField] private Material material1=null;
+    [SerializeField] private Material material2=null;
 
     private bool material = false;
     private Renderer mesh;
