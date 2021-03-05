@@ -10,8 +10,8 @@ using UnityEngine.UI;
 public class InventorySlot : MonoBehaviour
 {
 
-    [SerializeField] private Image itemIcon;
-    [SerializeField] private Button removeButton;
+    [SerializeField] private Image itemIcon = default;
+    [SerializeField] private Button removeButton = default;
     private Item slotItem;
 
     public void AddItem(Item itemToAdd)

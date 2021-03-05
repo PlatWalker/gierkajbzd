@@ -12,10 +12,10 @@ namespace jbzdy.Managers
 {
     public class ExperienceManager : MonoBehaviour
     {
-        [SerializeField] private PlayerStats playerStats;
-        [SerializeField] private StatCreator statCreator;
-        [SerializeField] private int statPoint;
-        [SerializeField] private int toNextLevel;
+        [SerializeField] private PlayerStats playerStats = default;
+        [SerializeField] private StatCreator statCreator = default;
+        [SerializeField] private int statPoint = default;
+        [SerializeField] private int toNextLevel = default;
 
         private void Start()
         {

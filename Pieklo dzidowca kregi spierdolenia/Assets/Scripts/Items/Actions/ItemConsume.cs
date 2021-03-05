@@ -10,7 +10,7 @@ namespace jbzdy.Actions.Interaction
 { 
     public class ItemConsume : Interactables
     {
-        [SerializeField] ConsumableItem consumable;
+        [SerializeField] ConsumableItem consumable = default;
 
         public override void Interact()
         {
