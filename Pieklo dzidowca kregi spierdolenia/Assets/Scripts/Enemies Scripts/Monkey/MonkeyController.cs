@@ -145,6 +145,7 @@ public class MonkeyController : EnemyController
                 break;
             case MonkeyState.Idle:
                 {
+                    easyAnimator.SetBooleanTrue("Idle");
 
                     if (updateLogicFrame)
                     {
@@ -154,7 +155,8 @@ public class MonkeyController : EnemyController
                 break;
             case MonkeyState.Run:
                 {
-
+                    easyAnimator.SetBooleanTrue("IsWalking");
+                    MoveTo(newRunTarget(), MovementSpeed * runSpeedModifier, 0.5f);
                     if (updateLogicFrame)
                     {
 
@@ -239,12 +241,6 @@ public class MonkeyController : EnemyController
         return false;
     }
 
-    private void RunFromDanger()
-    {
-       //MoveTo(true, runSpeedModifier, MainCharacterTransform.position);
-        easyAnimator.SetBooleanTrue("isWalking");
-    }
-
     override public void SwitchAI()
     {
         base.SwitchAI();
@@ -257,5 +253,13 @@ public class MonkeyController : EnemyController
         {
             currentState = resumeState;
         }
+    }
+
+    private Vector3 newRunTarget()
+    {
+        Vector3 target = new Vector3();
+        target
+
+        return target;
     }
 }
