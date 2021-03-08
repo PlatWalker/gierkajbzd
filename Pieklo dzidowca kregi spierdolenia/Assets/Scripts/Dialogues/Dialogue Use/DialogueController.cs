@@ -17,28 +17,29 @@ namespace jbzdy.DialogueSystem.Actions
     public class DialogueController : MonoBehaviour
     {
         public static DialogueController Instance { get; private set; }
-        [SerializeField] private PlayerStats playerStats;
-        [SerializeField] private GameObject dialogueUI;
+
+        [SerializeField] private PlayerStats playerStats = default;
+        [SerializeField] private GameObject dialogueUI = default;
         [Header("Text")]
-        [SerializeField] private TMP_Text textName;
-        [SerializeField] private TMP_Text textBox;
+        [SerializeField] private TMP_Text textName = default;
+        [SerializeField] private TMP_Text textBox = default;
         [Header("Image")]
-        [SerializeField] private Image leftImage;
-        [SerializeField] private GameObject leftImageGO;
-        [SerializeField] private Image rigthImage;
-        [SerializeField] private GameObject rigthImageGO;
+        [SerializeField] private Image leftImage = default;
+        [SerializeField] private GameObject leftImageGO = default;
+        [SerializeField] private Image rigthImage = default;
+        [SerializeField] private GameObject rigthImageGO = default;
         [Header("Butttons")]
-        [SerializeField] private Button button01;
-        [SerializeField] private TMP_Text buttonText01;
+        [SerializeField] private Button button01 = default;
+        [SerializeField] private TMP_Text buttonText01 = default;
         [Space]
-        [SerializeField] private Button button02;
-        [SerializeField] private TMP_Text buttonText02;
+        [SerializeField] private Button button02 = default;
+        [SerializeField] private TMP_Text buttonText02 = default;
         [Space]
-        [SerializeField] private Button button03;
-        [SerializeField] private TMP_Text buttonText03;
+        [SerializeField] private Button button03 = default;
+        [SerializeField] private TMP_Text buttonText03 = default;
         [Space]
-        [SerializeField] private Button button04;
-        [SerializeField] private TMP_Text buttonText04;
+        [SerializeField] private Button button04 = default;
+        [SerializeField] private TMP_Text buttonText04 = default;
 
         private List<Button> buttons = new List<Button>();
         private List<TMP_Text> buttonsTexts = new List<TMP_Text>();

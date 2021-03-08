@@ -12,7 +12,7 @@ namespace jbzdy.Actions.Interaction
 {
     public class ItemPickup : Interactables
     {
-        [SerializeField] private Item item;
+        [SerializeField] private Item item = default;
 
         public override void Interact()
         {

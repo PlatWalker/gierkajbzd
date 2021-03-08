@@ -10,12 +10,12 @@ namespace jbzdy.StatCreation
 {
     public class StatBox : MonoBehaviour
     {
-        [SerializeField] private int _statValue;
-        [SerializeField] private Text _statName;
-        [SerializeField] private Text _statValueText;
-        [SerializeField] private GameObject addValueButton;
-        [SerializeField] private GameObject subtractValueButton;
-        [SerializeField] private StatCreator statCreator;
+        [SerializeField] private int _statValue = default;
+        [SerializeField] private Text _statName = default;
+        [SerializeField] private Text _statValueText = default;
+        [SerializeField] private GameObject addValueButton = default;
+        [SerializeField] private GameObject subtractValueButton = default;
+        [SerializeField] private StatCreator statCreator = default;
 
         #region properties
 
