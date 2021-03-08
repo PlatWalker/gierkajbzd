@@ -32,9 +32,18 @@ public class PlayerController : MonoBehaviour
         characterAnimator = GetComponentInChildren<Animator>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
+        UpdateCharacterAttack();
         UpdateCharacterMovement();
+    }
+
+    private void UpdateCharacterAttack()
+    {
+        if (InputController.Instance.attackInputStatus.normal == true)
+        {
+            characterAnimator.SetBool("Attack", true);
+        }
     }
 
     private void UpdateCharacterMovement()

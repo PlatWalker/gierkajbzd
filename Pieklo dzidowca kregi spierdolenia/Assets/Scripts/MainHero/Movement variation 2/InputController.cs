@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,10 @@ public enum Movement
     right = KeyCode.D
 }
 
+public enum Attack
+{
+    normal = KeyCode.Space
+}
 
 public class InputController : Singleton<InputController>
 {
@@ -23,16 +28,29 @@ public class InputController : Singleton<InputController>
         public bool left;
         public bool right;
     }
+
+    public struct AttackInputStatus
+    {
+        public bool normal;
+    }
+
     // this is instance of above struct, unless we can make the strut a "singleton" this will do for now.
     public MovementInputStatus movementInputStatus;
+    public AttackInputStatus attackInputStatus;
     public Vector3 mousePositionFlat;
 
     protected InputController() { }
 
     private void Update()
     {
+        UpdateAttackInput();
         UpdateMovementInput();
         UpdateMousePosition();
+    }
+
+    private void UpdateAttackInput()
+    {
+        attackInputStatus.normal = WasPressed((KeyCode)Attack.normal);
     }
 
     void UpdateMovementInput()

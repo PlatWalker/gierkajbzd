@@ -55,36 +55,36 @@ namespace JG
             //calcualte players move amount
             stateManager.moveAmount = Mathf.Clamp01(Mathf.Abs(stateManager.horizontal) + Mathf.Abs(stateManager.vertical));
 
-            retVal = HandleAttacking();
+            retVal = false;//HandleAttacking(); 
 
             return retVal; 
         }
 
-        bool HandleAttacking()
-        {
-            if (mouseLeft)
-            {
-                //isAttacking = true;
-            }
+        //bool HandleAttacking()
+        //{
+        //    if (mouseLeft)
+        //    {
+        //        //isAttacking = true;
+        //    }
 
-            //Logic for interrupting an attack (it will happen at the same frame)
-            if (y_Input)
-            {
-                isAttacking = false;
-            }
+        //    //Logic for interrupting an attack (it will happen at the same frame)
+        //    //if (y_Input)
+        //    //{
+        //    //    isAttacking = false;
+        //    //}
 
 
-            if (isAttacking)
-            {
-                //Get attack animation from items..
-                //Play animation
-                //
-                //Change player state
-                //stateManager.ChangeState(stateManager.attackStateId);
-            }
+        //    if (isAttacking)
+        //    {
+        //        //Get attack animation from items..
+        //        //Play animation
+        //        //
+        //        //Change player state
+        //        //stateManager.ChangeState(stateManager.attackStateId);
+        //    }
 
-            return isAttacking;
-        }
+        //    return isAttacking;
+        //}
 
        
     }
