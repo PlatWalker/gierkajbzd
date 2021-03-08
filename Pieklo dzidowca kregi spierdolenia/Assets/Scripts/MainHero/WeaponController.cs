@@ -10,7 +10,7 @@ public class WeaponController : MonoBehaviour
     private float CritChance = 0.0f;
     private float CritMultiplier = 1.0f;
 
-    public Animator characterAnimator;
+    private Animator characterAnimator;
 
     public void Awake()
     {
@@ -19,9 +19,8 @@ public class WeaponController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent<IDamageable>(out IDamageable hittenObjectScript))
+        if (other.gameObject.TryGetComponent<IDamageable>(out IDamageable hittenObjectScript) && characterAnimator.GetBool("Attack"))
         {
-            Debug.Log("Trach! Trach!");
             hittenObjectScript.SetDamage(damageAmount, typeOfDamage, CritMultiplier, CritChance);
         }
     }

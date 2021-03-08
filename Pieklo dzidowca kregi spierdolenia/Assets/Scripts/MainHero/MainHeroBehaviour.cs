@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class MainHeroBehaviour : StateMachineBehaviour
 {
+    [SerializeField]
+    private AnimationClip animation;
+
     // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
@@ -19,7 +22,10 @@ public class MainHeroBehaviour : StateMachineBehaviour
     // OnStateExit is called before OnStateExit is called on any state inside this state machine
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.SetBool("Attack", false);
+        if (stateInfo.IsName(animation.name))
+        {
+            animator.SetBool("Attack", false);
+        }
     }
 
     // OnStateMove is called before OnStateMove is called on any state inside this state machine
