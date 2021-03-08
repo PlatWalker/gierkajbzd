@@ -5,23 +5,23 @@
 /// 
 /// Przedmioty które możemy skonsumować
 /// </summary>
-[CreateAssetMenu(fileName = "NewConsumableItem", menuName = "Items/New Consumable Item")]
-public class ConsumableItem : Item
+namespace jbzdy.Items
 {
-    public int healthModifier;
-    public int manaModifier;
-
-    public override void Use()
+    [CreateAssetMenu(fileName = "NewConsumableItem", menuName = "Items/New Consumable Item")]
+    public class ConsumableItem : Item
     {
-        base.Use();
+        public int healthModifier;
+        public int manaModifier;
 
-        //Using the consumable item
-        //
-        //Mocht ik onder het hakkuh bezwijken
-        
-        Debug.Log("Consuming " + ItemName);
+        public override void Use()
+        {
+            base.Use();
+
+            //Using the consumable item
+            //
+            //Mocht ik onder het hakkuh bezwijken
+
+            Debug.Log("Consuming " + ItemName);
+        }
     }
 }
-
-
-

@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+using jbzdy.Items;
+using jbzdy.Managers;
 using System.Collections.Generic;
-using jbzdy.StatCreation;
-using System;
+using jbzdy.CharacterStats.Stats;
 
 /// <summary>
 /// Napisane przez Sharashino
@@ -12,7 +13,7 @@ namespace jbzdy.CharacterStats
 {
     public class PlayerStats : CharacterStats
     {
-        [SerializeField] private ExperienceManager experienceManager;
+        [SerializeField] private ExperienceManager experienceManager = default;
 
         [HideInInspector] public List<Stat> modifiableStatsList = new List<Stat>();
 

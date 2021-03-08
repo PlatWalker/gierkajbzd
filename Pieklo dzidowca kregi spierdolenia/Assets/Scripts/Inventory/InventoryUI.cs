@@ -7,8 +7,8 @@
 /// </summary>
 public class InventoryUI : MonoBehaviour
 {
-    [SerializeField] private Transform itemsParent;
-    [SerializeField] private GameObject inventoryUI;
+    [SerializeField] private Transform itemsParent = default;
+    [SerializeField] private GameObject inventoryUI = default;
     private Inventory inventory;
     private InventorySlot[] inventorySlots;
 
