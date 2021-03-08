@@ -7,7 +7,7 @@ public class ProjectilesLimiter : MonoBehaviour
     private static long nextID = 0;
     private static long IdToBeDestroyed = -1;
     private long ID;
-    private int projectilesLimit=500;
+    private int projectilesLimit=50;
     private int pLimit;
 
     public ProjectilesLimiter()

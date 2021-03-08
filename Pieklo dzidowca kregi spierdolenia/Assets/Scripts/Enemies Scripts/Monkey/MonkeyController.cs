@@ -9,6 +9,12 @@ public class MonkeyController : EnemyController
 
     [SerializeField] private float runSpeedModifier = 0.7f;
 
+    [SerializeField] private int minRunAxisDistance = 2;
+    [SerializeField] private int maxRunAxisDistance = 5;
+    [SerializeField] private float pauseTimeWhenRunning = 2.5f;
+
+    private Vector3 runTarget = Vector3.zero;
+
     [Header("Projectile")]
     [SerializeField] private GameObject projectileObject = null;
 
@@ -26,6 +32,7 @@ public class MonkeyController : EnemyController
         Run,
         Search,
         Dying,
+        Return,
         AIOff
     }
 
@@ -93,48 +100,55 @@ public class MonkeyController : EnemyController
     // Update is called once per frame
     override protected void Update()
     {
+        if (CurrentHealth <= 0 && Alive)
+        {
+            currentState = MonkeyState.Dying;
+        }
 
         HandleLogicPerformaceBoost();
-        
+
         switch (currentState)
         {
             case MonkeyState.AIOff:
                 return;
             case MonkeyState.Attack:
                 {
-                    MoveTo(MainCharacterTransform.position,0,AttackRadius);
+                    MoveTo(MainCharacterTransform.position, 0, AttackRadius);
                     easyAnimator.SetBooleanTrue("isAttacking");
 
-                    if (easyAnimator.GetBoolean("spawnProjectile"))
-                    {
-
-                        GameObject projectile = Instantiate(projectileObject, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
-
-                        Rigidbody rigidbody = projectile.GetComponent<Rigidbody>();
-                        Vector3 throwDirection = (MainCharacterTransform.position - projectile.transform.position);
-
-                        throwDirection.y += throwTargetHeight;
-                        throwDirection *= throwPower;
-                        rigidbody.AddForce(throwDirection, ForceMode.Impulse);
-                        easyAnimator.SetBooleanDirectly("spawnProjectile", false);
-
-                        //Here add some rotatiom of projectile
-                    }
+                    HandleThrowing();
 
                     if (updateLogicFrame)
                     {
+                        if (distanceToMainChar > AttackRadius)
+                        {
+                            currentState = MonkeyState.Chase;
+                        }
 
+                        if (distanceToMainChar < runAwayRadius)
+                        {
+                            currentState = MonkeyState.Run;
+                        }
                     }
                 }
                 break;
             case MonkeyState.Chase:
                 {
-                    MoveTo(MainCharacterTransform.position, MovementSpeed, AttackRadius);
+                    MoveTo(MainCharacterTransform.position, MovementSpeed, (AttackRadius - 0.5f));
                     easyAnimator.SetBooleanTrue("isWalking");
 
                     if (updateLogicFrame)
                     {
-                        
+                        if (!playerIsVisible)
+                        {
+                            currentState = MonkeyState.Search;
+                            MoveTo(transform.position, MovementSpeed, 1);
+                        }
+
+                        if (distanceToMainChar <= AttackRadius)
+                        {
+                            currentState = MonkeyState.Attack;
+                        }
                     }
                 }
                 break;
@@ -149,91 +163,157 @@ public class MonkeyController : EnemyController
 
                     if (updateLogicFrame)
                     {
-
+                        if (playerIsVisible)
+                        {
+                            currentState = MonkeyState.Chase;
+                        }
                     }
                 }
                 break;
             case MonkeyState.Run:
                 {
-                    easyAnimator.SetBooleanTrue("IsWalking");
-                    MoveTo(newRunTarget(), MovementSpeed * runSpeedModifier, 0.5f);
+
+                    if (runTarget == Vector3.zero)
+                    {
+                        runTarget = ChooseNewPatrollingPoint();
+                        MultiUseTimer = 0f;
+                    }
+
+                    float distanceToRunTarget = Vector3.Distance(transform.position, runTarget);
+                    if (distanceToRunTarget < 0.5f)
+                    {
+                        //when waiting to run again just attack player
+                        MultiUseTimer += Time.deltaTime;
+                        MoveTo(MainCharacterTransform.position, 0, AttackRadius);
+                        easyAnimator.SetBooleanTrue("isAttacking");
+                        HandleThrowing();
+                    }
+                    else
+                    {
+                        MoveTo(runTarget, MovementSpeed * runSpeedModifier, 0.5f);
+                        easyAnimator.SetBooleanTrue("isWalking");
+                    }
+
+                    if (MultiUseTimer >= pauseTimeWhenRunning)
+                    {
+                        runTarget = Vector3.zero;
+                    }
+
+
                     if (updateLogicFrame)
                     {
 
+                        if (distanceToMainChar > AttackRadius)
+                        {
+                            MultiUseTimer = 0;
+                            runTarget = Vector3.zero;
+                            currentState = MonkeyState.Chase;
+                            break;
+                        }
+
+                        if (distanceToMainChar > runAwayRadius && distanceToRunTarget < 0.5f)
+                        {
+                            MultiUseTimer = 0;
+                            runTarget = Vector3.zero;
+                            currentState = MonkeyState.Attack;
+                        }
                     }
                 }
                 break;
             case MonkeyState.Search:
                 {
+                    MultiUseTimer += Time.deltaTime;
+                    MoveTo(GoToPoint, 0, 0);
+
+                    if (MultiUseTimer < 0.2)
+                    {
+                        easyAnimator.SetBooleanTrue("isWalking");
+                    }
+                    else
+                    {
+                        easyAnimator.SetBooleanTrue("Idle");
+                    }
+
+                    if (MultiUseTimer >= TimeBetweenPatrolSteps)
+                    {
+                        GoToPoint = new Vector3(
+                            transform.position.x + Random.Range(-maxRunAxisDistance, maxRunAxisDistance),
+                            transform.position.y,
+                            transform.position.z + Random.Range(-maxRunAxisDistance, maxRunAxisDistance));
+                        MultiUseTimer = 0;
+                        PatrolStepsCounter++;
+                    }
 
                     if (updateLogicFrame)
                     {
+                        //przy wyjściu ze stanu zerować timer i patrol steps
+                        if (playerIsVisible)
+                        {
+                            MultiUseTimer = 0;
+                            PatrolStepsCounter = 0;
+                            currentState = MonkeyState.Chase;
+                            break;
+                        }
+
+                        if (PatrolStepsCounter > MaxPatrolSteps)
+                        {
+                            if (Vector3.Distance(transform.position, SpawnPoint) > 1)
+                            {
+                                currentState = MonkeyState.Return;
+                                MultiUseTimer = 0;
+                                PatrolStepsCounter = 0;
+                            }
+                            else
+                            {
+                                currentState = MonkeyState.Idle;
+                                MultiUseTimer = 0;
+                                PatrolStepsCounter = 0;
+                            }
+                        }
 
                     }
                 }
                 break;
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*if (distanceToMainChar < AggroRadius)
-        {
-            if (distanceToMainChar < AttackRadius)
-            {
-                if (distanceToMainChar < runAwayRadius)
+            case MonkeyState.Return:
                 {
-                    RunFromDanger();
+                    MoveTo(SpawnPoint, MovementSpeed, 1);
+                    easyAnimator.SetBooleanTrue("isWalking");
+
+                    if (updateLogicFrame)
+                    {
+                        if (Vector3.Distance(transform.position, SpawnPoint) < 1)
+                        {
+                            currentState = MonkeyState.Idle;
+                            break;
+                        }
+
+                        if (playerIsVisible)
+                        {
+                            currentState = MonkeyState.Chase;
+                        }
+                    }
                 }
-                else
-                {
-                    Attack();
-                }
-            }
-            else
-            {
-                GetCloser();
-            }
+                break;
         }
-        else if (Vector3.Distance(transform.position, SpawnPoint) > 2.0f)
-        {
-            GoBackToSpawn();
-        }
-        else
-        {
-            easyAnimator.ResetAllBooleans();
-        }
-
-        if (CurrentHealth<=0)
-        {
-            easyAnimator.SetBooleanTrue("isDead");
-        }*/
     }
 
-    private void GoBackToSpawn()
+    private void HandleThrowing()
     {
-        //MoveTo(false, normalSpeedModifier, SpawnPoint);
-        easyAnimator.SetBooleanTrue("isWalking");
-    }
+        if (easyAnimator.GetBoolean("spawnProjectile"))
+        {
 
-    private void GetCloser()
-    {
-        
-    }
+            GameObject projectile = Instantiate(projectileObject, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
 
-    private void Attack()
-    {
+            Rigidbody rigidbody = projectile.GetComponent<Rigidbody>();
+            Vector3 throwDirection = (MainCharacterTransform.position - projectile.transform.position);
 
-        
+            throwDirection.y += throwTargetHeight;
+            throwDirection *= throwPower;
+            rigidbody.AddForce(throwDirection, ForceMode.Impulse);
+            easyAnimator.SetBooleanDirectly("spawnProjectile", false);
+
+            //Here add some rotatiom of projectile
+        }
     }
 
     protected override bool HandleTriggerByEnemy(Vector3 target)
@@ -253,13 +333,5 @@ public class MonkeyController : EnemyController
         {
             currentState = resumeState;
         }
-    }
-
-    private Vector3 newRunTarget()
-    {
-        Vector3 target = new Vector3();
-        target
-
-        return target;
     }
 }

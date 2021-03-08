@@ -13,8 +13,6 @@ public class GowniakController : EnemyController
     [Header("Gowniak specific")]
     [SerializeField] private float aggroMaxTime = 2f;
     [SerializeField] private float spawnWanderRadius = 15f;
-    [SerializeField] private float maxWanderDistance = 3f;
-    [SerializeField] private float minWanderDistance = 1f;
     [SerializeField] private float wanderEveryXSeconds = 3f;
 
     private static bool aggroCommenced=false;
@@ -92,6 +90,7 @@ public class GowniakController : EnemyController
 
                     if (!playerIsVisible)
                     {
+                        GoToPoint = transform.position;
                         currentState = GowniakState.Wander;
                     }
                     if (distanceToMainChar > AttackRadius)
@@ -115,6 +114,7 @@ public class GowniakController : EnemyController
                     }
                     if (!playerIsVisible)
                     {
+                        GoToPoint = transform.position;
                         currentState = GowniakState.Wander;
                     }
                 }
@@ -229,23 +229,7 @@ public class GowniakController : EnemyController
             while (tryCounter < TryXTimes )
             {
                 tryCounter++;
-                if (transform.position.z > SpawnPoint.z)
-                {
-                    newPoint.z = transform.position.z + Random.Range(-maxWanderDistance, -minWanderDistance);
-                }
-                else
-                {
-                    newPoint.z = transform.position.z + Random.Range(minWanderDistance, maxWanderDistance);
-                }
-
-                if(transform.position.x > SpawnPoint.x)
-                {
-                    newPoint.x = transform.position.x + Random.Range(-maxWanderDistance, -minWanderDistance);
-                }
-                else
-                {
-                    newPoint.x = transform.position.x + Random.Range(minWanderDistance, maxWanderDistance);
-                }
+                newPoint = ChooseNewPatrollingPoint();
                 if (Vector3.Distance(newPoint, SpawnPoint) < Vector3.Distance(transform.position, SpawnPoint))
                 {
                     break;
@@ -259,8 +243,7 @@ public class GowniakController : EnemyController
             while (tryCounter < TryXTimes && Vector3.Distance(newPoint,SpawnPoint)>spawnWanderRadius)
             {
                 tryCounter++;
-                newPoint.x = transform.position.x + Random.Range(-maxWanderDistance, maxWanderDistance);
-                newPoint.z = transform.position.z + Random.Range(-maxWanderDistance, maxWanderDistance);
+                newPoint = ChooseNewPatrollingPoint();
             }
         }
 

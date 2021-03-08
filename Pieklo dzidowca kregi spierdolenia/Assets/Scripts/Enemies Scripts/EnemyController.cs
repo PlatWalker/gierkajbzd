@@ -83,6 +83,7 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
             _rotationSpeed = value;
         }
     }
+
     [SerializeField] private float _timeBetweenPatrolSteps = 2f;
     public float TimeBetweenPatrolSteps
     {
@@ -250,7 +251,8 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     protected abstract void Update();
 
     /// <summary>
-    /// Method to set destination point for enemy - shouldn't have been updated every frame.
+    /// Method to set destination point for enemy.
+    /// Just rotate works only if you call this method every frame.
     /// </summary>
     /// <param name="target">Destination point of path</param>
     /// <param name="speed">Speed of travel. 0 = just rotate</param>
@@ -281,7 +283,7 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
                                 0,
                                 target.z - transform.position.z);
             direction = Vector3.Normalize(direction);
-            Vector3 newDirection = Vector3.RotateTowards(gameObject.transform.forward, direction, RotationSpeed, 0.0f);
+            Vector3 newDirection = Vector3.RotateTowards(gameObject.transform.forward, direction, RotationSpeed/10000, 0.0f);
             transform.rotation = Quaternion.LookRotation(newDirection);
         }
     }
@@ -354,7 +356,7 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     protected Vector3 ChooseNewPatrollingPoint()
     {
         Vector3 newPoint = Vector3.zero;
-        /*bool correctPoint = false;
+        bool correctPoint = false;
         RaycastHit hit;
 
         for (int i = 5; i > 0; i--)
@@ -369,7 +371,6 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
                              transform.position.x + PatrolMaxDistance));
             if (Physics.Raycast((transform.position + new Vector3(0f, 1f, 0f)), (newPoint - transform.position), out hit,AggroRadius))
             {
-                Debug.Log("New patroling point raycast hit tag: "+hit.collider.transform.tag);
                 if(hit.collider.transform.tag == "Terrain")
                 {
                     correctPoint = true;
@@ -378,21 +379,13 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
             }
             else
             {
-                continue;
+                correctPoint = true;
+                break;
             }
         }
 
         if (!correctPoint) newPoint = transform.position;
 
-        Debug.Log("Nowy punkt patrolu: " + newPoint);*/
-        newPoint = new Vector3(
-                Random.Range(transform.position.x - PatrolMaxDistance,
-                             transform.position.x + PatrolMaxDistance),
-
-                transform.position.y,
-
-                Random.Range(transform.position.z - PatrolMaxDistance,
-                             transform.position.z + PatrolMaxDistance));
         return newPoint;
     }
 
@@ -439,6 +432,7 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
             Alive = false;
             GoToPoint = transform.position;
             MultiUseTimer = 0f;
+            MoveTo(transform.position, MovementSpeed, 1);
         }
         MultiUseTimer += Time.deltaTime;
         if (MultiUseTimer >= DisappearAfter) Destroy(this.gameObject);
