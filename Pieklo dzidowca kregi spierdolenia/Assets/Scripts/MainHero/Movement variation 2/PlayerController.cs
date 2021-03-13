@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Timeline;
 
 /// <summary>
 /// By Tails, Edited by Silver
@@ -26,6 +27,15 @@ public class PlayerController : MonoBehaviour
 
     Animator characterAnimator;
 
+
+    public enum FightType
+    {
+        basic,
+        mouseBased
+    }
+
+    public FightType fightType;
+
     private void Awake()
     {
         inputHandler = GetComponent<InputHandler>();
@@ -34,17 +44,40 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        UpdateCharacterAttack();
+
+        switch (fightType)
+        {
+            case FightType.basic:
+                UpdateCharacterAttackBasic();
+                break;
+            case FightType.mouseBased:
+                UpdateCharacterAttackMouseBased();
+                break;
+        }
+
+
         UpdateCharacterMovement();
     }
 
-    private void UpdateCharacterAttack()
+    private void UpdateCharacterAttackMouseBased()
+    {
+        if(InputController.Instance.attackInputStatus.normal == true)
+        {
+            transform.LookAt(InputController.Instance.mousePositionFlat);
+            characterAnimator.SetBool("Attack", true);
+        }
+    }
+
+    private void UpdateCharacterAttackBasic()
     {
         if (InputController.Instance.attackInputStatus.normal == true)
         {
             characterAnimator.SetBool("Attack", true);
         }
     }
+
+
+    #region Movement
 
     private void UpdateCharacterMovement()
     {
@@ -69,12 +102,12 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateCharacterRotation()
     {
-        if (movementVector.magnitude == 0) return;
+        if (movementVector.magnitude == 0 || ( fightType == FightType.mouseBased && characterAnimator.GetBool("Attack") == true) ) return;
 
         var rotation = Quaternion.LookRotation(movementVector);
         transform.rotation = rotation;
     }
-    
+
     private void UpdateCharacterAnimation()
     {
         // if movement, then set animation to play
@@ -86,5 +119,7 @@ public class PlayerController : MonoBehaviour
         {
             characterAnimator.SetBool("Run", false);
         }
-    }
+    } 
+
+    #endregion
 }
