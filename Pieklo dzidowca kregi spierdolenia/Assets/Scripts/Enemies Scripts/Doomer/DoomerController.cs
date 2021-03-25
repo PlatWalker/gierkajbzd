@@ -8,11 +8,8 @@ public class DoomerController : EnemyController
 {
     [Header("Special Attack")]
     [SerializeField] private float movementRushSpeed=1.05f;
-
     [SerializeField] private float jumpSpeed = 1.08f;
-
     [SerializeField] private float firstAttackRadius = 4.0f;
-
     private enum DoomerState
     {
         Idle,
@@ -26,53 +23,32 @@ public class DoomerController : EnemyController
         HaveSeenPlayer,
         AIOff
     }
-
     DoomerState currentState;
     DoomerState resumeState;
-   
     private Vector3 jumpDirection = Vector3.zero;
-
     public static bool HasDoneAggro { get; set; }
     private bool hasDoneSpecialAttack;
 
-
-    // Start is called before the first frame update
     override protected void Start()
     {
-
-        float policz()
-        {
-            int a = 1;
-            int b = 2;
-            return a / b;
-        };
-        Debug.Log(policz());
-
-
-
         base.Start();
         easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), new string[] {"shouldUseSecondAttack"});
         hasDoneSpecialAttack = false;
         currentState = DoomerState.Idle;
     }
 
-    //OnValidate is called when script is loaded and everytime when value is changed
-    //in the inspector
-    override protected void OnValidate()
+    void OnValidate()
     {
-        base.OnValidate();
         if(NavAgent) NavAgent.angularSpeed = RotationSpeed;
-
-        //dodać sprawdzanie
+        //there should go some code to check if values inserted in editor are correct
     }
 
 
     override protected void Update()
     {
-        //debug
-        CurrentAnimation = easyAnimator.GetCurrentTrueBoolean();
-        
-        if (CurrentHealth <= 0 && Alive)
+        CurrentAnimation = easyAnimator.GetCurrentTrueBoolean();//debug
+
+        if (CurrentHealth <= 0 && EnemyAlive)
         {
             currentState = DoomerState.Dying;
         }
@@ -274,7 +250,7 @@ public class DoomerController : EnemyController
                 break;
 
             case DoomerState.Dying:
-                if(Alive) TriggerNearEnemies(transform.position);
+                if(EnemyAlive) TriggerNearEnemies(transform.position);
                 Die();
                 break;
 

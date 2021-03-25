@@ -100,7 +100,7 @@ public class MonkeyController : EnemyController
     // Update is called once per frame
     override protected void Update()
     {
-        if (CurrentHealth <= 0 && Alive)
+        if (CurrentHealth <= 0 && EnemyAlive)
         {
             currentState = MonkeyState.Dying;
         }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+
 /// <summary>
 /// Created by Kumdzio.
 /// Abstract class with all needed tolls for simple AI.
@@ -8,7 +9,7 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
 {
     [Header("Artifical Intelligence")]
     [SerializeField] protected bool turnOffAI = false;
-    public bool Alive { get; protected set; }
+    public bool EnemyAlive { get; protected set; }
     [SerializeField] private float _disappearAfter = 5.0f;
     public float DisappearAfter 
     {
@@ -52,7 +53,6 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     protected float distanceToMainChar;
     protected bool playerIsVisible;
     protected bool updateLogicFrame;
-
     protected string CurrentAnimation; //debug only
 
     [Header("Movement")]
@@ -68,9 +68,7 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
             _movementSpeed = value;
         }
     }
-
     public Vector3 GoToPoint { get; protected set; }
-
     [SerializeField] private float _rotationSpeed = 0.15f;
     public virtual float RotationSpeed
     {
@@ -83,7 +81,6 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
             _rotationSpeed = value;
         }
     }
-
     [SerializeField] private float _timeBetweenPatrolSteps = 2f;
     public float TimeBetweenPatrolSteps
     {
@@ -108,11 +105,8 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
             _maxPatrolSteps = value;
         }
     }
-
     public NavMeshAgent NavAgent { get; protected set; }
-
     public int PatrolStepsCounter { get; protected set; }
-
     [SerializeField] private float _patrolMaxDistance = 3f;
     public float PatrolMaxDistance 
     {
@@ -149,7 +143,6 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
             _aggroRadius = value;
         }
     }
-
     [SerializeField] private float _aggroByAttackRadius = 50.0f;
     public virtual float AggroByAttackRadius
     {
@@ -162,7 +155,6 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
             AggroByAttackRadius = value;
         }
     }
-
     [SerializeField] private float _attackRadius = 1.5f;
     public virtual float AttackRadius
     {
@@ -175,7 +167,6 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
             _attackRadius = value;
         }
     }
-
     [SerializeField] private int _maxHealth = 100;
     public virtual int MaxHealth
     {
@@ -189,32 +180,28 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
         }
     }
     public virtual int CurrentHealth { get; protected set; }
-
-
     public virtual Vector3 SpawnPoint { get; protected set; }
     protected  EasyAnimatorController easyAnimator;
-
     private float animationPlayPreviousSpeed = 0f;
 
 
-    // Start is called before the first frame update
     protected virtual void Start()
     {
         /*comment below is showing only how to initialize easyAniamtorController
          * string[] ignoredBooleans = new string[] { "ignoredBooleanName1", "ignoredBooleanName2" };
          * easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), ignoredBooleans);
          */
-
         SpawnPoint = new Vector3(transform.position.x,
                                 transform.position.y,
                                 transform.position.z);
         CurrentHealth = MaxHealth;
-        Alive = true;
+        EnemyAlive = true;
         GetComponent<Animator>().SetFloat("IdleSpeedMultiplier", Random.Range(0.900001f, 1.100001f));
         NavAgent = GetComponent<NavMeshAgent>();
         SeesPlayer = false;
         NavAgent.angularSpeed = RotationSpeed;
         NavAgent.acceleration = 100;
+
     }
 
     protected abstract void Update();
@@ -223,10 +210,12 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     /// Method to set destination point for enemy.
     /// Just rotate works only if you call this method every frame.
     /// </summary>
-    /// <param name="speed"> 0 = just rotate</param>
+    /// <param name="target">Destination point of path</param>
+    /// <param name="speed">Speed of travel. 0 = just rotate</param>
     protected virtual void MoveTo(Vector3 target,float speed, float stopDistance)
     {
         if (Vector3.Distance(target, NavAgent.destination) < 1f) return;
+
         if (NavAgent.radius <= stopDistance)
         {
             stopDistance = stopDistance - NavAgent.radius;
@@ -240,6 +229,7 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
         {
             NavAgent.stoppingDistance = stopDistance;
         }
+
         if(speed>0) 
         {
             NavAgent.speed = speed;
@@ -262,7 +252,7 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     /// <returns>Current health in range 0f-1f</returns>
     public virtual float GetHealthPercentage()
     {
-        return (float)CurrentHealth / (float)MaxHealth;
+        return (float)CurrentHealth / MaxHealth;
     }
 
     /// <summary>
@@ -311,6 +301,7 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     {
         RaycastHit hit;
         LayerMask NotEnemiesMask = ~LayerMask.GetMask("Enemies");
+
         if (Physics.Raycast((transform.position + new Vector3(0f, 1f, 0f)), (MainCharacterTransform.position - transform.position), out hit, AggroRadius, NotEnemiesMask))
         {
             if (hit.transform == MainCharacterTransform)
@@ -329,14 +320,10 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
 
         for (int i = 5; i > 0; i--)
         {
-            newPoint = new Vector3(
-                Random.Range(transform.position.x - PatrolMaxDistance,
-                             transform.position.x + PatrolMaxDistance),
+            newPoint = new Vector3( Random.Range(transform.position.x - PatrolMaxDistance,transform.position.x + PatrolMaxDistance),
+                                    transform.position.y,
+                                    Random.Range(transform.position.x - PatrolMaxDistance,transform.position.x + PatrolMaxDistance));
 
-                transform.position.y,
-
-                Random.Range(transform.position.x - PatrolMaxDistance,
-                             transform.position.x + PatrolMaxDistance));
             if (Physics.Raycast((transform.position + new Vector3(0f, 1f, 0f)), (newPoint - transform.position), out hit,AggroRadius))
             {
                 if(hit.collider.transform.tag == "Terrain")
@@ -351,9 +338,7 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
                 break;
             }
         }
-
         if (!correctPoint) newPoint = transform.position;
-
         return newPoint;
     }
 
@@ -364,7 +349,6 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     protected int TriggerNearEnemies(Vector3 target)
     {
         if (!TriggeringNearEnemies) return 0;
-
         int numberOfEnemiesTriggered = 0;
         GameObject [] FoundEnemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
 
@@ -374,7 +358,8 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
             if (enemyObject.transform == transform) continue;
 
             EnemyController enemyController;
-            if(enemyObject.TryGetComponent<EnemyController>(out enemyController))
+
+            if (enemyObject.TryGetComponent<EnemyController>(out enemyController))
             {
                 if (enemyController.HandleTriggerByEnemy(target))
                 {
@@ -382,7 +367,6 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
                 }
             }
         }
-
         return numberOfEnemiesTriggered;
     }
 
@@ -393,15 +377,17 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     /// </summary>
     protected void Die()
     {
-        if (Alive)
+
+        if (EnemyAlive)
         {
             Destroy(gameObject.GetComponent<Collider>());
             Destroy(gameObject.GetComponent<Rigidbody>());
-            Alive = false;
+            EnemyAlive = false;
             GoToPoint = transform.position;
             MultiUseTimer = 0f;
             MoveTo(transform.position, MovementSpeed, 1);
         }
+
         MultiUseTimer += Time.deltaTime;
         if (MultiUseTimer >= DisappearAfter) Destroy(this.gameObject);
         easyAnimator.SetBooleanTrue("isDying");
@@ -415,6 +401,7 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     {
         //Beta version of performance booster
         updateLogicFrame = false;
+
         if (framesCounter == updateLogicEveryXFrames)
         {
             framesCounter = 0;
