@@ -217,45 +217,13 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
         NavAgent.acceleration = 100;
     }
 
-    //OnValidate is called when script is loaded and everytime when value is changed
-    //in the inspector
-    protected virtual void OnValidate()
-    {
-        //here will be code to handle debuging and balance changes in values
-        //for example there have to be check if the AggroRadius is bigger that AttackRadius etc.
-        /*if (MovementSpeed < 0)
-        {
-            Debug.Log(transform.name + ": Movement speed cannot be lower than 0");
-        }
-        if(MovementSpeed >= 5f)
-        {
-            Debug.Log(transform.name + ": Movement speed cannot be bigger that 5");
-        }
-        if (MaxHealth <= 0)
-        {
-            Debug.Log(transform.name + ": MaxHealth cannot be less than 1");
-        }
-        if (AttackRadius < 0.5f)
-        {
-            Debug.Log(transform.name + ": Attack Radius cannot be lower than 0.5");
-        }
-        if (AttackRadius >= AggroRadius)
-        {
-            Debug.Log(transform.name+": Attack radius cannot be bigger that Aggro radius");
-        }*/
-        
-        //need to rebuild this
-    }
-
-    // Update is called once per frame
     protected abstract void Update();
 
     /// <summary>
     /// Method to set destination point for enemy.
     /// Just rotate works only if you call this method every frame.
     /// </summary>
-    /// <param name="target">Destination point of path</param>
-    /// <param name="speed">Speed of travel. 0 = just rotate</param>
+    /// <param name="speed"> 0 = just rotate</param>
     protected virtual void MoveTo(Vector3 target,float speed, float stopDistance)
     {
         if (Vector3.Distance(target, NavAgent.destination) < 1f) return;

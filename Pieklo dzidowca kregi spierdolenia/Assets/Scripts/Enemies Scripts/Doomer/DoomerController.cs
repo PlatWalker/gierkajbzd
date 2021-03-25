@@ -39,6 +39,17 @@ public class DoomerController : EnemyController
     // Start is called before the first frame update
     override protected void Start()
     {
+
+        float policz()
+        {
+            int a = 1;
+            int b = 2;
+            return a / b;
+        };
+        Debug.Log(policz());
+
+
+
         base.Start();
         easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), new string[] {"shouldUseSecondAttack"});
         hasDoneSpecialAttack = false;
