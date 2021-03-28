@@ -17,21 +17,21 @@ namespace jbzdy.Actions.Interaction
         public override void Interact()
         {
             base.Interact();
-            PickUp();
+          //  PickUp();
         }
 
-        private void PickUp()
-        {
-            Debug.Log("Picking up item: " + item.name);
+        //private void PickUp()
+        //{
+        //    Debug.Log("Picking up item: " + item.name);
 
-            bool wasPickedUp = Inventory.instance.AddItem(item);
+        //  //  bool wasPickedUp = Inventory.instance.AddItem(item);
 
-            if (wasPickedUp)
-            {
-                //Remove object from scene
-                //Destroy(gameObject);
-            }
-        }
+        //    if (wasPickedUp)
+        //    {
+        //        //Remove object from scene
+        //        //Destroy(gameObject);
+        //    }
+        //}
     }
 }
 

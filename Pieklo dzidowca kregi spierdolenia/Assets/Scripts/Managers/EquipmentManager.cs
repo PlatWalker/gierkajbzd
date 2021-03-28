@@ -23,14 +23,14 @@ namespace jbzdy.Managers
         #endregion
 
         private EquipableItem[] currentEquipment;
-        private Inventory inventory;
+        //private Inventory inventory;
 
         public delegate void OnEquipmentChange(EquipableItem itemToEquip, EquipableItem itemToRemove);
         public OnEquipmentChange onEquipmentChange;
 
         private void Start()
         {
-            inventory = Inventory.instance;
+           // inventory = Inventory.instance;
 
             int slotsNumber = System.Enum.GetNames(typeof(EquipmentSlot)).Length;
             currentEquipment = new EquipableItem[slotsNumber];
@@ -45,7 +45,7 @@ namespace jbzdy.Managers
             if (currentEquipment[slotIndex] != null)
             {
                 oldItem = currentEquipment[slotIndex];
-                inventory.AddItem(oldItem);
+                //inventory.AddItem(oldItem);
             }
 
             if (onEquipmentChange != null)
@@ -61,7 +61,7 @@ namespace jbzdy.Managers
             if (currentEquipment[itemIndex] != null)
             {
                 EquipableItem oldItem = currentEquipment[itemIndex];
-                inventory.AddItem(oldItem);
+                //inventory.AddItem(oldItem);
 
                 currentEquipment[itemIndex] = null;
 

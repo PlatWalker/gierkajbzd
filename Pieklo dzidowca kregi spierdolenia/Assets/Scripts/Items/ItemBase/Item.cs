@@ -85,7 +85,7 @@ namespace jbzdy.Items
 
         public void RemoveFromInventory()
         {
-            Inventory.instance.RemoveItem(this);
+           // Inventory.instance.RemoveItem(this);
         }
     }
 }
