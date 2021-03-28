@@ -39,14 +39,14 @@ public class DoomerController : EnemyController
 
     void OnValidate()
     {
-        if(NavAgent) NavAgent.angularSpeed = RotationSpeed;
+        if(NavAgent) NavAgent.angularSpeed = RotationSpeed; // without this rotation speed change apply only on start
         //there should go some code to check if values inserted in editor are correct
     }
 
 
     override protected void Update()
     {
-        CurrentAnimation = easyAnimator.GetCurrentTrueBoolean();//debug
+        CurrentAnimation = easyAnimator.GetCurrentTrueBoolean();//for debug purposes only (showing active animation in editor)
 
         if (CurrentHealth <= 0 && EnemyAlive)
         {
@@ -61,7 +61,7 @@ public class DoomerController : EnemyController
                 {
                     easyAnimator.SetBooleanTrue("isIdling");
 
-                    if (!updateLogicFrame) break; //code below is ignored if this is not update-logic frame
+                    if (!updateLogicFrame) break;
 
                     if (playerIsVisible)
                     {
@@ -85,7 +85,7 @@ public class DoomerController : EnemyController
                     MoveTo(MainCharacterTransform.position, 0.0f, AttackRadius);
                     easyAnimator.SetBooleanTrue("isAttacking");
 
-                    if (!updateLogicFrame) break; //code below is ignored if this is not update-logic frame
+                    if (!updateLogicFrame) break;
 
                     if (distanceToMainChar > AttackRadius)
                     {
@@ -98,8 +98,7 @@ public class DoomerController : EnemyController
                 {
                     if (jumpDirection == Vector3.zero)
                     {
-                        jumpDirection = MainCharacterTransform.position; //saving jump direction so enemy cannot change direction in air
-
+                        jumpDirection = MainCharacterTransform.position; //saving jump direction so Doomer cannot change direction in air
                     }
 
                     if (Vector3.Distance(jumpDirection, gameObject.transform.position) > AttackRadius)
@@ -112,7 +111,7 @@ public class DoomerController : EnemyController
                         hasDoneSpecialAttack = true;
                     }
 
-                    if (!updateLogicFrame) break; //code below is ignored if this is not update-logic frame
+                    if (!updateLogicFrame) break; 
 
                     if (hasDoneSpecialAttack)
                     {
@@ -141,7 +140,7 @@ public class DoomerController : EnemyController
                         easyAnimator.SetBooleanTrue("isRunning");
                     }
 
-                    if (!updateLogicFrame) break; //code below is ignored if this is not update-logic frame
+                    if (!updateLogicFrame) break;
 
                     if (!playerIsVisible)
                     {
@@ -172,7 +171,7 @@ public class DoomerController : EnemyController
                     easyAnimator.SetBooleanTrue("isWalking");
                     MoveTo(SpawnPoint, MovementSpeed, AttackRadius);
 
-                    if (!updateLogicFrame) break; //code below is ignored if this is not update-logic frame
+                    if (!updateLogicFrame) break;
 
                     if (playerIsVisible)
                     {
@@ -191,6 +190,7 @@ public class DoomerController : EnemyController
                 {
                     MultiUseTimer += Time.deltaTime;
                     MoveTo(GoToPoint, MovementSpeed, AttackRadius);
+
                     if (Vector3.Distance(transform.position, GoToPoint) <= AttackRadius)
                     {
                         easyAnimator.SetBooleanTrue("isIdling");
@@ -200,7 +200,7 @@ public class DoomerController : EnemyController
                         easyAnimator.SetBooleanTrue("isWalking");
                     }
 
-                    if (!updateLogicFrame) break; //code below is ignored if this is not update-logic frame
+                    if (!updateLogicFrame) break; 
 
                     if (playerIsVisible)
                     {
@@ -233,7 +233,7 @@ public class DoomerController : EnemyController
                     easyAnimator.SetBooleanTrue("isAggroing");
                     MoveTo(MainCharacterTransform.position, 0f, AttackRadius);
 
-                    if (!updateLogicFrame) break; //code below is ignored if this is not update-logic frame
+                    if (!updateLogicFrame) break; 
 
                     if (!playerIsVisible)
                     {
@@ -267,7 +267,7 @@ public class DoomerController : EnemyController
                         easyAnimator.SetBooleanTrue("isRunning");
                     }
 
-                    if (!updateLogicFrame) break; //code below is ignored if this is not update-logic frame
+                    if (!updateLogicFrame) break;
 
                     if (playerIsVisible)
                     {
@@ -275,6 +275,7 @@ public class DoomerController : EnemyController
                         TriggerNearEnemies(MainCharacterTransform.position);
                         break;
                     }
+
                     if (Vector3.Distance(transform.position, GoToPoint) <= AttackRadius)
                     {
                         currentState = DoomerState.Patrol;
@@ -286,7 +287,7 @@ public class DoomerController : EnemyController
                 return;
 
             default:
-                Debug.Log("Some doomer is in werid and unrecognized state in Update");
+                Debug.Log("Some doomer is in werid and unrecognized state");
                 break;
         }
     }
@@ -294,6 +295,7 @@ public class DoomerController : EnemyController
     override public void SwitchAI()
     {
         base.SwitchAI();
+
         if (turnOffAI)
         {
             resumeState = currentState;
@@ -320,11 +322,13 @@ public class DoomerController : EnemyController
     override public void SetDamage(int damageAmount, DamageType damageType)
     {
         if (!HasDoneAggro) HasDoneAggro = true;
+
         if (currentState == DoomerState.Idle || currentState == DoomerState.Patrol || currentState == DoomerState.Return || currentState == DoomerState.HaveSeenPlayer)
         {
             GoToPoint = MainCharacterTransform.position;
             currentState = DoomerState.HaveSeenPlayer;
         }
+
         base.SetDamage(damageAmount, damageType);
     }
 

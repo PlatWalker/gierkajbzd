@@ -8,16 +8,14 @@ public class ProjectilesLimiter : MonoBehaviour
     private static long IdToBeDestroyed = -1;
     private long ID;
     private int projectilesLimit=50;
-    private int pLimit;
 
     public ProjectilesLimiter()
     {
         ID = nextID;
         nextID++;
-        pLimit = projectilesLimit;
         if (ID >= projectilesLimit)
         {
-            IdToBeDestroyed = ID - pLimit;
+            IdToBeDestroyed = ID - projectilesLimit;
         }
     }
     // Start is called before the first frame update

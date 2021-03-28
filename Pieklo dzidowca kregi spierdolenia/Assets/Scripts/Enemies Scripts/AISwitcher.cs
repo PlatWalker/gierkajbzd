@@ -8,16 +8,14 @@ public class AISwitcher : MonoBehaviour
     [SerializeField] private EnemyController enemyController=null;
     [SerializeField] private Material material1=null;
     [SerializeField] private Material material2=null;
-
     private bool material = false;
     private Renderer mesh;
-    // Start is called before the first frame update
+
     void Start()
     {
         mesh = GetComponent<Renderer>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -38,6 +36,7 @@ public class AISwitcher : MonoBehaviour
                         mesh.material = material2;
                     }
                     material = !material;
+
                     if(enemyController!= null) enemyController.SwitchAI();
                 }
             }

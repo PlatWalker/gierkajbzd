@@ -6,24 +6,17 @@ public class MonkeyController : EnemyController
 {
     [Header("Running from player")]
     [SerializeField] private float runAwayRadius = 5.0f;
-
     [SerializeField] private float runSpeedModifier = 0.7f;
-
     [SerializeField] private int minRunAxisDistance = 2;
     [SerializeField] private int maxRunAxisDistance = 5;
     [SerializeField] private float pauseTimeWhenRunning = 2.5f;
-
     private Vector3 runTarget = Vector3.zero;
 
     [Header("Projectile")]
     [SerializeField] private GameObject projectileObject = null;
-
     [SerializeField] private Transform projectileSpawnPoint = null;
-
     [SerializeField] private float throwPower = 1.0f;
-
     [SerializeField] private float throwTargetHeight = 1.8f;
-
     private enum MonkeyState
     {
         Idle,
@@ -35,11 +28,9 @@ public class MonkeyController : EnemyController
         Return,
         AIOff
     }
-
     private MonkeyState currentState;
     private MonkeyState resumeState;
 
-    // Start is called before the first frame update
     override protected void Start()
     {
         base.Start();
@@ -48,64 +39,14 @@ public class MonkeyController : EnemyController
         currentState = MonkeyState.Idle;
     }
 
-    //OnValidate is called when script is loaded and everytime when value is changed
-    //in the inspector
-    override protected void OnValidate()
-    {
-        /*
-        base.OnValidate();
-        if (runAwayRadius >= AttackRadius)
-        {
-            Debug.Log(transform.name + ": Run Away Radius cannot be bigger or equal to Attack Radius!");
-            runAwayRadius = AttackRadius - 0.1f;
-        }
-        if (runSpeedModifier < 0.1 || runSpeedModifier > 2f)
-        {
-            Debug.Log(transform.name + ": Run Speed Debuff have to be inside range <0.1,2.0>");
-            if (runSpeedModifier < 0.1)
-            {
-                runSpeedModifier = 0.1f;
-            }
-            else
-            {
-                runSpeedModifier = 2f;
-            }
-        }
-        if (projectileObject == null)
-        {
-            Debug.Log(transform.name + ": Projectile Object for Monkey is not set!");
-        }
-        if (projectileSpawnPoint == null)
-        {
-            Debug.Log(transform.name + ": Projectile spawn point for Monkey is not set!");
-        }
-        if (throwPower <= 0f || throwPower > 10f )
-        {
-            Debug.Log(transform.name + ": Projectile throw power have to be bigger than 0 and connot be bigger than 10");
-            if (throwPower <= 0f)
-            {
-                throwPower = 0.1f;
-            }
-            else
-            {
-                throwPower = 10f;
-            }
-        }
-        */
-
-        //there will be some debug protections some day
-        //some day...
-    }
-
-    // Update is called once per frame
     override protected void Update()
     {
+        base.Update();
+
         if (CurrentHealth <= 0 && EnemyAlive)
         {
             currentState = MonkeyState.Dying;
         }
-
-        HandleLogicPerformaceBoost();
 
         switch (currentState)
         {
@@ -115,21 +56,21 @@ public class MonkeyController : EnemyController
                 {
                     MoveTo(MainCharacterTransform.position, 0, AttackRadius);
                     easyAnimator.SetBooleanTrue("isAttacking");
-
                     HandleThrowing();
 
-                    if (updateLogicFrame)
-                    {
-                        if (distanceToMainChar > AttackRadius)
-                        {
-                            currentState = MonkeyState.Chase;
-                        }
+                    if (!updateLogicFrame) break;
 
-                        if (distanceToMainChar < runAwayRadius)
-                        {
-                            currentState = MonkeyState.Run;
-                        }
+                    if (distanceToMainChar > AttackRadius)
+                    {
+                        currentState = MonkeyState.Chase;
+                        break;
                     }
+
+                    if (distanceToMainChar < runAwayRadius)
+                    {
+                        currentState = MonkeyState.Run;
+                    }
+
                 }
                 break;
             case MonkeyState.Chase:
@@ -137,19 +78,20 @@ public class MonkeyController : EnemyController
                     MoveTo(MainCharacterTransform.position, MovementSpeed, (AttackRadius - 0.5f));
                     easyAnimator.SetBooleanTrue("isWalking");
 
-                    if (updateLogicFrame)
-                    {
-                        if (!playerIsVisible)
-                        {
-                            currentState = MonkeyState.Search;
-                            MoveTo(transform.position, MovementSpeed, 1);
-                        }
+                    if (!updateLogicFrame) break;
 
-                        if (distanceToMainChar <= AttackRadius)
-                        {
-                            currentState = MonkeyState.Attack;
-                        }
+                    if (!playerIsVisible)
+                    {
+                        currentState = MonkeyState.Search;
+                        MoveTo(transform.position, MovementSpeed, 1);
+                        break;
                     }
+
+                    if (distanceToMainChar <= AttackRadius)
+                    {
+                        currentState = MonkeyState.Attack;
+                    }
+
                 }
                 break;
             case MonkeyState.Dying:
@@ -161,13 +103,13 @@ public class MonkeyController : EnemyController
                 {
                     easyAnimator.SetBooleanTrue("Idle");
 
-                    if (updateLogicFrame)
+                    if (!updateLogicFrame) break;
+
+                    if (playerIsVisible)
                     {
-                        if (playerIsVisible)
-                        {
-                            currentState = MonkeyState.Chase;
-                        }
+                        currentState = MonkeyState.Chase;
                     }
+
                 }
                 break;
             case MonkeyState.Run:
@@ -180,6 +122,7 @@ public class MonkeyController : EnemyController
                     }
 
                     float distanceToRunTarget = Vector3.Distance(transform.position, runTarget);
+
                     if (distanceToRunTarget < 0.5f)
                     {
                         //when waiting to run again just attack player
@@ -199,27 +142,27 @@ public class MonkeyController : EnemyController
                         runTarget = Vector3.zero;
                     }
 
+                    if (!updateLogicFrame) break;
 
-                    if (updateLogicFrame)
+
+                    if (distanceToMainChar > AttackRadius)
                     {
-
-                        if (distanceToMainChar > AttackRadius)
-                        {
-                            MultiUseTimer = 0;
-                            runTarget = Vector3.zero;
-                            currentState = MonkeyState.Chase;
-                            break;
-                        }
-
-                        if (distanceToMainChar > runAwayRadius && distanceToRunTarget < 0.5f)
-                        {
-                            MultiUseTimer = 0;
-                            runTarget = Vector3.zero;
-                            currentState = MonkeyState.Attack;
-                        }
+                        MultiUseTimer = 0;
+                        runTarget = Vector3.zero;
+                        currentState = MonkeyState.Chase;
+                        break;
                     }
+
+                    if (distanceToMainChar > runAwayRadius && distanceToRunTarget < 0.5f)
+                    {
+                        MultiUseTimer = 0;
+                        runTarget = Vector3.zero;
+                        currentState = MonkeyState.Attack;
+                    }
+
                 }
                 break;
+
             case MonkeyState.Search:
                 {
                     MultiUseTimer += Time.deltaTime;
@@ -236,42 +179,41 @@ public class MonkeyController : EnemyController
 
                     if (MultiUseTimer >= TimeBetweenPatrolSteps)
                     {
-                        GoToPoint = new Vector3(
-                            transform.position.x + Random.Range(-maxRunAxisDistance, maxRunAxisDistance),
-                            transform.position.y,
-                            transform.position.z + Random.Range(-maxRunAxisDistance, maxRunAxisDistance));
+                        GoToPoint = new Vector3(transform.position.x + Random.Range(-maxRunAxisDistance, maxRunAxisDistance),
+                                                 transform.position.y,
+                                                 transform.position.z + Random.Range(-maxRunAxisDistance, maxRunAxisDistance));
                         MultiUseTimer = 0;
                         PatrolStepsCounter++;
                     }
 
-                    if (updateLogicFrame)
+                    if (!updateLogicFrame) break;
+
+
+                    if (playerIsVisible)
                     {
-                        //przy wyjściu ze stanu zerować timer i patrol steps
-                        if (playerIsVisible)
+                        MultiUseTimer = 0;
+                        PatrolStepsCounter = 0;
+                        currentState = MonkeyState.Chase;
+                        break;
+                    }
+
+                    if (PatrolStepsCounter > MaxPatrolSteps)
+                    {
+                        if (Vector3.Distance(transform.position, SpawnPoint) > 1)
                         {
+                            currentState = MonkeyState.Return;
                             MultiUseTimer = 0;
                             PatrolStepsCounter = 0;
-                            currentState = MonkeyState.Chase;
-                            break;
                         }
-
-                        if (PatrolStepsCounter > MaxPatrolSteps)
+                        else
                         {
-                            if (Vector3.Distance(transform.position, SpawnPoint) > 1)
-                            {
-                                currentState = MonkeyState.Return;
-                                MultiUseTimer = 0;
-                                PatrolStepsCounter = 0;
-                            }
-                            else
-                            {
-                                currentState = MonkeyState.Idle;
-                                MultiUseTimer = 0;
-                                PatrolStepsCounter = 0;
-                            }
+                            currentState = MonkeyState.Idle;
+                            MultiUseTimer = 0;
+                            PatrolStepsCounter = 0;
                         }
-
                     }
+
+
                 }
                 break;
             case MonkeyState.Return:
@@ -279,19 +221,19 @@ public class MonkeyController : EnemyController
                     MoveTo(SpawnPoint, MovementSpeed, 1);
                     easyAnimator.SetBooleanTrue("isWalking");
 
-                    if (updateLogicFrame)
-                    {
-                        if (Vector3.Distance(transform.position, SpawnPoint) < 1)
-                        {
-                            currentState = MonkeyState.Idle;
-                            break;
-                        }
+                    if (!updateLogicFrame) break;
 
-                        if (playerIsVisible)
-                        {
-                            currentState = MonkeyState.Chase;
-                        }
+                    if (Vector3.Distance(transform.position, SpawnPoint) < 1)
+                    {
+                        currentState = MonkeyState.Idle;
+                        break;
                     }
+
+                    if (playerIsVisible)
+                    {
+                        currentState = MonkeyState.Chase;
+                    }
+
                 }
                 break;
         }
@@ -303,7 +245,6 @@ public class MonkeyController : EnemyController
         {
 
             GameObject projectile = Instantiate(projectileObject, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
-
             Rigidbody rigidbody = projectile.GetComponent<Rigidbody>();
             Vector3 throwDirection = (MainCharacterTransform.position - projectile.transform.position);
 
@@ -312,7 +253,7 @@ public class MonkeyController : EnemyController
             rigidbody.AddForce(throwDirection, ForceMode.Impulse);
             easyAnimator.SetBooleanDirectly("spawnProjectile", false);
 
-            //Here add some rotatiom of projectile
+            //Here add some rotatiom of projectile 
         }
     }
 

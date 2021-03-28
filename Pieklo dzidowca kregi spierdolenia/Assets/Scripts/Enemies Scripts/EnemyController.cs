@@ -204,7 +204,10 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
 
     }
 
-    protected abstract void Update();
+    protected virtual void Update()
+    {
+        HandleLogicPerformaceBoost();
+    }
 
     /// <summary>
     /// Method to set destination point for enemy.
@@ -334,6 +337,7 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
             }
             else
             {
+                //Dont know why but collinding with terrain dont return its tag
                 correctPoint = true;
                 break;
             }

@@ -9,17 +9,13 @@ using UnityEngine.AI;
 
 public class GowniakController : EnemyController
 {
-
     [Header("Gowniak specific")]
     [SerializeField] private float aggroMaxTime = 2f;
     [SerializeField] private float spawnWanderRadius = 15f;
     [SerializeField] private float wanderEveryXSeconds = 3f;
-
     private static bool aggroCommenced=false;
-
     GowniakState currentState;
     GowniakState resumeState;
-
     private enum GowniakState
     {
         Idle,
@@ -31,7 +27,6 @@ public class GowniakController : EnemyController
         AIOff
     }
 
-    // Start is called before the first frame update
     override protected void Start()
     {
         base.Start();
@@ -39,15 +34,6 @@ public class GowniakController : EnemyController
         NavAgent = GetComponent<NavMeshAgent>();
     }
 
-    //OnValidate is called when script is loaded and everytime when value is changed
-    //in the inspector
-    //void OnValidate()
-    //{
-    //here will be code to handle debuging and balance changes in values
-    //for example there have to be check if the AggroRadius is bigger that AttackRadius etc.
-    //}
-
-    // Update is called once per frame
     override protected void Update()
     {
         if (CurrentHealth <= 0 && EnemyAlive)
@@ -63,7 +49,6 @@ public class GowniakController : EnemyController
                 {
                     MultiUseTimer += Time.deltaTime;
                     easyAnimator.SetBooleanTrue("Aggro");
-
 
                     if (!updateLogicFrame) break;
 
@@ -84,6 +69,7 @@ public class GowniakController : EnemyController
             case GowniakState.Attack:
                 {
                     easyAnimator.SetBooleanTrue("Attack");
+
                     //attack code goes here
 
                     if (!updateLogicFrame) break;
@@ -157,7 +143,6 @@ public class GowniakController : EnemyController
                         easyAnimator.SetBooleanTrue("Move");
                     }
 
-
                     if (!updateLogicFrame) break;
 
                     if (playerIsVisible)
@@ -195,6 +180,7 @@ public class GowniakController : EnemyController
     override public void SwitchAI()
     {
         base.SwitchAI();
+
         if (turnOffAI)
         {
             resumeState = currentState;
@@ -203,7 +189,6 @@ public class GowniakController : EnemyController
         else
         {
             currentState = resumeState;
-
         }
     }
 
@@ -216,39 +201,32 @@ public class GowniakController : EnemyController
         base.SetDamage(damageAmount, damageType);
     }
 
+    //for further improvement in performance there can be used multitasking
+    //and then do not move until worker call the delegate function to move enemy
     private Vector3 GenerateNewDestination(bool WanderTowardsSpawn)
     {
-        const int TryXTimes = 10;
+        const int TRYXTIMES = 10;
         int tryCounter = 0;
-
         Vector3 newPoint = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
         if (WanderTowardsSpawn)
         {
-            //generating point closer to spawn than enemy is now
-            while (tryCounter < TryXTimes )
+            while ((tryCounter < TRYXTIMES) && (Vector3.Distance(newPoint, SpawnPoint) >= Vector3.Distance(transform.position, SpawnPoint)))
             {
                 tryCounter++;
                 newPoint = ChooseNewPatrollingPoint();
-                if (Vector3.Distance(newPoint, SpawnPoint) < Vector3.Distance(transform.position, SpawnPoint))
-                {
-                    break;
-                }
-
             }
         }
         else
         {
-            //generating point to wander near spawn
-            while (tryCounter < TryXTimes && Vector3.Distance(newPoint,SpawnPoint)>spawnWanderRadius)
+            while (tryCounter < TRYXTIMES && Vector3.Distance(newPoint,SpawnPoint)>spawnWanderRadius)
             {
                 tryCounter++;
                 newPoint = ChooseNewPatrollingPoint();
             }
         }
 
-        //if reached final iteration, check if the newPoint is correct
-        if (tryCounter == TryXTimes)
+        if (tryCounter == TRYXTIMES)
         {
             if (WanderTowardsSpawn)
             {
