@@ -18,13 +18,7 @@ public class ProjectilesLimiter : MonoBehaviour
             IdToBeDestroyed = ID - projectilesLimit;
         }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
         if (this.ID <= IdToBeDestroyed)
