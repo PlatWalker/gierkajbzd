@@ -25,7 +25,6 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
     protected float MultiUseTimer { get; set; }
     [SerializeField] protected int updateLogicEveryXFrames = 3;
     protected int framesCounter;
-    public bool SeesPlayer { get; protected set; }
     [SerializeField] float _otherEnemiesTriggerRadius = 20f;
     public float OtherEnemiesTriggerRadius
     {
@@ -198,7 +197,6 @@ public abstract class EnemyController : MonoBehaviour, IMove, IFight
         EnemyAlive = true;
         GetComponent<Animator>().SetFloat("IdleSpeedMultiplier", Random.Range(0.900001f, 1.100001f));
         NavAgent = GetComponent<NavMeshAgent>();
-        SeesPlayer = false;
         NavAgent.angularSpeed = RotationSpeed;
         NavAgent.acceleration = 100;
 
