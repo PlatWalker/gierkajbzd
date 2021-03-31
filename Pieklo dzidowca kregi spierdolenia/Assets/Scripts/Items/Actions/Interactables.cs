@@ -11,6 +11,8 @@ namespace jbzdy.Actions.Interaction
     {
         [SerializeField] private InteractionZone interactionZone;
 
+        public InteractionZone InteractionZone { get => interactionZone; set => interactionZone = value; }
+
         public void Awake()
         {
             interactionZone = GetComponentInChildren<InteractionZone>();

@@ -10,7 +10,7 @@ namespace jbzdy.Actions.Interaction
 {
     public class ItemInteract : Interactables
     {
-        [SerializeField] private Item item = default;
+        [SerializeField] private Item1 item = default;
 
         public override void Interact()
         {

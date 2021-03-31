@@ -1,4 +1,5 @@
 ﻿using jbzdy.Items;
+using jbzdy.Inventory;
 using UnityEngine;
 
 /// <summary>
@@ -14,24 +15,22 @@ namespace jbzdy.Actions.Interaction
     {
         [SerializeField] private Item item = default;
 
+        public InventoryClass Inventory;
+
+        public Item Item { get => item; set => item = value; }
+
         public override void Interact()
         {
             base.Interact();
-          //  PickUp();
+            PickUp();
         }
 
-        //private void PickUp()
-        //{
-        //    Debug.Log("Picking up item: " + item.name);
+        private void PickUp()
+        {
+            Debug.Log("Picking up item: " + item.name);
 
-        //  //  bool wasPickedUp = Inventory.instance.AddItem(item);
-
-        //    if (wasPickedUp)
-        //    {
-        //        //Remove object from scene
-        //        //Destroy(gameObject);
-        //    }
-        //}
+            InventoryClass.Instance.AddItem(item);
+        }
     }
 }
 

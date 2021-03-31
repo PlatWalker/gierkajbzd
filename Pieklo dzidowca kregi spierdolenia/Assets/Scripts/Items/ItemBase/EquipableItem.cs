@@ -10,9 +10,9 @@ using jbzdy.Items.Enums;
 namespace jbzdy.Items
 {
     [CreateAssetMenu(fileName = "NewEquipableItem", menuName = "Items/New Equipable Item")]
-    public class EquipableItem : Item
+    public class EquipableItem : Item1
     {
-        public EquipmentSlot equipmentSlot;
+        public ItemTypes equipmentSlot;
         public int armorModifier;
         public int damageModifier;
 

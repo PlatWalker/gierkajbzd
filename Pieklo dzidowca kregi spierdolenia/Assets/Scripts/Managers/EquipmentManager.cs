@@ -32,7 +32,7 @@ namespace jbzdy.Managers
         {
            // inventory = Inventory.instance;
 
-            int slotsNumber = System.Enum.GetNames(typeof(EquipmentSlot)).Length;
+            int slotsNumber = System.Enum.GetNames(typeof(ItemTypes)).Length;
             currentEquipment = new EquipableItem[slotsNumber];
         }
 

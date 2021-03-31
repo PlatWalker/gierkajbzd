@@ -6,7 +6,7 @@
 namespace jbzdy.Items
 {
     [CreateAssetMenu(fileName = "NewItem", menuName = "Items/New Item")]
-    public class Item : ScriptableObject
+    public class Item1 : ScriptableObject
     {
         [SerializeField] private string itemName = "New Item";
         [SerializeField] private string itemDesc = "It must be awesome";

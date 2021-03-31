@@ -8,7 +8,7 @@
 namespace jbzdy.Items
 {
     [CreateAssetMenu(fileName = "NewConsumableItem", menuName = "Items/New Consumable Item")]
-    public class ConsumableItem : Item
+    public class ConsumableItem : Item1
     {
         public int healthModifier;
         public int manaModifier;
