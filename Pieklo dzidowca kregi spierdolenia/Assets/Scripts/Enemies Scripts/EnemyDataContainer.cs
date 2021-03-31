@@ -20,7 +20,7 @@ public class EnemyDataContainer : ScriptableObject
             return _updateLogicEveryXFrames;
         }
     }
-    [SerializeField] float _otherEnemiesTriggerRadius = 20f;
+    [SerializeField] private float _otherEnemiesTriggerRadius = 20f;
     public float OtherEnemiesTriggerRadius
     {
         get
@@ -39,28 +39,19 @@ public class EnemyDataContainer : ScriptableObject
 
     [Header("Movement")]
     [SerializeField] private float _movementSpeed = 0.15f;
-    public virtual float MovementSpeed
+    public float MovementSpeed
     {
         get
         {
             return _movementSpeed;
         }
-        set
-        {
-            _movementSpeed = value;
-        }
     }
-    public Vector3 GoToPoint { get; protected set; }
     [SerializeField] private float _rotationSpeed = 0.15f;
-    public virtual float RotationSpeed
+    public float RotationSpeed
     {
         get
         {
             return _rotationSpeed;
-        }
-        protected set
-        {
-            _rotationSpeed = value;
         }
     }
     [SerializeField] private float _timeBetweenPatrolSteps = 2f;
@@ -70,10 +61,6 @@ public class EnemyDataContainer : ScriptableObject
         {
             return _timeBetweenPatrolSteps;
         }
-        protected set
-        {
-            _timeBetweenPatrolSteps = value;
-        }
     }
     [SerializeField] private int _maxPatrolSteps = 5;
     public int MaxPatrolSteps
@@ -82,23 +69,13 @@ public class EnemyDataContainer : ScriptableObject
         {
             return _maxPatrolSteps;
         }
-        protected set
-        {
-            _maxPatrolSteps = value;
-        }
     }
-    public NavMeshAgent NavAgent { get; protected set; }
-    public int PatrolStepsCounter { get; protected set; }
     [SerializeField] private float _patrolMaxDistance = 3f;
     public float PatrolMaxDistance
     {
         get
         {
             return _patrolMaxDistance;
-        }
-        private set
-        {
-            _patrolMaxDistance = value;
         }
     }
 
@@ -108,6 +85,7 @@ public class EnemyDataContainer : ScriptableObject
     {
         get
         {
+            //here insert instance taken from game manager - no need to store reference
             return _mainCharacterTransform;
         }
     }
@@ -120,10 +98,6 @@ public class EnemyDataContainer : ScriptableObject
         {
             return _aggroRadius;
         }
-        protected set
-        {
-            _aggroRadius = value;
-        }
     }
     [SerializeField] private float _aggroByAttackRadius = 50.0f;
     public virtual float AggroByAttackRadius
@@ -131,10 +105,6 @@ public class EnemyDataContainer : ScriptableObject
         get
         {
             return _aggroByAttackRadius;
-        }
-        protected set
-        {
-            AggroByAttackRadius = value;
         }
     }
     [SerializeField] private float _attackRadius = 1.5f;
@@ -144,10 +114,6 @@ public class EnemyDataContainer : ScriptableObject
         {
             return _attackRadius;
         }
-        protected set
-        {
-            _attackRadius = value;
-        }
     }
     [SerializeField] private int _maxHealth = 100;
     public virtual int MaxHealth
@@ -156,13 +122,5 @@ public class EnemyDataContainer : ScriptableObject
         {
             return _maxHealth;
         }
-        protected set
-        {
-            _maxHealth = value;
-        }
     }
-    public virtual int CurrentHealth { get; protected set; }
-    public virtual Vector3 SpawnPoint { get; protected set; }
-    protected EasyAnimatorController easyAnimator;
-    private float animationPlayPreviousSpeed = 0f;
 }
