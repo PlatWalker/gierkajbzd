@@ -93,10 +93,10 @@ namespace jbzdy.Inventory.SaveLoad
 
             for (int i = 0; i < enabledItems.ToArray().Length; i++)
             {
-                itemsLevelData.itemName[i] = enabledItems.ToArray()[i].title;
+                itemsLevelData.itemName[i] = enabledItems.ToArray()[i].itemName;
                 itemsLevelData.itemPos[i] = enabledItems.ToArray()[i].transform.position;
                 itemsLevelData.itemRot[i] = enabledItems.ToArray()[i].transform.rotation;
-                itemsLevelData.itemStackSize[i] = enabledItems.ToArray()[i].stackSize;
+                itemsLevelData.itemStackSize[i] = enabledItems.ToArray()[i].itemStackSize;
             }
 
             string _itemsLevelData = JsonUtility.ToJson(itemsLevelData);
@@ -117,8 +117,8 @@ namespace jbzdy.Inventory.SaveLoad
 
                 foreach (Item item in lootBox.lootBoxItems)
                 {
-                    itemsString = itemsString + item.title + "|";
-                    itemsStacksize = itemsStacksize + item.stackSize.ToString() + "|";
+                    itemsString = itemsString + item.itemName + "|";
+                    itemsStacksize = itemsStacksize + item.itemStackSize.ToString() + "|";
                 }
 
                 loot_ItemNames.Add(itemsString);
@@ -146,8 +146,8 @@ namespace jbzdy.Inventory.SaveLoad
 
             foreach (var i_item in sceneItems)
             {
-                items.Add(i_item.item.title);
-                stacksize.Add(i_item.item.stackSize);
+                items.Add(i_item.item.itemName);
+                stacksize.Add(i_item.item.itemStackSize);
                 itemGridPos.Add(new Vector2(i_item.x, i_item.y));
                 itemRectPos.Add(i_item.GetComponent<RectTransform>().anchoredPosition);
             }
@@ -181,10 +181,10 @@ namespace jbzdy.Inventory.SaveLoad
 
             for (int i = 0; i < enabledItems.ToArray().Length; i++)
             {
-                itemsLevelData.itemName[i] = enabledItems.ToArray()[i].title;
+                itemsLevelData.itemName[i] = enabledItems.ToArray()[i].itemName;
                 itemsLevelData.itemPos[i] = enabledItems.ToArray()[i].transform.position;
                 itemsLevelData.itemRot[i] = enabledItems.ToArray()[i].transform.rotation;
-                itemsLevelData.itemStackSize[i] = enabledItems.ToArray()[i].stackSize;
+                itemsLevelData.itemStackSize[i] = enabledItems.ToArray()[i].itemStackSize;
             }
 
             string _itemsLevelData = JsonUtility.ToJson(itemsLevelData);
@@ -205,8 +205,8 @@ namespace jbzdy.Inventory.SaveLoad
 
                 foreach (Item item in lootBox.lootBoxItems)
                 {
-                    itemsString = itemsString + item.title + "|";
-                    itemsStacksize = itemsStacksize + item.stackSize.ToString() + "|";
+                    itemsString = itemsString + item.itemName + "|";
+                    itemsStacksize = itemsStacksize + item.itemStackSize.ToString() + "|";
                 }
 
                 loot_ItemNames.Add(itemsString);
@@ -251,7 +251,7 @@ namespace jbzdy.Inventory.SaveLoad
                             var item = Instantiate(assetsDatabase.FindItem(itemsLevelData.itemName[i]));
                             item.transform.position = itemsLevelData.itemPos[i];
                             item.transform.rotation = itemsLevelData.itemRot[i];
-                            item.stackSize = itemsLevelData.itemStackSize[i];
+                            item.itemStackSize = itemsLevelData.itemStackSize[i];
                         }
                         catch
                         {
@@ -317,7 +317,7 @@ namespace jbzdy.Inventory.SaveLoad
                             item.gameObject.SetActive(false);
 
                             if (itemStackSizesInt[j] > -1)
-                                item.stackSize = itemStackSizesInt[j];
+                                item.itemStackSize = itemStackSizesInt[j];
 
                             lootbox.lootBoxItems.Add(item);
                         }
@@ -410,7 +410,7 @@ namespace jbzdy.Inventory.SaveLoad
                     {
                         var item = Instantiate(findItem);
 
-                        item.stackSize = stackSize[i];
+                        item.itemStackSize = stackSize[i];
 
                         inventory.AddItem(item, (int)itemPos[i].x, (int)itemPos[i].y);
                     }
@@ -436,7 +436,7 @@ namespace jbzdy.Inventory.SaveLoad
                         var item = Instantiate(assetsDatabase.FindItem(itemsLevelData.itemName[i]));
                         item.transform.position = itemsLevelData.itemPos[i];
                         item.transform.rotation = itemsLevelData.itemRot[i];
-                        item.stackSize = itemsLevelData.itemStackSize[i];
+                        item.itemStackSize = itemsLevelData.itemStackSize[i];
                     }
                     catch
                     {
@@ -483,7 +483,7 @@ namespace jbzdy.Inventory.SaveLoad
                         item.gameObject.SetActive(false);
 
                         if (itemStackSizesInt[j] > -1)
-                            item.stackSize = itemStackSizesInt[j];
+                            item.itemStackSize = itemStackSizesInt[j];
 
                         lootbox.lootBoxItems.Add(item);
                     }

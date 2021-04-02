@@ -3,14 +3,8 @@ using UnityEngine;
 using jbzdy.Inventory;
 using UnityEngine.UI;
 
-namespace DTInventory
+namespace jbzdy.Inventory
 {
-    /// <summary>
-    /// Choose interaction type of pickup behavior
-    /// raycastFromCamera - FPS style. When you look at the object you can pickup it with use key press
-    /// clickToPickup - Pickup an item with mouse click on it
-    /// triggerPickup - Item will be picked up if player close to item and pickup button was pressed
-    /// </summary>
     public enum InteractionType { raycastFromCamera, clickToPickup, triggerPickup }
 
     public class PickupItem : MonoBehaviour
@@ -69,10 +63,10 @@ namespace DTInventory
 
                     if (itemNameTooltip)
                     {
-                        if(item.stackable)
-                            itemNameTooltip.text = string.Format("{0}x{1}", item.title, item.stackSize);
+                        if(item.isStackable)
+                            itemNameTooltip.text = string.Format("{0}x{1}", item.itemName, item.itemStackSize);
                         else
-                            itemNameTooltip.text = string.Format("{0}", item.title);
+                            itemNameTooltip.text = string.Format("{0}", item.itemName);
                     }
 
                     if (Input.GetKeyDown(pickupKey))

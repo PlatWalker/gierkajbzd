@@ -13,7 +13,7 @@ namespace jbzdy.Inventory.Database
         {
             foreach (var item in items)
             {
-                if (item.GetComponent<Item>().title == name)
+                if (item.GetComponent<Item>().itemName == name)
                 {
                     return item.GetComponent<Item>();
                 }

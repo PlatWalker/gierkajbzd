@@ -363,17 +363,17 @@ namespace jbzdy.Inventory
         /// <returns></returns>
         public bool AddItem(Item item)
         {
-            if (CheckFreeSpaceForAllSlots(item.width, item.height))
+            if (CheckFreeSpaceForAllSlots(item.itemWidth, item.itemHeight))
             {
-                var _slot = CheckFreeSpaceForAllSlots(item.width, item.height);
+                var _slot = CheckFreeSpaceForAllSlots(item.itemWidth, item.itemHeight);
                 var _InventoryItem = Instantiate(cell).gameObject.AddComponent<InventoryItem>();
                 var _InventoryItemImage = _InventoryItem.GetComponent<Image>();
 
                 _InventoryItemImage.rectTransform.SetParent(transform);
-                _InventoryItemImage.rectTransform.sizeDelta = new Vector2(cellSize * item.width - padding, cellSize * item.height - padding);
+                _InventoryItemImage.rectTransform.sizeDelta = new Vector2(cellSize * item.itemWidth - padding, cellSize * item.itemHeight - padding);
                 _InventoryItemImage.rectTransform.anchoredPosition = _slot.GetComponent<RectTransform>().anchoredPosition;
                 _InventoryItemImage.color = Color.white;
-                _InventoryItemImage.sprite = item.icon;
+                _InventoryItemImage.sprite = item.itemIcon;
 
                 _InventoryItem.item = item;
 
@@ -381,11 +381,11 @@ namespace jbzdy.Inventory
 
                 _InventoryItem.x = _slot.x;
                 _InventoryItem.y = _slot.y;
-                _InventoryItem.width = item.width;
-                _InventoryItem.height = item.height;
+                _InventoryItem.width = item.itemWidth;
+                _InventoryItem.height = item.itemHeight;
                 _InventoryItem.inventory = this;
 
-                MarkSlots(_slot.x, _slot.y, item.width, item.height, false);
+                MarkSlots(_slot.x, _slot.y, item.itemWidth, item.itemHeight, false);
 
                 Destroy(_InventoryItem.GetComponent<GridSlot>());
 
@@ -402,7 +402,7 @@ namespace jbzdy.Inventory
                         if (equipmentPanel.allowedItemType == _InventoryItem.item.itemType && equipmentPanel.equipedItem == null)
                         {
                             EquipItem(equipmentPanel, _InventoryItem);
-                            MarkSlots(_slot.x, _slot.y, item.width, item.height, true);
+                            MarkSlots(_slot.x, _slot.y, item.itemWidth, item.itemHeight, true);
                         }
                     }
                 }
@@ -423,27 +423,27 @@ namespace jbzdy.Inventory
         /// <returns></returns>
         public bool AddItem(Item item, int x, int y)
         {
-            if (CheckFreeSpaceForAllSlots(item.width, item.height))
+            if (CheckFreeSpaceForAllSlots(item.itemWidth, item.itemHeight))
             {
                 var _InventoryItem = Instantiate(cell).gameObject.AddComponent<InventoryItem>();
                 var _InventoryItemImage = _InventoryItem.GetComponent<Image>();
 
                 _InventoryItemImage.rectTransform.SetParent(FindSlotByIndex(x, y).GetComponent<RectTransform>().transform.parent);
-                _InventoryItemImage.rectTransform.sizeDelta = new Vector2(cellSize * item.width - padding, cellSize * item.height - padding);
+                _InventoryItemImage.rectTransform.sizeDelta = new Vector2(cellSize * item.itemWidth - padding, cellSize * item.itemHeight - padding);
                 _InventoryItemImage.rectTransform.anchoredPosition = FindSlotByIndex(x, y).GetComponent<RectTransform>().anchoredPosition;
 
                 _InventoryItem.item = item;
 
-                _InventoryItemImage.sprite = item.icon;
+                _InventoryItemImage.sprite = item.itemIcon;
                 _InventoryItem.x = x;
                 _InventoryItem.y = y;
-                _InventoryItem.width = item.width;
-                _InventoryItem.height = item.height;
+                _InventoryItem.width = item.itemWidth;
+                _InventoryItem.height = item.itemHeight;
                 _InventoryItem.inventory = this;
 
                 _InventoryItem.finalPosition = FindSlotByIndex(x, y).GetComponent<RectTransform>().anchoredPosition;
 
-                MarkSlots(x, y, item.width, item.height, false);
+                MarkSlots(x, y, item.itemWidth, item.itemHeight, false);
 
                 Destroy(_InventoryItem.GetComponent<GridSlot>());
 
@@ -460,7 +460,7 @@ namespace jbzdy.Inventory
                         if (equipmentPanel.allowedItemType == _InventoryItem.item.itemType && equipmentPanel.equipedItem == null)
                         {
                             EquipItem(equipmentPanel, _InventoryItem);
-                            MarkSlots(x, y, item.width, item.height, true);
+                            MarkSlots(x, y, item.itemWidth, item.itemHeight, true);
                         }
                     }
                 }
@@ -481,7 +481,7 @@ namespace jbzdy.Inventory
         {
             foreach (var item in inventoryItems)
             {
-                if (item.item.title == itemTitle)
+                if (item.item.itemName == itemTitle)
                 {
                     return true;
                 }
@@ -790,9 +790,9 @@ namespace jbzdy.Inventory
 
             foreach (var _item in items)
             {
-                if (CheckFreeSpaceForAllSlotsLoot(_item.width, _item.height))
+                if (CheckFreeSpaceForAllSlotsLoot(_item.itemWidth, _item.itemHeight))
                 {
-                    var slotToEquip = CheckFreeSpaceForAllSlotsLoot(_item.width, _item.height);
+                    var slotToEquip = CheckFreeSpaceForAllSlotsLoot(_item.itemWidth, _item.itemHeight);
 
                     AddItem(_item, slotToEquip.x, slotToEquip.y);
                 }
@@ -823,12 +823,12 @@ namespace jbzdy.Inventory
         public void SubstractStack(InventoryItem InventoryItem)
         {
             // If check free space == false -> exit
-            if (InventoryItem.item.stackSize < 2)
+            if (InventoryItem.item.itemStackSize < 2)
                 return;
 
-            if (InventoryItem.item.stackable)
+            if (InventoryItem.item.isStackable)
             {
-                if (InventoryItem.item.stackSize % 2 == 0)
+                if (InventoryItem.item.itemStackSize % 2 == 0)
                 {
                     if (CheckFreeSpaceForAllSlots(InventoryItem.width, InventoryItem.height) == null)
                     {
@@ -840,8 +840,8 @@ namespace jbzdy.Inventory
                     var second_item_go = Instantiate(InventoryItem.item.gameObject);
                     var second_item = second_item_go.GetComponent<Item>();
 
-                    InventoryItem.item.stackSize /= 2;
-                    second_item.stackSize = InventoryItem.item.stackSize;
+                    InventoryItem.item.itemStackSize /= 2;
+                    second_item.itemStackSize = InventoryItem.item.itemStackSize;
 
                     AddItem(second_item);
 
@@ -849,7 +849,7 @@ namespace jbzdy.Inventory
 
                     InventoryItem.item.gameObject.SetActive(false);
                 }
-                else if (InventoryItem.item.stackSize % 2 == 1)
+                else if (InventoryItem.item.itemStackSize % 2 == 1)
                 {
                     if (CheckFreeSpaceForAllSlots(InventoryItem.width, InventoryItem.height) == null)
                     {
@@ -861,8 +861,8 @@ namespace jbzdy.Inventory
                     var second_item_go = Instantiate(InventoryItem.item.gameObject);
                     var second_item = second_item_go.GetComponent<Item>();
 
-                    InventoryItem.item.stackSize = (InventoryItem.item.stackSize - 1) / 2;
-                    second_item.stackSize = InventoryItem.item.stackSize + 1;
+                    InventoryItem.item.itemStackSize = (InventoryItem.item.itemStackSize - 1) / 2;
+                    second_item.itemStackSize = InventoryItem.item.itemStackSize + 1;
 
                     AddItem(second_item);
 
@@ -888,7 +888,7 @@ namespace jbzdy.Inventory
 
             foreach (var i in inventoryItems)
             {
-                if (i.item.id == InventoryItem.item.id)
+                if (i.item.itemID == InventoryItem.item.itemID)
                 {
                     items.Add(i);
                 }
@@ -896,13 +896,13 @@ namespace jbzdy.Inventory
 
             foreach (var i in items)
             {
-                if (InventoryItem.item.stackSize + i.item.stackSize <= InventoryItem.item.maxStackSize)
+                if (InventoryItem.item.itemStackSize + i.item.itemStackSize <= InventoryItem.item.itemMaxStackSize)
                 {
-                    InventoryItem.item.stackSize += InventoryItem.item.stackSize;
+                    InventoryItem.item.itemStackSize += InventoryItem.item.itemStackSize;
                     RemoveItem(i);
                 }
 
-                if (InventoryItem.item.stackSize == InventoryItem.item.maxStackSize)
+                if (InventoryItem.item.itemStackSize == InventoryItem.item.itemMaxStackSize)
                     break;
             }
         }
@@ -915,7 +915,7 @@ namespace jbzdy.Inventory
         public void UseItem(InventoryItem InventoryItem, bool closeInventory)
         {
                 // If not stackable
-                if (!InventoryItem.item.stackable || InventoryItem.item.stackSize <= 1)
+                if (!InventoryItem.item.isStackable || InventoryItem.item.itemStackSize <= 1)
                 {
                     InventoryItem.item.onUseEvent.Invoke();
                     RemoveItem(InventoryItem);
@@ -924,7 +924,7 @@ namespace jbzdy.Inventory
                 else
                 {
                     InventoryItem.item.onUseEvent.Invoke();
-                    InventoryItem.item.stackSize -= 1;
+                    InventoryItem.item.itemStackSize -= 1;
                 }
             
 

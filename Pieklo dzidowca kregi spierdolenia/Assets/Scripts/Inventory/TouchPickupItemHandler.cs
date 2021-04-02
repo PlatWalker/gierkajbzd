@@ -3,7 +3,7 @@ using jbzdy.Items;
 using jbzdy.Inventory;
 using UnityEngine.EventSystems;
 
-namespace DTInventory
+namespace jbzdy.Inventory
 {
     public class TouchPickupItemHandler : MonoBehaviour, IPointerClickHandler
     {

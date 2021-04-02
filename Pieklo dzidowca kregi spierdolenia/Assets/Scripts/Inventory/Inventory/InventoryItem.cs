@@ -88,10 +88,10 @@ namespace jbzdy.Inventory
             }
 
             //Draw stack info if item stackable
-            if (item != null && stackText != null && item.stackable)
+            if (item != null && stackText != null && item.isStackable)
             {
-                if (item.stackSize > 1)
-                    stackText.text = item.stackSize.ToString();
+                if (item.itemStackSize > 1)
+                    stackText.text = item.itemStackSize.ToString();
                 else
                     stackText.text = string.Empty;
             }
@@ -108,9 +108,9 @@ namespace jbzdy.Inventory
             }
 
             //Substract stack event
-            if (eventData.clickCount > 1 && eventData.button == PointerEventData.InputButton.Left && item.stackSize > 1)
+            if (eventData.clickCount > 1 && eventData.button == PointerEventData.InputButton.Left && item.itemStackSize > 1)
             {
-                if (inventory.CheckFreeSpaceForAllSlots(item.width, item.height))
+                if (inventory.CheckFreeSpaceForAllSlots(item.itemWidth, item.itemHeight))
                     inventory.SubstractStack(this);
             }
         }
@@ -169,7 +169,7 @@ namespace jbzdy.Inventory
 
                     var inv_item = hoveredGameObject.GetComponent<InventoryItem>();
 
-                    if (inv_item.item.id != item.id)
+                    if (inv_item.item.itemID != item.itemID)
                     {
                         //Look here we check if we should hovered item blocked fully or not
                         //If 
@@ -229,12 +229,12 @@ namespace jbzdy.Inventory
 
             if (eventDataRaycast.gameObject != null 
                 && item != null
-                && item.stackable == true
+                && item.isStackable == true
                 && eventDataRaycast.gameObject.GetComponent<InventoryItem>() != null
-                && eventDataRaycast.gameObject.GetComponent<InventoryItem>().item.id == item.id
-                && eventDataRaycast.gameObject.GetComponent<InventoryItem>().item.stackSize + item.stackSize <= item.maxStackSize)
+                && eventDataRaycast.gameObject.GetComponent<InventoryItem>().item.itemID == item.itemID
+                && eventDataRaycast.gameObject.GetComponent<InventoryItem>().item.itemStackSize + item.itemStackSize <= item.itemMaxStackSize)
             {
-                eventDataRaycast.gameObject.GetComponent<InventoryItem>().item.stackSize += item.stackSize;
+                eventDataRaycast.gameObject.GetComponent<InventoryItem>().item.itemStackSize += item.itemStackSize;
                 inventory.RemoveItem(this);
                 Destroy(gameObject);
                 return;

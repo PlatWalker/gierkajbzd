@@ -25,7 +25,7 @@ namespace jbzdy.Inventory.Database
         {
             foreach(var item in items)
             {
-                if (item.title == title)
+                if (item.itemName == title)
                     return item;
             }
 

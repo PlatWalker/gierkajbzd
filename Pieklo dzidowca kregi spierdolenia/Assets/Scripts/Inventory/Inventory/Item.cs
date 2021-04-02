@@ -11,24 +11,23 @@ namespace jbzdy.Items
         [System.Serializable]
         public class OnPickupEvent : UnityEvent { }
 
-        public int id;
-        public string title;
-        public string description;
-        public string type;
-        public Sprite icon;
+        public int itemID;
+        public string itemName;
+        public string itemDescription;
+        public Sprite itemIcon;
         public ItemTypes itemType;
 
         [Range(1, 10)]
-        public int width = 1, height = 1;
+        public int itemWidth = 1, itemHeight = 1;
 
         [Header("Stack options")]
-        public bool stackable;
+        public bool isStackable;
 
         [Range(1, 100)]
-        public int maxStackSize = 1;
+        public int itemMaxStackSize = 1;
 
         [Range(1, 100)]
-        public int stackSize = 1;
+        public int itemStackSize = 1;
         
         [SerializeField]
         public OnUseEvent onUseEvent;
