@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
-
+[CreateAssetMenu(fileName = "NewEnemyData", menuName = "EnemyDataContainer", order = 100)]
+/// <summary>
+/// Data container for simple data of every enemy.
+/// Created by Kumdzio
+/// </summary>
 public class EnemyDataContainer : ScriptableObject
 {
     [Header("Artifical Intelligence")]
-    [SerializeField] private float _disappearAfter = 5.0f;
+    [SerializeField] private float _disappearAfter=0;
     public float DisappearAfter
     {
         get
@@ -12,7 +16,7 @@ public class EnemyDataContainer : ScriptableObject
             return _disappearAfter;
         }
     }
-    [SerializeField] private int _updateLogicEveryXFrames = 3;
+    [SerializeField] private int _updateLogicEveryXFrames=0;
     public int UpdateLogicEveryXFrames
     {
         get
@@ -20,7 +24,7 @@ public class EnemyDataContainer : ScriptableObject
             return _updateLogicEveryXFrames;
         }
     }
-    [SerializeField] private float _otherEnemiesTriggerRadius = 20f;
+    [SerializeField] private float _otherEnemiesTriggerRadius=0;
     public float OtherEnemiesTriggerRadius
     {
         get
@@ -28,7 +32,7 @@ public class EnemyDataContainer : ScriptableObject
             return _otherEnemiesTriggerRadius;
         }
     }
-    [SerializeField] private bool _triggeringNearEnemies = true;
+    [SerializeField] private bool _triggeringNearEnemies=false;
     public bool TriggeringNearEnemies
     {
         get
@@ -38,7 +42,7 @@ public class EnemyDataContainer : ScriptableObject
     }
 
     [Header("Movement")]
-    [SerializeField] private float _movementSpeed = 0.15f;
+    [SerializeField] private float _movementSpeed=0;
     public float MovementSpeed
     {
         get
@@ -46,7 +50,7 @@ public class EnemyDataContainer : ScriptableObject
             return _movementSpeed;
         }
     }
-    [SerializeField] private float _rotationSpeed = 0.15f;
+    [SerializeField] private float _rotationSpeed=0;
     public float RotationSpeed
     {
         get
@@ -54,7 +58,7 @@ public class EnemyDataContainer : ScriptableObject
             return _rotationSpeed;
         }
     }
-    [SerializeField] private float _timeBetweenPatrolSteps = 2f;
+    [SerializeField] private float _timeBetweenPatrolSteps=0;
     public float TimeBetweenPatrolSteps
     {
         get
@@ -62,7 +66,7 @@ public class EnemyDataContainer : ScriptableObject
             return _timeBetweenPatrolSteps;
         }
     }
-    [SerializeField] private int _maxPatrolSteps = 5;
+    [SerializeField] private int _maxPatrolSteps=0;
     public int MaxPatrolSteps
     {
         get
@@ -70,7 +74,7 @@ public class EnemyDataContainer : ScriptableObject
             return _maxPatrolSteps;
         }
     }
-    [SerializeField] private float _patrolMaxDistance = 3f;
+    [SerializeField] private float _patrolMaxDistance=0;
     public float PatrolMaxDistance
     {
         get
@@ -80,18 +84,34 @@ public class EnemyDataContainer : ScriptableObject
     }
 
     [Header("Attack target transform")]
-    [SerializeField] private Transform _mainCharacterTransform = null;
+    [SerializeField] private Transform _mainCharacterTransform=null;
     public virtual Transform MainCharacterTransform
     {
         get
         {
             //here insert instance taken from game manager - no need to store reference
-            return _mainCharacterTransform;
+            if (_mainCharacterTransform)
+            {
+                return _mainCharacterTransform;
+            }
+            else
+            {
+                _mainCharacterTransform = GameObject.Find("MainChar").transform;
+                if (_mainCharacterTransform)
+                {
+                    return _mainCharacterTransform;
+                }
+                else
+                {
+                    Debug.Log("Cannot find istance of \"MainChar\" and enemy do not know where to go");
+                    return null;
+                }
+            }
         }
     }
 
     [Header("Fight")]
-    [SerializeField] private float _aggroRadius = 20.0f;
+    [SerializeField] private float _aggroRadius=0;
     public virtual float AggroRadius
     {
         get
@@ -99,7 +119,7 @@ public class EnemyDataContainer : ScriptableObject
             return _aggroRadius;
         }
     }
-    [SerializeField] private float _aggroByAttackRadius = 50.0f;
+    [SerializeField] private float _aggroByAttackRadius=0;
     public virtual float AggroByAttackRadius
     {
         get
@@ -107,7 +127,7 @@ public class EnemyDataContainer : ScriptableObject
             return _aggroByAttackRadius;
         }
     }
-    [SerializeField] private float _attackRadius = 1.5f;
+    [SerializeField] private float _attackRadius=0;
     public virtual float AttackRadius
     {
         get
@@ -115,12 +135,17 @@ public class EnemyDataContainer : ScriptableObject
             return _attackRadius;
         }
     }
-    [SerializeField] private int _maxHealth = 100;
+    [SerializeField] private int _maxHealth=0;
     public virtual int MaxHealth
     {
         get
         {
             return _maxHealth;
         }
+    }
+
+    private void OnEnable()
+    {
+        _mainCharacterTransform = GameObject.Find("MainChar").transform;
     }
 }
