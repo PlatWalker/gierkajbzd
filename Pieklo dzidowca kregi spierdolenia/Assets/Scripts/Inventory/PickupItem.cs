@@ -1,8 +1,12 @@
 ﻿using jbzdy.Items;
 using UnityEngine;
-using jbzdy.Inventory;
 using UnityEngine.UI;
 
+/// <summary>
+/// Testowa klasa do podnoszenia itemów na klik myszy i ogólnie do wyjebania jest
+/// 
+/// Napisane przez Sharashino
+/// </summary>
 namespace jbzdy.Inventory
 {
     public enum InteractionType { raycastFromCamera, clickToPickup, triggerPickup }

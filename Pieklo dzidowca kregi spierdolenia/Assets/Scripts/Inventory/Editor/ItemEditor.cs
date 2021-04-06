@@ -1,35 +1,47 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using jbzdy.Items;
+using jbzdy.Items.Enums;
 using jbzdy.Actions.Interaction;
+using System;
 
 namespace jbzdy.Inventory.EditorW
 {
     public class ItemEditor : EditorWindow
     {
+        private GameObject newItem;
+        private GameObject finalItem;
+        private GameObject interactionZone;
+
+        private int index = 0;
+        private bool generateInteractionZone;
+
+        private ItemTypes itemType;
+
         [MenuItem("Sharashino Inventory/Create Item")]
         static void Init()
         {
             ItemEditor _editor = (ItemEditor)GetWindow(typeof(ItemEditor));
             _editor.Show();
         }
-
-        GameObject newItem;
-        GameObject finalItem;
-        GameObject interactionZone;
-        
-        int index = 0;
-        bool generateInteractionZone;
+       
         private void OnGUI()
         {
             if (index == 0)
             {
                 GUILayout.TextArea("New item", EditorStyles.boldLabel);
-                GUILayout.BeginVertical("HelpBox");
+                GUILayout.BeginVertical("HelpBox", GUILayout.Width(300));
 
                 newItem = (GameObject)EditorGUILayout.ObjectField("Item model", newItem, typeof(GameObject), true);
-                interactionZone = (GameObject)EditorGUILayout.ObjectField("Interaction Zone", interactionZone, typeof(GameObject), true);
-                generateInteractionZone = EditorGUILayout.Toggle("Generate Interaction Zone?", generateInteractionZone);
+                generateInteractionZone = EditorGUILayout.Toggle("Generate Interaction Zone?", generateInteractionZone); ;
+
+                if(generateInteractionZone)
+                {
+                    interactionZone = (GameObject)EditorGUILayout.ObjectField("Interaction Zone", interactionZone, typeof(GameObject), true);
+                }
+
+                GUILayout.TextArea("Item Type", EditorStyles.boldLabel);
+                itemType = (ItemTypes)EditorGUILayout.EnumPopup(itemType, GUILayout.Width(100));
 
                 if (GUILayout.Button("Next"))
                 {
@@ -44,7 +56,7 @@ namespace jbzdy.Inventory.EditorW
                         ItemPickup itemPickup = finalItem.AddComponent<ItemPickup>();
                         itemPickup.InteractionZone = interactionZone.GetComponent<InteractionZone>();
                     }
-                   
+                    
 
                     finalItem.name = newItem.name + " - Item";
 
@@ -56,7 +68,35 @@ namespace jbzdy.Inventory.EditorW
             }
             else if(index == 1)
             {
-                GUILayout.TextArea("New item", EditorStyles.boldLabel);
+                GUILayout.BeginVertical("HelpBox", GUILayout.Width(300));
+                GUILayout.TextArea("New weapon item", EditorStyles.boldLabel);
+
+                switch (itemType)
+                {
+                    case ItemTypes.Weapon:
+                        CreateWeapon();
+                        break;
+                    case ItemTypes.Armor:
+                        CreateArmor();
+                        break;
+                    case ItemTypes.Consumable:
+                        CreateConsumable();
+                        break;
+                    case ItemTypes.None:
+                        CreateNone();
+                        break;
+                    default:
+                        break;
+                }
+
+                if (GUILayout.Button("Next"))
+                {
+                    index++;
+                }
+            }
+            else if(index == 2)
+            {
+                GUILayout.TextArea(newItem.name, EditorStyles.boldLabel);
                 GUILayout.BeginVertical("HelpBox");
                 
 
@@ -67,13 +107,40 @@ namespace jbzdy.Inventory.EditorW
                 }
                 else
                 {
-                    EditorGUILayout.HelpBox("Can't find item. Maybe reference is missed. Try again from first step", MessageType.Warning, true);
+                    EditorGUILayout.HelpBox("Coś rozjebałeś, spróbuj od nowa. TYM RAZEM TEGO NIE SPIERDOL!!!", MessageType.Warning, true);
                 }
 
                 GUILayout.EndVertical();
 
-                EditorGUILayout.HelpBox("Don't forget to save your item settings and prefab itself! Drag prefab to the items folder.", MessageType.Warning);
+                EditorGUILayout.HelpBox("Zapisz jeszcze prefab ściągając go z hierarhii do Projektu.", MessageType.Warning);
             }
         }
+
+        
+
+        private void CreateWeapon()
+        {
+            finalItem.AddComponent<WeaponItem>();
+            WeaponItem newWeapon = finalItem.GetComponent<WeaponItem>();
+
+            newWeapon.weaponDamage = EditorGUILayout.IntField("Weapon Damage", newWeapon.weaponDamage);
+            newWeapon.weaponLevel = EditorGUILayout.IntField("Weapon Damage", newWeapon.weaponLevel);
+        }
+        
+        private void CreateArmor()
+        {
+        }
+        private void CreateConsumable()
+        {
+        }
+
+        private void CreateNone()
+        {
+            
+        }
+
+        
+
+        
     }
 }

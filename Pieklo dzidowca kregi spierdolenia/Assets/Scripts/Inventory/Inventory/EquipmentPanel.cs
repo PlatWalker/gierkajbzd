@@ -2,6 +2,11 @@
 using UnityEngine;
 using jbzdy.Items.Enums;
 
+/// <summary>
+/// Klasa siedząca na slotach, które służą do zakładania przedmiotów
+/// 
+/// Napisane przez Sharashino
+/// </summary>
 namespace jbzdy.Inventory 
 {
     public class EquipmentPanel : MonoBehaviour

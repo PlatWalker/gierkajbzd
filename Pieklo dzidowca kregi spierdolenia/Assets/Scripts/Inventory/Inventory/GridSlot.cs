@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Klasa siedząca na slocie w Inventory
+/// 
+/// Napisane przez Sharashino
+/// </summary>
 namespace jbzdy.Inventory
 {
     public class GridSlot : MonoBehaviour

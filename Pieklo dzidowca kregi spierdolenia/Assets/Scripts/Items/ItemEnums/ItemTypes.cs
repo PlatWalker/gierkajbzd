@@ -2,12 +2,9 @@
 {
     public enum ItemTypes
     {
-        Head,
-        Chest,
-        Legs,
-        Feet,
         Weapon,
-        Shield,
+        Armor,
+        Consumable,
         None
     }
 }

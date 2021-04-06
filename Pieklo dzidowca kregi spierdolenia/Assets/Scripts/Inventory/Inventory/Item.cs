@@ -2,6 +2,11 @@
 using jbzdy.Items.Enums;
 using UnityEngine.Events;
 
+/// <summary>
+/// Klasa główna do tworzenia przedmiotów
+/// 
+/// Napisane przez Sharashino
+/// </summary>
 namespace jbzdy.Items
 {
     public class Item : MonoBehaviour

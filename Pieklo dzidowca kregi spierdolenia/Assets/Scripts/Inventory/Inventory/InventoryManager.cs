@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Główny manager ekwipunku gracza, odpowiadający za on/off inventory, rozpisane wszystko stylem Kumdzia żeby nikt nie pierdolił że nie wie co od czego
+/// 
+/// Napisane przez Sharashino
+/// </summary>
 namespace jbzdy.Inventory
 {
     [System.Serializable]
@@ -124,14 +129,6 @@ namespace jbzdy.Inventory
                 OnClose.Invoke();
                 isOpen = false;
             }
-        }
-
-        /// <summary>
-        /// Use this method to open - close inventory with button on mobile
-        /// </summary>
-        public void MobileToggle()
-        {
-            showInventory = !showInventory;
         }
     }
 }

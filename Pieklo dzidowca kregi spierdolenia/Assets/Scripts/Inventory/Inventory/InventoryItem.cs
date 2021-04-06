@@ -3,12 +3,14 @@ using jbzdy.Items;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// Klasa reprezentująca całe inventory i wszystkie itemy na gridzie
+/// 
+/// Napisane przez Sharashino
+/// </summary>
 namespace jbzdy.Inventory
 {
-    /// <summary>
-    /// Class for representation inventory grid items
-    /// Contains all functionality for drag and drop, click etc.
-    /// </summary>
+    
     public class InventoryItem : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         //A slot where item is

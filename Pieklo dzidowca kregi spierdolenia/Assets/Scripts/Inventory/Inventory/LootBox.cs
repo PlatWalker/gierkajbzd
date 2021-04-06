@@ -3,9 +3,13 @@ using jbzdy.Items;
 using jbzdy.Inventory.SaveLoad;
 using System.Collections.Generic;
 
+/// <summary>
+/// Klasa wyświetlająca przedmioty w skrzynkach
+/// 
+/// Napisane przez Sharashino
+/// </summary>
 namespace jbzdy.Inventory
 {
-
     public class LootBox : MonoBehaviour
     {
         public bool spawnRandomItems = false;

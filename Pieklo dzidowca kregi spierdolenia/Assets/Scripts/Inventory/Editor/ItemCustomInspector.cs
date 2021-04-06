@@ -1,4 +1,5 @@
 ﻿using jbzdy.Items;
+using jbzdy.Items.Enums;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -33,10 +34,9 @@ namespace jbzdy.Inventory.EditorW
         public void DrawGeneralItem()
         {
             GUILayout.Label("General item settings", EditorStyles.boldLabel);
-            GUILayout.BeginVertical("HelpBox");
+            GUILayout.BeginVertical("HelpBox", GUILayout.Width(300));
             item.itemName = EditorGUILayout.TextField("Name", item.itemName);
             item.itemDescription = EditorGUILayout.TextField("Description", item.itemDescription);
-            item.itemType = (Items.Enums.ItemTypes)EditorGUILayout.EnumFlagsField("Item Type", item.itemType);
 
             item.itemIcon = (Sprite)EditorGUILayout.ObjectField("Item icon", item.itemIcon, typeof(Sprite), false);
             item.itemID = EditorGUILayout.IntField("ID", item.itemID);
