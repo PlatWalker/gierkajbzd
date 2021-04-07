@@ -18,8 +18,6 @@ public class PlayerController_kumdziowy : MonoBehaviour
     [SerializeField]
     private float playerAcceleration = 2f;
     [SerializeField]
-    private float playerDecceleration = 3f;
-    [SerializeField]
     private float playerMaxSpeed = 20.0f;
     [SerializeField]
     private float rotateSpeed;
