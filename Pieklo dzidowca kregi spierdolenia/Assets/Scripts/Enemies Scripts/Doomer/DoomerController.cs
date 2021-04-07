@@ -10,6 +10,10 @@ public class DoomerController : EnemyController
     [SerializeField] private float movementRushSpeed=1.05f;
     [SerializeField] private float jumpSpeed = 1.08f;
     [SerializeField] private float firstAttackRadius = 4.0f;
+    [SerializeField] private float chargeDamageModifier = 2.0f;
+    [SerializeField] ClawsController LHCollider = null;
+    [SerializeField] ClawsController RHCollider = null;
+
     private enum DoomerState
     {
         Idle,
@@ -111,10 +115,14 @@ public class DoomerController : EnemyController
                         hasDoneSpecialAttack = true;
                     }
 
+                    //here should check if player have been reached and deal damage
+
                     if (!updateLogicFrame) break; 
 
                     if (hasDoneSpecialAttack)
                     {
+                        RHCollider.SetUp(EnemyData.Damage);
+                        LHCollider.SetUp(EnemyData.Damage);
                         if (distanceToMainChar <= EnemyData.AttackRadius)
                         {
                             currentState = DoomerState.Attack;
@@ -160,6 +168,8 @@ public class DoomerController : EnemyController
                     {
                         if(distanceToMainChar<= firstAttackRadius)
                         {
+                            RHCollider.SetUp((int)(EnemyData.Damage * chargeDamageModifier));
+                            LHCollider.SetUp((int)(EnemyData.Damage * chargeDamageModifier));
                             currentState = DoomerState.ChargedAttack;
                         }
                     }

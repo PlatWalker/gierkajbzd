@@ -18,8 +18,8 @@ public class BulletController : MonoBehaviour
         DamageAmount = damageAmount;
         TimeToDestruction = timeToDestruction;
         TypeOfDamage = damageType;
-        CritChance = 0.0f;
-        CritMultiplier = 1.0f;
+        CritChance = 0.2f;
+        CritMultiplier = 2.0f;
     }
     public void SetUp(float timeToDestruction, int damageAmount, DamageType damageType,
         float critMultiplier, float critChance)
