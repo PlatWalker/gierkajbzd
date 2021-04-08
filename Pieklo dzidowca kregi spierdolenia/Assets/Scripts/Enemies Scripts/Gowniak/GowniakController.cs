@@ -2,8 +2,6 @@
 /// Created by Kumdzio
 ///</summary>
 
-
-using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -26,12 +24,17 @@ public class GowniakController : EnemyController
         Dying,
         AIOff
     }
+    [SerializeField] DamageController RHCollider = null;
+    [SerializeField] DamageController LHCollider = null;
+
 
     override protected void Start()
     {
         base.Start();
         easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), new string[] { });
         NavAgent = GetComponent<NavMeshAgent>();
+        RHCollider.SetUp(EnemyData.Damage);
+        LHCollider.SetUp(EnemyData.Damage);
     }
 
     override protected void Update()
@@ -69,8 +72,13 @@ public class GowniakController : EnemyController
             case GowniakState.Attack:
                 {
                     easyAnimator.SetBooleanTrue("Attack");
-
-                    //attack code goes here
+                    float clipTime = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime;
+                    Debug.Log(clipTime);
+                    if (clipTime%1 < 0.2f)
+                    {
+                        LHCollider.DamageDealed = false;
+                        RHCollider.DamageDealed = false;
+                    }
 
                     if (!updateLogicFrame) break;
 
