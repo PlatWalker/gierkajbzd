@@ -154,6 +154,10 @@ public class EnemyDataContainer : ScriptableObject
 
     private void OnEnable()
     {
-        _mainCharacterTransform = GameObject.Find("Malpa (1)").transform;
+        GameObject gameObject = GameObject.Find("Malpa (1)");
+        if (gameObject)
+        {
+            _mainCharacterTransform = gameObject.transform;
+        }
     }
 }

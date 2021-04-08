@@ -11,8 +11,8 @@ public class DoomerController : EnemyController
     [SerializeField] private float jumpSpeed = 1.08f;
     [SerializeField] private float firstAttackRadius = 4.0f;
     [SerializeField] private float chargeDamageModifier = 2.0f;
-    [SerializeField] ClawsController LHCollider = null;
-    [SerializeField] ClawsController RHCollider = null;
+    [SerializeField] DamageController LHCollider = null;
+    [SerializeField] DamageController RHCollider = null;
 
     private enum DoomerState
     {
@@ -89,6 +89,44 @@ public class DoomerController : EnemyController
                     MoveTo(EnemyData.MainCharacterTransform.position, 0.0f, EnemyData.AttackRadius);
                     easyAnimator.SetBooleanTrue("isAttacking");
 
+                    AnimatorStateInfo animatorStateInfo = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
+                    if (animatorStateInfo.IsName("Armature|Atk_2")) //short attack animation
+                    {
+                        if (animatorStateInfo.normalizedTime % 1 > 0.9)
+                        {
+                            RHCollider.DamageDealed = false;
+                        }
+                        if(animatorStateInfo.normalizedTime % 1 > 0.2 && animatorStateInfo.normalizedTime % 1 < 0.3)
+                        {
+                            LHCollider.DamageDealed = false;
+                        }
+                    }
+                    else if(animatorStateInfo.IsName("Armature|Atk_1"))//long attack animation
+                    {
+
+                        if (animatorStateInfo.normalizedTime < 0.1)
+                        {
+                            RHCollider.DamageDealed = false;
+                        }else if((animatorStateInfo.normalizedTime > 0.3 && animatorStateInfo.normalizedTime < 0.5) || (animatorStateInfo.normalizedTime > 0.75 && animatorStateInfo.normalizedTime < 0.8))
+                        {
+                            LHCollider.DamageDealed = false;
+                            RHCollider.DamageDealed = false;
+                        }else if(animatorStateInfo.normalizedTime>0.8 && animatorStateInfo.normalizedTime < 0.9)
+                        {
+                            LHCollider.DamageDealed = false;
+                            RHCollider.DamageDealed = false;
+                        }
+
+                    }
+                    else //before first attack and after charged attack
+                    {
+                        if (animatorStateInfo.normalizedTime < 0.9 && animatorStateInfo.normalizedTime > 0.8)
+                        {
+                            LHCollider.DamageDealed = false;
+                            RHCollider.DamageDealed = false;
+                        }
+                    }
+                    
                     if (!updateLogicFrame) break;
 
                     if (distanceToMainChar > EnemyData.AttackRadius)
@@ -123,6 +161,8 @@ public class DoomerController : EnemyController
                     {
                         RHCollider.SetUp(EnemyData.Damage);
                         LHCollider.SetUp(EnemyData.Damage);
+                        RHCollider.DamageDealed = false;
+                        LHCollider.DamageDealed = false;
                         if (distanceToMainChar <= EnemyData.AttackRadius)
                         {
                             currentState = DoomerState.Attack;

@@ -2003,9 +2003,9 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.0005
-  m_Height: 0.007
+  m_Height: 0.005
   m_Direction: 1
-  m_Center: {x: 0, y: 0.003, z: 0}
+  m_Center: {x: 0, y: 0.002, z: 0}
 --- !u!114 &934300206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2179,7 +2179,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e8d8400606665c74ebde1b67c7cafa0f, type: 3}
       propertyPath: m_TagString
-      value: Enemy
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e8d8400606665c74ebde1b67c7cafa0f, type: 3}
       propertyPath: m_Layer
@@ -2248,12 +2248,12 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1034175267}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.0005
-  m_Height: 0.007
+  m_Height: 0.005
   m_Direction: 1
-  m_Center: {x: 0, y: 0.003, z: 0}
+  m_Center: {x: 0, y: 0.002, z: 0}
 --- !u!114 &1034175270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4137,6 +4137,14 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4601f3fa788ee3242bbf4e04d063cd11, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6061852266189391853, guid: 4601f3fa788ee3242bbf4e04d063cd11, type: 3}
+      propertyPath: m_Name
+      value: RightHandDoomer
+      objectReference: {fileID: 0}
+    - target: {fileID: -2617655652997353676, guid: 4601f3fa788ee3242bbf4e04d063cd11, type: 3}
+      propertyPath: m_Name
+      value: LeftHandDoomer
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4601f3fa788ee3242bbf4e04d063cd11, type: 3}
       propertyPath: m_Name
