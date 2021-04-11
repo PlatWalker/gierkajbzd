@@ -70,27 +70,29 @@ namespace jbzdy.Inventory.EditorW
             {
                 GUILayout.BeginVertical("HelpBox", GUILayout.Width(300));
                 GUILayout.TextArea("New weapon item", EditorStyles.boldLabel);
-
-                switch (itemType)
-                {
-                    case ItemTypes.Weapon:
-                        CreateWeapon();
-                        break;
-                    case ItemTypes.Armor:
-                        CreateArmor();
-                        break;
-                    case ItemTypes.Consumable:
-                        CreateConsumable();
-                        break;
-                    case ItemTypes.None:
-                        CreateNone();
-                        break;
-                    default:
-                        break;
-                }
+                
 
                 if (GUILayout.Button("Next"))
                 {
+                    switch (itemType)
+                    {
+                        case ItemTypes.Weapon:
+                            CreateWeapon();
+                            break;
+                        case ItemTypes.Armor:
+                            CreateArmor();
+                            break;
+                        case ItemTypes.Consumable:
+                            CreateConsumable();
+                            break;
+                        case ItemTypes.None:
+                            CreateNone();
+                            break;
+                        default:
+                            break;
+                    }
+
+
                     index++;
                 }
             }
@@ -124,7 +126,7 @@ namespace jbzdy.Inventory.EditorW
             WeaponItem newWeapon = finalItem.GetComponent<WeaponItem>();
 
             newWeapon.weaponDamage = EditorGUILayout.IntField("Weapon Damage", newWeapon.weaponDamage);
-            newWeapon.weaponLevel = EditorGUILayout.IntField("Weapon Damage", newWeapon.weaponLevel);
+            newWeapon.weaponLevel = EditorGUILayout.IntField("Weapon Level", newWeapon.weaponLevel);
         }
         
         private void CreateArmor()
