@@ -37,9 +37,12 @@ namespace jbzdy.Inventory.EditorW
         //Equipment panels
 
         private int equipmentPanelsCount;
-        int[] equipmentPanelX;
-        int[] equipmentPanelY;
-        ItemTypes[] equipmentPanelType;
+        private int[] equipmentPanelX;
+        private int[] equipmentPanelY;
+        private ItemTypes[] equipmentPanelType;
+        private ArmorTypes[] armorPanelType;
+
+        private string[] detailName;
 
         public int currentEquipmentPanelsCount;
 
@@ -183,8 +186,6 @@ namespace jbzdy.Inventory.EditorW
                     inventory.DrawPreview();
 
                     CleanUp(); CleanUp(); CleanUp(); CleanUp();
-
-                    //this.Close();
                 }
 
                 GUILayout.EndVertical();
@@ -223,7 +224,6 @@ namespace jbzdy.Inventory.EditorW
                         inventory.lootRow = LootSizeX;
                         inventory.lootColumn = LootSizeY;
 
-                        //DestroyImmediate(GameObject.Find("Inventory Canvas"));
                         inventory.DrawPreview();
                         CleanUp();
                     }
@@ -245,6 +245,7 @@ namespace jbzdy.Inventory.EditorW
                         equipmentPanelX = new int[equipmentPanelsCount];
                         equipmentPanelY = new int[equipmentPanelsCount];
                         equipmentPanelType = new ItemTypes[equipmentPanelsCount];
+                        armorPanelType = new ArmorTypes[equipmentPanelsCount];
 
                         currentEquipmentPanelsCount = equipmentPanelsCount;
                     }
@@ -266,7 +267,14 @@ namespace jbzdy.Inventory.EditorW
                         if (equipmentPanelY[i] == 0)
                             equipmentPanelY[i] = 1;
 
-                        equipmentPanelType[i] = (Items.Enums.ItemTypes)EditorGUILayout.EnumFlagsField("Allowed item type", equipmentPanelType[i]);
+                        equipmentPanelType[i] = (ItemTypes)EditorGUILayout.EnumPopup("Allowed Item type", equipmentPanelType[i]);
+
+                        if(equipmentPanelType[i] == ItemTypes.Armor)
+                        {
+                            armorPanelType[i] = (ArmorTypes)EditorGUILayout.EnumPopup("Allowed Armor type", armorPanelType[i]);
+                            detailName[i] = armorPanelType[i].ToString();
+                        }
+
                         GUILayout.EndVertical();
                     }
 
@@ -278,7 +286,7 @@ namespace jbzdy.Inventory.EditorW
                         {
                             var cellHolder = Instantiate(new GameObject());
                             cellHolder.transform.SetParent(inventoryTransform);
-                            cellHolder.name = "Equiment panel :"+equipmentPanelType[i];
+                            cellHolder.name = "Equiment panel :" + equipmentPanelType[i] + " " +detailName[i];
                             var equipmentPanel = cellHolder.AddComponent<EquipmentPanel>();
 
                             equipmentPanel.width = equipmentPanelX[i];
@@ -299,7 +307,6 @@ namespace jbzdy.Inventory.EditorW
                     }
                 }
             }
-
         }
 
         public void CleanUp()

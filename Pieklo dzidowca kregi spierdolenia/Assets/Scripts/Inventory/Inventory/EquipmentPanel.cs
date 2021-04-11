@@ -31,6 +31,7 @@ namespace jbzdy.Inventory
         /// Item type allowed for this slot
         /// </summary>
         public ItemTypes allowedItemType;
+        public ArmorTypes allowedArmorType;
 
         [Header("Using ids ignore allowedItemType. Only specified id items will be equiped")]
         public int[] allowedIds;
