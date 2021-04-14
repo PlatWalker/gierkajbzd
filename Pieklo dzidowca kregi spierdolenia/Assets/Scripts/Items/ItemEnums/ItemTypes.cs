@@ -4,6 +4,7 @@
     {
         Weapon,
         Armor,
+        Trinket,
         Consumable,
         None
     }

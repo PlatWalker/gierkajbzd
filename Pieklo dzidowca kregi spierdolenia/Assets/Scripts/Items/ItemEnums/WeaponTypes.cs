@@ -4,6 +4,7 @@
     {
         CuttingWeapon,
         BluntWeapon,
-        StabWeapon
+        StabWeapon,
+        Any
     }
 }
