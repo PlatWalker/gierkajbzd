@@ -9,6 +9,7 @@ namespace jbzdy.Items
 {
     public class WeaponItem : MonoBehaviour
     {
+        public Sprite weaponInventorySprite;
         public int weaponDamage;
         public int weaponLevel;
     }
