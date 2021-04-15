@@ -8,11 +8,8 @@ using UnityEngine;
 /// </summary>
 namespace jbzdy.Items
 {
-    public class WeaponItem : Item
+    public class ConsumableItem : Item
     {
-        public WeaponTypes weaponType;
-        public Sprite weaponInventorySprite;
-        public int weaponDamage;
-        public int weaponLevel;
+        public Sprite trinketInventorySprite;
     }
 }

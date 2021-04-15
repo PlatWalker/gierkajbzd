@@ -8,21 +8,21 @@ using UnityEngine;
 /// </summary>
 namespace jbzdy.Actions.Interaction
 { 
-    public class ItemConsume : Interactables
-    {
-        [SerializeField] ConsumableItem consumable = default;
+    //public class ItemConsume : Interactables
+    //{
+    //    [SerializeField] ConsumableItem1 consumable = default;
 
-        public override void Interact()
-        {
-            base.Interact();
-            ConsumeItem();
-        }
+    //    public override void Interact()
+    //    {
+    //        base.Interact();
+    //        ConsumeItem();
+    //    }
 
-        private void ConsumeItem()
-        {
-            Debug.Log("Consuming " + consumable.ItemName);
-        }
-    }
+    //    private void ConsumeItem()
+    //    {
+    //        Debug.Log("Consuming " + consumable.ItemName);
+    //    }
+    //}
 }
 
 

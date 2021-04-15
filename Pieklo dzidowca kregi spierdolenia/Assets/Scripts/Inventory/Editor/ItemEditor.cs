@@ -3,9 +3,8 @@ using UnityEditor;
 using jbzdy.Items;
 using jbzdy.Items.Enums;
 using jbzdy.Actions.Interaction;
-using System;
 
-namespace jbzdy.Inventory.EditorW
+namespace jbzdy.Inventory.Editors
 {
     public class ItemEditor : EditorWindow
     {
@@ -30,14 +29,14 @@ namespace jbzdy.Inventory.EditorW
             if (index == 0)
             {
                 GUILayout.TextArea("New item", EditorStyles.boldLabel);
-                GUILayout.BeginVertical("HelpBox", GUILayout.Width(300));
+                GUILayout.BeginVertical("HelpBox");
 
-                newItem = (GameObject)EditorGUILayout.ObjectField("Item model", newItem, typeof(GameObject), true);
-                generateInteractionZone = EditorGUILayout.Toggle("Generate Interaction Zone?", generateInteractionZone); ;
+                newItem = (GameObject)EditorGUILayout.ObjectField("Item model: ", newItem, typeof(GameObject), true);
+                generateInteractionZone = EditorGUILayout.Toggle("Interaction Zone: ", generateInteractionZone);
 
                 if(generateInteractionZone)
                 {
-                    interactionZone = (GameObject)EditorGUILayout.ObjectField("Interaction Zone", interactionZone, typeof(GameObject), true);
+                    interactionZone = (GameObject)EditorGUILayout.ObjectField("Interaction Zone model: ", interactionZone, typeof(GameObject), true);
                 }
 
                 GUILayout.TextArea("Item Type", EditorStyles.boldLabel);
@@ -46,7 +45,39 @@ namespace jbzdy.Inventory.EditorW
                 if (GUILayout.Button("Next"))
                 {
                     finalItem = Instantiate(newItem);
-                    finalItem.AddComponent<Item>();
+
+                    switch (itemType)
+                    {
+                        case ItemTypes.Weapon:
+                            {
+                                finalItem.AddComponent<WeaponItem>();
+                                break;
+                            }
+                        case ItemTypes.Armor:
+                            {
+                                finalItem.AddComponent<ArmorItem>();
+                                break;
+                            }
+                        case ItemTypes.Trinket:
+                            {
+                                finalItem.AddComponent<TrinketItem>();
+                                break;
+                            }
+                        case ItemTypes.Consumable:
+                            {
+                                finalItem.AddComponent<ConsumableItem>();
+                                break;
+                            }
+                        case ItemTypes.None:
+                            {
+                                finalItem.AddComponent<Item>();
+                                break;
+                            }
+                        default:
+                            finalItem.AddComponent<Item>();
+                            break;
+                    }
+
                     finalItem.tag = "Item";
 
                     if(generateInteractionZone)
@@ -65,47 +96,43 @@ namespace jbzdy.Inventory.EditorW
 
                     index++;
                 }
+
+                GUILayout.EndVertical();
             }
             else if(index == 1)
             {
-                GUILayout.BeginVertical("HelpBox", GUILayout.Width(300));
-                GUILayout.TextArea("New weapon item", EditorStyles.boldLabel);
-                
+                GUILayout.TextArea(newItem.name, EditorStyles.boldLabel);
+                GUILayout.BeginVertical("HelpBox");
 
-                if (GUILayout.Button("Next"))
+                if (finalItem != null)
                 {
+                    Editor newItemEditor;
+
                     switch (itemType)
                     {
                         case ItemTypes.Weapon:
-                            CreateWeapon();
+                            newItemEditor = Editor.CreateEditor(finalItem.GetComponent<WeaponItem>());
+                            newItemEditor.OnInspectorGUI();
                             break;
                         case ItemTypes.Armor:
-                            CreateArmor();
+                            newItemEditor = Editor.CreateEditor(finalItem.GetComponent<ArmorItem>());
+                            newItemEditor.OnInspectorGUI();
+                            break;
+                        case ItemTypes.Trinket:
+                            newItemEditor = Editor.CreateEditor(finalItem.GetComponent<TrinketItem>());
+                            newItemEditor.OnInspectorGUI();
                             break;
                         case ItemTypes.Consumable:
-                            CreateConsumable();
+                            newItemEditor = Editor.CreateEditor(finalItem.GetComponent<ConsumableItem>());
+                            newItemEditor.OnInspectorGUI();
                             break;
                         case ItemTypes.None:
-                            CreateNone();
+                            newItemEditor = Editor.CreateEditor(finalItem.GetComponent<Item>());
+                            newItemEditor.OnInspectorGUI();
                             break;
                         default:
                             break;
                     }
-
-
-                    index++;
-                }
-            }
-            else if(index == 2)
-            {
-                GUILayout.TextArea(newItem.name, EditorStyles.boldLabel);
-                GUILayout.BeginVertical("HelpBox");
-                
-
-                if (finalItem != null)
-                {
-                    Editor editor = Editor.CreateEditor(finalItem.GetComponent<Item>());
-                    editor.OnInspectorGUI();
                 }
                 else
                 {

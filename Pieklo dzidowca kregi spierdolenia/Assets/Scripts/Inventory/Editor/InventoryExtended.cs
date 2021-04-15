@@ -2,7 +2,7 @@
 using UnityEditor;
 using jbzdy.Inventory.SaveLoad;
 
-namespace jbzdy.Inventory.EditorW
+namespace jbzdy.Inventory.Editors
 {
     [CustomEditor(typeof(InventoryClass))]
     public class InventoryExtended : Editor

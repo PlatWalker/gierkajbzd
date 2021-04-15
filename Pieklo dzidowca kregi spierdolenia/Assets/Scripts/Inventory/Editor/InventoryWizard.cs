@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using System;
 
-namespace jbzdy.Inventory.EditorW
+namespace jbzdy.Inventory.Editors
 {
     public class InventoryWizard : EditorWindow
     {
@@ -219,7 +219,7 @@ namespace jbzdy.Inventory.EditorW
                 }
                 else
                 {
-                    equipmentPanelsCount = EditorGUILayout.IntSlider("Equipment panels count", equipmentPanelsCount, 1, 20);
+                    equipmentPanelsCount = EditorGUILayout.IntSlider("Equipment panels count", equipmentPanelsCount, 1, 10);
 
                     if (currentEquipmentPanelsCount != equipmentPanelsCount)
                     {

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 
-namespace jbzdy.Inventory.EditorW
+namespace jbzdy.Inventory.Editors
 {
     [CustomEditor(typeof(Item))]
     public class ItemCustomInspector : Editor
