@@ -4,7 +4,6 @@ using UnityEngine.UI;
 using jbzdy.Items.Enums;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
-using System;
 
 namespace jbzdy.Inventory.Editors
 {
@@ -66,7 +65,7 @@ namespace jbzdy.Inventory.Editors
                 EditorGUILayout.LabelField("Inventory & Cell size", EditorStyles.centeredGreyMiniLabel);
 
                 GUILayout.BeginVertical("HelpBox"); GUILayout.BeginVertical("GroupBox");
-                
+
                 SizeX = EditorGUILayout.IntSlider("Inventory Width size", SizeX, 1, 100);
                 SizeY = EditorGUILayout.IntSlider("Inventory Height size", SizeY, 1, 100);
 
@@ -80,7 +79,6 @@ namespace jbzdy.Inventory.Editors
                 EditorGUILayout.LabelField("");
 
                 CellRectSize = EditorGUILayout.IntSlider("Cell size", CellRectSize, 1, 200);
-                CellSpacing = EditorGUILayout.IntSlider("Space between cells", CellSpacing, 0, 20);
                 CellImage = (Sprite)EditorGUILayout.ObjectField("Cell image", CellImage, typeof(Sprite), false);
 
                 inventoryBackgroundColor = EditorGUILayout.ColorField("Background color", inventoryBackgroundColor);
@@ -88,7 +86,7 @@ namespace jbzdy.Inventory.Editors
 
                 if (GUILayout.Button("Build inventory"))
                 {
-                    GameObject eventSystem = Instantiate(new GameObject());
+                    var eventSystem = Instantiate(new GameObject());
                     eventSystem.AddComponent<EventSystem>();
                     eventSystem.AddComponent<StandaloneInputModule>();
                     eventSystem.AddComponent<BaseInput>();
@@ -98,34 +96,34 @@ namespace jbzdy.Inventory.Editors
 
                     if (CellImage == null)
                     {
-                        EditorUtility.DisplayDialog("Cant spawn that", "Please add grid cell image", "Okay...");
+                        EditorUtility.DisplayDialog("Can't spawn that", "Please add a cell image!", "Okay...");
                         return;
                     }
 
-                    GameObject inventoryCanvas = Instantiate(new GameObject());
-                    inventoryCanvas.AddComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
-                    inventoryCanvas.AddComponent<CanvasScaler>();
-                    inventoryCanvas.AddComponent<GraphicRaycaster>();
-                    inventoryCanvas.AddComponent<InventoryManager>();
+                    var obj = Instantiate(new GameObject());
+                    obj.AddComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
+                    obj.AddComponent<CanvasScaler>();
+                    obj.AddComponent<GraphicRaycaster>();
+                    obj.AddComponent<InventoryManager>();
+                    eventSystem.gameObject.transform.parent = obj.transform;
 
-                    eventSystem.gameObject.transform.parent = inventoryCanvas.transform;
+                    obj.name = "Inventory Canvas";
 
-                    inventoryCanvas.name = "Inventory Canvas";
 
-                    GameObject cellHolder = Instantiate(new GameObject());
-                    cellHolder.transform.SetParent(inventoryCanvas.transform);
+                    var cellHolder = Instantiate(new GameObject());
+                    cellHolder.transform.SetParent(obj.transform);
                     cellHolder.name = "Inventory";
 
-                    inventoryTransform = inventoryCanvas.transform;
+                    inventoryTransform = obj.transform;
 
-                    Image cellHolderImage = cellHolder.AddComponent<Image>();
+                    var cellHolderImage = cellHolder.AddComponent<Image>();
                     cellHolderImage.rectTransform.sizeDelta = new Vector2((CellRectSize + CellSpacing) * SizeX, (CellRectSize + CellSpacing) * SizeY);
                     cellHolderImage.rectTransform.anchoredPosition = Vector2.zero;
                     cellHolderImage.color = inventoryBackgroundColor;
 
                     inventoryRectSize = cellHolderImage.rectTransform.sizeDelta;
 
-                    InventoryClass inventory = cellHolder.AddComponent<InventoryClass>();
+                    var inventory = cellHolder.AddComponent<InventoryClass>();
                     inventory.cellSize = CellRectSize;
                     inventory.padding = CellSpacing;
                     inventory.column = SizeX;
@@ -135,26 +133,27 @@ namespace jbzdy.Inventory.Editors
                     inventory.blockedCellColor = blockedCellCover;
                     inventory.hoveredCellColor = hoveredCellColor;
 
-                    GameObject imgObj = Instantiate(new GameObject());
+
+                    var imgObj = Instantiate(new GameObject());
                     imgObj.AddComponent<Image>().sprite = CellImage;
                     imgObj.GetComponent<RectTransform>().sizeDelta = new Vector2(CellRectSize, CellRectSize);
                     imgObj.GetComponent<RectTransform>().anchorMin = new Vector2(0, 1);
                     imgObj.GetComponent<RectTransform>().anchorMax = new Vector2(0, 1);
                     imgObj.GetComponent<RectTransform>().pivot = new Vector2(0, 1);
-                    imgObj.transform.SetParent(inventoryCanvas.transform);
+                    imgObj.transform.SetParent(obj.transform);
 
                     imgObj.GetComponent<Image>().type = Image.Type.Sliced;
                     imgObj.GetComponent<Image>().color = Color.white;
 
                     imgObj.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 3000);
                     imgObj.AddComponent<GridSlot>();
-                    
+
                     imgObj.name = "Utility object";
 
-                    GameObject stackText = Instantiate(new GameObject());
+                    var stackText = Instantiate(new GameObject());
                     stackText.transform.SetParent(imgObj.transform);
 
-                    Text stackTextComponent = stackText.AddComponent<Text>();
+                    var stackTextComponent = stackText.AddComponent<Text>();
                     stackTextComponent.alignment = TextAnchor.LowerLeft;
                     stackTextComponent.raycastTarget = false;
                     stackTextComponent.rectTransform.anchorMin = new Vector2(0, 0);
@@ -173,7 +172,6 @@ namespace jbzdy.Inventory.Editors
                 GUILayout.EndVertical();
                 GUILayout.EndVertical();
             }
-
             if (tabIndex == 1)
             {
                 inventory = FindObjectOfType<InventoryClass>();
@@ -190,11 +188,11 @@ namespace jbzdy.Inventory.Editors
 
                     if (GUILayout.Button("Build Loot Window"))
                     {
-                        GameObject cellHolder = Instantiate(new GameObject());
+                        var cellHolder = Instantiate(new GameObject());
                         cellHolder.transform.SetParent(inventoryTransform);
                         cellHolder.name = "Loot window";
 
-                        Image cellHolderImage = cellHolder.AddComponent<Image>();
+                        var cellHolderImage = cellHolder.AddComponent<Image>();
                         cellHolderImage.rectTransform.sizeDelta = new Vector2((CellRectSize + CellSpacing) * LootSizeX, (CellRectSize + CellSpacing) * LootSizeY);
                         cellHolderImage.rectTransform.anchoredPosition = Vector2.zero;
                         cellHolderImage.color = inventoryBackgroundColor;
@@ -277,7 +275,7 @@ namespace jbzdy.Inventory.Editors
 
                         for (int i = 0; i < equipmentPanelsCount; i++)
                         {
-                            GameObject cellHolder = Instantiate(new GameObject());
+                            var cellHolder = Instantiate(new GameObject());
                             cellHolder.transform.SetParent(inventoryTransform);
 
                             switch (equipmentPanelType[i])
@@ -336,7 +334,7 @@ namespace jbzdy.Inventory.Editors
                                     }
                             }
 
-                            Image cellHolderImage = cellHolder.AddComponent<Image>();
+                            var cellHolderImage = cellHolder.AddComponent<Image>();
                             cellHolderImage.rectTransform.sizeDelta = new Vector2((CellRectSize + CellSpacing) * equipmentPanelX[i], (CellRectSize + CellSpacing) * equipmentPanelY[i]);
                             cellHolderImage.rectTransform.anchoredPosition = Vector2.zero;
                             cellHolderImage.color = inventoryBackgroundColor;
