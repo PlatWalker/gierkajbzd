@@ -2,44 +2,63 @@
 ///Created by Kumdzio
 ///</summary>
 using UnityEngine;
-
-public class AISwitcher : MonoBehaviour
+namespace jbzdy.Enemies
 {
-    [SerializeField] private EnemyController enemyController=null;
-    [SerializeField] private Material material1=null;
-    [SerializeField] private Material material2=null;
-    private bool material = false;
-    private Renderer mesh;
-
-    void Start()
+    public class AISwitcher : MonoBehaviour
     {
-        mesh = GetComponent<Renderer>();
-    }
+        [SerializeField] private EnemyController enemyController = null;
+        [SerializeField] private Material material1 = null;
+        [SerializeField] private Material material2 = null;
+        [SerializeField] private bool AIPausedAtStart = false;
+        private bool shouldChange = false;
+        private bool material = false;
+        private Renderer mesh;
 
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
+        void Start()
         {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            mesh = GetComponent<Renderer>();
+            shouldChange = AIPausedAtStart;
+        }
 
-            if (Physics.Raycast(ray, out hit))
+        void Update()
+        {
+            if (Input.GetMouseButtonDown(0))
             {
-                if (hit.transform == transform)
-                {
-                    if (!material)
-                    {
-                        mesh.material = material1;
-                    }
-                    else
-                    {
-                        mesh.material = material2;
-                    }
-                    material = !material;
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-                    if(enemyController!= null) enemyController.SwitchAI();
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.transform == transform)
+                    {
+                        ChangeState();
+                    }
                 }
             }
+        }
+        private void LateUpdate()
+        {
+            if (shouldChange)
+            {
+                ChangeState();
+                shouldChange = false;
+            }
+
+        }
+
+        private void ChangeState()
+        {
+            if (!material)
+            {
+                mesh.material = material1;
+            }
+            else
+            {
+                mesh.material = material2;
+            }
+            material = !material;
+
+            if (enemyController != null) enemyController.SwitchAI();
         }
     }
 }

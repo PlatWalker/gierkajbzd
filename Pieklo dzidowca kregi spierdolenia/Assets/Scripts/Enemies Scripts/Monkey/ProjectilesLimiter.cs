@@ -2,17 +2,20 @@
 /// <summary>
 /// Created by Kumdzio
 /// </summary>
-public class ProjectilesLimiter : MonoBehaviour
+namespace jbzdy.Enemies
 {
-    [SerializeField] private float timeToDestroy = 5.0f;
-    private float counter = 0f;
-
-    void Update()
+    public class ProjectilesLimiter : MonoBehaviour
     {
-        counter += Time.deltaTime;
-        if (counter>=timeToDestroy)
+        [SerializeField] private float timeToDestroy = 5.0f;
+        private float counter = 0f;
+
+        void Update()
         {
-            Destroy(this.gameObject);
-        }   
+            counter += Time.deltaTime;
+            if (counter >= timeToDestroy)
+            {
+                Destroy(this.gameObject);
+            }
+        }
     }
 }
