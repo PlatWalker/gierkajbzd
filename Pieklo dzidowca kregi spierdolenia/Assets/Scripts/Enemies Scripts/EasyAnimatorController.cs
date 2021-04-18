@@ -4,102 +4,104 @@
 
 
 using UnityEngine;
-
-public class EasyAnimatorController
+namespace jbzdy.Enemies
 {
-    private Animator animator;
-    private string[] booleansNames;
-    private string currentTrueBoolean=null;
-
-    public EasyAnimatorController(Animator _animator, string[] ignoredBooleansArray)
+    public class EasyAnimatorController
     {
-        this.animator = _animator;
+        private Animator animator;
+        private string[] booleansNames;
+        private string currentTrueBoolean = null;
 
-        int boolParametersCount=0;
-
-        foreach (AnimatorControllerParameter parameter in _animator.parameters)
+        public EasyAnimatorController(Animator _animator, string[] ignoredBooleansArray)
         {
-            if (parameter.type == AnimatorControllerParameterType.Bool)
+            this.animator = _animator;
+
+            int boolParametersCount = 0;
+
+            foreach (AnimatorControllerParameter parameter in _animator.parameters)
             {
-                bool shouldIncreaseCounter = true;
-                foreach (string ignoredBoolean in ignoredBooleansArray)
+                if (parameter.type == AnimatorControllerParameterType.Bool)
                 {
-                    if(ignoredBoolean == parameter.name)
+                    bool shouldIncreaseCounter = true;
+                    foreach (string ignoredBoolean in ignoredBooleansArray)
                     {
-                        shouldIncreaseCounter = false;
-                        break;
+                        if (ignoredBoolean == parameter.name)
+                        {
+                            shouldIncreaseCounter = false;
+                            break;
+                        }
+                    }
+                    if (shouldIncreaseCounter)
+                    {
+                        boolParametersCount++;
                     }
                 }
-                if (shouldIncreaseCounter)
-                {
-                    boolParametersCount++;
-                }
             }
-        }
 
-        this.booleansNames = new string[boolParametersCount];
+            this.booleansNames = new string[boolParametersCount];
 
-        int i = 0;
-        foreach (AnimatorControllerParameter parameter in _animator.parameters)
-        {
-            if (parameter.type == AnimatorControllerParameterType.Bool)
+            int i = 0;
+            foreach (AnimatorControllerParameter parameter in _animator.parameters)
             {
-                bool shouldUseThisBoolean = true;
-                foreach (string ignoredBoolean in ignoredBooleansArray)
+                if (parameter.type == AnimatorControllerParameterType.Bool)
                 {
-                    if (ignoredBoolean == parameter.name)
+                    bool shouldUseThisBoolean = true;
+                    foreach (string ignoredBoolean in ignoredBooleansArray)
                     {
-                        shouldUseThisBoolean = false;
-                        break;
+                        if (ignoredBoolean == parameter.name)
+                        {
+                            shouldUseThisBoolean = false;
+                            break;
+                        }
+                    }
+                    if (shouldUseThisBoolean)
+                    {
+                        this.booleansNames[i++] = parameter.name;
                     }
                 }
-                if (shouldUseThisBoolean)
+            }
+            currentTrueBoolean = null;
+        }
+
+        public bool SetBooleanTrue(string booleanName)
+        {
+            if (currentTrueBoolean == booleanName) return true;
+            foreach (string name in booleansNames)
+            {
+                if (name == booleanName)
                 {
-                    this.booleansNames[i++] = parameter.name;
+                    animator.SetBool(name, true);
+                    if (currentTrueBoolean != null) animator.SetBool(currentTrueBoolean, false);
+                    currentTrueBoolean = name;
+                    return true;
                 }
             }
+            Debug.Log("Can't find boolean name: " + booleanName + " in AnimatorController: " + animator.name);
+            return false;
         }
-        currentTrueBoolean = null;
-    }
 
-    public bool SetBooleanTrue(string booleanName)
-    {
-        if (currentTrueBoolean == booleanName) return true;
-        foreach (string name in booleansNames)
+        public void ResetAllBooleans()
         {
-            if (name == booleanName)
+            foreach (string name in booleansNames)
             {
-                animator.SetBool(name, true);
-                if(currentTrueBoolean != null) animator.SetBool(currentTrueBoolean, false);
-                currentTrueBoolean = name;                
-                return true;
+                animator.SetBool(name, false);
             }
+            currentTrueBoolean = null;
         }
-        Debug.Log("Can't find boolean name: " + booleanName + " in AnimatorController: " + animator.name);
-        return false;
-    }
 
-    public void ResetAllBooleans()
-    {
-        foreach(string name in booleansNames)
+        public string GetCurrentTrueBoolean()
         {
-            animator.SetBool(name, false);
+            return currentTrueBoolean;
         }
-        currentTrueBoolean = null;
-    }
 
-    public string GetCurrentTrueBoolean()
-    {
-        return currentTrueBoolean;
-    }
+        public bool GetBoolean(string name)
+        {
+            return animator.GetBool(name);
+        }
 
-    public bool GetBoolean(string name)
-    {
-        return animator.GetBool(name);
-    }
-
-    public void SetBooleanDirectly(string name,bool value)
-    {
-        animator.SetBool(name, value);
+        public void SetBooleanDirectly(string name, bool value)
+        {
+            animator.SetBool(name, value);
+        }
     }
 }

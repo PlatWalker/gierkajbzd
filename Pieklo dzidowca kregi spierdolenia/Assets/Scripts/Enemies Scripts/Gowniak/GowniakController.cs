@@ -1,88 +1,250 @@
 ﻿///<summary>
-/// Created by Szwagier
-///Edited by Kumdzio
+/// Created by Kumdzio
 ///</summary>
 
 
 using System.Diagnostics;
 using UnityEngine;
-
-public class GowniakController : EnemyController
+using UnityEngine.AI;
+namespace jbzdy.Enemies
 {
-    [SerializeField] private float aggroMaxTimeMs = 5000f;
-
-    private bool aggroCommenced = false;
-
-    private Stopwatch aggroTimer;
-
-    private float normalSpeedModifier = 1f;
-
-
-
-    // Start is called before the first frame update
-    override protected void Start()
+    public class GowniakController : EnemyController
     {
-        base.Start();
-        easyAnimator = new EasyAnimatorController(GetComponent<Animator>(),new string[] { });
-    }
-
-    //OnValidate is called when script is loaded and everytime when value is changed
-    //in the inspector
-    //void OnValidate()
-    //{
-        //here will be code to handle debuging and balance changes in values
-        //for example there have to be check if the AggroRadius is bigger that AttackRadius etc.
-    //}
-
-    // Update is called once per frame
-    override protected void FixedUpdate()
-    {
-        if (turnOffAI) return;
-
-        transform.Rotate(0.0f, -90.0f, 0.0f); //reApply Bug of gizmos
-
-        float distanceToMainChar =
-            Vector3.Distance(transform.position, MainCharacterTransform.position);
-
-
-        if (distanceToMainChar < AggroRadius) // checking if main char is visible for enemy
+        [Header("Gowniak specific")]
+        [SerializeField] private float aggroMaxTime = 2f;
+        [SerializeField] private float spawnWanderRadius = 15f;
+        [SerializeField] private float wanderEveryXSeconds = 3f;
+        private static bool aggroCommenced = false;
+        GowniakState currentState;
+        GowniakState resumeState;
+        private enum GowniakState
         {
-            aggroTimer = (aggroTimer != null && aggroTimer.IsRunning)||aggroCommenced ? aggroTimer : Stopwatch.StartNew();
+            Idle,
+            Aggro,
+            Chase,
+            Attack,
+            Wander,
+            Dying,
+            AIOff
+        }
 
-            MoveTo(false, 0f, MainCharacterTransform.position);
+        override protected void Start()
+        {
+            base.Start();
+            easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), new string[] { });
+            NavAgent = GetComponent<NavMeshAgent>();
+        }
 
-            if (distanceToMainChar < AttackRadius) //checking if main char is in attack range
+        override protected void Update()
+        {
+            if (CurrentHealth <= 0 && EnemyAlive)
             {
-                easyAnimator.SetBooleanTrue("Attack");
-
-                //attack code goes here
-
+                currentState = GowniakState.Dying;
             }
-            else if (aggroCommenced)
+
+            HandleLogicPerformaceBoost();
+
+            switch (currentState)
             {
-                easyAnimator.SetBooleanTrue("Move");
-                MoveTo(false, normalSpeedModifier, MainCharacterTransform.position);
+                case GowniakState.Aggro:
+                    {
+                        MultiUseTimer += Time.deltaTime;
+                        easyAnimator.SetBooleanTrue("Aggro");
+
+                        if (!updateLogicFrame) break;
+
+                        if (MultiUseTimer > aggroMaxTime)
+                        {
+                            MultiUseTimer = 0;
+                            currentState = GowniakState.Chase;
+                        }
+                        if (!playerIsVisible)
+                        {
+                            MultiUseTimer = 0;
+                            currentState = GowniakState.Idle;
+                        }
+                    }
+                    break;
+                case GowniakState.AIOff:
+                    return;
+                case GowniakState.Attack:
+                    {
+                        easyAnimator.SetBooleanTrue("Attack");
+
+                        //attack code goes here
+
+                        if (!updateLogicFrame) break;
+
+                        if (!playerIsVisible)
+                        {
+                            GoToPoint = transform.position;
+                            currentState = GowniakState.Wander;
+                        }
+                        if (distanceToMainChar > AttackRadius)
+                        {
+                            currentState = GowniakState.Chase;
+                        }
+
+                    }
+                    break;
+                case GowniakState.Chase:
+                    {
+                        MoveTo(MainCharacterTransform.position, MovementSpeed, AttackRadius);
+                        easyAnimator.SetBooleanTrue("Move");
+
+                        if (!updateLogicFrame) break;
+
+                        if (distanceToMainChar <= AttackRadius)
+                        {
+                            currentState = GowniakState.Attack;
+                            break;
+                        }
+                        if (!playerIsVisible)
+                        {
+                            GoToPoint = transform.position;
+                            currentState = GowniakState.Wander;
+                        }
+                    }
+                    break;
+                case GowniakState.Dying:
+                    {
+                        Die();
+                    }
+                    break;
+                case GowniakState.Idle:
+                    {
+                        easyAnimator.SetBooleanTrue("Idle");
+
+                        if (!updateLogicFrame) break;
+
+                        if (playerIsVisible)
+                        {
+                            if (aggroCommenced)
+                            {
+                                currentState = GowniakState.Chase;
+                            }
+                            else
+                            {
+                                currentState = GowniakState.Aggro;
+                            }
+                        }
+                    }
+                    break;
+                case GowniakState.Wander:
+                    {
+                        MultiUseTimer += Time.deltaTime;
+
+                        MoveTo(GoToPoint, MovementSpeed, AttackRadius);
+                        if (Vector3.Distance(transform.position, GoToPoint) <= AttackRadius)
+                        {
+                            easyAnimator.SetBooleanTrue("Idle");
+                        }
+                        else
+                        {
+                            easyAnimator.SetBooleanTrue("Move");
+                        }
+
+                        if (!updateLogicFrame) break;
+
+                        if (playerIsVisible)
+                        {
+                            MultiUseTimer = 0f;
+                            currentState = GowniakState.Chase;
+                            break;
+                        }
+
+                        if (Vector3.Distance(transform.position, SpawnPoint) <= spawnWanderRadius)
+                        {
+                            MultiUseTimer = 0f;
+                            currentState = GowniakState.Idle;
+                            break;
+                        }
+
+                        if (MultiUseTimer >= wanderEveryXSeconds)
+                        {
+                            MultiUseTimer = 0f;
+                            GoToPoint = GenerateNewDestination(true);
+                        }
+                    }
+                    break;
+                default:
+                    UnityEngine.Debug.Log("Some Gowniak is in strange and unrecognized state");
+                    break;
+            }
+        }
+
+        protected override bool HandleTriggerByEnemy(Vector3 target)
+        {
+            return false;
+        }
+
+        override public void SwitchAI()
+        {
+            base.SwitchAI();
+
+            if (turnOffAI)
+            {
+                resumeState = currentState;
+                currentState = GowniakState.AIOff;
             }
             else
             {
-                easyAnimator.SetBooleanTrue("InAggroRadius");
-                if (aggroTimer != null && aggroTimer.IsRunning && aggroTimer.ElapsedMilliseconds > aggroMaxTimeMs)
-                {
-                    aggroCommenced = true;
-                    aggroTimer = null;
-                }
+                currentState = resumeState;
             }
         }
-        else if (Vector3.Distance(transform.position, SpawnPoint) > 2f)
+
+        override public void SetDamage(int damageAmount, DamageType damageType)
         {
-            aggroTimer = null; // stop aggroTimer, main char outside of aggro radius
-            easyAnimator.SetBooleanTrue("Move");
-            MoveTo(false, normalSpeedModifier, SpawnPoint);
+            if (currentState == GowniakState.Idle || currentState == GowniakState.Wander)
+            {
+                GoToPoint = GenerateNewDestination(currentState == GowniakState.Wander);
+            }
+            base.SetDamage(damageAmount, damageType);
         }
-        else
+
+        //for further improvement in performance there can be used multitasking
+        //and then do not move until worker call the delegate function to move enemy
+        private Vector3 GenerateNewDestination(bool WanderTowardsSpawn)
         {
-            easyAnimator.ResetAllBooleans();
+            const int TRYXTIMES = 10;
+            int tryCounter = 0;
+            Vector3 newPoint = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+
+            if (WanderTowardsSpawn)
+            {
+                while ((tryCounter < TRYXTIMES) && (Vector3.Distance(newPoint, SpawnPoint) >= Vector3.Distance(transform.position, SpawnPoint)))
+                {
+                    tryCounter++;
+                    newPoint = ChooseNewPatrollingPoint();
+                }
+            }
+            else
+            {
+                while (tryCounter < TRYXTIMES && Vector3.Distance(newPoint, SpawnPoint) > spawnWanderRadius)
+                {
+                    tryCounter++;
+                    newPoint = ChooseNewPatrollingPoint();
+                }
+            }
+
+            if (tryCounter == TRYXTIMES)
+            {
+                if (WanderTowardsSpawn)
+                {
+                    if (Vector3.Distance(newPoint, SpawnPoint) > Vector3.Distance(transform.position, SpawnPoint))
+                    {
+                        return transform.position;
+                    }
+                }
+                else
+                {
+                    if (Vector3.Distance(newPoint, SpawnPoint) > spawnWanderRadius)
+                    {
+                        return transform.position;
+                    }
+                }
+            }
+            return newPoint;
         }
-        transform.Rotate(0.0f, 90.0f, 0.0f); // removing Bug of gizmos
     }
 }
