@@ -14,35 +14,36 @@ namespace jbzdy.Enemies
         private enum DoomerState
         {
             Idle,
-            Attack,
-            ChargedAttack,
-            Chase,
-            Return,
-            Patrol,
-            Aggro,
-            Dying,
-            HaveSeenPlayer,
-            AIOff
-        }
-        DoomerState currentState;
-        DoomerState resumeState;
-        private Vector3 jumpDirection = Vector3.zero;
-        public static bool HasDoneAggro { get; set; }
-        private bool hasDoneSpecialAttack;
+			Attack,
+			ChargedAttack,
+			Chase,
+			Return,
+			Patrol,
+			Aggro,
+			Dying,
+			HaveSeenPlayer,
+			AIOff
+		}
+		DoomerState currentState;
+		DoomerState resumeState;
+		private Vector3 jumpDirection = Vector3.zero;
+		public static bool HasDoneAggro { get; set; }
+		private bool hasDoneSpecialAttack;
 
-        override protected void Start()
-        {
-            base.Start();
-            easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), new string[] { "shouldUseSecondAttack" });
-            hasDoneSpecialAttack = false;
-            currentState = DoomerState.Idle;
-        }
+		override protected void Start()
+		{
+			base.Start();
+			easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), new string[] {"shouldUseSecondAttack"});
+			hasDoneSpecialAttack = false;
+			currentState = DoomerState.Idle;
+		}
 
-        void OnValidate()
-        {
-            if (NavAgent) NavAgent.angularSpeed = RotationSpeed; // without this rotation speed change apply only on start
-                                                                 //there should go some code to check if values inserted in editor are correct
-        }
+		void OnValidate()
+		{
+			if(NavAgent) NavAgent.angularSpeed = EnemyData.RotationSpeed; // without this rotation speed change apply only on start
+			//there should go some code to check if values inserted in editor are correct
+		}
+
 
 
         override protected void Update()
@@ -60,6 +61,7 @@ namespace jbzdy.Enemies
             {
                 case DoomerState.Idle:
                     {
+
                         easyAnimator.SetBooleanTrue("isIdling");
 
                         if (!updateLogicFrame) break;
@@ -67,28 +69,28 @@ namespace jbzdy.Enemies
                         if (playerIsVisible)
                         {
                             if (HasDoneAggro)
-                            {
-                                currentState = DoomerState.Chase;
-                                TriggerNearEnemies(MainCharacterTransform.position);
-                            }
-                            else
-                            {
-                                TriggerNearEnemies(transform.position);
-                                currentState = DoomerState.Aggro;
-                            }
-                        }
+							{
+								currentState = DoomerState.Chase;
+								TriggerNearEnemies(EnemyData.MainCharacterTransform.position);
+							}
+							else
+							{
+								TriggerNearEnemies(transform.position);
+								currentState = DoomerState.Aggro;
+							}
+						}
+						 
+					}
+					break;
 
-                    }
-                    break;
-
-                case DoomerState.Attack:
-                    {
-                        MoveTo(MainCharacterTransform.position, 0.0f, AttackRadius);
-                        easyAnimator.SetBooleanTrue("isAttacking");
+				case DoomerState.Attack:
+					{
+						MoveTo(EnemyData.MainCharacterTransform.position, 0.0f, EnemyData.AttackRadius);
+						easyAnimator.SetBooleanTrue("isAttacking");
 
                         if (!updateLogicFrame) break;
 
-                        if (distanceToMainChar > AttackRadius)
+                        if (distanceToMainChar > EnemyData.AttackRadius)
                         {
                             currentState = DoomerState.Chase;
                         }
@@ -99,24 +101,24 @@ namespace jbzdy.Enemies
                     {
                         if (jumpDirection == Vector3.zero)
                         {
-                            jumpDirection = MainCharacterTransform.position; //saving jump direction so Doomer cannot change direction in air
-                        }
+                            jumpDirection = EnemyData.MainCharacterTransform.position; //saving jump direction so Doomer cannot change direction in air
+						}
 
-                        if (Vector3.Distance(jumpDirection, gameObject.transform.position) > AttackRadius)
-                        {
-                            MoveTo(jumpDirection, jumpSpeed, AttackRadius);
-                            easyAnimator.SetBooleanTrue("isJumping");
-                        }
-                        else
-                        {
-                            hasDoneSpecialAttack = true;
-                        }
+						if (Vector3.Distance(jumpDirection, gameObject.transform.position) > EnemyData.AttackRadius)
+						{
+							MoveTo(jumpDirection, jumpSpeed, EnemyData.AttackRadius);
+							easyAnimator.SetBooleanTrue("isJumping");
+						}
+						else
+						{
+							hasDoneSpecialAttack = true;
+						}
 
                         if (!updateLogicFrame) break;
 
                         if (hasDoneSpecialAttack)
                         {
-                            if (distanceToMainChar <= AttackRadius)
+                            if (distanceToMainChar <= EnemyData.AttackRadius)
                             {
                                 currentState = DoomerState.Attack;
                             }
@@ -128,31 +130,31 @@ namespace jbzdy.Enemies
                     }
                     break;
 
-                case DoomerState.Chase:
-                    {
-                        if (hasDoneSpecialAttack)
-                        {
-                            MoveTo(MainCharacterTransform.position, MovementSpeed, AttackRadius);
-                            easyAnimator.SetBooleanTrue("isWalking");
-                        }
-                        else
-                        {
-                            MoveTo(MainCharacterTransform.position, movementRushSpeed, AttackRadius);
-                            easyAnimator.SetBooleanTrue("isRunning");
-                        }
+				case DoomerState.Chase:
+					{
+						if (hasDoneSpecialAttack)
+						{
+							MoveTo(EnemyData.MainCharacterTransform.position, EnemyData.MovementSpeed, EnemyData.AttackRadius);
+							easyAnimator.SetBooleanTrue("isWalking");
+						}
+						else
+						{
+							MoveTo(EnemyData.MainCharacterTransform.position, movementRushSpeed, EnemyData.AttackRadius);
+							easyAnimator.SetBooleanTrue("isRunning");
+						}
 
                         if (!updateLogicFrame) break;
 
                         if (!playerIsVisible)
-                        {
-                            GoToPoint = MainCharacterTransform.position;
-                            currentState = DoomerState.HaveSeenPlayer;
-                            break;
+						{
+							GoToPoint = EnemyData.MainCharacterTransform.position;
+							currentState = DoomerState.HaveSeenPlayer;
+							break;
                         }
 
                         if (hasDoneSpecialAttack)
                         {
-                            if (distanceToMainChar <= AttackRadius)
+                            if (distanceToMainChar <= EnemyData.AttackRadius)
                             {
                                 currentState = DoomerState.Attack;
                             }
@@ -170,33 +172,33 @@ namespace jbzdy.Enemies
                 case DoomerState.Return:
                     {
                         easyAnimator.SetBooleanTrue("isWalking");
-                        MoveTo(SpawnPoint, MovementSpeed, AttackRadius);
+                        MoveTo(SpawnPoint, EnemyData.MovementSpeed, EnemyData.AttackRadius);
 
                         if (!updateLogicFrame) break;
 
                         if (playerIsVisible)
-                        {
-                            currentState = DoomerState.Chase;
-                            TriggerNearEnemies(MainCharacterTransform.position);
-                            break;
-                        }
-                        if (Vector3.Distance(transform.position, SpawnPoint) < AttackRadius)
-                        {
-                            currentState = DoomerState.Idle;
-                        }
-                    }
-                    break;
+						{
+							currentState = DoomerState.Chase;
+							TriggerNearEnemies(EnemyData.MainCharacterTransform.position);
+							break;
+						}
+						if (Vector3.Distance(transform.position, SpawnPoint) < EnemyData.AttackRadius)
+						{
+							currentState = DoomerState.Idle;
+						}
+					}
+					break;
 
-                case DoomerState.Patrol:
-                    {
-                        MultiUseTimer += Time.deltaTime;
-                        MoveTo(GoToPoint, MovementSpeed, AttackRadius);
+				case DoomerState.Patrol:
+					{
+						MultiUseTimer += Time.deltaTime;
+						MoveTo(GoToPoint, EnemyData.MovementSpeed, EnemyData.AttackRadius);
 
-                        if (Vector3.Distance(transform.position, GoToPoint) <= AttackRadius)
-                        {
-                            easyAnimator.SetBooleanTrue("isIdling");
-                        }
-                        else
+						if (Vector3.Distance(transform.position, GoToPoint) <= EnemyData.AttackRadius)
+						{
+							easyAnimator.SetBooleanTrue("isIdling");
+						}
+						else
                         {
                             easyAnimator.SetBooleanTrue("isWalking");
                         }
@@ -206,46 +208,46 @@ namespace jbzdy.Enemies
                         if (playerIsVisible)
                         {
                             PatrolStepsCounter = 0;
-                            MultiUseTimer = 0f;
-                            currentState = DoomerState.Chase;
-                            TriggerNearEnemies(MainCharacterTransform.position);
-                            break;
+							MultiUseTimer = 0f;
+							currentState = DoomerState.Chase;
+							TriggerNearEnemies(EnemyData.MainCharacterTransform.position);
+							break;
                         }
 
-                        if (MultiUseTimer >= TimeBetweenPatrolSteps)
+                        if (MultiUseTimer >= EnemyData.TimeBetweenPatrolSteps)
                         {
                             PatrolStepsCounter++;
                             MultiUseTimer = 0f;
                             GoToPoint = ChooseNewPatrollingPoint();
                         }
 
-                        if (PatrolStepsCounter >= MaxPatrolSteps)
-                        {
-                            PatrolStepsCounter = 0;
-                            MultiUseTimer = 0f;
-                            currentState = DoomerState.Return;
-                            break;
-                        }
-                    }
-                    break;
+                        if (PatrolStepsCounter >= EnemyData.MaxPatrolSteps)
+						{
+							PatrolStepsCounter = 0;
+							MultiUseTimer = 0f;
+							currentState = DoomerState.Return;
+							break;
+						}
+					}
+					break;
 
-                case DoomerState.Aggro:
-                    {
-                        easyAnimator.SetBooleanTrue("isAggroing");
-                        MoveTo(MainCharacterTransform.position, 0f, AttackRadius);
+				case DoomerState.Aggro:
+					{
+						easyAnimator.SetBooleanTrue("isAggroing");
+						MoveTo(EnemyData.MainCharacterTransform.position, 0f, EnemyData.AttackRadius);
 
                         if (!updateLogicFrame) break;
 
                         if (!playerIsVisible)
-                        {
-                            GoToPoint = MainCharacterTransform.position;
-                            currentState = DoomerState.HaveSeenPlayer;
-                            break;
+						{
+							GoToPoint = EnemyData.MainCharacterTransform.position;
+							currentState = DoomerState.HaveSeenPlayer;
+							break;
                         }
                         if (HasDoneAggro)
                         {
                             currentState = DoomerState.Chase;
-                            TriggerNearEnemies(MainCharacterTransform.position);
+							TriggerNearEnemies(EnemyData.MainCharacterTransform.position);
                         }
                     }
                     break;
@@ -256,33 +258,33 @@ namespace jbzdy.Enemies
                     break;
 
                 case DoomerState.HaveSeenPlayer:
-                    {
-                        if (hasDoneSpecialAttack)
-                        {
-                            MoveTo(GoToPoint, MovementSpeed, AttackRadius);
-                            easyAnimator.SetBooleanTrue("isWalking");
-                        }
-                        else
-                        {
-                            MoveTo(GoToPoint, movementRushSpeed, AttackRadius);
-                            easyAnimator.SetBooleanTrue("isRunning");
-                        }
+					{
+						if (hasDoneSpecialAttack)
+						{
+							MoveTo(GoToPoint, EnemyData.MovementSpeed, EnemyData.AttackRadius);
+							easyAnimator.SetBooleanTrue("isWalking");
+						}
+						else
+						{
+							MoveTo(GoToPoint, movementRushSpeed, EnemyData.AttackRadius);
+							easyAnimator.SetBooleanTrue("isRunning");
+						}
 
                         if (!updateLogicFrame) break;
 
                         if (playerIsVisible)
                         {
                             currentState = DoomerState.Chase;
-                            TriggerNearEnemies(MainCharacterTransform.position);
-                            break;
-                        }
+							TriggerNearEnemies(EnemyData.MainCharacterTransform.position);
+							break;
+						}
 
-                        if (Vector3.Distance(transform.position, GoToPoint) <= AttackRadius)
-                        {
-                            currentState = DoomerState.Patrol;
-                        }
-                    }
-                    break;
+						if (Vector3.Distance(transform.position, GoToPoint) <= EnemyData.AttackRadius)
+						{
+							currentState = DoomerState.Patrol;
+						}
+					}
+					break;
 
                 case DoomerState.AIOff:
                     return;
@@ -326,8 +328,8 @@ namespace jbzdy.Enemies
 
             if (currentState == DoomerState.Idle || currentState == DoomerState.Patrol || currentState == DoomerState.Return || currentState == DoomerState.HaveSeenPlayer)
             {
-                GoToPoint = MainCharacterTransform.position;
-                currentState = DoomerState.HaveSeenPlayer;
+                GoToPoint = EnemyData.MainCharacterTransform.position;
+				currentState = DoomerState.HaveSeenPlayer;
             }
 
             base.SetDamage(damageAmount, damageType);

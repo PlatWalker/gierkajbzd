@@ -7,205 +7,46 @@ using UnityEngine.AI;
 /// </summary>
 namespace jbzdy.Enemies
 {
-    public abstract class EnemyController : MonoBehaviour, IMove, IFight
-    {
-        [Header("Artifical Intelligence")]
-        [SerializeField] protected bool turnOffAI = false;
-        public bool EnemyAlive { get; protected set; }
-        [SerializeField] private float _disappearAfter = 5.0f;
-        public float DisappearAfter
-        {
-            get
-            {
-                return _disappearAfter;
-            }
-            protected set
-            {
-                _disappearAfter = value;
-            }
-        }
-        protected float MultiUseTimer { get; set; }
-        [SerializeField] protected int updateLogicEveryXFrames = 3;
-        protected int framesCounter;
-        public bool SeesPlayer { get; protected set; }
-        [SerializeField] float _otherEnemiesTriggerRadius = 20f;
-        public float OtherEnemiesTriggerRadius
-        {
-            get
-            {
-                return _otherEnemiesTriggerRadius;
-            }
-            protected set
-            {
-                _otherEnemiesTriggerRadius = value;
-            }
-        }
-        [SerializeField] private bool _triggeringNearEnemies = true;
-        public bool TriggeringNearEnemies
-        {
-            get
-            {
-                return _triggeringNearEnemies;
-            }
-            protected set
-            {
-                _triggeringNearEnemies = value;
-            }
-        }
-        protected float distanceToMainChar;
-        protected bool playerIsVisible;
-        protected bool updateLogicFrame;
-        protected string CurrentAnimation; //debug only
+	public abstract class EnemyController : MonoBehaviour, IDamageable
+	{
+		[SerializeField] protected EnemyDataContainer EnemyData;
+		[Header("Artifical Intelligence")]
+		[SerializeField] protected bool turnOffAI = false;
+		public bool EnemyAlive { get; protected set; }
+		protected float MultiUseTimer { get; set; }
+		protected int framesCounter;
+		protected float distanceToMainChar;
+		protected bool playerIsVisible;
+		protected bool updateLogicFrame;
+		protected string CurrentAnimation; //debug only
 
-        [Header("Movement")]
-        [SerializeField] private float _movementSpeed = 0.15f;
-        public virtual float MovementSpeed
-        {
-            get
-            {
-                return _movementSpeed;
-            }
-            protected set
-            {
-                _movementSpeed = value;
-            }
-        }
-        public Vector3 GoToPoint { get; protected set; }
-        [SerializeField] private float _rotationSpeed = 0.15f;
-        public virtual float RotationSpeed
-        {
-            get
-            {
-                return _rotationSpeed;
-            }
-            protected set
-            {
-                _rotationSpeed = value;
-            }
-        }
-        [SerializeField] private float _timeBetweenPatrolSteps = 2f;
-        public float TimeBetweenPatrolSteps
-        {
-            get
-            {
-                return _timeBetweenPatrolSteps;
-            }
-            protected set
-            {
-                _timeBetweenPatrolSteps = value;
-            }
-        }
-        [SerializeField] private int _maxPatrolSteps = 5;
-        public int MaxPatrolSteps
-        {
-            get
-            {
-                return _maxPatrolSteps;
-            }
-            protected set
-            {
-                _maxPatrolSteps = value;
-            }
-        }
-        public NavMeshAgent NavAgent { get; protected set; }
-        public int PatrolStepsCounter { get; protected set; }
-        [SerializeField] private float _patrolMaxDistance = 3f;
-        public float PatrolMaxDistance
-        {
-            get
-            {
-                return _patrolMaxDistance;
-            }
-            private set
-            {
-                _patrolMaxDistance = value;
-            }
-        }
+		public Vector3 GoToPoint { get; protected set; }
+		public NavMeshAgent NavAgent { get; protected set; }
+		public int PatrolStepsCounter { get; protected set; }
 
-        [Header("Attack target transform")]
-        [SerializeField] private Transform _mainCharacterTransform = null;
-        public virtual Transform MainCharacterTransform
-        {
-            get
-            {
-                return _mainCharacterTransform;
-            }
-        }
-
-        [Header("Fight")]
-        [SerializeField] private float _aggroRadius = 20.0f;
-        public virtual float AggroRadius
-        {
-            get
-            {
-                return _aggroRadius;
-            }
-            protected set
-            {
-                _aggroRadius = value;
-            }
-        }
-        [SerializeField] private float _aggroByAttackRadius = 50.0f;
-        public virtual float AggroByAttackRadius
-        {
-            get
-            {
-                return _aggroByAttackRadius;
-            }
-            protected set
-            {
-                AggroByAttackRadius = value;
-            }
-        }
-        [SerializeField] private float _attackRadius = 1.5f;
-        public virtual float AttackRadius
-        {
-            get
-            {
-                return _attackRadius;
-            }
-            protected set
-            {
-                _attackRadius = value;
-            }
-        }
-        [SerializeField] private int _maxHealth = 100;
-        public virtual int MaxHealth
-        {
-            get
-            {
-                return _maxHealth;
-            }
-            protected set
-            {
-                _maxHealth = value;
-            }
-        }
-        public virtual int CurrentHealth { get; protected set; }
-        public virtual Vector3 SpawnPoint { get; protected set; }
-        protected EasyAnimatorController easyAnimator;
-        private float animationPlayPreviousSpeed = 0f;
+		public virtual int CurrentHealth { get; protected set; }
+		public virtual Vector3 SpawnPoint { get; protected set; }
+		protected  EasyAnimatorController easyAnimator;
+		private float animationPlayPreviousSpeed = 0f;
 
 
-        protected virtual void Start()
-        {
-            /*comment below is showing only how to initialize easyAniamtorController
-             * string[] ignoredBooleans = new string[] { "ignoredBooleanName1", "ignoredBooleanName2" };
-             * easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), ignoredBooleans);
-             */
-            SpawnPoint = new Vector3(transform.position.x,
-                                    transform.position.y,
-                                    transform.position.z);
-            CurrentHealth = MaxHealth;
-            EnemyAlive = true;
-            GetComponent<Animator>().SetFloat("IdleSpeedMultiplier", Random.Range(0.900001f, 1.100001f));
-            NavAgent = GetComponent<NavMeshAgent>();
-            SeesPlayer = false;
-            NavAgent.angularSpeed = RotationSpeed;
-            NavAgent.acceleration = 100;
+		protected virtual void Start()
+		{
+			/*comment below is showing only how to initialize easyAniamtorController
+			 * string[] ignoredBooleans = new string[] { "ignoredBooleanName1", "ignoredBooleanName2" };
+			 * easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), ignoredBooleans);
+			 */
+			SpawnPoint = new Vector3(transform.position.x,
+									transform.position.y,
+									transform.position.z);
+			CurrentHealth = EnemyData.MaxHealth;
+			EnemyAlive = true;
+			GetComponent<Animator>().SetFloat("IdleSpeedMultiplier", Random.Range(0.900001f, 1.100001f));
+			NavAgent = GetComponent<NavMeshAgent>();
+			NavAgent.angularSpeed = EnemyData.RotationSpeed;
+			NavAgent.acceleration = 100;
 
-        }
-
+		}
         protected virtual void Update()
         {
             HandleLogicPerformaceBoost();
@@ -243,22 +84,22 @@ namespace jbzdy.Enemies
             else
             {
                 Vector3 direction = new Vector3(target.x - transform.position.x,
-                                    0,
-                                    target.z - transform.position.z);
-                direction = Vector3.Normalize(direction);
-                Vector3 newDirection = Vector3.RotateTowards(gameObject.transform.forward, direction, RotationSpeed / 10000, 0.0f);
-                transform.rotation = Quaternion.LookRotation(newDirection);
-            }
-        }
+									0,
+									target.z - transform.position.z);
+				direction = Vector3.Normalize(direction);
+				Vector3 newDirection = Vector3.RotateTowards(gameObject.transform.forward, direction, EnemyData.RotationSpeed /10000, 0.0f);
+				transform.rotation = Quaternion.LookRotation(newDirection);
+			}
+		}
 
-        /// <summary>
-        /// Method created for HealthBars.
-        /// </summary>
-        /// <returns>Current health in range 0f-1f</returns>
-        public virtual float GetHealthPercentage()
-        {
-            return (float)CurrentHealth / MaxHealth;
-        }
+		/// <summary>
+		/// Method created for HealthBars.
+		/// </summary>
+		/// <returns>Current health in range 0f-1f</returns>
+		public virtual float GetHealthPercentage()
+		{
+			return (float)CurrentHealth / EnemyData.MaxHealth;
+		}
 
         /// <summary>
         /// Method to handle receiving damage with type of this damage. 
@@ -288,28 +129,28 @@ namespace jbzdy.Enemies
         }
 
         /// <summary>
-        /// Method to pause enemy AI
-        /// </summary>
-        public virtual void SwitchAI()
-        {
-            turnOffAI = !turnOffAI;
-            float temp = animationPlayPreviousSpeed;
-            animationPlayPreviousSpeed = GetComponent<Animator>().speed;
-            GetComponent<Animator>().speed = temp;
-        }
+		/// Method to pause enemy AI
+		/// </summary>
+		public virtual void SwitchAI()
+		{
+			turnOffAI = !turnOffAI;
+			float temp = animationPlayPreviousSpeed;
+			animationPlayPreviousSpeed = GetComponent<Animator>().speed;
+			GetComponent<Animator>().speed = temp;
+		}
 
-        /// <summary>
-        /// Method that is checking if player is visible in the aggro radius for enemy who is calling this method.
-        /// </summary>
-        /// <returns>True if player is visible otherwise false</returns>
-        protected bool IsPlayerVisible()
-        {
-            RaycastHit hit;
-            LayerMask NotEnemiesMask = ~LayerMask.GetMask("Enemies");
+		/// <summary>
+		/// Method that is checking if player is visible in the aggro radius for enemy who is calling this method.
+		/// </summary>
+		/// <returns>True if player is visible otherwise false</returns>
+		protected bool IsPlayerVisible()
+		{
+			RaycastHit hit;
+			LayerMask NotEnemiesMask = ~LayerMask.GetMask("Enemies");
 
-            if (Physics.Raycast((transform.position + new Vector3(0f, 1f, 0f)), (MainCharacterTransform.position - transform.position), out hit, AggroRadius, NotEnemiesMask))
-            {
-                if (hit.transform == MainCharacterTransform)
+			if (Physics.Raycast((transform.position + new Vector3(0f, 1f, 0f)), (EnemyData.MainCharacterTransform.position - transform.position), out hit, EnemyData.AggroRadius, NotEnemiesMask))
+			{
+				if (hit.transform == EnemyData.MainCharacterTransform)
                 {
                     return true;
                 }
@@ -324,12 +165,13 @@ namespace jbzdy.Enemies
             RaycastHit hit;
 
             for (int i = 5; i > 0; i--)
-            {
-                newPoint = new Vector3(Random.Range(transform.position.x - PatrolMaxDistance, transform.position.x + PatrolMaxDistance),
-                                        transform.position.y,
-                                        Random.Range(transform.position.x - PatrolMaxDistance, transform.position.x + PatrolMaxDistance));
 
-                if (Physics.Raycast((transform.position + new Vector3(0f, 1f, 0f)), (newPoint - transform.position), out hit, AggroRadius))
+            {
+                newPoint = new Vector3( Random.Range(transform.position.x - EnemyData.PatrolMaxDistance,transform.position.x + EnemyData.PatrolMaxDistance),
+										transform.position.y,
+										Random.Range(transform.position.x - EnemyData.PatrolMaxDistance,transform.position.x + EnemyData.PatrolMaxDistance));
+
+				if (Physics.Raycast((transform.position + new Vector3(0f, 1f, 0f)), (newPoint - transform.position), out hit, EnemyData.AggroRadius))
                 {
                     if (hit.collider.transform.tag == "Terrain")
                     {
@@ -347,21 +189,20 @@ namespace jbzdy.Enemies
             if (!correctPoint) newPoint = transform.position;
             return newPoint;
         }
-
-        /// <summary>
-        /// Method to trigger near enemies
-        /// </summary>
-        /// <returns>Number of enemies triggered</returns>
-        protected int TriggerNearEnemies(Vector3 target)
-        {
-            if (!TriggeringNearEnemies) return 0;
-            int numberOfEnemiesTriggered = 0;
-            GameObject[] FoundEnemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
+		/// <summary>
+		/// Method to trigger near enemies
+		/// </summary>
+		/// <returns>Number of enemies triggered</returns>
+		protected int TriggerNearEnemies(Vector3 target)
+		{
+			if (!EnemyData.TriggeringNearEnemies) return 0;
+			int numberOfEnemiesTriggered = 0;
+			GameObject [] FoundEnemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
 
             foreach (GameObject enemyObject in FoundEnemyObjects)
             {
-                if (Vector3.Distance(transform.position, enemyObject.transform.position) > OtherEnemiesTriggerRadius) continue;
-                if (enemyObject.transform == transform) continue;
+                if (Vector3.Distance(transform.position, enemyObject.transform.position) > EnemyData.OtherEnemiesTriggerRadius) continue;
+				if (enemyObject.transform == transform) continue;
 
                 EnemyController enemyController;
 
@@ -383,47 +224,46 @@ namespace jbzdy.Enemies
         /// </summary>
         protected void Die()
         {
-
             if (EnemyAlive)
             {
                 Destroy(gameObject.GetComponent<Collider>());
-                Destroy(gameObject.GetComponent<Rigidbody>());
-                EnemyAlive = false;
-                GoToPoint = transform.position;
-                MultiUseTimer = 0f;
-                MoveTo(transform.position, MovementSpeed, 1);
-            }
+				Destroy(gameObject.GetComponent<Rigidbody>());
+				EnemyAlive = false;
+				GoToPoint = transform.position;
+				MultiUseTimer = 0f;
+				MoveTo(transform.position, EnemyData.MovementSpeed, 1);
+			}
 
-            MultiUseTimer += Time.deltaTime;
-            if (MultiUseTimer >= DisappearAfter) Destroy(this.gameObject);
-            easyAnimator.SetBooleanTrue("isDying");
-        }
+			MultiUseTimer += Time.deltaTime;
+			if (MultiUseTimer >= EnemyData.DisappearAfter) Destroy(this.gameObject);
+			easyAnimator.SetBooleanTrue("isDying");
+		}
 
-        /// <summary>
-        /// Method which have to be called once per every frame update in every enemy controller which want to use the performace boost.
-        /// If not using this method you have to calculate distanceToMainChar and playerIsVisible manually instead
-        /// </summary>
-        protected void HandleLogicPerformaceBoost()
-        {
-            //Beta version of performance booster
-            updateLogicFrame = false;
+		/// <summary>
+		/// Method which have to be called once per every frame update in every enemy controller which want to use the performace boost.
+		/// If not using this method you have to calculate distanceToMainChar and playerIsVisible manually instead
+		/// </summary>
+		protected void HandleLogicPerformaceBoost()
+		{
+			//Beta version of performance booster
+			updateLogicFrame = false;
 
-            if (framesCounter == updateLogicEveryXFrames)
-            {
-                framesCounter = 0;
-                updateLogicFrame = true;
-            }
-            else
-            {
-                framesCounter++;
+			if (framesCounter == EnemyData.UpdateLogicEveryXFrames)
+			{
+				framesCounter = 0;
+				updateLogicFrame = true;
+			}
+			else
+			{
+				framesCounter++;
             }
 
             //code below is strongly undebuggable -you have to remember that distance to main char is 
             //updating/counted again only every (see: updateLogicEveryXFrames) frames
             if (updateLogicFrame)
             {
-                distanceToMainChar = Vector3.Distance(transform.position, MainCharacterTransform.position);
-                playerIsVisible = IsPlayerVisible();
+                distanceToMainChar = Vector3.Distance(transform.position, EnemyData.MainCharacterTransform.position);
+				playerIsVisible = IsPlayerVisible();
             }
         }
     }

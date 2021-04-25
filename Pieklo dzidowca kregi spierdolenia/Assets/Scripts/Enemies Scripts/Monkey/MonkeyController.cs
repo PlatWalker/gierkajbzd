@@ -55,13 +55,13 @@ namespace jbzdy.Enemies
                     return;
                 case MonkeyState.Attack:
                     {
-                        MoveTo(MainCharacterTransform.position, 0, AttackRadius);
-                        easyAnimator.SetBooleanTrue("isAttacking");
-                        HandleThrowing();
+                        MoveTo(EnemyData.MainCharacterTransform.position, 0, EnemyData.AttackRadius);
+						easyAnimator.SetBooleanTrue("isAttacking");
+						HandleThrowing();
+	
+						if (!updateLogicFrame) break;
 
-                        if (!updateLogicFrame) break;
-
-                        if (distanceToMainChar > AttackRadius)
+                        if (distanceToMainChar > EnemyData.AttackRadius)
                         {
                             currentState = MonkeyState.Chase;
                             break;
@@ -71,24 +71,23 @@ namespace jbzdy.Enemies
                         {
                             currentState = MonkeyState.Run;
                         }
-
                     }
                     break;
                 case MonkeyState.Chase:
                     {
-                        MoveTo(MainCharacterTransform.position, MovementSpeed, (AttackRadius - 0.5f));
-                        easyAnimator.SetBooleanTrue("isWalking");
+                        MoveTo(EnemyData.MainCharacterTransform.position, EnemyData.MovementSpeed, (EnemyData.AttackRadius - 0.5f));
+						easyAnimator.SetBooleanTrue("isWalking");
 
                         if (!updateLogicFrame) break;
 
                         if (!playerIsVisible)
-                        {
-                            currentState = MonkeyState.Search;
-                            MoveTo(transform.position, MovementSpeed, 1);
-                            break;
-                        }
+						{
+							currentState = MonkeyState.Search;
+							MoveTo(transform.position, EnemyData.MovementSpeed, 1);
+							break;
+						}
 
-                        if (distanceToMainChar <= AttackRadius)
+						if (distanceToMainChar <= EnemyData.AttackRadius)
                         {
                             currentState = MonkeyState.Attack;
                         }
@@ -110,12 +109,10 @@ namespace jbzdy.Enemies
                         {
                             currentState = MonkeyState.Chase;
                         }
-
                     }
                     break;
                 case MonkeyState.Run:
                     {
-
                         if (runTarget == Vector3.zero)
                         {
                             runTarget = ChooseNewPatrollingPoint();
@@ -124,19 +121,19 @@ namespace jbzdy.Enemies
 
                         float distanceToRunTarget = Vector3.Distance(transform.position, runTarget);
 
-                        if (distanceToRunTarget < 0.5f)
-                        {
-                            //when waiting to run again just attack player
-                            MultiUseTimer += Time.deltaTime;
-                            MoveTo(MainCharacterTransform.position, 0, AttackRadius);
-                            easyAnimator.SetBooleanTrue("isAttacking");
-                            HandleThrowing();
+                       if (distanceToRunTarget < 0.5f)
+						{
+							//when waiting to run again just attack player
+							MultiUseTimer += Time.deltaTime;
+							MoveTo(EnemyData.MainCharacterTransform.position, 0, EnemyData.AttackRadius);
+							easyAnimator.SetBooleanTrue("isAttacking");
+							HandleThrowing();
                         }
                         else
                         {
-                            MoveTo(runTarget, MovementSpeed * runSpeedModifier, 0.5f);
-                            easyAnimator.SetBooleanTrue("isWalking");
-                        }
+                             MoveTo(runTarget, EnemyData.MovementSpeed * runSpeedModifier, 0.5f);
+							easyAnimator.SetBooleanTrue("isWalking");
+						}	
 
                         if (MultiUseTimer >= pauseTimeWhenRunning)
                         {
@@ -146,13 +143,13 @@ namespace jbzdy.Enemies
                         if (!updateLogicFrame) break;
 
 
-                        if (distanceToMainChar > AttackRadius)
-                        {
-                            MultiUseTimer = 0;
-                            runTarget = Vector3.zero;
-                            currentState = MonkeyState.Chase;
-                            break;
-                        }
+                        if (distanceToMainChar > EnemyData.AttackRadius)
+						{
+							MultiUseTimer = 0;
+							runTarget = Vector3.zero;
+							currentState = MonkeyState.Chase;
+							break;
+						}
 
                         if (distanceToMainChar > runAwayRadius && distanceToRunTarget < 0.5f)
                         {
@@ -165,6 +162,7 @@ namespace jbzdy.Enemies
                     break;
 
                 case MonkeyState.Search:
+
                     {
                         MultiUseTimer += Time.deltaTime;
                         MoveTo(GoToPoint, 0, 0);
@@ -178,7 +176,7 @@ namespace jbzdy.Enemies
                             easyAnimator.SetBooleanTrue("Idle");
                         }
 
-                        if (MultiUseTimer >= TimeBetweenPatrolSteps)
+                        if (MultiUseTimer >= EnemyData.TimeBetweenPatrolSteps)
                         {
                             GoToPoint = new Vector3(transform.position.x + Random.Range(-maxRunAxisDistance, maxRunAxisDistance),
                                                      transform.position.y,
@@ -198,9 +196,9 @@ namespace jbzdy.Enemies
                             break;
                         }
 
-                        if (PatrolStepsCounter > MaxPatrolSteps)
-                        {
-                            if (Vector3.Distance(transform.position, SpawnPoint) > 1)
+                        if (PatrolStepsCounter > EnemyData.MaxPatrolSteps)
+						{
+							if (Vector3.Distance(transform.position, SpawnPoint) > 1)
                             {
                                 currentState = MonkeyState.Return;
                                 MultiUseTimer = 0;
@@ -213,13 +211,11 @@ namespace jbzdy.Enemies
                                 PatrolStepsCounter = 0;
                             }
                         }
-
-
                     }
                     break;
                 case MonkeyState.Return:
                     {
-                        MoveTo(SpawnPoint, MovementSpeed, 1);
+                        MoveTo(SpawnPoint, EnemyData.MovementSpeed, 1);
                         easyAnimator.SetBooleanTrue("isWalking");
 
                         if (!updateLogicFrame) break;
@@ -245,9 +241,10 @@ namespace jbzdy.Enemies
             if (easyAnimator.GetBoolean("spawnProjectile"))
             {
 
-                GameObject projectile = Instantiate(projectileObject, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
-                Rigidbody rigidbody = projectile.GetComponent<Rigidbody>();
-                Vector3 throwDirection = (MainCharacterTransform.position - projectile.transform.position);
+
+				GameObject projectile = Instantiate(projectileObject, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
+				Rigidbody rigidbody = projectile.GetComponent<Rigidbody>();
+				Vector3 throwDirection = (EnemyData.MainCharacterTransform.position - projectile.transform.position);
 
                 throwDirection.y += throwTargetHeight;
                 throwDirection *= throwPower;

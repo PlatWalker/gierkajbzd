@@ -80,24 +80,23 @@ namespace jbzdy.Enemies
                             GoToPoint = transform.position;
                             currentState = GowniakState.Wander;
                         }
-                        if (distanceToMainChar > AttackRadius)
+                        if (distanceToMainChar > EnemyData.AttackRadius)
                         {
                             currentState = GowniakState.Chase;
                         }
-
                     }
                     break;
                 case GowniakState.Chase:
                     {
-                        MoveTo(MainCharacterTransform.position, MovementSpeed, AttackRadius);
-                        easyAnimator.SetBooleanTrue("Move");
+                        MoveTo(EnemyData.MainCharacterTransform.position, EnemyData.MovementSpeed, EnemyData.AttackRadius);
+						easyAnimator.SetBooleanTrue("Move");
 
                         if (!updateLogicFrame) break;
 
-                        if (distanceToMainChar <= AttackRadius)
-                        {
-                            currentState = GowniakState.Attack;
-                            break;
+                        if (distanceToMainChar <= EnemyData.AttackRadius)
+						{
+							currentState = GowniakState.Attack;
+							break;
                         }
                         if (!playerIsVisible)
                         {
@@ -134,8 +133,8 @@ namespace jbzdy.Enemies
                     {
                         MultiUseTimer += Time.deltaTime;
 
-                        MoveTo(GoToPoint, MovementSpeed, AttackRadius);
-                        if (Vector3.Distance(transform.position, GoToPoint) <= AttackRadius)
+						MoveTo(GoToPoint, EnemyData.MovementSpeed, EnemyData.AttackRadius);
+						if (Vector3.Distance(transform.position, GoToPoint) <= EnemyData.AttackRadius)
                         {
                             easyAnimator.SetBooleanTrue("Idle");
                         }
