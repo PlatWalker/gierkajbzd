@@ -14,33 +14,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NodeLinkDatas:
   - BaseNodeGuid: 84af38e5-b9cd-4a4f-aac7-14371cf43138
-    TargetNodeGuid: 942e7849-9669-477e-8a65-4d1ede2bf2db
-  - BaseNodeGuid: f2b44c02-b295-493e-a309-5453dd2d292e
-    TargetNodeGuid: d37b8387-8fcd-4bcb-b57a-b050c1c99507
-  - BaseNodeGuid: 942e7849-9669-477e-8a65-4d1ede2bf2db
-    TargetNodeGuid: eeee2cfa-94d5-4631-a5e1-3ee0005b6633
-  - BaseNodeGuid: 942e7849-9669-477e-8a65-4d1ede2bf2db
-    TargetNodeGuid: f2b44c02-b295-493e-a309-5453dd2d292e
+    TargetNodeGuid: c14a91bb-53dc-48e4-9963-fb9128819cc0
+  - BaseNodeGuid: f77e4a97-d407-4ddb-bd0f-fd5c3ff528b9
+    TargetNodeGuid: 63968498-d46a-4767-a7b2-8b63fe65f243
+  - BaseNodeGuid: 63968498-d46a-4767-a7b2-8b63fe65f243
+    TargetNodeGuid: 66ea56e3-b300-4108-85b5-e2d26d453b12
+  - BaseNodeGuid: c14a91bb-53dc-48e4-9963-fb9128819cc0
+    TargetNodeGuid: f77e4a97-d407-4ddb-bd0f-fd5c3ff528b9
+  - BaseNodeGuid: 66ea56e3-b300-4108-85b5-e2d26d453b12
+    TargetNodeGuid: 7685469e-2e30-4bab-96b6-d8f5e7c1c62b
+  - BaseNodeGuid: 66ea56e3-b300-4108-85b5-e2d26d453b12
+    TargetNodeGuid: 992b9251-704b-4fc8-83e4-b7eafbbc48c8
   DialogueNodeDatas:
-  - NodeGuid: 942e7849-9669-477e-8a65-4d1ede2bf2db
-    Position: {x: 420, y: 168}
+  - NodeGuid: 66ea56e3-b300-4108-85b5-e2d26d453b12
+    Position: {x: 345, y: 152}
     DialogueNodePorts:
-    - PortGuid: 537476e8-817f-4188-a26a-9f9feb116f78
-      InputGuid: eeee2cfa-94d5-4631-a5e1-3ee0005b6633
-      OutputGuid: 942e7849-9669-477e-8a65-4d1ede2bf2db
+    - PortGuid: c9a938da-8a29-4869-abe2-6e0b788756b3
+      InputGuid: 7685469e-2e30-4bab-96b6-d8f5e7c1c62b
+      OutputGuid: 66ea56e3-b300-4108-85b5-e2d26d453b12
       TextLanguages:
       - LanguageType: 0
-        LanguageGenericType: Nie daj
+        LanguageGenericType: Chce
       - LanguageType: 1
         LanguageGenericType: Continue
       - LanguageType: 2
         LanguageGenericType: Continue
-    - PortGuid: 72411fa6-c447-4d04-81ed-11c282dbf8aa
-      InputGuid: f2b44c02-b295-493e-a309-5453dd2d292e
-      OutputGuid: 942e7849-9669-477e-8a65-4d1ede2bf2db
+    - PortGuid: 17304119-2abc-41d2-b612-70a58e209ce5
+      InputGuid: 992b9251-704b-4fc8-83e4-b7eafbbc48c8
+      OutputGuid: 66ea56e3-b300-4108-85b5-e2d26d453b12
       TextLanguages:
       - LanguageType: 0
-        LanguageGenericType: Daj
+        LanguageGenericType: Nie chce
+      - LanguageType: 1
+        LanguageGenericType: Continue
+      - LanguageType: 2
+        LanguageGenericType: Continue
+    - PortGuid: b3c1541d-fc73-4a5d-8aca-9e2381c53ef2
+      InputGuid: 
+      OutputGuid: 
+      TextLanguages:
+      - LanguageType: 0
+        LanguageGenericType: Troche chce
       - LanguageType: 1
         LanguageGenericType: Continue
       - LanguageType: 2
@@ -55,28 +69,36 @@ MonoBehaviour:
       LanguageGenericType: {fileID: 0}
     TextLanguages:
     - LanguageType: 0
-      LanguageGenericType: Siema
+      LanguageGenericType: Siema chcesz itema?
     - LanguageType: 1
       LanguageGenericType: 
     - LanguageType: 2
       LanguageGenericType: 
     Sprite: {fileID: 0}
-    Name: To ja
+    Name: Kacper
   EndNodeDatas:
-  - NodeGuid: eeee2cfa-94d5-4631-a5e1-3ee0005b6633
-    Position: {x: 651, y: 116}
+  - NodeGuid: 7685469e-2e30-4bab-96b6-d8f5e7c1c62b
+    Position: {x: 580, y: 73}
     EndNodeType: 0
-  - NodeGuid: d37b8387-8fcd-4bcb-b57a-b050c1c99507
-    Position: {x: 875, y: 240}
+  - NodeGuid: 992b9251-704b-4fc8-83e4-b7eafbbc48c8
+    Position: {x: 600, y: 201}
     EndNodeType: 0
   StartNodeDatas:
   - NodeGuid: 84af38e5-b9cd-4a4f-aac7-14371cf43138
-    Position: {x: 310, y: 176}
+    Position: {x: -140, y: 147}
   EventNodeDatas: []
-  StatCheckNodeDatas: []
+  StatCheckNodeDatas:
+  - NodeGuid: f77e4a97-d407-4ddb-bd0f-fd5c3ff528b9
+    Position: {x: -7, y: 311}
+    StatCheckType: 2
+    StatCheckValue: 10
+  - NodeGuid: 63968498-d46a-4767-a7b2-8b63fe65f243
+    Position: {x: 179, y: 153}
+    StatCheckType: 6
+    StatCheckValue: 5
   ItemCheckNodeDatas:
-  - NodeGuid: f2b44c02-b295-493e-a309-5453dd2d292e
-    Position: {x: 642, y: 240}
-    ItemNodeType: 0
+  - NodeGuid: c14a91bb-53dc-48e4-9963-fb9128819cc0
+    Position: {x: -30, y: 148}
+    ItemCheckType: 0
     ItemCheckValue: 1
-    NodeItem: {fileID: 0}
+    NodeItem: {fileID: 5475210261572133534, guid: 6c193c52425d4e94cbceba5f73756866, type: 3}

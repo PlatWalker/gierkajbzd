@@ -19,6 +19,7 @@ namespace jbzdy.DialogueSystem.Actions
         private DialogueNodeData lastDialogueNodeData;
 
         private List<StatCheckNodeData> statCheckNodeDatas = new List<StatCheckNodeData>();
+        private List<ItemCheckNodeData> itemCheckNodeDatas = new List<ItemCheckNodeData>();
 
         private void Awake()
         {
@@ -48,6 +49,9 @@ namespace jbzdy.DialogueSystem.Actions
                     RunNode(nodeData);
                     break;
                 case StatCheckNodeData nodeData:
+                    RunNode(nodeData);
+                    break;
+                case ItemCheckNodeData nodeData:
                     RunNode(nodeData);
                     break;
                 default:
@@ -82,6 +86,7 @@ namespace jbzdy.DialogueSystem.Actions
             {
                 nodeData.DialogueEventSO.RunEvent();
             }
+
             CheckNodeType(GetNextNode(nodeData));
         }
 
@@ -89,7 +94,14 @@ namespace jbzdy.DialogueSystem.Actions
         {
             statCheckNodeDatas.Add(nodeData);
 
-            Debug.Log(nodeData.StatCheckType + " | " + nodeData.StatCheckValue);
+            //Debug.Log(nodeData.StatCheckType + " | " + nodeData.StatCheckValue);
+            CheckNodeType(GetNextNode(nodeData));
+        }
+
+        private void RunNode(ItemCheckNodeData nodeData)
+        {
+            itemCheckNodeDatas.Add(nodeData);
+
             CheckNodeType(GetNextNode(nodeData));
         }
 
@@ -126,13 +138,15 @@ namespace jbzdy.DialogueSystem.Actions
                 tempAciton += () =>
                 {
                     statCheckNodeDatas.Clear();
+                    itemCheckNodeDatas.Clear();
+
                     audioSource.Stop();
                     CheckNodeType(GetNodeByGuid(nodePort.InputGuid));
                 };
                 unityActions.Add(tempAciton);
             }
 
-            dialogueController.SetButtons(texts, unityActions, statCheckNodeDatas);
+            dialogueController.SetButtons(texts, unityActions, statCheckNodeDatas, itemCheckNodeDatas);
         }
     }
 }

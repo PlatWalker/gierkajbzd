@@ -168,7 +168,7 @@ namespace jbzdy.DialogueSystem.SaveLoad
                 NodeGuid = node.NodeGuid,
                 Position = node.GetPosition().position,
                 NodeItem = node.NodeItem,
-                ItemNodeType = node.ItemCheckNodeType,
+                ItemCheckType = node.ItemCheckNodeType,
                 ItemCheckValue = int.Parse(node.ItemCheckValue),
             };
          
@@ -282,7 +282,7 @@ namespace jbzdy.DialogueSystem.SaveLoad
                 ItemCheckNode tempNode = graphView.CreateItemCheckNode(node.Position);
                 tempNode.NodeGuid = node.NodeGuid;
                 tempNode.ItemCheckValue = node.ItemCheckValue.ToString();
-                tempNode.ItemCheckNodeType = node.ItemNodeType;
+                tempNode.ItemCheckNodeType = node.ItemCheckType;
                 tempNode.NodeItem = node.NodeItem;
 
                 tempNode.LoadValueInToField();

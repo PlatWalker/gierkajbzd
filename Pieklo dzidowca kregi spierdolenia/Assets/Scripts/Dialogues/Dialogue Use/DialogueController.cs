@@ -6,6 +6,7 @@ using jbzdy.CharacterStats;
 using jbzdy.DialogueSystem.SO;
 using jbzdy.DialogueSystem.Enums;
 using System.Collections.Generic;
+using jbzdy.Inventory;
 
 /// <summary>
 /// Napisane przez sharashino
@@ -46,6 +47,7 @@ namespace jbzdy.DialogueSystem.Actions
 
         private List<Button> buttons = new List<Button>();
         private List<TMP_Text> buttonsTexts = new List<TMP_Text>();
+        private int nodeCount = 0;
 
         private void Awake()
         {
@@ -98,47 +100,94 @@ namespace jbzdy.DialogueSystem.Actions
             }
         }
 
-        public void SetButtons(List<string> texts, List<UnityAction> unityActions, List<StatCheckNodeData> statCheckNodeDatas)
+        public void SetButtons(List<string> texts, List<UnityAction> unityActions, List<StatCheckNodeData> statCheckNodeDatas, List<ItemCheckNodeData> itemCheckNodeDatas)
         {
             buttons.ForEach(button => button.gameObject.SetActive(false));
             UnityAction statCheck = null;
+            UnityAction itemCheck = null;
 
             statCheck = () =>
             {
                 Debug.Log("Chujowe staty");
             };
 
-            if(statCheckNodeDatas.Count > 0)
+            itemCheck = () =>
+            {
+                Debug.Log("Nie dostaniesz itemu");
+            };
+
+            if (itemCheckNodeDatas.Count > 0)
+            {
+                for (int i = 0; i < itemCheckNodeDatas.Count; i++)
+                {
+                    if (itemCheckNodeDatas[i].ItemCheckType == ItemCheckNodeType.GetItem)
+                    {
+                        if (itemCheckNodeDatas[i].ItemCheckValue > 1)
+                            buttonsTexts[i].text = "[Otrzymaj " + itemCheckNodeDatas[i].ItemCheckValue + " " + itemCheckNodeDatas[i].NodeItem.itemName + "] " + texts[i];
+                        else
+                            buttonsTexts[i].text = "[Otrzymaj " + itemCheckNodeDatas[i].NodeItem.itemName + "] " + texts[i];
+                    }
+                    else if (itemCheckNodeDatas[i].ItemCheckType == ItemCheckNodeType.GiveItem)
+                    {
+                        if (itemCheckNodeDatas[i].ItemCheckValue > 1)
+                            buttonsTexts[i].text = "[Oddaj " + itemCheckNodeDatas[i].ItemCheckValue + " " + itemCheckNodeDatas[i].NodeItem.itemName + "] " + texts[i];
+                        else
+                            buttonsTexts[i].text = "[Oddaj " + itemCheckNodeDatas[i].NodeItem.itemName + "] " + texts[i];
+                    }
+
+                    buttons[i].gameObject.SetActive(true);
+                    buttons[i].onClick = new Button.ButtonClickedEvent();
+                    buttons[i].onClick.AddListener(itemCheck);
+                }
+
+                nodeCount = itemCheckNodeDatas.Count;
+            }
+
+            //zostawiam to narazie ale poki co to dziala bez tego po co to wgl?????
+            { 
+            //for (int i = itemCheckNodeDatas.Count; i < texts.Count; i++)
+            //{
+            //    buttonsTexts[i].text = texts[i];
+            //    buttons[i].gameObject.SetActive(true);
+            //    buttons[i].onClick = new Button.ButtonClickedEvent();
+            //    buttons[i].onClick.AddListener(unityActions[i]);
+            //}
+            }
+
+            if (statCheckNodeDatas.Count > 0)
             {
                 for (int i = 0; i < statCheckNodeDatas.Count; i++)
                 {
-                    int playerValue = AddMatchingPlayerValues(statCheckNodeDatas[i]);
+                    int playerValue = AddStatCheckPlayerValues(statCheckNodeDatas[i]);
 
-                    buttonsTexts[i].text = "[" + statCheckNodeDatas[i].StatCheckType + " " + playerValue + "/" + statCheckNodeDatas[i].StatCheckValue + "]" + texts[i];
-                    buttons[i].gameObject.SetActive(true);
-                    buttons[i].onClick = new Button.ButtonClickedEvent();
+                    buttonsTexts[i + nodeCount].text = "[" + statCheckNodeDatas[i].StatCheckType + " " + playerValue + "/" + statCheckNodeDatas[i].StatCheckValue + "] " + texts[i + nodeCount];
+                    buttons[i + nodeCount].gameObject.SetActive(true);
+                    buttons[i + nodeCount].onClick = new Button.ButtonClickedEvent();
 
-                    if(HasPassedCheck(statCheckNodeDatas[i]))
+                    if (HasPassedStatCheck(statCheckNodeDatas[i]))
                     {
-                        buttons[i].onClick.AddListener(unityActions[i]);
+                        buttons[i + nodeCount].onClick.AddListener(unityActions[i]);
                     }
                     else
                     {
-                        buttons[i].onClick.AddListener(statCheck);
+                        buttons[i + nodeCount].onClick.AddListener(statCheck);
                     }
                 }
             }
 
-            for (int i = statCheckNodeDatas.Count; i < texts.Count; i++)
+            //zostawiam to narazie ale poki co to dziala bez tego po co to wgl?????
             {
-                buttonsTexts[i].text = texts[i];
-                buttons[i].gameObject.SetActive(true);
-                buttons[i].onClick = new Button.ButtonClickedEvent();
-                buttons[i].onClick.AddListener(unityActions[i]);
+                //for (int i = statCheckNodeDatas.Count; i < texts.Count; i++)
+                //{
+                //    buttonsTexts[i + nodeCount].text = texts[i];
+                //    buttons[i + nodeCount].gameObject.SetActive(true);
+                //    buttons[i + nodeCount].onClick = new Button.ButtonClickedEvent();
+                //    buttons[i + nodeCount].onClick.AddListener(unityActions[i]);
+                //}
             }
         }
 
-        private int AddMatchingPlayerValues(StatCheckNodeData statCheckNodeData)
+        private int AddStatCheckPlayerValues(StatCheckNodeData statCheckNodeData)
         {
             switch (statCheckNodeData.StatCheckType)
             {
@@ -169,7 +218,29 @@ namespace jbzdy.DialogueSystem.Actions
             }
         }
 
-        public bool HasPassedCheck(StatCheckNodeData statCheckNodeData)
+        public bool HasPassedItemCheck(ItemCheckNodeData itemCheckNodeData)
+        {
+            switch (itemCheckNodeData.ItemCheckType)
+            {
+                case ItemCheckNodeType.GetItem:
+                    return true;
+                case ItemCheckNodeType.GiveItem:
+                    {
+                        if (InventoryClass.Instance.CheckForItem(itemCheckNodeData.NodeItem, itemCheckNodeData.ItemCheckValue))
+                        {
+                            return false;
+                        }
+                        else
+                            return false;
+                    }
+                default:
+                    break;
+            }
+
+            return false;
+        }
+
+        public bool HasPassedStatCheck(StatCheckNodeData statCheckNodeData)
         {
             switch (statCheckNodeData.StatCheckType)
             {

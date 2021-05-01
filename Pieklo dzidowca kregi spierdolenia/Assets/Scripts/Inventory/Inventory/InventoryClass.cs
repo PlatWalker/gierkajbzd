@@ -482,11 +482,11 @@ namespace jbzdy.Inventory
         /// </summary>
         /// <param name="itemTitle"></param>
         /// <returns></returns>
-        public bool CheckIfItemExist(string itemTitle)
+        public bool CheckForItem(Item itemToCheck, int itemAmount)
         {
             foreach (var item in inventoryItems)
             {
-                if (item.item.itemName == itemTitle)
+                if (item.item == itemToCheck && item.item.itemStackSize >= itemAmount)
                 {
                     return true;
                 }

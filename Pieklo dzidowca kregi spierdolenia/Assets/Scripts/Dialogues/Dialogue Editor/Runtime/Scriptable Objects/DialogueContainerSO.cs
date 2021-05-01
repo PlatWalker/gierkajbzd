@@ -88,7 +88,7 @@ namespace jbzdy.DialogueSystem.SO
     [System.Serializable]
     public class ItemCheckNodeData : BaseNodeData
     {
-        public ItemCheckNodeType ItemNodeType;
+        public ItemCheckNodeType ItemCheckType;
         public int ItemCheckValue;
         public Item NodeItem;
     }
