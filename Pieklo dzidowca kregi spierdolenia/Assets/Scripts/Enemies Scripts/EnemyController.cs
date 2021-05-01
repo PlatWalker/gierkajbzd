@@ -1,215 +1,270 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
+
 /// <summary>
 /// Created by Kumdzio.
 /// Abstract class with all needed tolls for simple AI.
 /// </summary>
-public abstract class EnemyController : MonoBehaviour, IMove, IFight
+namespace jbzdy.Enemies
 {
-    [Header("Artifical Intelligence")]
-    [SerializeField] protected bool turnOffAI = false;
-    [Header("Movement")]
-    [SerializeField] private float _movementSpeed = 0.15f;
-    public virtual float MovementSpeed
-    {
-        get
-        {
-            return _movementSpeed;
-        }
-        protected set
-        {
-            _movementSpeed = value;
-        }
-    }
+	public abstract class EnemyController : MonoBehaviour, IDamageable
+	{
+		[SerializeField] protected EnemyDataContainer EnemyData;
+		[Header("Artifical Intelligence")]
+		[SerializeField] protected bool turnOffAI = false;
+		public bool EnemyAlive { get; protected set; }
+		protected float MultiUseTimer { get; set; }
+		protected int framesCounter;
+		protected float distanceToMainChar;
+		protected bool playerIsVisible;
+		protected bool updateLogicFrame;
+		protected string CurrentAnimation; //debug only
 
-    [SerializeField] private float _rotationSpeed = 0.15f;
-    public virtual float RotationSpeed
-    {
-        get
-        {
-            return _rotationSpeed;
-        }
-        protected set
-        {
-            _rotationSpeed = value;
-        }
-    }
+		public Vector3 GoToPoint { get; protected set; }
+		public NavMeshAgent NavAgent { get; protected set; }
+		public int PatrolStepsCounter { get; protected set; }
 
-    [Header("Attact target transform")]
-    [SerializeField] private Transform _mainCharacterTransform = null;
-    public virtual Transform MainCharacterTransform
-    {
-        get
-        {
-            return _mainCharacterTransform;
-        }
-    }
-
-    [Header("Fight")]
-    [SerializeField] private float _aggroRadius = 20.0f;
-    public virtual float AggroRadius
-    {
-        get
-        {
-            return _aggroRadius;
-        }
-        protected set
-        {
-            _aggroRadius = value;
-        }
-    }
-
-    [SerializeField] private float _attackRadius = 1.5f;
-    public virtual float AttackRadius
-    {
-        get
-        {
-            return _attackRadius;
-        }
-        protected set
-        {
-            _attackRadius = value;
-        }
-    }
-
-    [SerializeField] private int _maxHealth = 100;
-    public virtual int MaxHealth
-    {
-        get
-        {
-            return _maxHealth;
-        }
-        protected set
-        {
-            _maxHealth = value;
-        }
-    }
-    public virtual int CurrentHealth { get; protected set; }
+		public virtual int CurrentHealth { get; protected set; }
+		public virtual Vector3 SpawnPoint { get; protected set; }
+		protected  EasyAnimatorController easyAnimator;
+		private float animationPlayPreviousSpeed = 0f;
 
 
-    public virtual Vector3 SpawnPoint { get; protected set; }
-    protected  EasyAnimatorController easyAnimator;
+		protected virtual void Start()
+		{
+			/*comment below is showing only how to initialize easyAniamtorController
+			 * string[] ignoredBooleans = new string[] { "ignoredBooleanName1", "ignoredBooleanName2" };
+			 * easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), ignoredBooleans);
+			 */
+			SpawnPoint = new Vector3(transform.position.x,
+									transform.position.y,
+									transform.position.z);
+			CurrentHealth = EnemyData.MaxHealth;
+			EnemyAlive = true;
+			GetComponent<Animator>().SetFloat("IdleSpeedMultiplier", Random.Range(0.900001f, 1.100001f));
+			NavAgent = GetComponent<NavMeshAgent>();
+			NavAgent.angularSpeed = EnemyData.RotationSpeed;
+			NavAgent.acceleration = 100;
 
-    private float animationPlayPreviousSpeed = 0f;
-
-
-    // Start is called before the first frame update
-    protected virtual void Start()
-    {
-        ////comment below is showing only how to initialize easyAniamtorController
-        //string[] ignoredBooleans = new string[] { "ignoredBooleanName1", "ignoredBooleanName2" };
-        //easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), ignoredBooleans);
-        SpawnPoint = new Vector3(transform.position.x,
-                                transform.position.y,
-                                transform.position.z);
-        CurrentHealth = MaxHealth;
-    }
-
-    //OnValidate is called when script is loaded and everytime when value is changed
-    //in the inspector
-    protected virtual void OnValidate()
-    {
-        //here will be code to handle debuging and balance changes in values
-        //for example there have to be check if the AggroRadius is bigger that AttackRadius etc.
-        if (MovementSpeed < 0)
+		}
+        protected virtual void Update()
         {
-            Debug.Log(transform.name + ": Movement speed cannot be lower than 0");
-            MovementSpeed = 0.0f;
-        }
-        if(MovementSpeed >= 5f)
-        {
-            Debug.Log(transform.name + ": Movement speed cannot be bigger that 5");
-            MovementSpeed = 5.0f;
-        }
-        if (MaxHealth <= 0)
-        {
-            Debug.Log(transform.name + ": MaxHealth cannot be less than 1");
-            MaxHealth = 1;
-        }
-        if (AttackRadius < 0.5f)
-        {
-            Debug.Log(transform.name + ": Attack Radius cannot be lower than 0.5");
-            AttackRadius = 0.5f;
-        }
-        if (AttackRadius >= AggroRadius)
-        {
-            Debug.Log(transform.name+": Attack radius cannot be bigger that Aggro radius");
-            AttackRadius = AggroRadius-0.01f;
-        }
-    }
-
-    // Update is called once per frame
-    protected abstract void FixedUpdate();
-    /// <summary>
-    /// Method to move enemy. Can be used towards target, run away from target or just simply rotate 
-    /// enemy when speedModifier=0f
-    /// </summary>
-    /// <param name="shouldRunAway"> Decides if enemy should run away from target.</param>
-    /// <param name="speedModifier"> Modifies speed of enemy. 1.0f is normal speed. 0f is just rotating.</param>
-    /// <param name="target"> Target position in game world.</param>
-    protected virtual void MoveTo(bool shouldRunAway, float speedModifier, Vector3 target)
-    {
-        Vector3 direction = new Vector3(target.x - transform.position.x,
-                                0,
-                                target.z - transform.position.z);
-
-        if (shouldRunAway)
-        {
-            direction = new Vector3(transform.position.x - target.x,
-                                    0,
-                                    transform.position.z - target.z);
+            HandleLogicPerformaceBoost();
         }
 
-        direction = Vector3.Normalize(direction);
-        transform.position += direction * MovementSpeed * speedModifier;
-
-        Vector3 newDirection = Vector3.RotateTowards(gameObject.transform.forward, direction, RotationSpeed, 0.0f);
-        transform.rotation = Quaternion.LookRotation(newDirection);
-    }
-
-    /// <summary>
-    /// Method created for HealthBars.
-    /// </summary>
-    /// <returns>Current health in range 0f-1f</returns>
-    public virtual float GetHealthPercentage()
-    {
-        return (float)CurrentHealth / (float)MaxHealth;
-    }
-
-    /// <summary>
-    /// Method to handle receiving damage with type of this damage. 
-    /// </summary>
-    /// <param name="damageAmount"> Amount of received damage.</param>
-    /// <param name="damageType"> Type of received damage.</param>
-    public virtual void SetDamage(int damageAmount, DamageType damageType)
-    {
-        //for now damage types are ignored
-        CurrentHealth -= damageAmount;
-    }
-
-    /// <summary>
-    /// Method to handle receiving damage with type of this damage and handling Crit Ratio.
-    /// </summary>
-    /// <param name="damageAmount"> Amount of received damage.</param>
-    /// <param name="damageType"> Type of received damage.</param>
-    /// <param name="criticalMultiplier"> Determines how much the damage is multiplied.</param>
-    /// <param name="criticalChance"> What is the chance that critical hit will land. Have to be in range 0f-1f.</param>
-    public virtual void SetDamage(int damageAmount, DamageType damageType, float criticalMultiplier, float criticalChance)
-    {
-        if (Random.Range(0.0f, 1.0f) <= criticalChance)
+        /// <summary>
+        /// Method to set destination point for enemy.
+        /// Just rotate works only if you call this method every frame.
+        /// </summary>
+        /// <param name="target">Destination point of path</param>
+        /// <param name="speed">Speed of travel. 0 = just rotate</param>
+        protected virtual void MoveTo(Vector3 target, float speed, float stopDistance)
         {
-            damageAmount =(int)(damageAmount * criticalMultiplier);
-        }
-        this.SetDamage(damageAmount, damageType);
-    }
+            if (Vector3.Distance(target, NavAgent.destination) < 1f) return;
 
-    /// <summary>
-    /// Method to pause enemy AI
-    /// </summary>
-    public void SwitchAI()
-    {
-        turnOffAI = !turnOffAI;
-        float temp = animationPlayPreviousSpeed;
-        animationPlayPreviousSpeed = GetComponent<Animator>().speed;
-        GetComponent<Animator>().speed = temp;
+            if (NavAgent.radius <= stopDistance)
+            {
+                stopDistance = stopDistance - NavAgent.radius;
+            }
+            else
+            {
+                stopDistance = 0f;
+            }
+
+            if (NavAgent.stoppingDistance != stopDistance)
+            {
+                NavAgent.stoppingDistance = stopDistance;
+            }
+
+            if (speed > 0)
+            {
+                NavAgent.speed = speed;
+                NavAgent.SetDestination(target);
+            }
+            else
+            {
+                Vector3 direction = new Vector3(target.x - transform.position.x,
+									0,
+									target.z - transform.position.z);
+				direction = Vector3.Normalize(direction);
+				Vector3 newDirection = Vector3.RotateTowards(gameObject.transform.forward, direction, EnemyData.RotationSpeed /10000, 0.0f);
+				transform.rotation = Quaternion.LookRotation(newDirection);
+			}
+		}
+
+		/// <summary>
+		/// Method created for HealthBars.
+		/// </summary>
+		/// <returns>Current health in range 0f-1f</returns>
+		public virtual float GetHealthPercentage()
+		{
+			return (float)CurrentHealth / EnemyData.MaxHealth;
+		}
+
+        /// <summary>
+        /// Method to handle receiving damage with type of this damage. 
+        /// </summary>
+        /// <param name="damageAmount"> Amount of received damage.</param>
+        /// <param name="damageType"> Type of received damage.</param>
+        public virtual void SetDamage(int damageAmount, DamageType damageType)
+        {
+            //for now damage types are ignored
+            CurrentHealth -= damageAmount;
+        }
+
+        /// <summary>
+        /// Method to handle receiving damage with type of this damage and handling Crit Ratio.
+        /// </summary>
+        /// <param name="damageAmount"> Amount of received damage.</param>
+        /// <param name="damageType"> Type of received damage.</param>
+        /// <param name="criticalMultiplier"> Determines how much the damage is multiplied.</param>
+        /// <param name="criticalChance"> What is the chance that critical hit will land. Have to be in range 0f-1f.</param>
+        public virtual void SetDamage(int damageAmount, DamageType damageType, float criticalMultiplier, float criticalChance)
+        {
+            if (Random.Range(0.0f, 1.0f) <= criticalChance)
+            {
+                damageAmount = (int)(damageAmount * criticalMultiplier);
+            }
+            this.SetDamage(damageAmount, damageType);
+        }
+
+        /// <summary>
+		/// Method to pause enemy AI
+		/// </summary>
+		public virtual void SwitchAI()
+		{
+			turnOffAI = !turnOffAI;
+			float temp = animationPlayPreviousSpeed;
+			animationPlayPreviousSpeed = GetComponent<Animator>().speed;
+			GetComponent<Animator>().speed = temp;
+		}
+
+		/// <summary>
+		/// Method that is checking if player is visible in the aggro radius for enemy who is calling this method.
+		/// </summary>
+		/// <returns>True if player is visible otherwise false</returns>
+		protected bool IsPlayerVisible()
+		{
+			RaycastHit hit;
+			LayerMask NotEnemiesMask = ~LayerMask.GetMask("Enemies");
+
+			if (Physics.Raycast((transform.position + new Vector3(0f, 1f, 0f)), (EnemyData.MainCharacterTransform.position - transform.position), out hit, EnemyData.AggroRadius, NotEnemiesMask))
+			{
+				if (hit.transform == EnemyData.MainCharacterTransform)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        protected Vector3 ChooseNewPatrollingPoint()
+        {
+            Vector3 newPoint = Vector3.zero;
+            bool correctPoint = false;
+            RaycastHit hit;
+
+            for (int i = 5; i > 0; i--)
+
+            {
+                newPoint = new Vector3( Random.Range(transform.position.x - EnemyData.PatrolMaxDistance,transform.position.x + EnemyData.PatrolMaxDistance),
+										transform.position.y,
+										Random.Range(transform.position.x - EnemyData.PatrolMaxDistance,transform.position.x + EnemyData.PatrolMaxDistance));
+
+				if (Physics.Raycast((transform.position + new Vector3(0f, 1f, 0f)), (newPoint - transform.position), out hit, EnemyData.AggroRadius))
+                {
+                    if (hit.collider.transform.tag == "Terrain")
+                    {
+                        correctPoint = true;
+                        break;
+                    }
+                }
+                else
+                {
+                    //Dont know why but collinding with terrain dont return its tag
+                    correctPoint = true;
+                    break;
+                }
+            }
+            if (!correctPoint) newPoint = transform.position;
+            return newPoint;
+        }
+		/// <summary>
+		/// Method to trigger near enemies
+		/// </summary>
+		/// <returns>Number of enemies triggered</returns>
+		protected int TriggerNearEnemies(Vector3 target)
+		{
+			if (!EnemyData.TriggeringNearEnemies) return 0;
+			int numberOfEnemiesTriggered = 0;
+			GameObject [] FoundEnemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
+
+            foreach (GameObject enemyObject in FoundEnemyObjects)
+            {
+                if (Vector3.Distance(transform.position, enemyObject.transform.position) > EnemyData.OtherEnemiesTriggerRadius) continue;
+				if (enemyObject.transform == transform) continue;
+
+                EnemyController enemyController;
+
+                if (enemyObject.TryGetComponent<EnemyController>(out enemyController))
+                {
+                    if (enemyController.HandleTriggerByEnemy(target))
+                    {
+                        numberOfEnemiesTriggered++;
+                    }
+                }
+            }
+            return numberOfEnemiesTriggered;
+        }
+
+        protected abstract bool HandleTriggerByEnemy(Vector3 target);
+
+        /// <summary>
+        /// Method which is destroying collider when enemy died and counting to destroy whole model.
+        /// </summary>
+        protected void Die()
+        {
+            if (EnemyAlive)
+            {
+                Destroy(gameObject.GetComponent<Collider>());
+				Destroy(gameObject.GetComponent<Rigidbody>());
+				EnemyAlive = false;
+				GoToPoint = transform.position;
+				MultiUseTimer = 0f;
+				MoveTo(transform.position, EnemyData.MovementSpeed, 1);
+			}
+
+			MultiUseTimer += Time.deltaTime;
+			if (MultiUseTimer >= EnemyData.DisappearAfter) Destroy(this.gameObject);
+			easyAnimator.SetBooleanTrue("isDying");
+		}
+
+		/// <summary>
+		/// Method which have to be called once per every frame update in every enemy controller which want to use the performace boost.
+		/// If not using this method you have to calculate distanceToMainChar and playerIsVisible manually instead
+		/// </summary>
+		protected void HandleLogicPerformaceBoost()
+		{
+			//Beta version of performance booster
+			updateLogicFrame = false;
+
+			if (framesCounter == EnemyData.UpdateLogicEveryXFrames)
+			{
+				framesCounter = 0;
+				updateLogicFrame = true;
+			}
+			else
+			{
+				framesCounter++;
+            }
+
+            //code below is strongly undebuggable -you have to remember that distance to main char is 
+            //updating/counted again only every (see: updateLogicEveryXFrames) frames
+            if (updateLogicFrame)
+            {
+                distanceToMainChar = Vector3.Distance(transform.position, EnemyData.MainCharacterTransform.position);
+				playerIsVisible = IsPlayerVisible();
+            }
+        }
     }
 }
