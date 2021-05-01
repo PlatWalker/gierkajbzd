@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a69ff5ed214494b835d86b8438ac53, type: 3}
+  m_Name: Test
+  m_EditorClassIdentifier: 
+  NodeLinkDatas:
+  - BaseNodeGuid: 84af38e5-b9cd-4a4f-aac7-14371cf43138
+    TargetNodeGuid: 942e7849-9669-477e-8a65-4d1ede2bf2db
+  - BaseNodeGuid: f2b44c02-b295-493e-a309-5453dd2d292e
+    TargetNodeGuid: d37b8387-8fcd-4bcb-b57a-b050c1c99507
+  - BaseNodeGuid: 942e7849-9669-477e-8a65-4d1ede2bf2db
+    TargetNodeGuid: eeee2cfa-94d5-4631-a5e1-3ee0005b6633
+  - BaseNodeGuid: 942e7849-9669-477e-8a65-4d1ede2bf2db
+    TargetNodeGuid: f2b44c02-b295-493e-a309-5453dd2d292e
+  DialogueNodeDatas:
+  - NodeGuid: 942e7849-9669-477e-8a65-4d1ede2bf2db
+    Position: {x: 420, y: 168}
+    DialogueNodePorts:
+    - PortGuid: 537476e8-817f-4188-a26a-9f9feb116f78
+      InputGuid: eeee2cfa-94d5-4631-a5e1-3ee0005b6633
+      OutputGuid: 942e7849-9669-477e-8a65-4d1ede2bf2db
+      TextLanguages:
+      - LanguageType: 0
+        LanguageGenericType: Nie daj
+      - LanguageType: 1
+        LanguageGenericType: Continue
+      - LanguageType: 2
+        LanguageGenericType: Continue
+    - PortGuid: 72411fa6-c447-4d04-81ed-11c282dbf8aa
+      InputGuid: f2b44c02-b295-493e-a309-5453dd2d292e
+      OutputGuid: 942e7849-9669-477e-8a65-4d1ede2bf2db
+      TextLanguages:
+      - LanguageType: 0
+        LanguageGenericType: Daj
+      - LanguageType: 1
+        LanguageGenericType: Continue
+      - LanguageType: 2
+        LanguageGenericType: Continue
+    DialogueFaceImageType: 0
+    AudioClips:
+    - LanguageType: 0
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 1
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 2
+      LanguageGenericType: {fileID: 0}
+    TextLanguages:
+    - LanguageType: 0
+      LanguageGenericType: Siema
+    - LanguageType: 1
+      LanguageGenericType: 
+    - LanguageType: 2
+      LanguageGenericType: 
+    Sprite: {fileID: 0}
+    Name: To ja
+  EndNodeDatas:
+  - NodeGuid: eeee2cfa-94d5-4631-a5e1-3ee0005b6633
+    Position: {x: 651, y: 116}
+    EndNodeType: 0
+  - NodeGuid: d37b8387-8fcd-4bcb-b57a-b050c1c99507
+    Position: {x: 875, y: 240}
+    EndNodeType: 0
+  StartNodeDatas:
+  - NodeGuid: 84af38e5-b9cd-4a4f-aac7-14371cf43138
+    Position: {x: 310, y: 176}
+  EventNodeDatas: []
+  StatCheckNodeDatas: []
+  ItemCheckNodeDatas:
+  - NodeGuid: f2b44c02-b295-493e-a309-5453dd2d292e
+    Position: {x: 642, y: 240}
+    ItemNodeType: 0
+    ItemCheckValue: 1
+    NodeItem: {fileID: 0}

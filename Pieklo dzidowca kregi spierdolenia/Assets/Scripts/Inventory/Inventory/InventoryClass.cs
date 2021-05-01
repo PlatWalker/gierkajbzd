@@ -35,7 +35,7 @@ namespace jbzdy.Inventory
     /// </summary>
     public class InventoryClass : MonoBehaviour
     {
-            public static InventoryClass Instance;
+        public static InventoryClass Instance;
 
         //Unity events to provide callback in specified cases
         public OnInventoryItemAdd OnInventoryItemAdd;

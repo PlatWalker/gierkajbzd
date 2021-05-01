@@ -63,6 +63,7 @@ namespace jbzdy.DialogueSystem.SaveLoad
             dialogueContainerSO.DialogueNodeDatas.Clear();
             dialogueContainerSO.EventNodeDatas.Clear();
             dialogueContainerSO.StatCheckNodeDatas.Clear();
+            dialogueContainerSO.ItemCheckNodeDatas.Clear();
             dialogueContainerSO.EndNodeDatas.Clear();
             dialogueContainerSO.StartNodeDatas.Clear();
 
@@ -82,8 +83,11 @@ namespace jbzdy.DialogueSystem.SaveLoad
                     case EventNode eventNode:
                         dialogueContainerSO.EventNodeDatas.Add(SaveNodeData(eventNode));
                         break;
-                    case StatCheckNode eventNode:
-                        dialogueContainerSO.StatCheckNodeDatas.Add(SaveNodeData(eventNode));
+                    case StatCheckNode statCheckNode:
+                        dialogueContainerSO.StatCheckNodeDatas.Add(SaveNodeData(statCheckNode));
+                        break;
+                    case ItemCheckNode itemCheckNode:
+                        dialogueContainerSO.ItemCheckNodeDatas.Add(SaveNodeData(itemCheckNode));
                         break;
                     default:
                         break;
@@ -157,14 +161,28 @@ namespace jbzdy.DialogueSystem.SaveLoad
             return nodeData;
         }
 
+        private ItemCheckNodeData SaveNodeData(ItemCheckNode node)
+        {
+            ItemCheckNodeData nodeData = new ItemCheckNodeData()
+            {
+                NodeGuid = node.NodeGuid,
+                Position = node.GetPosition().position,
+                NodeItem = node.NodeItem,
+                ItemNodeType = node.ItemCheckNodeType,
+                ItemCheckValue = int.Parse(node.ItemCheckValue),
+            };
+         
+            return nodeData;
+        }
+
         private StatCheckNodeData SaveNodeData(StatCheckNode node)
         {
             StatCheckNodeData nodeData = new StatCheckNodeData()
             {
                 NodeGuid = node.NodeGuid,
                 Position = node.GetPosition().position,
-                statCheckType = node.CheckType,
-                statCheckValue = Int32.Parse(node.StatCheckValue)
+                StatCheckType = node.CheckType,
+                StatCheckValue = int.Parse(node.StatCheckValue)
             };
 
             return nodeData;
@@ -251,8 +269,21 @@ namespace jbzdy.DialogueSystem.SaveLoad
             {
                 StatCheckNode tempNode = graphView.CreateStatCheckNode(node.Position);
                 tempNode.NodeGuid = node.NodeGuid;
-                tempNode.StatCheckValue = node.statCheckValue.ToString();
-                tempNode.CheckType = node.statCheckType;
+                tempNode.StatCheckValue = node.StatCheckValue.ToString();
+                tempNode.CheckType = node.StatCheckType;
+
+                tempNode.LoadValueInToField();
+                graphView.AddElement(tempNode);
+            }
+
+            //Item Check Node
+            foreach (ItemCheckNodeData node in dialogueContainer.ItemCheckNodeDatas)
+            {
+                ItemCheckNode tempNode = graphView.CreateItemCheckNode(node.Position);
+                tempNode.NodeGuid = node.NodeGuid;
+                tempNode.ItemCheckValue = node.ItemCheckValue.ToString();
+                tempNode.ItemCheckNodeType = node.ItemNodeType;
+                tempNode.NodeItem = node.NodeItem;
 
                 tempNode.LoadValueInToField();
                 graphView.AddElement(tempNode);

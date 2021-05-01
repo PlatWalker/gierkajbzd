@@ -20,14 +20,17 @@ namespace jbzdy.DialogueSystem.Actions
 
         [SerializeField] private PlayerStats playerStats = default;
         [SerializeField] private GameObject dialogueUI = default;
+
         [Header("Text")]
         [SerializeField] private TMP_Text textName = default;
         [SerializeField] private TMP_Text textBox = default;
+
         [Header("Image")]
         [SerializeField] private Image leftImage = default;
         [SerializeField] private GameObject leftImageGO = default;
         [SerializeField] private Image rigthImage = default;
         [SerializeField] private GameObject rigthImageGO = default;
+
         [Header("Butttons")]
         [SerializeField] private Button button01 = default;
         [SerializeField] private TMP_Text buttonText01 = default;
@@ -111,7 +114,7 @@ namespace jbzdy.DialogueSystem.Actions
                 {
                     int playerValue = AddMatchingPlayerValues(statCheckNodeDatas[i]);
 
-                    buttonsTexts[i].text = "[" + statCheckNodeDatas[i].statCheckType + " " + playerValue + "/" + statCheckNodeDatas[i].statCheckValue + "]" + texts[i];
+                    buttonsTexts[i].text = "[" + statCheckNodeDatas[i].StatCheckType + " " + playerValue + "/" + statCheckNodeDatas[i].StatCheckValue + "]" + texts[i];
                     buttons[i].gameObject.SetActive(true);
                     buttons[i].onClick = new Button.ButtonClickedEvent();
 
@@ -137,7 +140,7 @@ namespace jbzdy.DialogueSystem.Actions
 
         private int AddMatchingPlayerValues(StatCheckNodeData statCheckNodeData)
         {
-            switch (statCheckNodeData.statCheckType)
+            switch (statCheckNodeData.StatCheckType)
             {
                 case StatCheckType.Exp:
                     return playerStats.Level;
@@ -168,73 +171,65 @@ namespace jbzdy.DialogueSystem.Actions
 
         public bool HasPassedCheck(StatCheckNodeData statCheckNodeData)
         {
-            switch (statCheckNodeData.statCheckType)
+            switch (statCheckNodeData.StatCheckType)
             {
                 case StatCheckType.Exp:
-                    if (statCheckNodeData.statCheckValue >= playerStats.ExperiencePoints)
+                    if (statCheckNodeData.StatCheckValue >= playerStats.ExperiencePoints)
                         return false;
                     else
                         return true;
                 case StatCheckType.Level:
-                    if (statCheckNodeData.statCheckValue >= playerStats.Level)
+                    if (statCheckNodeData.StatCheckValue >= playerStats.Level)
                         return false;
                     else
                         return true;
                 case StatCheckType.Health:
-                    if (statCheckNodeData.statCheckValue >= playerStats.Health.BaseValue)
+                    if (statCheckNodeData.StatCheckValue >= playerStats.Health.BaseValue)
                         return false;
                     else
                         return true;
                 case StatCheckType.Mana:
-                    if (statCheckNodeData.statCheckValue >= playerStats.Mana.BaseValue)
+                    if (statCheckNodeData.StatCheckValue >= playerStats.Mana.BaseValue)
                         return false;
                     else
                         return true;
                 case StatCheckType.Armor:
-                    if (statCheckNodeData.statCheckValue >= playerStats.Armor.BaseValue)
+                    if (statCheckNodeData.StatCheckValue >= playerStats.Armor.BaseValue)
                         return false;
                     else
                         return true;
                 case StatCheckType.Damage:
-                    if (statCheckNodeData.statCheckValue >= playerStats.Damage.BaseValue)
+                    if (statCheckNodeData.StatCheckValue >= playerStats.Damage.BaseValue)
                         return false;
                     else
                         return true;
                 case StatCheckType.Strenght:
-                    if (statCheckNodeData.statCheckValue >= playerStats.Strenght.BaseValue)
+                    if (statCheckNodeData.StatCheckValue >= playerStats.Strenght.BaseValue)
                         return false;
                     else
                         return true;
                 case StatCheckType.Agility:
-                    if (statCheckNodeData.statCheckValue >= playerStats.Agility.BaseValue)
+                    if (statCheckNodeData.StatCheckValue >= playerStats.Agility.BaseValue)
                         return false;
                     else
                         return true;
                 case StatCheckType.Intelligence:
-                    if (statCheckNodeData.statCheckValue >= playerStats.Intelligence.BaseValue)
+                    if (statCheckNodeData.StatCheckValue >= playerStats.Intelligence.BaseValue)
                         return false;
                     else
                         return true;
                 case StatCheckType.Vitality:
-                    if (statCheckNodeData.statCheckValue >= playerStats.Vitality.BaseValue)
+                    if (statCheckNodeData.StatCheckValue >= playerStats.Vitality.BaseValue)
                         return false;
                     else
                         return true;
                 case StatCheckType.Luck:
-                    if (statCheckNodeData.statCheckValue >= playerStats.Luck.BaseValue)
+                    if (statCheckNodeData.StatCheckValue >= playerStats.Luck.BaseValue)
                         return false;
                     else
                         return true;
                 default:
                     return false;
-            }
-        }
-
-        public PlayerStats PlayerStats
-        {
-            get
-            {
-                return playerStats;
             }
         }
     }

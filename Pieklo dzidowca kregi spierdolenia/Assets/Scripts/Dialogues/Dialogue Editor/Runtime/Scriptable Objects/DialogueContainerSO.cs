@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using jbzdy.Items;
+using UnityEngine;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
 using jbzdy.DialogueSystem.Enums;
@@ -22,6 +23,8 @@ namespace jbzdy.DialogueSystem.SO
         public List<StartNodeData> StartNodeDatas = new List<StartNodeData>();
         public List<EventNodeData> EventNodeDatas = new List<EventNodeData>();
         public List<StatCheckNodeData> StatCheckNodeDatas = new List<StatCheckNodeData>();
+        public List<ItemCheckNodeData> ItemCheckNodeDatas = new List<ItemCheckNodeData>();
+
         public List<BaseNodeData> AllNodes
         {
             get
@@ -32,6 +35,7 @@ namespace jbzdy.DialogueSystem.SO
                 tmp.AddRange(StartNodeDatas);
                 tmp.AddRange(EventNodeDatas);
                 tmp.AddRange(StatCheckNodeDatas);
+                tmp.AddRange(ItemCheckNodeDatas);
 
                 return tmp;
             }
@@ -82,10 +86,18 @@ namespace jbzdy.DialogueSystem.SO
     }
 
     [System.Serializable]
+    public class ItemCheckNodeData : BaseNodeData
+    {
+        public ItemCheckNodeType ItemNodeType;
+        public int ItemCheckValue;
+        public Item NodeItem;
+    }
+
+    [System.Serializable]
     public class StatCheckNodeData : BaseNodeData
     {
-        public StatCheckType statCheckType;
-        public int statCheckValue;
+        public StatCheckType StatCheckType;
+        public int StatCheckValue;
     }
 
     [System.Serializable]

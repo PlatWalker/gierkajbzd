@@ -89,7 +89,7 @@ namespace jbzdy.DialogueSystem.Actions
         {
             statCheckNodeDatas.Add(nodeData);
 
-            Debug.Log(nodeData.statCheckType + " | " + nodeData.statCheckValue);
+            Debug.Log(nodeData.StatCheckType + " | " + nodeData.StatCheckValue);
             CheckNodeType(GetNextNode(nodeData));
         }
 
