@@ -9,7 +9,6 @@ namespace jbzdy.NPC.Interaction
         public override void Interact()
         {
             NPCInterract();
-            Debug.Log("lol");
         }
 
         private void NPCInterract()

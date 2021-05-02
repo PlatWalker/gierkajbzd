@@ -47,7 +47,8 @@ namespace jbzdy.DialogueSystem.Actions
 
         private List<Button> buttons = new List<Button>();
         private List<TMP_Text> buttonsTexts = new List<TMP_Text>();
-        private int nodeCount = 0;
+        private int itemCheckNodeCount = 0;
+        private int statCheckNodeCount = 0;
 
         private void Awake()
         {
@@ -140,18 +141,7 @@ namespace jbzdy.DialogueSystem.Actions
                     buttons[i].onClick.AddListener(itemCheck);
                 }
 
-                nodeCount = itemCheckNodeDatas.Count;
-            }
-
-            //zostawiam to narazie ale poki co to dziala bez tego po co to wgl?????
-            { 
-            //for (int i = itemCheckNodeDatas.Count; i < texts.Count; i++)
-            //{
-            //    buttonsTexts[i].text = texts[i];
-            //    buttons[i].gameObject.SetActive(true);
-            //    buttons[i].onClick = new Button.ButtonClickedEvent();
-            //    buttons[i].onClick.AddListener(unityActions[i]);
-            //}
+                itemCheckNodeCount = itemCheckNodeDatas.Count;
             }
 
             if (statCheckNodeDatas.Count > 0)
@@ -160,30 +150,30 @@ namespace jbzdy.DialogueSystem.Actions
                 {
                     int playerValue = AddStatCheckPlayerValues(statCheckNodeDatas[i]);
 
-                    buttonsTexts[i + nodeCount].text = "[" + statCheckNodeDatas[i].StatCheckType + " " + playerValue + "/" + statCheckNodeDatas[i].StatCheckValue + "] " + texts[i + nodeCount];
-                    buttons[i + nodeCount].gameObject.SetActive(true);
-                    buttons[i + nodeCount].onClick = new Button.ButtonClickedEvent();
+                    buttonsTexts[i + itemCheckNodeCount].text = "[" + statCheckNodeDatas[i].StatCheckType + " " + playerValue + "/" + statCheckNodeDatas[i].StatCheckValue + "] " + texts[i + itemCheckNodeCount];
+                    buttons[i + itemCheckNodeCount].gameObject.SetActive(true);
+                    buttons[i + itemCheckNodeCount].onClick = new Button.ButtonClickedEvent();
 
                     if (HasPassedStatCheck(statCheckNodeDatas[i]))
                     {
-                        buttons[i + nodeCount].onClick.AddListener(unityActions[i]);
+                        buttons[i + itemCheckNodeCount].onClick.AddListener(unityActions[i]);
                     }
                     else
                     {
-                        buttons[i + nodeCount].onClick.AddListener(statCheck);
+                        buttons[i + itemCheckNodeCount].onClick.AddListener(statCheck);
                     }
                 }
+
+                statCheckNodeCount = statCheckNodeDatas.Count;
             }
 
-            //zostawiam to narazie ale poki co to dziala bez tego po co to wgl?????
+
+            for (int i = statCheckNodeDatas.Count; i < texts.Count; i++)
             {
-                //for (int i = statCheckNodeDatas.Count; i < texts.Count; i++)
-                //{
-                //    buttonsTexts[i + nodeCount].text = texts[i];
-                //    buttons[i + nodeCount].gameObject.SetActive(true);
-                //    buttons[i + nodeCount].onClick = new Button.ButtonClickedEvent();
-                //    buttons[i + nodeCount].onClick.AddListener(unityActions[i]);
-                //}
+                buttonsTexts[i].text = texts[i];
+                buttons[i].gameObject.SetActive(true);
+                buttons[i].onClick = new Button.ButtonClickedEvent();
+                buttons[i].onClick.AddListener(unityActions[i]);
             }
         }
 
