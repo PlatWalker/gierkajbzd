@@ -24,6 +24,7 @@ namespace jbzdy.DialogueSystem.Nodes
         {
             Port outputPort = GetPortInstance(Direction.Output, capacity);
             outputPort.portName = name;
+
             outputContainer.Add(outputPort);
         }
 
@@ -31,6 +32,7 @@ namespace jbzdy.DialogueSystem.Nodes
         {
             Port inputPort = GetPortInstance(Direction.Input, capacity);
             inputPort.portName = name;
+
             inputContainer.Add(inputPort);
         }
 

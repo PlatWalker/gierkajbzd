@@ -20,8 +20,8 @@ namespace jbzdy.DialogueSystem.Nodes
         private TextField itemCheckValueField;
 
         public Item NodeItem { get => nodeItem; set => nodeItem = value; }
-        public ItemCheckNodeType ItemCheckNodeType { get => itemCheckType; set => itemCheckType = value; }
         public string ItemCheckValue { get => itemCheckValue; set => itemCheckValue = value; }
+        public ItemCheckNodeType ItemCheckNodeType { get => itemCheckType; set => itemCheckType = value; }
 
         public ItemCheckNode()
         {

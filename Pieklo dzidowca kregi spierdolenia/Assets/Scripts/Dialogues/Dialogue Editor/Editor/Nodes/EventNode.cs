@@ -49,6 +49,7 @@ namespace jbzdy.DialogueSystem.Nodes
             {
                 dialogueEvent = objectField.value as DialogueEventSO;
             });
+
             objectField.SetValueWithoutNotify(dialogueEvent);
             mainContainer.Add(objectField);
         }

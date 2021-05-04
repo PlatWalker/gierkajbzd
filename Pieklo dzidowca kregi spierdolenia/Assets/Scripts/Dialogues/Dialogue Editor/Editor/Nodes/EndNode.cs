@@ -10,8 +10,8 @@ namespace jbzdy.DialogueSystem.Nodes
 {
     public class EndNode : BaseNode
     {
-        private EndNodeType endNodeType = EndNodeType.End;
         private EnumField enumField;
+        private EndNodeType endNodeType = EndNodeType.End;
 
         public EndNodeType EndNodeType { get => endNodeType; set => endNodeType = value; }
 

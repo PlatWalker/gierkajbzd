@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -43,8 +42,8 @@ namespace jbzdy.DialogueSystem.SaveLoad
         private void SaveEdges(DialogueContainerSO dialogueContainerSO)
         {
             dialogueContainerSO.NodeLinkDatas.Clear();
-
             Edge[] connectedEdges = edges.Where(edge => edge.input.node != null).ToArray();
+            
             for (int i = 0; i < connectedEdges.Count(); i++)
             {
                 BaseNode outputNode = (BaseNode)connectedEdges[i].output.node;
@@ -71,9 +70,6 @@ namespace jbzdy.DialogueSystem.SaveLoad
             {
                 switch (node)
                 {
-                    case DialogueNode dialogueNode:
-                        dialogueContainerSO.DialogueNodeDatas.Add(SaveNodeData(dialogueNode));
-                        break;
                     case StartNode startNode:
                         dialogueContainerSO.StartNodeDatas.Add(SaveNodeData(startNode));
                         break;
@@ -82,6 +78,9 @@ namespace jbzdy.DialogueSystem.SaveLoad
                         break;
                     case EventNode eventNode:
                         dialogueContainerSO.EventNodeDatas.Add(SaveNodeData(eventNode));
+                        break;
+                    case DialogueNode dialogueNode:
+                        dialogueContainerSO.DialogueNodeDatas.Add(SaveNodeData(dialogueNode));
                         break;
                     case StatCheckNode statCheckNode:
                         dialogueContainerSO.StatCheckNodeDatas.Add(SaveNodeData(statCheckNode));
@@ -331,6 +330,7 @@ namespace jbzdy.DialogueSystem.SaveLoad
                 output = outputPort,
                 input = inputPort
             };
+
             tempEdge.input.Connect(tempEdge);
             tempEdge.output.Connect(tempEdge);
             graphView.Add(tempEdge);
