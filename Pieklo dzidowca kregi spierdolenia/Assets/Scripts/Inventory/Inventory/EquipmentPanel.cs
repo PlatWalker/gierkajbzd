@@ -19,10 +19,6 @@ namespace jbzdy.Inventory
         private Item lastItem;  
         
         public ItemTypes allowedItemType;
-
-        [Header("Using ids ignore allowedItemType. Only specified id items will be equiped")]
-        public int[] allowedIds;
-
         public Item LastItem { get => lastItem; set => lastItem = value; }
 
         private void Update()

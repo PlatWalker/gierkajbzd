@@ -115,7 +115,7 @@ namespace jbzdy.Inventory
         /// <summary>
         /// All inventory slots which used for grid functionality
         /// </summary>
-        [HideInInspector] public List<GridSlot> slots;
+         public List<GridSlot> slots;
 
         /// <summary>
         /// Cell color when in normal state
@@ -221,10 +221,8 @@ namespace jbzdy.Inventory
 
         void Awake()
         {
-            //We need to keep canvas enabled on start. It will turn off after initialization with InventoryManager
             GetComponentInParent<Canvas>().enabled = true;
 
-            //Initialization of inventory grid 
             Initialize();
 
             if (Instance == null)
@@ -238,12 +236,11 @@ namespace jbzdy.Inventory
         /// </summary>
         public void ClearPreview()
         {
-            //Slots which you can see on the screen in edit mode are just previews. We need to delete them and create real instances of the cells.
             if (GetComponents<GridSlot>() != null)
             {
                 foreach (var previewSlot in FindObjectsOfType<GridSlot>())
                 {
-                    if(previewSlot.gameObject.name != "Utility object (Don't delete!)")
+                    if(previewSlot.gameObject.name != "Utility object")
                         DestroyImmediate(previewSlot.gameObject);
                 }
             }
@@ -469,7 +466,7 @@ namespace jbzdy.Inventory
                         }
                     }
                 }
-
+                
                 OnInventoryItemAdd.Invoke();
 
                 return true;
@@ -591,7 +588,10 @@ namespace jbzdy.Inventory
                         var slot = FindSlotByIndex(i, j);
                         slot.free = isFree;
 
-                        if (slot.free) slot.image.color = normalCellColor; else slot.image.color = hoveredCellColor;
+                        if (slot.free) 
+                            slot.image.color = normalCellColor; 
+                        else 
+                            slot.image.color = hoveredCellColor;
                     }
                 }
             }

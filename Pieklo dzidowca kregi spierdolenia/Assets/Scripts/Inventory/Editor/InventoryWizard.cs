@@ -109,7 +109,6 @@ namespace jbzdy.Inventory.Editors
 
                     obj.name = "Inventory Canvas";
 
-
                     var cellHolder = Instantiate(new GameObject());
                     cellHolder.transform.SetParent(obj.transform);
                     cellHolder.name = "Inventory";
@@ -132,7 +131,6 @@ namespace jbzdy.Inventory.Editors
                     inventory.normalCellColor = normalCellColor;
                     inventory.blockedCellColor = blockedCellCover;
                     inventory.hoveredCellColor = hoveredCellColor;
-
 
                     var imgObj = Instantiate(new GameObject());
                     imgObj.AddComponent<Image>().sprite = CellImage;
@@ -308,7 +306,7 @@ namespace jbzdy.Inventory.Editors
                                     }
                                 case ItemTypes.Trinket:
                                     {
-                                        TrinkedEquipmentPanel trinketPanel = cellHolder.AddComponent<TrinkedEquipmentPanel>();
+                                        TrinketEquipmentPanel trinketPanel = cellHolder.AddComponent<TrinketEquipmentPanel>();
 
                                         trinketPanel.allowedItemType = equipmentPanelType[i];
                                         trinketPanel.allowedItemType = equipmentPanelType[i];

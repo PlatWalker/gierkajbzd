@@ -9,10 +9,8 @@ using jbzdy.Items.Enums;
 /// </summary>
 namespace jbzdy.Inventory
 {
-    public class TrinkedEquipmentPanel : EquipmentPanel
+    public class TrinketEquipmentPanel : EquipmentPanel
     {
-        public WeaponTypes allowedWeaponType;
-
         private void Update()
         {
             if (equipedItem != null && LastItem == null)

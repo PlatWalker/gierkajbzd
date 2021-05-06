@@ -13,10 +13,8 @@ namespace jbzdy.Inventory
         /// <summary>
         /// Is this slot free
         /// </summary>
-        [HideInInspector]
         public bool free;
 
-        //Slot coordinates in inventory grid 
         [HideInInspector]
         public int x, y;
         
