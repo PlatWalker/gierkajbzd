@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace jbzdy.Inventory.Database 
 {
-
     public class AssetsDatabase : MonoBehaviour
     {
         public List<GameObject> items;

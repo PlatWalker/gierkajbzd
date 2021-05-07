@@ -19,23 +19,7 @@ namespace jbzdy.CharacterStats
 
         private void Start()
         {
-            EquipmentManager.instance.onEquipmentChange += OnEquipmentChanged;
             AddModifiableStats();
-        }
-
-        void OnEquipmentChanged (EquipableItem itemToEquip, EquipableItem oldItem)
-        {
-            if(itemToEquip != null)
-            {
-                Armor.AddModifier(itemToEquip.armorModifier);
-                Damage.AddModifier(itemToEquip.damageModifier);
-            }
-
-            if (oldItem != null)
-            {
-                Armor.RemoveModifier(itemToEquip.armorModifier);
-                Damage.RemoveModifier(itemToEquip.damageModifier);
-            }
         }
 
         private void Update()

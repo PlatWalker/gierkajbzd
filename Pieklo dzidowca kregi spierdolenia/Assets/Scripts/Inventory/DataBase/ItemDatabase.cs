@@ -4,20 +4,19 @@ using System.Collections.Generic;
 
 namespace jbzdy.Inventory.Database
 {
-
     [CreateAssetMenu(fileName = "New items database")]
     public class ItemDatabase : ScriptableObject
     {
         public string databaseName;
         public List<Item> items;
 
-        public void ScanProjectItems(List<Item> _items)
+        public void ScanProjectItems(List<Item> items)
         {
-            items.Clear();
+            this.items.Clear();
             
-            foreach(var item in _items)
+            foreach(var item in items)
             {
-                items.Add(item);
+                this.items.Add(item);
             }
         }
 
@@ -31,6 +30,5 @@ namespace jbzdy.Inventory.Database
 
             return null;
         }
-
     }
 }

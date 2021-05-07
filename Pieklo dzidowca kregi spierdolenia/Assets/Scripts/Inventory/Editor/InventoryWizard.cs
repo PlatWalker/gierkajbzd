@@ -365,6 +365,5 @@ namespace jbzdy.Inventory.Editors
 
             DestroyImmediate(garbage);
         }
-
     }
 }
