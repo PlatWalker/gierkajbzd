@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using jbzdy.Actions.Interaction;
+﻿using jbzdy.Actions.Interaction;
 using jbzdy.DialogueSystem.Actions;
 
 namespace jbzdy.NPC.Interaction
@@ -8,12 +7,12 @@ namespace jbzdy.NPC.Interaction
     {
         public override void Interact()
         {
-            NPCInterract();
+            GetComponent<DialogueTalk>().StartDialogue();
         }
 
-        private void NPCInterract()
+        public override void StopInteract()
         {
-            GetComponent<DialogueTalk>().StartDialogue();
+            GetComponent<DialogueTalk>().EndDialogue();
         }
     }
 }

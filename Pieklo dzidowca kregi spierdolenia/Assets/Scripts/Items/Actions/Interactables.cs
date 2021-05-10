@@ -10,6 +10,7 @@ namespace jbzdy.Actions.Interaction
     public class Interactables : MonoBehaviour
     {
         [SerializeField] private InteractionZone interactionZone;
+        [SerializeField] private bool isInteracting;
 
         public InteractionZone InteractionZone { get => interactionZone; set => interactionZone = value; }
 
@@ -24,12 +25,23 @@ namespace jbzdy.Actions.Interaction
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
+                    isInteracting = true;
                     Interact();
                 }
+            }
+            else if(!interactionZone.IsInRange && isInteracting)
+            {
+                isInteracting = false;
+                StopInteract();
             }
         }
 
         public virtual void Interact()
+        {
+
+        }
+
+        public virtual void StopInteract()
         {
 
         }

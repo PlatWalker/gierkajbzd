@@ -4,6 +4,7 @@ namespace jbzdy.Actions.Interaction
 {
     public class InteractionZone : MonoBehaviour
     {
+        [SerializeField]
         private bool isInRange;
 
         public bool IsInRange { get => isInRange; set => isInRange = value; }

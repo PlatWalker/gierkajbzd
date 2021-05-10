@@ -168,7 +168,7 @@ namespace jbzdy.DialogueSystem.Actions
             }
 
 
-            for (int i = statCheckNodeDatas.Count; i < texts.Count; i++)
+            for (int i = statCheckNodeDatas.Count + itemCheckNodeDatas.Count; i < texts.Count; i++)
             {
                 buttonsTexts[i].text = texts[i];
                 buttons[i].gameObject.SetActive(true);
