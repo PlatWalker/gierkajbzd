@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Napisane przez sharashino
-/// 
-/// 
-/// </summary>
+// <summary>
+// Napisane przez sharashino
+// 
+// 
+// </summary>
 namespace jbzdy.StatCreation
 {
     public class StatBox : MonoBehaviour
     {
-        [SerializeField] private int _statValue = default;
-        [SerializeField] private Text _statName = default;
-        [SerializeField] private Text _statValueText = default;
+        [SerializeField] private int statValue = default;
+        [SerializeField] private Text statName = default;
+        [SerializeField] private Text statValueText = default;
         [SerializeField] private GameObject addValueButton = default;
         [SerializeField] private GameObject subtractValueButton = default;
         [SerializeField] private StatCreator statCreator = default;
@@ -23,11 +23,11 @@ namespace jbzdy.StatCreation
         {
             get
             {
-                return _statValue;
+                return statValue;
             }
             set
             {
-                _statValue = value;
+                statValue = value;
             }
         }
 
@@ -35,11 +35,11 @@ namespace jbzdy.StatCreation
         {
             get
             {
-                return _statName;
+                return statName;
             }
             set
             {
-                _statName.text = value.ToString();
+                statName.text = value.ToString();
             }
         }
 
@@ -47,11 +47,11 @@ namespace jbzdy.StatCreation
         {
             get
             {
-                return _statValueText;
+                return statValueText;
             }
             set
             {
-                _statValueText.text = value.ToString();
+                statValueText.text = value.ToString();
             }
         }
 
@@ -78,24 +78,24 @@ namespace jbzdy.StatCreation
 
         public void AddStatValue()
         {
-            _statValue += 1;
+            statValue += 1;
             statCreator.SubtractPointsToAdd(1);
 
-            _statValueText.text = _statValue.ToString();
+            statValueText.text = statValue.ToString();
         }
 
         public void SubtractStatValue()
         {
-            _statValue -= 1;
+            statValue -= 1;
             statCreator.AddPointsToAdd(1);
 
-            if(_statValue <= 0)
+            if(statValue <= 0)
             {
-                _statValue = 0;
-                _statValueText.text = _statValue.ToString();
+                statValue = 0;
+                statValueText.text = statValue.ToString();
             }
 
-            _statValueText.text = _statValue.ToString();
+            statValueText.text = statValue.ToString();
         }
     }
 }

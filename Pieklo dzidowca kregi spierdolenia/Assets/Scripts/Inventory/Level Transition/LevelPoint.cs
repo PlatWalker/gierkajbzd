@@ -14,7 +14,7 @@ namespace jbzdy.Inventory
             myTransform = transform;
 
             if(movePlayerHereOnSceneEnter)
-            GameObject.FindGameObjectWithTag("Player").transform.position = myTransform.position;
+                GameObject.FindGameObjectWithTag("Player").transform.position = myTransform.position;
 
             FindObjectOfType<InventoryClass>().levelPoint = transform;
 

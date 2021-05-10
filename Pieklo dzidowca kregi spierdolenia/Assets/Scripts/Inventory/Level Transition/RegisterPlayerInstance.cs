@@ -2,7 +2,6 @@
 
 namespace jbzdy.Inventory.SaveLoad
 {
-    
     public class RegisterPlayerInstance : MonoBehaviour
     {
         private void Start()
@@ -16,6 +15,6 @@ namespace jbzdy.Inventory.SaveLoad
                 print("Destroy player duplicate. Player instance already exists");
                 Destroy(gameObject);
             }
-    }
+        }
     }
 }

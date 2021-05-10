@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// Napisane przez Sharashino
-/// 
-/// Główna klasa rzeczy z którymi możemy wchodzić w interakcję, obecnie przyciskiem E (Sklepy, skrzynie, lootowanie, interakcja z postaciami)
-/// </summary>
+// <summary>
+// Napisane przez Sharashino
+// 
+// Główna klasa rzeczy z którymi możemy wchodzić w interakcję, obecnie przyciskiem E (Sklepy, skrzynie, lootowanie, interakcja z postaciami)
+// </summary>
 namespace jbzdy.Actions.Interaction
 {
-    public class Interactables : MonoBehaviour
+    public class Interactable : MonoBehaviour
     {
         [SerializeField] private InteractionZone interactionZone;
         [SerializeField] private bool isInteracting;

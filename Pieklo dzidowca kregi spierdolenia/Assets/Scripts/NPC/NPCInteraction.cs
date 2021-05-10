@@ -1,18 +1,26 @@
 ﻿using jbzdy.Actions.Interaction;
 using jbzdy.DialogueSystem.Actions;
+using UnityEngine;
 
 namespace jbzdy.NPC.Interaction
 {
-    public class NPCInteraction : Interactables
+    public class NPCInteraction : Interactable
     {
+        private DialogueTalk dialogueTalk;
+
+        private new void Awake()
+        {
+            dialogueTalk = GetComponent<DialogueTalk>();
+        }
+
         public override void Interact()
         {
-            GetComponent<DialogueTalk>().StartDialogue();
+            dialogueTalk.StartDialogue();
         }
 
         public override void StopInteract()
         {
-            GetComponent<DialogueTalk>().EndDialogue();
+            dialogueTalk.EndDialogue();
         }
     }
 }

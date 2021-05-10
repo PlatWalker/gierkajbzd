@@ -9,9 +9,9 @@ namespace jbzdy.Inventory.SaveLoad
 {
     public class InventoryData
     {
-        public string[] itemNames;
-        public int[] stackSize;
-        public Vector2[] itemGridPos;
+        public readonly string[] itemNames;
+        public readonly int[] stackSize;
+        public readonly Vector2[] itemGridPos;
 
         public InventoryData(string[] itemNames, int[] stackSize, Vector2[] itemGridPos)
         {
@@ -50,7 +50,7 @@ namespace jbzdy.Inventory.SaveLoad
         {
             if (loadDataTrigger)
             {
-                print("Attemp to load player save");
+                print("Attempt to load player save");
                 Load();
                 loadDataTrigger = false;
             }

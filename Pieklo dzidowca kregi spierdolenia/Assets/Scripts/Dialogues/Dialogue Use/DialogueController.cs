@@ -194,7 +194,7 @@ namespace jbzdy.DialogueSystem.Actions
                 case StatCheckType.Damage:
                     return playerStats.Damage.BaseValue;
                 case StatCheckType.Strenght:
-                    return playerStats.Strenght.BaseValue;
+                    return playerStats.Strength.BaseValue;
                 case StatCheckType.Agility:
                     return playerStats.Agility.BaseValue;
                 case StatCheckType.Intelligence:
@@ -265,7 +265,7 @@ namespace jbzdy.DialogueSystem.Actions
                     else
                         return true;
                 case StatCheckType.Strenght:
-                    if (statCheckNodeData.StatCheckValue >= playerStats.Strenght.BaseValue)
+                    if (statCheckNodeData.StatCheckValue >= playerStats.Strength.BaseValue)
                         return false;
                     else
                         return true;
