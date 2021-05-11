@@ -24,6 +24,14 @@ public abstract class EnemyController : MonoBehaviour, IDamageable
 
     public virtual int CurrentHealth { get; protected set; }
     public virtual Vector3 SpawnPoint { get; protected set; }
+    public virtual int GetHealthPercentage
+    {
+        get
+        {
+            return (int)(((float)CurrentHealth / EnemyData.MaxHealth)*100);
+        }
+        
+    }
     protected  EasyAnimatorController easyAnimator;
     private float animationPlayPreviousSpeed = 0f;
 
@@ -91,14 +99,7 @@ public abstract class EnemyController : MonoBehaviour, IDamageable
         }
     }
 
-    /// <summary>
-    /// Method created for HealthBars.
-    /// </summary>
-    /// <returns>Current health in range 0f-1f</returns>
-    public virtual float GetHealthPercentage()
-    {
-        return (float)CurrentHealth / EnemyData.MaxHealth;
-    }
+   
 
     /// <summary>
     /// Method to handle receiving damage with type of this damage. 

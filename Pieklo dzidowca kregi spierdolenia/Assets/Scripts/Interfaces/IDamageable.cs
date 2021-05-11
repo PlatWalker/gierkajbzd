@@ -5,7 +5,7 @@
 
 public interface IDamageable
 {
-    float GetHealthPercentage();
+    int GetHealthPercentage { get; }
 
     void SetDamage(int damageAmount, DamageType damageType);
 

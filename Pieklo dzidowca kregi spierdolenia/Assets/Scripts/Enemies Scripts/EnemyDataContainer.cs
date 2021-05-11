@@ -96,14 +96,15 @@ public class EnemyDataContainer : ScriptableObject
             }
             else
             {
-                _mainCharacterTransform = GameObject.Find("Malpa (1)").transform;
+                
+                _mainCharacterTransform = GameObject.FindGameObjectWithTag("Player").transform;
                 if (_mainCharacterTransform)
                 {
                     return _mainCharacterTransform;
                 }
                 else
                 {
-                    Debug.Log("Cannot find istance of \"MainChar\" and enemy do not know where to go");
+                    Debug.Log("Cannot find object with tag \"Player\" and enemy do not know where to go");
                     return null;
                 }
             }
@@ -154,7 +155,8 @@ public class EnemyDataContainer : ScriptableObject
 
     private void OnEnable()
     {
-        GameObject gameObject = GameObject.Find("Malpa (1)");
+        //To be removed when can get instance from game manager
+        GameObject gameObject = GameObject.FindGameObjectWithTag("Player");
         if (gameObject)
         {
             _mainCharacterTransform = gameObject.transform;
