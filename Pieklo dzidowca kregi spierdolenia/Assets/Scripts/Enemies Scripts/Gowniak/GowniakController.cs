@@ -73,7 +73,6 @@ public class GowniakController : EnemyController
                 {
                     easyAnimator.SetBooleanTrue("Attack");
                     float clipTime = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime;
-                    Debug.Log(clipTime);
                     if (clipTime%1 < 0.2f)
                     {
                         LHCollider.DamageDealed = false;

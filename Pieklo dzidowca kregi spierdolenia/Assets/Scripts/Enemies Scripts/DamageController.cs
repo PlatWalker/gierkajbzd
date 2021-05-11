@@ -28,15 +28,25 @@ public class DamageController : MonoBehaviour
 
     public void OnTriggerEnter(Collider collision)
     {
+        DealDamage(collision);
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+
+        DealDamage(collision.collider);
+    }
+
+    private void DealDamage(Collider collision)
+    {
         if (DamageDealed) return;
         IDamageable hittenObjectScript;
         if (collision.gameObject.TryGetComponent<IDamageable>(out hittenObjectScript))
         {
             if (collision.transform.tag == "Enemy") return;
             //Debug.Log("hit made by: " + transform.name);
-            hittenObjectScript.SetDamage(damage, damageType,criticalMultiplier,criticalChance);
+            hittenObjectScript.SetDamage(damage, damageType, criticalMultiplier, criticalChance);
             DamageDealed = true;
         }
     }
-  
 }
