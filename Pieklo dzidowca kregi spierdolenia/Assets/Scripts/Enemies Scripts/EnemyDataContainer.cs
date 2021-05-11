@@ -97,9 +97,10 @@ public class EnemyDataContainer : ScriptableObject
             else
             {
                 
-                _mainCharacterTransform = GameObject.FindGameObjectWithTag("Player").transform;
-                if (_mainCharacterTransform)
+                GameObject temp = GameObject.FindGameObjectWithTag("Player");
+                if (temp)
                 {
+                    _mainCharacterTransform = temp.transform;
                     return _mainCharacterTransform;
                 }
                 else
