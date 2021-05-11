@@ -3,15 +3,17 @@
 ///</summary>
 
 using UnityEngine;
-
-public class AggroController : StateMachineBehaviour
+namespace jbzdy.Enemies
 {
-    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public class AggroController : StateMachineBehaviour
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.99 && animator.GetCurrentAnimatorStateInfo(0).IsName("Armature|Aggro"))
+        // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
+        override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            DoomerController.HasDoneAggro = true;
+            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.99 && animator.GetCurrentAnimatorStateInfo(0).IsName("Armature|Aggro"))
+            {
+                DoomerController.HasDoneAggro = true;
+            }
         }
     }
 }

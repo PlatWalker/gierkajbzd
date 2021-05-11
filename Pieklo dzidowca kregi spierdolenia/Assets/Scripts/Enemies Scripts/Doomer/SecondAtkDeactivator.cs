@@ -4,15 +4,17 @@
 
 
 using UnityEngine;
-
-public class SecondAtkDeactivator : StateMachineBehaviour
+namespace jbzdy.Enemies
 {
-
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public class SecondAtkDeactivator : StateMachineBehaviour
     {
-        animator.SetBool("shouldUseSecondAtk", false);
-        animator.SetInteger("atkCounter", 0);
-    }
 
+        // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
+        override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            animator.SetBool("shouldUseSecondAtk", false);
+            animator.SetInteger("atkCounter", 0);
+        }
+
+    }
 }
