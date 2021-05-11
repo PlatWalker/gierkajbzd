@@ -50,10 +50,6 @@ namespace jbzdy.Enemies
             {
                 case GowniakState.Aggro:
                     {
-				case GowniakState.Attack:
-					{
-						easyAnimator.SetBooleanTrue("Attack");
-                  
                         MultiUseTimer += Time.deltaTime;
                         easyAnimator.SetBooleanTrue("Aggro");
 

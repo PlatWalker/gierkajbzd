@@ -100,22 +100,24 @@ namespace jbzdy.Enemies
 							{
 								RHCollider.DamageDealed = false;
 							}
-							if(animatorStateInfo.normalizedTime % 1 > 0.2 && animatorStateInfo.normalizedTime % 1 < 0.3)
+							if (animatorStateInfo.normalizedTime % 1 > 0.2 && animatorStateInfo.normalizedTime % 1 < 0.3)
 							{
 								LHCollider.DamageDealed = false;
 							}
 						}
-						else if(animatorStateInfo.IsName("Armature|Atk_1"))//long attack animation
+						else if (animatorStateInfo.IsName("Armature|Atk_1"))//long attack animation
 						{
 
 							if (animatorStateInfo.normalizedTime < 0.1)
 							{
 								RHCollider.DamageDealed = false;
-							}else if((animatorStateInfo.normalizedTime > 0.3 && animatorStateInfo.normalizedTime < 0.5) || (animatorStateInfo.normalizedTime > 0.75 && animatorStateInfo.normalizedTime < 0.8))
+							}
+							else if ((animatorStateInfo.normalizedTime > 0.3 && animatorStateInfo.normalizedTime < 0.5) || (animatorStateInfo.normalizedTime > 0.75 && animatorStateInfo.normalizedTime < 0.8))
 							{
 								LHCollider.DamageDealed = false;
 								RHCollider.DamageDealed = false;
-							}else if(animatorStateInfo.normalizedTime>0.8 && animatorStateInfo.normalizedTime < 0.9)
+							}
+							else if (animatorStateInfo.normalizedTime > 0.8 && animatorStateInfo.normalizedTime < 0.9)
 							{
 								LHCollider.DamageDealed = false;
 								RHCollider.DamageDealed = false;
@@ -130,10 +132,6 @@ namespace jbzdy.Enemies
 								RHCollider.DamageDealed = false;
 							}
 						}
-                    
-                    if (!updateLogicFrame) break;
-
-                    if (distanceToMainChar > EnemyData.AttackRadius)
 						
                         if (!updateLogicFrame) break;
 
@@ -173,6 +171,7 @@ namespace jbzdy.Enemies
 							LHCollider.DamageDealed = false;
 							
 							if (distanceToMainChar <= EnemyData.AttackRadius)
+							{ 
                                 currentState = DoomerState.Attack;
                             }
                             else
