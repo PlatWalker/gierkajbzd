@@ -26,4 +26,12 @@ public class DialogueGetData : MonoBehaviour
 
         return GetNodeByGuid(nodeLinkData.TargetNodeGuid);
     }
+
+    protected BaseNodeData GetEarlierNode(BaseNodeData baseNodeData)
+    {
+        NodeLinkData nodeLinkData = dialogue.NodeLinkDatas.Find(edge => baseNodeData.NodeGuid == edge.BaseNodeGuid);
+
+        return GetNodeByGuid(nodeLinkData.TargetNodeGuid);
+    }
+    
 }

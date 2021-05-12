@@ -3,12 +3,13 @@ using UnityEngine.Events;
 using jbzdy.DialogueSystem.SO;
 using jbzdy.DialogueSystem.Enums;
 using System.Collections.Generic;
+using System.Linq;
 
-/// <summary>
-/// Napisane przez sharashino
-/// 
-/// Skrypt odpowiadający za odczytywanie danych z ScriptableObjectu i wrzucanie ich do okna z dialogiem (DialogueController)
-/// </summary>
+// <summary>
+// Napisane przez sharashino
+// 
+// Skrypt odpowiadający za odczytywanie danych z ScriptableObjectu i wrzucanie ich do okna z dialogiem (DialogueController)
+// </summary>
 namespace jbzdy.DialogueSystem.Actions
 {
     public class DialogueTalk : DialogueGetData
@@ -34,7 +35,8 @@ namespace jbzdy.DialogueSystem.Actions
             if(isTalking != true)
             {
                 isTalking = true;
-                CheckNodeType(GetNextNode(dialogue.StartNodeDatas[0]));
+                print(dialogue.StartNodeDatas.Count);
+                RunNode(dialogue.StartNodeDatas.FirstOrDefault());
                 dialogueControler.ShowDialogueUI(true);
             }
         }
@@ -43,7 +45,6 @@ namespace jbzdy.DialogueSystem.Actions
         {
             isTalking = false;
             dialogueControler.ShowDialogueUI(false);
-            GetNodeByGuid(dialogue.EndNodeDatas[0].NodeGuid);
         }
 
         private void CheckNodeType(BaseNodeData baseNodeData)
@@ -72,7 +73,7 @@ namespace jbzdy.DialogueSystem.Actions
                     break;
             }
         }
-
+        
         private void RunNode(StartNodeData nodeData)
         {
             CheckNodeType(GetNextNode(dialogue.StartNodeDatas[0]));
@@ -86,8 +87,12 @@ namespace jbzdy.DialogueSystem.Actions
                 currentDialogueNodeData = nodeData;
             }
 
+            print(GetEarlierNode(nodeData));
+            print(GetEarlierNode(GetEarlierNode(nodeData)));
+
             dialogueControler.SetText(nodeData.Name, nodeData.TextLanguages.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType);
             dialogueControler.SetImage(nodeData.Sprite, nodeData.DialogueFaceImageType);
+            
             MakeButtons(nodeData.DialogueNodePorts);
 
             audioSource.clip = nodeData.AudioClips.Find(clip => clip.LanguageType == LanguageController.Instance.Language).LanguageGenericType;
@@ -96,10 +101,7 @@ namespace jbzdy.DialogueSystem.Actions
         
         private void RunNode(EventNodeData nodeData)
         {
-            if (nodeData.DialogueEventSO != null)
-            {
-                nodeData.DialogueEventSO.RunEvent();
-            }
+            nodeData.DialogueEventSO.RunEvent();
 
             CheckNodeType(GetNextNode(nodeData));
         }
@@ -134,8 +136,6 @@ namespace jbzdy.DialogueSystem.Actions
                 case EndNodeType.RetrunToStart:
                     CheckNodeType(GetNextNode(dialogue.StartNodeDatas[0]));
                     break;
-                default:
-                    break;
             }
 
             EndDialogue();
@@ -149,6 +149,7 @@ namespace jbzdy.DialogueSystem.Actions
             foreach (DialogueNodePort nodePort in nodePorts)
             {
                 texts.Add(nodePort.TextLanguages.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType);
+                
                 UnityAction tempAciton = null;
                 tempAciton += () =>
                 {

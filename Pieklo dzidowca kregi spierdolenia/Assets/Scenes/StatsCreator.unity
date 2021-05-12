@@ -1287,6 +1287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionZone: {fileID: 902620066}
+  isInteracting: 0
 --- !u!4 &501850836 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2a9499d0e8a7c85469c6caa41c62932b, type: 3}
@@ -1420,44 +1421,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27a31b6aba12f874aacc2fa4d22d0d49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ExperiencePoints: 0
-  _Level: 0
-  _MaxHealth: 100
-  _Health:
-    _statName: Zdrowie
-    _baseValue: 100
+  experiencePoints: 0
+  level: 0
+  maxHealth: 0
+  health:
+    statName: 
+    baseValue: 0
     modifiers: 
-  _Mana:
-    _statName: Mana
-    _baseValue: 100
+  mana:
+    statName: 
+    baseValue: 0
     modifiers: 
-  _Armor:
-    _statName: Obrona
-    _baseValue: 0
+  armor:
+    statName: 
+    baseValue: 0
     modifiers: 
-  _Damage:
-    _statName: "Obra\u017Cenia"
-    _baseValue: 0
+  damage:
+    statName: 
+    baseValue: 0
     modifiers: 
-  _Strenght:
-    _statName: "Si\u0142a"
-    _baseValue: 2
+  strength:
+    statName: 
+    baseValue: 0
     modifiers: 
-  _Agility:
-    _statName: "Zr\u0119czno\u015B\u0107"
-    _baseValue: 2
+  agility:
+    statName: 
+    baseValue: 0
     modifiers: 
-  _Intelligence:
-    _statName: Inteligencja
-    _baseValue: 1
+  intelligence:
+    statName: 
+    baseValue: 0
     modifiers: 
-  _Vitality:
-    _statName: "Witalno\u015B\u0107"
-    _baseValue: 5
+  vitality:
+    statName: 
+    baseValue: 0
     modifiers: 
-  _Luck:
-    _statName: "Szcz\u0119\u015Bcie"
-    _baseValue: 0
+  luck:
+    statName: 
+    baseValue: 0
     modifiers: 
   experienceManager: {fileID: 146406483}
   modifiableStatsList: []
@@ -5507,8 +5508,8 @@ MonoBehaviour:
   textBox: {fileID: 1075013851}
   leftImage: {fileID: 1414236032}
   leftImageGO: {fileID: 299857452}
-  rigthImage: {fileID: 767834789}
-  rigthImageGO: {fileID: 377792239}
+  rightImage: {fileID: 767834789}
+  rightImageGO: {fileID: 377792239}
   button01: {fileID: 1201470010}
   buttonText01: {fileID: 1201470009}
   button02: {fileID: 2038355673}

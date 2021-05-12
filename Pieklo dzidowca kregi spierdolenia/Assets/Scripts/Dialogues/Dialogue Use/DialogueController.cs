@@ -8,11 +8,11 @@ using jbzdy.DialogueSystem.Enums;
 using System.Collections.Generic;
 using jbzdy.Inventory;
 
-/// <summary>
-/// Napisane przez sharashino
-/// 
-/// Controller odpowiadający za wyświetlanie okna z dialogiem
-/// </summary>
+// <summary>
+// Napisane przez sharashino
+// 
+// Controller odpowiadający za wyświetlanie okna z dialogiem
+// </summary>
 namespace jbzdy.DialogueSystem.Actions
 {
     public class DialogueController : MonoBehaviour
@@ -29,10 +29,10 @@ namespace jbzdy.DialogueSystem.Actions
         [Header("Image")]
         [SerializeField] private Image leftImage = default;
         [SerializeField] private GameObject leftImageGO = default;
-        [SerializeField] private Image rigthImage = default;
-        [SerializeField] private GameObject rigthImageGO = default;
+        [SerializeField] private Image rightImage = default;
+        [SerializeField] private GameObject rightImageGO = default;
 
-        [Header("Butttons")]
+        [Header("Buttons")]
         [SerializeField] private Button button01 = default;
         [SerializeField] private TMP_Text buttonText01 = default;
         [Space]
@@ -56,7 +56,7 @@ namespace jbzdy.DialogueSystem.Actions
             {
                 Instance = this;
             }
-
+            
             ShowDialogueUI(false);
 
             buttons.Add(button01);
@@ -84,20 +84,17 @@ namespace jbzdy.DialogueSystem.Actions
         public void SetImage(Sprite image, DialogueFaceImageType dialogueFaceImageType)
         {
             leftImageGO.SetActive(false);
-            rigthImageGO.SetActive(false);
+            rightImageGO.SetActive(false);
 
-            if (image != null)
+            if (dialogueFaceImageType == DialogueFaceImageType.Left)
             {
-                if (dialogueFaceImageType == DialogueFaceImageType.Left)
-                {
-                    leftImage.sprite = image;
-                    leftImageGO.SetActive(true);
-                }
-                else
-                {
-                    rigthImage.sprite = image;
-                    rigthImageGO.SetActive(true);
-                }
+                leftImage.sprite = image;
+                leftImageGO.SetActive(true);
+            }
+            else
+            {
+                rightImage.sprite = image;
+                rightImageGO.SetActive(true);
             }
         }
 
@@ -116,31 +113,32 @@ namespace jbzdy.DialogueSystem.Actions
             {
                 Debug.Log("Nie dostaniesz itemu");
             };
-
+            
             if (itemCheckNodeDatas.Count > 0)
             {
                 for (int i = 0; i < itemCheckNodeDatas.Count; i++)
                 {
-                    if (itemCheckNodeDatas[i].ItemCheckType == ItemCheckNodeType.GetItem)
+                    switch (itemCheckNodeDatas[i].ItemCheckType)
                     {
-                        if (itemCheckNodeDatas[i].ItemCheckValue > 1)
+                        case ItemCheckNodeType.GetItem when itemCheckNodeDatas[i].ItemCheckValue > 1:
                             buttonsTexts[i].text = "[Otrzymaj " + itemCheckNodeDatas[i].ItemCheckValue + " " + itemCheckNodeDatas[i].NodeItem.itemName + "] " + texts[i];
-                        else
+                            break;
+                        case ItemCheckNodeType.GetItem:
                             buttonsTexts[i].text = "[Otrzymaj " + itemCheckNodeDatas[i].NodeItem.itemName + "] " + texts[i];
-                    }
-                    else if (itemCheckNodeDatas[i].ItemCheckType == ItemCheckNodeType.GiveItem)
-                    {
-                        if (itemCheckNodeDatas[i].ItemCheckValue > 1)
+                            break;
+                        case ItemCheckNodeType.GiveItem when itemCheckNodeDatas[i].ItemCheckValue > 1:
                             buttonsTexts[i].text = "[Oddaj " + itemCheckNodeDatas[i].ItemCheckValue + " " + itemCheckNodeDatas[i].NodeItem.itemName + "] " + texts[i];
-                        else
+                            break;
+                        case ItemCheckNodeType.GiveItem:
                             buttonsTexts[i].text = "[Oddaj " + itemCheckNodeDatas[i].NodeItem.itemName + "] " + texts[i];
+                            break;
                     }
 
                     buttons[i].gameObject.SetActive(true);
                     buttons[i].onClick = new Button.ButtonClickedEvent();
                     buttons[i].onClick.AddListener(itemCheck);
                 }
-
+                
                 itemCheckNodeCount = itemCheckNodeDatas.Count;
             }
 
@@ -230,65 +228,32 @@ namespace jbzdy.DialogueSystem.Actions
             return false;
         }
 
-        public bool HasPassedStatCheck(StatCheckNodeData statCheckNodeData)
+        private bool HasPassedStatCheck(StatCheckNodeData statCheckNodeData)
         {
             switch (statCheckNodeData.StatCheckType)
             {
                 case StatCheckType.Exp:
-                    if (statCheckNodeData.StatCheckValue >= playerStats.ExperiencePoints)
-                        return false;
-                    else
-                        return true;
+                    return statCheckNodeData.StatCheckValue < playerStats.ExperiencePoints;
                 case StatCheckType.Level:
-                    if (statCheckNodeData.StatCheckValue >= playerStats.Level)
-                        return false;
-                    else
-                        return true;
+                    return statCheckNodeData.StatCheckValue < playerStats.Level;
                 case StatCheckType.Health:
-                    if (statCheckNodeData.StatCheckValue >= playerStats.Health.BaseValue)
-                        return false;
-                    else
-                        return true;
+                    return statCheckNodeData.StatCheckValue < playerStats.Health.BaseValue;
                 case StatCheckType.Mana:
-                    if (statCheckNodeData.StatCheckValue >= playerStats.Mana.BaseValue)
-                        return false;
-                    else
-                        return true;
+                    return statCheckNodeData.StatCheckValue < playerStats.Mana.BaseValue;
                 case StatCheckType.Armor:
-                    if (statCheckNodeData.StatCheckValue >= playerStats.Armor.BaseValue)
-                        return false;
-                    else
-                        return true;
+                    return statCheckNodeData.StatCheckValue < playerStats.Armor.BaseValue;
                 case StatCheckType.Damage:
-                    if (statCheckNodeData.StatCheckValue >= playerStats.Damage.BaseValue)
-                        return false;
-                    else
-                        return true;
+                    return statCheckNodeData.StatCheckValue < playerStats.Damage.BaseValue;
                 case StatCheckType.Strenght:
-                    if (statCheckNodeData.StatCheckValue >= playerStats.Strength.BaseValue)
-                        return false;
-                    else
-                        return true;
+                    return statCheckNodeData.StatCheckValue < playerStats.Strength.BaseValue;
                 case StatCheckType.Agility:
-                    if (statCheckNodeData.StatCheckValue >= playerStats.Agility.BaseValue)
-                        return false;
-                    else
-                        return true;
+                    return statCheckNodeData.StatCheckValue < playerStats.Agility.BaseValue;
                 case StatCheckType.Intelligence:
-                    if (statCheckNodeData.StatCheckValue >= playerStats.Intelligence.BaseValue)
-                        return false;
-                    else
-                        return true;
+                    return statCheckNodeData.StatCheckValue < playerStats.Intelligence.BaseValue;
                 case StatCheckType.Vitality:
-                    if (statCheckNodeData.StatCheckValue >= playerStats.Vitality.BaseValue)
-                        return false;
-                    else
-                        return true;
+                    return statCheckNodeData.StatCheckValue < playerStats.Vitality.BaseValue;
                 case StatCheckType.Luck:
-                    if (statCheckNodeData.StatCheckValue >= playerStats.Luck.BaseValue)
-                        return false;
-                    else
-                        return true;
+                    return statCheckNodeData.StatCheckValue < playerStats.Luck.BaseValue;
                 default:
                     return false;
             }

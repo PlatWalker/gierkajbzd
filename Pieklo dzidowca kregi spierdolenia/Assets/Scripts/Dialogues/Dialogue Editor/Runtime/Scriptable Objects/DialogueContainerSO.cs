@@ -29,15 +29,15 @@ namespace jbzdy.DialogueSystem.SO
         {
             get
             {
-                List<BaseNodeData> allNoeds = new List<BaseNodeData>();
-                allNoeds.AddRange(DialogueNodeDatas);
-                allNoeds.AddRange(EndNodeDatas);
-                allNoeds.AddRange(StartNodeDatas);
-                allNoeds.AddRange(EventNodeDatas);
-                allNoeds.AddRange(StatCheckNodeDatas);
-                allNoeds.AddRange(ItemCheckNodeDatas);
+                List<BaseNodeData> allNodes = new List<BaseNodeData>();
+                allNodes.AddRange(DialogueNodeDatas);
+                allNodes.AddRange(EndNodeDatas);
+                allNodes.AddRange(StartNodeDatas);
+                allNodes.AddRange(EventNodeDatas);
+                allNodes.AddRange(StatCheckNodeDatas);
+                allNodes.AddRange(ItemCheckNodeDatas);
 
-                return allNoeds;
+                return allNodes;
             }
         }
     }
