@@ -101,6 +101,13 @@ namespace jbzdy.DialogueSystem.Editor
             return tmp;
         }
 
+        public ItemCheckNode CreateItemCheckNode(Vector2 pos)
+        {
+            ItemCheckNode tmp = new ItemCheckNode(pos, editorWindow, this);
+
+            return tmp;
+        }
+
         public DialogueNode CreateDialogueNode(Vector2 pos)
         {
             DialogueNode tmp = new DialogueNode(pos, editorWindow, this);

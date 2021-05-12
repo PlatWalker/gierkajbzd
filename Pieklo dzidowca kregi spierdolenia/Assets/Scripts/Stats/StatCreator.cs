@@ -4,13 +4,13 @@ using jbzdy.CharacterStats;
 using jbzdy.CharacterStats.Stats;
 using System.Collections.Generic;
 
-/// <summary>
-/// Napisane przez sharashino
-/// 
-/// Skrypt zarządzający dodawaniem i odejmowaniem bazowych ilości statystyk gracza
-/// 
-/// Przygotowany do pierwszej kreacji postaci, oraz w przyszłości przy levelowaniu
-/// </summary>
+// <summary>
+// Napisane przez sharashino
+// 
+// Skrypt zarządzający dodawaniem i odejmowaniem bazowych ilości statystyk gracza
+// 
+// Przygotowany do pierwszej kreacji postaci, oraz w przyszłości przy levelowaniu
+// </summary>
 namespace jbzdy.StatCreation
 {
     [System.Serializable]
@@ -18,25 +18,18 @@ namespace jbzdy.StatCreation
     {
         [SerializeField] private Text pointsLeft = default;
         [SerializeField] private Text levelNumber = default;
-        [SerializeField] private PlayerStats _playerStats = default;
-        [SerializeField] private int _pointsToAdd = default;
+        [SerializeField] private PlayerStats playerStats = default;
+        [SerializeField] private int pointsToAdd = default;
         [SerializeField] private List<StatBox> statBoxes = default;
         [SerializeField] private List<Stat> modifiableStats = default;
+        private StatBox[] _statBoxes;
 
-        public int PointsToAdd 
-        { 
-            get
-            {
-                return _pointsToAdd;
-            } 
-        }
+        public int PointsToAdd => pointsToAdd;
+        public PlayerStats PlayerStats => playerStats;
 
-        public PlayerStats PlayerStats
+        private void Start()
         {
-            get
-            {
-                return _playerStats;
-            }
+            _statBoxes = GetComponentsInChildren<StatBox>();
         }
 
         private void Update()
@@ -53,16 +46,16 @@ namespace jbzdy.StatCreation
             gameObject.SetActive(false);
         }
 
-        public void FillStatBoxes(int pointsToAdd)
+        public void FillStatBoxes(int statPointsToAdd)
         {
             modifiableStats = PlayerStats.modifiableStatsList;
-            pointsLeft.text = pointsToAdd.ToString();
-            _pointsToAdd = pointsToAdd;
+            pointsLeft.text = statPointsToAdd.ToString();
+            this.pointsToAdd = statPointsToAdd;
             levelNumber.text = PlayerStats.Level.ToString();
 
             if(statBoxes.Count < 5)
             {
-                foreach (StatBox statBox in GetComponentsInChildren<StatBox>())
+                foreach (StatBox statBox in _statBoxes)
                 {
                     statBoxes.Add(statBox);
                 }
@@ -78,11 +71,11 @@ namespace jbzdy.StatCreation
 
         public void AddPointsToAdd(int value)
         {
-            _pointsToAdd += value;
+            pointsToAdd += value;
         }
         public void SubtractPointsToAdd(int value)
         {
-            _pointsToAdd -= value;
+            pointsToAdd -= value;
         }
     }
 }

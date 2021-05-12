@@ -20,17 +20,19 @@ namespace jbzdy.DialogueSystem.Nodes
             styleSheets.Add(styleSheet);
         }
 
-        public void AddOutputPort(string name, Port.Capacity capacity = Port.Capacity.Single)
+        public void AddOutputPort(string outputPortName, Port.Capacity capacity = Port.Capacity.Single)
         {
             Port outputPort = GetPortInstance(Direction.Output, capacity);
-            outputPort.portName = name;
+            outputPort.portName = outputPortName;
+
             outputContainer.Add(outputPort);
         }
 
-        public void AddInputPort(string name, Port.Capacity capacity = Port.Capacity.Multi)
+        public void AddInputPort(string inputPortName, Port.Capacity capacity = Port.Capacity.Multi)
         {
             Port inputPort = GetPortInstance(Direction.Input, capacity);
-            inputPort.portName = name;
+            inputPort.portName = inputPortName;
+
             inputContainer.Add(inputPort);
         }
 

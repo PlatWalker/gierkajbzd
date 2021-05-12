@@ -1,42 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-/// <summary>
-/// Napisane przez Sharashino
-/// 
-/// Skrypt definiujący czym jest statystyka i umożliwiającym operacje na tej wartości
-/// </summary>
+// <summary>
+// Napisane przez Sharashino
+// 
+// Skrypt definiujący czym jest statystyka i umożliwiającym operacje na tej wartości
+// </summary>
 namespace jbzdy.CharacterStats.Stats
 {
     [System.Serializable]
     public class Stat
     {
-        [SerializeField] private string _statName = default;
-        [SerializeField] private int _baseValue = default;
+        [SerializeField] private string statName = default;
+        [SerializeField] private int baseValue = default;
 
         public List<int> modifiers = new List<int>();
 
-        public string StatName
-        {
-            get
-            {
-                return _statName;
-            }
-        }
+        public string StatName => statName;
 
         public int BaseValue
         {
             get
             {
-                int finalValue = _baseValue;
+                int finalValue = baseValue;
                 modifiers.ForEach(x => finalValue += x);
 
                 return finalValue;
             }
-            set
-            {
-                _baseValue = value;
-            }
+            set => baseValue = value;
         }
 
         public void AddModifier(int modifier)

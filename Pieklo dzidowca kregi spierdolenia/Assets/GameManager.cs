@@ -20,6 +20,6 @@ namespace jbzdy.Managers
 
         #endregion
 
-        public GameObject PlayerObject1 { get => playerObject; set => playerObject = value; }
+        public GameObject PlayerObject { get => playerObject; set => playerObject = value; }
     }
 }

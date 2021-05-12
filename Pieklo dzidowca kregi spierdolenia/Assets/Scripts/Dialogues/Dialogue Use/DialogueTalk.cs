@@ -3,22 +3,27 @@ using UnityEngine.Events;
 using jbzdy.DialogueSystem.SO;
 using jbzdy.DialogueSystem.Enums;
 using System.Collections.Generic;
+using System.Linq;
 
-/// <summary>
-/// Napisane przez sharashino
-/// 
-/// Skrypt odpowiadający za odczytywanie danych z ScriptableObjectu i wrzucanie ich do okna z dialogiem (DialogueController)
-/// </summary>
+// <summary>
+// Napisane przez sharashino
+// 
+// Skrypt odpowiadający za odczytywanie danych z ScriptableObjectu i wrzucanie ich do okna z dialogiem (DialogueController)
+// </summary>
 namespace jbzdy.DialogueSystem.Actions
 {
     public class DialogueTalk : DialogueGetData
     {
-        [SerializeField] private DialogueController dialogueController = default;
+        [SerializeField] private DialogueController dialogueControler = default;
         [SerializeField] private AudioSource audioSource = default;
+       
         private DialogueNodeData currentDialogueNodeData;
         private DialogueNodeData lastDialogueNodeData;
 
         private List<StatCheckNodeData> statCheckNodeDatas = new List<StatCheckNodeData>();
+        private List<ItemCheckNodeData> itemCheckNodeDatas = new List<ItemCheckNodeData>();
+
+        private bool isTalking = false;
 
         private void Awake()
         {
@@ -27,8 +32,19 @@ namespace jbzdy.DialogueSystem.Actions
 
         public void StartDialogue()
         {
-            CheckNodeType(GetNextNode(dialogueContainer.StartNodeDatas[0]));
-            dialogueController.ShowDialogueUI(true);
+            if(isTalking != true)
+            {
+                isTalking = true;
+                print(dialogue.StartNodeDatas.Count);
+                RunNode(dialogue.StartNodeDatas.FirstOrDefault());
+                dialogueControler.ShowDialogueUI(true);
+            }
+        }
+
+        public void EndDialogue()
+        {
+            isTalking = false;
+            dialogueControler.ShowDialogueUI(false);
         }
 
         private void CheckNodeType(BaseNodeData baseNodeData)
@@ -50,14 +66,17 @@ namespace jbzdy.DialogueSystem.Actions
                 case StatCheckNodeData nodeData:
                     RunNode(nodeData);
                     break;
+                case ItemCheckNodeData nodeData:
+                    RunNode(nodeData);
+                    break;
                 default:
                     break;
             }
         }
-
+        
         private void RunNode(StartNodeData nodeData)
         {
-            CheckNodeType(GetNextNode(dialogueContainer.StartNodeDatas[0]));
+            CheckNodeType(GetNextNode(dialogue.StartNodeDatas[0]));
         }
 
         private void RunNode(DialogueNodeData nodeData)
@@ -68,8 +87,12 @@ namespace jbzdy.DialogueSystem.Actions
                 currentDialogueNodeData = nodeData;
             }
 
-            dialogueController.SetText(nodeData.Name, nodeData.TextLanguages.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType);
-            dialogueController.SetImage(nodeData.Sprite, nodeData.DialogueFaceImageType);
+            print(GetEarlierNode(nodeData));
+            print(GetEarlierNode(GetEarlierNode(nodeData)));
+
+            dialogueControler.SetText(nodeData.Name, nodeData.TextLanguages.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType);
+            dialogueControler.SetImage(nodeData.Sprite, nodeData.DialogueFaceImageType);
+            
             MakeButtons(nodeData.DialogueNodePorts);
 
             audioSource.clip = nodeData.AudioClips.Find(clip => clip.LanguageType == LanguageController.Instance.Language).LanguageGenericType;
@@ -78,10 +101,8 @@ namespace jbzdy.DialogueSystem.Actions
         
         private void RunNode(EventNodeData nodeData)
         {
-            if (nodeData.DialogueEventSO != null)
-            {
-                nodeData.DialogueEventSO.RunEvent();
-            }
+            nodeData.DialogueEventSO.RunEvent();
+
             CheckNodeType(GetNextNode(nodeData));
         }
 
@@ -89,7 +110,13 @@ namespace jbzdy.DialogueSystem.Actions
         {
             statCheckNodeDatas.Add(nodeData);
 
-            Debug.Log(nodeData.statCheckType + " | " + nodeData.statCheckValue);
+            CheckNodeType(GetNextNode(nodeData));
+        }
+
+        private void RunNode(ItemCheckNodeData nodeData)
+        {
+            itemCheckNodeDatas.Add(nodeData);
+
             CheckNodeType(GetNextNode(nodeData));
         }
 
@@ -98,7 +125,7 @@ namespace jbzdy.DialogueSystem.Actions
             switch (nodeData.EndNodeType)
             {
                 case EndNodeType.End:
-                    dialogueController.ShowDialogueUI(false);
+                    dialogueControler.ShowDialogueUI(false);
                     break;
                 case EndNodeType.Repeat:
                     CheckNodeType(GetNodeByGuid(currentDialogueNodeData.NodeGuid));
@@ -107,11 +134,11 @@ namespace jbzdy.DialogueSystem.Actions
                     CheckNodeType(GetNodeByGuid(lastDialogueNodeData.NodeGuid));
                     break;
                 case EndNodeType.RetrunToStart:
-                    CheckNodeType(GetNextNode(dialogueContainer.StartNodeDatas[0]));
-                    break;
-                default:
+                    CheckNodeType(GetNextNode(dialogue.StartNodeDatas[0]));
                     break;
             }
+
+            EndDialogue();
         }
 
         private void MakeButtons(List<DialogueNodePort> nodePorts)
@@ -122,17 +149,20 @@ namespace jbzdy.DialogueSystem.Actions
             foreach (DialogueNodePort nodePort in nodePorts)
             {
                 texts.Add(nodePort.TextLanguages.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType);
+                
                 UnityAction tempAciton = null;
                 tempAciton += () =>
                 {
                     statCheckNodeDatas.Clear();
+                    itemCheckNodeDatas.Clear();
+
                     audioSource.Stop();
                     CheckNodeType(GetNodeByGuid(nodePort.InputGuid));
                 };
                 unityActions.Add(tempAciton);
             }
 
-            dialogueController.SetButtons(texts, unityActions, statCheckNodeDatas);
+            dialogueControler.SetButtons(texts, unityActions, statCheckNodeDatas, itemCheckNodeDatas);
         }
     }
 }

@@ -2,11 +2,11 @@
 using jbzdy.StatCreation;
 using jbzdy.CharacterStats;
 
-/// <summary>
-/// Napisane przez sharashino   
-/// 
-/// Zaołożeniem tego skryptu jest monitorowanie oraz umożliwianie zapisu postępu poziomów w grze
-/// </summary>
+// <summary>
+// Napisane przez sharashino   
+// 
+// Zaołożeniem tego skryptu jest monitorowanie oraz umożliwianie zapisu postępu poziomów w grze
+// </summary>
 
 namespace jbzdy.Managers
 {

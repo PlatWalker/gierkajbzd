@@ -4,11 +4,11 @@ using jbzdy.Managers;
 using System.Collections.Generic;
 using jbzdy.CharacterStats.Stats;
 
-/// <summary>
-/// Napisane przez Sharashino
-/// 
-/// Skrypt ze statystykami dla gracza
-/// </summary>
+// <summary>
+// Napisane przez Sharashino
+// 
+// Skrypt ze statystykami dla gracza
+// </summary>
 namespace jbzdy.CharacterStats
 {
     public class PlayerStats : CharacterStats
@@ -19,23 +19,7 @@ namespace jbzdy.CharacterStats
 
         private void Start()
         {
-            EquipmentManager.instance.onEquipmentChange += OnEquipmentChanged;
             AddModifiableStats();
-        }
-
-        void OnEquipmentChanged (EquipableItem itemToEquip, EquipableItem oldItem)
-        {
-            if(itemToEquip != null)
-            {
-                Armor.AddModifier(itemToEquip.armorModifier);
-                Damage.AddModifier(itemToEquip.damageModifier);
-            }
-
-            if (oldItem != null)
-            {
-                Armor.RemoveModifier(itemToEquip.armorModifier);
-                Damage.RemoveModifier(itemToEquip.damageModifier);
-            }
         }
 
         private void Update()
@@ -67,9 +51,9 @@ namespace jbzdy.CharacterStats
             }
         }
 
-        public void AddModifiableStats()
+        private void AddModifiableStats()
         {
-            modifiableStatsList.Add(Strenght);
+            modifiableStatsList.Add(Strength);
             modifiableStatsList.Add(Agility);
             modifiableStatsList.Add(Intelligence);
             modifiableStatsList.Add(Vitality);
