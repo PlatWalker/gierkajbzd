@@ -216,7 +216,7 @@ namespace jbzdy.DialogueSystem.Actions
                     {
                         if (InventoryClass.Instance.CheckForItem(itemCheckNodeData.NodeItem, itemCheckNodeData.ItemCheckValue))
                         {
-                            return false;
+                            return true;
                         }
                         else
                             return false;
