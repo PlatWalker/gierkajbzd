@@ -30,10 +30,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Vector3 movementVector;
 
+    [SerializeField]
+    private int _health = 100;
+
     Vector3 attackVector = Vector3.zero;            // 
     Vector3 reflectedAttackVector = Vector3.zero;   // could be local. to change after merge 
     Vector3 animationVector = Vector3.zero;         // 
     Vector3 moveVectorSaved = Vector3.zero;
+
+    public int Health { get => _health; private set => _health = value; }
 
     private void Awake()
     {
@@ -187,7 +192,23 @@ public class PlayerController : MonoBehaviour
         {
             characterAnimator.SetBool("Run", false);
         }
-    } 
+    }
 
     #endregion
+
+    public void SetDamage(int damageAmount, DamageType damageType)
+    {
+        Health -= damageAmount;
+    }
+
+    public void SetDamage(int damageAmount, DamageType damageType, float criticalMultiplier, float criticalChance)
+    {
+        if (UnityEngine.Random.Range(0.0f, 1.0f) <= criticalChance)
+        {
+            damageAmount = (int)(damageAmount * criticalMultiplier);
+        }
+
+        SetDamage(damageAmount, damageType);
+    }
+
 }
