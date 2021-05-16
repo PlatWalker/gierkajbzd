@@ -1,0 +1,104 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a69ff5ed214494b835d86b8438ac53, type: 3}
+  m_Name: Test
+  m_EditorClassIdentifier: 
+  NodeLinkDatas:
+  - BaseNodeGuid: 84af38e5-b9cd-4a4f-aac7-14371cf43138
+    TargetNodeGuid: c14a91bb-53dc-48e4-9963-fb9128819cc0
+  - BaseNodeGuid: f77e4a97-d407-4ddb-bd0f-fd5c3ff528b9
+    TargetNodeGuid: 63968498-d46a-4767-a7b2-8b63fe65f243
+  - BaseNodeGuid: 63968498-d46a-4767-a7b2-8b63fe65f243
+    TargetNodeGuid: 66ea56e3-b300-4108-85b5-e2d26d453b12
+  - BaseNodeGuid: c14a91bb-53dc-48e4-9963-fb9128819cc0
+    TargetNodeGuid: f77e4a97-d407-4ddb-bd0f-fd5c3ff528b9
+  - BaseNodeGuid: 66ea56e3-b300-4108-85b5-e2d26d453b12
+    TargetNodeGuid: 7685469e-2e30-4bab-96b6-d8f5e7c1c62b
+  - BaseNodeGuid: 66ea56e3-b300-4108-85b5-e2d26d453b12
+    TargetNodeGuid: 992b9251-704b-4fc8-83e4-b7eafbbc48c8
+  DialogueNodeDatas:
+  - NodeGuid: 66ea56e3-b300-4108-85b5-e2d26d453b12
+    Position: {x: 345, y: 152}
+    DialogueNodePorts:
+    - PortGuid: c9a938da-8a29-4869-abe2-6e0b788756b3
+      InputGuid: 7685469e-2e30-4bab-96b6-d8f5e7c1c62b
+      OutputGuid: 66ea56e3-b300-4108-85b5-e2d26d453b12
+      TextLanguages:
+      - LanguageType: 0
+        LanguageGenericType: Chce
+      - LanguageType: 1
+        LanguageGenericType: Continue
+      - LanguageType: 2
+        LanguageGenericType: Continue
+    - PortGuid: 17304119-2abc-41d2-b612-70a58e209ce5
+      InputGuid: 992b9251-704b-4fc8-83e4-b7eafbbc48c8
+      OutputGuid: 66ea56e3-b300-4108-85b5-e2d26d453b12
+      TextLanguages:
+      - LanguageType: 0
+        LanguageGenericType: Nie chce
+      - LanguageType: 1
+        LanguageGenericType: Continue
+      - LanguageType: 2
+        LanguageGenericType: Continue
+    - PortGuid: b3c1541d-fc73-4a5d-8aca-9e2381c53ef2
+      InputGuid: 
+      OutputGuid: 
+      TextLanguages:
+      - LanguageType: 0
+        LanguageGenericType: Troche chce
+      - LanguageType: 1
+        LanguageGenericType: Continue
+      - LanguageType: 2
+        LanguageGenericType: Continue
+    DialogueFaceImageType: 0
+    AudioClips:
+    - LanguageType: 0
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 1
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 2
+      LanguageGenericType: {fileID: 0}
+    TextLanguages:
+    - LanguageType: 0
+      LanguageGenericType: Siema chcesz itema?
+    - LanguageType: 1
+      LanguageGenericType: 
+    - LanguageType: 2
+      LanguageGenericType: 
+    Sprite: {fileID: 0}
+    Name: Kacper
+  EndNodeDatas:
+  - NodeGuid: 7685469e-2e30-4bab-96b6-d8f5e7c1c62b
+    Position: {x: 580, y: 73}
+    EndNodeType: 0
+  - NodeGuid: 992b9251-704b-4fc8-83e4-b7eafbbc48c8
+    Position: {x: 600, y: 201}
+    EndNodeType: 0
+  StartNodeDatas:
+  - NodeGuid: 84af38e5-b9cd-4a4f-aac7-14371cf43138
+    Position: {x: -140, y: 147}
+  EventNodeDatas: []
+  StatCheckNodeDatas:
+  - NodeGuid: f77e4a97-d407-4ddb-bd0f-fd5c3ff528b9
+    Position: {x: -7, y: 311}
+    StatCheckType: 2
+    StatCheckValue: 10
+  - NodeGuid: 63968498-d46a-4767-a7b2-8b63fe65f243
+    Position: {x: 179, y: 153}
+    StatCheckType: 6
+    StatCheckValue: 5
+  ItemCheckNodeDatas:
+  - NodeGuid: c14a91bb-53dc-48e4-9963-fb9128819cc0
+    Position: {x: -30, y: 148}
+    ItemCheckType: 0
+    ItemCheckValue: 1
+    NodeItem: {fileID: 5475210261572133534, guid: 6c193c52425d4e94cbceba5f73756866, type: 3}
