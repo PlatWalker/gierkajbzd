@@ -64,8 +64,8 @@ namespace jbzdy.DialogueSystem.Nodes
 
         public override void LoadValueInToField()
         {
-            statCheckField.SetValueWithoutNotify(statCheckType);
             statCheckValueField.SetValueWithoutNotify(statCheckValue);
+            statCheckField.SetValueWithoutNotify(statCheckType);
         }
     }
 }

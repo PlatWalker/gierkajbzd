@@ -8,7 +8,6 @@ namespace jbzdy.DialogueSystem.Nodes
 {
     public class StartNode : BaseNode
     {
-
         public StartNode()
         {
             StyleSheet styleSheet = Resources.Load<StyleSheet>("NodeStyleSheet");
