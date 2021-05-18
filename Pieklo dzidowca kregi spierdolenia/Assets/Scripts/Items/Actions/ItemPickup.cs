@@ -18,7 +18,13 @@ namespace jbzdy.Actions.Interaction
         public InventoryClass inventory;
 
         public Item Item { get => item; set => item = value; }
-
+        
+        public new void Awake()
+        {
+            inventory = InventoryClass.Instance;            
+        }
+        
+        
         public override void Interact()
         {
             base.Interact();

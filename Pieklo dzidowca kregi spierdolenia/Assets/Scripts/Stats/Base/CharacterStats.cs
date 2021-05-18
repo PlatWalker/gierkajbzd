@@ -36,12 +36,7 @@ namespace jbzdy.CharacterStats
         [SerializeField] private Stat intelligence;
         [SerializeField] private Stat vitality;
         [SerializeField] private Stat luck;
-
-        private void Start()
-        {
-            MaxHealth = Health.BaseValue;
-        }
-
+        
         #region Properties
         
         public int ExperiencePoints { get => experiencePoints; set => experiencePoints = value; }
@@ -67,6 +62,11 @@ namespace jbzdy.CharacterStats
         }
         
         #endregion
+        
+        private void Start()
+        {
+            MaxHealth = Health.BaseValue;
+        }
 
         public void Heal(int healAmount)
         {

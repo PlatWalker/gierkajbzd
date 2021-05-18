@@ -100,38 +100,7 @@ namespace jbzdy.Inventory.SaveLoad
             }
 
             string _itemsLevelData = JsonUtility.ToJson(itemsLevelData);
-            //print(_itemsLevelData);
             File.WriteAllText(Application.persistentDataPath + "/" + SceneManager.GetActiveScene().name + "_persistenceItems", _itemsLevelData);
-
-            //Save lootbox items
-
-            var allSceneLootboxes = FindObjectsOfType<LootBox>();
-
-            List<string> loot_ItemNames = new List<string>();
-            List<string> loot_ItemsCount = new List<string>();
-
-            foreach (LootBox lootBox in allSceneLootboxes)
-            {
-                string itemsString = string.Empty;
-                string itemsStacksize = string.Empty;
-
-                foreach (Item item in lootBox.lootBoxItems)
-                {
-                    itemsString = itemsString + item.itemName + "|";
-                    itemsStacksize = itemsStacksize + item.itemStackSize.ToString() + "|";
-                }
-
-                loot_ItemNames.Add(itemsString);
-                loot_ItemsCount.Add(itemsStacksize);
-            }
-
-            LootBoxData lootBoxData = new LootBoxData();
-
-            lootBoxData.itemNames = loot_ItemNames.ToArray();
-            lootBoxData.stackSize = loot_ItemsCount.ToArray();
-
-            string _lootBoxData = JsonUtility.ToJson(lootBoxData);
-            File.WriteAllText(Application.persistentDataPath + "/" + SceneManager.GetActiveScene().name + "_persistenceLoot", _lootBoxData);
         }
 
         public void Save()
@@ -190,37 +159,6 @@ namespace jbzdy.Inventory.SaveLoad
             string _itemsLevelData = JsonUtility.ToJson(itemsLevelData);
             //print(_itemsLevelData);
             File.WriteAllText(Application.persistentDataPath + "/" + SceneManager.GetActiveScene().name + "_itemsLevelData", _itemsLevelData);
-
-            //Save lootbox items
-
-            var allSceneLootboxes = FindObjectsOfType<LootBox>();
-
-            List<string> loot_ItemNames = new List<string>();
-            List<string> loot_ItemsCount = new List<string>();
-
-            foreach (LootBox lootBox in allSceneLootboxes)
-            {
-                string itemsString = string.Empty;
-                string itemsStacksize = string.Empty;
-
-                foreach (Item item in lootBox.lootBoxItems)
-                {
-                    itemsString = itemsString + item.itemName + "|";
-                    itemsStacksize = itemsStacksize + item.itemStackSize.ToString() + "|";
-                }
-
-                loot_ItemNames.Add(itemsString);
-                loot_ItemsCount.Add(itemsStacksize);
-            }
-
-            LootBoxData lootBoxData = new LootBoxData();
-
-            lootBoxData.itemNames = loot_ItemNames.ToArray();
-            lootBoxData.stackSize = loot_ItemsCount.ToArray();
-
-            string _lootBoxData = JsonUtility.ToJson(lootBoxData);
-            File.WriteAllText(Application.persistentDataPath + "/" + SceneManager.GetActiveScene().name + "_lootboxData", _lootBoxData);
-
         }
 
         public void LoadLevelPersistence()
@@ -256,70 +194,6 @@ namespace jbzdy.Inventory.SaveLoad
                         catch
                         {
                             Debug.LogAssertion("Item you try to restore from save: " + itemsLevelData.itemName[i] + " is null or not exist in database");
-                        }
-                    }
-                }
-            }
-
-            if (File.Exists(Application.persistentDataPath + "/" + SceneManager.GetActiveScene().name + "_persistenceLoot"))
-            {
-                var sceneLootBoxes = FindObjectsOfType<LootBox>();
-
-                if (sceneLootBoxes != null)
-                {
-                    foreach (var lootbox in sceneLootBoxes)
-                    {
-                        lootbox.lootBoxItems = null;
-                    }
-                }
-
-                for (int i = 0; i < sceneLootBoxes.Length; i++)
-                {
-                    LootBoxData lootBoxData = JsonUtility.FromJson<LootBoxData>(File.ReadAllText(Application.persistentDataPath + "/" + SceneManager.GetActiveScene().name + "_persistenceLoot"));
-
-                    var lootbox = sceneLootBoxes[i];
-
-                    char[] separator = new char[] { '|' };
-
-                    string[] itemsTitles = lootBoxData.itemNames[i].Split(separator, System.StringSplitOptions.RemoveEmptyEntries);
-
-                    //foreach (string t in itemsTitles)
-                    //    print(t);
-
-                    string[] itemStackSizes = lootBoxData.stackSize[i].Split(separator, System.StringSplitOptions.RemoveEmptyEntries);
-
-                    //foreach (string jk in itemStackSizes)
-                    //    print(jk);
-
-                    List<int> itemStackSizesInt = new List<int>();
-
-                    foreach (string itemStackSizeString in itemStackSizes)
-                    {
-                        int resultInt = -1;
-
-                        int.TryParse(itemStackSizeString, out resultInt);
-
-                        itemStackSizesInt.Add(resultInt);
-                    }
-
-                    print(itemsTitles.Length);
-
-                    lootbox.lootBoxItems = new List<Item>();
-
-                    for (int j = 0; j < itemsTitles.Length; j++)
-                    {
-                        if (assetsDatabase.FindItem(itemsTitles[j]) != null)
-                        {
-                            var item = Instantiate(assetsDatabase.FindItem(itemsTitles[j]));
-
-                            //print("Cycle pass - " + j + ". Spawn item " + item.title);
-
-                            item.gameObject.SetActive(false);
-
-                            if (itemStackSizesInt[j] > -1)
-                                item.itemStackSize = itemStackSizesInt[j];
-
-                            lootbox.lootBoxItems.Add(item);
                         }
                     }
                 }
@@ -375,18 +249,12 @@ namespace jbzdy.Inventory.SaveLoad
 
             var itemsToDestroy = FindObjectsOfType<Item>();
 
-            var sceneLootBoxes = FindObjectsOfType<LootBox>();
             
             foreach (var item in itemsToDestroy)
             {
                 Destroy(item.gameObject);
             }
-
-            foreach (var lootbox in sceneLootBoxes)
-            {
-                lootbox.lootBoxItems.Clear();
-            }
-
+            
             //Inventory
             InventoryClass inventory = FindObjectOfType<InventoryClass>();
 
@@ -441,51 +309,6 @@ namespace jbzdy.Inventory.SaveLoad
                     catch
                     {
                         Debug.LogAssertion("Item you try to restore from save: " + itemsLevelData.itemName[i] + " is null or not exist in database");
-                    }
-                }
-            }
-
-            LootBoxData lootBoxData = JsonUtility.FromJson<LootBoxData>(File.ReadAllText(Application.persistentDataPath + "/" + SceneManager.GetActiveScene().name + "_lootboxData"));
-
-            for (int i = 0; i < sceneLootBoxes.Length; i++)
-            {
-                var lootbox = sceneLootBoxes[i];
-
-                char[] separator = new char[] { '|' };
-
-                string[] itemsTitles = lootBoxData.itemNames[i].Split(separator, System.StringSplitOptions.RemoveEmptyEntries);
-
-                //foreach (string t in itemsTitles)
-                //    print(t);
-
-                string[] itemStackSizes = lootBoxData.stackSize[i].Split(separator, System.StringSplitOptions.RemoveEmptyEntries);
-
-                //foreach (string jk in itemStackSizes)
-                //    print(jk);
-
-                List<int> itemStackSizesInt = new List<int>();
-
-                foreach (string itemStackSizeString in itemStackSizes)
-                {
-                    int resultInt = -1;
-
-                    int.TryParse(itemStackSizeString, out resultInt);
-
-                    itemStackSizesInt.Add(resultInt);
-                }
-
-                for (int j = 0; j < itemsTitles.Length; j++)
-                {
-                    if (assetsDatabase.FindItem(itemsTitles[j]) != null)
-                    {
-                        var item = Instantiate(assetsDatabase.FindItem(itemsTitles[j]));
-
-                        item.gameObject.SetActive(false);
-
-                        if (itemStackSizesInt[j] > -1)
-                            item.itemStackSize = itemStackSizesInt[j];
-
-                        lootbox.lootBoxItems.Add(item);
                     }
                 }
             }

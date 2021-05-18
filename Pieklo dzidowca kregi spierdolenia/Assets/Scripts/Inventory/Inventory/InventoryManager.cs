@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 
 /// <summary>
@@ -15,43 +16,28 @@ namespace jbzdy.Inventory
 
     public class InventoryManager : MonoBehaviour
     {
-        /// <summary>
         /// InventoryManager aviliable modes
-        /// </summary>
         public enum ActiveMode { loot, inventory }
 
-        /// <summary>
         /// Current InventoryManager mode
-        /// </summary>
         public ActiveMode mode = ActiveMode.inventory;
 
-        /// <summary>
         /// Inventory canvas
-        /// </summary>
         Canvas canvas;
 
-        /// <summary>
         /// Use this variable to show or close inventory! Not requires invmanager reference. Static variable
-        /// </summary>
         public static bool showInventory = false;
 
-        /// <summary>
         /// Toggle to prevent update execution each frame
-        /// </summary>
         private bool isOpen = false;
 
-        /// <summary>
         /// KeyCode to open inventory
-        /// </summary>
         public KeyCode inventoryOpenKey = KeyCode.I;
-        
         public bool lookCursorWhenInventoryOff = true;
-
         public OnInventoryOpen OnOpen;
         public OnInventoryClose OnClose;
 
         public InventoryClass inventory;
-
 
         private void Start()
         {
@@ -87,17 +73,6 @@ namespace jbzdy.Inventory
             {
                 mode = ActiveMode.inventory;
                 InventoryClose();
-            }
-
-            if (mode == ActiveMode.inventory)
-            {
-                if (inventory.lootPanel != null)
-                    inventory.lootPanel.gameObject.SetActive(false);
-            }
-            else if (mode == ActiveMode.loot)
-            {
-                if (inventory.lootPanel != null)
-                    inventory.lootPanel.gameObject.SetActive(true);
             }
         }
     

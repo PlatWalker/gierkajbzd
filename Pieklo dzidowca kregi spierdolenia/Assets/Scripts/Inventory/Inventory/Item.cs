@@ -20,6 +20,7 @@ namespace jbzdy.Items
         public string itemName;
         public string itemDescription;
         public Sprite itemIcon;
+        public Sprite inventoryItemSprite;
         public ItemTypes itemType;
 
         [Range(1, 10)]
