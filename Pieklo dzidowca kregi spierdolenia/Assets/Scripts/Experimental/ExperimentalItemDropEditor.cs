@@ -13,8 +13,8 @@ namespace jbzdy.Items.DropEditor
         private GameObject newItemDrop;
         private GameObject objectWithDrop;
         private int howManyItems;
-
-        private ExperimentalItemDropBase[] itemToDrop;
+        private string dropName;
+        private ItemDrop newDrop;
         
         [MenuItem("Sharashino Tools/DONT CLICK ME")]
         static void Init()
@@ -29,47 +29,52 @@ namespace jbzdy.Items.DropEditor
             GUILayout.TextArea("New Item Drop", EditorStyles.boldLabel);
             GUILayout.BeginVertical("HelpBox");
 
+            dropName = EditorGUILayout.TextField("Name this drop: ", dropName);
             objectWithDrop = (GameObject)EditorGUILayout.ObjectField("This drop will sit on: ", objectWithDrop, typeof(GameObject), true);
-            
-            if(objectWithDrop == null)
-                EditorGUILayout.HelpBox("Ale wpierdol obiekt gdzie drop ma siedzieć!", MessageType.Warning, true);
-            
-            howManyItems = EditorGUILayout.IntSlider("Number of items in drop: ", howManyItems, 1, 10);
 
-            if (GUILayout.Button("Generate " + howManyItems + " item drops"))
+            if (objectWithDrop == null)
             {
-                objectWithDrop.AddComponent<ExperimentalItemDrop>();
-                //objectWithDrop.GetComponent<ExperimentalItemDrop>().itemDrops = new ExperimentalItemDropBase[howManyItems];
-                SpawnItemDrops();
+                EditorGUILayout.HelpBox("Ale wpierdol obiekt gdzie drop ma siedzieć!", MessageType.Warning, true);
+            }
+            else if (objectWithDrop != null && objectWithDrop.GetComponent<test>() == null)
+            {
+                EditorGUILayout.HelpBox("Na tym obiekcie nie ma klasy która przechowuje dropy!", MessageType.Warning, true);
+            }
+            else
+            {
+                howManyItems = EditorGUILayout.IntSlider("Number of items in drop: ", howManyItems, 1, 10);
+
+                if (GUILayout.Button("Generate " + howManyItems + " item drops"))
+                {
+                        objectWithDrop.GetComponent<test>().itemDrop = ScriptableObject.CreateInstance<ItemDrop>();
+                }
+            
+                newDrop = objectWithDrop.GetComponent<test>().itemDrop;
+                newDrop.itemDropBases = new ItemDropBase[howManyItems];
+
+                for (int i = 0; i < howManyItems; i++)
+                {
+                    GUILayout.BeginVertical("HelpBox");
+                    newDrop.itemDropBases[i] = new ItemDropBase();
+                    newDrop.itemDropBases[i].ItemToDrop = (GameObject)EditorGUILayout.ObjectField("This item will drop: ", newDrop.itemDropBases[i].ItemToDrop, typeof(GameObject), true);
+                    newDrop.itemDropBases[i].ItemDropChance = EditorGUILayout.FloatField("With this chance: ", newDrop.itemDropBases[i].ItemDropChance);
+                    GUILayout.EndVertical();
+                }
+
+                
+            }
+            
+            if (GUILayout.Button("Save changes?"))
+            {
+                EditorUtility.SetDirty(newDrop);
+                EditorSceneManager.MarkSceneDirty(objectWithDrop.gameObject.scene);
+                var path = AssetDatabase.GUIDToAssetPath(dropName);
+                AssetDatabase.RenameAsset(path, dropName);
+                
+                Debug.Log( AssetDatabase.RenameAsset(path, dropName));
             }
             
             GUILayout.EndVertical();
-        }
-
-        private void SpawnItemDrops()
-        {
-            /*ExperimentalItemDropBase[] itemDrops = objectWithDrop.GetComponent<ExperimentalItemDrop>().itemDrops;
-            
-            foreach (ExperimentalItemDropBase drop in itemDrops)
-            {
-                drop.dropItem = (GameObject)EditorGUILayout.ObjectField("This item will drop: ", drop.dropItem, typeof(GameObject), true);
-                drop.dropChance = EditorGUILayout.FloatField("With this chance: ", drop.dropChance);
-            }*/
-        }
-    }
-
-    public class ItemDropCustomEditor : Editor
-    {
-        private ExperimentalItemDropBase[] newDropBase;
-
-        public override void OnInspectorGUI()
-        {
-            DrawDropItem();
-        }
-
-        private void DrawDropItem()
-        {
-            Debug.Log("hehe");
         }
     }
 }
