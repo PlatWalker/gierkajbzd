@@ -1,14 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using jbzdy.Items;
+﻿using System;
 using UnityEngine;
 
-[System.Serializable]
-public class ItemDropBase
+namespace jbzdy.Items.Drop
 {
-    [SerializeField] private GameObject itemToDrop = default;
-    [SerializeField] private float dropChance = default;
+    [Serializable]
+    public class ItemDropBase
+    {
+        [SerializeField] private GameObject itemToDrop = default;
+        [SerializeField] private float dropChance = default;
 
-    public GameObject ItemToDrop { get => itemToDrop; set => itemToDrop = value; }
-    public float ItemDropChance { get => dropChance; set => dropChance = value; }
+        public GameObject ItemToDrop
+        {
+            get => itemToDrop;
+            set => itemToDrop = value;
+        }
+
+        public float ItemDropChance
+        {
+            get => dropChance;
+            set => dropChance = value;
+        }
+    }
 }

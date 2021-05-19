@@ -1,11 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using jbzdy.Items;
-using UnityEngine;
+﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "Item Drop", fileName = "New Drop")]
-public class ItemDrop : ScriptableObject
+namespace jbzdy.Items.Drop
 {
-    public ItemDropBase[] itemDropBases;
+    [CreateAssetMenu(menuName = "Item Drop", fileName = "New Drop")]
+    public class ItemDrop : ScriptableObject
+    {
+        public ItemDropBase[] itemDropBases;
+    }
+
 }
 
