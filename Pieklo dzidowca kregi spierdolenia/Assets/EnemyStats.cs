@@ -3,6 +3,12 @@ using jbzdy.Items.Drop;
 using UnityEngine;
 using Random = System.Random;
 
+/// <summary>
+/// Napisane przez Sharashino
+///
+/// Klasa odpowiadająca za statystyki u przeciwników
+/// Obecnie jeszcze zawiera funkcję do spawnowania itemów
+/// </summary>
 public class EnemyStats : CharacterStats
 {
     [SerializeField] private ItemDrop enemyItemDrop;

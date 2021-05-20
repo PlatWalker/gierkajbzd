@@ -2,9 +2,14 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace jbzdy.SoUtility
+// <summary>
+// Napisane przez Sharashino
+// 
+// Klasa odpowiadająca za proste tworzenie obiektów typu ScriptableObject o wybranej nazwie
+// <summary>
+namespace jbzdy.Utility
 {
-    public static class ScriptableObjectUtiity
+    public static class ScriptableObjectUtility
     {
         public static T CreateAsset<T> (string name) where T : ScriptableObject
         {

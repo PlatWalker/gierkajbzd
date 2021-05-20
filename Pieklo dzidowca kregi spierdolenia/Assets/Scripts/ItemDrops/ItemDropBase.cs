@@ -1,6 +1,11 @@
 ﻿using System;
 using UnityEngine;
 
+// <summary>
+// Napisane przez Sharashino
+//
+// Bazowa klasa przechowująca dane o pojedynczym dropie
+// <summary>
 namespace jbzdy.Items.Drop
 {
     [Serializable]

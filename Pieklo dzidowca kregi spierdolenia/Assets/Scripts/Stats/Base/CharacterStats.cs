@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using jbzdy.CharacterStats.Stats;
+
 // <summary>
 // Napisane przez Sharashino
 // 

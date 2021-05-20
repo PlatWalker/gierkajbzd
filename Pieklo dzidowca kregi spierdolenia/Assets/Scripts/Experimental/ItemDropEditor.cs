@@ -1,10 +1,15 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using jbzdy.Items.Drop;
-using jbzdy.SoUtility;
+using jbzdy.Utility;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 
+// <summary>
+// Napisane przez Sharashino
+//
+// Customowy Edytor do tworzenia Item Dropów
+// </summary>
 namespace jbzdy.Items.DropEditor
 {
     [CustomEditor(typeof(ItemDropEditor))]
@@ -47,7 +52,7 @@ namespace jbzdy.Items.DropEditor
 
                 if (GUILayout.Button("Generate " + howManyItems + " item drops"))
                 {
-                    newDrop = ScriptableObjectUtiity.CreateAsset<ItemDrop>(dropName);
+                    newDrop = ScriptableObjectUtility.CreateAsset<ItemDrop>(dropName);
                     newDrop.itemDropBases = new ItemDropBase[howManyItems];
                 }
 
