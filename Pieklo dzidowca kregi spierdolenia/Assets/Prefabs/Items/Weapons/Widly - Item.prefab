@@ -57,6 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c006d470787e0ba42af2196e475dda31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInRange: 0
 --- !u!1 &6810526454129366733
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,7 +87,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6810526454129366733}
   m_LocalRotation: {x: -0, y: -0.00000003774895, z: -0, w: 1}
-  m_LocalPosition: {x: 131.464, y: 0.75, z: 130.024}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6810526452972562643}
@@ -158,6 +159,7 @@ MonoBehaviour:
   itemName: "Wid\u0142y"
   itemDescription: "Znalezione gdzie\u015B na snopku siana."
   itemIcon: {fileID: 21300000, guid: b9eff3edc40a64e48956a487f5464abc, type: 3}
+  inventoryItemSprite: {fileID: 0}
   itemType: 0
   itemWidth: 2
   itemHeight: 4
@@ -183,8 +185,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionZone: {fileID: 6810526452972562637}
+  isInteracting: 0
   item: {fileID: 0}
-  Inventory: {fileID: 0}
+  inventory: {fileID: 0}
 --- !u!114 &6810526454129366732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,5 +200,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b5a5d7340dda3b4b9f69ecec7cac3bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemID: 0
+  itemName: 
+  itemDescription: 
+  itemIcon: {fileID: 0}
+  inventoryItemSprite: {fileID: 0}
+  itemType: 0
+  itemWidth: 1
+  itemHeight: 1
+  isStackable: 0
+  itemMaxStackSize: 1
+  itemStackSize: 1
+  onUseEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onPickupEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  weaponType: 0
+  weaponInventorySprite: {fileID: 0}
   weaponDamage: 5
   weaponLevel: 1

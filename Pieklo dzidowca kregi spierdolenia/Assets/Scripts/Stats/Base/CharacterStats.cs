@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using jbzdy.CharacterStats.Stats;
 // <summary>
 // Napisane przez Sharashino
@@ -68,7 +69,15 @@ namespace jbzdy.CharacterStats
             MaxHealth = Health.BaseValue;
         }
 
-        public void Heal(int healAmount)
+        private void Update()
+        {
+            if (health.BaseValue <= 0)
+            {
+                CharacterDie();
+            }
+        }
+
+        protected virtual void Heal(int healAmount)
         {
             if(MaxHealth + healAmount > Health.BaseValue)
             {
@@ -80,7 +89,7 @@ namespace jbzdy.CharacterStats
             }
         }
 
-        public void TakeDamage(int damageAmount)
+        protected virtual void TakeDamage(int damageAmount)
         {
             //logic for damage reduction goes here
             damageAmount -= Armor.BaseValue;
@@ -95,7 +104,7 @@ namespace jbzdy.CharacterStats
             }
         }
 
-        private void CharacterDie()
+        protected virtual void CharacterDie()
         {
             //Die lol
             //Overwritten

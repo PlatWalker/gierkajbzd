@@ -2,6 +2,8 @@
 using UnityEngine;
 using jbzdy.Items.Drop;
 using jbzdy.SoUtility;
+using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 namespace jbzdy.Items.DropEditor
 {
@@ -15,7 +17,7 @@ namespace jbzdy.Items.DropEditor
         private string dropName;
         private ItemDrop newDrop;
         
-        [MenuItem("Sharashino Tools/DONT CLICK ME")]
+        [MenuItem("Sharashino Tools/New Item Drop")]
         static void Init()
         {
             ItemDropEditor _editor = (ItemDropEditor) GetWindow(typeof(ItemDropEditor));
@@ -35,7 +37,7 @@ namespace jbzdy.Items.DropEditor
             {
                 EditorGUILayout.HelpBox("Ale wpierdol obiekt gdzie drop ma siedzieć!", MessageType.Warning, true);
             }
-            else if (objectWithDrop != null && objectWithDrop.GetComponent<test>() == null)
+            else if (objectWithDrop != null && objectWithDrop.GetComponent<EnemyStats>() == null)
             {
                 EditorGUILayout.HelpBox("Na tym obiekcie nie ma klasy która przechowuje dropy!", MessageType.Warning, true);
             }
@@ -51,10 +53,8 @@ namespace jbzdy.Items.DropEditor
 
                 if (newDrop != null)
                 {
-                    GUILayout.BeginVertical("HelpBox");
                     var newEditor = Editor.CreateEditor(newDrop);
                     newEditor.OnInspectorGUI();
-                    GUILayout.EndVertical();
                 }
             }
             GUILayout.EndVertical();
@@ -68,15 +68,25 @@ namespace jbzdy.Items.DropEditor
         
         public override void OnInspectorGUI()
         {
-            for (int i = 0; i < dropBase.itemDropBases.Length; i++)
-            {
-                dropBase.itemDropBases[i].ItemToDrop = (GameObject)EditorGUILayout.ObjectField("This item will drop: ", dropBase.itemDropBases[i].ItemToDrop, typeof(GameObject), true);
-                dropBase.itemDropBases[i].ItemDropChance = EditorGUILayout.FloatField("With this chance: ", dropBase.itemDropBases[i].ItemDropChance);
-            }
+            GUILayout.BeginVertical("HelpBox");
+    
+            DrawDropItemFields();
             
             if (GUILayout.Button("Save changes?"))
             {
                 EditorUtility.SetDirty(dropBase);
+                EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
+            }
+            
+            GUILayout.EndVertical();
+        }
+
+        private void DrawDropItemFields()
+        {
+            for (int i = 0; i < dropBase.itemDropBases.Length; i++)
+            {
+                dropBase.itemDropBases[i].ItemToDrop = (GameObject) EditorGUILayout.ObjectField("This item will drop: ", dropBase.itemDropBases[i].ItemToDrop, typeof(GameObject), true);
+                dropBase.itemDropBases[i].ItemDropChance = EditorGUILayout.FloatField("With this chance: ", dropBase.itemDropBases[i].ItemDropChance);
             }
         }
     }
