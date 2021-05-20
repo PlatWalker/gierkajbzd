@@ -1,14 +1,13 @@
-﻿using System;
-using System.CodeDom.Compiler;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 using jbzdy.Items.Drop;
-using UnityEditor.SceneManagement;
-using UnityEngine.SceneManagement;
+using jbzdy.SoUtility;
 
 namespace jbzdy.Items.DropEditor
 {
-    public class ExperimentalItemDropEditor : EditorWindow
+    [CustomEditor(typeof(ItemDropEditor))]
+    [CanEditMultipleObjects]
+    public class ItemDropEditor : EditorWindow
     {
         private GameObject newItemDrop;
         private GameObject objectWithDrop;
@@ -19,12 +18,12 @@ namespace jbzdy.Items.DropEditor
         [MenuItem("Sharashino Tools/DONT CLICK ME")]
         static void Init()
         {
-            ExperimentalItemDropEditor _editor = (ExperimentalItemDropEditor) GetWindow(typeof(ExperimentalItemDropEditor));
+            ItemDropEditor _editor = (ItemDropEditor) GetWindow(typeof(ItemDropEditor));
             _editor.titleContent = new GUIContent("Item Drop Wizard");
             _editor.Show();
         }
 
-        private void OnGUI()
+        public void OnGUI()
         {
             GUILayout.TextArea("New Item Drop", EditorStyles.boldLabel);
             GUILayout.BeginVertical("HelpBox");
@@ -46,36 +45,39 @@ namespace jbzdy.Items.DropEditor
 
                 if (GUILayout.Button("Generate " + howManyItems + " item drops"))
                 {
-                        objectWithDrop.GetComponent<test>().itemDrop = ScriptableObject.CreateInstance<ItemDrop>();
+                    newDrop = ScriptableObjectUtiity.CreateAsset<ItemDrop>(dropName);
+                    newDrop.itemDropBases = new ItemDropBase[howManyItems];
                 }
-            
-                newDrop = objectWithDrop.GetComponent<test>().itemDrop;
-                newDrop.itemDropBases = new ItemDropBase[howManyItems];
 
-                for (int i = 0; i < howManyItems; i++)
+                if (newDrop != null)
                 {
                     GUILayout.BeginVertical("HelpBox");
-                    newDrop.itemDropBases[i] = new ItemDropBase();
-                    newDrop.itemDropBases[i].ItemToDrop = (GameObject)EditorGUILayout.ObjectField("This item will drop: ", newDrop.itemDropBases[i].ItemToDrop, typeof(GameObject), true);
-                    newDrop.itemDropBases[i].ItemDropChance = EditorGUILayout.FloatField("With this chance: ", newDrop.itemDropBases[i].ItemDropChance);
+                    var newEditor = Editor.CreateEditor(newDrop);
+                    newEditor.OnInspectorGUI();
                     GUILayout.EndVertical();
                 }
+            }
+            GUILayout.EndVertical();
+        }
+    }
 
-                
+    [CanEditMultipleObjects]
+    public class ItemDropCustomInspector : Editor
+    {
+        private ItemDrop dropBase;
+        
+        public override void OnInspectorGUI()
+        {
+            for (int i = 0; i < dropBase.itemDropBases.Length; i++)
+            {
+                dropBase.itemDropBases[i].ItemToDrop = (GameObject)EditorGUILayout.ObjectField("This item will drop: ", dropBase.itemDropBases[i].ItemToDrop, typeof(GameObject), true);
+                dropBase.itemDropBases[i].ItemDropChance = EditorGUILayout.FloatField("With this chance: ", dropBase.itemDropBases[i].ItemDropChance);
             }
             
             if (GUILayout.Button("Save changes?"))
             {
-                EditorUtility.SetDirty(newDrop);
-                EditorSceneManager.MarkSceneDirty(objectWithDrop.gameObject.scene);
-                var path = AssetDatabase.GUIDToAssetPath(dropName);
-                AssetDatabase.RenameAsset(path, dropName);
-                
-                Debug.Log( AssetDatabase.RenameAsset(path, dropName));
+                EditorUtility.SetDirty(dropBase);
             }
-            
-            GUILayout.EndVertical();
         }
     }
 }
-
