@@ -35,8 +35,7 @@ namespace jbzdy.DialogueSystem.Actions
             if(isTalking != true)
             {
                 isTalking = true;
-                print(dialogue.StartNodeDatas.Count);
-                RunNode(dialogue.StartNodeDatas.FirstOrDefault());
+                CheckNodeType(GetNextNode(dialogue.StartNodeDatas[0]));
                 dialogueControler.ShowDialogueUI(true);
             }
         }
@@ -86,9 +85,6 @@ namespace jbzdy.DialogueSystem.Actions
                 lastDialogueNodeData = currentDialogueNodeData;
                 currentDialogueNodeData = nodeData;
             }
-
-            print(GetEarlierNode(nodeData));
-            print(GetEarlierNode(GetEarlierNode(nodeData)));
 
             dialogueControler.SetText(nodeData.Name, nodeData.TextLanguages.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType);
             dialogueControler.SetImage(nodeData.Sprite, nodeData.DialogueFaceImageType);
