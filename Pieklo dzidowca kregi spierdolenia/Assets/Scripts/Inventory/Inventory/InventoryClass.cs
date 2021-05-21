@@ -5,149 +5,49 @@ using UnityEngine.Events;
 using jbzdy.Inventory.SaveLoad;
 using System.Collections.Generic;
 
-/// <summary>
-/// Główna klasa Inventory odpowiadająca za całą funkcjonalność, spawnowanie itemów i grida
-/// 
-/// Napisane przez Sharashino
-/// </summary>
+// <summary>
+// Główna klasa Inventory odpowiadająca za całą funkcjonalność, spawnowanie itemów i grida
+// 
+// Napisane przez Sharashino
+// </summary>
 namespace jbzdy.Inventory
 {
-    [System.Serializable]
-    /// <summary>
-    /// Event to provide callback for item add case
-    /// </summary>
-    public class OnInventoryItemAdd : UnityEvent { }
-
-    [System.Serializable]
-    /// <summary>
-    /// Event to provide callback for item drop case
-    /// </summary>
-    public class OnInventoryItemDrop : UnityEvent { }
-
-    [System.Serializable]
-    /// <summary>
-    /// Event to provide callback for item remove case
-    /// </summary>
-    public class OnInventoryItemRemove : UnityEvent { }
+    [System.Serializable] public class OnInventoryItemAdd : UnityEvent { }
+    [System.Serializable] public class OnInventoryItemDrop : UnityEvent { }
+    [System.Serializable] public class OnInventoryItemRemove : UnityEvent { }
     
-    /// <summary>
-    /// Main core class of inventory system
-    /// </summary>
     public class InventoryClass : MonoBehaviour
     {
         public static InventoryClass Instance;
 
-        //Unity events to provide callback in specified cases
         public OnInventoryItemAdd OnInventoryItemAdd;
         public OnInventoryItemDrop OnInventoryItemDrop;
         public OnInventoryItemRemove OnInventoryItemRemove;
 
-        /// <summary>
-        /// A list that contains all items in inventory.
-        /// </summary>
         public List<InventoryItem> inventoryItems = new List<InventoryItem>();
-
-        /// <summary>
-        /// Equipment panels which stores items that havs being equiped on player
-        /// </summary>
         public List<EquipmentPanel> equipmentPanels;
-        
-        /// <summary>
-        /// Should item be dropped by dragging it outside of inventory bounds?
-        /// </summary>
         public bool dragItemOutsideToDrop = false;
-        
-        /// <summary>
-        /// Player's transform. We drop items at player position point + player forward
-        /// </summary>
         public Transform player;
-
-        /// <summary>
-        /// It's a transform to store scene root to drop items from DontDestroyOnLoad to active scene
-        /// </summary>
-        [HideInInspector]
-        public Transform levelPoint;
-
+        
+        [HideInInspector] public Transform levelPoint;
         public float distanceAwayFromPlayerToDrop = 1f;
-
-        /// <summary>
-        /// Should we equip picked items if we have free slot for such type of equipment?
-        /// </summary>
         public bool autoEquipItems = true;
 
         #region utility
-
-        /// <summary>
-        /// An image that used for cell representation (used by InventoryWizard. Don't set manually)
-        /// </summary>
+        public List<GridSlot> slots;
         [HideInInspector] public Image cell;
-
-        /// <summary>
-        /// Grid cell rect size (used by InventoryWizard. Don't set manually)
-        /// </summary>
         [HideInInspector] public int cellSize = 70;
-
-        /// <summary>
-        /// Controls a space between cells (used by InventoryWizard. Don't set manually)
-        /// </summary>
         [HideInInspector] public int padding;
-
-        /// <summary>
-        /// Number of columns in inventory grid (used by InventoryWizard. Don't set manually)
-        /// </summary>
         [HideInInspector] public int column = 5;
-
-        /// <summary>
-        /// Number of rows in inventroy grid
-        /// </summary>
         [HideInInspector] public int row = 4;
-
-        /// <summary>
-        /// Number of columns in loot invetory grid (used by InventoryWizard. Don't set manually)
-        /// </summary>
         [HideInInspector] public int lootColumn = 4;
-
-        /// <summary>
-        /// Number of rows in loot inventory grid (used by InventoryWizrd. Don't set manually)
-        /// </summary>
         [HideInInspector] public int lootRow = 4;
-
-        /// <summary>
-        /// All inventory slots which used for grid functionality
-        /// </summary>
-         public List<GridSlot> slots;
-
-        /// <summary>
-        /// Cell color when in normal state
-        /// </summary>
         [HideInInspector] public Color normalCellColor;
-        /// <summary>
-        /// Cell color when hovered by item
-        /// </summary>
         [HideInInspector] public Color hoveredCellColor;
-        /// <summary>
-        /// Cell color when it's blocked for hovered item
-        /// </summary>
         [HideInInspector] public Color blockedCellColor;
-
-        /// <summary>
-        /// RectTransform of loot panel
-        /// </summary>
         [HideInInspector] public RectTransform lootPanel;
-
-        /// <summary>
-        /// Temp reference for LootBox
-        /// </summary>
-        [HideInInspector] public LootBox activeLootBox;
-
-        /// <summary>
-        /// Reference to a InventoryManager component
-        /// </summary>
         [HideInInspector] InventoryManager inventoryManager;
 
-        /// <summary>
-        /// Internal method being used by InventoryWizard. Do not use it
-        /// </summary>
         public void DrawPreview()
         {
             ClearPreview();
@@ -213,7 +113,6 @@ namespace jbzdy.Inventory
                 }
             }
 
-            //Move gameobject transform to end. Required for UI elements overlap proper
             transform.SetAsLastSibling();
         }
 
@@ -231,9 +130,7 @@ namespace jbzdy.Inventory
             }
         }
 
-        /// <summary>
-        /// Destroy each slot before making of new end configuration
-        /// </summary>
+        // Destroy each slot before making of new end configuration
         public void ClearPreview()
         {
             if (GetComponents<GridSlot>() != null)
@@ -246,13 +143,11 @@ namespace jbzdy.Inventory
             }
         }
 
-        /// <summary>
-        /// Method that initializes inventory cells and referenced components such as loot inventory and equipment panels
-        /// </summary>
+        // Method that initializes inventory cells and referenced components such as loot inventory and equipment panels
         public void Initialize()
         {
             if(SaveData.instance == null)
-            ClearPreview();
+                ClearPreview();
 
             inventoryManager = FindObjectOfType<InventoryManager>();
 
@@ -274,31 +169,6 @@ namespace jbzdy.Inventory
                     slot.image.color = normalCellColor;
                     slot.x = i; slot.y = j;
                     slots.Add(slot);
-                }
-            }
-
-            //Loot inventory grid initialization
-            if (lootPanel != null)
-            {
-                for (int i = 0; i < lootRow; i++)
-                {
-                    for (int j = 0; j < lootColumn; j++)
-                    {
-                        var _cell = Instantiate(cell);
-                        _cell.rectTransform.SetParent(lootPanel);
-                        _cell.rectTransform.sizeDelta = new Vector2(cellSize - padding, cellSize - padding);
-                        _cell.rectTransform.anchoredPosition = new Vector2(((cellSize * i) + padding), ((-cellSize * j) + padding));
-                        _cell.rectTransform.localScale = new Vector2(1, 1);
-
-                        _cell.name = i + "," + j;
-
-                        var slot = _cell.GetComponent<GridSlot>();
-                        slot.free = true;
-                        slot.image.color = normalCellColor;
-                        slot.x = i + 9000; slot.y = j + 9000;
-                        slot.isLoot = true;
-                        slots.Add(slot);
-                    }
                 }
             }
 
@@ -336,33 +206,10 @@ namespace jbzdy.Inventory
                 }
             }
 
-            //Move gameobject transform to end. Required for UI elements overlap proper
             transform.SetAsLastSibling();
         }
 
-        private void Update()
-        {
-            if (!InventoryManager.showInventory && activeLootBox != null)
-            {
-                activeLootBox.lootBoxItems = new List<Item>();
-
-                if (FindItemsLeftInLoot() != null)
-                {
-                    foreach (var item in FindItemsLeftInLoot())
-                    {
-                        activeLootBox.lootBoxItems.Add(item.item);
-                        RemoveInventoryItem(item);
-                    }
-                }
-                activeLootBox = null;
-            }
-        }
-
-        /// <summary>
-        /// Use this method to add item to inventory
-        /// </summary>
-        /// <param name="item">Item to add</param>
-        /// <returns></returns>
+        // Use this method to add item to inventory
         public bool AddItem(Item item)
         {
             if (CheckFreeSpaceForAllSlots(item.itemWidth, item.itemHeight))
@@ -416,13 +263,7 @@ namespace jbzdy.Inventory
             return false;
         }
 
-        /// <summary>
-        /// Method to add item to special grid slot.
-        /// </summary>
-        /// <param name="item">Item to add</param>
-        /// <param name="x">X grid position</param>
-        /// <param name="y">Y grid position</param>
-        /// <returns></returns>
+        // Method to add item to special grid slot.
         public bool AddItem(Item item, int x, int y)
         {
             if (CheckFreeSpaceForAllSlots(item.itemWidth, item.itemHeight))
@@ -474,11 +315,7 @@ namespace jbzdy.Inventory
             return false;
         }
 
-        /// <summary>
-        /// Method returns true if item with specified title exists in the inventory
-        /// </summary>
-        /// <param name="itemTitle"></param>
-        /// <returns></returns>
+        // Method returns true if item with specified title exists in the inventory
         public bool CheckForItem(Item itemToCheck, int itemAmount)
         {
             foreach (var item in inventoryItems)
@@ -492,10 +329,7 @@ namespace jbzdy.Inventory
             return false;
         }
 
-        /// <summary>
-        /// Use this method to drop items from inventory. This method is not destroys items
-        /// </summary>
-        /// <param name="InventoryItem">Item handler to remove</param>
+        // Use this method to drop items from inventory. This method is not destroys items
         public void DropItem(InventoryItem InventoryItem)
         {
             if (InventoryItem == null)
@@ -527,28 +361,21 @@ namespace jbzdy.Inventory
             MarkSlots(_temp_x, _temp_y, _temp_width, _temp_height, true);
         }
 
-        /// <summary>
-        /// This method is for auto-equip only.Don't use it anywhere else
-        /// </summary>
-        /// <param name="panel">Equipment panel to move item on</param>
-        /// <param name="item">Item we want to equip</param>
+        // This method is for auto-equip
         public void EquipItem(EquipmentPanel panel, InventoryItem item)
         {
             item.transform.SetParent(panel.mainSlot.transform.parent);
 
             item.finalPosition = panel.mainSlot.GetComponent<RectTransform>().anchoredPosition;
-
             item.x = panel.mainSlot.x;
             item.y = panel.mainSlot.y;
-
+            
+            //item.item.
             MarkSlots(panel.mainSlot.x, panel.mainSlot.y, item.width, item.height, false);
             panel.equipedItem = item.item;
         }
 
-        /// <summary>
-        /// Method to remove and destroy an item from a scene
-        /// </summary>
-        /// <param name="InventoryItem">Item to remove and destroy</param>
+        // Method to remove and destroy an item from a scene
         public void RemoveItem(InventoryItem InventoryItem)
         {
             int temp_x, temp_y, temp_width, temp_height;
@@ -568,15 +395,8 @@ namespace jbzdy.Inventory
             MarkSlots(temp_x, temp_y, temp_width, temp_height, true);
         }
 
-        /// <summary>
-        /// We use this method to mark inventory slots free or used by some item.
-        /// Used for visual marking of slots with their current state (used, free, blocked)
-        /// </summary>
-        /// <param name="startSlot_x">Slot x coordinate</param>
-        /// <param name="startSlot_y">Slot y corrdinate</param>
-        /// <param name="width">Item width in grid space</param>
-        /// <param name="height">Item height in grid space</param>
-        /// <param name="isFree">State with which we are mark slots. Free or not</param>
+        // Use this method to mark inventory slots free or used by some item.
+        // Used for visual marking of slots with their current state (used, free, blocked)
         public void MarkSlots(int startSlot_x, int startSlot_y, int width, int height, bool isFree)
         {
             for (int i = startSlot_x; i < startSlot_x + width; i++)
@@ -597,14 +417,7 @@ namespace jbzdy.Inventory
             }
         }
 
-        /// <summary>
-        /// Method to check if we can put an item with some width & height to a specified slot 
-        /// </summary>
-        /// <param name="cell_x">Slot x coordinate</param>
-        /// <param name="cell_y">Slot y coordinate</param>
-        /// <param name="width">Item width in grid space</param>
-        /// <param name="height">Item height in grid space</param>
-        /// <returns></returns>
+        // Method to check if we can put an item with some width & height to a specified slot 
         public GridSlot CheckFreeSpaceAtSlot(int cell_x, int cell_y, int width, int height)
         {
             for (int i = cell_x; i < cell_x + width; i++)
@@ -621,9 +434,7 @@ namespace jbzdy.Inventory
             return FindSlotByIndex(cell_x, cell_y);
         }
 
-        /// <summary>
-        /// Method for marking slots as free or not. Sometimes we need to redraw inventory state in some cases
-        /// </summary>
+        // Method for marking slots as free or not. Sometimes we need to redraw inventory state in some cases
         public void DrawRegularSlotsColors()
         {
             foreach (var slot in slots)
@@ -639,13 +450,7 @@ namespace jbzdy.Inventory
             }
         }
 
-        /// <summary>
-        /// When we dragging item in inventory grid we call this method to draw current slots state at realtime
-        /// </summary>
-        /// <param name="startSlot_x">Slot x where pointer over</param>
-        /// <param name="startSlot_y">Slot y where pointer over</param>
-        /// <param name="width">Item width we want to put to this slot</param>
-        /// <param name="height">Item height we want to put to this slot</param>
+        // When dragging item in inventory grid we call this method to draw current slots state at realtime
         public void DrawColorsForHoveredSlots(int startSlot_x, int startSlot_y, int width, int height)
         {
             for (int i = startSlot_x; i < startSlot_x + width; i++)
@@ -665,13 +470,7 @@ namespace jbzdy.Inventory
             }
         }
 
-        /// <summary>
-        /// Same as DrawColorsForHoveredSlots but for stacking items. With default draw method blocked color will be apeared on attempt to stack items
-        /// </summary>
-        /// <param name="startSlot_x">Slot x where pointer over</param>
-        /// <param name="startSlot_y">Slot y where pointer over</param>
-        /// <param name="width">Item width we want to put to this slot</param>
-        /// <param name="height">Item height we want to put to this slot</param>
+        // Same as DrawColorsForHoveredSlots but for stacking items. With default draw method blocked color will be apeared on attempt to stack items
         public void DrawColorForStackableHoveredSlots(int startSlot_x, int startSlot_y, int width, int height)
         {
             for (int i = startSlot_x; i < startSlot_x + width; i++)
@@ -688,12 +487,7 @@ namespace jbzdy.Inventory
             }
         }
         
-        /// <summary>
-        /// Method to check if we have enough space to pickup something
-        /// </summary>
-        /// <param name="width">Required width to check</param>
-        /// <param name="height">Required height to check</param>
-        /// <returns></returns>
+        // Method to check if we have enough space to pickup something
         public GridSlot CheckFreeSpaceForAllSlots(int width, int height)
         {
             foreach (var slot in slots)
@@ -705,12 +499,7 @@ namespace jbzdy.Inventory
             return null;
         }
 
-        /// <summary>
-        /// Method to find slot with coordinates. Return slot if found or null when is none
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
+        // Method to find slot with coordinates. Return slot if found or null when is none
         public GridSlot FindSlotByIndex(int x, int y)
         {
             foreach (var slot in slots)
@@ -722,10 +511,7 @@ namespace jbzdy.Inventory
             return null;
         }
 
-        /// <summary>
-        /// Remove left items back to lootbox on inspection end
-        /// </summary>
-        /// <returns></returns>
+        // Remove left items back to lootbox on inspection end
         public List<InventoryItem> FindItemsLeftInLoot()
         {
             List<InventoryItem> items = new List<InventoryItem>();
@@ -747,10 +533,7 @@ namespace jbzdy.Inventory
 
         }
 
-        /// <summary>
-        /// Remove 
-        /// </summary>
-        /// <param name="InventoryItem"></param>
+        // Remove inventory item
         public void RemoveInventoryItem(InventoryItem InventoryItem)
         {
             int temp_x, temp_y, temp_width, temp_height;
@@ -767,64 +550,7 @@ namespace jbzdy.Inventory
             MarkSlots(temp_x, temp_y, temp_width, temp_height, true);
         }
 
-        /// <summary>
-        /// Complex method to inspect lootboxes
-        /// </summary>
-        /// <param name="lootBox"></param>
-        public void SearchLootBox(LootBox lootBox)
-        {
-            //Changing inventory state
-            inventoryManager.mode = InventoryManager.ActiveMode.loot;
-            InventoryManager.showInventory = true;
-
-            //Making a reference to current lootbox in order to restore left items on inspection end
-            activeLootBox = lootBox;
-
-            //Adding an items to loot window in order to interact with them
-            AddItemsToLoot(activeLootBox.lootBoxItems);
-        }
-
-        /// <summary>
-        /// Add items to loot window. There is also check for enough space to place an item
-        /// </summary>
-        /// <param name="items"></param>
-        public void AddItemsToLoot(List<Item> items)
-        {
-            if (items == null)
-                return;
-
-            foreach (var _item in items)
-            {
-                if (CheckFreeSpaceForAllSlotsLoot(_item.itemWidth, _item.itemHeight))
-                {
-                    var slotToEquip = CheckFreeSpaceForAllSlotsLoot(_item.itemWidth, _item.itemHeight);
-
-                    AddItem(_item, slotToEquip.x, slotToEquip.y);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Check for enough space in loot window
-        /// </summary>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <returns></returns>
-        public GridSlot CheckFreeSpaceForAllSlotsLoot(int width, int height)
-        {
-            foreach (var slot in slots)
-            {
-                if (CheckFreeSpaceAtSlot(slot.x, slot.y, width, height) && slot.equipmentPanel == null && slot.isLoot == true)
-                    return CheckFreeSpaceAtSlot(slot.x, slot.y, width, height);
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// Method which allows us to substract stack on a need
-        /// </summary>
-        /// <param name="InventoryItem"></param>
+        // Method which allows us to substract stack on a need
         public void SubstractStack(InventoryItem InventoryItem)
         {
             // If check free space == false -> exit
@@ -883,10 +609,7 @@ namespace jbzdy.Inventory
 
         }
 
-        /// <summary>
-        /// Method for items auto stacking. Not used currently and not tested.
-        /// </summary>
-        /// <param name="InventoryItem"></param>
+        // Method for items auto stacking
         public void AutoStack(InventoryItem InventoryItem)
         {
             List<InventoryItem> items = new List<InventoryItem>();
@@ -912,26 +635,21 @@ namespace jbzdy.Inventory
             }
         }
 
-        /// <summary>
-        /// We can use consumable items with this method. Stacked items will be decreased by one. Single item will be removed after use
-        /// </summary>
-        /// <param name="InventoryItem">Item to use</param>
-        /// <param name="closeInventory">Should inventory be closed after use?</param>
+        // We can use consumable items with this method. Stacked items will be decreased by one. Single item will be removed after use
         public void UseItem(InventoryItem InventoryItem, bool closeInventory)
         {
-                // If not stackable
-                if (!InventoryItem.item.isStackable || InventoryItem.item.itemStackSize <= 1)
-                {
-                    InventoryItem.item.onUseEvent.Invoke();
-                    RemoveItem(InventoryItem);
-                }
-                // If stackable
-                else
-                {
-                    InventoryItem.item.onUseEvent.Invoke();
-                    InventoryItem.item.itemStackSize -= 1;
-                }
-            
+            // If not stackable
+            if (!InventoryItem.item.isStackable || InventoryItem.item.itemStackSize <= 1)
+            {
+                InventoryItem.item.onUseEvent.Invoke();
+                RemoveItem(InventoryItem);
+            }
+            // If stackable
+            else
+            {
+                InventoryItem.item.onUseEvent.Invoke();
+                InventoryItem.item.itemStackSize -= 1;
+            }
 
             if (closeInventory)
                 InventoryManager.showInventory = false;
