@@ -13,7 +13,8 @@ namespace jbzdy.Actions.Interaction
         [SerializeField] private bool isInteracting;
 
         public InteractionZone InteractionZone { get => interactionZone; set => interactionZone = value; }
-
+        public bool IsInteracting { get => isInteracting; set => isInteracting = value; }
+        
         public void Awake()
         {
             interactionZone = GetComponentInChildren<InteractionZone>();
@@ -28,11 +29,6 @@ namespace jbzdy.Actions.Interaction
                     isInteracting = true;
                     Interact();
                 }
-            }
-            else if(!interactionZone.IsInRange && isInteracting)
-            {
-                isInteracting = false;
-                StopInteract();
             }
         }
 

@@ -17,14 +17,13 @@ namespace jbzdy.DialogueSystem.SO
     public class DialogueContainerSO : ScriptableObject
     {
         public List<NodeLinkData> NodeLinkDatas = new List<NodeLinkData>();
-
         public List<DialogueNodeData> DialogueNodeDatas = new List<DialogueNodeData>();
         public List<EndNodeData> EndNodeDatas = new List<EndNodeData>();
         public List<StartNodeData> StartNodeDatas = new List<StartNodeData>();
         public List<EventNodeData> EventNodeDatas = new List<EventNodeData>();
         public List<StatCheckNodeData> StatCheckNodeDatas = new List<StatCheckNodeData>();
         public List<ItemCheckNodeData> ItemCheckNodeDatas = new List<ItemCheckNodeData>();
-
+        
         public List<BaseNodeData> AllNodes
         {
             get

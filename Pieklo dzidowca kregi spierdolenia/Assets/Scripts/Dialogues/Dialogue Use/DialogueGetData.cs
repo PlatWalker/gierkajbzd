@@ -8,24 +8,22 @@ using jbzdy.DialogueSystem.SO;
 /// </summary>
 public class DialogueGetData : MonoBehaviour
 {
-    [SerializeField] protected DialogueContainerSO dialogue;
+    [SerializeField] protected DialogueContainerSO currentDialogue;
 
     protected BaseNodeData GetNodeByGuid(string targetNodeGuid)
     {
-        return dialogue.AllNodes.Find(node => node.NodeGuid == targetNodeGuid);
+        return currentDialogue.AllNodes.Find(node => node.NodeGuid == targetNodeGuid);
     }
 
     protected BaseNodeData GetNodeByNodePort(DialogueNodePort nodePort)
     {
-        return dialogue.AllNodes.Find(node => node.NodeGuid == nodePort.InputGuid);
+        return currentDialogue.AllNodes.Find(node => node.NodeGuid == nodePort.InputGuid);
     }
 
     protected BaseNodeData GetNextNode(BaseNodeData baseNodeData)
     {
-        NodeLinkData nodeLinkData = dialogue.NodeLinkDatas.Find(egde => egde.BaseNodeGuid == baseNodeData.NodeGuid);
+        NodeLinkData nodeLinkData = currentDialogue.NodeLinkDatas.Find(egde => egde.BaseNodeGuid == baseNodeData.NodeGuid);
 
         return GetNodeByGuid(nodeLinkData.TargetNodeGuid);
     }
-
-    
 }

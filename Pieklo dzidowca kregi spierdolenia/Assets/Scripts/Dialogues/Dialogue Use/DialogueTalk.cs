@@ -3,7 +3,7 @@ using UnityEngine.Events;
 using jbzdy.DialogueSystem.SO;
 using jbzdy.DialogueSystem.Enums;
 using System.Collections.Generic;
-using System.Linq;
+using jbzdy.NPC.Interaction;
 
 // <summary>
 // Napisane przez sharashino
@@ -16,13 +16,12 @@ namespace jbzdy.DialogueSystem.Actions
     {
         [SerializeField] private DialogueController dialogueControler = default;
         [SerializeField] private AudioSource audioSource = default;
-       
+        
         private DialogueNodeData currentDialogueNodeData;
         private DialogueNodeData lastDialogueNodeData;
 
         private List<StatCheckNodeData> statCheckNodeDatas = new List<StatCheckNodeData>();
         private List<ItemCheckNodeData> itemCheckNodeDatas = new List<ItemCheckNodeData>();
-
         private bool isTalking = false;
 
         private void Awake()
@@ -30,12 +29,14 @@ namespace jbzdy.DialogueSystem.Actions
             audioSource = GetComponent<AudioSource>();  
         }
 
-        public void StartDialogue()
+        public void StartDialogue(DialogueContainerSO dialogueContainer)
         {
+            currentDialogue = dialogueContainer;
+            
             if(isTalking != true)
             {
                 isTalking = true;
-                CheckNodeType(GetNextNode(dialogue.StartNodeDatas[0]));
+                CheckNodeType(GetNextNode(currentDialogue.StartNodeDatas[0]));
                 dialogueControler.ShowDialogueUI(true);
             }
         }
@@ -44,6 +45,7 @@ namespace jbzdy.DialogueSystem.Actions
         {
             isTalking = false;
             dialogueControler.ShowDialogueUI(false);
+            GetComponent<NPCInteraction>().StopInteract();
         }
 
         private void CheckNodeType(BaseNodeData baseNodeData)
@@ -75,7 +77,7 @@ namespace jbzdy.DialogueSystem.Actions
         
         private void RunNode(StartNodeData nodeData)
         {
-            CheckNodeType(GetNextNode(dialogue.StartNodeDatas[0]));
+            CheckNodeType(GetNextNode(currentDialogue.StartNodeDatas[0]));
         }
 
         private void RunNode(DialogueNodeData nodeData)
@@ -130,7 +132,7 @@ namespace jbzdy.DialogueSystem.Actions
                     CheckNodeType(GetNodeByGuid(lastDialogueNodeData.NodeGuid));
                     break;
                 case EndNodeType.RetrunToStart:
-                    CheckNodeType(GetNextNode(dialogue.StartNodeDatas[0]));
+                    CheckNodeType(GetNextNode(currentDialogue.StartNodeDatas[0]));
                     break;
             }
 
