@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using jbzdy.Actions.Interaction;
 using jbzdy.DialogueSystem.Actions;
 using jbzdy.DialogueSystem.SO;
@@ -20,14 +21,21 @@ namespace jbzdy.NPC.Interaction
 
         public override void Interact()
         {
-            dialogueTalk.StartDialogue(NPCDialogues[interactionCounter]);
-            interactionCounter++;
-            FreezePlayer(true);
+            if (interactionCounter >= NPCDialogues.Count)
+            {
+                dialogueTalk.StartDialogue(NPCDialogues.Last());
+            }
+            else
+            {
+                dialogueTalk.StartDialogue(NPCDialogues[interactionCounter]);
+                interactionCounter++;
+                FreezePlayer(true);
+            }
         }
 
         public override void StopInteract()
         {
-            Debug.Log("done talking with " + gameObject.name);
+            Debug.Log("Zakończyłem rozmowę z " + gameObject.name);
             FreezePlayer(false);
         }
         
