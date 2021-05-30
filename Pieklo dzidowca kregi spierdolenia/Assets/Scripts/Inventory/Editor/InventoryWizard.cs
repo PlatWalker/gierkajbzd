@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using jbzdy.Items.Enums;
@@ -45,14 +46,14 @@ namespace jbzdy.Inventory.Editors
         private InventoryClass inventory;
 
         public int tabIndex = 0;
-        public string[] tabHeaders = new string[] { "Inventory", "Loot window", "Equipment panels" };
+        public string[] tabHeaders = new string[] { "Inventory", "Equipment panels" };
         public Transform inventoryTransform;
 
-        [MenuItem("Sharashino Inventory/New Inventory")]
+        [MenuItem("Sharashino Tools/New Inventory")]
         static void Init()
         {
             InventoryWizard _editor = (InventoryWizard)GetWindow(typeof(InventoryWizard));
-
+            _editor.titleContent = new GUIContent("Inventory Wizard");
             _editor.Show();
         }
 
@@ -164,6 +165,8 @@ namespace jbzdy.Inventory.Editors
                     inventory.cell = imgObj.GetComponent<Image>();
                     inventory.DrawPreview();
 
+                    this.inventory = inventory;
+                    
                     CleanUp(); CleanUp(); CleanUp(); CleanUp();
                 }
 
@@ -172,176 +175,134 @@ namespace jbzdy.Inventory.Editors
             }
             if (tabIndex == 1)
             {
-                inventory = FindObjectOfType<InventoryClass>();
+                equipmentPanelsCount = EditorGUILayout.IntSlider("Equipment panels count", equipmentPanelsCount, 1, 10);
 
-                if(inventory == null)
+                if (currentEquipmentPanelsCount != equipmentPanelsCount)
                 {
-                    EditorGUILayout.HelpBox("No inventory in scene. Create an inventory first!", MessageType.Error);
-                }else
-                {
-                    GUILayout.BeginVertical("GroupBox");
+                    equipmentPanelX = new int[equipmentPanelsCount];
+                    equipmentPanelY = new int[equipmentPanelsCount];
+                    equipmentPanelType = new ItemTypes[equipmentPanelsCount];
+                    armorPanelType = new ArmorTypes[equipmentPanelsCount];
+                    weaponPanelType = new WeaponTypes[equipmentPanelsCount];
 
-                    LootSizeX = EditorGUILayout.IntField("Loot Width size", LootSizeX);
-                    LootSizeY = EditorGUILayout.IntField("Loot Height size", LootSizeY);
-
-                    if (GUILayout.Button("Build Loot Window"))
-                    {
-                        var cellHolder = Instantiate(new GameObject());
-                        cellHolder.transform.SetParent(inventoryTransform);
-                        cellHolder.name = "Loot window";
-
-                        var cellHolderImage = cellHolder.AddComponent<Image>();
-                        cellHolderImage.rectTransform.sizeDelta = new Vector2((CellRectSize + CellSpacing) * LootSizeX, (CellRectSize + CellSpacing) * LootSizeY);
-                        cellHolderImage.rectTransform.anchoredPosition = Vector2.zero;
-                        cellHolderImage.color = inventoryBackgroundColor;
-
-                        cellHolderImage.rectTransform.anchoredPosition = new Vector2(inventoryRectSize.x, 0);
-
-                        inventory.lootPanel = cellHolder.GetComponent<RectTransform>();
-                        inventory.lootRow = LootSizeX;
-                        inventory.lootColumn = LootSizeY;
-
-                        inventory.DrawPreview();
-                        CleanUp();
-                    }
+                    currentEquipmentPanelsCount = equipmentPanelsCount;
                 }
-            }
 
-            if (tabIndex == 2)
-            {
-                if (inventory == null)
+                for (int i = 0; i < equipmentPanelsCount; i++)
                 {
-                    EditorGUILayout.HelpBox("No inventory in scene. Create an inventory first!", MessageType.Error);
-                }
-                else
-                {
-                    equipmentPanelsCount = EditorGUILayout.IntSlider("Equipment panels count", equipmentPanelsCount, 1, 10);
+                    GUILayout.BeginVertical("HelpBox");
 
-                    if (currentEquipmentPanelsCount != equipmentPanelsCount)
+                    equipmentPanelType[i] = (ItemTypes)EditorGUILayout.EnumPopup("Slot allowed item: ", equipmentPanelType[i]);
+
+                    switch (equipmentPanelType[i])
                     {
-                        equipmentPanelX = new int[equipmentPanelsCount];
-                        equipmentPanelY = new int[equipmentPanelsCount];
-                        equipmentPanelType = new ItemTypes[equipmentPanelsCount];
-                        armorPanelType = new ArmorTypes[equipmentPanelsCount];
-                        weaponPanelType = new WeaponTypes[equipmentPanelsCount];
-
-                        currentEquipmentPanelsCount = equipmentPanelsCount;
+                        case ItemTypes.Weapon:
+                            {
+                                weaponPanelType[i] = (WeaponTypes)EditorGUILayout.EnumPopup("Slot allowed weapon: ", weaponPanelType[i]);
+                                DrawPanelSizeFields(i);
+                                break;
+                            }
+                        case ItemTypes.Armor:
+                            {
+                                armorPanelType[i] = (ArmorTypes)EditorGUILayout.EnumPopup("Slot allowed weapon: ", armorPanelType[i]);
+                                DrawPanelSizeFields(i);
+                                break;
+                            }
+                        case ItemTypes.Trinket:
+                            {
+                                DrawPanelSizeFields(i);
+                                break;
+                            }
+                        case ItemTypes.Consumable:
+                            {
+                                DrawPanelSizeFields(i);
+                                break;
+                            }
+                        case ItemTypes.None:
+                            break;
+                        default:
+                            break;
                     }
+
+                    GUILayout.EndVertical();
+                }
+
+                if (GUILayout.Button("Build panels"))
+                {
+                    inventory.equipmentPanels = new List<EquipmentPanel>();
 
                     for (int i = 0; i < equipmentPanelsCount; i++)
                     {
-                        GUILayout.BeginVertical("HelpBox");
-
-                        equipmentPanelType[i] = (ItemTypes)EditorGUILayout.EnumPopup("Slot allowed item: ", equipmentPanelType[i]);
+                        var cellHolder = Instantiate(new GameObject());
+                        cellHolder.transform.SetParent(inventoryTransform);
 
                         switch (equipmentPanelType[i])
                         {
                             case ItemTypes.Weapon:
-                                {
-                                    weaponPanelType[i] = (WeaponTypes)EditorGUILayout.EnumPopup("Slot allowed weapon: ", weaponPanelType[i]);
-                                    DrawPanelSizeFields(i);
-                                    break;
-                                }
-                            case ItemTypes.Armor:
-                                {
-                                    armorPanelType[i] = (ArmorTypes)EditorGUILayout.EnumPopup("Slot allowed weapon: ", armorPanelType[i]);
-                                    DrawPanelSizeFields(i);
-                                    break;
-                                }
-                            case ItemTypes.Trinket:
-                                {
-                                    DrawPanelSizeFields(i);
-                                    break;
-                                }
-                            case ItemTypes.Consumable:
-                                {
-                                    DrawPanelSizeFields(i);
-                                    break;
-                                }
-                            case ItemTypes.None:
-                                break;
-                            default:
-                                break;
-                        }
-
-                        GUILayout.EndVertical();
-                    }
-
-                    if (GUILayout.Button("Build panels"))
-                    {
-                        inventory.equipmentPanels = new List<EquipmentPanel>();
-
-                        for (int i = 0; i < equipmentPanelsCount; i++)
-                        {
-                            var cellHolder = Instantiate(new GameObject());
-                            cellHolder.transform.SetParent(inventoryTransform);
-
-                            switch (equipmentPanelType[i])
                             {
-                                case ItemTypes.Weapon:
-                                    {
-                                        WeaponEquipmentPanel weaponPanel = cellHolder.AddComponent<WeaponEquipmentPanel>();
-
-                                        weaponPanel.allowedWeaponType = weaponPanelType[i];
-                                        weaponPanel.allowedItemType = equipmentPanelType[i];
-                                        weaponPanel.width = equipmentPanelX[i];
-                                        weaponPanel.height = equipmentPanelY[i];
-                                        
-                                        cellHolder.name = "Equipment panel: " + equipmentPanelType[i] + weaponPanelType[i];
-                                        inventory.equipmentPanels.Add(weaponPanel);
-                                        break;
-                                    }
-                                case ItemTypes.Armor:
-                                    {
-                                        ArmorEquipmentPanel armorPanel = cellHolder.AddComponent<ArmorEquipmentPanel>();
-                                        
-                                        armorPanel.allowedArmorType = armorPanelType[i];
-                                        armorPanel.allowedItemType = equipmentPanelType[i];
-                                        armorPanel.width = equipmentPanelX[i];
-                                        armorPanel.height = equipmentPanelY[i];
-
-                                        cellHolder.name = "Equipment panel: " + equipmentPanelType[i] + armorPanelType[i];
-                                        inventory.equipmentPanels.Add(armorPanel);
-                                        break;
-                                    }
-                                case ItemTypes.Trinket:
-                                    {
-                                        TrinketEquipmentPanel trinketPanel = cellHolder.AddComponent<TrinketEquipmentPanel>();
-
-                                        trinketPanel.allowedItemType = equipmentPanelType[i];
-                                        trinketPanel.allowedItemType = equipmentPanelType[i];
-                                        trinketPanel.width = equipmentPanelX[i];
-                                        trinketPanel.height = equipmentPanelY[i];
-
-                                        cellHolder.name = "Equipment panel: " + equipmentPanelType[i];
-                                        inventory.equipmentPanels.Add(trinketPanel);
-                                        break;
-                                    }
-                                default:
-                                    {
-                                        EquipmentPanel equipmentPanel = cellHolder.AddComponent<ArmorEquipmentPanel>();
-
-                                        equipmentPanel.allowedItemType = equipmentPanelType[i];
-                                        equipmentPanel.allowedItemType = equipmentPanelType[i];
-                                        equipmentPanel.width = equipmentPanelX[i];
-                                        equipmentPanel.height = equipmentPanelY[i];
-
-                                        cellHolder.name = "Equipment panel: " + equipmentPanelType[i];
-                                        inventory.equipmentPanels.Add(equipmentPanel);
-                                        break;
-                                    }
+                                WeaponEquipmentPanel weaponPanel = cellHolder.AddComponent<WeaponEquipmentPanel>();
+                                weaponPanel.allowedWeaponType = weaponPanelType[i];
+                                weaponPanel.allowedItemType = equipmentPanelType[i];
+                                weaponPanel.width = equipmentPanelX[i];
+                                weaponPanel.height = equipmentPanelY[i];
+                                
+                                cellHolder.name = "Equipment panel: " + equipmentPanelType[i] + weaponPanelType[i];
+                                inventory.equipmentPanels.Add(weaponPanel);
+                                break;
                             }
+                            case ItemTypes.Armor:
+                            {
+                                ArmorEquipmentPanel armorPanel = cellHolder.AddComponent<ArmorEquipmentPanel>();
 
-                            var cellHolderImage = cellHolder.AddComponent<Image>();
-                            cellHolderImage.rectTransform.sizeDelta = new Vector2((CellRectSize + CellSpacing) * equipmentPanelX[i], (CellRectSize + CellSpacing) * equipmentPanelY[i]);
-                            cellHolderImage.rectTransform.anchoredPosition = Vector2.zero;
-                            cellHolderImage.color = inventoryBackgroundColor;
+                                armorPanel.allowedArmorType = armorPanelType[i];
+                                armorPanel.allowedItemType = equipmentPanelType[i];
+                                armorPanel.width = equipmentPanelX[i];
+                                armorPanel.height = equipmentPanelY[i];
 
-                            CleanUp();
+                                cellHolder.name = "Equipment panel: " + equipmentPanelType[i] + armorPanelType[i];
+                                inventory.equipmentPanels.Add(armorPanel);
+                                break;
+                            }
+                            case ItemTypes.Trinket:
+                            {
+                                TrinketEquipmentPanel trinketPanel =
+                                    cellHolder.AddComponent<TrinketEquipmentPanel>();
+
+                                trinketPanel.allowedItemType = equipmentPanelType[i];
+                                trinketPanel.allowedItemType = equipmentPanelType[i];
+                                trinketPanel.width = equipmentPanelX[i];
+                                trinketPanel.height = equipmentPanelY[i];
+
+                                cellHolder.name = "Equipment panel: " + equipmentPanelType[i];
+                                inventory.equipmentPanels.Add(trinketPanel);
+                                break;
+                            }
+                            default:
+                            {
+                                EquipmentPanel equipmentPanel = cellHolder.AddComponent<ArmorEquipmentPanel>();
+
+                                equipmentPanel.allowedItemType = equipmentPanelType[i];
+                                equipmentPanel.allowedItemType = equipmentPanelType[i];
+                                equipmentPanel.width = equipmentPanelX[i];
+                                equipmentPanel.height = equipmentPanelY[i];
+
+                                cellHolder.name = "Equipment panel: " + equipmentPanelType[i];
+                                inventory.equipmentPanels.Add(equipmentPanel);
+                                break;
+                            }
                         }
 
-                        inventory.DrawPreview();
+                        var cellHolderImage = cellHolder.AddComponent<Image>();
+                        cellHolderImage.rectTransform.sizeDelta = new Vector2(
+                            (CellRectSize + CellSpacing) * equipmentPanelX[i],
+                            (CellRectSize + CellSpacing) * equipmentPanelY[i]);
+                        cellHolderImage.rectTransform.anchoredPosition = Vector2.zero;
+                        cellHolderImage.color = inventoryBackgroundColor;
+
+                        CleanUp();
                     }
+
+                    inventory.DrawPreview();
                 }
             }
         }

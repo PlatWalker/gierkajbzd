@@ -57,6 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c006d470787e0ba42af2196e475dda31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInRange: 0
 --- !u!1 &7117611348177394135
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,7 +87,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7117611348177394135}
   m_LocalRotation: {x: -0, y: -0.00000003774895, z: -0, w: 1}
-  m_LocalPosition: {x: 121.478, y: 0.75, z: 130.008}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7117611347604155550}
@@ -158,6 +159,7 @@ MonoBehaviour:
   itemName: Sierp
   itemDescription: "Wyci\u0105gni\u0119ty z god\u0142a ZSRR"
   itemIcon: {fileID: 21300000, guid: 61e85989c6832514bb1d8d6edcdc01ca, type: 3}
+  inventoryItemSprite: {fileID: 0}
   itemType: 0
   itemWidth: 2
   itemHeight: 2
@@ -183,8 +185,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionZone: {fileID: 7117611347604155548}
+  isInteracting: 0
   item: {fileID: 0}
-  Inventory: {fileID: 0}
+  inventory: {fileID: 0}
 --- !u!114 &7117611348177394134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,5 +200,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b5a5d7340dda3b4b9f69ecec7cac3bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemID: 0
+  itemName: 
+  itemDescription: 
+  itemIcon: {fileID: 0}
+  inventoryItemSprite: {fileID: 0}
+  itemType: 0
+  itemWidth: 1
+  itemHeight: 1
+  isStackable: 0
+  itemMaxStackSize: 1
+  itemStackSize: 1
+  onUseEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onPickupEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  weaponType: 0
+  weaponInventorySprite: {fileID: 0}
   weaponDamage: 5
   weaponLevel: 1

@@ -1,0 +1,291 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a69ff5ed214494b835d86b8438ac53, type: 3}
+  m_Name: 1.2.1 Bez odpowiedzialnosci
+  m_EditorClassIdentifier: 
+  NodeLinkDatas:
+  - BaseNodeGuid: 81410c19-89ae-40cd-8d9a-6a3456acb0fa
+    TargetNodeGuid: 7658b784-172b-45a0-84ac-aa30d9dbafee
+  - BaseNodeGuid: 7658b784-172b-45a0-84ac-aa30d9dbafee
+    TargetNodeGuid: 0ec268a1-6ee1-4bd9-a499-a28639d1ca22
+  - BaseNodeGuid: 7658b784-172b-45a0-84ac-aa30d9dbafee
+    TargetNodeGuid: e6fef5a5-22b5-4fd2-b7fe-66e3bbc55065
+  - BaseNodeGuid: e6fef5a5-22b5-4fd2-b7fe-66e3bbc55065
+    TargetNodeGuid: 5453095b-f807-4784-9563-ef05f4cb0a2e
+  - BaseNodeGuid: 5453095b-f807-4784-9563-ef05f4cb0a2e
+    TargetNodeGuid: 777b6dd7-b8d7-4828-8e0c-2384cd6bf355
+  - BaseNodeGuid: 777b6dd7-b8d7-4828-8e0c-2384cd6bf355
+    TargetNodeGuid: 7295f1c6-f966-4c54-a0ec-1a3778dba9c7
+  - BaseNodeGuid: 7295f1c6-f966-4c54-a0ec-1a3778dba9c7
+    TargetNodeGuid: 89527c81-86a5-4835-89c8-3825d06aa44a
+  - BaseNodeGuid: 89527c81-86a5-4835-89c8-3825d06aa44a
+    TargetNodeGuid: 50687480-215f-4ec3-bfdb-5a0ed69a0472
+  - BaseNodeGuid: 50687480-215f-4ec3-bfdb-5a0ed69a0472
+    TargetNodeGuid: fb45ec6b-1a26-4d18-8225-15dfa56c036a
+  - BaseNodeGuid: 89527c81-86a5-4835-89c8-3825d06aa44a
+    TargetNodeGuid: 5ad4756f-e8a7-4979-80ff-866f5cce2b9d
+  DialogueNodeDatas:
+  - NodeGuid: 7658b784-172b-45a0-84ac-aa30d9dbafee
+    Position: {x: -102, y: 124}
+    DialogueNodePorts:
+    - PortGuid: 359786a3-539e-46f0-ad73-01433be9ac67
+      InputGuid: e6fef5a5-22b5-4fd2-b7fe-66e3bbc55065
+      OutputGuid: 7658b784-172b-45a0-84ac-aa30d9dbafee
+      TextLanguages:
+      - LanguageType: 0
+        LanguageGenericType: "Hajda? Ten, co przejecha\u0142 staruszk\u0119 na pasach?"
+      - LanguageType: 1
+        LanguageGenericType: Continue
+      - LanguageType: 2
+        LanguageGenericType: Continue
+    - PortGuid: a1189481-254e-4fac-9835-a553ee9686e5
+      InputGuid: 0ec268a1-6ee1-4bd9-a499-a28639d1ca22
+      OutputGuid: 7658b784-172b-45a0-84ac-aa30d9dbafee
+      TextLanguages:
+      - LanguageType: 0
+        LanguageGenericType: "Przepraszam, ja tylko t\u0119dy przechodzi\u0142em"
+      - LanguageType: 1
+        LanguageGenericType: Continue
+      - LanguageType: 2
+        LanguageGenericType: Continue
+    DialogueFaceImageType: 0
+    AudioClips:
+    - LanguageType: 0
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 1
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 2
+      LanguageGenericType: {fileID: 0}
+    TextLanguages:
+    - LanguageType: 0
+      LanguageGenericType: "Czego tu? Matka ci\u0119 nie uczy\u0142a, \u017Ce nie\u0142adnie
+        jest si\u0119 tak gapi\u0107?"
+    - LanguageType: 1
+      LanguageGenericType: 
+    - LanguageType: 2
+      LanguageGenericType: 
+    Sprite: {fileID: 0}
+    Name: Jadzia
+  - NodeGuid: e6fef5a5-22b5-4fd2-b7fe-66e3bbc55065
+    Position: {x: 340, y: 48}
+    DialogueNodePorts:
+    - PortGuid: 2eab166c-9eaa-4093-a715-ad972d26c6eb
+      InputGuid: 5453095b-f807-4784-9563-ef05f4cb0a2e
+      OutputGuid: e6fef5a5-22b5-4fd2-b7fe-66e3bbc55065
+      TextLanguages:
+      - LanguageType: 0
+        LanguageGenericType: Dalej
+      - LanguageType: 1
+        LanguageGenericType: Continue
+      - LanguageType: 2
+        LanguageGenericType: Continue
+    DialogueFaceImageType: 0
+    AudioClips:
+    - LanguageType: 0
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 1
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 2
+      LanguageGenericType: {fileID: 0}
+    TextLanguages:
+    - LanguageType: 0
+      LanguageGenericType: "Ten sam! Bezbo\u017Cnik jeden, tfu!"
+    - LanguageType: 1
+      LanguageGenericType: 
+    - LanguageType: 2
+      LanguageGenericType: 
+    Sprite: {fileID: 0}
+    Name: Jadzia
+  - NodeGuid: 5453095b-f807-4784-9563-ef05f4cb0a2e
+    Position: {x: 546, y: 51}
+    DialogueNodePorts:
+    - PortGuid: bb3bada3-0370-4879-a53a-956f4342553c
+      InputGuid: 777b6dd7-b8d7-4828-8e0c-2384cd6bf355
+      OutputGuid: 5453095b-f807-4784-9563-ef05f4cb0a2e
+      TextLanguages:
+      - LanguageType: 0
+        LanguageGenericType: Dalej
+      - LanguageType: 1
+        LanguageGenericType: Continue
+      - LanguageType: 2
+        LanguageGenericType: Continue
+    DialogueFaceImageType: 0
+    AudioClips:
+    - LanguageType: 0
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 1
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 2
+      LanguageGenericType: {fileID: 0}
+    TextLanguages:
+    - LanguageType: 0
+      LanguageGenericType: "Potr\u0105ci\u0142 nasz\u0105 kole\u017Cank\u0119, kiedy
+        sz\u0142a na k\xF3\u0142ko r\xF3\u017Ca\u0144cowe!"
+    - LanguageType: 1
+      LanguageGenericType: 
+    - LanguageType: 2
+      LanguageGenericType: 
+    Sprite: {fileID: 0}
+    Name: Gienia
+  - NodeGuid: 777b6dd7-b8d7-4828-8e0c-2384cd6bf355
+    Position: {x: 909, y: 52}
+    DialogueNodePorts:
+    - PortGuid: a77f4f77-9c0a-4707-8e4e-962862195662
+      InputGuid: 7295f1c6-f966-4c54-a0ec-1a3778dba9c7
+      OutputGuid: 777b6dd7-b8d7-4828-8e0c-2384cd6bf355
+      TextLanguages:
+      - LanguageType: 0
+        LanguageGenericType: Dalej
+      - LanguageType: 1
+        LanguageGenericType: Continue
+      - LanguageType: 2
+        LanguageGenericType: Continue
+    DialogueFaceImageType: 0
+    AudioClips:
+    - LanguageType: 0
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 1
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 2
+      LanguageGenericType: {fileID: 0}
+    TextLanguages:
+    - LanguageType: 0
+      LanguageGenericType: "Do tego unikn\u0105\u0142 odpowiedzialno\u015Bci za swoje
+        przest\u0119pstwo!"
+    - LanguageType: 1
+      LanguageGenericType: 
+    - LanguageType: 2
+      LanguageGenericType: 
+    Sprite: {fileID: 0}
+    Name: Jadzia
+  - NodeGuid: 7295f1c6-f966-4c54-a0ec-1a3778dba9c7
+    Position: {x: 1273, y: 51}
+    DialogueNodePorts:
+    - PortGuid: 185cfd81-9f00-40ed-b86d-e727a4a811b7
+      InputGuid: 89527c81-86a5-4835-89c8-3825d06aa44a
+      OutputGuid: 7295f1c6-f966-4c54-a0ec-1a3778dba9c7
+      TextLanguages:
+      - LanguageType: 0
+        LanguageGenericType: Dalej
+      - LanguageType: 1
+        LanguageGenericType: Continue
+      - LanguageType: 2
+        LanguageGenericType: Continue
+    DialogueFaceImageType: 0
+    AudioClips:
+    - LanguageType: 0
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 1
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 2
+      LanguageGenericType: {fileID: 0}
+    TextLanguages:
+    - LanguageType: 0
+      LanguageGenericType: "To wszystko wina Tuska! Teraz Hajda my\u015Bli, \u017Ce
+        jest ca\u0142kowicie bezkarny i poluje na nas, poczciwych emeryt\xF3w. A\u017C
+        strach przez pasy przej\u015B\u0107..."
+    - LanguageType: 1
+      LanguageGenericType: 
+    - LanguageType: 2
+      LanguageGenericType: 
+    Sprite: {fileID: 0}
+    Name: Gienia
+  - NodeGuid: 89527c81-86a5-4835-89c8-3825d06aa44a
+    Position: {x: 2111, y: 63}
+    DialogueNodePorts:
+    - PortGuid: 605dd5ca-54d5-470d-b9e7-bfe2b6925bb6
+      InputGuid: 5ad4756f-e8a7-4979-80ff-866f5cce2b9d
+      OutputGuid: 89527c81-86a5-4835-89c8-3825d06aa44a
+      TextLanguages:
+      - LanguageType: 0
+        LanguageGenericType: Nie ma sprawy, babciu
+      - LanguageType: 1
+        LanguageGenericType: Continue
+      - LanguageType: 2
+        LanguageGenericType: Continue
+    - PortGuid: 0a9c00da-d0c6-4e99-b79c-c28f305f8c6d
+      InputGuid: 50687480-215f-4ec3-bfdb-5a0ed69a0472
+      OutputGuid: 89527c81-86a5-4835-89c8-3825d06aa44a
+      TextLanguages:
+      - LanguageType: 0
+        LanguageGenericType: "I dobrze, niech was wszystkie porozje\u017Cd\u017Ca"
+      - LanguageType: 1
+        LanguageGenericType: Continue
+      - LanguageType: 2
+        LanguageGenericType: Continue
+    DialogueFaceImageType: 0
+    AudioClips:
+    - LanguageType: 0
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 1
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 2
+      LanguageGenericType: {fileID: 0}
+    TextLanguages:
+    - LanguageType: 0
+      LanguageGenericType: "S\u0142uchaj, m\u0142ody cz\u0142owieku. Nabo\u017Ce\u0144stwo
+        si\u0119 sko\u0144czy\u0142o dwie godziny temu, a my tu wci\u0105\u017C siedzimy,
+        bo boimy si\u0119 wr\xF3ci\u0107 do domu, ten antychryst pewnie czai si\u0119
+        niedaleko jakiego\u015B przej\u015Bcia. Pom\xF3g\u0142by\u015B nas przeprowadzi\u0107
+        przez jezdni\u0119? Zrobi\u0142by\u015B dobry uczynek i przy okazji zarobi\u0142
+        troch\u0119 pieni\u0105\u017Ck\xF3w na lody."
+    - LanguageType: 1
+      LanguageGenericType: 
+    - LanguageType: 2
+      LanguageGenericType: 
+    Sprite: {fileID: 0}
+    Name: 
+  - NodeGuid: 50687480-215f-4ec3-bfdb-5a0ed69a0472
+    Position: {x: 3887, y: 187}
+    DialogueNodePorts:
+    - PortGuid: 2d4cb379-e758-4d93-9698-762250839908
+      InputGuid: fb45ec6b-1a26-4d18-8225-15dfa56c036a
+      OutputGuid: 50687480-215f-4ec3-bfdb-5a0ed69a0472
+      TextLanguages:
+      - LanguageType: 0
+        LanguageGenericType: Dalej
+      - LanguageType: 1
+        LanguageGenericType: Continue
+      - LanguageType: 2
+        LanguageGenericType: Continue
+    DialogueFaceImageType: 0
+    AudioClips:
+    - LanguageType: 0
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 1
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 2
+      LanguageGenericType: {fileID: 0}
+    TextLanguages:
+    - LanguageType: 0
+      LanguageGenericType: "G\xF3wniarzu jeden, matka kultury ci\u0119 nie nauczy\u0142a?"
+    - LanguageType: 1
+      LanguageGenericType: 
+    - LanguageType: 2
+      LanguageGenericType: 
+    Sprite: {fileID: 0}
+    Name: Jadzia
+  EndNodeDatas:
+  - NodeGuid: 0ec268a1-6ee1-4bd9-a499-a28639d1ca22
+    Position: {x: 339, y: 277}
+    EndNodeType: 0
+  - NodeGuid: fb45ec6b-1a26-4d18-8225-15dfa56c036a
+    Position: {x: 4193, y: 190}
+    EndNodeType: 0
+  - NodeGuid: 5ad4756f-e8a7-4979-80ff-866f5cce2b9d
+    Position: {x: 3892, y: 61}
+    EndNodeType: 0
+  StartNodeDatas:
+  - NodeGuid: 81410c19-89ae-40cd-8d9a-6a3456acb0fa
+    Position: {x: -199, y: 124}
+  EventNodeDatas: []
+  StatCheckNodeDatas: []

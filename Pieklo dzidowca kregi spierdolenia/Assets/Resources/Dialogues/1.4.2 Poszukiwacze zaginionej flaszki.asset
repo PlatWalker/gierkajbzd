@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a69ff5ed214494b835d86b8438ac53, type: 3}
+  m_Name: 1.4.2 Poszukiwacze zaginionej flaszki
+  m_EditorClassIdentifier: 
+  NodeLinkDatas:
+  - BaseNodeGuid: 7f761e84-cadd-43f1-9f9a-b686559c5019
+    TargetNodeGuid: f8c34788-9db0-404b-8def-37f12700be56
+  - BaseNodeGuid: f8c34788-9db0-404b-8def-37f12700be56
+    TargetNodeGuid: 50b85d5d-5cd6-4e8e-8434-2d8d15096606
+  - BaseNodeGuid: f8c34788-9db0-404b-8def-37f12700be56
+    TargetNodeGuid: 84e3a9ae-9e21-4f7f-bc9a-d5aa474bbe38
+  - BaseNodeGuid: 84e3a9ae-9e21-4f7f-bc9a-d5aa474bbe38
+    TargetNodeGuid: ba1f0918-ffc8-4dd0-8db4-fa5c3d2abbf6
+  DialogueNodeDatas:
+  - NodeGuid: f8c34788-9db0-404b-8def-37f12700be56
+    Position: {x: 470, y: 278}
+    DialogueNodePorts:
+    - PortGuid: f385442c-2258-44c3-a557-c2a8db21ad3c
+      InputGuid: 84e3a9ae-9e21-4f7f-bc9a-d5aa474bbe38
+      OutputGuid: f8c34788-9db0-404b-8def-37f12700be56
+      TextLanguages:
+      - LanguageType: 0
+        LanguageGenericType: "Poprosz\u0119 \u201E\u015Awi\u0119tego Graala\u201D"
+      - LanguageType: 1
+        LanguageGenericType: Continue
+      - LanguageType: 2
+        LanguageGenericType: Continue
+    - PortGuid: cb3e2cdf-8bf9-41c4-83d7-448b91ee7e7e
+      InputGuid: 50b85d5d-5cd6-4e8e-8434-2d8d15096606
+      OutputGuid: f8c34788-9db0-404b-8def-37f12700be56
+      TextLanguages:
+      - LanguageType: 0
+        LanguageGenericType: Do widzenia
+      - LanguageType: 1
+        LanguageGenericType: Continue
+      - LanguageType: 2
+        LanguageGenericType: Continue
+    DialogueFaceImageType: 0
+    AudioClips:
+    - LanguageType: 0
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 1
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 2
+      LanguageGenericType: {fileID: 0}
+    TextLanguages:
+    - LanguageType: 0
+      LanguageGenericType: "Dzie\u0144 dobry. Co poda\u0107?"
+    - LanguageType: 1
+      LanguageGenericType: 
+    - LanguageType: 2
+      LanguageGenericType: 
+    Sprite: {fileID: 0}
+    Name: "Gra\u017Cyna"
+  - NodeGuid: 84e3a9ae-9e21-4f7f-bc9a-d5aa474bbe38
+    Position: {x: 804, y: 140}
+    DialogueNodePorts:
+    - PortGuid: f8cfdb21-3681-4666-8cf3-0b6a1e7cac46
+      InputGuid: ba1f0918-ffc8-4dd0-8db4-fa5c3d2abbf6
+      OutputGuid: 84e3a9ae-9e21-4f7f-bc9a-d5aa474bbe38
+      TextLanguages:
+      - LanguageType: 0
+        LanguageGenericType: Dalej
+      - LanguageType: 1
+        LanguageGenericType: Continue
+      - LanguageType: 2
+        LanguageGenericType: Continue
+    DialogueFaceImageType: 0
+    AudioClips:
+    - LanguageType: 0
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 1
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 2
+      LanguageGenericType: {fileID: 0}
+    TextLanguages:
+    - LanguageType: 0
+      LanguageGenericType: "O, nast\u0119pny! Jeste\u015B od Zdzicha, tak? Ju\u017C
+        m\xF3wi\u0142am tym moczymordom, \u017Ce nie mam czego\u015B takiego w sprzeda\u017Cy!
+        Dosta\u0142am tylko jedn\u0105 butelk\u0119 od producenta, w celach marketingowych,
+        ale kto\u015B j\u0105 ukrad\u0142, zanim zd\u0105\u017Cy\u0142am wystawi\u0107
+        j\u0105 na p\xF3\u0142k\u0119! W sumie sama bym chcia\u0142a wiedzie\u0107,
+        co si\u0119 sta\u0142o z tym winiaczem..."
+    - LanguageType: 1
+      LanguageGenericType: 
+    - LanguageType: 2
+      LanguageGenericType: 
+    Sprite: {fileID: 0}
+    Name: "Gra\u017Cyna"
+  EndNodeDatas:
+  - NodeGuid: 50b85d5d-5cd6-4e8e-8434-2d8d15096606
+    Position: {x: 785, y: 380}
+    EndNodeType: 0
+  - NodeGuid: ba1f0918-ffc8-4dd0-8db4-fa5c3d2abbf6
+    Position: {x: 2624, y: 214}
+    EndNodeType: 0
+  StartNodeDatas:
+  - NodeGuid: 7f761e84-cadd-43f1-9f9a-b686559c5019
+    Position: {x: 357, y: 233}
+  EventNodeDatas: []
+  StatCheckNodeDatas: []

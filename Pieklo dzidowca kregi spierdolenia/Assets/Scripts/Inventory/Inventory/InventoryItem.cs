@@ -17,11 +17,11 @@ namespace jbzdy.Inventory
         [HideInInspector]
         public int x, y, width, height;
 
-        /// <summary>
-        /// Inventory item image component
-        /// </summary>
         Image image;
-
+        
+        
+        
+        
         /// <summary>
         /// Reference to an item. Item and InventoryItem are not the same. InventoryItem it's a special component which allow us to draw item in inventory
         /// </summary>
@@ -267,7 +267,7 @@ namespace jbzdy.Inventory
                     y = CalculateShiftedAxes().y;
 
                     slot.equipmentPanel.equipedItem = item;
-
+                    
                     inventory.MarkSlots(CalculateShiftedAxes().x, CalculateShiftedAxes().y, width, height, false);
                 }
                 else
