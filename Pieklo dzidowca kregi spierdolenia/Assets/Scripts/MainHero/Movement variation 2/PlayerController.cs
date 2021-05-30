@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour
     Vector3 animationVector = Vector3.zero;         // 
     Vector3 moveVectorSaved = Vector3.zero;
 
+    private bool attackSequenceLock = false; // determines whatever sequence is still in progress
+
     public int Health { get => _health; private set => _health = value; }
 
     private void Awake()
@@ -76,44 +78,44 @@ public class PlayerController : MonoBehaviour
     private void UpdateCharacterAttack()
     {
 
-        if (moveVectorSaved != movementVector && characterAnimator.GetBool("Attack") == true)
-        {
-            attackVector = InputController.Instance.mousePositionFlat - transform.position;
+        //if (moveVectorSaved != movementVector && characterAnimator.GetBool("Attack") == true)
+        //{
+        //    attackVector = InputController.Instance.mousePositionFlat - transform.position;
 
-            // reflect attack vector to compensate movement(momentum) vector
+        //    // reflect attack vector to compensate movement(momentum) vector
 
-            reflectedAttackVector = (2 * Vector3.Dot(movementVector.normalized, attackVector.normalized) * movementVector.normalized) - attackVector.normalized;
+        //    reflectedAttackVector = (2 * Vector3.Dot(movementVector.normalized, attackVector.normalized) * movementVector.normalized) - attackVector.normalized;
 
-            // rotate reflected vector to let it point a direction of animation to use. It's important for blender tree.
+        //    // rotate reflected vector to let it point a direction of animation to use. It's important for blender tree.
 
-            float Beta = -1;
+        //    float Beta = -1;
 
-            if (movementVector == Vector3.forward) Beta = 0;
-            else if (movementVector == (Vector3.left + Vector3.forward)) Beta = 315;
-            else if (movementVector == Vector3.left) Beta = 270;
-            else if (movementVector == (Vector3.left + Vector3.back)) Beta = 225;
-            else if (movementVector == Vector3.back) Beta = 180;
-            else if (movementVector == (Vector3.back + Vector3.right)) Beta = 135;
-            else if (movementVector == Vector3.right) Beta = 90;
-            else if (movementVector == (Vector3.forward + Vector3.right)) Beta = 45;
+        //    if (movementVector == Vector3.forward) Beta = 0;
+        //    else if (movementVector == (Vector3.left + Vector3.forward)) Beta = 315;
+        //    else if (movementVector == Vector3.left) Beta = 270;
+        //    else if (movementVector == (Vector3.left + Vector3.back)) Beta = 225;
+        //    else if (movementVector == Vector3.back) Beta = 180;
+        //    else if (movementVector == (Vector3.back + Vector3.right)) Beta = 135;
+        //    else if (movementVector == Vector3.right) Beta = 90;
+        //    else if (movementVector == (Vector3.forward + Vector3.right)) Beta = 45;
 
-            if (Beta >= 0)
-            {
-                animationVector = Quaternion.AngleAxis(Beta, Vector3.down) * reflectedAttackVector;
-            }
+        //    if (Beta >= 0)
+        //    {
+        //        animationVector = Quaternion.AngleAxis(Beta, Vector3.down) * reflectedAttackVector;
+        //    }
 
-            moveVectorSaved = movementVector;
+        //    moveVectorSaved = movementVector;
 
-            // start attack animation
+        //    // start attack animation
 
-            transform.LookAt(InputController.Instance.mousePositionFlat);
-            characterAnimator.SetFloat("x", animationVector.x);
-            characterAnimator.SetFloat("z", animationVector.z);
-            characterAnimator.SetBool("Attack", true);
+        //    transform.LookAt(InputController.Instance.mousePositionFlat);
+        //    characterAnimator.SetFloat("x", animationVector.x);
+        //    characterAnimator.SetFloat("z", animationVector.z);
+        //    characterAnimator.SetBool("Attack", true);
 
-        }
+        //}
 
-        if (InputController.Instance.attackInputStatus.normal == true)
+        if (InputController.Instance.attackInputStatus.normal == true && attackSequenceLock == false)
         {
 
             attackVector =  InputController.Instance.mousePositionFlat - transform.position;
@@ -146,8 +148,15 @@ public class PlayerController : MonoBehaviour
             characterAnimator.SetFloat("x", animationVector.x);
             characterAnimator.SetFloat("z", animationVector.z);
             characterAnimator.SetBool("Attack", true);
-
+            attackSequenceLock = true;
         }
+        else if(InputController.Instance.attackInputStatus.normal == false && attackSequenceLock == true)
+        {
+            attackSequenceLock = false;
+            characterAnimator.SetBool("Attack", false);
+        }
+
+
     }
 
     #region Movement
