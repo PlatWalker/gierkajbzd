@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using jbzdy.DialogueSystem.Nodes;
 using UnityEditor.Experimental.GraphView;
 
-/// <summary>
-/// Napisane przez sharashino
-/// 
-/// Skrypt odpowiadający za rysowanie nodów w GraphView
-/// </summary>
+// <summary>
+// Napisane przez sharashino
+// 
+// Skrypt odpowiadający za rysowanie nodów w GraphView
+// </summary>
 namespace jbzdy.DialogueSystem.Editor
 {
     public class DialogueGraphView : GraphView
@@ -97,6 +97,13 @@ namespace jbzdy.DialogueSystem.Editor
         public StatCheckNode CreateStatCheckNode(Vector2 pos)
         {
             StatCheckNode tmp = new StatCheckNode(pos, editorWindow, this);
+
+            return tmp;
+        }
+
+        public ItemCheckNode CreateItemCheckNode(Vector2 pos)
+        {
+            ItemCheckNode tmp = new ItemCheckNode(pos, editorWindow, this);
 
             return tmp;
         }

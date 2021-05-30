@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using jbzdy.DialogueSystem.Nodes;
 using UnityEditor.Experimental.GraphView;
 
-/// <summary>
-/// Napisane przez sharashino
-/// 
-/// Skrypty wyszukiwarki nodów w GraphView
-/// </summary>
+// <summary>
+// Napisane przez sharashino
+// 
+// Skrypty wyszukiwarki nodów w GraphView
+// </summary>
 namespace jbzdy.DialogueSystem.Editor
 {
     public class NodeSearchWindow : ScriptableObject, ISearchWindowProvider
@@ -40,6 +40,7 @@ namespace jbzdy.DialogueSystem.Editor
                 AddNodeSearch("Dialogue Node",new DialogueNode()),
                 AddNodeSearch("Event Node",new EventNode()),
                 AddNodeSearch("Stat Check Node",new StatCheckNode()),
+                AddNodeSearch("Item Node", new ItemCheckNode()),
                 AddNodeSearch("End Node",new EndNode()),
             };
 
@@ -81,6 +82,9 @@ namespace jbzdy.DialogueSystem.Editor
                     return true;
                 case EventNode eventNode:
                     graphView.AddElement(graphView.CreateEventNode(pos));
+                    return true;
+                case ItemCheckNode eventNode:
+                    graphView.AddElement(graphView.CreateItemCheckNode(pos));
                     return true;
                 case StatCheckNode statCheckNode:
                     graphView.AddElement(graphView.CreateStatCheckNode(pos));

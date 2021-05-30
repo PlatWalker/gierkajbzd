@@ -1,19 +1,30 @@
 ﻿using jbzdy.Items;
+using jbzdy.Inventory;
 using UnityEngine;
 
-/// <summary>
-/// Napisane przez Sharashino
-/// 
-/// Skrypt umożliwiającymi obiektom bycie podniesionym
-/// 
-/// Posiada nadpisywalną metode z Interactables dla zmienienia logiki podczas interakcji z obiektem (tutaj podnoszenie przedmiotu)
-/// </summary>
+// <summary>
+// Napisane przez Sharashino
+// 
+// Skrypt umożliwiającymi obiektom bycie podniesionym
+// 
+// Posiada nadpisywalną metode z Interactables dla zmienienia logiki podczas interakcji z obiektem (tutaj podnoszenie przedmiotu)
+// </summary>
 namespace jbzdy.Actions.Interaction
 {
-    public class ItemPickup : Interactables
+    public class ItemPickup : Interactable
     {
         [SerializeField] private Item item = default;
 
+        public InventoryClass inventory;
+
+        public Item Item { get => item; set => item = value; }
+        
+        public new void Awake()
+        {
+            inventory = InventoryClass.Instance;            
+        }
+        
+        
         public override void Interact()
         {
             base.Interact();
@@ -24,13 +35,7 @@ namespace jbzdy.Actions.Interaction
         {
             Debug.Log("Picking up item: " + item.name);
 
-            bool wasPickedUp = Inventory.instance.AddItem(item);
-
-            if (wasPickedUp)
-            {
-                //Remove object from scene
-                //Destroy(gameObject);
-            }
+            InventoryClass.Instance.AddItem(item);
         }
     }
 }

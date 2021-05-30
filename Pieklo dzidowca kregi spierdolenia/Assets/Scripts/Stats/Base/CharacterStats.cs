@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using jbzdy.CharacterStats.Stats;
-/// <summary>
-/// Napisane przez Sharashino
-/// 
-/// Skrypt definiujący statystyki postaci 
-/// </summary>
+
+// <summary>
+// Napisane przez Sharashino
+// 
+// Skrypt definiujący statystyki postaci 
+// </summary>
 namespace jbzdy.CharacterStats
 {
     public class CharacterStats : MonoBehaviour
@@ -20,208 +22,94 @@ namespace jbzdy.CharacterStats
         #endregion
 
         [Header("Experience stats")]
-        [SerializeField] private int _ExperiencePoints;
-        [SerializeField] private int _Level;
+        [SerializeField] private int experiencePoints;
+        [SerializeField] private int level;
 
         [Header("Soft stats")]
-        [SerializeField] private int _MaxHealth;
-        [SerializeField] private Stat _Health;
-        [SerializeField] private Stat _Mana;
-        [SerializeField] protected Stat _Armor;
-        [SerializeField] protected Stat _Damage;
+        [SerializeField] private int maxHealth;
+        [SerializeField] private Stat health;
+        [SerializeField] private Stat mana;
+        [SerializeField] protected Stat armor;
+        [SerializeField] protected Stat damage;
 
         [Header("Hard stats")]
-        [SerializeField] private Stat _Strenght;
-        [SerializeField] private Stat _Agility;
-        [SerializeField] private Stat _Intelligence;
-        [SerializeField] private Stat _Vitality;
-        [SerializeField] private Stat _Luck;
-
+        [SerializeField] private Stat strength;
+        [SerializeField] private Stat agility;
+        [SerializeField] private Stat intelligence;
+        [SerializeField] private Stat vitality;
+        [SerializeField] private Stat luck;
+        
+        #region Properties
+        
+        public int ExperiencePoints { get => experiencePoints; set => experiencePoints = value; }
+        public int Level { get => level ; set => level = value; }
+        public int MaxHealth { get => maxHealth ; set => maxHealth = value; }
+        public Stat Health { get => health ; set => health = value; }
+        public Stat Mana { get => mana ; set => mana = value; }
+        public Stat Armor { get => armor ; set => armor = value; }
+        public Stat Damage { get => damage ; set => damage = value; }
+        public Stat Strength { get => strength ; set => strength = value; }
+        public Stat Agility { get => agility ; set => agility = value; }
+        public Stat Intelligence { get => intelligence ; set => intelligence = value; }
+        public Stat Vitality { get => vitality ; set => vitality = value; }
+        public Stat Luck { get => luck ; set => luck = value; }
+      
+        public void AddToLevel(int value)
+        {
+            level += value;
+        }
+        public void SetExperiencePoints(int value)
+        {
+            experiencePoints += value;
+        }
+        
+        #endregion
+        
         private void Start()
         {
             MaxHealth = Health.BaseValue;
         }
 
-        #region Getters & Setters
-
-        public int ExperiencePoints
+        private void Update()
         {
-            get
+            if (health.BaseValue <= 0)
             {
-                return _ExperiencePoints;
+                CharacterDie();
             }
-            set
-            {
-                _ExperiencePoints = value;
-            }
-        }
-        public int Level
-        {
-            get
-            {
-                return _Level;
-            }
-            private set
-            {
-                _Level = value;
-            }
-        }
-        public int MaxHealth 
-        {
-            get
-            {
-                return _MaxHealth;
-            }
-            set 
-            {
-                _MaxHealth = value;
-            } 
-        }
-        public Stat Health
-        {
-            get
-            {
-                return _Health;
-            }
-            set
-            {
-                _Health = value;
-            }
-        }
-        public Stat Mana
-        {
-            get
-            {
-                return _Mana;
-            }
-            set
-            {
-                _Mana = value;
-            }
-        }
-        public Stat Armor
-        {
-            get
-            {
-                return _Armor;
-            }
-            set
-            {
-                _Armor = value;
-            }
-        }
-        public Stat Damage
-        {
-            get
-            {
-                return _Damage;
-            }
-            set
-            {
-                _Damage = value;
-            }
-        }
-        public Stat Strenght
-        {
-            get
-            {
-                return _Strenght;
-            }
-            set
-            {
-                _Strenght = value;
-            }
-        }
-        public Stat Agility
-        {
-            get
-            {
-                return _Agility;
-            }
-            set
-            {
-                _Agility = value;
-            }
-        }
-        public Stat Intelligence
-        {
-            get
-            {
-                return _Intelligence;
-            }
-            set
-            {
-                _Intelligence = value;
-            }
-        }
-        public Stat Vitality
-        {
-            get
-            {
-                return _Vitality;
-            }
-            set
-            {
-                _Vitality = value;
-            }
-        }
-        public Stat Luck
-        {
-            get
-            {
-                return _Luck;
-            }
-            set
-            {
-                _Luck = value;
-            }
-        }
-      
-        public void AddToLevel(int value)
-        {
-            _Level += value;
-        }
-        public void SetExperiencePoints(int value)
-        {
-            _ExperiencePoints += value;
         }
 
-        #endregion
-
-
-        public void Heal(int health)
+        protected virtual void Heal(int healAmount)
         {
-            if(MaxHealth + health > Health.BaseValue)
+            if(MaxHealth + healAmount > Health.BaseValue)
             {
                 Health.AddModifier(5);
             }
             else
             {
-                MaxHealth += health;
+                MaxHealth += healAmount;
             }
         }
 
-        public void TakeDamage(int damage)
+        protected virtual void TakeDamage(int damageAmount)
         {
             //logic for damage reduction goes here
-            damage -= Armor.BaseValue;
-            damage = Mathf.Clamp(damage, 0, int.MaxValue);
+            damageAmount -= Armor.BaseValue;
+            damageAmount = Mathf.Clamp(damageAmount, 0, int.MaxValue);
 
-            MaxHealth -= damage;
+            MaxHealth -= damageAmount;
 
-            Debug.Log(transform.name + " takes " + damage + " damage");
-
+            print(transform.name + " takes " + damageAmount + " damage");
             if (MaxHealth <= 0)
             {
                 CharacterDie();
             }
         }
 
-        private void CharacterDie()
+        protected virtual void CharacterDie()
         {
             //Die lol
             //Overwritten
-            Debug.Log(transform.name + " died");
+            print(transform.name + " died");
         }   
     }
 }

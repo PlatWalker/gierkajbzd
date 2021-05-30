@@ -23,7 +23,9 @@ public class HealthBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        healthBarRenderer.size = new Vector2((0.16f * parentScript.GetHealthPercentage()), healthBarRenderer.size.y);
+        float percentage = parentScript.GetHealthPercentage();
+        if (percentage < 0) percentage = 0;
+        healthBarRenderer.size = new Vector2((0.16f * percentage), healthBarRenderer.size.y);
         healthBarTransform.LookAt(new Vector3(this.GetComponent<Transform>().position.x, cameraTransform.position.y, cameraTransform.position.z));
     }
 }

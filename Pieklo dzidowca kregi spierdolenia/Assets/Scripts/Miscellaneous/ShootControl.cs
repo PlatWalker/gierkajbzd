@@ -21,9 +21,11 @@ public class ShootControl : MonoBehaviour
     {
         projectileObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         projectileObject.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+        projectileObject.transform.position = transform.position - new Vector3(0, 3f, 0);
         Rigidbody rigidbody = projectileObject.AddComponent<Rigidbody>();
         rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
         rigidbody.useGravity = false;
+        rigidbody.mass = 0.1f;
     }
 
     // Update is called once per frame

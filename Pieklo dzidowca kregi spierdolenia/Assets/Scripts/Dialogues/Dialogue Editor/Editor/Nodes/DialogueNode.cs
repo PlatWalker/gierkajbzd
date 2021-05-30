@@ -27,11 +27,11 @@ namespace jbzdy.DialogueSystem.Nodes
         public DialogueFaceImageType FaceImageType { get => faceImageType; set => faceImageType = value; }
         public List<DialogueNodePort> DialogueNodePorts { get => dialogueNodePorts; set => dialogueNodePorts = value; }
 
-        private TextField texts_Field;
-        private ObjectField audioClips_Field;
-        private ObjectField faceImage_Field;
-        private TextField name_Field;
-        private EnumField faceImageType_Field;
+        private TextField textsField;
+        private ObjectField audioClipsField;
+        private ObjectField faceImageField;
+        private TextField nameField;
+        private EnumField faceImageTypeField;
 
         public DialogueNode()
         {
@@ -68,43 +68,44 @@ namespace jbzdy.DialogueSystem.Nodes
             }
 
             // Face Image
-            faceImage_Field = new ObjectField
+            faceImageField = new ObjectField
             {
                 objectType = typeof(Sprite),
                 allowSceneObjects = false,
                 value = faceImage
             };
-            faceImage_Field.RegisterValueChangedCallback(value =>
+            faceImageField.RegisterValueChangedCallback(value =>
             {
                 faceImage = value.newValue as Sprite;
             });
-            mainContainer.Add(faceImage_Field);
+
+            mainContainer.Add(faceImageField);
 
             // Face Image Enum
-            faceImageType_Field = new EnumField()
+            faceImageTypeField = new EnumField()
             {
                 value = faceImageType
             };
-            faceImageType_Field.Init(faceImageType);
-            faceImageType_Field.RegisterValueChangedCallback(value =>
+            faceImageTypeField.Init(faceImageType);
+            faceImageTypeField.RegisterValueChangedCallback(value =>
             {
                 faceImageType = (DialogueFaceImageType)value.newValue;
             });
-            mainContainer.Add(faceImageType_Field);
+            mainContainer.Add(faceImageTypeField);
 
             // Audio Chilp
-            audioClips_Field = new ObjectField()
+            audioClipsField = new ObjectField()
             {
                 objectType = typeof(AudioClip),
                 allowSceneObjects = false,
                 value = audioClips.Find(audioClip => audioClip.LanguageType == editorWindow.LanguageType).LanguageGenericType,
             };
-            audioClips_Field.RegisterValueChangedCallback(value =>
+            audioClipsField.RegisterValueChangedCallback(value =>
             {
                 audioClips.Find(audioClip => audioClip.LanguageType == editorWindow.LanguageType).LanguageGenericType = value.newValue as AudioClip;
             });
-            audioClips_Field.SetValueWithoutNotify(audioClips.Find(audioClip => audioClip.LanguageType == editorWindow.LanguageType).LanguageGenericType);
-            mainContainer.Add(audioClips_Field);
+            audioClipsField.SetValueWithoutNotify(audioClips.Find(audioClip => audioClip.LanguageType == editorWindow.LanguageType).LanguageGenericType);
+            mainContainer.Add(audioClipsField);
 
             // Text Name
             Label label_name = new Label("Name");
@@ -112,14 +113,14 @@ namespace jbzdy.DialogueSystem.Nodes
             label_name.AddToClassList("Label");
             mainContainer.Add(label_name);
 
-            name_Field = new TextField("");
-            name_Field.RegisterValueChangedCallback(value =>
+            nameField = new TextField("");
+            nameField.RegisterValueChangedCallback(value =>
             {
                 nameText = value.newValue;
             });
-            name_Field.SetValueWithoutNotify(nameText);
-            name_Field.AddToClassList("TextName");
-            mainContainer.Add(name_Field);
+            nameField.SetValueWithoutNotify(nameText);
+            nameField.AddToClassList("TextName");
+            mainContainer.Add(nameField);
 
             // Text Box
             Label label_texts = new Label("Text Box");
@@ -127,16 +128,16 @@ namespace jbzdy.DialogueSystem.Nodes
             label_texts.AddToClassList("Label");
             mainContainer.Add(label_texts);
 
-            texts_Field = new TextField("");
-            texts_Field.RegisterValueChangedCallback(value =>
+            textsField = new TextField("");
+            textsField.RegisterValueChangedCallback(value =>
             {
                 texts.Find(text => text.LanguageType == editorWindow.LanguageType).LanguageGenericType = value.newValue;
             });
-            texts_Field.SetValueWithoutNotify(texts.Find(text => text.LanguageType == editorWindow.LanguageType).LanguageGenericType);
-            texts_Field.multiline = true;
+            textsField.SetValueWithoutNotify(texts.Find(text => text.LanguageType == editorWindow.LanguageType).LanguageGenericType);
+            textsField.multiline = true;
 
-            texts_Field.AddToClassList("TextBox");
-            mainContainer.Add(texts_Field);
+            textsField.AddToClassList("TextBox");
+            mainContainer.Add(textsField);
 
             Button button = new Button()
             {
@@ -152,17 +153,17 @@ namespace jbzdy.DialogueSystem.Nodes
 
         public void ReloadLanguage()
         {
-            texts_Field.RegisterValueChangedCallback(value =>
+            textsField.RegisterValueChangedCallback(value =>
             {
                 texts.Find(text => text.LanguageType == editorWindow.LanguageType).LanguageGenericType = value.newValue;
             });
-            texts_Field.SetValueWithoutNotify(texts.Find(text => text.LanguageType == editorWindow.LanguageType).LanguageGenericType);
+            textsField.SetValueWithoutNotify(texts.Find(text => text.LanguageType == editorWindow.LanguageType).LanguageGenericType);
 
-            audioClips_Field.RegisterValueChangedCallback(value =>
+            audioClipsField.RegisterValueChangedCallback(value =>
             {
                 audioClips.Find(audioClip => audioClip.LanguageType == editorWindow.LanguageType).LanguageGenericType = value.newValue as AudioClip;
             });
-            audioClips_Field.SetValueWithoutNotify(audioClips.Find(audioClip => audioClip.LanguageType == editorWindow.LanguageType).LanguageGenericType);
+            audioClipsField.SetValueWithoutNotify(audioClips.Find(audioClip => audioClip.LanguageType == editorWindow.LanguageType).LanguageGenericType);
 
             foreach (DialogueNodePort nodePort in dialogueNodePorts)
             {
@@ -176,11 +177,11 @@ namespace jbzdy.DialogueSystem.Nodes
 
         public override void LoadValueInToField()
         {
-            texts_Field.SetValueWithoutNotify(texts.Find(language => language.LanguageType == editorWindow.LanguageType).LanguageGenericType);
-            audioClips_Field.SetValueWithoutNotify(audioClips.Find(language => language.LanguageType == editorWindow.LanguageType).LanguageGenericType);
-            faceImage_Field.SetValueWithoutNotify(faceImage);
-            faceImageType_Field.SetValueWithoutNotify(faceImageType);
-            name_Field.SetValueWithoutNotify(nameText);
+            textsField.SetValueWithoutNotify(texts.Find(language => language.LanguageType == editorWindow.LanguageType).LanguageGenericType);
+            audioClipsField.SetValueWithoutNotify(audioClips.Find(language => language.LanguageType == editorWindow.LanguageType).LanguageGenericType);
+            faceImageField.SetValueWithoutNotify(faceImage);
+            faceImageTypeField.SetValueWithoutNotify(faceImageType);
+            nameField.SetValueWithoutNotify(nameText);
         }
 
         public Port AddChoicePort(BaseNode newBaseNode, DialogueNodePort newDialogueNodePort = null)
@@ -263,7 +264,6 @@ namespace jbzdy.DialogueSystem.Nodes
 
             delNode.outputContainer.Remove(delPort);
 
-            // Refresh
             delNode.RefreshPorts();
             delNode.RefreshExpandedState();
         }

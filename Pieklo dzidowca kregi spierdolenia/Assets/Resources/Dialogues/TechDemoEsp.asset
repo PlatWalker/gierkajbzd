@@ -1,0 +1,130 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a69ff5ed214494b835d86b8438ac53, type: 3}
+  m_Name: TechDemoEsp
+  m_EditorClassIdentifier: 
+  NodeLinkDatas:
+  - BaseNodeGuid: f955edd0-ff31-41df-93b2-eaa6ddcd83c5
+    TargetNodeGuid: df2776f2-73a3-476e-a410-6a07e330808f
+  - BaseNodeGuid: df2776f2-73a3-476e-a410-6a07e330808f
+    TargetNodeGuid: bbc67dbf-a2fb-4b0a-8b88-3fc6629139e2
+  - BaseNodeGuid: bbc67dbf-a2fb-4b0a-8b88-3fc6629139e2
+    TargetNodeGuid: bda62362-7fb6-47fb-a368-2c20f90607f3
+  - BaseNodeGuid: bda62362-7fb6-47fb-a368-2c20f90607f3
+    TargetNodeGuid: 307c4dbf-4cab-40b9-af90-dc87ca0818ee
+  DialogueNodeDatas:
+  - NodeGuid: df2776f2-73a3-476e-a410-6a07e330808f
+    Position: {x: 410, y: 307}
+    DialogueNodePorts:
+    - PortGuid: d9c86558-5665-4e5f-8d65-f8582aa583c0
+      InputGuid: bbc67dbf-a2fb-4b0a-8b88-3fc6629139e2
+      OutputGuid: df2776f2-73a3-476e-a410-6a07e330808f
+      TextLanguages:
+      - LanguageType: 0
+        LanguageGenericType: Dalej
+      - LanguageType: 1
+        LanguageGenericType: Continue
+      - LanguageType: 2
+        LanguageGenericType: Continue
+    DialogueFaceImageType: 0
+    AudioClips:
+    - LanguageType: 0
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 1
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 2
+      LanguageGenericType: {fileID: 0}
+    TextLanguages:
+    - LanguageType: 0
+      LanguageGenericType: "Matko Boska Jabolowa, ale wpierdol! Trzask p\u0119kanej
+        dupy by\u0142o s\u0142ycha\u0107 a\u017C tutaj! Ju\u017C mia\u0142em po karetk\u0119
+        dzwoni\u0107, ale mi si\u0119 przypomnia\u0142o, \u017Ce przecie\u017C nie
+        mam telefonu! "
+    - LanguageType: 1
+      LanguageGenericType: 
+    - LanguageType: 2
+      LanguageGenericType: 
+    Sprite: {fileID: 0}
+    Name: Chlor
+  - NodeGuid: bbc67dbf-a2fb-4b0a-8b88-3fc6629139e2
+    Position: {x: 1390, y: 306}
+    DialogueNodePorts:
+    - PortGuid: af3a4119-1c72-4446-a088-e4dad9068bcd
+      InputGuid: bda62362-7fb6-47fb-a368-2c20f90607f3
+      OutputGuid: bbc67dbf-a2fb-4b0a-8b88-3fc6629139e2
+      TextLanguages:
+      - LanguageType: 0
+        LanguageGenericType: Jasne
+      - LanguageType: 1
+        LanguageGenericType: Continue
+      - LanguageType: 2
+        LanguageGenericType: Continue
+    DialogueFaceImageType: 0
+    AudioClips:
+    - LanguageType: 0
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 1
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 2
+      LanguageGenericType: {fileID: 0}
+    TextLanguages:
+    - LanguageType: 0
+      LanguageGenericType: "Na szcz\u0119\u015Bcie widzia\u0142em przeje\u017Cd\u017Caj\u0105c\u0105
+        \u015Bmieciark\u0119, wi\u0119c pewnie zabierze tych skurwysyn\xF3w. Masz
+        fanty, kierowniku? "
+    - LanguageType: 1
+      LanguageGenericType: 
+    - LanguageType: 2
+      LanguageGenericType: 
+    Sprite: {fileID: 0}
+    Name: Chlor
+  - NodeGuid: bda62362-7fb6-47fb-a368-2c20f90607f3
+    Position: {x: 2104, y: 307}
+    DialogueNodePorts:
+    - PortGuid: d7823d5b-b48a-403d-bdc9-ba6345c6d644
+      InputGuid: 307c4dbf-4cab-40b9-af90-dc87ca0818ee
+      OutputGuid: bda62362-7fb6-47fb-a368-2c20f90607f3
+      TextLanguages:
+      - LanguageType: 0
+        LanguageGenericType: Koniec
+      - LanguageType: 1
+        LanguageGenericType: Continue
+      - LanguageType: 2
+        LanguageGenericType: Continue
+    DialogueFaceImageType: 0
+    AudioClips:
+    - LanguageType: 0
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 1
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 2
+      LanguageGenericType: {fileID: 0}
+    TextLanguages:
+    - LanguageType: 0
+      LanguageGenericType: "Jeszcze nie wszystko stracone! Pomo\u017Cesz mi to wszy\u0107?
+        Nie? No, trudno. Masz, kierowniku, twoje cukierki.  "
+    - LanguageType: 1
+      LanguageGenericType: 
+    - LanguageType: 2
+      LanguageGenericType: 
+    Sprite: {fileID: 0}
+    Name: Chlor
+  EndNodeDatas:
+  - NodeGuid: 307c4dbf-4cab-40b9-af90-dc87ca0818ee
+    Position: {x: 2745, y: 301}
+    EndNodeType: 0
+  StartNodeDatas:
+  - NodeGuid: f955edd0-ff31-41df-93b2-eaa6ddcd83c5
+    Position: {x: 312, y: 303}
+  EventNodeDatas: []
+  StatCheckNodeDatas: []
+  ItemCheckNodeDatas: []
