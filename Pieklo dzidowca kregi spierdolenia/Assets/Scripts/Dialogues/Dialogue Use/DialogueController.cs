@@ -81,21 +81,12 @@ namespace jbzdy.DialogueSystem.Actions
             textBox.text = newTextBox;
         }
 
-        public void SetImage(Sprite image, DialogueFaceImageType dialogueFaceImageType)
+        public void SetImage(Sprite playerImage, Sprite npcImage)
         {
-            leftImageGO.SetActive(false);
-            rightImageGO.SetActive(false);
-
-            if (dialogueFaceImageType == DialogueFaceImageType.Left)
-            {
-                leftImage.sprite = image;
-                leftImageGO.SetActive(true);
-            }
-            else
-            {
-                rightImage.sprite = image;
-                rightImageGO.SetActive(true);
-            }
+            leftImageGO.SetActive(true);
+            rightImageGO.SetActive(true);
+            leftImage.sprite = playerImage;
+            rightImage.sprite = npcImage;
         }
 
         public void SetButtons(List<string> texts, List<UnityAction> unityActions, List<StatCheckNodeData> statCheckNodeDatas, List<ItemCheckNodeData> itemCheckNodeDatas)

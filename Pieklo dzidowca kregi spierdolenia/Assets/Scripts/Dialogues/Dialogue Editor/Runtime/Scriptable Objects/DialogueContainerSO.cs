@@ -59,10 +59,10 @@ namespace jbzdy.DialogueSystem.SO
     public class DialogueNodeData : BaseNodeData
     {
         public List<DialogueNodePort> DialogueNodePorts;
-        public DialogueFaceImageType DialogueFaceImageType;
         public List<LanguageGeneric<AudioClip>> AudioClips;
         public List<LanguageGeneric<string>> TextLanguages;
-        public Sprite Sprite;
+        public Sprite npcSprite;
+        public Sprite playerSprite;
         public string Name;
     }
 

@@ -89,7 +89,7 @@ namespace jbzdy.DialogueSystem.Actions
             }
 
             dialogueControler.SetText(nodeData.Name, nodeData.TextLanguages.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType);
-            dialogueControler.SetImage(nodeData.Sprite, nodeData.DialogueFaceImageType);
+            dialogueControler.SetImage(nodeData.playerSprite, nodeData.npcSprite);
             
             MakeButtons(nodeData.DialogueNodePorts);
 
