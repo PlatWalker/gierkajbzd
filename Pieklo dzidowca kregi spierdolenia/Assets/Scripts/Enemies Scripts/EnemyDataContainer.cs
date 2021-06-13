@@ -96,14 +96,16 @@ public class EnemyDataContainer : ScriptableObject
             }
             else
             {
-                _mainCharacterTransform = GameObject.Find("MainChar").transform;
-                if (_mainCharacterTransform)
+                
+                GameObject temp = GameObject.FindGameObjectWithTag("Player");
+                if (temp)
                 {
+                    _mainCharacterTransform = temp.transform;
                     return _mainCharacterTransform;
                 }
                 else
                 {
-                    Debug.Log("Cannot find istance of \"MainChar\" and enemy do not know where to go");
+                    Debug.Log("Cannot find object with tag \"Player\" and enemy do not know where to go");
                     return null;
                 }
             }
@@ -112,7 +114,7 @@ public class EnemyDataContainer : ScriptableObject
 
     [Header("Fight")]
     [SerializeField] private float _aggroRadius=0;
-    public virtual float AggroRadius
+    public float AggroRadius
     {
         get
         {
@@ -120,7 +122,7 @@ public class EnemyDataContainer : ScriptableObject
         }
     }
     [SerializeField] private float _aggroByAttackRadius=0;
-    public virtual float AggroByAttackRadius
+    public float AggroByAttackRadius
     {
         get
         {
@@ -128,7 +130,7 @@ public class EnemyDataContainer : ScriptableObject
         }
     }
     [SerializeField] private float _attackRadius=0;
-    public virtual float AttackRadius
+    public float AttackRadius
     {
         get
         {
@@ -136,16 +138,29 @@ public class EnemyDataContainer : ScriptableObject
         }
     }
     [SerializeField] private int _maxHealth=0;
-    public virtual int MaxHealth
+    public int MaxHealth
     {
         get
         {
             return _maxHealth;
         }
     }
+    [SerializeField] private int _damage = 0;
+    public int Damage
+    {
+        get
+        {
+            return _damage;
+        }
+    }
 
     private void OnEnable()
     {
-        _mainCharacterTransform = GameObject.Find("MainChar").transform;
+        //To be removed when can get instance from game manager
+        GameObject gameObject = GameObject.FindGameObjectWithTag("Player");
+        if (gameObject)
+        {
+            _mainCharacterTransform = gameObject.transform;
+        }
     }
 }
