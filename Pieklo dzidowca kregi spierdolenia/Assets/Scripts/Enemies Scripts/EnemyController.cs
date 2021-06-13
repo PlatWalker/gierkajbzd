@@ -19,15 +19,22 @@ namespace jbzdy.Enemies
 		protected bool playerIsVisible;
 		protected bool updateLogicFrame;
 		protected string CurrentAnimation; //debug only
-
 		public Vector3 GoToPoint { get; protected set; }
 		public NavMeshAgent NavAgent { get; protected set; }
 		public int PatrolStepsCounter { get; protected set; }
-
 		public virtual int CurrentHealth { get; protected set; }
 		public virtual Vector3 SpawnPoint { get; protected set; }
+		public virtual int GetHealthPercentage
+		{
+			get
+			{
+				return (int)(((float)CurrentHealth / EnemyData.MaxHealth)*100);
+			}
+			
+		}
 		protected  EasyAnimatorController easyAnimator;
 		private float animationPlayPreviousSpeed = 0f;
+
 
 
 		protected virtual void Start()
@@ -76,6 +83,7 @@ namespace jbzdy.Enemies
                 NavAgent.stoppingDistance = stopDistance;
             }
 
+
             if (speed > 0)
             {
                 NavAgent.speed = speed;
@@ -90,15 +98,6 @@ namespace jbzdy.Enemies
 				Vector3 newDirection = Vector3.RotateTowards(gameObject.transform.forward, direction, EnemyData.RotationSpeed /10000, 0.0f);
 				transform.rotation = Quaternion.LookRotation(newDirection);
 			}
-		}
-
-		/// <summary>
-		/// Method created for HealthBars.
-		/// </summary>
-		/// <returns>Current health in range 0f-1f</returns>
-		public virtual float GetHealthPercentage()
-		{
-			return (float)CurrentHealth / EnemyData.MaxHealth;
 		}
 
         /// <summary>
