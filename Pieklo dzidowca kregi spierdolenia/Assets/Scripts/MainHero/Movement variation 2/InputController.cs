@@ -77,7 +77,6 @@ public class InputController : Singleton<InputController>
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(ray, out RaycastHit hitInfo, maxDistance: 300f);
         mousePositionFlat = hitInfo.point;
-        
     }
     
 
