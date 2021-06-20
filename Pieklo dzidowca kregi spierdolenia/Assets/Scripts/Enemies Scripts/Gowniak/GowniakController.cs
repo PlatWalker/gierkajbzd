@@ -2,8 +2,6 @@
 /// Created by Kumdzio
 ///</summary>
 
-
-using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.AI;
 namespace jbzdy.Enemies
@@ -27,12 +25,16 @@ namespace jbzdy.Enemies
             Dying,
             AIOff
         }
-
+		[SerializeField] DamageController RHCollider = null;
+		[SerializeField] DamageController LHCollider = null;
+		
         override protected void Start()
         {
             base.Start();
             easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), new string[] { });
             NavAgent = GetComponent<NavMeshAgent>();
+			RHCollider.SetUp(EnemyData.Damage);
+			LHCollider.SetUp(EnemyData.Damage);
         }
 
         override protected void Update()
@@ -71,7 +73,12 @@ namespace jbzdy.Enemies
                     {
                         easyAnimator.SetBooleanTrue("Attack");
 
-                        //attack code goes here
+                        float clipTime = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime;
+						if (clipTime%1 < 0.2f)
+						{
+							LHCollider.DamageDealed = false;
+							RHCollider.DamageDealed = false;
+						}
 
                         if (!updateLogicFrame) break;
 

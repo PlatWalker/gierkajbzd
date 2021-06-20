@@ -241,11 +241,11 @@ namespace jbzdy.Enemies
             if (easyAnimator.GetBoolean("spawnProjectile"))
             {
 
-
 				GameObject projectile = Instantiate(projectileObject, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
 				Rigidbody rigidbody = projectile.GetComponent<Rigidbody>();
 				Vector3 throwDirection = (EnemyData.MainCharacterTransform.position - projectile.transform.position);
-
+				projectile.AddComponent<DamageController>();
+				projectile.GetComponent<DamageController>().SetUp(EnemyData.Damage,DamageType.Dystansowa);
                 throwDirection.y += throwTargetHeight;
                 throwDirection *= throwPower;
                 rigidbody.AddForce(throwDirection, ForceMode.Impulse);
