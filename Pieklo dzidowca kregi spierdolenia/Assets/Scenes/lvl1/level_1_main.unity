@@ -106,7 +106,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.8
+    agentRadius: 0.4
     agentHeight: 2
     agentSlope: 50
     agentClimb: 0.6
@@ -114,7 +114,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.26666668
+    cellSize: 0.13333334
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -12649,7 +12649,7 @@ GameObject:
   - component: {fileID: 1024903975}
   - component: {fileID: 1024903974}
   m_Layer: 0
-  m_Name: Main Camera (1)
+  m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21307,6 +21307,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Malpa
       objectReference: {fileID: 0}
+    - target: {fileID: 2543236815181186076, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 2882502516466146982, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 57.692554
@@ -21407,6 +21411,18 @@ PrefabInstance:
     - target: {fileID: 4078106095995655302, guid: b566d766e1d8b3c4ea00f22784c68ce8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4078106095995655302, guid: b566d766e1d8b3c4ea00f22784c68ce8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4078106095995655302, guid: b566d766e1d8b3c4ea00f22784c68ce8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4078106095995655302, guid: b566d766e1d8b3c4ea00f22784c68ce8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b566d766e1d8b3c4ea00f22784c68ce8, type: 3}

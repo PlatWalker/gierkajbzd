@@ -52,6 +52,7 @@ namespace jbzdy.Enemies
 			NavAgent = GetComponent<NavMeshAgent>();
 			NavAgent.angularSpeed = EnemyData.RotationSpeed;
 			NavAgent.acceleration = 100;
+            NavAgent.stoppingDistance = 0.5f;
 
 		}
         protected virtual void Update()
