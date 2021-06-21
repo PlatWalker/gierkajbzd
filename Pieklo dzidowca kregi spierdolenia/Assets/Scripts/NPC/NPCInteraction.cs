@@ -13,10 +13,12 @@ namespace jbzdy.NPC.Interaction
         private int interactionCounter = 0;
         
         private DialogueTalk dialogueTalk;
+        private PlayerController player;
 
         private new void Awake()
         {
             dialogueTalk = GetComponent<DialogueTalk>();
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         }
 
         public override void Interact()
@@ -29,26 +31,14 @@ namespace jbzdy.NPC.Interaction
             {
                 dialogueTalk.StartDialogue(NPCDialogues[interactionCounter]);
                 interactionCounter++;
-                FreezePlayer(true);
+                player.CanPlayerMove = true;
             }
         }
 
         public override void StopInteract()
         {
             Debug.Log("Zakończyłem rozmowę z " + gameObject.name);
-            FreezePlayer(false);
-        }
-        
-        private void FreezePlayer(bool freeze)
-        {
-            {
-                //TU WSADZIĆ FUNKCJE DO FREEZOWANIA
-            
-                //JA TO WIDZE TAK
-                //SAMA FUNKCJA NIE POWINNA SIE TU ZNAJDOWAC
-                //RACZEJ POWINNO BYC ODWOLANIE DO SKRYPTU Z MOVEMENTEM GRACZA, A TAM WLASCIWY KOD DO FREEZOWANIA
-                //ZEBY NIE ROZBIJAC POSZCZEGOLNYCH CZESCI MOVEMENTU NA ROZNE SKRYPTY
-            }
+            player.CanPlayerMove = false;
         }
     }
 }

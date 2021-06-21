@@ -21,7 +21,23 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Vector3 movementVector;
 
+    [SerializeField]
+    private bool canPlayerMove = true;
+
     Animator characterAnimator;
+
+    public bool CanPlayerMove
+    {
+        get
+        {
+            return canPlayerMove;
+        }
+
+        set
+        {
+            CanPlayerMove = value;
+        }
+    }
 
     private void Awake()
     {
@@ -36,9 +52,12 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateCharacterMovement()
     {
-        UpdateCharacterPosition();
-        UpdateCharacterRotation();
-        UpdateCharacterAnimation();
+        if (CanPlayerMove == true)
+        {
+            UpdateCharacterPosition();
+            UpdateCharacterRotation();
+            UpdateCharacterAnimation();
+        }
     }
 
     private void UpdateCharacterPosition()
