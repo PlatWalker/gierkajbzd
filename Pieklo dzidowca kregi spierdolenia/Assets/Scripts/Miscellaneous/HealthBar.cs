@@ -15,7 +15,8 @@ public class HealthBar : MonoBehaviour
     void Start()
     {
         if (!(this.transform.parent.gameObject.TryGetComponent<IDamageable>(out parentScript))) Destroy(this.gameObject);
-        cameraTransform = GameObject.Find("Main Camera").GetComponent<Transform>();
+        //there should be manager to get camera from
+        cameraTransform = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
         healthBarTransform = this.gameObject.GetComponent<Transform>();
         healthBarRenderer = this.gameObject.GetComponent<SpriteRenderer>();
     }
@@ -23,6 +24,11 @@ public class HealthBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(healthBarRenderer is null)
+        {
+            Debug.Log("Nie odnaleziono renderera Healthbara - próbuję znowu");
+            healthBarRenderer = this.gameObject.GetComponent<SpriteRenderer>();
+        }
         float percentage = parentScript.GetHealthPercentage;
         percentage /= 100;
         if (percentage < 0) percentage = 0;
