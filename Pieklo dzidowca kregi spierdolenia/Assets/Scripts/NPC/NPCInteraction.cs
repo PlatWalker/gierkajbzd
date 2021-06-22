@@ -31,14 +31,15 @@ namespace jbzdy.NPC.Interaction
             {
                 dialogueTalk.StartDialogue(NPCDialogues[interactionCounter]);
                 interactionCounter++;
-                player.CanPlayerMove = true;
             }
+            
+            player.CanPlayerMove = false;
         }
 
         public override void StopInteract()
         {
             Debug.Log("Zakończyłem rozmowę z " + gameObject.name);
-            player.CanPlayerMove = false;
+            player.CanPlayerMove = true;
         }
     }
 }

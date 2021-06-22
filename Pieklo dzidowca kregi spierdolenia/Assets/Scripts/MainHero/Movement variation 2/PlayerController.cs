@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
 
         set
         {
-            CanPlayerMove = value;
+            canPlayerMove = value;
         }
     }
 

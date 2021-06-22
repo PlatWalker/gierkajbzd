@@ -234,7 +234,6 @@ namespace jbzdy.DialogueSystem.Nodes
             };
             port.contentContainer.Add(deleteButton);
 
-
             dialogueNodePort.MyPort = port;
             port.portName = "";
 

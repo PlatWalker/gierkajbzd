@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -23,30 +24,30 @@ namespace jbzdy.DialogueSystem.Actions
         [SerializeField] private GameObject dialogueUI = default;
 
         [Header("Text")]
-        [SerializeField] private TMP_Text textName = default;
-        [SerializeField] private TMP_Text textBox = default;
+        [SerializeField] private TMP_Text NPCName = default;
+        [SerializeField] private TMP_Text NPCAnswer = default;
 
         [Header("Image")]
-        [SerializeField] private Image leftImage = default;
-        [SerializeField] private GameObject leftImageGO = default;
-        [SerializeField] private Image rightImage = default;
-        [SerializeField] private GameObject rightImageGO = default;
+        [SerializeField] private Image playerFaceImage = default;
+        [SerializeField] private GameObject playerImageGO = default;
+        [SerializeField] private Image NPCFaceImage = default;
+        [SerializeField] private GameObject NPCImageGO = default;
 
         [Header("Buttons")]
-        [SerializeField] private Button button01 = default;
-        [SerializeField] private TMP_Text buttonText01 = default;
+        [SerializeField] private Button answerButton1 = default;
+        [SerializeField] private TMP_Text answerButtonText1 = default;
         [Space]
-        [SerializeField] private Button button02 = default;
-        [SerializeField] private TMP_Text buttonText02 = default;
+        [SerializeField] private Button answerButton2 = default;
+        [SerializeField] private TMP_Text answerButtonText2 = default;
         [Space]
-        [SerializeField] private Button button03 = default;
-        [SerializeField] private TMP_Text buttonText03 = default;
+        [SerializeField] private Button answerButton3 = default;
+        [SerializeField] private TMP_Text answerButtonText3 = default;
         [Space]
-        [SerializeField] private Button button04 = default;
-        [SerializeField] private TMP_Text buttonText04 = default;
+        [SerializeField] private Button answerButton4 = default;
+        [SerializeField] private TMP_Text answerButtonText4 = default;
 
-        private List<Button> buttons = new List<Button>();
-        private List<TMP_Text> buttonsTexts = new List<TMP_Text>();
+        public List<Button> answerButtons = new List<Button>();
+        public List<TMP_Text> answerButtonsTexts = new List<TMP_Text>();
         private int itemCheckNodeCount = 0;
         private int statCheckNodeCount = 0;
 
@@ -56,18 +57,6 @@ namespace jbzdy.DialogueSystem.Actions
             {
                 Instance = this;
             }
-            
-            ShowDialogueUI(false);
-
-            buttons.Add(button01);
-            buttons.Add(button02);
-            buttons.Add(button03);
-            buttons.Add(button04);
-
-            buttonsTexts.Add(buttonText01);
-            buttonsTexts.Add(buttonText02);
-            buttonsTexts.Add(buttonText03);
-            buttonsTexts.Add(buttonText04);
         }
 
         public void ShowDialogueUI(bool show)
@@ -77,21 +66,23 @@ namespace jbzdy.DialogueSystem.Actions
 
         public void SetText(string newName, string newTextBox)
         {
-            textName.text = newName;
-            textBox.text = newTextBox;
+            NPCName.text = newName;
+            NPCAnswer.text = newTextBox;
         }
 
         public void SetImage(Sprite playerImage, Sprite npcImage)
         {
-            leftImageGO.SetActive(true);
-            rightImageGO.SetActive(true);
-            leftImage.sprite = playerImage;
-            rightImage.sprite = npcImage;
+            playerImageGO.SetActive(true);
+            NPCImageGO.SetActive(true);
+            playerFaceImage.sprite = playerImage;
+            NPCFaceImage.sprite = npcImage;
         }
 
         public void SetButtons(List<string> texts, List<UnityAction> unityActions, List<StatCheckNodeData> statCheckNodeDatas, List<ItemCheckNodeData> itemCheckNodeDatas)
         {
-            buttons.ForEach(button => button.gameObject.SetActive(false));
+            AddButtonsToList();
+            
+            answerButtons.ForEach(button => button.gameObject.SetActive(false));
             UnityAction statCheck = null;
             UnityAction itemCheck = null;
 
@@ -112,22 +103,22 @@ namespace jbzdy.DialogueSystem.Actions
                     switch (itemCheckNodeDatas[i].ItemCheckType)
                     {
                         case ItemCheckNodeType.GetItem when itemCheckNodeDatas[i].ItemCheckValue > 1:
-                            buttonsTexts[i].text = "[Otrzymaj " + itemCheckNodeDatas[i].ItemCheckValue + " " + itemCheckNodeDatas[i].NodeItem.itemName + "] " + texts[i];
+                            answerButtonsTexts[i].text = "[Otrzymaj " + itemCheckNodeDatas[i].ItemCheckValue + " " + itemCheckNodeDatas[i].NodeItem.itemName + "] " + texts[i];
                             break;
                         case ItemCheckNodeType.GetItem:
-                            buttonsTexts[i].text = "[Otrzymaj " + itemCheckNodeDatas[i].NodeItem.itemName + "] " + texts[i];
+                            answerButtonsTexts[i].text = "[Otrzymaj " + itemCheckNodeDatas[i].NodeItem.itemName + "] " + texts[i];
                             break;
                         case ItemCheckNodeType.GiveItem when itemCheckNodeDatas[i].ItemCheckValue > 1:
-                            buttonsTexts[i].text = "[Oddaj " + itemCheckNodeDatas[i].ItemCheckValue + " " + itemCheckNodeDatas[i].NodeItem.itemName + "] " + texts[i];
+                            answerButtonsTexts[i].text = "[Oddaj " + itemCheckNodeDatas[i].ItemCheckValue + " " + itemCheckNodeDatas[i].NodeItem.itemName + "] " + texts[i];
                             break;
                         case ItemCheckNodeType.GiveItem:
-                            buttonsTexts[i].text = "[Oddaj " + itemCheckNodeDatas[i].NodeItem.itemName + "] " + texts[i];
+                            answerButtonsTexts[i].text = "[Oddaj " + itemCheckNodeDatas[i].NodeItem.itemName + "] " + texts[i];
                             break;
                     }
 
-                    buttons[i].gameObject.SetActive(true);
-                    buttons[i].onClick = new Button.ButtonClickedEvent();
-                    buttons[i].onClick.AddListener(itemCheck);
+                    answerButtons[i].gameObject.SetActive(true);
+                    answerButtons[i].onClick = new Button.ButtonClickedEvent();
+                    answerButtons[i].onClick.AddListener(itemCheck);
                 }
                 
                 itemCheckNodeCount = itemCheckNodeDatas.Count;
@@ -139,31 +130,43 @@ namespace jbzdy.DialogueSystem.Actions
                 {
                     int playerValue = AddStatCheckPlayerValues(statCheckNodeDatas[i]);
 
-                    buttonsTexts[i + itemCheckNodeCount].text = "[" + statCheckNodeDatas[i].StatCheckType + " " + playerValue + "/" + statCheckNodeDatas[i].StatCheckValue + "] " + texts[i + itemCheckNodeCount];
-                    buttons[i + itemCheckNodeCount].gameObject.SetActive(true);
-                    buttons[i + itemCheckNodeCount].onClick = new Button.ButtonClickedEvent();
+                    answerButtonsTexts[i + itemCheckNodeCount].text = "[" + statCheckNodeDatas[i].StatCheckType + " " + playerValue + "/" + statCheckNodeDatas[i].StatCheckValue + "] " + texts[i + itemCheckNodeCount];
+                    answerButtons[i + itemCheckNodeCount].gameObject.SetActive(true);
+                    answerButtons[i + itemCheckNodeCount].onClick = new Button.ButtonClickedEvent();
 
                     if (HasPassedStatCheck(statCheckNodeDatas[i]))
                     {
-                        buttons[i + itemCheckNodeCount].onClick.AddListener(unityActions[i]);
+                        answerButtons[i + itemCheckNodeCount].onClick.AddListener(unityActions[i]);
                     }
                     else
                     {
-                        buttons[i + itemCheckNodeCount].onClick.AddListener(statCheck);
+                        answerButtons[i + itemCheckNodeCount].onClick.AddListener(statCheck);
                     }
                 }
 
                 statCheckNodeCount = statCheckNodeDatas.Count;
             }
-
-
-            for (int i = statCheckNodeDatas.Count + itemCheckNodeDatas.Count; i < texts.Count; i++)
+            
+            for (int i = statCheckNodeCount + itemCheckNodeCount; i < texts.Count; i++)
             {
-                buttonsTexts[i].text = texts[i];
-                buttons[i].gameObject.SetActive(true);
-                buttons[i].onClick = new Button.ButtonClickedEvent();
-                buttons[i].onClick.AddListener(unityActions[i]);
+                answerButtonsTexts[i].text = texts[i];
+                answerButtons[i].gameObject.SetActive(true);
+                answerButtons[i].onClick = new Button.ButtonClickedEvent();
+                answerButtons[i].onClick.AddListener(unityActions[i]);
             }
+        }
+
+        private void AddButtonsToList()
+        {
+            answerButtons.Add(answerButton1);
+            answerButtons.Add(answerButton2);
+            answerButtons.Add(answerButton3);
+            answerButtons.Add(answerButton4);
+
+            answerButtonsTexts.Add(answerButtonText1);
+            answerButtonsTexts.Add(answerButtonText2);
+            answerButtonsTexts.Add(answerButtonText3);
+            answerButtonsTexts.Add(answerButtonText4);
         }
 
         private int AddStatCheckPlayerValues(StatCheckNodeData statCheckNodeData)
