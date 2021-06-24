@@ -240,7 +240,7 @@ namespace jbzdy.Inventory
 
                 inventoryItems.Add(_InventoryItem);
 
-                item.transform.parent = this.transform;
+                _InventoryItem.transform.parent = transform;
 
                 item.gameObject.SetActive(false);
                 
@@ -320,8 +320,9 @@ namespace jbzdy.Inventory
         {
             foreach (var item in inventoryItems)
             {
-                if (item.item == itemToCheck && item.item.itemStackSize >= itemAmount)
+                if (item.item.itemID == itemToCheck.itemID && item.item.itemStackSize >= itemAmount)
                 {
+                    RemoveInventoryItem(item);
                     return true;
                 }
             }
@@ -509,28 +510,6 @@ namespace jbzdy.Inventory
             }
 
             return null;
-        }
-
-        // Remove left items back to lootbox on inspection end
-        public List<InventoryItem> FindItemsLeftInLoot()
-        {
-            List<InventoryItem> items = new List<InventoryItem>();
-
-            if (inventoryItems != null)
-            {
-                foreach (var item in inventoryItems)
-                {
-                    if (FindSlotByIndex(item.x, item.y).isLoot && !items.Contains(item))
-                    {
-                        items.Add(item);
-                    }
-                }
-
-                return items;
-            }
-            else
-                return null;
-
         }
 
         // Remove inventory item
