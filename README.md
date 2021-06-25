@@ -1,2 +1,2 @@
 # game-jbzd
-OSTATNIE REPO TO ŚMIETNIK :c
+Fanowska gra tworzona z myślą o community z strony jbzd.com.pl 

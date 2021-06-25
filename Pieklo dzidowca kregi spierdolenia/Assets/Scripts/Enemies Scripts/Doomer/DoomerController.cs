@@ -11,6 +11,10 @@ namespace jbzdy.Enemies
         [SerializeField] private float movementRushSpeed = 1.05f;
         [SerializeField] private float jumpSpeed = 1.08f;
         [SerializeField] private float firstAttackRadius = 4.0f;
+		
+    [SerializeField] private float chargeDamageModifier = 2.0f;
+    [SerializeField] DamageController LHCollider = null;
+    [SerializeField] DamageController RHCollider = null;
         private enum DoomerState
         {
             Idle,
@@ -60,6 +64,7 @@ namespace jbzdy.Enemies
             switch (currentState)
             {
                 case DoomerState.Idle:
+
                     {
 
                         easyAnimator.SetBooleanTrue("isIdling");
@@ -88,6 +93,46 @@ namespace jbzdy.Enemies
 						MoveTo(EnemyData.MainCharacterTransform.position, 0.0f, EnemyData.AttackRadius);
 						easyAnimator.SetBooleanTrue("isAttacking");
 
+						AnimatorStateInfo animatorStateInfo = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
+						if (animatorStateInfo.IsName("Armature|Atk_2")) //short attack animation
+						{
+							if (animatorStateInfo.normalizedTime % 1 > 0.9)
+							{
+								RHCollider.DamageDealed = false;
+							}
+							if (animatorStateInfo.normalizedTime % 1 > 0.2 && animatorStateInfo.normalizedTime % 1 < 0.3)
+							{
+								LHCollider.DamageDealed = false;
+							}
+						}
+						else if (animatorStateInfo.IsName("Armature|Atk_1"))//long attack animation
+						{
+
+							if (animatorStateInfo.normalizedTime < 0.1)
+							{
+								RHCollider.DamageDealed = false;
+							}
+							else if ((animatorStateInfo.normalizedTime > 0.3 && animatorStateInfo.normalizedTime < 0.5) || (animatorStateInfo.normalizedTime > 0.75 && animatorStateInfo.normalizedTime < 0.8))
+							{
+								LHCollider.DamageDealed = false;
+								RHCollider.DamageDealed = false;
+							}
+							else if (animatorStateInfo.normalizedTime > 0.8 && animatorStateInfo.normalizedTime < 0.9)
+							{
+								LHCollider.DamageDealed = false;
+								RHCollider.DamageDealed = false;
+							}
+
+						}
+						else //before first attack and after charged attack
+						{
+							if (animatorStateInfo.normalizedTime < 0.9 && animatorStateInfo.normalizedTime > 0.8)
+							{
+								LHCollider.DamageDealed = false;
+								RHCollider.DamageDealed = false;
+							}
+						}
+						
                         if (!updateLogicFrame) break;
 
                         if (distanceToMainChar > EnemyData.AttackRadius)
@@ -114,12 +159,19 @@ namespace jbzdy.Enemies
 							hasDoneSpecialAttack = true;
 						}
 
-                        if (!updateLogicFrame) break;
+                        //here should check if player have been reached and deal damage
 
-                        if (hasDoneSpecialAttack)
-                        {
-                            if (distanceToMainChar <= EnemyData.AttackRadius)
-                            {
+						if (!updateLogicFrame) break; 
+
+						if (hasDoneSpecialAttack)
+						{
+							RHCollider.SetUp(EnemyData.Damage);
+							LHCollider.SetUp(EnemyData.Damage);
+							RHCollider.DamageDealed = false;
+							LHCollider.DamageDealed = false;
+							
+							if (distanceToMainChar <= EnemyData.AttackRadius)
+							{ 
                                 currentState = DoomerState.Attack;
                             }
                             else
@@ -163,8 +215,11 @@ namespace jbzdy.Enemies
                         {
                             if (distanceToMainChar <= firstAttackRadius)
                             {
-                                currentState = DoomerState.ChargedAttack;
+                                RHCollider.SetUp((int)(EnemyData.Damage * chargeDamageModifier));
+								LHCollider.SetUp((int)(EnemyData.Damage * chargeDamageModifier));
+								currentState = DoomerState.ChargedAttack;
                             }
+							
                         }
                     }
                     break;
