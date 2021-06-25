@@ -315,20 +315,25 @@ namespace jbzdy.Inventory
             return false;
         }
 
-        // Method returns true if item with specified title exists in the inventory
-        public bool CheckForItem(Item itemToCheck, int itemAmount)
+        // Method returns true if item with specified title exists in the inventory and remove it if needed
+        public bool CheckForItem(Item itemToCheck, int itemAmount, bool removeItem)
         {
             foreach (var item in inventoryItems)
             {
                 if (item.item.itemID == itemToCheck.itemID && item.item.itemStackSize >= itemAmount)
                 {
-                    RemoveInventoryItem(item);
+                    if (removeItem)
+                    {
+                        RemoveItem(item);
+                    }
+                    
                     return true;
                 }
             }
 
             return false;
         }
+        
 
         // Use this method to drop items from inventory. This method is not destroys items
         public void DropItem(InventoryItem InventoryItem)

@@ -145,7 +145,7 @@ namespace jbzdy.DialogueSystem.Actions
                     }
                     else if(itemCheckNodeDatas[i].ItemCheckType == ItemCheckNodeType.GiveItem)
                     {
-                        if (inventoryClass.CheckForItem(itemCheckNodeDatas[i].NodeItem, itemCheckNodeDatas[i].ItemCheckValue))
+                        if (inventoryClass.CheckForItem(itemCheckNodeDatas[i].NodeItem, itemCheckNodeDatas[i].ItemCheckValue, false))
                         {
                             answerButtons[i].onClick.AddListener(delegate { ValidateItemCheck(itemCheckNodeDatas[itemToCheckIndex]); });
                             answerButtons[i].onClick.AddListener(unityActions[i]);
@@ -192,26 +192,25 @@ namespace jbzdy.DialogueSystem.Actions
             switch (itemCheckNodeData.ItemCheckType)
             {
                 case ItemCheckNodeType.GetItem:
-                    if (inventoryClass.AddItem(itemCheckNodeData.NodeItem))
-                    {
-                        Debug.Log("Otrzymano - " +itemCheckNodeData.NodeItem.itemName);                        
-                    }
+                {
+                    if (itemCheckNodeData.ItemCheckValue > 1)
+                        Debug.Log("Otrzymałeś - " + itemCheckNodeData.ItemCheckValue + " " + itemCheckNodeData.NodeItem);
                     else
-                    {
-                        Debug.Log("Brak miejsca na - " +itemCheckNodeData.NodeItem.itemName);                        
-                    }
-                    break;
+                        Debug.Log("Otrzymałeś - " + itemCheckNodeData.NodeItem);
+                    
+                    return true;
+                }
                 case ItemCheckNodeType.GiveItem:
-                    if (inventoryClass.CheckForItem(itemCheckNodeData.NodeItem, itemCheckNodeData.ItemCheckValue))
-                    {
-                        Debug.Log("Oddałeś - " + itemCheckNodeData.ItemCheckValue + itemCheckNodeData.NodeItem);
-                        return true;
-                    }
+                {
+                    inventoryClass.CheckForItem(itemCheckNodeData.NodeItem, itemCheckNodeData.ItemCheckValue, true);
+                    
+                    if (itemCheckNodeData.ItemCheckValue > 1)
+                        Debug.Log("Oddałeś - " + itemCheckNodeData.ItemCheckValue + " " + itemCheckNodeData.NodeItem);
                     else
-                    {
-                        Debug.Log("Nie oddałeś");
-                        return false;
-                    }
+                        Debug.Log("Oddałeś - " + itemCheckNodeData.NodeItem);
+                    
+                    return true;
+                }
                 default:
                     break;
             }
