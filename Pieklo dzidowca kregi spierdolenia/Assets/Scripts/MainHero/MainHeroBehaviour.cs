@@ -1,17 +1,26 @@
-﻿using System.Collections;
+﻿using JG;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class MainHeroBehaviour : StateMachineBehaviour
 {
-    [SerializeField]
-    private AnimationClip animation;
+    public GameObject playerObject;
 
-    // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
-    //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    public void Awake()
+    {
+        playerObject = GameObject.FindGameObjectWithTag("Player");
+    }
+
+    //OnStateEnter is called before OnStateEnter is called on any state inside this state machine
+    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        if (stateInfo.IsName("Transition state"))
+        {
+            playerObject.GetComponent<PlayerController>().CanPlayerMove = true;
+        }
+    }
 
     // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
     //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -20,13 +29,12 @@ public class MainHeroBehaviour : StateMachineBehaviour
     //}
 
     // OnStateExit is called before OnStateExit is called on any state inside this state machine
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        if (stateInfo.IsName(animation.name))
-        {
-            animator.SetBool("Attack", false);
-        }
-    }
+    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+    //    
+    //    
+    //    
+    //}
 
     // OnStateMove is called before OnStateMove is called on any state inside this state machine
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

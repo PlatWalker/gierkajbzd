@@ -15,7 +15,7 @@ public enum Movement
 
 public enum Attack
 {
-    normal = KeyCode.Space
+    normal = KeyCode.Mouse0
 }
 
 public class InputController : Singleton<InputController>

@@ -29,20 +29,27 @@ public class PlayerController : MonoBehaviour , IDamageable
     private bool RotateTowardMouse; //you can either move wsad and rotate that way or rotate towards mouse
     [SerializeField]
     private Vector3 movementVector;
-
+    [SerializeField]
+    private bool canPlayerMove = true;
     [SerializeField]
     private int _health;
 
-    Vector3 attackVector = Vector3.zero;            // 
-    Vector3 reflectedAttackVector = Vector3.zero;   // could be local. to change after merge 
-    Vector3 animationVector = Vector3.zero;         // 
-    Vector3 moveVectorSaved = Vector3.zero;
-
-    private bool attackSequenceLock = false; // determines whatever sequence is still in progress
-
     public int Health { get => _health; private set => _health = value; }
 
-    private int kupa 
+    public bool CanPlayerMove
+    {
+        get
+        {
+            return canPlayerMove;
+        }
+
+        set
+        {
+            canPlayerMove = value;
+        }
+    }
+
+    private int kupa // do zmiany jak wejdzie poprawiony IDEAMGABLE
     {
         get
         {
@@ -55,6 +62,8 @@ public class PlayerController : MonoBehaviour , IDamageable
 
     public int GetHealthPercentage { get => kupa; }
 
+    private bool isAttacking;
+
     private void Awake()
     {
         inputHandler = GetComponent<InputHandler>();
@@ -62,77 +71,26 @@ public class PlayerController : MonoBehaviour , IDamageable
         characterObject = gameObject.transform.GetChild(0).gameObject;
     }
 
-    void Update()
+    private void Update()
     {
         UpdateCharacterMovement();
 
         UpdateCharacterAttack();
-
-        ToDeleteAfterMergeItsjustfordebugging(); // just for debugging can be deleted after merge iwth main branch
-    }
-
-    private void ToDeleteAfterMergeItsjustfordebugging()
-    {
-        if (reflectedAttackVector != null)
-        {
-            Debug.DrawLine(transform.position, transform.position + reflectedAttackVector * 10, Color.red);
-            Debug.DrawLine(transform.position, transform.position + animationVector * 10, Color.yellow);
-            Debug.DrawLine(transform.position, transform.position + attackVector * 10, Color.blue);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-
-            Debug.Log(Vector3.Angle(movementVector, Vector3.forward));
-
-        }
     }
 
     private void UpdateCharacterAttack()
     {
-
-        if (InputController.Instance.attackInputStatus.normal == true && attackSequenceLock == false)
+        
+        isAttacking = InputController.Instance.attackInputStatus.normal;
+        
+        if (isAttacking)
         {
-
-            attackVector =  InputController.Instance.mousePositionFlat - transform.position;
-
-            // reflect attack vector to compensate movement(momentum) vector
-
-            reflectedAttackVector = (2 * Vector3.Dot(movementVector.normalized, attackVector.normalized) * movementVector.normalized) - attackVector.normalized; 
-
-            // rotate reflected vector to let it point a direction of animation to use. It's important for blender tree.
-
-            float Beta = -1;
-
-            if (movementVector == Vector3.forward) Beta = 0;
-            else if (movementVector == (Vector3.left + Vector3.forward)) Beta = 315;
-            else if (movementVector == Vector3.left) Beta = 270;
-            else if (movementVector == (Vector3.left + Vector3.back)) Beta = 225;
-            else if (movementVector == Vector3.back) Beta = 180;
-            else if (movementVector == (Vector3.back + Vector3.right)) Beta = 135;
-            else if (movementVector == Vector3.right) Beta = 90;
-            else if (movementVector == (Vector3.forward + Vector3.right)) Beta = 45;
-
-            if (Beta >= 0)
-            {
-                animationVector = Quaternion.AngleAxis( Beta, Vector3.down ) * reflectedAttackVector;
-            }
-
-            // start attack animation
-
             Vector3 flatVector = InputController.Instance.mousePositionFlat;
             flatVector.y = 0;
             transform.LookAt(flatVector);
-            characterAnimator.SetFloat("x", animationVector.x);
-            characterAnimator.SetFloat("z", animationVector.z);
-            characterAnimator.SetBool("Attack", true);
-            attackSequenceLock = true;
-        }
-        else if(InputController.Instance.attackInputStatus.normal == false && attackSequenceLock == true)
-        {
-            attackSequenceLock = false;
-            characterAnimator.SetBool("Attack", false);
-        }
+            CanPlayerMove = false;
+        } 
+        characterAnimator.SetBool("Attack", isAttacking);
 
 
     }
@@ -141,9 +99,12 @@ public class PlayerController : MonoBehaviour , IDamageable
 
     private void UpdateCharacterMovement()
     {
-        UpdateCharacterPosition();
-        UpdateCharacterRotation();
-        UpdateCharacterAnimation();
+        if (CanPlayerMove == true)
+        {
+            UpdateCharacterPosition();
+            UpdateCharacterRotation();
+            UpdateCharacterAnimation();
+        }
     }
 
     private void UpdateCharacterPosition()
