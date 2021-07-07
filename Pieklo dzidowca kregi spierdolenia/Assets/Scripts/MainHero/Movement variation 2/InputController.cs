@@ -50,7 +50,7 @@ public class InputController : Singleton<InputController>
 
     private void UpdateAttackInput()
     {
-        attackInputStatus.normal = Pressed((KeyCode)Attack.normal);
+        attackInputStatus.normal = WasPressed((KeyCode)Attack.normal);
     }
 
     void UpdateMovementInput()

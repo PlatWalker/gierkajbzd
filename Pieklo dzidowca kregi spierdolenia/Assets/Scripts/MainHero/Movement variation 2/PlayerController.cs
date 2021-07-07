@@ -82,16 +82,19 @@ public class PlayerController : MonoBehaviour , IDamageable
     {
         
         isAttacking = InputController.Instance.attackInputStatus.normal;
-        
+
         if (isAttacking)
         {
-            Vector3 flatVector = InputController.Instance.mousePositionFlat;
-            flatVector.y = 0;
-            transform.LookAt(flatVector);
-            CanPlayerMove = false;
-        } 
-        characterAnimator.SetBool("Attack", isAttacking);
+            if (characterAnimator.GetBool("Attacking animation in progress") == false)
+            {
+                Vector3 flatVector = InputController.Instance.mousePositionFlat;
+                flatVector.y = 0;
+                transform.LookAt(flatVector);
+            }
 
+            CanPlayerMove = false;
+            characterAnimator.SetBool("Attack", true);
+        }
 
     }
 
@@ -160,3 +163,6 @@ public class PlayerController : MonoBehaviour , IDamageable
     }
 
 }
+
+
+

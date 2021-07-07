@@ -6,7 +6,10 @@ using UnityEngine;
 
 public class MainHeroBehaviour : StateMachineBehaviour
 {
-    public GameObject playerObject;
+    [SerializeField]
+    private int NumberOfFramesBeetweenAttacks;
+
+    private GameObject playerObject;
 
     public void Awake()
     {
@@ -16,9 +19,18 @@ public class MainHeroBehaviour : StateMachineBehaviour
     //OnStateEnter is called before OnStateEnter is called on any state inside this state machine
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (stateInfo.IsName("Transition state"))
+        if (animator.GetLayerName(layerIndex) == "Attack")
         {
-            playerObject.GetComponent<PlayerController>().CanPlayerMove = true;
+            if (stateInfo.IsName("Transition state"))
+            {
+                playerObject.GetComponent<PlayerController>().CanPlayerMove = true;
+            }
+            else
+            {
+                animator.SetBool("Attacking animation in progress", true);
+            }
+            
+            animator.SetBool("Attack", false); 
         }
     }
 
@@ -28,13 +40,11 @@ public class MainHeroBehaviour : StateMachineBehaviour
     //    
     //}
 
-    // OnStateExit is called before OnStateExit is called on any state inside this state machine
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //    
-    //    
-    //}
+    //OnStateExit is called before OnStateExit is called on any state inside this state machine
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        if (animator.GetLayerName(layerIndex) == "Attack" && stateInfo.IsName("Transition state") == false) animator.SetBool("Attacking animation in progress", false);
+    }
 
     // OnStateMove is called before OnStateMove is called on any state inside this state machine
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
