@@ -6,9 +6,6 @@ using UnityEngine;
 
 public class MainHeroBehaviour : StateMachineBehaviour
 {
-    [SerializeField]
-    private int NumberOfFramesBeetweenAttacks;
-
     private GameObject playerObject;
 
     public void Awake()
