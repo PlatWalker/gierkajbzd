@@ -28,9 +28,9 @@ public class HealthBar : MonoBehaviour
         {
             Debug.Log("Nie odnaleziono renderera Healthbara - próbuję znowu");
             healthBarRenderer = this.gameObject.GetComponent<SpriteRenderer>();
+            return;
         }
-        float percentage = parentScript.GetHealthPercentage;
-        percentage /= 100;
+        float percentage = (parentScript.CurrentHealth*1.0f)/(parentScript.MaximumHealth*1.0f);
         if (percentage < 0) percentage = 0;
         healthBarRenderer.size = new Vector2((0.16f * percentage), healthBarRenderer.size.y);
         healthBarTransform.LookAt(new Vector3(this.GetComponent<Transform>().position.x, cameraTransform.position.y, cameraTransform.position.z));
