@@ -10,7 +10,6 @@ using UnityEngine.AI;
 
 public class PlayerController_kumdziowy : MonoBehaviour
 {
-    private InputHandler inputHandler;
 
     //[SerializeField]
     //private Interactable playerFocus;
@@ -32,7 +31,6 @@ public class PlayerController_kumdziowy : MonoBehaviour
 
     private void Awake()
     {
-        inputHandler = GetComponent<InputHandler>();
         characterAnimator = GetComponentInChildren<Animator>();
         rbody = GetComponent<Rigidbody>();
     }

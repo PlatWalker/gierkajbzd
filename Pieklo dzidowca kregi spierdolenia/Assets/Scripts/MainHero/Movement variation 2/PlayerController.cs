@@ -1,3 +1,4 @@
+using jbzdy.Managers;
 using JetBrains.Annotations;
 using System;
 using System.Collections;
@@ -14,12 +15,8 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour , IDamageable
 {
-    private InputHandler inputHandler;
     private Animator characterAnimator;
     private GameObject characterObject;
-
-    //[SerializeField]
-    //private Interactable playerFocus;
 
     [SerializeField]
     private float playerSpeed = 0.2f;
@@ -66,7 +63,6 @@ public class PlayerController : MonoBehaviour , IDamageable
 
     private void Awake()
     {
-        inputHandler = GetComponent<InputHandler>();
         characterAnimator = GetComponentInChildren<Animator>();
         characterObject = gameObject.transform.GetChild(0).gameObject;
     }

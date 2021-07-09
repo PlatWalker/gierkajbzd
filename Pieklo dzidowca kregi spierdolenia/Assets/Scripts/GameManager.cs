@@ -1,25 +1,27 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-namespace jbzdy.Managers
+/// <summary>
+/// by SilverWalker
+/// </summary>
+
+public class GameManager : Singleton<GameManager>
 {
-    public class GameManager : MonoBehaviour
+    public GameObject playerObject;
+    public InputController inputController;
+
+    private void Awake()
     {
-        [SerializeField] private GameObject playerObject;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        //inputController = new InputController();
+    }
 
-        #region Singleton
-
-        public static GameManager Instance;
-
-        private void Awake()
-        {
-            if (Instance == null)
-                Instance = this;
-        }
-
-        #endregion
-
-        public GameObject PlayerObject { get => playerObject; set => playerObject = value; }
+    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+    {
+        playerObject = GameObject.FindGameObjectWithTag("Player");
+        
     }
 }

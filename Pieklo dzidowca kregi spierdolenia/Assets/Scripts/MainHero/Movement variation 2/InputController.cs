@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// By SilverWalker
+/// </summary>
 
 // This is key mapping
 public enum Movement
@@ -78,6 +81,5 @@ public class InputController : Singleton<InputController>
         Physics.Raycast(ray, out RaycastHit hitInfo, maxDistance: 300f);
         mousePositionFlat = hitInfo.point;
     }
-    
 
 }
