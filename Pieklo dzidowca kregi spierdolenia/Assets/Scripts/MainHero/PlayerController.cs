@@ -59,6 +59,10 @@ public class PlayerController : MonoBehaviour , IDamageable
 
     public int GetHealthPercentage { get => kupa; }
 
+    public int MaximumHealth => throw new NotImplementedException();
+
+    public int CurrentHealth => throw new NotImplementedException();
+
     private bool isAttacking;
 
     private void Awake()
