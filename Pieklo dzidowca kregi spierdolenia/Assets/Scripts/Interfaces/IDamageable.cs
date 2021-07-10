@@ -5,11 +5,8 @@
 
 public interface IDamageable
 {
-    /// <summary>
-    /// This method is returning int in range 0-100.
-    /// This int is representing how many percents of HP left for instance implementing this.
-    /// </summary>
-    int GetHealthPercentage { get; }
+    int MaximumHealth { get; }
+    int CurrentHealth { get; }
 
     /// <summary>
     /// This method is called by damage dealer when it wants to deal damage to instance which is implementing

@@ -24,15 +24,15 @@ namespace jbzdy.Enemies
 		public int PatrolStepsCounter { get; protected set; }
 		public virtual int CurrentHealth { get; protected set; }
 		public virtual Vector3 SpawnPoint { get; protected set; }
-		public virtual int GetHealthPercentage
+		public virtual int MaximumHealth
 		{
 			get
 			{
-				return (int)(((float)CurrentHealth / EnemyData.MaxHealth)*100);
+				return EnemyData.MaxHealth;
 			}
 			
 		}
-		protected  EasyAnimatorController easyAnimator;
+        protected  EasyAnimatorController easyAnimator;
 		private float animationPlayPreviousSpeed = 0f;
 
 
@@ -52,6 +52,7 @@ namespace jbzdy.Enemies
 			NavAgent = GetComponent<NavMeshAgent>();
 			NavAgent.angularSpeed = EnemyData.RotationSpeed;
 			NavAgent.acceleration = 100;
+            NavAgent.stoppingDistance = 0.5f;
 
 		}
         protected virtual void Update()
