@@ -12,9 +12,9 @@ namespace jbzdy.Enemies
         [SerializeField] private float jumpSpeed = 1.08f;
         [SerializeField] private float firstAttackRadius = 4.0f;
 		
-    [SerializeField] private float chargeDamageModifier = 2.0f;
-    [SerializeField] DamageController LHCollider = null;
-    [SerializeField] DamageController RHCollider = null;
+		[SerializeField] private float chargeDamageModifier = 2.0f;
+		[SerializeField] DamageController LHCollider = null;
+		[SerializeField] DamageController RHCollider = null;
         private enum DoomerState
         {
             Idle,
@@ -40,6 +40,8 @@ namespace jbzdy.Enemies
 			easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), new string[] {"shouldUseSecondAttack"});
 			hasDoneSpecialAttack = false;
 			currentState = DoomerState.Idle;
+
+			ASDyingSound.spatialBlend = 0.35f;
 		}
 
 		void OnValidate()
@@ -387,7 +389,15 @@ namespace jbzdy.Enemies
 				currentState = DoomerState.HaveSeenPlayer;
             }
 
-            base.SetDamage(damageAmount, damageType);
+			ASDamagedSound.Play();
+
+			Vector3 pushBackDirection = (transform.position - EnemyData.MainCharacterTransform.position);
+			pushBackDirection = pushBackDirection.normalized;
+			pushBackDirection *= 10;
+			GetComponent<Rigidbody>().AddForce(pushBackDirection, ForceMode.Impulse);
+			NavAgent.velocity = GetComponent<Rigidbody>().velocity;
+
+			base.SetDamage(damageAmount, damageType);
         }
 
 

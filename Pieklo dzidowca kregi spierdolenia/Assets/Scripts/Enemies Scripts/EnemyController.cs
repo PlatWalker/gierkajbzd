@@ -10,6 +10,7 @@ namespace jbzdy.Enemies
 	public abstract class EnemyController : MonoBehaviour, IDamageable
 	{
 		[SerializeField] protected EnemyDataContainer EnemyData;
+
 		[Header("Artifical Intelligence")]
 		[SerializeField] protected bool turnOffAI = false;
 		public bool EnemyAlive { get; protected set; }
@@ -36,8 +37,17 @@ namespace jbzdy.Enemies
 		private float animationPlayPreviousSpeed = 0f;
 
 
+        [Header("Sounds")]
+        protected AudioSource ASDamagedSound;
+        protected AudioSource ASDyingSound;
+        protected AudioSource ASAmbientSound;
 
-		protected virtual void Start()
+        [SerializeField] protected AudioClip ACDamagedSound;
+        [SerializeField] protected AudioClip ACDyingSound;
+        [SerializeField] protected AudioClip ACAmbientSound;
+
+
+        protected virtual void Start()
 		{
 			/*comment below is showing only how to initialize easyAniamtorController
 			 * string[] ignoredBooleans = new string[] { "ignoredBooleanName1", "ignoredBooleanName2" };
@@ -49,11 +59,24 @@ namespace jbzdy.Enemies
 			CurrentHealth = EnemyData.MaxHealth;
 			EnemyAlive = true;
 			GetComponent<Animator>().SetFloat("IdleSpeedMultiplier", Random.Range(0.900001f, 1.100001f));
+
 			NavAgent = GetComponent<NavMeshAgent>();
 			NavAgent.angularSpeed = EnemyData.RotationSpeed;
 			NavAgent.acceleration = 100;
             NavAgent.stoppingDistance = 0.5f;
 
+            ASDamagedSound = gameObject.AddComponent<AudioSource>();
+            ASDyingSound = gameObject.AddComponent<AudioSource>();
+            ASAmbientSound = gameObject.AddComponent<AudioSource>();
+            ASDamagedSound.clip = ACDamagedSound;
+            ASDyingSound.clip = ACDyingSound;
+            ASAmbientSound.clip = ACAmbientSound;
+            ASDamagedSound.playOnAwake = false;
+            ASDyingSound.playOnAwake = false;
+            ASAmbientSound.playOnAwake = false;
+            ASDamagedSound.spatialBlend = 1.0f;
+            ASDyingSound.spatialBlend = 1.0f;
+            ASAmbientSound.spatialBlend = 1.0f;
 		}
         protected virtual void Update()
         {
@@ -226,6 +249,7 @@ namespace jbzdy.Enemies
         {
             if (EnemyAlive)
             {
+                ASDyingSound.Play();
                 Destroy(gameObject.GetComponent<Collider>());
 				Destroy(gameObject.GetComponent<Rigidbody>());
 				EnemyAlive = false;

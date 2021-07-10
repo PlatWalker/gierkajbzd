@@ -1440,6 +1440,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyData: {fileID: 11400000, guid: 1a059e2cb11d19a45acacaf3a6b29905, type: 2}
   turnOffAI: 0
+  ACDamagedSound: {fileID: 0}
+  ACDyingSound: {fileID: 0}
+  ACAmbientSound: {fileID: 0}
   runAwayRadius: 4
   runSpeedModifier: 0.7
   maxRunAxisDistance: 8
@@ -3262,6 +3265,14 @@ MonoBehaviour:
   typeOfDamage: 2
   critChance: 0
   critMultiplier: 5
+--- !u!81 &1990895659
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990895652}
+  m_Enabled: 1
 --- !u!1 &2019764443
 GameObject:
   m_ObjectHideFlags: 0
@@ -4457,6 +4468,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 7896513199521172677, guid: e43525a891cdf39479a2225d71f18235, type: 3}
+      propertyPath: ACDamagedSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d51c0119595c8724aad8af6f525eba5a, type: 3}
+    - target: {fileID: 7896513199521172677, guid: e43525a891cdf39479a2225d71f18235, type: 3}
+      propertyPath: ACDyingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: b978e9d8c0a46b147b7c27acdb33058f, type: 3}
+    - target: {fileID: 7896513199521172677, guid: e43525a891cdf39479a2225d71f18235, type: 3}
+      propertyPath: ACAmbientSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f7f5f749e3ef2054481a08b26cdd62d6, type: 3}
     - target: {fileID: 8452709195491213211, guid: e43525a891cdf39479a2225d71f18235, type: 3}
       propertyPath: m_Layer
       value: 8
