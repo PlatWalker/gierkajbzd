@@ -1,53 +1,56 @@
 ﻿using System;
 using UnityEngine;
 
-public class PlayerMovementController
+namespace jbzdy.Player
 {
-    public PlayerController playerController;
-
-    public PlayerMovementController(PlayerController _playerController)
+    public class PlayerMovementController
     {
-        playerController = _playerController;
-    }
+        public PlayerController playerController;
 
-    public void UpdateCharacterMovement()
-    {
-        if (playerController.CanPlayerMove == true)
+        public PlayerMovementController(PlayerController _playerController)
         {
-            UpdateCharacterPosition();
-            UpdateCharacterRotation();
-            UpdateCharacterAnimation();
+            playerController = _playerController;
         }
-    }
 
-    private void UpdateCharacterPosition()
-    {
-        playerController.MovementVector = Vector3.zero;
-        playerController.MovementVector += Vector3.forward * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.up);
-        playerController.MovementVector += Vector3.back * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.down);
-        playerController.MovementVector += Vector3.left * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.left);
-        playerController.MovementVector += Vector3.right * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.right);
-
-        playerController.transform.position += playerController.MovementVector.normalized * playerController.PlayerSpeed;
-    }
-
-    private void UpdateCharacterRotation()
-    {
-        if (playerController.MovementVector.magnitude == 0 || playerController.characterAnimator.GetBool("Attack") == true) return;
-
-        var rotation = Quaternion.LookRotation(playerController.MovementVector);
-        playerController.transform.rotation = rotation;
-    }
-
-    private void UpdateCharacterAnimation()
-    {
-        if (playerController.MovementVector.z != 0 || playerController.MovementVector.x != 0)
+        public void UpdateCharacterMovement()
         {
-            playerController.characterAnimator.SetBool("Run", true);
+            if (playerController.CanPlayerMove == true)
+            {
+                UpdateCharacterPosition();
+                UpdateCharacterRotation();
+                UpdateCharacterAnimation();
+            }
         }
-        else
+
+        private void UpdateCharacterPosition()
         {
-            playerController.characterAnimator.SetBool("Run", false);
+            playerController.MovementVector = Vector3.zero;
+            playerController.MovementVector += Vector3.forward * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.up);
+            playerController.MovementVector += Vector3.back * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.down);
+            playerController.MovementVector += Vector3.left * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.left);
+            playerController.MovementVector += Vector3.right * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.right);
+
+            playerController.transform.position += playerController.MovementVector.normalized * playerController.PlayerSpeed;
         }
-    }
+
+        private void UpdateCharacterRotation()
+        {
+            if (playerController.MovementVector.magnitude == 0 || playerController.characterAnimator.GetBool("Attack") == true) return;
+
+            var rotation = Quaternion.LookRotation(playerController.MovementVector);
+            playerController.transform.rotation = rotation;
+        }
+
+        private void UpdateCharacterAnimation()
+        {
+            if (playerController.MovementVector.z != 0 || playerController.MovementVector.x != 0)
+            {
+                playerController.characterAnimator.SetBool("Run", true);
+            }
+            else
+            {
+                playerController.characterAnimator.SetBool("Run", false);
+            }
+        }
+    } 
 }

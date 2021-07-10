@@ -1,30 +1,33 @@
 ﻿using UnityEngine;
 
-public class PlayerAttackController
+namespace jbzdy.Player
 {
-    private PlayerController playerController;
-
-    public PlayerAttackController(PlayerController _playerController)
+    public class PlayerAttackController
     {
-        playerController = _playerController;
-    }
+        private PlayerController playerController;
 
-    public void UpdateCharacterAttack()
-    {
-        playerController.IsAttacking = GameManager.Instance.GameInputController.attackInputStatus.basic;
-
-        if (playerController.IsAttacking)
+        public PlayerAttackController(PlayerController _playerController)
         {
-            if (playerController.characterAnimator.GetBool("Attacking animation in progress") == false)
-            {
-                Vector3 flatVector = GameManager.Instance.GameInputController.mousePositionFlat;
-                flatVector.y = 0;
-                playerController.transform.LookAt(flatVector);
-            }
-
-            playerController.CanPlayerMove = false;
-            playerController.characterAnimator.SetBool("Attack", true);
+            playerController = _playerController;
         }
 
-    }
+        public void UpdateCharacterAttack()
+        {
+            playerController.IsAttacking = GameManager.Instance.GameInputController.attackInputStatus.basic;
+
+            if (playerController.IsAttacking)
+            {
+                if (playerController.characterAnimator.GetBool("Attacking animation in progress") == false)
+                {
+                    Vector3 flatVector = GameManager.Instance.GameInputController.mousePositionFlat;
+                    flatVector.y = 0;
+                    playerController.transform.LookAt(flatVector);
+                }
+
+                playerController.CanPlayerMove = false;
+                playerController.characterAnimator.SetBool("Attack", true);
+            }
+
+        }
+    } 
 }

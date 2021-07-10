@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 /// <summary>
 /// by SilverWalker
@@ -15,13 +11,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Awake()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        GameInputController = gameObject.AddComponent<InputController>();
-    }
-
-    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
-    {
         PlayerObject = GameObject.FindGameObjectWithTag("Player");
-        
+        GameInputController = gameObject.AddComponent<InputController>();
     }
 }
