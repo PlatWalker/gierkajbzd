@@ -10,18 +10,18 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    public GameObject playerObject;
-    public InputController inputController;
+    public InputController GameInputController { get; private set; }
+    public GameObject PlayerObject { get; private set; }
 
     private void Awake()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        //inputController = new InputController();
+        GameInputController = gameObject.AddComponent<InputController>();
     }
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
-        playerObject = GameObject.FindGameObjectWithTag("Player");
+        PlayerObject = GameObject.FindGameObjectWithTag("Player");
         
     }
 }
