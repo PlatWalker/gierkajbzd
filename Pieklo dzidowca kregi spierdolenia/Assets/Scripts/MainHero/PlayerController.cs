@@ -15,72 +15,47 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour , IDamageable
 {
-    private Animator characterAnimator;
-    private GameObject characterObject;
+    public Animator characterAnimator;
+    private PlayerMovementController playerMovementController;
 
     [SerializeField]
     private float playerSpeed = 0.2f;
     [SerializeField]
     private float rotateSpeed;
     [SerializeField]
-    private bool RotateTowardMouse; //you can either move wsad and rotate that way or rotate towards mouse
-    [SerializeField]
     private Vector3 movementVector;
     [SerializeField]
-    private bool canPlayerMove = true;
-    [SerializeField]
-    private int _health;
-
-    public int Health { get => _health; private set => _health = value; }
-
-    public bool CanPlayerMove
-    {
-        get
-        {
-            return canPlayerMove;
-        }
-
-        set
-        {
-            canPlayerMove = value;
-        }
-    }
-
-    private int kupa // do zmiany jak wejdzie poprawiony IDEAMGABLE
-    {
-        get
-        {
-            float maxHP = 250;
-            int cosiek = (int)(((float)Health / maxHP) * 100);
-            return cosiek;
-        }
-        
-    }
-
-    public int GetHealthPercentage { get => kupa; }
-
-    public int MaximumHealth => throw new NotImplementedException();
-
-    public int CurrentHealth => throw new NotImplementedException();
-
     private bool isAttacking;
+    [SerializeField]
+    private int maximumHealth;
+    [SerializeField]
+    private int currentHealth;
+    [SerializeField]
+    private bool canPlayerMove = true;
+
+    public int MaximumHealth { get => maximumHealth; private set => maximumHealth = value; }
+    public int CurrentHealth { get => currentHealth; private set => currentHealth = value; }
+    public bool CanPlayerMove { get => canPlayerMove; set => canPlayerMove = value; }
+    public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
+    public Vector3 MovementVector { get => movementVector; set => movementVector = value; }
+    public float RotateSpeed { get => rotateSpeed; set => rotateSpeed = value; }
+    public float PlayerSpeed { get => playerSpeed; set => playerSpeed = value; }
 
     private void Awake()
     {
         characterAnimator = GetComponentInChildren<Animator>();
-        characterObject = gameObject.transform.GetChild(0).gameObject;
+        playerMovementController = new PlayerMovementController(this);
     }
 
     private void Update()
     {
-        UpdateCharacterMovement();
+        playerMovementController.UpdateCharacterMovement();
 
         UpdateCharacterAttack();
     }
 
     private void UpdateCharacterAttack()
     {
-        
         isAttacking = GameManager.Instance.GameInputController.attackInputStatus.basic;
 
         if (isAttacking)
@@ -98,54 +73,9 @@ public class PlayerController : MonoBehaviour , IDamageable
 
     }
 
-    #region Movement
-
-    private void UpdateCharacterMovement()
-    {
-        if (CanPlayerMove == true)
-        {
-            UpdateCharacterPosition();
-            UpdateCharacterRotation();
-            UpdateCharacterAnimation();
-        }
-    }
-
-    private void UpdateCharacterPosition()
-    {
-        movementVector = Vector3.zero;
-        movementVector += Vector3.forward * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.up);
-        movementVector += Vector3.back * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.down);
-        movementVector += Vector3.left * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.left);
-        movementVector += Vector3.right * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.right);
-        
-        transform.position += movementVector.normalized * playerSpeed;
-    }
-
-    private void UpdateCharacterRotation()
-    {
-        if (movementVector.magnitude == 0 || characterAnimator.GetBool("Attack") == true) return;
-
-        var rotation = Quaternion.LookRotation(movementVector);
-        transform.rotation = rotation;
-    }
-
-    private void UpdateCharacterAnimation()
-    {
-        if (movementVector.z != 0 || movementVector.x != 0)
-        {
-            characterAnimator.SetBool("Run", true);
-        }
-        else
-        {
-            characterAnimator.SetBool("Run", false);
-        }
-    }
-
-    #endregion
-
     public void SetDamage(int damageAmount, DamageType damageType)
     {
-        Health -= damageAmount;
+        CurrentHealth -= damageAmount;
     }
 
     public void SetDamage(int damageAmount, DamageType damageType, float criticalMultiplier, float criticalChance)

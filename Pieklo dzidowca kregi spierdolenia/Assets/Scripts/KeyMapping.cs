@@ -18,20 +18,20 @@ public struct PlayerAttack
 
 public class KeyMapping : MonoBehaviour
 {
-    public PlayerMovement playerMovement;
-    public PlayerAttack playerAttack;
+    protected PlayerMovement playerMovement;
+    protected PlayerAttack playerAttack;
 
     [SerializeField]
-    private KeyCode playerMoveUp;
+    private KeyCode playerMoveUp = KeyCode.W;
     [SerializeField]
-    private KeyCode playerMoveDown;
+    private KeyCode playerMoveDown = KeyCode.S;
     [SerializeField]
-    private KeyCode playerMoveLeft;
+    private KeyCode playerMoveLeft = KeyCode.A;
     [SerializeField]
-    private KeyCode playerMoveRight;
+    private KeyCode playerMoveRight = KeyCode.D;
     
     [SerializeField]
-    private KeyCode playerBasicAttack;
+    private KeyCode playerBasicAttack = KeyCode.Mouse0;
 
     public void Awake()
     {
