@@ -1,13 +1,4 @@
-using jbzdy.Managers;
-using JetBrains.Annotations;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Net.NetworkInformation;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.Timeline;
-using UnityEngine.UI;
 
 /// <summary>
 /// By Tails, Edited by Silver
@@ -17,6 +8,7 @@ public class PlayerController : MonoBehaviour , IDamageable
 {
     public Animator characterAnimator;
     private PlayerMovementController playerMovementController;
+    private PlayerAttackController playerAttackController;
 
     [SerializeField]
     private float playerSpeed = 0.2f;
@@ -45,32 +37,14 @@ public class PlayerController : MonoBehaviour , IDamageable
     {
         characterAnimator = GetComponentInChildren<Animator>();
         playerMovementController = new PlayerMovementController(this);
+        playerAttackController = new PlayerAttackController(this);
     }
 
     private void Update()
     {
         playerMovementController.UpdateCharacterMovement();
 
-        UpdateCharacterAttack();
-    }
-
-    private void UpdateCharacterAttack()
-    {
-        isAttacking = GameManager.Instance.GameInputController.attackInputStatus.basic;
-
-        if (isAttacking)
-        {
-            if (characterAnimator.GetBool("Attacking animation in progress") == false)
-            {
-                Vector3 flatVector = GameManager.Instance.GameInputController.mousePositionFlat;
-                flatVector.y = 0;
-                transform.LookAt(flatVector);
-            }
-
-            CanPlayerMove = false;
-            characterAnimator.SetBool("Attack", true);
-        }
-
+        playerAttackController.UpdateCharacterAttack();
     }
 
     public void SetDamage(int damageAmount, DamageType damageType)
