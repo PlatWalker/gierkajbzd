@@ -1,3 +1,4 @@
+using jbzdy.Managers;
 using JetBrains.Annotations;
 using System;
 using System.Collections;
@@ -14,12 +15,8 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour , IDamageable
 {
-    private InputHandler inputHandler;
     private Animator characterAnimator;
     private GameObject characterObject;
-
-    //[SerializeField]
-    //private Interactable playerFocus;
 
     [SerializeField]
     private float playerSpeed = 0.2f;
@@ -66,7 +63,6 @@ public class PlayerController : MonoBehaviour , IDamageable
 
     private void Awake()
     {
-        inputHandler = GetComponent<InputHandler>();
         characterAnimator = GetComponentInChildren<Animator>();
         characterObject = gameObject.transform.GetChild(0).gameObject;
     }
@@ -81,13 +77,13 @@ public class PlayerController : MonoBehaviour , IDamageable
     private void UpdateCharacterAttack()
     {
         
-        isAttacking = InputController.Instance.attackInputStatus.normal;
+        isAttacking = GameManager.Instance.GameInputController.attackInputStatus.basic;
 
         if (isAttacking)
         {
             if (characterAnimator.GetBool("Attacking animation in progress") == false)
             {
-                Vector3 flatVector = InputController.Instance.mousePositionFlat;
+                Vector3 flatVector = GameManager.Instance.GameInputController.mousePositionFlat;
                 flatVector.y = 0;
                 transform.LookAt(flatVector);
             }
@@ -112,15 +108,12 @@ public class PlayerController : MonoBehaviour , IDamageable
 
     private void UpdateCharacterPosition()
     {
-        // I KNOW RIGHT? I just didnt want any if
-        // Basically if someone knows that ToInt32 is using ifs and its heavier
-        // Let me know then ill recreate it as A?1:0 statement
         movementVector = Vector3.zero;
-        movementVector += Vector3.forward * Convert.ToInt32(InputController.Instance.movementInputStatus.up);
-        movementVector += Vector3.back * Convert.ToInt32(InputController.Instance.movementInputStatus.down);
-        movementVector += Vector3.left * Convert.ToInt32(InputController.Instance.movementInputStatus.left);
-        movementVector += Vector3.right * Convert.ToInt32(InputController.Instance.movementInputStatus.right);
-        // Applying above calculations
+        movementVector += Vector3.forward * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.up);
+        movementVector += Vector3.back * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.down);
+        movementVector += Vector3.left * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.left);
+        movementVector += Vector3.right * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.right);
+        
         transform.position += movementVector.normalized * playerSpeed;
     }
 
@@ -134,7 +127,6 @@ public class PlayerController : MonoBehaviour , IDamageable
 
     private void UpdateCharacterAnimation()
     {
-        // if movement, then set animation to play
         if (movementVector.z != 0 || movementVector.x != 0)
         {
             characterAnimator.SetBool("Run", true);
