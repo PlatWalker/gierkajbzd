@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -195,9 +196,11 @@ namespace jbzdy.DialogueSystem.Actions
                 {
                     if (itemCheckNodeData.ItemCheckValue > 1)
                         Debug.Log("Otrzymałeś - " + itemCheckNodeData.ItemCheckValue + " " + itemCheckNodeData.NodeItem);
+                        
                     else
                         Debug.Log("Otrzymałeś - " + itemCheckNodeData.NodeItem);
-                    
+
+                    inventoryClass.AddItem(itemCheckNodeData.NodeItem);
                     return true;
                 }
                 case ItemCheckNodeType.GiveItem:
@@ -209,10 +212,11 @@ namespace jbzdy.DialogueSystem.Actions
                     else
                         Debug.Log("Oddałeś - " + itemCheckNodeData.NodeItem);
                     
+                    inventoryClass.AddItem(itemCheckNodeData.NodeItem);
                     return true;
                 }
                 default:
-                    break;
+                    throw new IndexOutOfRangeException();
             }
 
             return false;
