@@ -1440,9 +1440,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyData: {fileID: 11400000, guid: 1a059e2cb11d19a45acacaf3a6b29905, type: 2}
   turnOffAI: 0
-  ACDamagedSound: {fileID: 0}
-  ACDyingSound: {fileID: 0}
-  ACAmbientSound: {fileID: 0}
   runAwayRadius: 4
   runSpeedModifier: 0.7
   maxRunAxisDistance: 8
@@ -2992,7 +2989,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1789617004}
   - component: {fileID: 1789617003}
-  - component: {fileID: 1789617002}
   - component: {fileID: 1789617005}
   m_Layer: 0
   m_Name: Main Camera
@@ -3001,14 +2997,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1789617002
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1789617001}
-  m_Enabled: 1
 --- !u!20 &1789617003
 Camera:
   m_ObjectHideFlags: 0

@@ -40,8 +40,6 @@ namespace jbzdy.Enemies
 			easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), new string[] {"shouldUseSecondAttack"});
 			hasDoneSpecialAttack = false;
 			currentState = DoomerState.Idle;
-
-			ASDyingSound.spatialBlend = 0.35f;
 		}
 
 		void OnValidate()
@@ -84,6 +82,7 @@ namespace jbzdy.Enemies
 							{
 								TriggerNearEnemies(transform.position);
 								currentState = DoomerState.Aggro;
+								soundController.PlayAggro();
 							}
 						}
 						 
@@ -389,7 +388,6 @@ namespace jbzdy.Enemies
 				currentState = DoomerState.HaveSeenPlayer;
             }
 
-			ASDamagedSound.Play();
 
 			Vector3 pushBackDirection = (transform.position - EnemyData.MainCharacterTransform.position);
 			pushBackDirection = pushBackDirection.normalized;

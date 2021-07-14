@@ -38,13 +38,7 @@ namespace jbzdy.Enemies
 
 
         [Header("Sounds")]
-        protected AudioSource ASDamagedSound;
-        protected AudioSource ASDyingSound;
-        protected AudioSource ASAmbientSound;
-
-        [SerializeField] protected AudioClip ACDamagedSound;
-        [SerializeField] protected AudioClip ACDyingSound;
-        [SerializeField] protected AudioClip ACAmbientSound;
+        protected EnemySoundController soundController;
 
 
         protected virtual void Start()
@@ -65,18 +59,8 @@ namespace jbzdy.Enemies
 			NavAgent.acceleration = 100;
             NavAgent.stoppingDistance = 0.5f;
 
-            ASDamagedSound = gameObject.AddComponent<AudioSource>();
-            ASDyingSound = gameObject.AddComponent<AudioSource>();
-            ASAmbientSound = gameObject.AddComponent<AudioSource>();
-            ASDamagedSound.clip = ACDamagedSound;
-            ASDyingSound.clip = ACDyingSound;
-            ASAmbientSound.clip = ACAmbientSound;
-            ASDamagedSound.playOnAwake = false;
-            ASDyingSound.playOnAwake = false;
-            ASAmbientSound.playOnAwake = false;
-            ASDamagedSound.spatialBlend = 1.0f;
-            ASDyingSound.spatialBlend = 1.0f;
-            ASAmbientSound.spatialBlend = 1.0f;
+            soundController = new EnemySoundController(this, EnemyData);
+            soundController.Initialize();
 		}
         protected virtual void Update()
         {
@@ -133,6 +117,7 @@ namespace jbzdy.Enemies
         {
             //for now damage types are ignored
             CurrentHealth -= damageAmount;
+            soundController.PlayDamaged();
         }
 
         /// <summary>
@@ -249,7 +234,7 @@ namespace jbzdy.Enemies
         {
             if (EnemyAlive)
             {
-                ASDyingSound.Play();
+                soundController.PlayDying();
                 Destroy(gameObject.GetComponent<Collider>());
 				Destroy(gameObject.GetComponent<Rigidbody>());
 				EnemyAlive = false;
