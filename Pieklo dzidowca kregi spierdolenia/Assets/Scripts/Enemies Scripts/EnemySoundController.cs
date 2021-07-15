@@ -2,7 +2,7 @@
 
 namespace jbzdy.Enemies
 {
-    public class EnemySoundController
+    public class EnemySoundController : MonoBehaviour
     {
         private SoundPlayer attackSound;
         private SoundPlayer ambientSound;
@@ -10,22 +10,47 @@ namespace jbzdy.Enemies
         private SoundPlayer dyingSound;
         private SoundPlayer damagedSound;
 
-        protected MonoBehaviour SoundEmmitingObject { get; private set; }
+        [SerializeField] protected float spatialBlendAttack = 1.0f;
+        [SerializeField] protected float spatialBlendAmbient = 1.0f;
+        [SerializeField] protected float spatialBlendAggro = 1.0f;
+        [SerializeField] protected float spatialBlendDying = 1.0f;
+        [SerializeField] protected float spatialBlendDamaged = 1.0f;
+
+        [SerializeField] protected float volumeAttack = 1.0f;
+        [SerializeField] protected float volumeAmbient = 1.0f;
+        [SerializeField] protected float volumeAggro = 1.0f;
+        [SerializeField] protected float volumeDying = 1.0f;
+        [SerializeField] protected float volumeDamaged = 1.0f;
+
+
         protected EnemyDataContainer EnemyData { get; private set; }
 
-        public EnemySoundController(MonoBehaviour soundEmmitingObject,EnemyDataContainer data)
+        void Start()
         {
-            EnemyData = data;
-            SoundEmmitingObject = soundEmmitingObject;
-        }
+            EnemyController SoundEmmitingObject;
+            if (!TryGetComponent<EnemyController>(out SoundEmmitingObject))
+            {
+                Debug.Log("Could not find Enemy Data to play sounds");
+                Destroy(this);
+            }
+            EnemyData = SoundEmmitingObject.EnemyData;
 
-        public virtual void Initialize()
-        {
-            attackSound = new SoundPlayer(SoundEmmitingObject.gameObject.AddComponent<AudioSource>(), EnemyData.AttackAudioClip);
-            ambientSound = new SoundPlayer(SoundEmmitingObject.gameObject.AddComponent<AudioSource>(), EnemyData.AmbientAudioClip);
-            aggroSound = new SoundPlayer(SoundEmmitingObject.gameObject.AddComponent<AudioSource>(), EnemyData.AggroAudioClip);
-            dyingSound = new SoundPlayer(SoundEmmitingObject.gameObject.AddComponent<AudioSource>(), EnemyData.DyingAudioClip);
-            damagedSound = new SoundPlayer(SoundEmmitingObject.gameObject.AddComponent<AudioSource>(), EnemyData.DamagedAudioClip);
+            attackSound = new SoundPlayer(this, EnemyData.AttackAudioClip);
+            ambientSound = new SoundPlayer(this, EnemyData.AmbientAudioClip);
+            aggroSound = new SoundPlayer(this, EnemyData.AggroAudioClip);
+            dyingSound = new SoundPlayer(this, EnemyData.DyingAudioClip);
+            damagedSound = new SoundPlayer(this, EnemyData.DamagedAudioClip);
+            
+            attackSound.SetSpatial(spatialBlendAttack);
+            attackSound.SetVolume(volumeAttack);
+            ambientSound.SetSpatial(spatialBlendAmbient);
+            ambientSound.SetVolume(volumeAmbient);
+            aggroSound.SetSpatial(spatialBlendAggro);
+            aggroSound.SetVolume(volumeAggro);
+            dyingSound.SetSpatial(spatialBlendDying);
+            dyingSound.SetVolume(volumeDying);
+            damagedSound.SetSpatial(spatialBlendDamaged);
+            damagedSound.SetVolume(volumeDamaged);
 
         }
 

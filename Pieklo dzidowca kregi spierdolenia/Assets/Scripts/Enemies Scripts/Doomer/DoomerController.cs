@@ -34,12 +34,15 @@ namespace jbzdy.Enemies
 		public static bool HasDoneAggro { get; set; }
 		private bool hasDoneSpecialAttack;
 
+		private EnemyDamagedEffect pushBackEffect;
+
 		override protected void Start()
 		{
 			base.Start();
 			easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), new string[] {"shouldUseSecondAttack"});
 			hasDoneSpecialAttack = false;
 			currentState = DoomerState.Idle;
+			pushBackEffect = GetComponent<EnemyDamagedEffect>();
 		}
 
 		void OnValidate()
@@ -389,11 +392,7 @@ namespace jbzdy.Enemies
             }
 
 
-			Vector3 pushBackDirection = (transform.position - EnemyData.MainCharacterTransform.position);
-			pushBackDirection = pushBackDirection.normalized;
-			pushBackDirection *= 10;
-			GetComponent<Rigidbody>().AddForce(pushBackDirection, ForceMode.Impulse);
-			NavAgent.velocity = GetComponent<Rigidbody>().velocity;
+			pushBackEffect.ApplyEffect();
 
 			base.SetDamage(damageAmount, damageType);
         }
