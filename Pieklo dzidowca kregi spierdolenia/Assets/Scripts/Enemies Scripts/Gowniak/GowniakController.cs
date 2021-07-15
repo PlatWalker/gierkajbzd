@@ -27,7 +27,9 @@ namespace jbzdy.Enemies
         }
 		[SerializeField] DamageController RHCollider = null;
 		[SerializeField] DamageController LHCollider = null;
-		
+
+        private EnemyDamagedEffect pushBackEffect;
+
         override protected void Start()
         {
             base.Start();
@@ -35,6 +37,7 @@ namespace jbzdy.Enemies
             NavAgent = GetComponent<NavMeshAgent>();
 			RHCollider.SetUp(EnemyData.Damage);
 			LHCollider.SetUp(EnemyData.Damage);
+            pushBackEffect = GetComponent<EnemyDamagedEffect>();
         }
 
         override protected void Update()
@@ -205,6 +208,7 @@ namespace jbzdy.Enemies
             {
                 GoToPoint = GenerateNewDestination(currentState == GowniakState.Wander);
             }
+            pushBackEffect.ApplyEffect();
             base.SetDamage(damageAmount, damageType);
         }
 

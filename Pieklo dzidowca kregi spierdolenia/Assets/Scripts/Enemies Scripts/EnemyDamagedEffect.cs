@@ -5,12 +5,12 @@ namespace jbzdy.Enemies
 {
     public class EnemyDamagedEffect : MonoBehaviour
     {
-        [SerializeField] private float pushBackStrength = 10f;
+        [SerializeField] private float pushBackStrength = 4f;
         private EnemyDataContainer EnemyData;
         private NavMeshAgent NavAgent;
         private bool effectTrigged = false;
         private float timer;
-        [SerializeField] private float maxEffectDuration = 2f;
+        [SerializeField] private float maxEffectDuration = .1f;
         private Rigidbody rigidbody;
         // Start is called before the first frame update
         void Start()
