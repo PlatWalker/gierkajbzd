@@ -31,9 +31,18 @@ public class DamageController : MonoBehaviour
         DealDamage(collision);
     }
 
+    public void OnTriggerStay(Collider other)
+    {
+        DealDamage(other);
+    }
+
     public void OnCollisionEnter(Collision collision)
     {
+        DealDamage(collision.collider);
+    }
 
+    public void OnCollisionStay(Collision collision)
+    {
         DealDamage(collision.collider);
     }
 
@@ -44,7 +53,7 @@ public class DamageController : MonoBehaviour
         if (collision.gameObject.TryGetComponent<IDamageable>(out hittenObjectScript))
         {
             if (collision.transform.tag == "Enemy") return;
-            //Debug.Log("hit made by: " + transform.name);
+            //Debug.Log("hit made by: " + transform.name + " to: " + collision.gameObject.name);
             hittenObjectScript.SetDamage(damage, damageType, criticalMultiplier, criticalChance);
             DamageDealed = true;
         }
