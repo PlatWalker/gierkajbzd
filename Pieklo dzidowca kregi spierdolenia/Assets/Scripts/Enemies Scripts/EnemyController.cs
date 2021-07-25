@@ -9,7 +9,9 @@ namespace jbzdy.Enemies
 {
 	public abstract class EnemyController : MonoBehaviour, IDamageable
 	{
-		[SerializeField] protected EnemyDataContainer EnemyData;
+		[SerializeField] protected EnemyDataContainer _enemyData;
+        public EnemyDataContainer EnemyData { get => _enemyData;}
+
 		[Header("Artifical Intelligence")]
 		[SerializeField] protected bool turnOffAI = false;
 		public bool EnemyAlive { get; protected set; }
@@ -36,8 +38,11 @@ namespace jbzdy.Enemies
 		private float animationPlayPreviousSpeed = 0f;
 
 
+        [Header("Sounds")]
+        protected EnemySoundController soundController;
 
-		protected virtual void Start()
+
+        protected virtual void Start()
 		{
 			/*comment below is showing only how to initialize easyAniamtorController
 			 * string[] ignoredBooleans = new string[] { "ignoredBooleanName1", "ignoredBooleanName2" };
@@ -49,11 +54,17 @@ namespace jbzdy.Enemies
 			CurrentHealth = EnemyData.MaxHealth;
 			EnemyAlive = true;
 			GetComponent<Animator>().SetFloat("IdleSpeedMultiplier", Random.Range(0.900001f, 1.100001f));
+
 			NavAgent = GetComponent<NavMeshAgent>();
 			NavAgent.angularSpeed = EnemyData.RotationSpeed;
 			NavAgent.acceleration = 100;
-            NavAgent.stoppingDistance = 0.5f;
+            NavAgent.stoppingDistance = 0.2f;
 
+            soundController = GetComponent<EnemySoundController>();
+            if (soundController == null)
+            {
+                Debug.Log("Some enemy does not have Sound Controller - that may cause problems.");
+            }
 		}
         protected virtual void Update()
         {
@@ -70,9 +81,9 @@ namespace jbzdy.Enemies
         {
             if (Vector3.Distance(target, NavAgent.destination) < 1f) return;
 
-            if (NavAgent.radius <= stopDistance)
+            if (NavAgent.radius*2 <= stopDistance)
             {
-                stopDistance = stopDistance - NavAgent.radius;
+                stopDistance -= NavAgent.radius*2;
             }
             else
             {
@@ -110,6 +121,8 @@ namespace jbzdy.Enemies
         {
             //for now damage types are ignored
             CurrentHealth -= damageAmount;
+            if(soundController)
+            soundController.PlayDamaged();
         }
 
         /// <summary>
@@ -226,6 +239,8 @@ namespace jbzdy.Enemies
         {
             if (EnemyAlive)
             {
+                if(soundController)
+                soundController.PlayDying();
                 Destroy(gameObject.GetComponent<Collider>());
 				Destroy(gameObject.GetComponent<Rigidbody>());
 				EnemyAlive = false;
