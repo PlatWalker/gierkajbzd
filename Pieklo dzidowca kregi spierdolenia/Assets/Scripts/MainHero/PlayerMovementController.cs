@@ -1,6 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// by SilverWalker
+/// </summary>
+
 namespace jbzdy.Player
 {
     public class PlayerMovementController

@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// by SilverWalker
+/// </summary>
+
 public class WeaponController : MonoBehaviour
 {
     private int damageAmount = 10;
@@ -14,7 +18,7 @@ public class WeaponController : MonoBehaviour
 
     public void Awake()
     {
-        characterAnimator = transform.parent.parent.parent.parent.parent.parent.parent.GetComponentInParent<Animator>();
+        characterAnimator = GameManager.Instance.PlayerObject.GetComponentInChildren<Animator>();
     }
 
     private void OnTriggerEnter(Collider other)

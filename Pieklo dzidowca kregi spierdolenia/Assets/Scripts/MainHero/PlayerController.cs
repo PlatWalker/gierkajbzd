@@ -15,8 +15,6 @@ namespace jbzdy.Player
         [SerializeField]
         private float playerSpeed = 0.2f;
         [SerializeField]
-        private float rotateSpeed;
-        [SerializeField]
         private int maximumHealth;
         [SerializeField]
         private int currentHealth;
@@ -32,12 +30,13 @@ namespace jbzdy.Player
         public bool CanPlayerMove { get => canPlayerMove; set => canPlayerMove = value; }
         public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
         public Vector3 MovementVector { get => movementVector; set => movementVector = value; }
-        public float RotateSpeed { get => rotateSpeed; set => rotateSpeed = value; }
         public float PlayerSpeed { get => playerSpeed; set => playerSpeed = value; }
 
         private void Awake()
         {
             characterAnimator = GetComponentInChildren<Animator>();
+            if (characterAnimator == null) Debug.Log("nie znaleziono animatora w postaci gracza");
+
             playerMovementController = new PlayerMovementController(this);
             playerAttackController = new PlayerAttackController(this);
         }

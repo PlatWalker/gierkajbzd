@@ -1,15 +1,14 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// by SilverWalker
+/// </summary>
+
 namespace jbzdy.Player
 {
     public class MainHeroBehaviour : StateMachineBehaviour
     {
         private GameObject playerObject;
-
-        public void Update()
-        {
-            playerObject = GameManager.Instance.PlayerObject;
-        }
 
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {

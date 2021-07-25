@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// by SilverWalker
+/// </summary>
+
 namespace jbzdy.Player
 {
     public class PlayerAttackController
@@ -20,7 +24,7 @@ namespace jbzdy.Player
                 if (playerController.characterAnimator.GetBool("Attacking animation in progress") == false)
                 {
                     Vector3 flatVector = GameManager.Instance.GameInputController.mousePositionFlat;
-                    flatVector.y = 0;
+                    flatVector.y = playerController.transform.position.y;
                     playerController.transform.LookAt(flatVector);
                 }
 
