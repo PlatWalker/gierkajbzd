@@ -41,7 +41,7 @@ namespace jbzdy.Enemies
                 {
                     timer = 0f;
                     effectTrigged = false;
-                    rigidbody.isKinematic = true;
+                    if(rigidbody) rigidbody.isKinematic = true;
                     NavAgent.velocity = Vector3.zero;
                     NavAgent.isStopped = false;
                     
