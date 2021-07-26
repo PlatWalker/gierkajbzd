@@ -15,23 +15,23 @@ namespace jbzdy.DialogueSystem.Nodes
     {
         private List<LanguageGeneric<string>> texts = new List<LanguageGeneric<string>>();
         private List<LanguageGeneric<AudioClip>> audioClips = new List<LanguageGeneric<AudioClip>>();
-        private Sprite faceImage;
+        private Sprite npcFaceImage;
+        private Sprite playerFaceImage;
         private string nameText = "";
-        private DialogueFaceImageType faceImageType;
 
         private List<DialogueNodePort> dialogueNodePorts = new List<DialogueNodePort>();
         public List<LanguageGeneric<string>> Texts { get => texts; set => texts = value; }
         public List<LanguageGeneric<AudioClip>> AudioClips { get => audioClips; set => audioClips = value; }
-        public Sprite FaceImage { get => faceImage; set => faceImage = value; }
+        public Sprite NpcFaceImage { get => npcFaceImage; set => npcFaceImage = value; }
+        public Sprite PlayerFaceImage { get => playerFaceImage; set => playerFaceImage = value; }
         public string NameText { get => nameText; set => nameText = value; }
-        public DialogueFaceImageType FaceImageType { get => faceImageType; set => faceImageType = value; }
         public List<DialogueNodePort> DialogueNodePorts { get => dialogueNodePorts; set => dialogueNodePorts = value; }
 
         private TextField textsField;
         private ObjectField audioClipsField;
-        private ObjectField faceImageField;
+        private ObjectField npcImageField;
+        private ObjectField playerImageField;
         private TextField nameField;
-        private EnumField faceImageTypeField;
 
         public DialogueNode()
         {
@@ -67,31 +67,34 @@ namespace jbzdy.DialogueSystem.Nodes
                 });
             }
 
-            // Face Image
-            faceImageField = new ObjectField
+            //Enemy Face Image
+            npcImageField = new ObjectField
             {
+                label = "NPC image: ",
                 objectType = typeof(Sprite),
                 allowSceneObjects = false,
-                value = faceImage
+                value = npcFaceImage
             };
-            faceImageField.RegisterValueChangedCallback(value =>
+            npcImageField.RegisterValueChangedCallback(value =>
             {
-                faceImage = value.newValue as Sprite;
-            });
-
-            mainContainer.Add(faceImageField);
-
-            // Face Image Enum
-            faceImageTypeField = new EnumField()
+                npcFaceImage = value.newValue as Sprite;
+            });            
+            
+            mainContainer.Add(npcImageField);
+            
+            playerImageField = new ObjectField
             {
-                value = faceImageType
+                label = "Player image: ",
+                objectType = typeof(Sprite),
+                allowSceneObjects = false,
+                value = playerFaceImage
             };
-            faceImageTypeField.Init(faceImageType);
-            faceImageTypeField.RegisterValueChangedCallback(value =>
+            playerImageField.RegisterValueChangedCallback(value =>
             {
-                faceImageType = (DialogueFaceImageType)value.newValue;
-            });
-            mainContainer.Add(faceImageTypeField);
+                playerFaceImage = value.newValue as Sprite;
+            });   
+            
+            mainContainer.Add(playerImageField);
 
             // Audio Chilp
             audioClipsField = new ObjectField()
@@ -179,8 +182,8 @@ namespace jbzdy.DialogueSystem.Nodes
         {
             textsField.SetValueWithoutNotify(texts.Find(language => language.LanguageType == editorWindow.LanguageType).LanguageGenericType);
             audioClipsField.SetValueWithoutNotify(audioClips.Find(language => language.LanguageType == editorWindow.LanguageType).LanguageGenericType);
-            faceImageField.SetValueWithoutNotify(faceImage);
-            faceImageTypeField.SetValueWithoutNotify(faceImageType);
+            npcImageField.SetValueWithoutNotify(npcFaceImage);
+            playerImageField.SetValueWithoutNotify(playerFaceImage);
             nameField.SetValueWithoutNotify(nameText);
         }
 
@@ -230,7 +233,6 @@ namespace jbzdy.DialogueSystem.Nodes
                 text = "X",
             };
             port.contentContainer.Add(deleteButton);
-
 
             dialogueNodePort.MyPort = port;
             port.portName = "";
