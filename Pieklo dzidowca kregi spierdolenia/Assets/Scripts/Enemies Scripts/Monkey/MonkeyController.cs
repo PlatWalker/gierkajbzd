@@ -32,12 +32,15 @@ namespace jbzdy.Enemies
         private MonkeyState currentState;
         private MonkeyState resumeState;
 
+        private EnemyDamagedEffect pushBackEffect;
+
         override protected void Start()
         {
             base.Start();
             string[] ignoredBooleans = new string[] { "spawnProjectile" };
             easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), ignoredBooleans);
             currentState = MonkeyState.Idle;
+            pushBackEffect = GetComponent<EnemyDamagedEffect>();
         }
 
         override protected void Update()
@@ -258,6 +261,12 @@ namespace jbzdy.Enemies
         protected override bool HandleTriggerByEnemy(Vector3 target)
         {
             return false;
+        }
+
+        public override void SetDamage(int damageAmount,DamageType damageType)
+        {
+            pushBackEffect.ApplyEffect();
+            base.SetDamage(damageAmount, damageType);
         }
 
         override public void SwitchAI()
