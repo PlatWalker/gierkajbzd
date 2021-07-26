@@ -3,6 +3,7 @@ using System.Linq;
 using jbzdy.Actions.Interaction;
 using jbzdy.DialogueSystem.Actions;
 using jbzdy.DialogueSystem.SO;
+using jbzdy.Player;
 using UnityEngine;
 
 namespace jbzdy.NPC.Interaction
