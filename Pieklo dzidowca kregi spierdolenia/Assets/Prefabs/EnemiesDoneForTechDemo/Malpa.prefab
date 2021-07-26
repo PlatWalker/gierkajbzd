@@ -229,6 +229,8 @@ GameObject:
   - component: {fileID: 3425565555116811925}
   - component: {fileID: 3425565555116811931}
   - component: {fileID: 3425565555116811924}
+  - component: {fileID: 1947072267810755696}
+  - component: {fileID: -6978536080928485564}
   m_Layer: 8
   m_Name: Malpa
   m_TagString: Untagged
@@ -337,7 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70f531dce30267548a90f40512801ea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyData: {fileID: 11400000, guid: 1a059e2cb11d19a45acacaf3a6b29905, type: 2}
+  _enemyData: {fileID: 11400000, guid: 1a059e2cb11d19a45acacaf3a6b29905, type: 2}
   turnOffAI: 0
   runAwayRadius: 4
   runSpeedModifier: 0.7
@@ -347,6 +349,42 @@ MonoBehaviour:
   projectileSpawnPoint: {fileID: 3425565555093808452}
   throwPower: 0.2
   throwTargetHeight: 1.8
+--- !u!114 &1947072267810755696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2543236815181186076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b87efc9bb69ef004aa9eee42e5c97573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pushBackStrength: 4
+  maxEffectDuration: 0.1
+--- !u!114 &-6978536080928485564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2543236815181186076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18d4ec85e2bf0748b8d48fc2f4a2127, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spatialBlendAttack: 1
+  spatialBlendAmbient: 1
+  spatialBlendAggro: 1
+  spatialBlendDying: 1
+  spatialBlendDamaged: 1
+  volumeAttack: 1
+  volumeAmbient: 1
+  volumeAggro: 1
+  volumeDying: 1
+  volumeDamaged: 1
 --- !u!1 &2831594495281196943
 GameObject:
   m_ObjectHideFlags: 0
