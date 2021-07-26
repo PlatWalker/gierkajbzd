@@ -14,19 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NodeLinkDatas:
   - BaseNodeGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
-    TargetNodeGuid: c433a069-8f65-4abc-bc4a-b8611b487b08
-  - BaseNodeGuid: 509f3269-a69e-4842-8a5f-91f4ba8c38f2
-    TargetNodeGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
-  - BaseNodeGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
     TargetNodeGuid: 665972de-02c5-4c10-ac2d-c93c854bcda9
-  - BaseNodeGuid: 665972de-02c5-4c10-ac2d-c93c854bcda9
-    TargetNodeGuid: fca14536-2a80-41ba-b60a-6370697e6f5b
+  - BaseNodeGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
+    TargetNodeGuid: c433a069-8f65-4abc-bc4a-b8611b487b08
   - BaseNodeGuid: c433a069-8f65-4abc-bc4a-b8611b487b08
     TargetNodeGuid: 32aa2c14-85fb-491a-8f5b-68ad743971e0
-  - BaseNodeGuid: fca14536-2a80-41ba-b60a-6370697e6f5b
-    TargetNodeGuid: 46ebefa0-f2f3-4c01-8439-126cbb325bd0
+  - BaseNodeGuid: 665972de-02c5-4c10-ac2d-c93c854bcda9
+    TargetNodeGuid: fca14536-2a80-41ba-b60a-6370697e6f5b
   - BaseNodeGuid: fca14536-2a80-41ba-b60a-6370697e6f5b
     TargetNodeGuid: ca467e0c-6158-4b71-98ee-798ec276293e
+  - BaseNodeGuid: fca14536-2a80-41ba-b60a-6370697e6f5b
+    TargetNodeGuid: 46ebefa0-f2f3-4c01-8439-126cbb325bd0
   - BaseNodeGuid: 46ebefa0-f2f3-4c01-8439-126cbb325bd0
     TargetNodeGuid: 04fbf78b-4856-4f93-9897-f091824ec848
   - BaseNodeGuid: ca467e0c-6158-4b71-98ee-798ec276293e
@@ -34,21 +32,25 @@ MonoBehaviour:
   - BaseNodeGuid: 04fbf78b-4856-4f93-9897-f091824ec848
     TargetNodeGuid: 10706204-dd17-43fe-bdee-60565adcce3d
   - BaseNodeGuid: e906b61c-9586-4bfc-8840-b2526841d889
+    TargetNodeGuid: c9847317-285b-4ad2-9a15-63faee37e709
+  - BaseNodeGuid: e906b61c-9586-4bfc-8840-b2526841d889
     TargetNodeGuid: 10d75fb1-4cf7-41d9-8ca3-552dcbaf628a
   - BaseNodeGuid: 10706204-dd17-43fe-bdee-60565adcce3d
-    TargetNodeGuid: 2c61969d-1c0b-43f3-afef-d00a3393e09a
-  - BaseNodeGuid: 2c61969d-1c0b-43f3-afef-d00a3393e09a
-    TargetNodeGuid: 58ed7697-f9c5-45c4-b0b8-489aa51da8bc
-  - BaseNodeGuid: 10706204-dd17-43fe-bdee-60565adcce3d
     TargetNodeGuid: 3114332d-9d9c-4d34-9304-e6fd562d7c49
-  - BaseNodeGuid: 3114332d-9d9c-4d34-9304-e6fd562d7c49
-    TargetNodeGuid: 108db268-3f81-4110-b55c-a090ce946f0b
-  - BaseNodeGuid: e906b61c-9586-4bfc-8840-b2526841d889
-    TargetNodeGuid: c9847317-285b-4ad2-9a15-63faee37e709
-  - BaseNodeGuid: c9847317-285b-4ad2-9a15-63faee37e709
-    TargetNodeGuid: 9cdb7574-ad86-4262-9e23-32b5d8d47c66
+  - BaseNodeGuid: 10706204-dd17-43fe-bdee-60565adcce3d
+    TargetNodeGuid: 2c61969d-1c0b-43f3-afef-d00a3393e09a
   - BaseNodeGuid: 10d75fb1-4cf7-41d9-8ca3-552dcbaf628a
     TargetNodeGuid: 02364c6f-d91b-4143-9c53-b99b7f8ee6d2
+  - BaseNodeGuid: 2c61969d-1c0b-43f3-afef-d00a3393e09a
+    TargetNodeGuid: 58ed7697-f9c5-45c4-b0b8-489aa51da8bc
+  - BaseNodeGuid: 3114332d-9d9c-4d34-9304-e6fd562d7c49
+    TargetNodeGuid: 108db268-3f81-4110-b55c-a090ce946f0b
+  - BaseNodeGuid: c9847317-285b-4ad2-9a15-63faee37e709
+    TargetNodeGuid: 9cdb7574-ad86-4262-9e23-32b5d8d47c66
+  - BaseNodeGuid: 509f3269-a69e-4842-8a5f-91f4ba8c38f2
+    TargetNodeGuid: 7552a629-1e55-4fa1-a157-5b294bfdede4
+  - BaseNodeGuid: 7552a629-1e55-4fa1-a157-5b294bfdede4
+    TargetNodeGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
   DialogueNodeDatas:
   - NodeGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
     Position: {x: 311, y: 216}
@@ -73,7 +75,6 @@ MonoBehaviour:
         LanguageGenericType: Continue
       - LanguageType: 2
         LanguageGenericType: Continue
-    DialogueFaceImageType: 0
     AudioClips:
     - LanguageType: 0
       LanguageGenericType: {fileID: 0}
@@ -89,7 +90,8 @@ MonoBehaviour:
       LanguageGenericType: 
     - LanguageType: 2
       LanguageGenericType: 
-    Sprite: {fileID: 0}
+    npcSprite: {fileID: 0}
+    playerSprite: {fileID: 0}
     Name: Chlor
   - NodeGuid: c433a069-8f65-4abc-bc4a-b8611b487b08
     Position: {x: 686, y: 292}
@@ -104,7 +106,6 @@ MonoBehaviour:
         LanguageGenericType: Continue
       - LanguageType: 2
         LanguageGenericType: Continue
-    DialogueFaceImageType: 0
     AudioClips:
     - LanguageType: 0
       LanguageGenericType: {fileID: 0}
@@ -121,7 +122,8 @@ MonoBehaviour:
       LanguageGenericType: 
     - LanguageType: 2
       LanguageGenericType: 
-    Sprite: {fileID: 0}
+    npcSprite: {fileID: 0}
+    playerSprite: {fileID: 0}
     Name: Chlor
   - NodeGuid: 665972de-02c5-4c10-ac2d-c93c854bcda9
     Position: {x: 689, y: 47}
@@ -136,7 +138,6 @@ MonoBehaviour:
         LanguageGenericType: Continue
       - LanguageType: 2
         LanguageGenericType: Continue
-    DialogueFaceImageType: 0
     AudioClips:
     - LanguageType: 0
       LanguageGenericType: {fileID: 0}
@@ -153,7 +154,8 @@ MonoBehaviour:
       LanguageGenericType: 
     - LanguageType: 2
       LanguageGenericType: 
-    Sprite: {fileID: 0}
+    npcSprite: {fileID: 0}
+    playerSprite: {fileID: 0}
     Name: Chlor
   - NodeGuid: fca14536-2a80-41ba-b60a-6370697e6f5b
     Position: {x: 1723, y: 50}
@@ -179,7 +181,6 @@ MonoBehaviour:
         LanguageGenericType: Continue
       - LanguageType: 2
         LanguageGenericType: Continue
-    DialogueFaceImageType: 0
     AudioClips:
     - LanguageType: 0
       LanguageGenericType: {fileID: 0}
@@ -198,7 +199,8 @@ MonoBehaviour:
       LanguageGenericType: 
     - LanguageType: 2
       LanguageGenericType: 
-    Sprite: {fileID: 0}
+    npcSprite: {fileID: 0}
+    playerSprite: {fileID: 0}
     Name: Chlor
   - NodeGuid: 46ebefa0-f2f3-4c01-8439-126cbb325bd0
     Position: {x: 3178, y: 117}
@@ -213,7 +215,6 @@ MonoBehaviour:
         LanguageGenericType: Continue
       - LanguageType: 2
         LanguageGenericType: Continue
-    DialogueFaceImageType: 0
     AudioClips:
     - LanguageType: 0
       LanguageGenericType: {fileID: 0}
@@ -230,7 +231,8 @@ MonoBehaviour:
       LanguageGenericType: 
     - LanguageType: 2
       LanguageGenericType: 
-    Sprite: {fileID: 0}
+    npcSprite: {fileID: 0}
+    playerSprite: {fileID: 0}
     Name: Chlor
   - NodeGuid: ca467e0c-6158-4b71-98ee-798ec276293e
     Position: {x: 3194, y: -137}
@@ -245,7 +247,6 @@ MonoBehaviour:
         LanguageGenericType: Continue
       - LanguageType: 2
         LanguageGenericType: Continue
-    DialogueFaceImageType: 0
     AudioClips:
     - LanguageType: 0
       LanguageGenericType: {fileID: 0}
@@ -264,7 +265,8 @@ MonoBehaviour:
       LanguageGenericType: 
     - LanguageType: 2
       LanguageGenericType: 
-    Sprite: {fileID: 0}
+    npcSprite: {fileID: 0}
+    playerSprite: {fileID: 0}
     Name: Chlor
   - NodeGuid: 04fbf78b-4856-4f93-9897-f091824ec848
     Position: {x: 4044, y: 127}
@@ -279,7 +281,6 @@ MonoBehaviour:
         LanguageGenericType: Continue
       - LanguageType: 2
         LanguageGenericType: Continue
-    DialogueFaceImageType: 0
     AudioClips:
     - LanguageType: 0
       LanguageGenericType: {fileID: 0}
@@ -298,7 +299,8 @@ MonoBehaviour:
       LanguageGenericType: 
     - LanguageType: 2
       LanguageGenericType: 
-    Sprite: {fileID: 0}
+    npcSprite: {fileID: 0}
+    playerSprite: {fileID: 0}
     Name: Chlor
   - NodeGuid: e906b61c-9586-4bfc-8840-b2526841d889
     Position: {x: 4633, y: -189}
@@ -323,7 +325,6 @@ MonoBehaviour:
         LanguageGenericType: Continue
       - LanguageType: 2
         LanguageGenericType: Continue
-    DialogueFaceImageType: 0
     AudioClips:
     - LanguageType: 0
       LanguageGenericType: {fileID: 0}
@@ -341,7 +342,8 @@ MonoBehaviour:
       LanguageGenericType: 
     - LanguageType: 2
       LanguageGenericType: 
-    Sprite: {fileID: 0}
+    npcSprite: {fileID: 0}
+    playerSprite: {fileID: 0}
     Name: Chlor
   - NodeGuid: 10706204-dd17-43fe-bdee-60565adcce3d
     Position: {x: 5473, y: 96}
@@ -366,7 +368,6 @@ MonoBehaviour:
         LanguageGenericType: Continue
       - LanguageType: 2
         LanguageGenericType: Continue
-    DialogueFaceImageType: 0
     AudioClips:
     - LanguageType: 0
       LanguageGenericType: {fileID: 0}
@@ -384,7 +385,8 @@ MonoBehaviour:
       LanguageGenericType: 
     - LanguageType: 2
       LanguageGenericType: 
-    Sprite: {fileID: 0}
+    npcSprite: {fileID: 0}
+    playerSprite: {fileID: 0}
     Name: Chlor
   - NodeGuid: 10d75fb1-4cf7-41d9-8ca3-552dcbaf628a
     Position: {x: 5846, y: -154}
@@ -399,7 +401,6 @@ MonoBehaviour:
         LanguageGenericType: Continue
       - LanguageType: 2
         LanguageGenericType: Continue
-    DialogueFaceImageType: 0
     AudioClips:
     - LanguageType: 0
       LanguageGenericType: {fileID: 0}
@@ -417,7 +418,8 @@ MonoBehaviour:
       LanguageGenericType: 
     - LanguageType: 2
       LanguageGenericType: 
-    Sprite: {fileID: 0}
+    npcSprite: {fileID: 0}
+    playerSprite: {fileID: 0}
     Name: Chlor
   - NodeGuid: 2c61969d-1c0b-43f3-afef-d00a3393e09a
     Position: {x: 6677, y: 202}
@@ -432,7 +434,6 @@ MonoBehaviour:
         LanguageGenericType: Continue
       - LanguageType: 2
         LanguageGenericType: Continue
-    DialogueFaceImageType: 0
     AudioClips:
     - LanguageType: 0
       LanguageGenericType: {fileID: 0}
@@ -450,7 +451,8 @@ MonoBehaviour:
       LanguageGenericType: 
     - LanguageType: 2
       LanguageGenericType: 
-    Sprite: {fileID: 0}
+    npcSprite: {fileID: 0}
+    playerSprite: {fileID: 0}
     Name: Chlor
   - NodeGuid: 3114332d-9d9c-4d34-9304-e6fd562d7c49
     Position: {x: 7496, y: -29}
@@ -465,7 +467,6 @@ MonoBehaviour:
         LanguageGenericType: Continue
       - LanguageType: 2
         LanguageGenericType: Continue
-    DialogueFaceImageType: 0
     AudioClips:
     - LanguageType: 0
       LanguageGenericType: {fileID: 0}
@@ -480,7 +481,8 @@ MonoBehaviour:
       LanguageGenericType: 
     - LanguageType: 2
       LanguageGenericType: 
-    Sprite: {fileID: 0}
+    npcSprite: {fileID: 0}
+    playerSprite: {fileID: 0}
     Name: Chlor
   - NodeGuid: c9847317-285b-4ad2-9a15-63faee37e709
     Position: {x: 5877, y: -395}
@@ -495,7 +497,6 @@ MonoBehaviour:
         LanguageGenericType: Continue
       - LanguageType: 2
         LanguageGenericType: Continue
-    DialogueFaceImageType: 0
     AudioClips:
     - LanguageType: 0
       LanguageGenericType: {fileID: 0}
@@ -510,7 +511,8 @@ MonoBehaviour:
       LanguageGenericType: 
     - LanguageType: 2
       LanguageGenericType: 
-    Sprite: {fileID: 0}
+    npcSprite: {fileID: 0}
+    playerSprite: {fileID: 0}
     Name: Chlor
   EndNodeDatas:
   - NodeGuid: 32aa2c14-85fb-491a-8f5b-68ad743971e0
@@ -530,7 +532,12 @@ MonoBehaviour:
     EndNodeType: 0
   StartNodeDatas:
   - NodeGuid: 509f3269-a69e-4842-8a5f-91f4ba8c38f2
-    Position: {x: 200, y: 207}
+    Position: {x: -104, y: 217}
   EventNodeDatas: []
   StatCheckNodeDatas: []
-  ItemCheckNodeDatas: []
+  ItemCheckNodeDatas:
+  - NodeGuid: 7552a629-1e55-4fa1-a157-5b294bfdede4
+    Position: {x: 57, y: 216}
+    ItemCheckType: 0
+    ItemCheckValue: 1
+    NodeItem: {fileID: 3598622408037474087, guid: f31b85d2fb0f58f4e81c3690d3df6789, type: 3}

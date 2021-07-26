@@ -69,7 +69,6 @@ namespace jbzdy.DialogueSystem.Editor
             StyleSheet styleSheet = Resources.Load<StyleSheet>("GraphViewStyleSheet");
             rootVisualElement.styleSheets.Add(styleSheet);
 
-
             Toolbar toolbar = new Toolbar();
 
             // Save button.
@@ -105,11 +104,19 @@ namespace jbzdy.DialogueSystem.Editor
             // Name of current DialigueContainer you have open.
             nameOfDialougeContainer = new Label("");
             toolbar.Add(nameOfDialougeContainer);
-            nameOfDialougeContainer.AddToClassList("nameOfDialougeContainer");
+            nameOfDialougeContainer.AddToClassList("nameOfDialogueContainer");
 
             rootVisualElement.Add(toolbar);
         }
-
+        
+        private void Save()
+        {
+            if (currentDialogueContainer != null)
+            {
+                saveAndLoad.Save(currentDialogueContainer);
+            }
+        }
+        
         private void Load()
         {
             if (currentDialogueContainer != null)
@@ -119,15 +126,7 @@ namespace jbzdy.DialogueSystem.Editor
                 saveAndLoad.Load(currentDialogueContainer);
             }
         }
-
-        private void Save()
-        {
-            if (currentDialogueContainer != null)
-            {
-                saveAndLoad.Save(currentDialogueContainer);
-            }
-        }
-
+        
         private void Language(LanguageType language, ToolbarMenu _toolbarMenu)
         {
             toolbarMenu.text = "Language: " + language.ToString();
