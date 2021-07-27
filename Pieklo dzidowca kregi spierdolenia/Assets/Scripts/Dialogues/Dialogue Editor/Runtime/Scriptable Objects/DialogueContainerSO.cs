@@ -17,14 +17,13 @@ namespace jbzdy.DialogueSystem.SO
     public class DialogueContainerSO : ScriptableObject
     {
         public List<NodeLinkData> NodeLinkDatas = new List<NodeLinkData>();
-
         public List<DialogueNodeData> DialogueNodeDatas = new List<DialogueNodeData>();
         public List<EndNodeData> EndNodeDatas = new List<EndNodeData>();
         public List<StartNodeData> StartNodeDatas = new List<StartNodeData>();
         public List<EventNodeData> EventNodeDatas = new List<EventNodeData>();
         public List<StatCheckNodeData> StatCheckNodeDatas = new List<StatCheckNodeData>();
         public List<ItemCheckNodeData> ItemCheckNodeDatas = new List<ItemCheckNodeData>();
-
+        
         public List<BaseNodeData> AllNodes
         {
             get
@@ -60,10 +59,10 @@ namespace jbzdy.DialogueSystem.SO
     public class DialogueNodeData : BaseNodeData
     {
         public List<DialogueNodePort> DialogueNodePorts;
-        public DialogueFaceImageType DialogueFaceImageType;
         public List<LanguageGeneric<AudioClip>> AudioClips;
         public List<LanguageGeneric<string>> TextLanguages;
-        public Sprite Sprite;
+        public Sprite npcSprite;
+        public Sprite playerSprite;
         public string Name;
     }
 

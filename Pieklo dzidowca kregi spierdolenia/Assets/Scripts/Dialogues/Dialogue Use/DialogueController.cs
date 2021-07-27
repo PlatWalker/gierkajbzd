@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -22,34 +23,35 @@ namespace jbzdy.DialogueSystem.Actions
         [SerializeField] private PlayerStats playerStats = default;
         [SerializeField] private GameObject dialogueUI = default;
 
-        [Header("Text")]
-        [SerializeField] private TMP_Text textName = default;
-        [SerializeField] private TMP_Text textBox = default;
+        [Header("NPC Texts")]
+        [SerializeField] private TMP_Text NPCName = default;
+        [SerializeField] private TMP_Text NPCAnswer = default;
 
-        [Header("Image")]
-        [SerializeField] private Image leftImage = default;
-        [SerializeField] private GameObject leftImageGO = default;
-        [SerializeField] private Image rightImage = default;
-        [SerializeField] private GameObject rightImageGO = default;
+        [Header("Talkers Images")]
+        [SerializeField] private Image playerFaceImage = default;
+        [SerializeField] private GameObject playerImageGO = default;
+        [SerializeField] private Image NPCFaceImage = default;
+        [SerializeField] private GameObject NPCImageGO = default;
 
-        [Header("Buttons")]
-        [SerializeField] private Button button01 = default;
-        [SerializeField] private TMP_Text buttonText01 = default;
+        [Header("Answer Buttons")]
+        [SerializeField] private Button answerButton1 = default;
+        [SerializeField] private TMP_Text answerButtonText1 = default;
         [Space]
-        [SerializeField] private Button button02 = default;
-        [SerializeField] private TMP_Text buttonText02 = default;
+        [SerializeField] private Button answerButton2 = default;
+        [SerializeField] private TMP_Text answerButtonText2 = default;
         [Space]
-        [SerializeField] private Button button03 = default;
-        [SerializeField] private TMP_Text buttonText03 = default;
+        [SerializeField] private Button answerButton3 = default;
+        [SerializeField] private TMP_Text answerButtonText3 = default;
         [Space]
-        [SerializeField] private Button button04 = default;
-        [SerializeField] private TMP_Text buttonText04 = default;
+        [SerializeField] private Button answerButton4 = default;
+        [SerializeField] private TMP_Text answerButtonText4 = default;
 
-        private List<Button> buttons = new List<Button>();
-        private List<TMP_Text> buttonsTexts = new List<TMP_Text>();
+        public List<Button> answerButtons = new List<Button>();
+        public List<TMP_Text> answerButtonsTexts = new List<TMP_Text>();
         private int itemCheckNodeCount = 0;
         private int statCheckNodeCount = 0;
-
+        public InventoryClass inventoryClass;
+        
         private void Awake()
         {
             if(Instance == null)
@@ -57,17 +59,9 @@ namespace jbzdy.DialogueSystem.Actions
                 Instance = this;
             }
             
+            inventoryClass = InventoryClass.Instance;
+            AddButtonsToList();
             ShowDialogueUI(false);
-
-            buttons.Add(button01);
-            buttons.Add(button02);
-            buttons.Add(button03);
-            buttons.Add(button04);
-
-            buttonsTexts.Add(buttonText01);
-            buttonsTexts.Add(buttonText02);
-            buttonsTexts.Add(buttonText03);
-            buttonsTexts.Add(buttonText04);
         }
 
         public void ShowDialogueUI(bool show)
@@ -77,104 +71,188 @@ namespace jbzdy.DialogueSystem.Actions
 
         public void SetText(string newName, string newTextBox)
         {
-            textName.text = newName;
-            textBox.text = newTextBox;
+            NPCName.text = newName;
+            NPCAnswer.text = newTextBox;
         }
 
-        public void SetImage(Sprite image, DialogueFaceImageType dialogueFaceImageType)
+        public void SetImage(Sprite playerImage, Sprite npcImage)
         {
-            leftImageGO.SetActive(false);
-            rightImageGO.SetActive(false);
-
-            if (dialogueFaceImageType == DialogueFaceImageType.Left)
-            {
-                leftImage.sprite = image;
-                leftImageGO.SetActive(true);
-            }
-            else
-            {
-                rightImage.sprite = image;
-                rightImageGO.SetActive(true);
-            }
+            playerImageGO.SetActive(true);
+            NPCImageGO.SetActive(true);
+            playerFaceImage.sprite = playerImage;
+            NPCFaceImage.sprite = npcImage;
         }
 
+        //Setting up buttons to show them in dialogue options
         public void SetButtons(List<string> texts, List<UnityAction> unityActions, List<StatCheckNodeData> statCheckNodeDatas, List<ItemCheckNodeData> itemCheckNodeDatas)
         {
-            buttons.ForEach(button => button.gameObject.SetActive(false));
+            answerButtons.ForEach(button => button.gameObject.SetActive(false));
             UnityAction statCheck = null;
-            UnityAction itemCheck = null;
+            UnityAction getItemCheck = null;
+            UnityAction giveItemCheck = null;
 
             statCheck = () =>
             {
-                Debug.Log("Chujowe staty");
+                Debug.Log("Twoje statystyki są zbyt słabe, podszlifuj swoje umiejętności...");
             };
 
-            itemCheck = () =>
+            getItemCheck = () =>
             {
-                Debug.Log("Nie dostaniesz itemu");
+                Debug.Log("Nie możesz dostać tego itemu, wyrzucam go na podłoge!");
+            };
+            
+            giveItemCheck = () =>
+            {
+                Debug.Log("Nie możesz oddać przedmiotów, bo ich nie posiadasz!");
             };
             
             if (itemCheckNodeDatas.Count > 0)
             {
                 for (int i = 0; i < itemCheckNodeDatas.Count; i++)
                 {
+                    int itemToCheckIndex = itemCheckNodeDatas.IndexOf(itemCheckNodeDatas[i]); 
+
                     switch (itemCheckNodeDatas[i].ItemCheckType)
                     {
                         case ItemCheckNodeType.GetItem when itemCheckNodeDatas[i].ItemCheckValue > 1:
-                            buttonsTexts[i].text = "[Otrzymaj " + itemCheckNodeDatas[i].ItemCheckValue + " " + itemCheckNodeDatas[i].NodeItem.itemName + "] " + texts[i];
+                            answerButtonsTexts[i].text = "[Otrzymaj " + itemCheckNodeDatas[i].ItemCheckValue + " " + itemCheckNodeDatas[i].NodeItem.itemName + "] " + texts[i];
                             break;
                         case ItemCheckNodeType.GetItem:
-                            buttonsTexts[i].text = "[Otrzymaj " + itemCheckNodeDatas[i].NodeItem.itemName + "] " + texts[i];
+                            answerButtonsTexts[i].text = "[Otrzymaj " + itemCheckNodeDatas[i].NodeItem.itemName + "] " + texts[i];
                             break;
                         case ItemCheckNodeType.GiveItem when itemCheckNodeDatas[i].ItemCheckValue > 1:
-                            buttonsTexts[i].text = "[Oddaj " + itemCheckNodeDatas[i].ItemCheckValue + " " + itemCheckNodeDatas[i].NodeItem.itemName + "] " + texts[i];
+                            answerButtonsTexts[i].text = "[Oddaj " + itemCheckNodeDatas[i].ItemCheckValue + " " + itemCheckNodeDatas[i].NodeItem.itemName + "] " + texts[i];
                             break;
                         case ItemCheckNodeType.GiveItem:
-                            buttonsTexts[i].text = "[Oddaj " + itemCheckNodeDatas[i].NodeItem.itemName + "] " + texts[i];
+                            answerButtonsTexts[i].text = "[Oddaj " + itemCheckNodeDatas[i].NodeItem.itemName + "] " + texts[i];
                             break;
                     }
 
-                    buttons[i].gameObject.SetActive(true);
-                    buttons[i].onClick = new Button.ButtonClickedEvent();
-                    buttons[i].onClick.AddListener(itemCheck);
+                    answerButtons[i].gameObject.SetActive(true);
+                    answerButtons[i].onClick = new Button.ButtonClickedEvent();
+                    
+                    if (itemCheckNodeDatas[i].ItemCheckType == ItemCheckNodeType.GetItem)
+                    {
+                        if(inventoryClass.CheckFreeSpaceForAllSlots(itemCheckNodeDatas[i].NodeItem.itemWidth, itemCheckNodeDatas[i].NodeItem.itemHeight))
+                        {
+                            answerButtons[i].onClick.AddListener(delegate { ValidateItemCheck(itemCheckNodeDatas[itemToCheckIndex]); });
+                            answerButtons[i].onClick.AddListener(unityActions[i]);
+                        }
+                        else
+                        {
+                            answerButtons[i].onClick.AddListener(getItemCheck);
+                            answerButtons[i].onClick.AddListener(unityActions[i]);
+                        }
+                    }
+                    else if(itemCheckNodeDatas[i].ItemCheckType == ItemCheckNodeType.GiveItem)
+                    {
+                        if (inventoryClass.CheckForItem(itemCheckNodeDatas[i].NodeItem, itemCheckNodeDatas[i].ItemCheckValue, false))
+                        {
+                            answerButtons[i].onClick.AddListener(delegate { ValidateItemCheck(itemCheckNodeDatas[itemToCheckIndex]); });
+                            answerButtons[i].onClick.AddListener(unityActions[i]);
+                        }
+                        else
+                        {
+                            answerButtons[i].onClick.AddListener(giveItemCheck);
+                        }
+                    }
                 }
                 
                 itemCheckNodeCount = itemCheckNodeDatas.Count;
             }
-
+            
             if (statCheckNodeDatas.Count > 0)
             {
                 for (int i = 0; i < statCheckNodeDatas.Count; i++)
                 {
                     int playerValue = AddStatCheckPlayerValues(statCheckNodeDatas[i]);
 
-                    buttonsTexts[i + itemCheckNodeCount].text = "[" + statCheckNodeDatas[i].StatCheckType + " " + playerValue + "/" + statCheckNodeDatas[i].StatCheckValue + "] " + texts[i + itemCheckNodeCount];
-                    buttons[i + itemCheckNodeCount].gameObject.SetActive(true);
-                    buttons[i + itemCheckNodeCount].onClick = new Button.ButtonClickedEvent();
-
-                    if (HasPassedStatCheck(statCheckNodeDatas[i]))
-                    {
-                        buttons[i + itemCheckNodeCount].onClick.AddListener(unityActions[i]);
-                    }
-                    else
-                    {
-                        buttons[i + itemCheckNodeCount].onClick.AddListener(statCheck);
-                    }
+                    answerButtonsTexts[i + itemCheckNodeCount].text = "[" + statCheckNodeDatas[i].StatCheckType + " " + playerValue + "/" + statCheckNodeDatas[i].StatCheckValue + "] " + texts[i + itemCheckNodeCount];
+                    answerButtons[i + itemCheckNodeCount].gameObject.SetActive(true);
+                    answerButtons[i + itemCheckNodeCount].onClick = new Button.ButtonClickedEvent();
+                    answerButtons[i + itemCheckNodeCount].onClick.AddListener(ValidateStatCheck(statCheckNodeDatas[i]) ? unityActions[i] : statCheck);
                 }
 
                 statCheckNodeCount = statCheckNodeDatas.Count;
-            }
-
-
-            for (int i = statCheckNodeDatas.Count + itemCheckNodeDatas.Count; i < texts.Count; i++)
+            }   
+            
+            for (int i = statCheckNodeCount + itemCheckNodeCount; i < texts.Count; i++)
             {
-                buttonsTexts[i].text = texts[i];
-                buttons[i].gameObject.SetActive(true);
-                buttons[i].onClick = new Button.ButtonClickedEvent();
-                buttons[i].onClick.AddListener(unityActions[i]);
+                answerButtonsTexts[i].text = texts[i];
+                answerButtons[i].gameObject.SetActive(true);
+                answerButtons[i].onClick = new Button.ButtonClickedEvent();
+                answerButtons[i].onClick.AddListener(unityActions[i]);
             }
+
+            statCheckNodeCount = 0;
+            itemCheckNodeCount = 0;
         }
 
+        public bool ValidateItemCheck(ItemCheckNodeData itemCheckNodeData)
+        {
+            switch (itemCheckNodeData.ItemCheckType)
+            {
+                case ItemCheckNodeType.GetItem:
+                {
+                    if (itemCheckNodeData.ItemCheckValue > 1)
+                        Debug.Log("Otrzymałeś - " + itemCheckNodeData.ItemCheckValue + " " + itemCheckNodeData.NodeItem);
+                        
+                    else
+                        Debug.Log("Otrzymałeś - " + itemCheckNodeData.NodeItem);
+
+                    inventoryClass.AddItem(itemCheckNodeData.NodeItem);
+                    return true;
+                }
+                case ItemCheckNodeType.GiveItem:
+                {
+                    inventoryClass.CheckForItem(itemCheckNodeData.NodeItem, itemCheckNodeData.ItemCheckValue, true);
+                    
+                    if (itemCheckNodeData.ItemCheckValue > 1)
+                        Debug.Log("Oddałeś - " + itemCheckNodeData.ItemCheckValue + " " + itemCheckNodeData.NodeItem);
+                    else
+                        Debug.Log("Oddałeś - " + itemCheckNodeData.NodeItem);
+                    
+                    inventoryClass.AddItem(itemCheckNodeData.NodeItem);
+                    return true;
+                }
+                default:
+                    throw new IndexOutOfRangeException();
+            }
+
+            return false;
+        }
+
+        private bool ValidateStatCheck(StatCheckNodeData statCheckNodeData)
+        {
+            switch (statCheckNodeData.StatCheckType)
+            {
+                case StatCheckType.Exp:
+                    return statCheckNodeData.StatCheckValue < playerStats.ExperiencePoints;
+                case StatCheckType.Level:
+                    return statCheckNodeData.StatCheckValue < playerStats.Level;
+                case StatCheckType.Health:
+                    return statCheckNodeData.StatCheckValue < playerStats.Health.BaseValue;
+                case StatCheckType.Mana:
+                    return statCheckNodeData.StatCheckValue < playerStats.Mana.BaseValue;
+                case StatCheckType.Armor:
+                    return statCheckNodeData.StatCheckValue < playerStats.Armor.BaseValue;
+                case StatCheckType.Damage:
+                    return statCheckNodeData.StatCheckValue < playerStats.Damage.BaseValue;
+                case StatCheckType.Strenght:
+                    return statCheckNodeData.StatCheckValue < playerStats.Strength.BaseValue;
+                case StatCheckType.Agility:
+                    return statCheckNodeData.StatCheckValue < playerStats.Agility.BaseValue;
+                case StatCheckType.Intelligence:
+                    return statCheckNodeData.StatCheckValue < playerStats.Intelligence.BaseValue;
+                case StatCheckType.Vitality:
+                    return statCheckNodeData.StatCheckValue < playerStats.Vitality.BaseValue;
+                case StatCheckType.Luck:
+                    return statCheckNodeData.StatCheckValue < playerStats.Luck.BaseValue;
+                default:
+                    return false;
+            }
+        }
+        
         private int AddStatCheckPlayerValues(StatCheckNodeData statCheckNodeData)
         {
             switch (statCheckNodeData.StatCheckType)
@@ -205,58 +283,18 @@ namespace jbzdy.DialogueSystem.Actions
                     return playerStats.Luck.BaseValue;
             }
         }
-
-        public bool HasPassedItemCheck(ItemCheckNodeData itemCheckNodeData)
+        
+        private void AddButtonsToList()
         {
-            switch (itemCheckNodeData.ItemCheckType)
-            {
-                case ItemCheckNodeType.GetItem:
-                    return true;
-                case ItemCheckNodeType.GiveItem:
-                    {
-                        if (InventoryClass.Instance.CheckForItem(itemCheckNodeData.NodeItem, itemCheckNodeData.ItemCheckValue))
-                        {
-                            return true;
-                        }
-                        else
-                            return false;
-                    }
-                default:
-                    break;
-            }
+            answerButtons.Add(answerButton1);
+            answerButtons.Add(answerButton2);
+            answerButtons.Add(answerButton3);
+            answerButtons.Add(answerButton4);
 
-            return false;
-        }
-
-        private bool HasPassedStatCheck(StatCheckNodeData statCheckNodeData)
-        {
-            switch (statCheckNodeData.StatCheckType)
-            {
-                case StatCheckType.Exp:
-                    return statCheckNodeData.StatCheckValue < playerStats.ExperiencePoints;
-                case StatCheckType.Level:
-                    return statCheckNodeData.StatCheckValue < playerStats.Level;
-                case StatCheckType.Health:
-                    return statCheckNodeData.StatCheckValue < playerStats.Health.BaseValue;
-                case StatCheckType.Mana:
-                    return statCheckNodeData.StatCheckValue < playerStats.Mana.BaseValue;
-                case StatCheckType.Armor:
-                    return statCheckNodeData.StatCheckValue < playerStats.Armor.BaseValue;
-                case StatCheckType.Damage:
-                    return statCheckNodeData.StatCheckValue < playerStats.Damage.BaseValue;
-                case StatCheckType.Strenght:
-                    return statCheckNodeData.StatCheckValue < playerStats.Strength.BaseValue;
-                case StatCheckType.Agility:
-                    return statCheckNodeData.StatCheckValue < playerStats.Agility.BaseValue;
-                case StatCheckType.Intelligence:
-                    return statCheckNodeData.StatCheckValue < playerStats.Intelligence.BaseValue;
-                case StatCheckType.Vitality:
-                    return statCheckNodeData.StatCheckValue < playerStats.Vitality.BaseValue;
-                case StatCheckType.Luck:
-                    return statCheckNodeData.StatCheckValue < playerStats.Luck.BaseValue;
-                default:
-                    return false;
-            }
+            answerButtonsTexts.Add(answerButtonText1);
+            answerButtonsTexts.Add(answerButtonText2);
+            answerButtonsTexts.Add(answerButtonText3);
+            answerButtonsTexts.Add(answerButtonText4);
         }
     }
 }

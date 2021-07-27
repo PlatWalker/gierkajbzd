@@ -720,8 +720,8 @@ GameObject:
   - component: {fileID: 7896513199521172676}
   - component: {fileID: 7896513199521172677}
   - component: {fileID: 7896513199521172672}
-  - component: {fileID: -160945471543736580}
-  - component: {fileID: -3976837039453786224}
+  - component: {fileID: -5367291391283778803}
+  - component: {fileID: -2459031741677917047}
   m_Layer: 8
   m_Name: Doomer
   m_TagString: Enemy
@@ -837,21 +837,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &-160945471543736580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7014186249425279632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b87efc9bb69ef004aa9eee42e5c97573, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pushBackStrength: 4
-  maxEffectDuration: 0.1
---- !u!114 &-3976837039453786224
+--- !u!114 &-5367291391283778803
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -873,6 +859,20 @@ MonoBehaviour:
   volumeAggro: 1
   volumeDying: 1
   volumeDamaged: 1
+--- !u!114 &-2459031741677917047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7014186249425279632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b87efc9bb69ef004aa9eee42e5c97573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pushBackStrength: 4
+  maxEffectDuration: 0.1
 --- !u!1 &7219174023518297383
 GameObject:
   m_ObjectHideFlags: 0

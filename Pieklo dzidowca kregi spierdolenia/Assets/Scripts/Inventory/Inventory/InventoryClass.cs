@@ -240,7 +240,7 @@ namespace jbzdy.Inventory
 
                 inventoryItems.Add(_InventoryItem);
 
-                item.transform.parent = this.transform;
+                _InventoryItem.transform.parent = transform;
 
                 item.gameObject.SetActive(false);
                 
@@ -315,19 +315,25 @@ namespace jbzdy.Inventory
             return false;
         }
 
-        // Method returns true if item with specified title exists in the inventory
-        public bool CheckForItem(Item itemToCheck, int itemAmount)
+        // Method returns true if item with specified title exists in the inventory and remove it if needed
+        public bool CheckForItem(Item itemToCheck, int itemAmount, bool removeItem)
         {
             foreach (var item in inventoryItems)
             {
-                if (item.item == itemToCheck && item.item.itemStackSize >= itemAmount)
+                if (item.item.itemID == itemToCheck.itemID && item.item.itemStackSize >= itemAmount)
                 {
+                    if (removeItem)
+                    {
+                        RemoveItem(item);
+                    }
+                    
                     return true;
                 }
             }
 
             return false;
         }
+        
 
         // Use this method to drop items from inventory. This method is not destroys items
         public void DropItem(InventoryItem InventoryItem)
@@ -509,28 +515,6 @@ namespace jbzdy.Inventory
             }
 
             return null;
-        }
-
-        // Remove left items back to lootbox on inspection end
-        public List<InventoryItem> FindItemsLeftInLoot()
-        {
-            List<InventoryItem> items = new List<InventoryItem>();
-
-            if (inventoryItems != null)
-            {
-                foreach (var item in inventoryItems)
-                {
-                    if (FindSlotByIndex(item.x, item.y).isLoot && !items.Contains(item))
-                    {
-                        items.Add(item);
-                    }
-                }
-
-                return items;
-            }
-            else
-                return null;
-
         }
 
         // Remove inventory item

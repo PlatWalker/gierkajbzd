@@ -8,14 +8,15 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public GameObject player;
+    private GameObject player;
 
     [SerializeField]
     private Vector3 offset;
 
-    private void Awake()
+    private void Start()
     {
         offset = new Vector3(0, 11, -6);
+        player = GameManager.Instance.PlayerObject;
     }
 
     void LateUpdate()
