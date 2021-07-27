@@ -31,6 +31,7 @@ namespace jbzdy.DialogueSystem.Actions
 
         public void StartDialogue(DialogueContainerSO dialogueContainer)
         {
+            dialogueControler = DialogueController.Instance;
             currentDialogue = dialogueContainer;
             
             if(isTalking != true)
