@@ -150,14 +150,14 @@ namespace jbzdy.Inventory
                 ClearPreview();
 
             inventoryManager = FindObjectOfType<InventoryManager>();
+            inventoryManager.inventory = this;
 
             //Inventory grid initialization
             for (int i = 0; i < column; i++)
             {
                 for (int j = 0; j < row; j++)
                 {
-                    var _cell = Instantiate(cell);
-                    _cell.rectTransform.SetParent(transform);
+                    var _cell = Instantiate(cell, transform, true);
                     _cell.rectTransform.sizeDelta = new Vector2(cellSize - padding, cellSize - padding);
                     _cell.rectTransform.anchoredPosition = new Vector2(((cellSize * i) + padding), ((-cellSize * j) + padding));
                     _cell.rectTransform.localScale = new Vector2(1, 1);
@@ -182,8 +182,7 @@ namespace jbzdy.Inventory
                         for (int j = 0; j < equipmentPanels[k].height; j++)
                         {
 
-                            var _cell = Instantiate(cell);
-                            _cell.rectTransform.SetParent(equipmentPanels[k].transform);
+                            var _cell = Instantiate(cell, equipmentPanels[k].transform, true);
                             _cell.rectTransform.sizeDelta = new Vector2(cellSize - padding, cellSize - padding);
                             _cell.rectTransform.anchoredPosition = new Vector2(((cellSize * i) + padding), ((-cellSize * j) + padding));
                             _cell.rectTransform.localScale = new Vector2(1, 1);

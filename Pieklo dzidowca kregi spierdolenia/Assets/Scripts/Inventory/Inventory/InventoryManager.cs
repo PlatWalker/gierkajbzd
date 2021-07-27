@@ -23,7 +23,7 @@ namespace jbzdy.Inventory
         public ActiveMode mode = ActiveMode.inventory;
 
         /// Inventory canvas
-        Canvas canvas;
+        public Canvas canvas;
 
         /// Use this variable to show or close inventory! Not requires invmanager reference. Static variable
         public static bool showInventory = false;
@@ -36,7 +36,6 @@ namespace jbzdy.Inventory
         public bool lookCursorWhenInventoryOff = true;
         public OnInventoryOpen OnOpen;
         public OnInventoryClose OnClose;
-
         public InventoryClass inventory;
 
         private void Start()
@@ -52,8 +51,7 @@ namespace jbzdy.Inventory
             if(canvas == null)
                 canvas = GetComponent<Canvas>();
 
-            if (inventory == null)
-                inventory = InventoryClass.Instance;
+            inventory = InventoryClass.Instance;
 
             InventoryClose();
         }
