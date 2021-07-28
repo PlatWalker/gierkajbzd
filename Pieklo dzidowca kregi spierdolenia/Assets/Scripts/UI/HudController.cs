@@ -1,18 +1,46 @@
-﻿using System.Collections;
+﻿using jbzdy.CharacterStats;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class HudController : MonoBehaviour
+namespace jbzdy.UI.HUD
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public class HudController : MonoBehaviour
+	{
+		private PlayerStats playerStats;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+		private int maxHealth;
+		private int currentHealth;
+
+		private Slider healthBar;
+		private Slider manaBar;
+
+		private Text hpNumber;
+
+		public void Start()
+		{
+			playerStats = GameManager.Instance.PlayerObject.GetComponent<PlayerStats>();
+
+			maxHealth = playerStats.MaxHealth;
+			currentHealth = playerStats.Health.BaseValue;
+
+			healthBar = GetComponentsInChildren<Slider>().First(x => x.name == "HealthBar");
+			manaBar = GetComponentsInChildren<Slider>().First(x => x.name == "ManaBar");
+
+			hpNumber = GetComponentInChildren<Text>();
+		}
+
+		public void Update()
+		{
+			maxHealth = playerStats.MaxHealth;
+			currentHealth = playerStats.Health.BaseValue;
+
+			healthBar.SetValueWithoutNotify(currentHealth.Remap(0, maxHealth, 0, 1));
+
+			hpNumber.text = currentHealth.ToString() + " / " + maxHealth.ToString();
+		}
+
+	} 
 }

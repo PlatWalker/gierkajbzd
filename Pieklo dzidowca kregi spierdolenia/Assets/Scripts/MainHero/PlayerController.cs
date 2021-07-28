@@ -1,3 +1,4 @@
+using jbzdy.CharacterStats;
 using UnityEngine;
 
 /// <summary>
@@ -8,7 +9,9 @@ namespace jbzdy.Player
 {
     public class PlayerController : MonoBehaviour, IDamageable
     {
+        [HideInInspector]
         public Animator characterAnimator;
+        private PlayerStats playerStats;
         private PlayerMovementController playerMovementController;
         private PlayerAttackController playerAttackController;
 
@@ -37,6 +40,8 @@ namespace jbzdy.Player
             characterAnimator = GetComponentInChildren<Animator>();
             if (characterAnimator == null) Debug.Log("nie znaleziono animatora w postaci gracza");
 
+            playerStats = GetComponent<PlayerStats>();
+
             playerMovementController = new PlayerMovementController(this);
             playerAttackController = new PlayerAttackController(this);
         }
@@ -50,7 +55,7 @@ namespace jbzdy.Player
 
         public void SetDamage(int damageAmount, DamageType damageType)
         {
-            CurrentHealth -= damageAmount;
+            playerStats.Health.BaseValue -= damageAmount;
         }
 
         public void SetDamage(int damageAmount, DamageType damageType, float criticalMultiplier, float criticalChance)
