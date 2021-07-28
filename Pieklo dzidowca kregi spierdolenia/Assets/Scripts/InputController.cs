@@ -22,6 +22,12 @@ public class InputController : KeyMapping
         public bool basic;
     }
 
+    public struct UIinputStatus
+    {
+        public bool inGameMenu;
+    }
+
+    public UIinputStatus uIinputStatus;
     public MovementInputStatus movementInputStatus;
     public AttackInputStatus attackInputStatus;
     public Vector3 mousePositionFlat;
@@ -31,6 +37,13 @@ public class InputController : KeyMapping
         UpdateAttackInput();
         UpdateMovementInput();
         UpdateMousePosition();
+
+        UpdateUIInput();
+    }
+
+    private void UpdateUIInput()
+    {
+        uIinputStatus.inGameMenu = WasPressed(uIinput.inGameMenu);
     }
 
     private void UpdateAttackInput()
