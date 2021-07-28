@@ -13,6 +13,7 @@ namespace jbzdy.UI
 
         public void QuitToMainMenu()
         {
+            Time.timeScale = 1f;
             SceneManager.LoadScene(0);
         }
 

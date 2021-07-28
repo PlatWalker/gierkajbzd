@@ -35,7 +35,7 @@ namespace jbzdy.Player
         public Vector3 MovementVector { get => movementVector; set => movementVector = value; }
         public float PlayerSpeed { get => playerSpeed; set => playerSpeed = value; }
 
-        private void Awake()
+        private void Start()
         {
             characterAnimator = GetComponentInChildren<Animator>();
             if (characterAnimator == null) Debug.Log("nie znaleziono animatora w postaci gracza");
