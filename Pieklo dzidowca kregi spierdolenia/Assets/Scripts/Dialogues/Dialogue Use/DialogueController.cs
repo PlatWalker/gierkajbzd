@@ -59,9 +59,13 @@ namespace jbzdy.DialogueSystem.Actions
                 Instance = this;
             }
             
-            inventoryClass = InventoryClass.Instance;
-            AddButtonsToList();
             ShowDialogueUI(false);
+            AddButtonsToList();
+        }
+
+        private void Start()
+        {
+            inventoryClass = InventoryClass.Instance;
         }
 
         public void ShowDialogueUI(bool show)
