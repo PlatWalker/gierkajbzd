@@ -66,6 +66,7 @@ namespace jbzdy.DialogueSystem.Actions
         private void Start()
         {
             inventoryClass = InventoryClass.Instance;
+            playerStats = GameManager.Instance.PlayerObject.GetComponent<PlayerStats>();
         }
 
         public void ShowDialogueUI(bool show)
@@ -223,7 +224,7 @@ namespace jbzdy.DialogueSystem.Actions
                     throw new IndexOutOfRangeException();
             }
 
-            return false;
+            //return false; // unreacheable code?
         }
 
         private bool ValidateStatCheck(StatCheckNodeData statCheckNodeData)
