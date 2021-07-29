@@ -43,20 +43,20 @@ public class InputController : KeyMapping
 
     private void UpdateUIInput()
     {
-        uIinputStatus.inGameMenu = WasPressed(uIinput.inGameMenu);
+        uIinputStatus.inGameMenu = WasPressed(UIinput.inGameMenu);
     }
 
     private void UpdateAttackInput()
     {
-        attackInputStatus.basic = WasPressed(playerAttack.basic);
+        attackInputStatus.basic = WasPressed(PlayerAttack.basic);
     }
 
     private void UpdateMovementInput()
     {
-        movementInputStatus.up = Pressed(playerMovement.up);
-        movementInputStatus.down = Pressed(playerMovement.down);
-        movementInputStatus.left = Pressed(playerMovement.left);
-        movementInputStatus.right = Pressed(playerMovement.right);
+        movementInputStatus.up = Pressed(PlayerMovement.up);
+        movementInputStatus.down = Pressed(PlayerMovement.down);
+        movementInputStatus.left = Pressed(PlayerMovement.left);
+        movementInputStatus.right = Pressed(PlayerMovement.right);
     }
 
     private void UpdateMousePosition()

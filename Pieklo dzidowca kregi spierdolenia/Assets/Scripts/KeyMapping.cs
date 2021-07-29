@@ -16,16 +16,16 @@ public struct PlayerAttack
     public KeyCode basic;
 }
 
-public struct UIinput
+public struct UIinputKey
 {
     public KeyCode inGameMenu;
 }
 
 public class KeyMapping : MonoBehaviour
 {
-    public PlayerMovement playerMovement;
-    public PlayerAttack playerAttack;
-    public UIinput uIinput;
+    private PlayerMovement playerMovement;
+    private PlayerAttack playerAttack;
+    private UIinputKey uIinput;
 
     [SerializeField]
     private KeyCode playerMoveUp = KeyCode.W;
@@ -41,6 +41,10 @@ public class KeyMapping : MonoBehaviour
 
     [SerializeField]
     private KeyCode inGameMenu = KeyCode.Escape;
+
+    public PlayerMovement PlayerMovement { get => playerMovement; private set => playerMovement = value; }
+    public PlayerAttack PlayerAttack { get => playerAttack; private set => playerAttack = value; }
+    public UIinputKey UIinput { get => uIinput; private set => uIinput = value; }
 
     public void Awake()
     {
