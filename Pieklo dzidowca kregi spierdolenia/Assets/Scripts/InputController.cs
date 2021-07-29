@@ -22,6 +22,12 @@ public class InputController : KeyMapping
         public bool basic;
     }
 
+    public struct UIinputStatus
+    {
+        public bool inGameMenu;
+    }
+
+    public UIinputStatus uIinputStatus;
     public MovementInputStatus movementInputStatus;
     public AttackInputStatus attackInputStatus;
     public Vector3 mousePositionFlat;
@@ -31,19 +37,26 @@ public class InputController : KeyMapping
         UpdateAttackInput();
         UpdateMovementInput();
         UpdateMousePosition();
+
+        UpdateUIInput();
+    }
+
+    private void UpdateUIInput()
+    {
+        uIinputStatus.inGameMenu = WasPressed(UIinput.inGameMenu);
     }
 
     private void UpdateAttackInput()
     {
-        attackInputStatus.basic = WasPressed(playerAttack.basic);
+        attackInputStatus.basic = WasPressed(PlayerAttack.basic);
     }
 
     private void UpdateMovementInput()
     {
-        movementInputStatus.up = Pressed(playerMovement.up);
-        movementInputStatus.down = Pressed(playerMovement.down);
-        movementInputStatus.left = Pressed(playerMovement.left);
-        movementInputStatus.right = Pressed(playerMovement.right);
+        movementInputStatus.up = Pressed(PlayerMovement.up);
+        movementInputStatus.down = Pressed(PlayerMovement.down);
+        movementInputStatus.left = Pressed(PlayerMovement.left);
+        movementInputStatus.right = Pressed(PlayerMovement.right);
     }
 
     private void UpdateMousePosition()

@@ -16,7 +16,7 @@ public class WeaponController : MonoBehaviour
 
     private Animator characterAnimator;
 
-    public void Awake()
+    public void Start()
     {
         characterAnimator = GameManager.Instance.PlayerObject.GetComponentInChildren<Animator>();
     }

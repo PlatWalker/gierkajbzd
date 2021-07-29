@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// by SilverWalker
@@ -11,7 +13,14 @@ public class GameManager : Singleton<GameManager>
 
     private void Awake()
     {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
         PlayerObject = GameObject.FindGameObjectWithTag("Player");
         GameInputController = gameObject.AddComponent<InputController>();
+    }
+
+    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+    {
+        PlayerObject = GameObject.FindGameObjectWithTag("Player");
     }
 }
