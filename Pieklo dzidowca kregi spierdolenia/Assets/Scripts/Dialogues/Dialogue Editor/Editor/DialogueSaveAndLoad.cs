@@ -103,8 +103,8 @@ namespace jbzdy.DialogueSystem.SaveLoad
                 TextLanguages = node.Texts,
                 Name = node.NameText,
                 AudioClips = node.AudioClips,
-                DialogueFaceImageType = node.FaceImageType,
-                Sprite = node.FaceImage,
+                npcSprite = node.NpcFaceImage,
+                playerSprite = node.PlayerFaceImage,
                 DialogueNodePorts = new List<DialogueNodePort>(node.DialogueNodePorts)
             };
 
@@ -241,8 +241,8 @@ namespace jbzdy.DialogueSystem.SaveLoad
                 DialogueNode tempNode = graphView.CreateDialogueNode(node.Position);
                 tempNode.NodeGuid = node.NodeGuid;
                 tempNode.NameText = node.Name;
-                tempNode.FaceImage = node.Sprite;
-                tempNode.FaceImageType = node.DialogueFaceImageType;
+                tempNode.NpcFaceImage = node.npcSprite;
+                tempNode.PlayerFaceImage = node.playerSprite;
 
                 foreach (LanguageGeneric<string> languageGeneric in node.TextLanguages)
                 {
@@ -318,7 +318,6 @@ namespace jbzdy.DialogueSystem.SaveLoad
                         BaseNode targetNode = nodes.First(Node => Node.NodeGuid == nodePort.InputGuid);
                         LinkNodesTogether(nodePort.MyPort, (Port)targetNode.inputContainer[0]);
                     }
-
                 }
             }
         }

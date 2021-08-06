@@ -33,8 +33,7 @@ namespace jbzdy.DialogueSystem.Editor
         {
             List<SearchTreeEntry> tree = new List<SearchTreeEntry>
             {
-                new SearchTreeGroupEntry(new GUIContent("Dialogue Node"),0),
-                new SearchTreeGroupEntry(new GUIContent("Dialogue"),1),
+                new SearchTreeGroupEntry(new GUIContent("Dialogue Nodes"),1),
 
                 AddNodeSearch("Start Node",new StartNode()),
                 AddNodeSearch("Dialogue Node",new DialogueNode()),
@@ -47,9 +46,9 @@ namespace jbzdy.DialogueSystem.Editor
             return tree;
         }
 
-        private SearchTreeEntry AddNodeSearch(string name, BaseNode baseNode)
+        private SearchTreeEntry AddNodeSearch(string nodeName, BaseNode baseNode)
         {
-            SearchTreeEntry tempEntry = new SearchTreeEntry(new GUIContent(name, pic))
+            SearchTreeEntry tempEntry = new SearchTreeEntry(new GUIContent(nodeName, pic))
             {
                 level = 2,
                 userData = baseNode

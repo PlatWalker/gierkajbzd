@@ -154,6 +154,48 @@ public class EnemyDataContainer : ScriptableObject
         }
     }
 
+    [Header("Sounds")]
+    [SerializeField] protected AudioClip _damagedAudioClip;
+    public AudioClip DamagedAudioClip
+    {
+        get
+        {
+            return _damagedAudioClip;
+        }
+    }
+    [SerializeField] protected AudioClip _dyingAudioClip;
+    public AudioClip DyingAudioClip
+    {
+        get
+        {
+            return _dyingAudioClip;
+        }
+    }
+    [SerializeField] protected AudioClip _ambientAudioClip;
+    public AudioClip AmbientAudioClip
+    {
+        get
+        {
+            return _ambientAudioClip;
+        }
+    }
+    [SerializeField] protected AudioClip _aggroAudioClip;
+    public AudioClip AggroAudioClip
+    {
+        get
+        {
+            return _aggroAudioClip;
+        }
+    }
+    [SerializeField] protected AudioClip _attackAudioClip;
+    public AudioClip AttackAudioClip
+    {
+        get
+        {
+            return _attackAudioClip;
+        }
+    }
+
     private void OnEnable()
     {
         //To be removed when can get instance from game manager

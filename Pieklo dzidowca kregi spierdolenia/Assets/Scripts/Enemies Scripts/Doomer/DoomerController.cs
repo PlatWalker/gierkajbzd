@@ -12,9 +12,9 @@ namespace jbzdy.Enemies
         [SerializeField] private float jumpSpeed = 1.08f;
         [SerializeField] private float firstAttackRadius = 4.0f;
 		
-    [SerializeField] private float chargeDamageModifier = 2.0f;
-    [SerializeField] DamageController LHCollider = null;
-    [SerializeField] DamageController RHCollider = null;
+		[SerializeField] private float chargeDamageModifier = 2.0f;
+		[SerializeField] DamageController LHCollider = null;
+		[SerializeField] DamageController RHCollider = null;
         private enum DoomerState
         {
             Idle,
@@ -34,12 +34,15 @@ namespace jbzdy.Enemies
 		public static bool HasDoneAggro { get; set; }
 		private bool hasDoneSpecialAttack;
 
+		private EnemyDamagedEffect pushBackEffect;
+
 		override protected void Start()
 		{
 			base.Start();
 			easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), new string[] {"shouldUseSecondAttack"});
 			hasDoneSpecialAttack = false;
 			currentState = DoomerState.Idle;
+			pushBackEffect = GetComponent<EnemyDamagedEffect>();
 		}
 
 		void OnValidate()
@@ -82,6 +85,7 @@ namespace jbzdy.Enemies
 							{
 								TriggerNearEnemies(transform.position);
 								currentState = DoomerState.Aggro;
+								soundController.PlayAggro();
 							}
 						}
 						 
@@ -387,7 +391,10 @@ namespace jbzdy.Enemies
 				currentState = DoomerState.HaveSeenPlayer;
             }
 
-            base.SetDamage(damageAmount, damageType);
+
+			pushBackEffect.ApplyEffect();
+
+			base.SetDamage(damageAmount, damageType);
         }
 
 
