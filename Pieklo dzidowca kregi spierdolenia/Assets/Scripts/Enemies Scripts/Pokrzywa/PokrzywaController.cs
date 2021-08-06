@@ -8,13 +8,11 @@ namespace jbzdy.Enemies
     {
         [SerializeField] private EnemyDataContainer PokrzywaData=null;
         [SerializeField] private float damageDealRatio = 1f;
-        [SerializeField] private float growUpRatio = 10f;
         [SerializeField] private DamageController damageController;
         public int MaximumHealth { get => PokrzywaData.MaxHealth; }
         public int CurrentHealth { get; private set; }
 
         private float damageTimer = 0.0f;
-        private float growUpTimer = 0.0f;
         private float disappearTimer = 0.0f;
         // Start is called before the first frame update
         void Start()
@@ -31,17 +29,10 @@ namespace jbzdy.Enemies
             if (CurrentHealth > 0)
             {
                 damageTimer += Time.deltaTime;
-                growUpTimer += Time.deltaTime;
                 if (damageTimer >= damageDealRatio)
                 {
                     damageController.DamageDealed = false;
                     damageTimer = 0f;
-                }
-
-                if (growUpTimer >= growUpRatio)
-                {
-                    growUpTimer = 0.0f;
-                    HandleGrownig();
                 }
             }
             else

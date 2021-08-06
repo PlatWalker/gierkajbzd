@@ -169,7 +169,7 @@ namespace jbzdy.Enemies
             {
                 newPoint = new Vector3( Random.Range(transform.position.x - EnemyData.PatrolMaxDistance,transform.position.x + EnemyData.PatrolMaxDistance),
 										transform.position.y,
-										Random.Range(transform.position.x - EnemyData.PatrolMaxDistance,transform.position.x + EnemyData.PatrolMaxDistance));
+										Random.Range(transform.position.z - EnemyData.PatrolMaxDistance,transform.position.z + EnemyData.PatrolMaxDistance));
 
 				if (Physics.Raycast((transform.position + new Vector3(0f, 1f, 0f)), (newPoint - transform.position), out hit, EnemyData.AggroRadius))
                 {
