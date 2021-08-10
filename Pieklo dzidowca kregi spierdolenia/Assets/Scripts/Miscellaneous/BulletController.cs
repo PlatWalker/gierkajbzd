@@ -49,7 +49,18 @@ public class BulletController : MonoBehaviour
             damageDealt = true;
         }
     }
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!damageDealt)
+        {
+            IDamageable hittenObjectScript;
+            if (other.gameObject.TryGetComponent<IDamageable>(out hittenObjectScript))
+            {
+                hittenObjectScript.SetDamage(DamageAmount, TypeOfDamage, CritMultiplier, CritChance);
+            }
+            damageDealt = true;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
