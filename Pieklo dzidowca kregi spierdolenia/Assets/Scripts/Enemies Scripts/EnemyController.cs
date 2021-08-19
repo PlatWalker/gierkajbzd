@@ -79,7 +79,7 @@ namespace jbzdy.Enemies
         /// <param name="speed">Speed of travel. 0 = just rotate</param>
         protected virtual void MoveTo(Vector3 target, float speed, float stopDistance)
         {
-            if (Vector3.Distance(target, NavAgent.destination) < 1f) return;
+            //if (Vector3.Distance(target, NavAgent.destination) < 1f) return;
 
             if (NavAgent.radius*2 <= stopDistance)
             {

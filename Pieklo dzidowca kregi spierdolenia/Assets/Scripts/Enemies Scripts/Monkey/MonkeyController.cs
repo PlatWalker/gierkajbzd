@@ -10,7 +10,7 @@ namespace jbzdy.Enemies
         [SerializeField] private float runAwayRadius = 5.0f;
         [SerializeField] private float runSpeedModifier = 0.7f;
         [SerializeField] private int maxRunAxisDistance = 5;
-        [SerializeField] private float pauseTimeWhenRunning = 2.5f;
+        [SerializeField] private float howOftenRun = 2.5f;
         private Vector3 runTarget = Vector3.zero;
 
         [Header("Projectile")]
@@ -38,7 +38,7 @@ namespace jbzdy.Enemies
         {
             base.Start();
             string[] ignoredBooleans = new string[] { "spawnProjectile" };
-            easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), ignoredBooleans);
+            easyAnimator = new EasyAnimatorController(GetComponentInChildren<Animator>(), ignoredBooleans);
             currentState = MonkeyState.Idle;
             pushBackEffect = GetComponent<EnemyDamagedEffect>();
         }
@@ -124,7 +124,7 @@ namespace jbzdy.Enemies
 
                         float distanceToRunTarget = Vector3.Distance(transform.position, runTarget);
 
-                       if (distanceToRunTarget < 0.5f)
+                       if (distanceToRunTarget < 0.7f)
 						{
 							//when waiting to run again just attack player
 							MultiUseTimer += Time.deltaTime;
@@ -138,7 +138,7 @@ namespace jbzdy.Enemies
 							easyAnimator.SetBooleanTrue("isWalking");
 						}	
 
-                        if (MultiUseTimer >= pauseTimeWhenRunning)
+                        if (MultiUseTimer >= howOftenRun)
                         {
                             runTarget = Vector3.zero;
                         }
