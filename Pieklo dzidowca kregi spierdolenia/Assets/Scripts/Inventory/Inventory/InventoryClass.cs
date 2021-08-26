@@ -35,7 +35,7 @@ namespace jbzdy.Inventory
 
         #region utility
         public List<GridSlot> slots;
-        [HideInInspector] public Image cell;
+        public Image cell;
         [HideInInspector] public int cellSize = 70;
         [HideInInspector] public int padding;
         [HideInInspector] public int column = 5;
@@ -94,6 +94,7 @@ namespace jbzdy.Inventory
             {
                 for (int k = 0; k < equipmentPanels.Count; k++)
                 {
+                    Debug.Log("Wypełniam: " + k + " czyli: " + equipmentPanels[k].transform.name);
                     for (int i = 0; i < equipmentPanels[k].width; i++)
                     {
                         for (int j = 0; j < equipmentPanels[k].height; j++)
