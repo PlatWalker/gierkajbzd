@@ -4,19 +4,28 @@ using UnityEngine;
 /// Created by Kumdzio
 /// Class responsible for changing in-game 3D equipment
 /// </summary>
-namespace jbzdy.Items.Equipable
+namespace jbzdy.Items
 {
     public class ItemEquipper : MonoBehaviour
     {
         private Dictionary<int, Transform> _playerBonesDictionary;
         private Transform[] _bonesTransforms = new Transform[61];
 
-        [SerializeField] private GameObject toEquip;
+        [SerializeField] private List<GameObject> headBodyParts;
+        [SerializeField] private List<GameObject> chestBodyParts;
+        [SerializeField] private List<GameObject> legsBodyParts;
+        [SerializeField] private List<GameObject> bootsBodyParts;
         private Transform _boots;
+        private Transform _legs;
         private Transform _chest;
-        private Transform _hemlet;
+        private Transform _helmet;
         private Transform _offHand;
         private Transform _mainHand;
+
+        [SerializeField] private Transform WeaponPlaceholder;
+        [SerializeField] private Transform OffHandPlaceholder;
+
+
 
         private void Start()
         {
@@ -24,27 +33,94 @@ namespace jbzdy.Items.Equipable
             traverseHierarchy(gameObject.transform);
         }
 
-        private void Update()
+        public void EquipWeaponOrTrinket(Item item)
         {
-            if (Input.GetKeyDown(KeyCode.Q))
+            switch (item.itemType)
             {
-                Equip();
+                case Enums.ItemTypes.Weapon:
+                    _mainHand = spawnHandItem(item,WeaponPlaceholder);
+                    break;
+                case Enums.ItemTypes.Trinket:
+                    _offHand = spawnHandItem(item,OffHandPlaceholder);
+                    break;
             }
-            if (Input.GetKeyDown(KeyCode.H))
+        }
+        public void UnequipWeaponOrTrinket(Item item)
+        {
+            switch (item.itemType)
             {
-                Unequip();
+                case Enums.ItemTypes.Weapon:
+                    if (_mainHand) Destroy(_mainHand.gameObject);
+                    break;
+                case Enums.ItemTypes.Trinket:
+                    if (_offHand) Destroy(_offHand.gameObject);
+                    break;
             }
+        }
+        public void EquipArmor(ArmorItem item)
+        {
+            switch (item.armorType)
+            {
+                case Enums.ArmorTypes.Head:
+                    _helmet = equip(item);
+                    headBodyParts.ForEach(disactive);
+                    break;
+                case Enums.ArmorTypes.Chest:
+                    _chest = equip(item);
+                    chestBodyParts.ForEach(disactive);
+                    break;
+                case Enums.ArmorTypes.Boots:
+                    _boots = equip(item);
+                    bootsBodyParts.ForEach(disactive);
+                    break;
+                case Enums.ArmorTypes.Legs:
+                    _legs = equip(item);
+                    legsBodyParts.ForEach(disactive);
+                    break;
+            }
+        }
+        public void UnequipArmor(ArmorItem item)
+        {
+            switch (item.armorType)
+            {
+                case Enums.ArmorTypes.Head:
+                    if (_helmet)
+                    {
+                        Destroy(_helmet.gameObject);
+                        headBodyParts.ForEach(activate);
+                    }
+                        break;
+                case Enums.ArmorTypes.Chest:
+                    if (_chest)
+                    {
+                        Destroy(_chest.gameObject);
+                        chestBodyParts.ForEach(activate);
+                    }
+                    break;
+                case Enums.ArmorTypes.Boots:
+                    if (_boots)
+                    {
+                        Destroy(_boots.gameObject);
+                        bootsBodyParts.ForEach(activate);
+                    }
+                    break;
+                case Enums.ArmorTypes.Legs:
+                    if (_legs)
+                    {
+                        Destroy(_legs.gameObject);
+                        legsBodyParts.ForEach(activate);
+                    }
+                    break;
+            }
+            
         }
 
-        public void Equip(/*tutaj coś co sharashino przekaże*/)
+        private Transform equip(Item item)
         {
-            _chest = addLimb(toEquip);
+            return addLimb(item.gameObject);
         }
 
-        public void Unequip()
-        {
-            if(_chest) Destroy(_chest.gameObject);
-        }
+       
 
         private Transform addLimb(GameObject item)
         {
@@ -78,6 +154,24 @@ namespace jbzdy.Items.Equipable
                 _playerBonesDictionary.Add(child.name.GetHashCode(), child);
                 traverseHierarchy(child);
             }
+        }
+        private void disactive(GameObject g)
+        {
+            g.SetActive(false);
+        }
+        private void activate(GameObject g)
+        {
+            g.SetActive(true);
+        }
+
+        private Transform spawnHandItem(Item item,Transform parent)
+        {
+            GameObject spawned = (GameObject)Instantiate(item.gameObject,Vector3.zero,Quaternion.identity, parent);
+            spawned.GetComponent<Actions.Interaction.ItemPickup>().enabled = false;
+            spawned.SetActive(true);
+            spawned.transform.localPosition = Vector3.zero;
+            spawned.transform.localRotation = Quaternion.identity;
+            return spawned.transform;
         }
     }
 }

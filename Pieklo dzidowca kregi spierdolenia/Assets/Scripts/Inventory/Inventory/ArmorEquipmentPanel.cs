@@ -18,10 +18,12 @@ namespace jbzdy.Inventory
             if (equipedItem != null && LastItem == null)
             {
                 LastItem = equipedItem;
+                GameManager.Instance.PlayerObject.GetComponent<jbzdy.Items.ItemEquipper>().EquipArmor((ArmorItem)equipedItem);
             }
 
             if (equipedItem == null && LastItem != null)
             {
+                GameManager.Instance.PlayerObject.GetComponent<jbzdy.Items.ItemEquipper>().UnequipArmor((ArmorItem)LastItem);
                 LastItem = null;
             }
         }
