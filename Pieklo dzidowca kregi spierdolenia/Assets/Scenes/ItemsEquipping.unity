@@ -2247,6 +2247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d18c7d3ada195cd46a831982f8f1ae86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  language: 0
 --- !u!4 &1959814772
 Transform:
   m_ObjectHideFlags: 0
@@ -3163,7 +3164,7 @@ MonoBehaviour:
   height: 2
   equipedItem: {fileID: 0}
   allowedItemType: 1
-  allowedArmorType: 2
+  allowedArmorType: 3
 --- !u!1 &616360124163774829
 GameObject:
   m_ObjectHideFlags: 0
@@ -3564,22 +3565,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d251849937534c4f8de81861106668a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  headBodyParts:
+  _headBodyParts:
   - {fileID: 723775549}
   - {fileID: 1645814536}
   - {fileID: 696024290}
-  chestBodyParts:
+  _chestBodyParts:
   - {fileID: 1106119876}
   - {fileID: 1571197498}
-  legsBodyParts:
+  _legsBodyParts:
   - {fileID: 994836378}
   - {fileID: 1493819572}
   - {fileID: 209882998}
-  bootsBodyParts:
+  _bootsBodyParts:
   - {fileID: 1270485419}
-  - {fileID: 1493819572}
-  WeaponPlaceholder: {fileID: 1855061732}
-  OffHandPlaceholder: {fileID: 196371746}
+  _weaponPlaceholder: {fileID: 1855061732}
+  _offHandPlaceholder: {fileID: 196371746}
 --- !u!1001 &6445090827251742877
 PrefabInstance:
   m_ObjectHideFlags: 0
