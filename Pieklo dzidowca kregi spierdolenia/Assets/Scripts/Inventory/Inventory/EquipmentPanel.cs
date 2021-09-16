@@ -2,11 +2,12 @@
 using UnityEngine;
 using jbzdy.Items.Enums;
 
-// <summary>
-// Klasa siedząca na slotach, które służą do zakładania przedmiotów
-// 
-// Napisane przez Sharashino
-// </summary>
+/// <summary>
+/// Klasa siedząca na slotach, które służą do zakładania przedmiotów
+/// 
+/// Napisane przez Sharashino
+/// Zmodyfikowane przez Kumdzio
+/// </summary>
 namespace jbzdy.Inventory 
 {
     public class EquipmentPanel : MonoBehaviour
@@ -31,6 +32,11 @@ namespace jbzdy.Inventory
             {
                     lastItem = null;
             }
+        }
+        public virtual bool CheckIfItemFitsType(Item _toCheck)
+        {
+            if (_toCheck.itemType == allowedItemType) return true;
+            return false;
         }
     }
 }

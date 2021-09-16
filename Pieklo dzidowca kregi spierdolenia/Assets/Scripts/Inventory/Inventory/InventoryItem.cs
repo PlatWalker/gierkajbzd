@@ -257,7 +257,7 @@ namespace jbzdy.Inventory
 
                     inventory.MarkSlots(CalculateShiftedAxes().x, CalculateShiftedAxes().y, width, height, false);
                 }
-                else if (inventory.CheckFreeSpaceAtSlot(CalculateShiftedAxes().x, CalculateShiftedAxes().y, width, height) && slot.free && slot.equipmentPanel != null && slot.equipmentPanel.allowedItemType == item.itemType)
+                else if (inventory.CheckFreeSpaceAtSlot(CalculateShiftedAxes().x, CalculateShiftedAxes().y, width, height) && slot.free && slot.equipmentPanel != null && slot.equipmentPanel.CheckIfItemFitsType(item))
                 {
                     transform.SetParent(slot.transform.parent);
 

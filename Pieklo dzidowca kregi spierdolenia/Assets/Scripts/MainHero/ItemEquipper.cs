@@ -11,10 +11,11 @@ namespace jbzdy.Items
         private Dictionary<int, Transform> _playerBonesDictionary;
         private Transform[] _bonesTransforms = new Transform[61];
 
-        [SerializeField] private List<GameObject> headBodyParts;
-        [SerializeField] private List<GameObject> chestBodyParts;
-        [SerializeField] private List<GameObject> legsBodyParts;
-        [SerializeField] private List<GameObject> bootsBodyParts;
+        [SerializeField] private List<GameObject> _headBodyParts;
+        [SerializeField] private List<GameObject> _chestBodyParts;
+        [SerializeField] private List<GameObject> _legsBodyParts;
+        [SerializeField] private List<GameObject> _bootsBodyParts;
+
         private Transform _boots;
         private Transform _legs;
         private Transform _chest;
@@ -22,15 +23,15 @@ namespace jbzdy.Items
         private Transform _offHand;
         private Transform _mainHand;
 
-        [SerializeField] private Transform WeaponPlaceholder;
-        [SerializeField] private Transform OffHandPlaceholder;
+        [SerializeField] private Transform _weaponPlaceholder;
+        [SerializeField] private Transform _offHandPlaceholder;
 
 
 
         private void Start()
         {
             _playerBonesDictionary = new Dictionary<int, Transform>();
-            traverseHierarchy(gameObject.transform);
+            TraverseHierarchy(gameObject.transform);
         }
 
         public void EquipWeaponOrTrinket(Item item)
@@ -38,13 +39,14 @@ namespace jbzdy.Items
             switch (item.itemType)
             {
                 case Enums.ItemTypes.Weapon:
-                    _mainHand = spawnHandItem(item,WeaponPlaceholder);
+                    _mainHand = SpawnHandItem(item,_weaponPlaceholder);
                     break;
                 case Enums.ItemTypes.Trinket:
-                    _offHand = spawnHandItem(item,OffHandPlaceholder);
+                    _offHand = SpawnHandItem(item,_offHandPlaceholder);
                     break;
             }
         }
+
         public void UnequipWeaponOrTrinket(Item item)
         {
             switch (item.itemType)
@@ -57,28 +59,30 @@ namespace jbzdy.Items
                     break;
             }
         }
+
         public void EquipArmor(ArmorItem item)
         {
             switch (item.armorType)
             {
                 case Enums.ArmorTypes.Head:
-                    _helmet = equip(item);
-                    headBodyParts.ForEach(disactive);
+                    _helmet = Equip(item);
+                    _headBodyParts.ForEach(Disactive);
                     break;
                 case Enums.ArmorTypes.Chest:
-                    _chest = equip(item);
-                    chestBodyParts.ForEach(disactive);
+                    _chest = Equip(item);
+                    _chestBodyParts.ForEach(Disactive);
                     break;
                 case Enums.ArmorTypes.Boots:
-                    _boots = equip(item);
-                    bootsBodyParts.ForEach(disactive);
+                    _boots = Equip(item);
+                    _bootsBodyParts.ForEach(Disactive);
                     break;
                 case Enums.ArmorTypes.Legs:
-                    _legs = equip(item);
-                    legsBodyParts.ForEach(disactive);
+                    _legs = Equip(item);
+                    _legsBodyParts.ForEach(Disactive);
                     break;
             }
         }
+
         public void UnequipArmor(ArmorItem item)
         {
             switch (item.armorType)
@@ -87,42 +91,40 @@ namespace jbzdy.Items
                     if (_helmet)
                     {
                         Destroy(_helmet.gameObject);
-                        headBodyParts.ForEach(activate);
+                        _headBodyParts.ForEach(Activate);
                     }
                         break;
                 case Enums.ArmorTypes.Chest:
                     if (_chest)
                     {
                         Destroy(_chest.gameObject);
-                        chestBodyParts.ForEach(activate);
+                        _chestBodyParts.ForEach(Activate);
                     }
                     break;
                 case Enums.ArmorTypes.Boots:
                     if (_boots)
                     {
                         Destroy(_boots.gameObject);
-                        bootsBodyParts.ForEach(activate);
+                        _bootsBodyParts.ForEach(Activate);
                     }
                     break;
                 case Enums.ArmorTypes.Legs:
                     if (_legs)
                     {
                         Destroy(_legs.gameObject);
-                        legsBodyParts.ForEach(activate);
+                        _legsBodyParts.ForEach(Activate);
                     }
                     break;
             }
             
         }
 
-        private Transform equip(Item item)
+        private Transform Equip(Item item)
         {
-            return addLimb(item.gameObject);
+            return AddLimb(item.gameObject);
         }
 
-       
-
-        private Transform addLimb(GameObject item)
+        private Transform AddLimb(GameObject item)
         {
             Transform limb = ProcessEquippingItem(item.GetComponentInChildren<SkinnedMeshRenderer>());
             limb.SetParent(gameObject.transform);
@@ -147,24 +149,26 @@ namespace jbzdy.Items
             return bonedObject;
         }
 
-        private void traverseHierarchy(Transform transform)
+        private void TraverseHierarchy(Transform transform)
         {
             foreach (Transform child in transform)
             {
                 _playerBonesDictionary.Add(child.name.GetHashCode(), child);
-                traverseHierarchy(child);
+                TraverseHierarchy(child);
             }
         }
-        private void disactive(GameObject g)
+
+        private void Disactive(GameObject g)
         {
             g.SetActive(false);
         }
-        private void activate(GameObject g)
+
+        private void Activate(GameObject g)
         {
             g.SetActive(true);
         }
 
-        private Transform spawnHandItem(Item item,Transform parent)
+        private Transform SpawnHandItem(Item item,Transform parent)
         {
             GameObject spawned = (GameObject)Instantiate(item.gameObject,Vector3.zero,Quaternion.identity, parent);
             spawned.GetComponent<Actions.Interaction.ItemPickup>().enabled = false;
