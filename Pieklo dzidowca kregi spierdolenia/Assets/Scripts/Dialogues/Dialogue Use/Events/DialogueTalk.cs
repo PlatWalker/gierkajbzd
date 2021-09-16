@@ -91,13 +91,11 @@ namespace jbzdy.DialogueSystem.Actions
 
             dialogueControler.SetText(nodeData.Name, nodeData.TextLanguages.Find(text => text.LanguageType == LanguageController.Instance.Language).LanguageGenericType);
             dialogueControler.SetImage(nodeData.playerSprite, nodeData.npcSprite);
-            
-            MakeButtons(nodeData.DialogueNodePorts);
 
+            MakeButtons(nodeData.DialogueNodePorts);
             audioSource.clip = nodeData.AudioClips.Find(clip => clip.LanguageType == LanguageController.Instance.Language).LanguageGenericType;
             audioSource.Play();
-        }
-        
+        }  
         private void RunNode(EventNodeData nodeData)
         {
             nodeData.DialogueEventSO.RunEvent();
