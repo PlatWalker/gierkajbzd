@@ -5188,6 +5188,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5604601320876257389, guid: 83ad94e264f45aa468d5e5d948d3365c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 67bfc86dda28f934b830fb4dab2d326a, type: 2}
     - target: {fileID: 6253097744792818104, guid: 83ad94e264f45aa468d5e5d948d3365c, type: 3}
       propertyPath: m_Name
       value: Prefab_Chatka_Cygan1
@@ -7072,7 +7076,7 @@ Terrain:
   m_DrawInstanced: 0
   m_DrawTreesAndFoliage: 1
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 10652, guid: 0000000000000000f000000000000000, type: 0}
+  m_MaterialTemplate: {fileID: 2100000, guid: 42536433f7154864bb51cbb69a482288, type: 2}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
@@ -16246,7 +16250,7 @@ Terrain:
   m_DrawInstanced: 0
   m_DrawTreesAndFoliage: 1
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 10652, guid: 0000000000000000f000000000000000, type: 0}
+  m_MaterialTemplate: {fileID: 2100000, guid: 42536433f7154864bb51cbb69a482288, type: 2}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
@@ -47751,7 +47755,7 @@ Terrain:
   m_DrawInstanced: 0
   m_DrawTreesAndFoliage: 1
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 10652, guid: 0000000000000000f000000000000000, type: 0}
+  m_MaterialTemplate: {fileID: 2100000, guid: 42536433f7154864bb51cbb69a482288, type: 2}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
@@ -53422,7 +53426,7 @@ Terrain:
   m_DrawInstanced: 0
   m_DrawTreesAndFoliage: 1
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 10652, guid: 0000000000000000f000000000000000, type: 0}
+  m_MaterialTemplate: {fileID: 2100000, guid: 42536433f7154864bb51cbb69a482288, type: 2}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
@@ -54311,72 +54315,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7108351202466652224, guid: f5105704672880d4f95051c9861f9d6a, type: 3}
   m_PrefabInstance: {fileID: 1328288668}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1332892911
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1556569855}
-    m_Modifications:
-    - target: {fileID: 2543236815181186076, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
-      propertyPath: m_Name
-      value: Malpa (14)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2882502516466146982, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 23.133842
-      objectReference: {fileID: 0}
-    - target: {fileID: 2882502516466146982, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2882502516466146982, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -6.0256987
-      objectReference: {fileID: 0}
-    - target: {fileID: 2882502516466146982, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2882502516466146982, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.1564121
-      objectReference: {fileID: 0}
-    - target: {fileID: 2882502516466146982, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2882502516466146982, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.9876919
-      objectReference: {fileID: 0}
-    - target: {fileID: 2882502516466146982, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2882502516466146982, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2882502516466146982, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -232.332
-      objectReference: {fileID: 0}
-    - target: {fileID: 2882502516466146982, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4991444196681523094, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: -876546973899608171, guid: d2fa0a4e68a13184a8e522ad831b7bb6, type: 3}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
---- !u!4 &1332892912 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2882502516466146982, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
-  m_PrefabInstance: {fileID: 1332892911}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1333374605
 GameObject:
   m_ObjectHideFlags: 0
@@ -54677,7 +54615,7 @@ Terrain:
   m_DrawInstanced: 0
   m_DrawTreesAndFoliage: 1
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 10652, guid: 0000000000000000f000000000000000, type: 0}
+  m_MaterialTemplate: {fileID: 2100000, guid: 42536433f7154864bb51cbb69a482288, type: 2}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
@@ -61333,7 +61271,6 @@ Transform:
   - {fileID: 1334371668}
   - {fileID: 2065449171}
   - {fileID: 601846121}
-  - {fileID: 1332892912}
   - {fileID: 198652086}
   - {fileID: 1939805134}
   - {fileID: 1709523930}
@@ -61375,6 +61312,7 @@ Transform:
   - {fileID: 1709870313}
   - {fileID: 343076985}
   - {fileID: 1125410229}
+  - {fileID: 2032805623}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -73262,7 +73200,7 @@ Terrain:
   m_DrawInstanced: 0
   m_DrawTreesAndFoliage: 1
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 10652, guid: 0000000000000000f000000000000000, type: 0}
+  m_MaterialTemplate: {fileID: 2100000, guid: 42536433f7154864bb51cbb69a482288, type: 2}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
@@ -78740,6 +78678,68 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8289986663436565196, guid: 0b013c90f7bf4984ba397484b97b4c76, type: 3}
   m_PrefabInstance: {fileID: 2032603068}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2032805622
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1556569855}
+    m_Modifications:
+    - target: {fileID: 2543236815181186076, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
+      propertyPath: m_Name
+      value: Malpa (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2882502516466146982, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 22.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 2882502516466146982, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2882502516466146982, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 2882502516466146982, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2882502516466146982, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.11557889
+      objectReference: {fileID: 0}
+    - target: {fileID: 2882502516466146982, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2882502516466146982, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.99329835
+      objectReference: {fileID: 0}
+    - target: {fileID: 2882502516466146982, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
+      propertyPath: m_RootOrder
+      value: 47
+      objectReference: {fileID: 0}
+    - target: {fileID: 2882502516466146982, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2882502516466146982, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -373.274
+      objectReference: {fileID: 0}
+    - target: {fileID: 2882502516466146982, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
+--- !u!4 &2032805623 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2882502516466146982, guid: e4bc041d440b07548abf6c4206977bc7, type: 3}
+  m_PrefabInstance: {fileID: 2032805622}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2037922140
 PrefabInstance:
