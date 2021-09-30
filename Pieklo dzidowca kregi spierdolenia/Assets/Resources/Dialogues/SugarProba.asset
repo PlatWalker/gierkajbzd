@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a69ff5ed214494b835d86b8438ac53, type: 3}
+  m_Name: SugarProba
+  m_EditorClassIdentifier: 
+  NodeLinkDatas:
+  - BaseNodeGuid: af382ae9-3f93-4287-a9e1-eded12ca49bf
+    TargetNodeGuid: 9fa6269b-19f0-41c8-80c9-83d6d2915c73
+  - BaseNodeGuid: c2d88761-c4c4-4d65-9fa0-5d8914926705
+    TargetNodeGuid: eacde17c-d1ab-4688-a80c-c34445cc7fe5
+  - BaseNodeGuid: 9fa6269b-19f0-41c8-80c9-83d6d2915c73
+    TargetNodeGuid: c2d88761-c4c4-4d65-9fa0-5d8914926705
+  - BaseNodeGuid: 9fa6269b-19f0-41c8-80c9-83d6d2915c73
+    TargetNodeGuid: 47c9d513-9314-4bd3-b6bc-3e3cf4bcc222
+  DialogueNodeDatas:
+  - NodeGuid: 9fa6269b-19f0-41c8-80c9-83d6d2915c73
+    Position: {x: 696, y: 363}
+    DialogueNodePorts:
+    - PortGuid: fe933e60-faec-47dc-9c17-333ec8eb12df
+      InputGuid: c2d88761-c4c4-4d65-9fa0-5d8914926705
+      OutputGuid: 9fa6269b-19f0-41c8-80c9-83d6d2915c73
+      TextLanguages:
+      - LanguageType: 0
+        LanguageGenericType: dosta questa
+      - LanguageType: 1
+        LanguageGenericType: Continue
+      - LanguageType: 2
+        LanguageGenericType: Continue
+    - PortGuid: 7db3b6d8-6b4b-40fa-bf01-789bed29fda5
+      InputGuid: 47c9d513-9314-4bd3-b6bc-3e3cf4bcc222
+      OutputGuid: 9fa6269b-19f0-41c8-80c9-83d6d2915c73
+      TextLanguages:
+      - LanguageType: 0
+        LanguageGenericType: wyjdz
+      - LanguageType: 1
+        LanguageGenericType: Continue
+      - LanguageType: 2
+        LanguageGenericType: Continue
+    AudioClips:
+    - LanguageType: 0
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 1
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 2
+      LanguageGenericType: {fileID: 0}
+    TextLanguages:
+    - LanguageType: 0
+      LanguageGenericType: test otrzymywania questa
+    - LanguageType: 1
+      LanguageGenericType: 
+    - LanguageType: 2
+      LanguageGenericType: 
+    npcSprite: {fileID: 21300000, guid: 564c1a5b695f8f640a50249fc9acc6da, type: 3}
+    playerSprite: {fileID: 21300000, guid: bbe5d625075627149b83344f82ad4686, type: 3}
+    Name: huh
+  EndNodeDatas:
+  - NodeGuid: eacde17c-d1ab-4688-a80c-c34445cc7fe5
+    Position: {x: 1387, y: 286}
+    EndNodeType: 0
+  - NodeGuid: 47c9d513-9314-4bd3-b6bc-3e3cf4bcc222
+    Position: {x: 1061, y: 497}
+    EndNodeType: 0
+  StartNodeDatas:
+  - NodeGuid: af382ae9-3f93-4287-a9e1-eded12ca49bf
+    Position: {x: 548, y: 368}
+  EventNodeDatas:
+  - NodeGuid: c2d88761-c4c4-4d65-9fa0-5d8914926705
+    Position: {x: 1046, y: 269}
+    DialogueEventSO: {fileID: 11400000, guid: 94ef35f1d6368c24a82953d77de19e1b, type: 2}
+    QuestSO: {fileID: 11400000, guid: 800fc83122404b949a8d20c359a4a9e7, type: 2}
+  StatCheckNodeDatas: []
+  ItemCheckNodeDatas: []

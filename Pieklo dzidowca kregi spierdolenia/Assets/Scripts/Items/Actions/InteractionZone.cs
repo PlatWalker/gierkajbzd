@@ -9,11 +9,15 @@ namespace jbzdy.Actions.Interaction
 
         public bool IsInRange { get => isInRange; set => isInRange = value; }
 
+        public delegate void PlaceReached(GameObject gameObject);
+        public static event PlaceReached OnPlaceReach;
+
         public void OnTriggerEnter(Collider other)
         {
             if(other.CompareTag("Player"))
             {
                 isInRange = true;
+                OnPlaceReach?.Invoke(this.gameObject);
             }
         }
 
