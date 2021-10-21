@@ -37,7 +37,7 @@ namespace jbzdy.Inventory
             }
         }
 
-        override public bool CheckIfItemFitsType(Item _toCheck)
+        override public bool ItemFitsType(Item _toCheck)
         {
             if (_toCheck.itemType == ItemTypes.Armor)
             {

@@ -33,7 +33,7 @@ namespace jbzdy.Inventory
                     lastItem = null;
             }
         }
-        public virtual bool CheckIfItemFitsType(Item _toCheck)
+        public virtual bool ItemFitsType(Item _toCheck)
         {
             if (_toCheck.itemType == allowedItemType) return true;
             return false;
