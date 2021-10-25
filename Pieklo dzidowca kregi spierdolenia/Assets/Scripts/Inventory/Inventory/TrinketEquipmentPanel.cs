@@ -15,11 +15,13 @@ namespace jbzdy.Inventory
         {
             if (equipedItem != null && LastItem == null)
             {
+                GameManager.Instance.PlayerObject.GetComponent<jbzdy.Items.ItemEquipper>().EquipWeaponOrTrinket(equipedItem);
                 LastItem = equipedItem;
             }
 
             if (equipedItem == null && LastItem != null)
             {
+                GameManager.Instance.PlayerObject.GetComponent<jbzdy.Items.ItemEquipper>().UnequipWeaponOrTrinket(LastItem);
                 LastItem = null;
             }
         }

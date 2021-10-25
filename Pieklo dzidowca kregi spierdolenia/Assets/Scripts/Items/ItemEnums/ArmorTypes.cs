@@ -4,6 +4,7 @@
     {
         Head,
         Chest,
+        Legs,
         Boots
     }
 
