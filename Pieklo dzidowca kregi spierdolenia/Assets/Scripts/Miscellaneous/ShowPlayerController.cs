@@ -9,6 +9,8 @@ public class ShowPlayerController : MonoBehaviour
     private int SizeID;
     [SerializeField] private float Size =2f;
     [SerializeField] private float transitionDuration=2f;
+    [SerializeField] private Shader shaderToCompare = null;
+    private Transform playerTransform;
 
     private enum State {
         notShowing,
@@ -20,13 +22,14 @@ public class ShowPlayerController : MonoBehaviour
     private State state;
     private void Start()
     {
+        playerTransform = GameManager.Instance.PlayerObject.transform;
         SizeID = Shader.PropertyToID("_size");
         state = State.notShowing;
     }
 
     void Update()
     {
-        Vector3 dir = GameManager.Instance.PlayerObject.transform.position - transform.position;
+        Vector3 dir = playerTransform.position - transform.position;
         Ray ray = new Ray(transform.position, dir.normalized);
         RaycastHit hitinfo;
         if (Physics.Raycast(ray,out hitinfo, 100, Mask))
@@ -39,7 +42,7 @@ public class ShowPlayerController : MonoBehaviour
             }
             else
             {
-                if (renderer.material.shader.name == "Shader Graphs/show_player")
+                if (renderer.material.shader.Equals(shaderToCompare))
                 {
                     hitedMaterial = renderer.material;
 

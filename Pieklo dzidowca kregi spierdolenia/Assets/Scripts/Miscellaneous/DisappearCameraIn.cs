@@ -30,7 +30,7 @@ public class DisappearCameraIn : MonoBehaviour
         }
         else
         {
-            Debug.Log("Kolizja z obiektem bez MeshRender");
+            Debug.Log("Skrypt DisappearCameraIn nie może wyłączyć obiektu w który weszła kamera ponieważ nie ma on MeshRenderer");
         }
     }
     private void TurnOnMesh(GameObject hitedObject)
@@ -42,7 +42,7 @@ public class DisappearCameraIn : MonoBehaviour
         }
         else
         {
-            Debug.Log("Kolizja z obiektem bez MeshRender");
+            Debug.Log("Skrypt DisappearCameraIn nie może wyłączyć obiektu w który weszła kamera ponieważ nie ma on MeshRenderer");
         }
     }
 }
