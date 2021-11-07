@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -20,6 +19,7 @@ public class QuestLog_UI : MonoBehaviour
     public TMP_Text questExpRewardText;
     public TMP_Text questObjectiveText;
     public RectTransform rewardsContent;
+    public RectTransform rewardy;
 
     private GameObject questLogObject;
     private List<Button> questButtons;
@@ -54,7 +54,7 @@ public class QuestLog_UI : MonoBehaviour
         }
     }
 
-    //lewy
+    //lewa część 
     public void UpdateQuests(List<Quest> active)
     {
         HandleSizeChange(active.Count);
@@ -75,6 +75,7 @@ public class QuestLog_UI : MonoBehaviour
         text.text = quest.title;
         text.color = quest.isCompleted ? Color.green : Color.gray;
     }
+
     private void UpdateQuestNames(List<Quest> active)
     {
         for (int i = 0; i < active.Count; i++)
@@ -148,7 +149,7 @@ public class QuestLog_UI : MonoBehaviour
         questButton.image.color = active ? Color.yellow : new Color(0, 0, 0, 0);
     }
 
-    //prawy
+    //prawa część
 
     private void ShowQuestDetails(Quest quest)
     {
@@ -164,7 +165,9 @@ public class QuestLog_UI : MonoBehaviour
         ShowTaskDetails(quest);
 
         questDescriptionText.rectTransform.sizeDelta = new Vector2(0, - questDescriptionText.preferredHeight - 10);
-        rewardsContent.anchoredPosition = new Vector2(0, questDescriptionText.rectTransform.sizeDelta.y);
+        rewardsContent.anchoredPosition = new Vector2(0, questDescriptionText.rectTransform.sizeDelta.y - 50);
+        rewardy.anchoredPosition = new Vector2(0, - quest.tasks[quest.currentTask].goals.Count * 10);
+        questDescription.sizeDelta = new Vector2(0,  - questDescriptionText.rectTransform.sizeDelta.y - rewardsContent.sizeDelta.y + 70);
     }
 
     private void ShowTaskDetails(Quest quest)
@@ -175,6 +178,7 @@ public class QuestLog_UI : MonoBehaviour
         {
             questObjectiveText.text += goal.ToString();
         }
+
     }
 
 }

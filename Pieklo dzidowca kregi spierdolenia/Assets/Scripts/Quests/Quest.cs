@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 [CreateAssetMenu(fileName = "Assets/Resources/Quests/New Quest", menuName = "Quest")]
 public class Quest : ScriptableObject 
@@ -53,25 +53,11 @@ public class Quest : ScriptableObject
 
     public void UpdateQuest()
     {
-        if (!isActive && !isCompleted)       //quest do wzięcia
-        {
-            
-        }
-        else if (isActive && !isCompleted)     //quest aktywny, w środku
+        if (isActive)     
         {
             CheckGoals();
-            //questPanel.UpdateQuestsLog();
-        }
-        else if (isActive && isCompleted)     //quest aktywny, w środku z ukończonym taskiem
-        {
-            CheckGoals();
-            //questPanel.UpdateQuestsLog();
         }
 
-        if (!isActive && isCompleted)         //quest skończony
-        {
-            //questPanel.RemoveQuestFromPanel(quest);
-        }
     }
 
     private void Complete()
@@ -101,7 +87,7 @@ public class Quest : ScriptableObject
 
             if (fromNpc)
             {
-                foreach(ItemGoal goal in tasks[currentTask].goals)
+                foreach (ItemGoal goal in tasks[currentTask].goals.OfType<ItemGoal>())
                 {
                     goal.RemoveListeners();
                 }
@@ -118,18 +104,6 @@ public class Quest : ScriptableObject
 
             Debug.Log("koniec zadania");
         }
-
-        //if(currentTask == tasks.Count)
-        //{
-
-        //    if (fromNpc)
-        //        Complete();
-
-        //    isCompleted = true;
-
-        //    Debug.Log("koniec questa " + currentTask + " " + tasks.Count);
-        //}
-
 
         if(isCompleted)
             GameManager.Instance.PlayerObject.GetComponent<QuestLog>().ChangeQuestName();

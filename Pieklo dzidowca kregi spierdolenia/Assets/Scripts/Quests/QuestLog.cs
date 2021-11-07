@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class QuestLog : MonoBehaviour
@@ -40,18 +39,8 @@ public class QuestLog : MonoBehaviour
         onQuestChange.Invoke(questList);
     } 
 
-    //public void ChangeQuestState(Quest quest)
-    //{
-    //    questList.Remove(quest);
-    //    completedQuest.Add(quest);
-    //    onQuestChange.Invoke(questList, completedQuest);
-    //}
-
     public Quest getQuestNo(int index)
     {
-        //if (index < questList.Count)
             return questList[index];
-        //else
-        //    return completedQuest[index - questList.Count];
     }
 }

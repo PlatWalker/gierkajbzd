@@ -15,10 +15,10 @@ MonoBehaviour:
   NodeLinkDatas:
   - BaseNodeGuid: af382ae9-3f93-4287-a9e1-eded12ca49bf
     TargetNodeGuid: 9fa6269b-19f0-41c8-80c9-83d6d2915c73
-  - BaseNodeGuid: c2d88761-c4c4-4d65-9fa0-5d8914926705
+  - BaseNodeGuid: 1dbe5726-eca8-4428-9f73-f0fcafa67e36
     TargetNodeGuid: eacde17c-d1ab-4688-a80c-c34445cc7fe5
   - BaseNodeGuid: 9fa6269b-19f0-41c8-80c9-83d6d2915c73
-    TargetNodeGuid: c2d88761-c4c4-4d65-9fa0-5d8914926705
+    TargetNodeGuid: 1dbe5726-eca8-4428-9f73-f0fcafa67e36
   - BaseNodeGuid: 9fa6269b-19f0-41c8-80c9-83d6d2915c73
     TargetNodeGuid: 47c9d513-9314-4bd3-b6bc-3e3cf4bcc222
   DialogueNodeDatas:
@@ -26,7 +26,7 @@ MonoBehaviour:
     Position: {x: 696, y: 363}
     DialogueNodePorts:
     - PortGuid: fe933e60-faec-47dc-9c17-333ec8eb12df
-      InputGuid: c2d88761-c4c4-4d65-9fa0-5d8914926705
+      InputGuid: 1dbe5726-eca8-4428-9f73-f0fcafa67e36
       OutputGuid: 9fa6269b-19f0-41c8-80c9-83d6d2915c73
       TextLanguages:
       - LanguageType: 0
@@ -73,9 +73,13 @@ MonoBehaviour:
   - NodeGuid: af382ae9-3f93-4287-a9e1-eded12ca49bf
     Position: {x: 548, y: 368}
   EventNodeDatas:
-  - NodeGuid: c2d88761-c4c4-4d65-9fa0-5d8914926705
-    Position: {x: 1046, y: 269}
+  - NodeGuid: 1dbe5726-eca8-4428-9f73-f0fcafa67e36
+    Position: {x: 992, y: 282}
     DialogueEventSO: {fileID: 11400000, guid: 94ef35f1d6368c24a82953d77de19e1b, type: 2}
     QuestSO: {fileID: 11400000, guid: 800fc83122404b949a8d20c359a4a9e7, type: 2}
+  - NodeGuid: 849d432a-46dd-4961-a48e-56fc6b260e10
+    Position: {x: 1281, y: 538}
+    DialogueEventSO: {fileID: 11400000, guid: 94ef35f1d6368c24a82953d77de19e1b, type: 2}
+    QuestSO: {fileID: 0}
   StatCheckNodeDatas: []
   ItemCheckNodeDatas: []

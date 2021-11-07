@@ -11,6 +11,7 @@ namespace jbzdy.Actions.Interaction
 
         public delegate void PlaceReached(GameObject gameObject);
         public static event PlaceReached OnPlaceReach;
+        public static event PlaceReached OnNpcPlaceReach;
 
         public void OnTriggerEnter(Collider other)
         {
@@ -18,6 +19,11 @@ namespace jbzdy.Actions.Interaction
             {
                 isInRange = true;
                 OnPlaceReach?.Invoke(this.gameObject);
+                
+            }
+            if (other.CompareTag("Npc"))
+            {
+                OnNpcPlaceReach?.Invoke(this.gameObject);
             }
         }
 

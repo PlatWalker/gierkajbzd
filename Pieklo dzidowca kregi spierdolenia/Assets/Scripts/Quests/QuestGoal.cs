@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 [System.Serializable]
@@ -41,6 +39,8 @@ public class QuestGoal : ScriptableObject
         return Description + ": <i>" + currentAmount + "/" + requiredAmount + "</i>\n";
     }
 
+
+    //metoda która w inspektorze wyświetla pola związane z goalem
     public virtual void GoalCustomEditor()
     {
         EditorGUILayout.LabelField("Opis");

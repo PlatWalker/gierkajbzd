@@ -17,7 +17,6 @@ public class KillGoal : QuestGoal
     {
         string enemyName = enemyType.name.Split(new char[] { ' ' })[0];
 
-        //Debug.Log(enemyName);
         if (enemyName == enemy.name)
         {
             this.currentAmount++;         

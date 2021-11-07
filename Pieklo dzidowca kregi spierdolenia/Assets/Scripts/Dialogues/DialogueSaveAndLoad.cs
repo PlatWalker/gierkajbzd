@@ -233,6 +233,11 @@ namespace jbzdy.DialogueSystem.SaveLoad
                 tempNode.DialogueEvent = node.DialogueEventSO;
                 tempNode.Quest = node.QuestSO;
 
+                if(tempNode.Quest != null || (tempNode.DialogueEvent != null && tempNode.DialogueEvent.GetType() == typeof(jbzdy.DialogueSystem.Events.EventGetQuest)))
+                {
+                    tempNode.MakeQuest();
+                }
+
                 tempNode.LoadValueInToField();
                 graphView.AddElement(tempNode);
             }

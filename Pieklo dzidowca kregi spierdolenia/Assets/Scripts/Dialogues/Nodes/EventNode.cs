@@ -51,13 +51,30 @@ namespace jbzdy.DialogueSystem.Nodes
             objectField.RegisterValueChangedCallback(value =>
             {
                 dialogueEvent = objectField.value as DialogueEventSO;
+                if (dialogueEvent.GetType() == typeof(jbzdy.DialogueSystem.Events.EventGetQuest))
+                    MakeQuest();
+                else if (questField != null)
+                {               
+                    mainContainer.Remove(questField);
+                    questField = null;
+                }
+                
             });
 
             objectField.SetValueWithoutNotify(dialogueEvent);
             mainContainer.Add(objectField);
 
-            //if (objectField.GetType() == typeof(jbzdy.DialogueSystem.Events.EventGetQuest))
-            //{
+        }
+
+        public override void LoadValueInToField()
+        {
+            objectField.SetValueWithoutNotify(dialogueEvent);
+
+            if(questField != null) questField.SetValueWithoutNotify(quest);
+        }
+
+        public void MakeQuest()
+        {
             questField = new ObjectField
             {
                 label = "Quest: ",
@@ -71,13 +88,6 @@ namespace jbzdy.DialogueSystem.Nodes
             });
             questField.SetValueWithoutNotify(quest);
             mainContainer.Add(questField);
-            // }
-        }
-
-        public override void LoadValueInToField()
-        {
-            objectField.SetValueWithoutNotify(dialogueEvent);
-            questField.SetValueWithoutNotify(quest);
         }
     }   
 }

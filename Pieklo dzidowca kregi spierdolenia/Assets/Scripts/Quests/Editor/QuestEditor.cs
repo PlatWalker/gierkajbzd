@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using UnityEditorInternal;
-using System.Linq;
+
 
 [CustomEditor(typeof(Quest))]
 public class QuestEditor : Editor
@@ -123,7 +121,7 @@ public class QuestEditor : Editor
 
     private void DrawButtons(int i)
     {
-        string[] options = new string[] { "Zabij", "Przeprowadź interakcje", "Zbierz przedmioty", "Dotrzyj do miejsca" };
+        string[] options = new string[] { "Zabij", "Przeprowadź interakcje", "Zbierz przedmioty", "Dotrzyj do miejsca", "Zaprowadź npc" };
         
 
         EditorGUILayout.BeginHorizontal();
@@ -159,6 +157,13 @@ public class QuestEditor : Editor
                     placeGoal.name = "Nowy place goal";
                     quest.tasks[i].goals.Add(placeGoal);
                     AssetDatabase.AddObjectToAsset(placeGoal, quest);
+                    AssetDatabase.SaveAssets();
+                    break;
+                case 4:
+                    EscortGoal escortGoal = ScriptableObject.CreateInstance<EscortGoal>();
+                    escortGoal.name = "Nowy escort goal";
+                    quest.tasks[i].goals.Add(escortGoal);
+                    AssetDatabase.AddObjectToAsset(escortGoal, quest);
                     AssetDatabase.SaveAssets();
                     break;
                 default:
