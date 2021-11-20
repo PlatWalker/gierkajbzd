@@ -11,6 +11,7 @@ namespace jbzdy.Player
     {
         [HideInInspector]
         public Animator characterAnimator;
+        public Rigidbody rigidbody;
         private PlayerStats playerStats;
         private PlayerMovementController playerMovementController;
         private PlayerAttackController playerAttackController;
@@ -41,6 +42,7 @@ namespace jbzdy.Player
             if (characterAnimator == null) Debug.Log("nie znaleziono animatora w postaci gracza");
 
             playerStats = GetComponent<PlayerStats>();
+            rigidbody = GetComponent<Rigidbody>();
 
             playerMovementController = new PlayerMovementController(this);
             playerAttackController = new PlayerAttackController(this);

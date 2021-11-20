@@ -9,8 +9,8 @@ namespace jbzdy.Player
 {
     public class PlayerMovementController
     {
-        public PlayerController playerController;
-
+        public PlayerController playerController { get; set; }
+        
         public PlayerMovementController(PlayerController _playerController)
         {
             playerController = _playerController;
@@ -34,7 +34,8 @@ namespace jbzdy.Player
             playerController.MovementVector += Vector3.left * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.left);
             playerController.MovementVector += Vector3.right * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.right);
 
-            playerController.transform.position += playerController.MovementVector.normalized * playerController.PlayerSpeed;
+            //playerController.transform.position += playerController.MovementVector.normalized * playerController.PlayerSpeed;
+            playerController.rigidbody.velocity = playerController.MovementVector.normalized * playerController.PlayerSpeed * Time.deltaTime;
         }
 
         private void UpdateCharacterRotation()
