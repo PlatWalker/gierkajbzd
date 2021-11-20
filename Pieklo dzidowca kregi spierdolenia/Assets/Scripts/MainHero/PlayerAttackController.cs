@@ -21,7 +21,7 @@ namespace jbzdy.Player
 
             if (playerController.IsAttacking)
             {
-                if (playerController.characterAnimator.GetBool("Attacking animation in progress") == false)
+                if (playerController.CharacterAnimator.GetBool("Attacking animation in progress") == false)
                 {
                     Vector3 flatVector = GameManager.Instance.GameInputController.mousePositionFlat;
                     flatVector.y = playerController.transform.position.y;
@@ -29,7 +29,7 @@ namespace jbzdy.Player
                 }
 
                 playerController.CanPlayerMove = false;
-                playerController.characterAnimator.SetBool("Attack", true);
+                playerController.CharacterAnimator.SetBool("Attack", true);
             }
 
         }

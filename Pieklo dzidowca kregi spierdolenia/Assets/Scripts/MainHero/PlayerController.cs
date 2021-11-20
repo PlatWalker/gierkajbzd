@@ -1,4 +1,5 @@
 using jbzdy.CharacterStats;
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -9,12 +10,10 @@ namespace jbzdy.Player
 {
     public class PlayerController : MonoBehaviour, IDamageable
     {
-        [HideInInspector]
-        public Animator characterAnimator;
-        public Rigidbody rigidbody;
         private PlayerStats playerStats;
         private PlayerMovementController playerMovementController;
         private PlayerAttackController playerAttackController;
+        private Vector3 movementVector;
 
         [SerializeField]
         private float playerSpeed = 0.2f;
@@ -26,9 +25,9 @@ namespace jbzdy.Player
         private bool canPlayerMove = true;
         [SerializeField]
         private bool isAttacking;
-        [SerializeField]
-        private Vector3 movementVector;
 
+        public Animator CharacterAnimator { get; set; }
+        public Rigidbody rb { get; set; }
         public int MaximumHealth { get => maximumHealth; private set => maximumHealth = value; }
         public int CurrentHealth { get => currentHealth; private set => currentHealth = value; }
         public bool CanPlayerMove { get => canPlayerMove; set => canPlayerMove = value; }
@@ -38,20 +37,23 @@ namespace jbzdy.Player
 
         private void Start()
         {
-            characterAnimator = GetComponentInChildren<Animator>();
-            if (characterAnimator == null) Debug.Log("nie znaleziono animatora w postaci gracza");
+            CharacterAnimator = GetComponentInChildren<Animator>();
+            if (CharacterAnimator == null) Debug.Log("nie znaleziono animatora w postaci gracza");
 
+            rb = GetComponent<Rigidbody>();
             playerStats = GetComponent<PlayerStats>();
-            rigidbody = GetComponent<Rigidbody>();
 
             playerMovementController = new PlayerMovementController(this);
             playerAttackController = new PlayerAttackController(this);
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             playerMovementController.UpdateCharacterMovement();
+        }
 
+        private void Update()
+        {
             playerAttackController.UpdateCharacterAttack();
         }
 
@@ -62,7 +64,7 @@ namespace jbzdy.Player
 
         public void SetDamage(int damageAmount, DamageType damageType, float criticalMultiplier, float criticalChance)
         {
-            if (Random.Range(0.0f, 1.0f) <= criticalChance)
+            if (UnityEngine.Random.Range(0.0f, 1.0f) <= criticalChance)
             {
                 damageAmount = (int)(damageAmount * criticalMultiplier);
             }
