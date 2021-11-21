@@ -39,12 +39,12 @@ namespace jbzdy.Player
             StickPlayerToGround();
 
             playerController.rb.AddForce(playerController.MovementVector.normalized * playerController.PlayerSpeed * Time.fixedDeltaTime , ForceMode.VelocityChange);
-
         }
 
         private void StickPlayerToGround()
         {
-            if (Physics.Raycast(playerController.transform.position + Vector3.up, Vector3.down, out RaycastHit hit))
+            if (Physics.Raycast(playerController.transform.position + Vector3.up, Vector3.down, out RaycastHit hit) 
+                && hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
                 newPositionVector.x = playerController.rb.position.x;
                 newPositionVector.y = hit.point.y;
