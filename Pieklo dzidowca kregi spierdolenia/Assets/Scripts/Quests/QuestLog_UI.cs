@@ -9,17 +9,38 @@ public class QuestLog_UI : MonoBehaviour
 
     private QuestLog questLog;
 
-    public GameObject questInListPrefab;
-    public RectTransform listTransform;
+    [SerializeField]
+    private GameObject questInListPrefab;
+    [SerializeField]
+    private RectTransform listTransform;
+    [SerializeField]
+    private RectTransform questDescription;
+    [SerializeField]
+    private TMP_Text questNameText;
+    [SerializeField]
+    private TMP_Text questDescriptionText;
+    [SerializeField]
+    private TMP_Text questGoldRewardText;
+    [SerializeField]
+    private TMP_Text questExpRewardText;
+    [SerializeField]
+    private TMP_Text questObjectiveText;
+    [SerializeField]
+    private RectTransform rewardsContent;
+    [SerializeField]
+    private RectTransform rewards;
 
-    public RectTransform questDescription;
-    public TMP_Text questNameText;
-    public TMP_Text questDescriptionText;
-    public TMP_Text questGoldRewardText;
-    public TMP_Text questExpRewardText;
-    public TMP_Text questObjectiveText;
-    public RectTransform rewardsContent;
-    public RectTransform rewardy;
+    public GameObject QuestInListPrefab { get => questInListPrefab; set => questInListPrefab = value; }
+    public RectTransform ListTransform { get => listTransform; set => listTransform = value; }
+
+    public RectTransform QuestDescription { get => questDescription; set => questDescription = value; }
+    public TMP_Text QuestNameText { get => questNameText; set => questNameText = value; }
+    public TMP_Text QuestDescriptionText { get => questDescriptionText; set => questDescriptionText = value; }
+    public TMP_Text QuestGoldRewardText { get => questGoldRewardText; set => questGoldRewardText = value; }
+    public TMP_Text QuestExpRewardText { get => questExpRewardText; set => questExpRewardText = value; }
+    public TMP_Text QuestObjectiveText { get => questObjectiveText; set => questObjectiveText = value; }
+    public RectTransform RewardsContent { get => rewardsContent; set => rewardsContent = value; }
+    public RectTransform Rewards { get => rewards; set => rewards = value; }
 
     private GameObject questLogObject;
     private List<Button> questButtons;
@@ -166,7 +187,7 @@ public class QuestLog_UI : MonoBehaviour
 
         questDescriptionText.rectTransform.sizeDelta = new Vector2(0, - questDescriptionText.preferredHeight - 10);
         rewardsContent.anchoredPosition = new Vector2(0, questDescriptionText.rectTransform.sizeDelta.y - 50);
-        rewardy.anchoredPosition = new Vector2(0, - quest.tasks[quest.currentTask].goals.Count * 10);
+        rewards.anchoredPosition = new Vector2(0, - quest.tasks[quest.currentTask].goals.Count * 10);
         questDescription.sizeDelta = new Vector2(0,  - questDescriptionText.rectTransform.sizeDelta.y - rewardsContent.sizeDelta.y + 70);
     }
 

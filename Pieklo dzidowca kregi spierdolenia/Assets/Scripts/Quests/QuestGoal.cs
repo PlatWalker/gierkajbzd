@@ -5,10 +5,10 @@ using UnityEngine;
 public class QuestGoal : ScriptableObject 
 {
 
-    public string Description;
-    public bool Completed;
-    public int requiredAmount = 1;
-    public int currentAmount;
+    public string Description { get; set; }
+    public bool Completed { get; set; }
+    public int requiredAmount { get; set; } = 1;
+    public int currentAmount { get; set; }
 
     public virtual void Init()
     {

@@ -5,7 +5,7 @@ using jbzdy.Actions.Interaction;
 [System.Serializable]
 public class TalkGoal : QuestGoal
 {
-    public GameObject npc;
+    public GameObject npc { get; set; }
 
     public override void Init()
     {
@@ -24,7 +24,7 @@ public class TalkGoal : QuestGoal
                 Interactable.OnInteraction -= InteractionHappend;
             }
 
-            Debug.Log(currentAmount + "/" + requiredAmount);
+
         }
     }
 

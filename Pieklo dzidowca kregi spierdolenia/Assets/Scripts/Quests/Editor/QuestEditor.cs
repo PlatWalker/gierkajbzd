@@ -8,7 +8,7 @@ public class QuestEditor : Editor
 {
     private Quest quest;
     private short infoBox = 0;
-    int popUpOption = 0;
+    private int popUpOption = 0;
 
     private void OnEnable()
     {

@@ -6,7 +6,7 @@ using jbzdy.Inventory;
 [System.Serializable]
 public class ItemGoal : QuestGoal
 {
-    public Item item;
+    public Item item { get; set; }
     private InventoryClass inventory;
 
     public override void Init()
@@ -15,18 +15,20 @@ public class ItemGoal : QuestGoal
         inventory = InventoryClass.Instance;
         inventory.OnInventoryItemAdd.AddListener(CheckItemState);
         inventory.OnInventoryItemRemove.AddListener(CheckItemState);
+
+        if (inventory.CheckForItem(item, requiredAmount, false)) CheckItemState();
     }
 
     void CheckItemState()
     {
         currentAmount = inventory.CheckItemAmount(item);
 
-        if (!IsReached() && Completed)
+        if (!IsReached() && Completed)  //jesli ktos mial wszystkie itemki, ale np. wyrzucil
         {
             Completed = false;
         }
 
-        Debug.Log(currentAmount + "/" + requiredAmount);
+
     }
 
     public override void GoalCustomEditor()

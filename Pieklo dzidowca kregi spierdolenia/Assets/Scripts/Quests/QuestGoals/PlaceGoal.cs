@@ -5,7 +5,7 @@ using jbzdy.Actions.Interaction;
 [System.Serializable]
 public class PlaceGoal : QuestGoal
 {
-    public GameObject place;
+    public GameObject place { get; set; }
 
     public override void Init()
     {
@@ -24,7 +24,7 @@ public class PlaceGoal : QuestGoal
                 InteractionZone.OnPlaceReach -= ReachedPlace;
             }
 
-            Debug.Log(currentAmount + "/" + requiredAmount);
+
         }
     }
 

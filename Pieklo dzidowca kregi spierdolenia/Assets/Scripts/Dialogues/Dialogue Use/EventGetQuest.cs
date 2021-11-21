@@ -27,9 +27,5 @@ namespace jbzdy.DialogueSystem.Events
             quest.GetQuest();
         }
 
-        //private void GetQuest()
-        //{
-        //    Debug.Log("Nowy quest:" + quest.title);
-        //}
     }
 }

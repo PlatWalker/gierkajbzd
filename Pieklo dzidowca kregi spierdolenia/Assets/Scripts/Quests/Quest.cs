@@ -5,13 +5,13 @@ using System.Linq;
 [CreateAssetMenu(fileName = "Assets/Resources/Quests/New Quest", menuName = "Quest")]
 public class Quest : ScriptableObject 
 {
-    public bool isActive;
-    public bool isCompleted = false;
+    public bool isActive { get; set; }
+    public bool isCompleted { get; set; }
 
-    public string title;
-    public string description;
-    public int expReward;
-    public int goldReward;
+    public string title { get; set; }
+    public string description { get; set; }
+    public int expReward { get; set; }
+    public int goldReward { get; set; }
 
     public List<Task> tasks = new List<Task>();
 
@@ -73,7 +73,6 @@ public class Quest : ScriptableObject
 
         InitializeTask(currentTask);
 
-        Debug.Log("task wyzej");
     }
 
     public void CheckGoals(bool fromNpc = true)

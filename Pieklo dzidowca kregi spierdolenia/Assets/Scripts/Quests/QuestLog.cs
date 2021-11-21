@@ -21,7 +21,6 @@ public class QuestLog : MonoBehaviour
 
     public void RemoveQuest(Quest quest)
     {
-        Debug.Log("usuwa");
         questList.Remove(quest);
         onQuestChange.Invoke(questList);
     }

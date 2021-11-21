@@ -5,7 +5,7 @@ using UnityEditor;
 [System.Serializable]
 public class KillGoal : QuestGoal
 {
-    public GameObject enemy;
+    public GameObject enemy { get; set; }
 
     public override void Init()
     {
@@ -26,7 +26,7 @@ public class KillGoal : QuestGoal
                 EnemyController.OnDeath -= EnemyDied;
             }
 
-            Debug.Log(currentAmount + "/" + requiredAmount);
+
         }
     }
 
