@@ -7,23 +7,25 @@ using UnityEngine;
 
 namespace jbzdy.Player
 {
+    
     public class PlayerMovementController
     {
-        public PlayerController playerController;
+        private readonly PlayerController playerController;
+        private Vector3 newPositionVector;
 
         public PlayerMovementController(PlayerController _playerController)
         {
             playerController = _playerController;
+            
         }
 
         public void UpdateCharacterMovement()
         {
-            if (playerController.CanPlayerMove == true)
-            {
-                UpdateCharacterPosition();
-                UpdateCharacterRotation();
-                UpdateCharacterAnimation();
-            }
+            if (playerController.CanPlayerMove != true) return;
+            
+            UpdateCharacterPosition();
+            UpdateCharacterRotation();
+            UpdateCharacterAnimation();
         }
 
         private void UpdateCharacterPosition()
@@ -34,12 +36,27 @@ namespace jbzdy.Player
             playerController.MovementVector += Vector3.left * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.left);
             playerController.MovementVector += Vector3.right * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.right);
 
-            playerController.transform.position += playerController.MovementVector.normalized * playerController.PlayerSpeed;
+            StickPlayerToGround();
+
+            playerController.rb.AddForce(playerController.MovementVector.normalized * playerController.PlayerSpeed, ForceMode.VelocityChange);
+        }
+
+        private void StickPlayerToGround()
+        {
+            if (Physics.Raycast(playerController.transform.position + Vector3.up, Vector3.down, out RaycastHit hit) 
+                && hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            {
+                newPositionVector.x = playerController.rb.position.x;
+                newPositionVector.y = hit.point.y;
+                newPositionVector.z = playerController.rb.position.z;
+
+                playerController.rb.MovePosition(newPositionVector);
+            }
         }
 
         private void UpdateCharacterRotation()
         {
-            if (playerController.MovementVector.magnitude == 0 || playerController.characterAnimator.GetBool("Attack") == true) return;
+            if (playerController.MovementVector.magnitude == 0 || playerController.CharacterAnimator.GetBool(StringAnimatorParameters.AttackParam)) return;
 
             var rotation = Quaternion.LookRotation(playerController.MovementVector);
             playerController.transform.rotation = rotation;
@@ -49,11 +66,11 @@ namespace jbzdy.Player
         {
             if (playerController.MovementVector.z != 0 || playerController.MovementVector.x != 0)
             {
-                playerController.characterAnimator.SetBool("Run", true);
+                playerController.CharacterAnimator.SetBool(StringAnimatorParameters.RunParam, true);
             }
             else
             {
-                playerController.characterAnimator.SetBool("Run", false);
+                playerController.CharacterAnimator.SetBool(StringAnimatorParameters.RunParam, false);
             }
         }
     } 

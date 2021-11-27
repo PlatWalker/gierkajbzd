@@ -10,9 +10,10 @@ namespace jbzdy.Player
     {
         private GameObject playerObject;
 
-        override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             playerObject = GameManager.Instance.PlayerObject;
+            
             if (animator.GetLayerName(layerIndex) == "Attack")
             {
                 if (stateInfo.IsName("Transition state"))
@@ -21,16 +22,17 @@ namespace jbzdy.Player
                 }
                 else
                 {
-                    animator.SetBool("Attacking animation in progress", true);
+                    animator.SetBool(StringAnimatorParameters.AttackInProgressParam, true);
                 }
 
-                animator.SetBool("Attack", false);
+                animator.SetBool(StringAnimatorParameters.AttackParam, false);
             }
         }
 
-        override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (animator.GetLayerName(layerIndex) == "Attack" && stateInfo.IsName("Transition state") == false) animator.SetBool("Attacking animation in progress", false);
+            if (animator.GetLayerName(layerIndex) == "Attack" && stateInfo.IsName("Transition state") == false) 
+                    animator.SetBool(StringAnimatorParameters.AttackParam, false);
         }
     }
 }
