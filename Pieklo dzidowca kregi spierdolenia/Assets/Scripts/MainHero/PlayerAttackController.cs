@@ -8,13 +8,20 @@ namespace jbzdy.Player
 {
     public class PlayerAttackController
     {
-        private PlayerController playerController;
+        private readonly PlayerController playerController;
 
         public PlayerAttackController(PlayerController _playerController)
         {
             playerController = _playerController;
         }
 
+        public void DashAttackMove()
+        {
+            Vector3 dashVector = GameManager.Instance.GameInputController.mousePositionFlat - playerController.transform.position;
+            
+            playerController.rb.AddForce(dashVector.normalized * playerController.DashAttackMovePower * Time.fixedDeltaTime , ForceMode.Impulse);
+        }
+        
         public void UpdateCharacterAttack()
         {
             playerController.IsAttacking = GameManager.Instance.GameInputController.attackInputStatus.basic;
@@ -28,7 +35,7 @@ namespace jbzdy.Player
                     playerController.transform.LookAt(flatVector);
                 }
 
-                playerController.CanPlayerMove = false;
+                playerController.CanPlayerMoveWithKeyboard = false;
                 playerController.CharacterAnimator.SetBool("Attack", true);
             }
 

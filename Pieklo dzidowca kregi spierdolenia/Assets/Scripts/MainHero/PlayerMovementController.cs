@@ -20,7 +20,7 @@ namespace jbzdy.Player
 
         public void UpdateCharacterMovement()
         {
-            if (playerController.CanPlayerMove == true)
+            if (playerController.CanPlayerMoveWithKeyboard)
             {
                 UpdateCharacterPosition();
                 UpdateCharacterRotation();

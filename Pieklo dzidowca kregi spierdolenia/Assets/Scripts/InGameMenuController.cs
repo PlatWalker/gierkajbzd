@@ -23,14 +23,14 @@ namespace jbzdy.UI
         {;
             savedTimeScale = Time.timeScale;
             Time.timeScale = 0f;
-            GameManager.Instance.PlayerObject.GetComponent<PlayerController>().CanPlayerMove = false;
+            GameManager.Instance.PlayerObject.GetComponent<PlayerController>().CanPlayerMoveWithKeyboard = false;
             panel.SetActive(true);
         }
 
         public void ResumeGame()
         {
             Time.timeScale = savedTimeScale;
-            GameManager.Instance.PlayerObject.GetComponent<PlayerController>().CanPlayerMove = true;
+            GameManager.Instance.PlayerObject.GetComponent<PlayerController>().CanPlayerMoveWithKeyboard = true;
             panel.SetActive(false);
         }
 

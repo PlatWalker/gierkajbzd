@@ -34,13 +34,13 @@ namespace jbzdy.NPC.Interaction
                 interactionCounter++;
             }
             
-            player.CanPlayerMove = false;
+            player.CanPlayerMoveWithKeyboard = false;
         }
 
         public override void StopInteract()
         {
             Debug.Log("Zakończyłem rozmowę z " + gameObject.name);
-            player.CanPlayerMove = true;
+            player.CanPlayerMoveWithKeyboard = true;
         }
     }
 }
