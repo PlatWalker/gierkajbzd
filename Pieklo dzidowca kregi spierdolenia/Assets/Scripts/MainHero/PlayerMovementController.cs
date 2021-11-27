@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace jbzdy.Player
 {
+    
     public class PlayerMovementController
     {
         private readonly PlayerController playerController;
@@ -20,12 +21,11 @@ namespace jbzdy.Player
 
         public void UpdateCharacterMovement()
         {
-            if (playerController.CanPlayerMoveWithKeyboard)
-            {
-                UpdateCharacterPosition();
-                UpdateCharacterRotation();
-                UpdateCharacterAnimation();
-            }
+            if (!playerController.CanPlayerMoveWithKeyboard) return;
+            
+            UpdateCharacterPosition();
+            UpdateCharacterRotation();
+            UpdateCharacterAnimation();
         }
 
         private void UpdateCharacterPosition()
@@ -38,7 +38,7 @@ namespace jbzdy.Player
 
             StickPlayerToGround();
 
-            playerController.rb.AddForce(playerController.MovementVector.normalized * playerController.PlayerSpeed * Time.fixedDeltaTime , ForceMode.VelocityChange);
+            playerController.rb.AddForce(playerController.MovementVector.normalized * playerController.PlayerSpeed, ForceMode.VelocityChange);
         }
 
         private void StickPlayerToGround()
@@ -56,7 +56,7 @@ namespace jbzdy.Player
 
         private void UpdateCharacterRotation()
         {
-            if (playerController.MovementVector.magnitude == 0 || playerController.CharacterAnimator.GetBool("Attack") == true) return;
+            if (playerController.MovementVector.magnitude == 0 || playerController.CharacterAnimator.GetBool(StringAnimatorParameters.AttackParam)) return;
 
             var rotation = Quaternion.LookRotation(playerController.MovementVector);
             playerController.transform.rotation = rotation;
@@ -66,11 +66,11 @@ namespace jbzdy.Player
         {
             if (playerController.MovementVector.z != 0 || playerController.MovementVector.x != 0)
             {
-                playerController.CharacterAnimator.SetBool("Run", true);
+                playerController.CharacterAnimator.SetBool(StringAnimatorParameters.RunParam, true);
             }
             else
             {
-                playerController.CharacterAnimator.SetBool("Run", false);
+                playerController.CharacterAnimator.SetBool(StringAnimatorParameters.RunParam, false);
             }
         }
     } 

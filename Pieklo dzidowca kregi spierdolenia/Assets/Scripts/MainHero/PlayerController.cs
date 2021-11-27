@@ -1,5 +1,6 @@
 using jbzdy.CharacterStats;
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -9,12 +10,18 @@ using UnityEngine.Serialization;
 
 namespace jbzdy.Player
 {
+    public struct StringAnimatorParameters
+    {
+        public static string AttackParam => "Attack";
+        public static string AttackInProgressParam => "Attacking animation in progress";
+        public static string RunParam => "Run";
+    }
+    
     public class PlayerController : MonoBehaviour, IDamageable
     {
         private PlayerStats playerStats;
         private PlayerMovementController playerMovementController;
         public PlayerAttackController playerAttackController;
-        private Vector3 movementVector;
 
         [SerializeField]
         private float playerSpeed = 200f;
@@ -26,16 +33,19 @@ namespace jbzdy.Player
         private bool canPlayerMoveWithKeyboard = true;
         [SerializeField]
         private bool isAttacking;
+
         [SerializeField] 
         private float dashAttackMovePower;
-            
-        public Animator CharacterAnimator { get; set; }
-        public Rigidbody rb { get; set; }
+
+        public Animator CharacterAnimator { get; private set; }
+        public Rigidbody rb { get; private set; }
+        public Vector3 MovementVector { get; set; }
+
         public int MaximumHealth { get => maximumHealth; private set => maximumHealth = value; }
         public int CurrentHealth { get => currentHealth; private set => currentHealth = value; }
         public bool CanPlayerMoveWithKeyboard { get => canPlayerMoveWithKeyboard; set => canPlayerMoveWithKeyboard = value; }
         public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
-        public Vector3 MovementVector { get => movementVector; set => movementVector = value; }
+
         public float PlayerSpeed { get => playerSpeed; set => playerSpeed = value; }
         public float DashAttackMovePower { get => dashAttackMovePower; set => dashAttackMovePower = value; }
 
@@ -43,7 +53,8 @@ namespace jbzdy.Player
         {
             CharacterAnimator = GetComponentInChildren<Animator>();
             if (CharacterAnimator == null) Debug.Log("nie znaleziono animatora w postaci gracza");
-
+            AnimatorParametersCheck();
+            
             rb = GetComponent<Rigidbody>();
             playerStats = GetComponent<PlayerStats>();
 
@@ -61,6 +72,16 @@ namespace jbzdy.Player
             playerAttackController.UpdateCharacterAttack();
         }
 
+        private void AnimatorParametersCheck()
+        {
+            if(CharacterAnimator.parameters.Any(x => x.name == StringAnimatorParameters.AttackParam) == false) 
+                Debug.Log("Blad w nazwie parametru atakowania");
+            if(CharacterAnimator.parameters.Any(x => x.name == StringAnimatorParameters.AttackInProgressParam) == false)
+                Debug.Log("Blad w nazwie parametru progresu animacji atakowania");
+            if(CharacterAnimator.parameters.Any(x => x.name == StringAnimatorParameters.RunParam) == false)
+                Debug.Log("Blad w nazwie parametru biegania");
+        }
+        
         public void SetDamage(int damageAmount, DamageType damageType)
         {
             playerStats.Health.BaseValue -= damageAmount;

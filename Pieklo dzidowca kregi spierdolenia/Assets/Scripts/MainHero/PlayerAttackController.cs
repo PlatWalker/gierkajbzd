@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 /// <summary>
 /// by SilverWalker
@@ -28,15 +29,16 @@ namespace jbzdy.Player
 
             if (playerController.IsAttacking)
             {
-                if (playerController.CharacterAnimator.GetBool("Attacking animation in progress") == false)
+                if (playerController.CharacterAnimator.GetBool(StringAnimatorParameters.AttackInProgressParam) == false)
                 {
                     Vector3 flatVector = GameManager.Instance.GameInputController.mousePositionFlat;
                     flatVector.y = playerController.transform.position.y;
                     playerController.transform.LookAt(flatVector);
                 }
-
+                
                 playerController.CanPlayerMoveWithKeyboard = false;
-                playerController.CharacterAnimator.SetBool("Attack", true);
+                playerController.CharacterAnimator.SetBool(StringAnimatorParameters.AttackParam, true);
+
             }
 
         }
