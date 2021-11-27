@@ -25,7 +25,7 @@ namespace jbzdy.Player
                     animator.SetBool(StringAnimatorParameters.AttackInProgressParam, true);
                     if (stateInfo.IsName("Atk1") || stateInfo.IsName("Atk2") || stateInfo.IsName("Atk3") || stateInfo.IsName("Atk4"))
                     {
-                        playerController.playerAttackController.DashAttackMove();
+                        playerController.nextFrameDash = true;
                     }
                 }
 

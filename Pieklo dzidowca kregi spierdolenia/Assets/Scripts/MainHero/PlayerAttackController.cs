@@ -16,13 +16,6 @@ namespace jbzdy.Player
             playerController = _playerController;
         }
 
-        public void DashAttackMove()
-        {
-            Vector3 dashVector = GameManager.Instance.GameInputController.mousePositionFlat - playerController.transform.position;
-            
-            playerController.rb.AddForce(dashVector.normalized * playerController.DashAttackMovePower * Time.fixedDeltaTime , ForceMode.Impulse);
-        }
-        
         public void UpdateCharacterAttack()
         {
             playerController.IsAttacking = GameManager.Instance.GameInputController.attackInputStatus.basic;

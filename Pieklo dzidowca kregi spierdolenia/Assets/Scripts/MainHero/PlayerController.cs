@@ -20,8 +20,10 @@ namespace jbzdy.Player
     public class PlayerController : MonoBehaviour, IDamageable
     {
         private PlayerStats playerStats;
-        private PlayerMovementController playerMovementController;
-        public PlayerAttackController playerAttackController;
+        public PlayerMovementController playerMovementController;
+        private PlayerAttackController playerAttackController;
+
+        public bool nextFrameDash = false;
 
         [SerializeField]
         private float playerSpeed = 200f;
@@ -45,7 +47,6 @@ namespace jbzdy.Player
         public int CurrentHealth { get => currentHealth; private set => currentHealth = value; }
         public bool CanPlayerMoveWithKeyboard { get => canPlayerMoveWithKeyboard; set => canPlayerMoveWithKeyboard = value; }
         public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
-
         public float PlayerSpeed { get => playerSpeed; set => playerSpeed = value; }
         public float DashAttackMovePower { get => dashAttackMovePower; set => dashAttackMovePower = value; }
 
