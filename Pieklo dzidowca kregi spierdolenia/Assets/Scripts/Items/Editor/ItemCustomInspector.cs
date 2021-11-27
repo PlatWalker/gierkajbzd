@@ -2,7 +2,9 @@
 using jbzdy.Items.Enums;
 using UnityEngine;
 using UnityEditor;
+#if UNITY_EDITOR
 using UnityEditor.SceneManagement;
+#endif
 
 namespace jbzdy.Inventory.Editors
 {
