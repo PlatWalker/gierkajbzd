@@ -5,7 +5,7 @@ using jbzdy.Actions.Interaction;
 [System.Serializable]
 public class TalkGoal : QuestGoal
 {
-    public GameObject npc { get; set; }
+    public GameObject npc;
 
     public override void Init()
     {

@@ -36,7 +36,7 @@ public class QuestEditor : Editor
         EditorGUILayout.Space(50);
         AddTask();
         SaveQuest();
-
+        EditorUtility.SetDirty(quest);
         serializedObject.ApplyModifiedProperties();
     }
 

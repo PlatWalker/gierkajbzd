@@ -5,8 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class EscortGoal : QuestGoal
 {
-    public GameObject npc { get; set; }
-    public GameObject place { get; set; }
+    public GameObject npc;
+    public GameObject place;
 
     public override void Init()
     {

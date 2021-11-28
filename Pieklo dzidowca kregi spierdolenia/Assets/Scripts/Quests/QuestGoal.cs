@@ -5,9 +5,9 @@ using UnityEngine;
 public class QuestGoal : ScriptableObject 
 {
 
-    public string Description { get; set; }
+    public string Description;
     public bool Completed { get; set; }
-    public int requiredAmount { get; set; } = 1;
+    public int requiredAmount = 1;
     public int currentAmount { get; set; }
 
     public virtual void Init()

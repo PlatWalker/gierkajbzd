@@ -5,7 +5,7 @@ using jbzdy.Actions.Interaction;
 [System.Serializable]
 public class PlaceGoal : QuestGoal
 {
-    public GameObject place { get; set; }
+    public GameObject place;
 
     public override void Init()
     {

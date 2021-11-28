@@ -6,7 +6,7 @@ using jbzdy.Inventory;
 [System.Serializable]
 public class ItemGoal : QuestGoal
 {
-    public Item item { get; set; }
+    public Item item;
     private InventoryClass inventory;
 
     public override void Init()

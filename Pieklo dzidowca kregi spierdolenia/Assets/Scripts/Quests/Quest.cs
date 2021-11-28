@@ -8,14 +8,14 @@ public class Quest : ScriptableObject
     public bool isActive { get; set; }
     public bool isCompleted { get; set; }
 
-    public string title { get; set; }
-    public string description { get; set; }
-    public int expReward { get; set; }
-    public int goldReward { get; set; }
+    public string title;
+    public string description;
+    public int expReward;
+    public int goldReward;
 
     public List<Task> tasks = new List<Task>();
 
-    public int currentTask = 0;
+    public int currentTask { get; set; } = 0;
 
     [System.Serializable]
     public class Task

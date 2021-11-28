@@ -185,10 +185,12 @@ public class QuestLog_UI : MonoBehaviour
 
         ShowTaskDetails(quest);
 
-        questDescriptionText.rectTransform.sizeDelta = new Vector2(0, - questDescriptionText.preferredHeight - 10);
-        rewardsContent.anchoredPosition = new Vector2(0, questDescriptionText.rectTransform.sizeDelta.y - 50);
+
+        questDescriptionText.rectTransform.sizeDelta = new Vector2(0, -questNameText.preferredHeight - 50); //gora
+        rewardsContent.anchoredPosition = new Vector2(0, -(questDescriptionText.preferredHeight) * 0.66f); //dol
         rewards.anchoredPosition = new Vector2(0, - quest.tasks[quest.currentTask].goals.Count * 10);
-        questDescription.sizeDelta = new Vector2(0,  - questDescriptionText.rectTransform.sizeDelta.y - rewardsContent.sizeDelta.y + 70);
+        questDescription.sizeDelta = new Vector2(0,  questDescriptionText.preferredHeight - rewardsContent.rect.y + questNameText.preferredHeight);
+
     }
 
     private void ShowTaskDetails(Quest quest)

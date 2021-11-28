@@ -5,7 +5,7 @@ using UnityEditor;
 [System.Serializable]
 public class KillGoal : QuestGoal
 {
-    public GameObject enemy { get; set; }
+    public GameObject enemy;
 
     public override void Init()
     {
