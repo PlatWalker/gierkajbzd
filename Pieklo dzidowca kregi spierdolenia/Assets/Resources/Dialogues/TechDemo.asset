@@ -13,12 +13,16 @@ MonoBehaviour:
   m_Name: TechDemo
   m_EditorClassIdentifier: 
   NodeLinkDatas:
-  - BaseNodeGuid: 509f3269-a69e-4842-8a5f-91f4ba8c38f2
-    TargetNodeGuid: 7552a629-1e55-4fa1-a157-5b294bfdede4
-  - BaseNodeGuid: 7552a629-1e55-4fa1-a157-5b294bfdede4
-    TargetNodeGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
   - BaseNodeGuid: 46ebefa0-f2f3-4c01-8439-126cbb325bd0
     TargetNodeGuid: 04fbf78b-4856-4f93-9897-f091824ec848
+  - BaseNodeGuid: 04fbf78b-4856-4f93-9897-f091824ec848
+    TargetNodeGuid: 10706204-dd17-43fe-bdee-60565adcce3d
+  - BaseNodeGuid: 10706204-dd17-43fe-bdee-60565adcce3d
+    TargetNodeGuid: 3114332d-9d9c-4d34-9304-e6fd562d7c49
+  - BaseNodeGuid: 10706204-dd17-43fe-bdee-60565adcce3d
+    TargetNodeGuid: 2c61969d-1c0b-43f3-afef-d00a3393e09a
+  - BaseNodeGuid: 2c61969d-1c0b-43f3-afef-d00a3393e09a
+    TargetNodeGuid: 58ed7697-f9c5-45c4-b0b8-489aa51da8bc
   - BaseNodeGuid: 3114332d-9d9c-4d34-9304-e6fd562d7c49
     TargetNodeGuid: 108db268-3f81-4110-b55c-a090ce946f0b
   - BaseNodeGuid: 38839bc5-30fb-4deb-93c9-ade8a8aef393
@@ -33,6 +37,8 @@ MonoBehaviour:
     TargetNodeGuid: 665972de-02c5-4c10-ac2d-c93c854bcda9
   - BaseNodeGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
     TargetNodeGuid: c433a069-8f65-4abc-bc4a-b8611b487b08
+  - BaseNodeGuid: 665972de-02c5-4c10-ac2d-c93c854bcda9
+    TargetNodeGuid: 14958ede-3c6a-49f8-9ed7-4a431fabfe73
   - BaseNodeGuid: 14958ede-3c6a-49f8-9ed7-4a431fabfe73
     TargetNodeGuid: fca14536-2a80-41ba-b60a-6370697e6f5b
   - BaseNodeGuid: ca467e0c-6158-4b71-98ee-798ec276293e
@@ -45,16 +51,8 @@ MonoBehaviour:
     TargetNodeGuid: 10d75fb1-4cf7-41d9-8ca3-552dcbaf628a
   - BaseNodeGuid: 10d75fb1-4cf7-41d9-8ca3-552dcbaf628a
     TargetNodeGuid: 02364c6f-d91b-4143-9c53-b99b7f8ee6d2
-  - BaseNodeGuid: 665972de-02c5-4c10-ac2d-c93c854bcda9
-    TargetNodeGuid: 14958ede-3c6a-49f8-9ed7-4a431fabfe73
-  - BaseNodeGuid: 04fbf78b-4856-4f93-9897-f091824ec848
-    TargetNodeGuid: 10706204-dd17-43fe-bdee-60565adcce3d
-  - BaseNodeGuid: 10706204-dd17-43fe-bdee-60565adcce3d
-    TargetNodeGuid: 2c61969d-1c0b-43f3-afef-d00a3393e09a
-  - BaseNodeGuid: 10706204-dd17-43fe-bdee-60565adcce3d
-    TargetNodeGuid: 3114332d-9d9c-4d34-9304-e6fd562d7c49
-  - BaseNodeGuid: 2c61969d-1c0b-43f3-afef-d00a3393e09a
-    TargetNodeGuid: 58ed7697-f9c5-45c4-b0b8-489aa51da8bc
+  - BaseNodeGuid: 509f3269-a69e-4842-8a5f-91f4ba8c38f2
+    TargetNodeGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
   DialogueNodeDatas:
   - NodeGuid: 46ebefa0-f2f3-4c01-8439-126cbb325bd0
     Position: {x: 3178, y: 117}
@@ -382,47 +380,6 @@ MonoBehaviour:
     npcSprite: {fileID: 21300000, guid: 9411f6287a8b85f4d832feccdae045cf, type: 3}
     playerSprite: {fileID: 21300000, guid: 775f41285594d5240af8acba4bd130e5, type: 3}
     Name: Chlor
-  - NodeGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
-    Position: {x: -169, y: 194}
-    DialogueNodePorts:
-    - PortGuid: 6aa5050c-b254-4176-8987-38641b9eb0d1
-      InputGuid: 665972de-02c5-4c10-ac2d-c93c854bcda9
-      OutputGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
-      TextLanguages:
-      - LanguageType: 0
-        LanguageGenericType: "S\u0142ucham, o co chodzi? "
-      - LanguageType: 1
-        LanguageGenericType: Continue
-      - LanguageType: 2
-        LanguageGenericType: Continue
-    - PortGuid: 8a47692b-d75e-4737-9d68-ea2be645ab70
-      InputGuid: c433a069-8f65-4abc-bc4a-b8611b487b08
-      OutputGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
-      TextLanguages:
-      - LanguageType: 0
-        LanguageGenericType: Nie mam teraz czasu
-      - LanguageType: 1
-        LanguageGenericType: Continue
-      - LanguageType: 2
-        LanguageGenericType: Continue
-    AudioClips:
-    - LanguageType: 0
-      LanguageGenericType: {fileID: 0}
-    - LanguageType: 1
-      LanguageGenericType: {fileID: 0}
-    - LanguageType: 2
-      LanguageGenericType: {fileID: 0}
-    TextLanguages:
-    - LanguageType: 0
-      LanguageGenericType: "Panie kierowniku z\u0142oty, dzie\u0144 dobry. Mog\u0119
-        o co\u015B zapyta\u0107? "
-    - LanguageType: 1
-      LanguageGenericType: 
-    - LanguageType: 2
-      LanguageGenericType: 
-    npcSprite: {fileID: 21300000, guid: 775f41285594d5240af8acba4bd130e5, type: 3}
-    playerSprite: {fileID: 21300000, guid: 9411f6287a8b85f4d832feccdae045cf, type: 3}
-    Name: Chlor
   - NodeGuid: 665972de-02c5-4c10-ac2d-c93c854bcda9
     Position: {x: 232, y: 5}
     DialogueNodePorts:
@@ -698,6 +655,47 @@ MonoBehaviour:
     npcSprite: {fileID: 21300000, guid: 9411f6287a8b85f4d832feccdae045cf, type: 3}
     playerSprite: {fileID: 21300000, guid: 775f41285594d5240af8acba4bd130e5, type: 3}
     Name: Chlor
+  - NodeGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
+    Position: {x: -169, y: 194}
+    DialogueNodePorts:
+    - PortGuid: 6aa5050c-b254-4176-8987-38641b9eb0d1
+      InputGuid: 665972de-02c5-4c10-ac2d-c93c854bcda9
+      OutputGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
+      TextLanguages:
+      - LanguageType: 0
+        LanguageGenericType: "S\u0142ucham, o co chodzi? "
+      - LanguageType: 1
+        LanguageGenericType: Continue
+      - LanguageType: 2
+        LanguageGenericType: Continue
+    - PortGuid: 8a47692b-d75e-4737-9d68-ea2be645ab70
+      InputGuid: c433a069-8f65-4abc-bc4a-b8611b487b08
+      OutputGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
+      TextLanguages:
+      - LanguageType: 0
+        LanguageGenericType: Nie mam teraz czasu
+      - LanguageType: 1
+        LanguageGenericType: Continue
+      - LanguageType: 2
+        LanguageGenericType: Continue
+    AudioClips:
+    - LanguageType: 0
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 1
+      LanguageGenericType: {fileID: 0}
+    - LanguageType: 2
+      LanguageGenericType: {fileID: 0}
+    TextLanguages:
+    - LanguageType: 0
+      LanguageGenericType: "Panie kierowniku z\u0142oty, dzie\u0144 dobry. Mog\u0119
+        o co\u015B zapyta\u0107? "
+    - LanguageType: 1
+      LanguageGenericType: 
+    - LanguageType: 2
+      LanguageGenericType: 
+    npcSprite: {fileID: 21300000, guid: 775f41285594d5240af8acba4bd130e5, type: 3}
+    playerSprite: {fileID: 21300000, guid: 9411f6287a8b85f4d832feccdae045cf, type: 3}
+    Name: Chlor
   EndNodeDatas:
   - NodeGuid: 58ed7697-f9c5-45c4-b0b8-489aa51da8bc
     Position: {x: 7993, y: 212}
@@ -719,9 +717,4 @@ MonoBehaviour:
     Position: {x: -583, y: 205}
   EventNodeDatas: []
   StatCheckNodeDatas: []
-  ItemCheckNodeDatas:
-  - NodeGuid: 7552a629-1e55-4fa1-a157-5b294bfdede4
-    Position: {x: -406, y: 204}
-    ItemCheckType: 0
-    ItemCheckValue: 1
-    NodeItem: {fileID: 3598622408037474087, guid: f31b85d2fb0f58f4e81c3690d3df6789, type: 3}
+  ItemCheckNodeDatas: []
