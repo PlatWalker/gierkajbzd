@@ -51,10 +51,10 @@ namespace jbzdy.Player
 
         private void UpdateCharacterRotation(Vector3 lookDirection)
         {
-            if (lookDirection.magnitude == 0  || playerController.CharacterAnimator.GetBool(StringAnimatorParameters.AttackParam)) return;
-            Debug.Log("check");
+            if (lookDirection.magnitude == 0) return;
+            
             var rotation = Quaternion.LookRotation(lookDirection);
-            Debug.Log(rotation.eulerAngles);
+            
             playerController.transform.rotation = rotation;
         }
 
@@ -82,27 +82,16 @@ namespace jbzdy.Player
                 playerController.rb.MovePosition(newPositionVector);
             }
         }
-        
-        public void DashAttackMove()
+
+        private void DashAttackMove()
         {
             Vector3 dashVector = GameManager.Instance.GameInputController.mousePositionFlat - playerController.transform.position;
-
-            test(dashVector.normalized);
             
+            UpdateCharacterRotation(dashVector.normalized);
+
             playerController.rb.AddForce(dashVector.normalized * playerController.DashAttackMovePower , ForceMode.Impulse);
             
             StickPlayerToGround();
-        }
-        
-        private void test(Vector3 lookDirection)
-        {
-            if (lookDirection.magnitude == 0) return;
-            
-            Quaternion rotation = Quaternion.LookRotation(lookDirection);
-            Debug.Log("kekek");
-            Debug.Log(rotation.eulerAngles);
-            playerController.transform.rotation = rotation;
-            //Debug.Log(playerController.transform.rotation);
         }
     } 
 }

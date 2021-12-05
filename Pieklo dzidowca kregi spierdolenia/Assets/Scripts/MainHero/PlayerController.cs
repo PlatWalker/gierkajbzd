@@ -20,9 +20,10 @@ namespace jbzdy.Player
     public class PlayerController : MonoBehaviour, IDamageable
     {
         private PlayerStats playerStats;
-        public PlayerMovementController playerMovementController;
+        private PlayerMovementController playerMovementController;
         private PlayerAttackController playerAttackController;
-
+        
+        [HideInInspector]
         public bool nextFrameDash = false;
 
         [SerializeField]
