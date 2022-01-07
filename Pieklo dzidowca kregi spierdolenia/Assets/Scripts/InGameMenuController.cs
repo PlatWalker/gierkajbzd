@@ -11,7 +11,7 @@ namespace jbzdy.UI
         [SerializeField]
         private GameObject panel;
 
-        float savedTimeScale;
+        private float savedTimeScale;
 
         public void QuitToMainMenu()
         {
