@@ -12,17 +12,20 @@ namespace jbzdy.DialogueSystem.Events
     [CreateAssetMenu(menuName = "Dialogue/New Quest Event", fileName = "Quest Event")]
     public class EventGetQuest : DialogueEventSO
     {
-        public string questName;
+        private Quest quest;
 
         public override void RunEvent()
         {
             base.RunEvent();
-            GetQuest();
+            quest.GetQuest();
         }
 
-        private void GetQuest()
+        public override void RunEvent(Object questSO)
         {
-            Debug.Log("Nowy quest:" +questName);
+            quest = (Quest)questSO;
+            base.RunEvent();
+            quest.GetQuest();
         }
+
     }
 }

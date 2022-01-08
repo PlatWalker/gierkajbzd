@@ -13,9 +13,12 @@ namespace jbzdy.DialogueSystem.Nodes
     {
         private DialogueEventSO dialogueEvent;
         private ObjectField objectField;
+        private Quest quest;
+        private ObjectField questField;
         private StatCheckType checkType = StatCheckType.Exp;
 
         public DialogueEventSO DialogueEvent { get => dialogueEvent; set => dialogueEvent = value; }
+        public Quest Quest { get => quest; set => quest = value; }
         public StatCheckType CheckType { get => checkType; set => checkType = value; }
 
         public EventNode()
@@ -48,15 +51,43 @@ namespace jbzdy.DialogueSystem.Nodes
             objectField.RegisterValueChangedCallback(value =>
             {
                 dialogueEvent = objectField.value as DialogueEventSO;
+                if (dialogueEvent.GetType() == typeof(jbzdy.DialogueSystem.Events.EventGetQuest))
+                    MakeQuest();
+                else if (questField != null)
+                {               
+                    mainContainer.Remove(questField);
+                    questField = null;
+                }
+                
             });
 
             objectField.SetValueWithoutNotify(dialogueEvent);
             mainContainer.Add(objectField);
+
         }
 
         public override void LoadValueInToField()
         {
             objectField.SetValueWithoutNotify(dialogueEvent);
+
+            if(questField != null) questField.SetValueWithoutNotify(quest);
+        }
+
+        public void MakeQuest()
+        {
+            questField = new ObjectField
+            {
+                label = "Quest: ",
+                objectType = typeof(Quest),
+                allowSceneObjects = false,
+                value = quest,
+            };
+            questField.RegisterValueChangedCallback(value =>
+            {
+                quest = questField.value as Quest;
+            });
+            questField.SetValueWithoutNotify(quest);
+            mainContainer.Add(questField);
         }
     }   
 }

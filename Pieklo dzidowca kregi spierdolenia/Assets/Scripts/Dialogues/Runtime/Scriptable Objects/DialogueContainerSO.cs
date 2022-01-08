@@ -82,6 +82,7 @@ namespace jbzdy.DialogueSystem.SO
     public class EventNodeData : BaseNodeData
     {
         public DialogueEventSO DialogueEventSO;
+        public Quest QuestSO;
     }
 
     [System.Serializable]
