@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: TechDemo
   m_EditorClassIdentifier: 
   NodeLinkDatas:
+  - BaseNodeGuid: 509f3269-a69e-4842-8a5f-91f4ba8c38f2
+    TargetNodeGuid: db5c2a29-7327-4411-8423-d8eb78559ab3
+  - BaseNodeGuid: db5c2a29-7327-4411-8423-d8eb78559ab3
+    TargetNodeGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
   - BaseNodeGuid: 46ebefa0-f2f3-4c01-8439-126cbb325bd0
     TargetNodeGuid: 04fbf78b-4856-4f93-9897-f091824ec848
   - BaseNodeGuid: 04fbf78b-4856-4f93-9897-f091824ec848
@@ -33,10 +37,6 @@ MonoBehaviour:
     TargetNodeGuid: 46ebefa0-f2f3-4c01-8439-126cbb325bd0
   - BaseNodeGuid: c433a069-8f65-4abc-bc4a-b8611b487b08
     TargetNodeGuid: 38839bc5-30fb-4deb-93c9-ade8a8aef393
-  - BaseNodeGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
-    TargetNodeGuid: 665972de-02c5-4c10-ac2d-c93c854bcda9
-  - BaseNodeGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
-    TargetNodeGuid: c433a069-8f65-4abc-bc4a-b8611b487b08
   - BaseNodeGuid: 665972de-02c5-4c10-ac2d-c93c854bcda9
     TargetNodeGuid: 14958ede-3c6a-49f8-9ed7-4a431fabfe73
   - BaseNodeGuid: 14958ede-3c6a-49f8-9ed7-4a431fabfe73
@@ -51,8 +51,10 @@ MonoBehaviour:
     TargetNodeGuid: 10d75fb1-4cf7-41d9-8ca3-552dcbaf628a
   - BaseNodeGuid: 10d75fb1-4cf7-41d9-8ca3-552dcbaf628a
     TargetNodeGuid: 02364c6f-d91b-4143-9c53-b99b7f8ee6d2
-  - BaseNodeGuid: 509f3269-a69e-4842-8a5f-91f4ba8c38f2
-    TargetNodeGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
+  - BaseNodeGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
+    TargetNodeGuid: 665972de-02c5-4c10-ac2d-c93c854bcda9
+  - BaseNodeGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
+    TargetNodeGuid: c433a069-8f65-4abc-bc4a-b8611b487b08
   DialogueNodeDatas:
   - NodeGuid: 46ebefa0-f2f3-4c01-8439-126cbb325bd0
     Position: {x: 3178, y: 117}
@@ -717,4 +719,9 @@ MonoBehaviour:
     Position: {x: -583, y: 205}
   EventNodeDatas: []
   StatCheckNodeDatas: []
-  ItemCheckNodeDatas: []
+  ItemCheckNodeDatas:
+  - NodeGuid: db5c2a29-7327-4411-8423-d8eb78559ab3
+    Position: {x: -437, y: 338}
+    ItemCheckType: 1
+    ItemCheckValue: 1
+    NodeItem: {fileID: 0}
