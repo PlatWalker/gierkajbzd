@@ -14,7 +14,10 @@ namespace jbzdy.Actions.Interaction
 
         public InteractionZone InteractionZone { get => interactionZone; set => interactionZone = value; }
         public bool IsInteracting { get => isInteracting; set => isInteracting = value; }
-        
+
+        public delegate void Interacted(GameObject gameObject);
+        public static event Interacted OnInteraction;
+
         public void Awake()
         {
             interactionZone = GetComponentInChildren<InteractionZone>();
@@ -34,7 +37,7 @@ namespace jbzdy.Actions.Interaction
 
         public virtual void Interact()
         {
-
+            OnInteraction?.Invoke(this.gameObject);
         }
 
         public virtual void StopInteract()
