@@ -6,6 +6,8 @@
 
 namespace jbzdy.Player
 {
+    //TODO refactr, komunikacja powinna odbywac sie na zasadzie pobierania stanow przez player controller z tej klasy
+    // w tej chwili wbplywamy na wartosci klasy nadrzednej lamiac zasady SOLID
     public class MainHeroBehaviour : StateMachineBehaviour
     {
         private PlayerController playerController;
@@ -23,9 +25,11 @@ namespace jbzdy.Player
                 else
                 {
                     animator.SetBool(StringAnimatorParameters.AttackInProgressParam, true);
+                    
                     if (stateInfo.IsName("Atk1") || stateInfo.IsName("Atk2") || stateInfo.IsName("Atk3") || stateInfo.IsName("Atk4"))
                     {
                         playerController.nextFrameDash = true;
+                        playerController.lengthOfCurrentAttackAnimation = stateInfo.length;
                     }
                 }
 

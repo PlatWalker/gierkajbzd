@@ -12,7 +12,9 @@ namespace jbzdy.Player
     {
         private readonly PlayerController playerController;
         private Vector3 newPositionVector;
-
+        
+        private Vector3 velocity = Vector3.zero;
+        
         public PlayerMovementController(PlayerController _playerController)
         {
             playerController = _playerController;
@@ -90,6 +92,8 @@ namespace jbzdy.Player
             UpdateCharacterRotation(dashVector.normalized);
 
             playerController.rb.AddForce(dashVector.normalized * playerController.DashAttackMovePower , ForceMode.Impulse);
+            
+            
             
             StickPlayerToGround();
         }

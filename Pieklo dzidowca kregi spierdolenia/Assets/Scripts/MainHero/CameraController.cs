@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public float smoothSpeed = 0.125f;
+    public float smoothSpeed = 0.05f;
     private Vector3 offset;
     private GameObject player;
     private Vector3 velocity = Vector3.zero;
@@ -24,7 +24,5 @@ public class CameraController : MonoBehaviour
         Vector3 desiredPosition = player.transform.position + offset;
         Vector3 smoothedPosition = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothSpeed);
         transform.position = smoothedPosition;
-
-        //transform.position = player.transform.position + offset;
     }
 }

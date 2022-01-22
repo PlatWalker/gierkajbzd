@@ -1,5 +1,6 @@
 using jbzdy.CharacterStats;
 using System;
+using System.Data.SqlTypes;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -19,12 +20,15 @@ namespace jbzdy.Player
     
     public class PlayerController : MonoBehaviour, IDamageable
     {
+        //TODO trzeba zaimplementowac "inversion of controll" dla movement oraz combat controllera oraz pattern state machine
         private PlayerStats playerStats;
         private PlayerMovementController playerMovementController;
         private PlayerAttackController playerAttackController;
         
         [HideInInspector]
         public bool nextFrameDash = false;
+        [HideInInspector]
+        public float lengthOfCurrentAttackAnimation;
 
         [SerializeField]
         private float playerSpeed = 200f;
@@ -37,13 +41,15 @@ namespace jbzdy.Player
         [SerializeField]
         private bool isAttacking;
 
-        [SerializeField] 
-        private float dashAttackMovePower;
-
+        public float segz = 0;
+        
+        public float dashAttackMovePower;
+        public float dashAttackLength;
+        
         public Animator CharacterAnimator { get; private set; }
         public Rigidbody rb { get; private set; }
         public Vector3 MovementVector { get; set; }
-
+        
         public int MaximumHealth { get => maximumHealth; private set => maximumHealth = value; }
         public int CurrentHealth { get => currentHealth; private set => currentHealth = value; }
         public bool CanPlayerMoveWithKeyboard { get => canPlayerMoveWithKeyboard; set => canPlayerMoveWithKeyboard = value; }
