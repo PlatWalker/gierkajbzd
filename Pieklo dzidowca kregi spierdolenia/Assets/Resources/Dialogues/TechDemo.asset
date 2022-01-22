@@ -13,10 +13,6 @@ MonoBehaviour:
   m_Name: TechDemo
   m_EditorClassIdentifier: 
   NodeLinkDatas:
-  - BaseNodeGuid: 509f3269-a69e-4842-8a5f-91f4ba8c38f2
-    TargetNodeGuid: db5c2a29-7327-4411-8423-d8eb78559ab3
-  - BaseNodeGuid: db5c2a29-7327-4411-8423-d8eb78559ab3
-    TargetNodeGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
   - BaseNodeGuid: 46ebefa0-f2f3-4c01-8439-126cbb325bd0
     TargetNodeGuid: 04fbf78b-4856-4f93-9897-f091824ec848
   - BaseNodeGuid: 04fbf78b-4856-4f93-9897-f091824ec848
@@ -55,6 +51,8 @@ MonoBehaviour:
     TargetNodeGuid: 665972de-02c5-4c10-ac2d-c93c854bcda9
   - BaseNodeGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
     TargetNodeGuid: c433a069-8f65-4abc-bc4a-b8611b487b08
+  - BaseNodeGuid: 509f3269-a69e-4842-8a5f-91f4ba8c38f2
+    TargetNodeGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
   DialogueNodeDatas:
   - NodeGuid: 46ebefa0-f2f3-4c01-8439-126cbb325bd0
     Position: {x: 3178, y: 117}
@@ -719,9 +717,4 @@ MonoBehaviour:
     Position: {x: -583, y: 205}
   EventNodeDatas: []
   StatCheckNodeDatas: []
-  ItemCheckNodeDatas:
-  - NodeGuid: db5c2a29-7327-4411-8423-d8eb78559ab3
-    Position: {x: -437, y: 338}
-    ItemCheckType: 1
-    ItemCheckValue: 1
-    NodeItem: {fileID: 0}
+  ItemCheckNodeDatas: []
