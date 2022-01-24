@@ -57,12 +57,17 @@ ModelImporter:
   - first:
       74: -5546214647322278957
     second: Armature_Mainchar|Run_Right
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: 205e4cd1dfaec304da867c83b3c949b1, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
     materialSearch: 1
-    materialLocation: 0
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
