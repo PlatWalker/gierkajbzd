@@ -332,7 +332,22 @@ namespace jbzdy.Inventory
 
             return false;
         }
-        
+
+        public int CheckItemAmount(Item itemToCheck)
+        {
+            int itemAmount = 0;
+
+            foreach (var item in inventoryItems)
+            {
+                if (item.item.itemID == itemToCheck.itemID)
+                {
+                    itemAmount += item.item.itemStackSize;
+                }
+            }
+
+            return itemAmount;
+        }
+
 
         // Use this method to drop items from inventory. This method is not destroys items
         public void DropItem(InventoryItem InventoryItem)

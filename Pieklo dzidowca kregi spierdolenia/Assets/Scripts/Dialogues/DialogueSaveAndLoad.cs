@@ -154,7 +154,8 @@ namespace jbzdy.DialogueSystem.SaveLoad
             {
                 NodeGuid = node.NodeGuid,
                 Position = node.GetPosition().position,
-                DialogueEventSO = node.DialogueEvent
+                DialogueEventSO = node.DialogueEvent,
+                QuestSO = node.Quest
             };
 
             return nodeData;
@@ -230,6 +231,12 @@ namespace jbzdy.DialogueSystem.SaveLoad
                 EventNode tempNode = graphView.CreateEventNode(node.Position);
                 tempNode.NodeGuid = node.NodeGuid;
                 tempNode.DialogueEvent = node.DialogueEventSO;
+                tempNode.Quest = node.QuestSO;
+
+                if(tempNode.Quest != null || (tempNode.DialogueEvent != null && tempNode.DialogueEvent.GetType() == typeof(jbzdy.DialogueSystem.Events.EventGetQuest)))
+                {
+                    tempNode.MakeQuest();
+                }
 
                 tempNode.LoadValueInToField();
                 graphView.AddElement(tempNode);

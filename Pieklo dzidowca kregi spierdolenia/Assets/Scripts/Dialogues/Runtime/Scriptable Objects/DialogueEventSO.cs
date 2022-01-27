@@ -14,5 +14,10 @@ namespace jbzdy.DialogueSystem.SO
         {
 
         }
+
+        public virtual void RunEvent(Object someObject)
+        {
+
+        }
     }
 }
