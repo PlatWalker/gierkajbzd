@@ -13,7 +13,7 @@ public class Quest : ScriptableObject
     public int expReward;
     public int goldReward;
 
-    public int level;
+    public int startAtLevel;
 
     public List<Task> tasks = new List<Task>();
 

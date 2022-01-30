@@ -24,7 +24,7 @@ public class QuestEditor : Editor
         serializedObject.Update();
 
         quest.title = EditorGUILayout.TextField("Tytuł", quest.title);
-        quest.level = EditorGUILayout.IntField("Krąg", quest.level);
+        quest.startAtLevel = EditorGUILayout.IntField("Krąg", quest.startAtLevel);
         EditorGUILayout.LabelField("Opis");
         quest.description = EditorGUILayout.TextArea(quest.description, GUILayout.Height(40));
         quest.expReward = EditorGUILayout.IntField("Ilość expa", quest.expReward);
