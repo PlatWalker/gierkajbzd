@@ -98,7 +98,8 @@ namespace jbzdy.DialogueSystem.Actions
         }  
         private void RunNode(EventNodeData nodeData)
         {
-            nodeData.DialogueEventSO.RunEvent();
+
+            nodeData.DialogueEventSO.RunEvent(nodeData.QuestSO);
 
             CheckNodeType(GetNextNode(nodeData));
         }

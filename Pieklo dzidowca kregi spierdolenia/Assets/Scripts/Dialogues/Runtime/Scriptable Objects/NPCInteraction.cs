@@ -11,12 +11,13 @@ namespace jbzdy.NPC.Interaction
     public class NPCInteraction : Interactable
     {
         [SerializeField] private List<DialogueContainerSO> NPCDialogues = new List<DialogueContainerSO>();
+        [SerializeField] private List<Quest> NPCQuests = new List<Quest>();
         private int interactionCounter = 0;
         
         private DialogueTalk dialogueTalk;
         private PlayerController player;
 
-        private new void Awake()
+        private void Start()
         {
             dialogueTalk = GetComponent<DialogueTalk>();
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
@@ -24,6 +25,15 @@ namespace jbzdy.NPC.Interaction
 
         public override void Interact()
         {
+            base.Interact();
+            foreach (Quest quest in NPCQuests)
+            {
+                if (quest.isActive)
+                {
+                    quest.UpdateQuest();
+                }
+            }
+
             if (interactionCounter >= NPCDialogues.Count)
             {
                 dialogueTalk.StartDialogue(NPCDialogues.Last());

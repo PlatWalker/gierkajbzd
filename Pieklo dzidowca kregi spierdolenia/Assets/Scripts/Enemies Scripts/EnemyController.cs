@@ -41,6 +41,9 @@ namespace jbzdy.Enemies
         [Header("Sounds")]
         protected EnemySoundController soundController;
 
+        public delegate void EnemyDied(EnemyController enemy);
+        public static event EnemyDied OnDeath;
+
 
         protected virtual void Start()
 		{
@@ -247,12 +250,15 @@ namespace jbzdy.Enemies
 				GoToPoint = transform.position;
 				MultiUseTimer = 0f;
 				MoveTo(transform.position, EnemyData.MovementSpeed, 1);
-			}
+                OnDeath?.Invoke(this);
+            }
 
 			MultiUseTimer += Time.deltaTime;
 			if (MultiUseTimer >= EnemyData.DisappearAfter) Destroy(this.gameObject);
 			easyAnimator.SetBooleanTrue("isDying");
-		}
+
+            
+        }
 
 		/// <summary>
 		/// Method which have to be called once per every frame update in every enemy controller which want to use the performace boost.
