@@ -20,10 +20,10 @@ namespace jbzdy.Player
     
     public class PlayerController : MonoBehaviour, IDamageable
     {
-        //TODO trzeba zaimplementowac "inversion of controll" dla movement oraz combat controllera oraz pattern state machine
+        //TODO trzeba zaimplementowac "inversion of control" dla movement oraz combat controllera oraz pattern state machine
         private PlayerStats playerStats;
         private PlayerMovementController playerMovementController;
-        private PlayerAttackController playerAttackController;
+        public PlayerAttackController playerAttackController;
         
         [HideInInspector]
         public bool nextFrameDash = false;

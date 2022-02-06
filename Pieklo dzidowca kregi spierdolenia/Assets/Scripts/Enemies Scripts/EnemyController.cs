@@ -239,9 +239,9 @@ namespace jbzdy.Enemies
         {
             if (EnemyAlive)
             {
-                if(soundController)
-                soundController.PlayDying();
-                Destroy(gameObject.GetComponent<Collider>());
+                if(soundController) soundController.PlayDying();
+                
+	            Destroy(gameObject.GetComponent<Collider>());
 				Destroy(gameObject.GetComponent<Rigidbody>());
 				EnemyAlive = false;
 				GoToPoint = transform.position;

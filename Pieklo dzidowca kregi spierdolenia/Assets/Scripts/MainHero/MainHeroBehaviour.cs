@@ -6,41 +6,46 @@
 
 namespace jbzdy.Player
 {
-    //TODO refactr, komunikacja powinna odbywac sie na zasadzie pobierania stanow przez player controller z tej klasy
-    // w tej chwili wbplywamy na wartosci klasy nadrzednej lamiac zasady SOLID
     public class MainHeroBehaviour : StateMachineBehaviour
     {
         private PlayerController playerController;
-        
+
+        bool isAttackAnimationPlaying(AnimatorStateInfo stateInfo) =>
+            stateInfo.IsName("Atk1") || stateInfo.IsName("Atk2") || stateInfo.IsName("Atk3") ||
+            stateInfo.IsName("Atk4");
+
+        bool isTransitionState(AnimatorStateInfo stateInfo) => stateInfo.IsName("Transition state");
+
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            playerController = GameManager.Instance.PlayerObject.GetComponent<PlayerController>();
+            if (playerController == null)
+                playerController = GameManager.Instance.PlayerObject.GetComponent<PlayerController>();
 
-            if (animator.GetLayerName(layerIndex) == "Attack") {
-                
-                if (stateInfo.IsName("Transition state"))
-                {
-                    playerController.CanPlayerMoveWithKeyboard = true;
-                }
-                else
-                {
-                    animator.SetBool(StringAnimatorParameters.AttackInProgressParam, true);
-                    
-                    if (stateInfo.IsName("Atk1") || stateInfo.IsName("Atk2") || stateInfo.IsName("Atk3") || stateInfo.IsName("Atk4"))
-                    {
-                        playerController.nextFrameDash = true;
-                        playerController.lengthOfCurrentAttackAnimation = stateInfo.length;
-                    }
-                }
-
-                animator.SetBool(StringAnimatorParameters.AttackParam, false);
+            if (isTransitionState(stateInfo))
+                playerController.CanPlayerMoveWithKeyboard = true;
+            
+            if (isAttackAnimationPlaying(stateInfo))
+            {
+                playerController.nextFrameDash = true;
+                playerController.lengthOfCurrentAttackAnimation = stateInfo.length;
+                animator.SetBool(StringAnimatorParameters.AttackInProgressParam, true);
             }
+
+            animator.SetBool(StringAnimatorParameters.AttackParam, false);
         }
 
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (animator.GetLayerName(layerIndex) == "Attack" && stateInfo.IsName("Transition state") == false) 
+            if (!isTransitionState(stateInfo)) 
                 animator.SetBool(StringAnimatorParameters.AttackParam, false);
+
+            if (isAttackAnimationPlaying(stateInfo))
+            {
+                animator.SetBool(StringAnimatorParameters.AttackInProgressParam, false);
+                playerController.playerAttackController.listOfEnemiesColliders.Clear();
+            }
+                
+            
         }
     }
 }

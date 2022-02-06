@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -10,7 +11,9 @@ namespace jbzdy.Player
     public class PlayerAttackController
     {
         private readonly PlayerController playerController;
-
+        
+        public List<Collider> listOfEnemiesColliders = new List<Collider>();
+        
         public PlayerAttackController(PlayerController _playerController)
         {
             playerController = _playerController;
@@ -22,12 +25,9 @@ namespace jbzdy.Player
 
             if (playerController.IsAttacking)
             {
-                if (playerController.CharacterAnimator.GetBool(StringAnimatorParameters.AttackInProgressParam) == false)
-                {
-                    Vector3 flatVector = GameManager.Instance.GameInputController.mousePositionFlat;
-                    flatVector.y = playerController.transform.position.y;
-                    playerController.transform.LookAt(flatVector);
-                }
+                Vector3 flatVector = GameManager.Instance.GameInputController.mousePositionFlat;
+                flatVector.y = playerController.transform.position.y;
+                playerController.transform.LookAt(flatVector);
                 
                 playerController.CanPlayerMoveWithKeyboard = false;
                 playerController.CharacterAnimator.SetBool(StringAnimatorParameters.AttackParam, true);

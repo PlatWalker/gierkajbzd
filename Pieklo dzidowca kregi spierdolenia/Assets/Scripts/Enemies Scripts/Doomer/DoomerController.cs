@@ -50,10 +50,9 @@ namespace jbzdy.Enemies
 			if(NavAgent) NavAgent.angularSpeed = EnemyData.RotationSpeed; // without this rotation speed change apply only on start
 			//there should go some code to check if values inserted in editor are correct
 		}
+		
 
-
-
-        override protected void Update()
+        protected override void Update()
         {
             CurrentAnimation = easyAnimator.GetCurrentTrueBoolean();//for debug purposes only (showing active animation in editor)
 
@@ -354,7 +353,7 @@ namespace jbzdy.Enemies
             }
         }
 
-        override public void SwitchAI()
+        public override void SwitchAI()
         {
             base.SwitchAI();
 
@@ -381,7 +380,7 @@ namespace jbzdy.Enemies
         }
 
 
-        override public void SetDamage(int damageAmount, DamageType damageType)
+        public override void SetDamage(int damageAmount, DamageType damageType)
         {
             if (!HasDoneAggro) HasDoneAggro = true;
 
