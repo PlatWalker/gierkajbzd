@@ -30,7 +30,6 @@ public class WeaponController : MonoBehaviour
         {
             hitObjectScript.SetDamage(damageAmount, typeOfDamage, CritMultiplier, CritChance);
             playerController.playerAttackController.listOfEnemiesColliders.Add(collidedObject);
-            Debug.Log("Attacc" + "<" + collidedObject.transform.name + ">");
         }
         /* Debug do refactoru
         else if (hitObjectScript != null)

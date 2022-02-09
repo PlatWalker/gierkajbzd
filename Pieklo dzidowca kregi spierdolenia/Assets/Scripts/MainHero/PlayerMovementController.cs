@@ -23,10 +23,10 @@ namespace jbzdy.Player
 
         public void UpdateCharacterMovement()
         {
-            if (playerController.nextFrameDash)
+            if (playerController.NextFrameDash)
             {
                 DashAttackMove();
-                playerController.nextFrameDash = false;
+                playerController.NextFrameDash = false;
                 return;
             }
             

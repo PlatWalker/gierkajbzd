@@ -26,8 +26,7 @@ namespace jbzdy.Player
             
             if (isAttackAnimationPlaying(stateInfo))
             {
-                playerController.nextFrameDash = true;
-                playerController.lengthOfCurrentAttackAnimation = stateInfo.length;
+                playerController.NextFrameDash = true;
                 animator.SetBool(StringAnimatorParameters.AttackInProgressParam, true);
             }
 

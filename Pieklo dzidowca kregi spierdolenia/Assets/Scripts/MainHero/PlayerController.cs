@@ -23,12 +23,9 @@ namespace jbzdy.Player
         //TODO trzeba zaimplementowac "inversion of control" dla movement oraz combat controllera oraz pattern state machine
         private PlayerStats playerStats;
         private PlayerMovementController playerMovementController;
-        public PlayerAttackController playerAttackController;
-        
-        [HideInInspector]
-        public bool nextFrameDash = false;
-        [HideInInspector]
-        public float lengthOfCurrentAttackAnimation;
+        public PlayerAttackController playerAttackController { get; private set; }
+
+        public bool NextFrameDash { get; set; }
 
         [SerializeField]
         private float playerSpeed = 200f;
@@ -41,11 +38,8 @@ namespace jbzdy.Player
         [SerializeField]
         private bool isAttacking;
 
-        public float segz = 0;
-        
-        public float dashAttackMovePower;
-        public float dashAttackLength;
-        
+        private float dashAttackMovePower;
+
         public Animator CharacterAnimator { get; private set; }
         public Rigidbody rb { get; private set; }
         public Vector3 MovementVector { get; set; }
@@ -60,7 +54,7 @@ namespace jbzdy.Player
         private void Start()
         {
             CharacterAnimator = GetComponentInChildren<Animator>();
-            if (CharacterAnimator == null) Debug.Log("nie znaleziono animatora w postaci gracza");
+            if (CharacterAnimator == null) Debug.Log("Nie znaleziono animatora w postaci gracza!");
             AnimatorParametersCheck();
             
             rb = GetComponent<Rigidbody>();
