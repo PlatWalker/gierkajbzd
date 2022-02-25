@@ -22,7 +22,7 @@ namespace jbzdy.Player
                 playerController = GameManager.Instance.PlayerObject.GetComponent<PlayerController>();
 
             if (isTransitionState(stateInfo))
-                playerController.CanPlayerMoveWithKeyboard = true;
+                playerController.CanPlayerMove = true;
             
             if (isAttackAnimationPlaying(stateInfo))
             {

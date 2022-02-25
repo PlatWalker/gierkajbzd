@@ -33,8 +33,8 @@ namespace jbzdy.Player
         private int maximumHealth;
         [SerializeField]
         private int currentHealth;
-        [SerializeField]
-        private bool canPlayerMoveWithKeyboard = true;
+        [FormerlySerializedAs("canPlayerMoveWithKeyboard")] [SerializeField]
+        private bool canPlayerMove = true;
         [SerializeField]
         private bool isAttacking;
 
@@ -46,7 +46,7 @@ namespace jbzdy.Player
         
         public int MaximumHealth { get => maximumHealth; private set => maximumHealth = value; }
         public int CurrentHealth { get => currentHealth; private set => currentHealth = value; }
-        public bool CanPlayerMoveWithKeyboard { get => canPlayerMoveWithKeyboard; set => canPlayerMoveWithKeyboard = value; }
+        public bool CanPlayerMove { get => canPlayerMove; set => canPlayerMove = value; } //TODO nie ma blokady myszki
         public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
         public float PlayerSpeed { get => playerSpeed; set => playerSpeed = value; }
         public float DashAttackMovePower { get => dashAttackMovePower; set => dashAttackMovePower = value; }

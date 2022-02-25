@@ -30,7 +30,7 @@ namespace jbzdy.Player
                 return;
             }
             
-            if (playerController.CanPlayerMoveWithKeyboard)
+            if (playerController.CanPlayerMove)
             {
                 UpdateCharacterPosition();
                 UpdateCharacterRotation(playerController.MovementVector);

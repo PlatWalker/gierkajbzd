@@ -29,7 +29,7 @@ namespace jbzdy.Player
                 flatVector.y = playerController.transform.position.y;
                 playerController.transform.LookAt(flatVector);
                 
-                playerController.CanPlayerMoveWithKeyboard = false;
+                playerController.CanPlayerMove = false;
                 playerController.CharacterAnimator.SetBool(StringAnimatorParameters.AttackParam, true);
 
             }

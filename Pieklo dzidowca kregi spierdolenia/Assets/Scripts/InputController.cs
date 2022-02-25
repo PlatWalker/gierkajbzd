@@ -69,7 +69,7 @@ public class InputController : KeyMapping
     private void UpdateMousePosition()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, layerMask);
+        Physics.Raycast(ray, out RaycastHit hitInfo, 600f, layerMask);
         
         mousePositionFlat.x = hitInfo.point.x;
         mousePositionFlat.y = 0;
