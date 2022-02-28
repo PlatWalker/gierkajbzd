@@ -124,8 +124,7 @@ namespace jbzdy.Enemies
         {
             //for now damage types are ignored
             CurrentHealth -= damageAmount;
-            if(soundController)
-            soundController.PlayDamaged();
+            if(soundController != null) soundController.PlayDamaged();
         }
 
         /// <summary>
