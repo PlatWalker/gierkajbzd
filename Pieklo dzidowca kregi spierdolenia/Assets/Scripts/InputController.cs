@@ -32,6 +32,13 @@ public class InputController : KeyMapping
     public AttackInputStatus attackInputStatus;
     public Vector3 mousePositionFlat;
 
+    private LayerMask layerMask;
+    
+    private void Start()
+    {
+        layerMask = LayerMask.GetMask("Ground");
+    }
+
     private void Update()
     {
         UpdateAttackInput();
@@ -62,16 +69,19 @@ public class InputController : KeyMapping
     private void UpdateMousePosition()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Physics.Raycast(ray, out RaycastHit hitInfo, maxDistance: 300f);
-        mousePositionFlat = hitInfo.point;
+        Physics.Raycast(ray, out RaycastHit hitInfo, 600f, layerMask);
+        
+        mousePositionFlat.x = hitInfo.point.x;
+        mousePositionFlat.y = 0;
+        mousePositionFlat.z = hitInfo.point.z;
     }
 
-    public bool WasPressed(KeyCode k)
+    private bool WasPressed(KeyCode k)
     {
         return Input.GetKeyDown(k);
     }
 
-    public bool Pressed(KeyCode k)
+    private bool Pressed(KeyCode k)
     {
         return Input.GetKey(k);
     }
