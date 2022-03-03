@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: TechDemo
   m_EditorClassIdentifier: 
   NodeLinkDatas:
+  - BaseNodeGuid: 509f3269-a69e-4842-8a5f-91f4ba8c38f2
+    TargetNodeGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
   - BaseNodeGuid: 46ebefa0-f2f3-4c01-8439-126cbb325bd0
     TargetNodeGuid: 04fbf78b-4856-4f93-9897-f091824ec848
   - BaseNodeGuid: 04fbf78b-4856-4f93-9897-f091824ec848
@@ -51,8 +53,10 @@ MonoBehaviour:
     TargetNodeGuid: 665972de-02c5-4c10-ac2d-c93c854bcda9
   - BaseNodeGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
     TargetNodeGuid: c433a069-8f65-4abc-bc4a-b8611b487b08
-  - BaseNodeGuid: 509f3269-a69e-4842-8a5f-91f4ba8c38f2
-    TargetNodeGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
+  - BaseNodeGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
+    TargetNodeGuid: b0bec328-1b58-4768-a6c7-8bb928afb84b
+  - BaseNodeGuid: b0bec328-1b58-4768-a6c7-8bb928afb84b
+    TargetNodeGuid: 7685e695-7cae-421d-a47b-57374f56ceea
   DialogueNodeDatas:
   - NodeGuid: 46ebefa0-f2f3-4c01-8439-126cbb325bd0
     Position: {x: 3178, y: 117}
@@ -678,6 +682,16 @@ MonoBehaviour:
         LanguageGenericType: Continue
       - LanguageType: 2
         LanguageGenericType: Continue
+    - PortGuid: 6407db11-e692-46c3-abdb-5afbd21807d7
+      InputGuid: b0bec328-1b58-4768-a6c7-8bb928afb84b
+      OutputGuid: cec9dd78-6811-41a5-8a8d-851bed31cedf
+      TextLanguages:
+      - LanguageType: 0
+        LanguageGenericType: Quest test
+      - LanguageType: 1
+        LanguageGenericType: Continue
+      - LanguageType: 2
+        LanguageGenericType: Continue
     AudioClips:
     - LanguageType: 0
       LanguageGenericType: {fileID: 0}
@@ -712,9 +726,16 @@ MonoBehaviour:
   - NodeGuid: 02364c6f-d91b-4143-9c53-b99b7f8ee6d2
     Position: {x: 7233, y: -181}
     EndNodeType: 0
+  - NodeGuid: 7685e695-7cae-421d-a47b-57374f56ceea
+    Position: {x: 578, y: 749}
+    EndNodeType: 0
   StartNodeDatas:
   - NodeGuid: 509f3269-a69e-4842-8a5f-91f4ba8c38f2
     Position: {x: -583, y: 205}
-  EventNodeDatas: []
+  EventNodeDatas:
+  - NodeGuid: b0bec328-1b58-4768-a6c7-8bb928afb84b
+    Position: {x: 183, y: 746}
+    DialogueEventSO: {fileID: 11400000, guid: 94ef35f1d6368c24a82953d77de19e1b, type: 2}
+    QuestSO: {fileID: 11400000, guid: 800fc83122404b949a8d20c359a4a9e7, type: 2}
   StatCheckNodeDatas: []
   ItemCheckNodeDatas: []
