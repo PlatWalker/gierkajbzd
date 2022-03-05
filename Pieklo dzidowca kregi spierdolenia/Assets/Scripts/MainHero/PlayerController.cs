@@ -37,7 +37,7 @@ namespace jbzdy.Player
         private bool canPlayerMove = true;
         [SerializeField]
         private bool isAttacking;
-
+        [SerializeField]
         private float dashAttackMovePower;
 
         public Animator CharacterAnimator { get; private set; }
