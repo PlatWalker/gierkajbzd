@@ -12,7 +12,9 @@ namespace jbzdy.Player
     {
         private readonly PlayerController playerController;
         private Vector3 newPositionVector;
-
+        
+        private Vector3 velocity = Vector3.zero;
+        
         public PlayerMovementController(PlayerController _playerController)
         {
             playerController = _playerController;
@@ -21,13 +23,21 @@ namespace jbzdy.Player
 
         public void UpdateCharacterMovement()
         {
-            if (playerController.CanPlayerMove != true) return;
+            if (playerController.NextFrameDash)
+            {
+                DashAttackMove();
+                playerController.NextFrameDash = false;
+                return;
+            }
             
-            UpdateCharacterPosition();
-            UpdateCharacterRotation();
-            UpdateCharacterAnimation();
+            if (playerController.CanPlayerMove)
+            {
+                UpdateCharacterPosition();
+                UpdateCharacterRotation(playerController.MovementVector);
+                UpdateCharacterAnimation();
+            }
         }
-
+        
         private void UpdateCharacterPosition()
         {
             playerController.MovementVector = Vector3.zero;
@@ -35,30 +45,18 @@ namespace jbzdy.Player
             playerController.MovementVector += Vector3.back * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.down);
             playerController.MovementVector += Vector3.left * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.left);
             playerController.MovementVector += Vector3.right * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.right);
-
+            
             StickPlayerToGround();
 
             playerController.rb.AddForce(playerController.MovementVector.normalized * playerController.PlayerSpeed, ForceMode.VelocityChange);
         }
 
-        private void StickPlayerToGround()
+        private void UpdateCharacterRotation(Vector3 lookDirection)
         {
-            if (Physics.Raycast(playerController.transform.position + Vector3.up, Vector3.down, out RaycastHit hit) 
-                && hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
-            {
-                newPositionVector.x = playerController.rb.position.x;
-                newPositionVector.y = hit.point.y;
-                newPositionVector.z = playerController.rb.position.z;
-
-                playerController.rb.MovePosition(newPositionVector);
-            }
-        }
-
-        private void UpdateCharacterRotation()
-        {
-            if (playerController.MovementVector.magnitude == 0 || playerController.CharacterAnimator.GetBool(StringAnimatorParameters.AttackParam)) return;
-
-            var rotation = Quaternion.LookRotation(playerController.MovementVector);
+            if (lookDirection.magnitude == 0) return;
+            
+            var rotation = Quaternion.LookRotation(lookDirection);
+            
             playerController.transform.rotation = rotation;
         }
 
@@ -72,6 +70,32 @@ namespace jbzdy.Player
             {
                 playerController.CharacterAnimator.SetBool(StringAnimatorParameters.RunParam, false);
             }
+        }
+        
+        private void StickPlayerToGround()
+        {
+            if (Physics.Raycast(playerController.transform.position + Vector3.up, Vector3.down, out RaycastHit hit) 
+                && hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            {
+                newPositionVector.x = playerController.rb.position.x;
+                newPositionVector.y = hit.point.y;
+                newPositionVector.z = playerController.rb.position.z;
+
+                playerController.rb.MovePosition(newPositionVector);
+            }
+        }
+
+        private void DashAttackMove()
+        {
+            Vector3 dashVector = GameManager.Instance.GameInputController.mousePositionFlat - playerController.transform.position;
+            
+            UpdateCharacterRotation(dashVector.normalized);
+
+            playerController.rb.AddForce(dashVector.normalized * playerController.DashAttackMovePower , ForceMode.Impulse);
+            
+            
+            
+            StickPlayerToGround();
         }
     } 
 }

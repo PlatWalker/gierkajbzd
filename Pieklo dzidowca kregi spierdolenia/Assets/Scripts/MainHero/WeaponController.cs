@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
+using jbzdy.Player;
 using UnityEngine;
-
-/// <summary>
-/// by SilverWalker
-/// </summary>
 
 public class WeaponController : MonoBehaviour
 {
@@ -15,17 +12,35 @@ public class WeaponController : MonoBehaviour
     private float CritMultiplier = 1.0f;
 
     private Animator characterAnimator;
+    private PlayerController playerController;
 
     public void Start()
     {
         characterAnimator = GameManager.Instance.PlayerObject.GetComponentInChildren<Animator>();
+        playerController = GameManager.Instance.PlayerObject.GetComponent<PlayerController>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider collidedObject)
     {
-        if (other.gameObject.TryGetComponent<IDamageable>(out IDamageable hittenObjectScript) && characterAnimator.GetBool("Attack"))
+        collidedObject.gameObject.TryGetComponent<IDamageable>(out var hitObjectScript);
+
+        if (hitObjectScript != null &&
+            characterAnimator.GetBool(StringAnimatorParameters.AttackInProgressParam) &&
+            playerController.playerAttackController.listOfEnemiesColliders.All(x => x != collidedObject))
         {
-            hittenObjectScript.SetDamage(damageAmount, typeOfDamage, CritMultiplier, CritChance);
+            hitObjectScript.SetDamage(damageAmount, typeOfDamage, CritMultiplier, CritChance);
+            playerController.playerAttackController.listOfEnemiesColliders.Add(collidedObject);
         }
+        /* Debug do refactoru
+        else if (hitObjectScript != null)
+        {
+            Debug.Log("Why no attac?:" +
+                      "  || isAttacking? => " 
+                      + characterAnimator.GetBool(StringAnimatorParameters.AttackInProgressParam) +
+                      " || isOnList? => " +
+                      playerController.playerAttackController.listOfEnemiesColliders.Any(x => x == collidedObject));
+        }
+        */
+
     }
 }

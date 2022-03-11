@@ -48,6 +48,7 @@ public class KeyMapping : MonoBehaviour
 
     public void Awake()
     {
+        //TODO implement observer pattern for detecting key change
         playerMovement.up = playerMoveUp;
         playerMovement.down = playerMoveDown;
         playerMovement.left = playerMoveLeft;
