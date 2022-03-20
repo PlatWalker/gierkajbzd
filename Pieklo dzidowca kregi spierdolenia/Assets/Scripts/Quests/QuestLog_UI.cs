@@ -93,6 +93,7 @@ public class QuestLog_UI : MonoBehaviour
     private void UpdateQuestText(Button questButton, Quest quest)
     {
         TMP_Text text = questButton.GetComponentInChildren<TMP_Text>();
+        text.fontSize = 30;
         text.text = quest.title;
         text.color = quest.isCompleted ? Color.green : Color.gray;
     }
