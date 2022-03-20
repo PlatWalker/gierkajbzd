@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class OpenSubMenuOrReturn : MonoBehaviour
 {
     [SerializeField]
-    public GameObject canvasToOpen;
+    public GameObject backgroundCanvasToOpen;
     private GameObject canvasToClose;
 
     private void Start()
@@ -25,6 +25,6 @@ public class OpenSubMenuOrReturn : MonoBehaviour
     private void OpenCloseCanvas()
     {
         canvasToClose.SetActive(!canvasToClose.activeSelf);
-        canvasToOpen.SetActive(!canvasToOpen.activeSelf);
+        backgroundCanvasToOpen.SetActive(!backgroundCanvasToOpen.activeSelf);
     }
 }
