@@ -53,7 +53,6 @@ namespace jbzdy.Enemies
 
         #endregion
         
-        [SerializeField]
         private PimpekState currentState;
         
         protected override void Start()
