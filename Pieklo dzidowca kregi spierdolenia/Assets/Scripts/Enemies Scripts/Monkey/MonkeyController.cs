@@ -125,7 +125,7 @@ namespace jbzdy.Enemies
                         float distanceToRunTarget = Vector3.Distance(transform.position, runTarget);
 
                        if (distanceToRunTarget < 0.7f)
-						{
+                       {
 							//when waiting to run again just attack player
 							MultiUseTimer += Time.deltaTime;
 							MoveTo(EnemyData.MainCharacterTransform.position, 0, EnemyData.AttackRadius);

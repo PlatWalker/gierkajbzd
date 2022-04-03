@@ -45,21 +45,16 @@ namespace jbzdy.Enemies
 
         #endregion
 
-        #region Variable helpers
-        
-        private PimpekState currentState;
-        private bool startJumping;
-
-        #endregion
-
         #region Variables with gameobjects
 
         private EnemyDamagedEffect pushBackEffect;
         private Collider enemyCollider;
+        private PimpekAnimationEvents animationEvents;
 
         #endregion
         
-        private void AnimationCallForJump() => startJumping = true;
+        [SerializeField]
+        private PimpekState currentState;
         
         protected override void Start()
         {
@@ -68,7 +63,8 @@ namespace jbzdy.Enemies
             easyAnimator = new EasyAnimatorController(GetComponentInChildren<Animator>(), ignoredBooleans);
             currentState = PimpekState.Idle;
             enemyCollider = GetComponent<Collider>();
-            //pushBackEffect = GetComponent<EnemyDamagedEffect>();
+            animationEvents = GetComponentInChildren<PimpekAnimationEvents>();
+            pushBackEffect = GetComponent<EnemyDamagedEffect>();
         }
 
         protected override void Update()
@@ -109,10 +105,10 @@ namespace jbzdy.Enemies
                     break;
                 case PimpekState.Attack:
                     easyAnimator.SetBooleanTrue("isJumpAttacking");
-                    if (startJumping)
+                    if (animationEvents.startJumping)
                     {
                         NavAgent.isStopped = false;
-                        startJumping = false;
+                        animationEvents.startJumping = false;
                         enemyCollider.isTrigger = true;
                         var playerPosition = EnemyData.MainCharacterTransform.position;
                         var direction = (playerPosition - transform.position).normalized;

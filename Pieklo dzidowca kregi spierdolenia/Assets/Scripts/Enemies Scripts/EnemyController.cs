@@ -49,7 +49,7 @@ namespace jbzdy.Enemies
 									transform.position.z);
 			CurrentHealth = EnemyData.MaxHealth;
 			EnemyAlive = true;
-			GetComponent<Animator>().SetFloat("IdleSpeedMultiplier", Random.Range(0.900001f, 1.100001f));
+			GetComponentInChildren<Animator>().SetFloat("IdleSpeedMultiplier", Random.Range(0.900001f, 1.100001f));
 
 			NavAgent = GetComponent<NavMeshAgent>();
 			NavAgent.angularSpeed = EnemyData.RotationSpeed;
