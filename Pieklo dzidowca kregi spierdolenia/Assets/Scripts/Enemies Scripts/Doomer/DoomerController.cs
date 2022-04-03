@@ -36,7 +36,7 @@ namespace jbzdy.Enemies
 
 		private EnemyDamagedEffect pushBackEffect;
 
-		override protected void Start()
+		protected override void Start()
 		{
 			base.Start();
 			easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), new string[] {"shouldUseSecondAttack"});

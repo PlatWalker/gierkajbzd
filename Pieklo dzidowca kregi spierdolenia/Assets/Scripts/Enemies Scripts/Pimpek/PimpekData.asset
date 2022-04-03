@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3b675270a04da7419b6ff31684f1e1b, type: 3}
+  m_Name: PimpekData
+  m_EditorClassIdentifier: 
+  _disappearAfter: 5
+  _updateLogicEveryXFrames: 3
+  _otherEnemiesTriggerRadius: 20
+  _triggeringNearEnemies: 1
+  _movementSpeed: 5
+  _rotationSpeed: 900
+  _timeBetweenPatrolSteps: 2
+  _maxPatrolSteps: 5
+  _patrolMaxDistance: 3
+  _mainCharacterTransform: {fileID: 0}
+  _aggroRadius: 50
+  _aggroByAttackRadius: 50
+  _attackRadius: 5
+  _maxHealth: 100
+  _damage: 5
+  _damagedAudioClip: {fileID: 8300000, guid: d51c0119595c8724aad8af6f525eba5a, type: 3}
+  _dyingAudioClip: {fileID: 8300000, guid: b978e9d8c0a46b147b7c27acdb33058f, type: 3}
+  _ambientAudioClip: {fileID: 8300000, guid: f7f5f749e3ef2054481a08b26cdd62d6, type: 3}
+  _aggroAudioClip: {fileID: 8300000, guid: b978e9d8c0a46b147b7c27acdb33058f, type: 3}
+  _attackAudioClip: {fileID: 8300000, guid: d51c0119595c8724aad8af6f525eba5a, type: 3}
