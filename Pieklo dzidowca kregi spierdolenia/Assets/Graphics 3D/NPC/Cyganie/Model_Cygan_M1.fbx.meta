@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 465b2e5a4d3c926469e10538caa6eaec
+guid: 9ac73c57ec536a04d9eb31193b6dd046
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
@@ -7,8 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: M_Menele
-    second: {fileID: 2100000, guid: 8885e81b7c4f644429f3aa133324cf45, type: 2}
+      name: Material.002
+    second: {fileID: 2100000, guid: eda395cb0543f4a4da9869aee13d0027, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.003
+    second: {fileID: 2100000, guid: 515d5901f026fda4f8d604e3a4cdfa4b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -502,23 +507,23 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: Model_Stachu(Clone)
+    - name: Cygan_M2(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: NPC_Stachu
-      parentName: Model_Stachu(Clone)
-      position: {x: -0, y: -0.0000000031292435, z: 0.0000000010744957}
-      rotation: {x: 8.429376e-10, y: -0.7071067, z: 8.4293744e-10, w: 0.7071068}
+    - name: Mesh_Cygan2
+      parentName: Cygan_M2(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0, y: -0.7071068, z: 0, w: 0.7071068}
       scale: {x: 1, y: 1, z: 1}
-    - name: Armature_Stachu
-      parentName: Model_Stachu(Clone)
+    - name: Armature_Cygan2
+      parentName: Cygan_M2(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: -0.7071068, y: 0.000000015454312, z: 0.000000015454312, w: 0.7071068}
       scale: {x: 1, y: 1, z: 1}
     - name: root
-      parentName: Armature_Stachu
+      parentName: Armature_Cygan2
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
