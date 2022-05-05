@@ -10,9 +10,9 @@ namespace jbzdy.Enemies
 	public abstract class EnemyController : MonoBehaviour, IDamageable
 	{
 		[SerializeField] protected EnemyDataContainer _enemyData;
-        public EnemyDataContainer EnemyData { get => _enemyData;}
+        public EnemyDataContainer EnemyData => _enemyData;
 
-		[Header("Artifical Intelligence")]
+        [Header("Artifical Intelligence")]
 		[SerializeField] protected bool turnOffAI = false;
 		public bool EnemyAlive { get; protected set; }
 		protected float MultiUseTimer { get; set; }
@@ -26,15 +26,8 @@ namespace jbzdy.Enemies
 		public int PatrolStepsCounter { get; protected set; }
 		public virtual int CurrentHealth { get; protected set; }
 		public virtual Vector3 SpawnPoint { get; protected set; }
-		public virtual int MaximumHealth
-		{
-			get
-			{
-				return EnemyData.MaxHealth;
-			}
-			
-		}
-        protected  EasyAnimatorController easyAnimator;
+		public virtual int MaximumHealth => EnemyData.MaxHealth;
+		protected  EasyAnimatorController easyAnimator;
 		private float animationPlayPreviousSpeed = 0f;
 
 
@@ -56,7 +49,7 @@ namespace jbzdy.Enemies
 									transform.position.z);
 			CurrentHealth = EnemyData.MaxHealth;
 			EnemyAlive = true;
-			GetComponent<Animator>().SetFloat("IdleSpeedMultiplier", Random.Range(0.900001f, 1.100001f));
+			GetComponentInChildren<Animator>().SetFloat("IdleSpeedMultiplier", Random.Range(0.900001f, 1.100001f));
 
 			NavAgent = GetComponent<NavMeshAgent>();
 			NavAgent.angularSpeed = EnemyData.RotationSpeed;
@@ -82,7 +75,7 @@ namespace jbzdy.Enemies
         /// <param name="speed">Speed of travel. 0 = just rotate</param>
         protected virtual void MoveTo(Vector3 target, float speed, float stopDistance)
         {
-            //if (Vector3.Distance(target, NavAgent.destination) < 1f) return;
+	        //if (Vector3.Distance(target, NavAgent.destination) < 1f) return;
 
             if (NavAgent.radius*2 <= stopDistance)
             {
@@ -142,7 +135,21 @@ namespace jbzdy.Enemies
             }
             this.SetDamage(damageAmount, damageType);
         }
-
+		
+        /// <summary>
+        /// Method return if destination is reached by navAgent. It's upgrading a property NavAgent.remainingDistance
+        /// which not working 100 % properly. 
+        /// </summary>
+        /// <returns></returns>
+        protected bool IsDestinationReached()
+        {
+	        if (NavAgent.pathPending) return false;
+	        
+	        if (!(NavAgent.remainingDistance <= NavAgent.stoppingDistance)) return false;
+	        
+	        return !NavAgent.hasPath || NavAgent.velocity.sqrMagnitude == 0f;
+        }
+        
         /// <summary>
 		/// Method to pause enemy AI
 		/// </summary>

@@ -23,7 +23,7 @@ namespace jbzdy.Enemies
         private EnemyDamagedEffect pushBackEffect;
         public GameObject MultikontoPrefab;
         public GameObject PoisonPoolPrefab;
-        override protected void Start()
+        protected override void Start()
         {
             base.Start();
             easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), new string[] { });
@@ -32,7 +32,7 @@ namespace jbzdy.Enemies
 			LHCollider.SetUp(EnemyData.Damage);
             pushBackEffect = GetComponent<EnemyDamagedEffect>();
         }
-        override protected void Update()
+        protected override void Update()
         {
             if (CurrentHealth <= 0 && EnemyAlive)
             {
@@ -141,7 +141,7 @@ namespace jbzdy.Enemies
             return false;
         }
 
-        override public void SwitchAI()
+        public override void SwitchAI()
         {
             base.SwitchAI();
 

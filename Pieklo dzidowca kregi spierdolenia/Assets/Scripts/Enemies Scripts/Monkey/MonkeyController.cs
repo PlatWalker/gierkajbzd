@@ -34,7 +34,7 @@ namespace jbzdy.Enemies
 
         private EnemyDamagedEffect pushBackEffect;
 
-        override protected void Start()
+        protected override void Start()
         {
             base.Start();
             string[] ignoredBooleans = new string[] { "spawnProjectile" };
@@ -43,7 +43,7 @@ namespace jbzdy.Enemies
             pushBackEffect = GetComponent<EnemyDamagedEffect>();
         }
 
-        override protected void Update()
+        protected override void Update()
         {
             base.Update();
 
@@ -125,7 +125,7 @@ namespace jbzdy.Enemies
                         float distanceToRunTarget = Vector3.Distance(transform.position, runTarget);
 
                        if (distanceToRunTarget < 0.7f)
-						{
+                       {
 							//when waiting to run again just attack player
 							MultiUseTimer += Time.deltaTime;
 							MoveTo(EnemyData.MainCharacterTransform.position, 0, EnemyData.AttackRadius);
