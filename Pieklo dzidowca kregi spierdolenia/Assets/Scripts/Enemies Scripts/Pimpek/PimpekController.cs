@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 using System.Numerics;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.Serialization;
+using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
 namespace jbzdy.Enemies
@@ -84,6 +82,7 @@ namespace jbzdy.Enemies
                     }
                     break;
                 case PimpekState.Chase:
+
                     MoveTo(EnemyData.MainCharacterTransform.position, EnemyData.MovementSpeed, (EnemyData.AttackRadius - 0.5f));
                     easyAnimator.SetBooleanTrue("isWalking");
 
@@ -111,8 +110,8 @@ namespace jbzdy.Enemies
                         enemyCollider.isTrigger = true;
                         var playerPosition = EnemyData.MainCharacterTransform.position;
                         var direction = (playerPosition - transform.position).normalized;
-                        var cameraDestination = playerPosition + (direction * distanceToLandBehindPlayer);
-                        MoveTo(cameraDestination, jumpDistance, 3);
+                        var landDestination = playerPosition + (direction * distanceToLandBehindPlayer);
+                        MoveTo(landDestination, jumpDistance, 3);
                     }
 
                     if (IsDestinationReached())
@@ -156,18 +155,12 @@ namespace jbzdy.Enemies
 
                      if (PatrolStepsCounter > EnemyData.MaxPatrolSteps)
                      {
-                         if (Vector3.Distance(transform.position, SpawnPoint) > 1)
-                         {
-                             currentState = PimpekState.Return;
-                             MultiUseTimer = 0;
-                             PatrolStepsCounter = 0;
-                         }
-                         else
-                         {
-                             currentState = PimpekState.Idle;
-                             MultiUseTimer = 0;
-                             PatrolStepsCounter = 0;
-                         }
+                         MultiUseTimer = 0;
+                         PatrolStepsCounter = 0;
+                         
+                         currentState = Vector3.Distance(transform.position, SpawnPoint) > 1 ?
+                             PimpekState.Return :
+                             PimpekState.Idle;
                      }
                      break;
                 case PimpekState.Dying:
@@ -202,7 +195,6 @@ namespace jbzdy.Enemies
         {
             if (!other.gameObject.TryGetComponent<IDamageable>(out var hitObjectScript)) return;
             if (other.transform.CompareTag("Enemy")) return;
-            //Debug.Log("hit made by: " + transform.name + " to: " + collision.gameObject.name);
             hitObjectScript.SetDamage(EnemyData.Damage, DamageType.CloseCombat, criticalMultiplier , criticalChance);
         }
     }
