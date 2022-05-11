@@ -1,4 +1,5 @@
-﻿using jbzdy.CharacterStats;
+﻿using System;
+using jbzdy.CharacterStats;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,12 @@ namespace jbzdy.UI.HUD
 		private PlayerStats playerStats;
 
 		private int maxHealth;
+		[SerializeField]
 		private int currentHealth;
-
+		
+		[SerializeField]
 		private Slider healthBar;
+		[SerializeField]
 		private Slider manaBar;
 
 		private Text hpNumber;
@@ -22,12 +26,6 @@ namespace jbzdy.UI.HUD
 		public void Start()
 		{
 			playerStats = GameManager.Instance.PlayerObject.GetComponent<PlayerStats>();
-
-			maxHealth = playerStats.MaxHealth;
-			currentHealth = playerStats.Health.BaseValue;
-
-			healthBar = GetComponentsInChildren<Slider>().First(x => x.name == "HealthBar");
-			manaBar = GetComponentsInChildren<Slider>().First(x => x.name == "ManaBar");
 
 			hpNumber = GetComponentInChildren<Text>();
 		}
@@ -39,7 +37,11 @@ namespace jbzdy.UI.HUD
 
 			healthBar.SetValueWithoutNotify(currentHealth.Remap(0, maxHealth, 0, 1));
 
-			hpNumber.text = currentHealth.ToString() + " / " + maxHealth.ToString();
+			float floatCurrentHealth = currentHealth;
+			float floatMaxHealth = maxHealth;
+			
+			var hpPercentage = Math.Floor(floatCurrentHealth / floatMaxHealth * 100);
+			hpNumber.text = hpPercentage + " %";
 		}
 
 	} 
