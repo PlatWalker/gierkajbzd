@@ -2,8 +2,7 @@
 using UnityEngine;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
-using jbzdy.DialogueSystem.SO;
-using jbzdy.DialogueSystem.Enums;
+using jbzdy.DialogueSystem.NodeDatas;
 using jbzdy.DialogueSystem.Editor;
 using UnityEditor.Experimental.GraphView;
 
@@ -36,7 +35,7 @@ namespace jbzdy.DialogueSystem.Nodes
 
             title = "Event";
             SetPosition(new Rect(position, defaultNodeSize));
-            nodeGuid = Guid.NewGuid().ToString();
+            NodeGuid = Guid.NewGuid().ToString();
 
             AddInputPort("Input", Port.Capacity.Multi);
             AddOutputPort("Output", Port.Capacity.Single);
@@ -51,7 +50,7 @@ namespace jbzdy.DialogueSystem.Nodes
             objectField.RegisterValueChangedCallback(value =>
             {
                 dialogueEvent = objectField.value as DialogueEventSO;
-                if (dialogueEvent.GetType() == typeof(jbzdy.DialogueSystem.Events.EventGetQuest))
+                if (dialogueEvent.GetType() == typeof(jbzdy.DialogueSystem.EventGetQuest))
                     MakeQuest();
                 else if (questField != null)
                 {               
@@ -88,6 +87,46 @@ namespace jbzdy.DialogueSystem.Nodes
             });
             questField.SetValueWithoutNotify(quest);
             mainContainer.Add(questField);
+        }
+        public override bool DrawNode(DialogueEditorWindow editorWindow, DialogueGraphView graphView, Vector2 graphMousePosition)
+        {
+            graphView.AddElement(new EventNode(graphMousePosition, editorWindow, graphView));
+            return true;
+        }
+
+        public override BaseNodeData GetDataToSave()
+        {
+            return new EventNodeData()
+            {
+                DialogueEventSO = DialogueEvent,
+                NodeGuid = NodeGuid,
+                Position = GetPosition().position,
+                QuestSO = Quest
+            };
+        }
+
+        public override void LoadDataIntoNode(BaseNodeData dataToLoad)
+        {
+            if(dataToLoad is not EventNodeData)
+            {
+                Debug.Log("Błędne dane podane do node");
+                return;
+            }
+            EventNodeData newData = (EventNodeData)dataToLoad;
+            DialogueEvent = newData.DialogueEventSO;
+            NodeGuid = newData.NodeGuid;
+            SetPosition(new Rect(newData.Position, defaultNodeSize));
+            Quest = newData.QuestSO;
+            if (Quest != null || (DialogueEvent != null && DialogueEvent.GetType() == typeof(jbzdy.DialogueSystem.EventGetQuest)))
+            {
+                MakeQuest();
+            }
+            LoadValueInToField();
+        }
+
+        public override BaseNode CreateNewNode(DialogueEditorWindow newEditorWindow, DialogueGraphView newGraphView)
+        {
+            return new EventNode(Vector2.zero, newEditorWindow, newGraphView);
         }
     }   
 }

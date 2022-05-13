@@ -1,10 +1,10 @@
-﻿using System;
-using UnityEngine;
-using UnityEditor.UIElements;
-using UnityEngine.UIElements;
-using jbzdy.DialogueSystem.Enums;
-using jbzdy.DialogueSystem.Editor;
+﻿using jbzdy.DialogueSystem.Editor;
+using jbzdy.DialogueSystem.NodeDatas;
+using System;
 using UnityEditor.Experimental.GraphView;
+using UnityEditor.UIElements;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace jbzdy.DialogueSystem.Nodes
 {
@@ -33,7 +33,7 @@ namespace jbzdy.DialogueSystem.Nodes
 
             title = "Stat Check";
             SetPosition(new Rect(position, defaultNodeSize));
-            nodeGuid = Guid.NewGuid().ToString();
+            NodeGuid = Guid.NewGuid().ToString();
 
             AddInputPort("Input", Port.Capacity.Multi);
             AddOutputPort("Output", Port.Capacity.Single);
@@ -66,6 +66,43 @@ namespace jbzdy.DialogueSystem.Nodes
         {
             statCheckValueField.SetValueWithoutNotify(statCheckValue);
             statCheckField.SetValueWithoutNotify(statCheckType);
+        }
+
+        public override bool DrawNode(DialogueEditorWindow editorWindow, DialogueGraphView graphView, Vector2 graphMousePosition)
+        {
+            graphView.AddElement(new StatCheckNode(graphMousePosition, editorWindow, graphView));
+            return true;
+        }
+
+        public override BaseNodeData GetDataToSave()
+        {
+            return new StatCheckNodeData()
+            {
+                StatCheckType = CheckType,
+                StatCheckValue = Int32.Parse(StatCheckValue),
+                NodeGuid = NodeGuid,
+                Position = GetPosition().position
+            };
+        }
+
+        public override void LoadDataIntoNode(BaseNodeData dataToLoad)
+        {
+            if(dataToLoad is not StatCheckNodeData)
+            {
+                Debug.Log("Podano błędne dane");
+                return;
+            }
+            StatCheckNodeData newData = (StatCheckNodeData)dataToLoad;
+            CheckType = newData.StatCheckType;
+            StatCheckValue = newData.StatCheckValue.ToString();
+            NodeGuid = newData.NodeGuid;
+            SetPosition(new Rect(newData.Position, defaultNodeSize));
+            LoadValueInToField();
+        }
+
+        public override BaseNode CreateNewNode(DialogueEditorWindow newEditorWindow, DialogueGraphView newGraphView)
+        {
+            return new StatCheckNode(Vector2.zero, newEditorWindow, newGraphView);
         }
     }
 }

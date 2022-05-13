@@ -2,17 +2,19 @@
 using UnityEngine.UIElements;
 using jbzdy.DialogueSystem.Editor;
 using UnityEditor.Experimental.GraphView;
+using jbzdy.DialogueSystem.NodeDatas;
+using System.Collections.Generic;
 
 namespace jbzdy.DialogueSystem.Nodes
 {
-    public class BaseNode : Node
+    public abstract class BaseNode : Node
     {
-        protected string nodeGuid;
+        public virtual bool AutoDrawOutputEdges { get; } = true;
         protected DialogueGraphView graphView;
         protected DialogueEditorWindow editorWindow;
         protected Vector2 defaultNodeSize = new Vector2(200, 250);
 
-        public string NodeGuid { get => nodeGuid; set => nodeGuid = value; }
+        public string NodeGuid { get; set; }
 
         public BaseNode()
         {
@@ -44,6 +46,30 @@ namespace jbzdy.DialogueSystem.Nodes
         public virtual void LoadValueInToField()
         {
 
+        }
+        public abstract bool DrawNode(DialogueEditorWindow editorWindow, DialogueGraphView graphView, Vector2 graphMousePosition);
+
+        public abstract BaseNodeData GetDataToSave();
+
+        public abstract void LoadDataIntoNode(BaseNodeData dataToLoad);
+
+        public abstract BaseNode CreateNewNode(DialogueEditorWindow newEditorWindow, DialogueGraphView newGraphView);
+
+        public virtual void LinkToOtherNodes(List<BaseNode> allNodes)
+        {
+            Debug.Log("Wywołano niezaimplementowaną funckję");
+        }
+        protected Edge MakeNewEdge(Port outputPort, Port inputPort)
+        {
+            Edge tempEdge = new Edge()
+            {
+                output = outputPort,
+                input = inputPort
+            };
+
+            tempEdge.input.Connect(tempEdge);
+            tempEdge.output.Connect(tempEdge);
+            return tempEdge;
         }
     }
 }

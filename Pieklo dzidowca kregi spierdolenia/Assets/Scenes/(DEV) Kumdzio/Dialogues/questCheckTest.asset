@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a69ff5ed214494b835d86b8438ac53, type: 3}
+  m_Name: questCheckTest
+  m_EditorClassIdentifier: 
+  <NodeLinkDatas>k__BackingField:
+  - BaseNodeGuid: 386b8214-7037-4559-8650-b50fb75e4e39
+    TargetNodeGuid: e139f35c-19fc-42bb-85a5-eb3cca50c2e5
+  - BaseNodeGuid: e139f35c-19fc-42bb-85a5-eb3cca50c2e5
+    TargetNodeGuid: 2a34564d-8e94-47d5-8488-df68cf5c96c0
+  - BaseNodeGuid: e139f35c-19fc-42bb-85a5-eb3cca50c2e5
+    TargetNodeGuid: dcc68454-f783-457e-a038-137fabb8db46
+  - BaseNodeGuid: 2a34564d-8e94-47d5-8488-df68cf5c96c0
+    TargetNodeGuid: e9880365-7196-45bb-9616-9d2025bea8ad
+  - BaseNodeGuid: dcc68454-f783-457e-a038-137fabb8db46
+    TargetNodeGuid: e9880365-7196-45bb-9616-9d2025bea8ad
+  NodeDatas:
+  - rid: 5888294051215835140
+  - rid: 5888294051215835141
+  - rid: 5888294051215835142
+  - rid: 5888294051215835143
+  - rid: 5888294051215835144
+  references:
+    version: 2
+    RefIds:
+    - rid: 5888294051215835140
+      type: {class: StartNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 386b8214-7037-4559-8650-b50fb75e4e39
+        <Position>k__BackingField: {x: 805, y: 35}
+    - rid: 5888294051215835141
+      type: {class: QuestCheckNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: e139f35c-19fc-42bb-85a5-eb3cca50c2e5
+        <Position>k__BackingField: {x: 1017, y: 49}
+        <PositiveResultGuid>k__BackingField: 2a34564d-8e94-47d5-8488-df68cf5c96c0
+        <NegativeResultGuid>k__BackingField: dcc68454-f783-457e-a038-137fabb8db46
+        <NodeQuest>k__BackingField: {fileID: 11400000, guid: b0f8d7658cb47324e887da13a0874f4c, type: 2}
+        <NodeTask>k__BackingField: {fileID: -8766848436441149963, guid: b0f8d7658cb47324e887da13a0874f4c, type: 2}
+    - rid: 5888294051215835142
+      type: {class: EndNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: e9880365-7196-45bb-9616-9d2025bea8ad
+        <Position>k__BackingField: {x: 2377, y: 4}
+        <EndNodeType>k__BackingField: 0
+    - rid: 5888294051215835143
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: dcc68454-f783-457e-a038-137fabb8db46
+        <Position>k__BackingField: {x: 1457, y: -150}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: d9ee98ae-86db-4230-ae02-36c6475ca3dd
+          InputGuid: e9880365-7196-45bb-9616-9d2025bea8ad
+          OutputGuid: dcc68454-f783-457e-a038-137fabb8db46
+          Text: ok
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: nie wykonales questa
+        <npcSprite>k__BackingField: {fileID: 0}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: 
+    - rid: 5888294051215835144
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 2a34564d-8e94-47d5-8488-df68cf5c96c0
+        <Position>k__BackingField: {x: 1344, y: 384}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 5f13ae9c-fe93-4fd3-8632-6f10dbec06f5
+          InputGuid: e9880365-7196-45bb-9616-9d2025bea8ad
+          OutputGuid: 2a34564d-8e94-47d5-8488-df68cf5c96c0
+          Text: ok
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: 'zabiles doomery '
+        <npcSprite>k__BackingField: {fileID: 0}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: 

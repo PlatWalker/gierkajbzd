@@ -241,7 +241,10 @@ namespace jbzdy.Inventory
 
                 _InventoryItem.transform.parent = transform;
 
-                item.gameObject.SetActive(false);
+                if(item!=null) item.gameObject.SetActive(false);
+ 
+                
+
                 
                 if (autoEquipItems)
                 {
@@ -315,18 +318,60 @@ namespace jbzdy.Inventory
         }
 
         // Method returns true if item with specified title exists in the inventory and remove it if needed
-        public bool CheckForItem(Item itemToCheck, int itemAmount, bool removeItem)
+        public bool TakeItemFromPlayer(Item itemToCheck, int itemAmount, bool removeItem)
         {
+            List<InventoryItem> itemsToRemove = new List<InventoryItem>();
+
             foreach (var item in inventoryItems)
             {
-                if (item.item.itemID == itemToCheck.itemID && item.item.itemStackSize >= itemAmount)
+                if (item.item.itemID == itemToCheck.itemID)
                 {
                     if (removeItem)
                     {
-                        RemoveItem(item);
+                        
+                        foreach (EquipmentPanel panel in equipmentPanels)
+                        {
+                            if (panel.equipedItem == null) continue;
+
+                            if (!panel.equipedItem.Equals(item.item))
+                            {
+                                continue;
+                            }
+
+                            if (panel.GetType() == typeof(ArmorEquipmentPanel))
+                            {
+                                GameManager.Instance.PlayerObject.GetComponent<jbzdy.Items.ItemEquipper>().UnequipArmor((ArmorItem)itemToCheck);
+                            }
+                            else
+                            {
+                                GameManager.Instance.PlayerObject.GetComponent<jbzdy.Items.ItemEquipper>().UnequipWeaponOrTrinket(itemToCheck);
+                            }
+
+                        }
+                        if (itemAmount >= item.item.itemStackSize)
+                        {
+                            itemsToRemove.Add(item);
+                        }
+                        else
+                        {
+                            item.item.itemStackSize -= itemAmount;
+                        }
+                        
                     }
                     
-                    return true;
+                    if (item.item.itemStackSize < itemAmount)
+                    {
+                        itemAmount -= item.item.itemStackSize;
+                    }
+                    else
+                    {
+                        foreach (var itemToRemove in itemsToRemove)
+                        {
+                            RemoveItem(itemToRemove);
+                        }
+                        return true;
+                    }
+      
                 }
             }
 
@@ -408,7 +453,8 @@ namespace jbzdy.Inventory
             inventoryItems.Remove(InventoryItem);
 
             Destroy(InventoryItem.gameObject);
-            Destroy(InventoryItem.item.gameObject);
+
+            if(InventoryItem.item!=null)Destroy(InventoryItem.item.gameObject);
 
             OnInventoryItemRemove.Invoke();
 

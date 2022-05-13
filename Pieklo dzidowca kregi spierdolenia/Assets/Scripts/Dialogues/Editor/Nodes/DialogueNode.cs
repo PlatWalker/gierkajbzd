@@ -1,34 +1,28 @@
-﻿using System;
-using System.Linq;
-using UnityEngine;
-using UnityEditor.UIElements;
-using UnityEngine.UIElements;
-using jbzdy.DialogueSystem.SO;
+﻿using jbzdy.DialogueSystem.Editor;
+using jbzdy.DialogueSystem.NodeDatas;
+using System;
 using System.Collections.Generic;
-using jbzdy.DialogueSystem.Enums;
-using jbzdy.DialogueSystem.Editor;
+using System.Linq;
 using UnityEditor.Experimental.GraphView;
+using UnityEditor.UIElements;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace jbzdy.DialogueSystem.Nodes
 {
     public class DialogueNode : BaseNode
     {
-        private List<LanguageGeneric<string>> texts = new List<LanguageGeneric<string>>();
-        private List<LanguageGeneric<AudioClip>> audioClips = new List<LanguageGeneric<AudioClip>>();
-        private Sprite npcFaceImage;
-        private Sprite playerFaceImage;
-        private string nameText = "";
-
+        public override bool AutoDrawOutputEdges { get; } = false;
         private List<DialogueNodePort> dialogueNodePorts = new List<DialogueNodePort>();
-        public List<LanguageGeneric<string>> Texts { get => texts; set => texts = value; }
-        public List<LanguageGeneric<AudioClip>> AudioClips { get => audioClips; set => audioClips = value; }
-        public Sprite NpcFaceImage { get => npcFaceImage; set => npcFaceImage = value; }
-        public Sprite PlayerFaceImage { get => playerFaceImage; set => playerFaceImage = value; }
-        public string NameText { get => nameText; set => nameText = value; }
+        public string Text { get; set; }
+        public AudioClip AudioClip { get; set; }
+        public Sprite NpcFaceImage { get; set; }
+        public Sprite PlayerFaceImage { get; set; }
+        public string NameText { get; set; }
         public List<DialogueNodePort> DialogueNodePorts { get => dialogueNodePorts; set => dialogueNodePorts = value; }
 
-        private TextField textsField;
-        private ObjectField audioClipsField;
+        private TextField textField;
+        private ObjectField audioClipField;
         private ObjectField npcImageField;
         private ObjectField playerImageField;
         private TextField nameField;
@@ -48,24 +42,10 @@ namespace jbzdy.DialogueSystem.Nodes
 
             title = "Dialogue";
             SetPosition(new Rect(position, defaultNodeSize));
-            nodeGuid = Guid.NewGuid().ToString();
+            NodeGuid = Guid.NewGuid().ToString();
 
             AddInputPort("Input", Port.Capacity.Multi);
 
-            foreach (LanguageType language in (LanguageType[])Enum.GetValues(typeof(LanguageType)))
-            {
-                texts.Add(new LanguageGeneric<string>
-                {
-                    LanguageType = language,
-                    LanguageGenericType = ""
-                });
-
-                audioClips.Add(new LanguageGeneric<AudioClip>
-                {
-                    LanguageType = language,
-                    LanguageGenericType = null
-                });
-            }
 
             //Enemy Face Image
             npcImageField = new ObjectField
@@ -73,11 +53,11 @@ namespace jbzdy.DialogueSystem.Nodes
                 label = "NPC image: ",
                 objectType = typeof(Sprite),
                 allowSceneObjects = false,
-                value = npcFaceImage
+                value = NpcFaceImage
             };
             npcImageField.RegisterValueChangedCallback(value =>
             {
-                npcFaceImage = value.newValue as Sprite;
+                NpcFaceImage = value.newValue as Sprite;
             });            
             
             mainContainer.Add(npcImageField);
@@ -87,28 +67,28 @@ namespace jbzdy.DialogueSystem.Nodes
                 label = "Player image: ",
                 objectType = typeof(Sprite),
                 allowSceneObjects = false,
-                value = playerFaceImage
+                value = PlayerFaceImage
             };
             playerImageField.RegisterValueChangedCallback(value =>
             {
-                playerFaceImage = value.newValue as Sprite;
+                PlayerFaceImage = value.newValue as Sprite;
             });   
             
             mainContainer.Add(playerImageField);
 
-            // Audio Chilp
-            audioClipsField = new ObjectField()
+            // Audio Clip
+            audioClipField = new ObjectField()
             {
                 objectType = typeof(AudioClip),
                 allowSceneObjects = false,
-                value = audioClips.Find(audioClip => audioClip.LanguageType == editorWindow.LanguageType).LanguageGenericType,
+                value = AudioClip,
             };
-            audioClipsField.RegisterValueChangedCallback(value =>
+            audioClipField.RegisterValueChangedCallback(value =>
             {
-                audioClips.Find(audioClip => audioClip.LanguageType == editorWindow.LanguageType).LanguageGenericType = value.newValue as AudioClip;
+                AudioClip = value.newValue as AudioClip;
             });
-            audioClipsField.SetValueWithoutNotify(audioClips.Find(audioClip => audioClip.LanguageType == editorWindow.LanguageType).LanguageGenericType);
-            mainContainer.Add(audioClipsField);
+            audioClipField.SetValueWithoutNotify(AudioClip);
+            mainContainer.Add(audioClipField);
 
             // Text Name
             Label label_name = new Label("Name");
@@ -119,10 +99,11 @@ namespace jbzdy.DialogueSystem.Nodes
             nameField = new TextField("");
             nameField.RegisterValueChangedCallback(value =>
             {
-                nameText = value.newValue;
+                NameText = value.newValue;
             });
-            nameField.SetValueWithoutNotify(nameText);
+            nameField.SetValueWithoutNotify(NameText);
             nameField.AddToClassList("TextName");
+
             mainContainer.Add(nameField);
 
             // Text Box
@@ -131,16 +112,19 @@ namespace jbzdy.DialogueSystem.Nodes
             label_texts.AddToClassList("Label");
             mainContainer.Add(label_texts);
 
-            textsField = new TextField("");
-            textsField.RegisterValueChangedCallback(value =>
+            textField = new TextField("");
+            textField.RegisterValueChangedCallback(value =>
             {
-                texts.Find(text => text.LanguageType == editorWindow.LanguageType).LanguageGenericType = value.newValue;
+                Text = value.newValue;
             });
-            textsField.SetValueWithoutNotify(texts.Find(text => text.LanguageType == editorWindow.LanguageType).LanguageGenericType);
-            textsField.multiline = true;
+            textField.SetValueWithoutNotify(Text);
+            textField.multiline = true;
+            textField.style.height = 50;
+            textField.style.width = 600;
+            
 
-            textsField.AddToClassList("TextBox");
-            mainContainer.Add(textsField);
+            textField.AddToClassList("TextBox");
+            mainContainer.Add(textField);
 
             Button button = new Button()
             {
@@ -154,37 +138,14 @@ namespace jbzdy.DialogueSystem.Nodes
             titleButtonContainer.Add(button);
         }
 
-        public void ReloadLanguage()
-        {
-            textsField.RegisterValueChangedCallback(value =>
-            {
-                texts.Find(text => text.LanguageType == editorWindow.LanguageType).LanguageGenericType = value.newValue;
-            });
-            textsField.SetValueWithoutNotify(texts.Find(text => text.LanguageType == editorWindow.LanguageType).LanguageGenericType);
-
-            audioClipsField.RegisterValueChangedCallback(value =>
-            {
-                audioClips.Find(audioClip => audioClip.LanguageType == editorWindow.LanguageType).LanguageGenericType = value.newValue as AudioClip;
-            });
-            audioClipsField.SetValueWithoutNotify(audioClips.Find(audioClip => audioClip.LanguageType == editorWindow.LanguageType).LanguageGenericType);
-
-            foreach (DialogueNodePort nodePort in dialogueNodePorts)
-            {
-                nodePort.TextField.RegisterValueChangedCallback(value =>
-                {
-                    nodePort.TextLanguages.Find(language => language.LanguageType == editorWindow.LanguageType).LanguageGenericType = value.newValue;
-                });
-                nodePort.TextField.SetValueWithoutNotify(nodePort.TextLanguages.Find(language => language.LanguageType == editorWindow.LanguageType).LanguageGenericType);
-            }
-        }
 
         public override void LoadValueInToField()
         {
-            textsField.SetValueWithoutNotify(texts.Find(language => language.LanguageType == editorWindow.LanguageType).LanguageGenericType);
-            audioClipsField.SetValueWithoutNotify(audioClips.Find(language => language.LanguageType == editorWindow.LanguageType).LanguageGenericType);
-            npcImageField.SetValueWithoutNotify(npcFaceImage);
-            playerImageField.SetValueWithoutNotify(playerFaceImage);
-            nameField.SetValueWithoutNotify(nameText);
+            textField.SetValueWithoutNotify(Text);
+            audioClipField.SetValueWithoutNotify(AudioClip);
+            npcImageField.SetValueWithoutNotify(NpcFaceImage);
+            playerImageField.SetValueWithoutNotify(PlayerFaceImage);
+            nameField.SetValueWithoutNotify(NameText);
         }
 
         public Port AddChoicePort(BaseNode newBaseNode, DialogueNodePort newDialogueNodePort = null)
@@ -194,37 +155,26 @@ namespace jbzdy.DialogueSystem.Nodes
             int outputPortCount = newBaseNode.outputContainer.Query("connector").ToList().Count();
             string outputPortName = $"Continue";
 
-            DialogueNodePort dialogueNodePort = new DialogueNodePort();
-            dialogueNodePort.PortGuid = Guid.NewGuid().ToString();
-
-            foreach (LanguageType language in (LanguageType[])Enum.GetValues(typeof(LanguageType)))
+            DialogueNodePort dialogueNodePort = new DialogueNodePort
             {
-                dialogueNodePort.TextLanguages.Add(new LanguageGeneric<string>()
-                {
-                    LanguageType = language,
-                    LanguageGenericType = outputPortName
-                });
-            }
+                PortGuid = Guid.NewGuid().ToString()
+            };
 
             if (newDialogueNodePort != null)
             {
                 dialogueNodePort.InputGuid = newDialogueNodePort.InputGuid;
                 dialogueNodePort.OutputGuid = newDialogueNodePort.OutputGuid;
                 dialogueNodePort.PortGuid = newDialogueNodePort.PortGuid;
-
-                foreach (LanguageGeneric<string> languageGeneric in newDialogueNodePort.TextLanguages)
-                {
-                    dialogueNodePort.TextLanguages.Find(language => language.LanguageType == languageGeneric.LanguageType).LanguageGenericType = languageGeneric.LanguageGenericType;
-                }
+                dialogueNodePort.Text = newDialogueNodePort.Text;
             }
 
             // Text for the port
             dialogueNodePort.TextField = new TextField();
             dialogueNodePort.TextField.RegisterValueChangedCallback(value =>
             {
-                dialogueNodePort.TextLanguages.Find(language => language.LanguageType == editorWindow.LanguageType).LanguageGenericType = value.newValue;
+                dialogueNodePort.Text = value.newValue;
             });
-            dialogueNodePort.TextField.SetValueWithoutNotify(dialogueNodePort.TextLanguages.Find(language => language.LanguageType == editorWindow.LanguageType).LanguageGenericType);
+            dialogueNodePort.TextField.SetValueWithoutNotify(dialogueNodePort.Text);
             port.contentContainer.Add(dialogueNodePort.TextField);
 
             // Delete button
@@ -268,6 +218,83 @@ namespace jbzdy.DialogueSystem.Nodes
 
             delNode.RefreshPorts();
             delNode.RefreshExpandedState();
+        }
+
+        public override bool DrawNode(DialogueEditorWindow editorWindow, DialogueGraphView graphView, Vector2 graphMousePosition)
+        {
+            graphView.AddElement(new DialogueNode(graphMousePosition, editorWindow, graphView));
+            return true;
+        }
+
+        public override BaseNodeData GetDataToSave()
+        {
+            DialogueNodeData dataToSave = new()
+            {
+                Position = GetPosition().position,
+                NodeGuid = NodeGuid,
+                Text = Text,
+                AudioClip = AudioClip,
+                npcSprite = NpcFaceImage,
+                playerSprite = PlayerFaceImage,
+                Name = NameText,
+                DialogueNodePorts = new List<DialogueNodePort>(DialogueNodePorts)
+            };
+
+            foreach (DialogueNodePort nodePort in dataToSave.DialogueNodePorts)
+            {
+                nodePort.OutputGuid = string.Empty;
+                nodePort.InputGuid = string.Empty;
+                foreach (Edge edge in graphView.edges.ToList())
+                {
+                    if (edge.output == nodePort.MyPort)
+                    {
+                        nodePort.OutputGuid = (edge.output.node as BaseNode).NodeGuid;
+                        nodePort.InputGuid = (edge.input.node as BaseNode).NodeGuid;
+                    }
+                }
+            }
+            return dataToSave;
+        }
+
+        public override void LoadDataIntoNode(BaseNodeData dataToLoad)
+        {
+            
+            if (dataToLoad is not DialogueNodeData)
+            {
+                Debug.Log("Błędne dane otrzymane do node'a");
+                return;
+            }
+            DialogueNodeData newData = (DialogueNodeData) dataToLoad;
+            SetPosition(new Rect(newData.Position, defaultNodeSize));
+            NodeGuid = newData.NodeGuid;
+            Text = newData.Text;
+            AudioClip = newData.AudioClip;
+            NpcFaceImage = newData.npcSprite;
+            PlayerFaceImage = newData.playerSprite;
+            NameText = newData.Name;
+            foreach (DialogueNodePort nodePort in newData.DialogueNodePorts)
+            {
+                AddChoicePort(this, nodePort);
+            }
+
+            LoadValueInToField();
+        }
+
+        public override BaseNode CreateNewNode(DialogueEditorWindow newEditorWindow, DialogueGraphView newGraphView)
+        {
+            return new DialogueNode(Vector2.zero, newEditorWindow, newGraphView);
+        }
+
+        public override void LinkToOtherNodes(List<BaseNode> allNodes)
+        {
+            foreach (DialogueNodePort nodePort in DialogueNodePorts)
+            {
+                if (nodePort.InputGuid != string.Empty)
+                {
+                    BaseNode targetNode = allNodes.First(Node => Node.NodeGuid == nodePort.InputGuid);
+                    graphView.Add(MakeNewEdge(nodePort.MyPort, (Port)targetNode.inputContainer[0]));
+                }
+            }
         }
     }
 }

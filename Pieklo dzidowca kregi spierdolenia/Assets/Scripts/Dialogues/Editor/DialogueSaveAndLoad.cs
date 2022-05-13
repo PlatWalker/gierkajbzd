@@ -1,8 +1,7 @@
 ﻿using System.Linq;
 using UnityEditor;
-using UnityEngine;
 using UnityEngine.UIElements;
-using jbzdy.DialogueSystem.SO;
+using jbzdy.DialogueSystem.NodeDatas;
 using System.Collections.Generic;
 using jbzdy.DialogueSystem.Nodes;
 using jbzdy.DialogueSystem.Editor;
@@ -12,14 +11,16 @@ namespace jbzdy.DialogueSystem.SaveLoad
 {
     public class DialogueSaveAndLoad
     {
-        private List<Edge> edges => graphView.edges.ToList();
-        private List<BaseNode> nodes => graphView.nodes.ToList().Where(node => node is BaseNode).Cast<BaseNode>().ToList();
+        private List<Edge> _edges => _graphView.edges.ToList();
+        private List<BaseNode> _nodes => _graphView.nodes.ToList().Where(node => node is BaseNode).Cast<BaseNode>().ToList();
 
-        private DialogueGraphView graphView;
+        private DialogueGraphView _graphView;
+        private DialogueEditorWindow _editorWindow;
 
-        public DialogueSaveAndLoad(DialogueGraphView newGraphView)
+        public DialogueSaveAndLoad(DialogueGraphView newGraphView, DialogueEditorWindow newEditorWindow)
         {
-            graphView = newGraphView;
+            _editorWindow = newEditorWindow;
+            _graphView = newGraphView;
         }
 
         public void Save(DialogueContainerSO dialogueContainerSO)
@@ -29,6 +30,7 @@ namespace jbzdy.DialogueSystem.SaveLoad
 
             EditorUtility.SetDirty(dialogueContainerSO);
             AssetDatabase.SaveAssets();
+
         }
 
         public void Load(DialogueContainerSO dialogueContainerSO)
@@ -42,12 +44,13 @@ namespace jbzdy.DialogueSystem.SaveLoad
         private void SaveEdges(DialogueContainerSO dialogueContainerSO)
         {
             dialogueContainerSO.NodeLinkDatas.Clear();
-            Edge[] connectedEdges = edges.Where(edge => edge.input.node != null).ToArray();
+            Edge[] connectedEdges = _edges.Where(edge => edge.input.node != null).ToArray();
             
-            for (int i = 0; i < connectedEdges.Count(); i++)
+            foreach (var edge in connectedEdges)
             {
-                BaseNode outputNode = (BaseNode)connectedEdges[i].output.node;
-                BaseNode inputNode = connectedEdges[i].input.node as BaseNode;
+                BaseNode outputNode = (BaseNode)edge.output.node;
+                BaseNode inputNode = edge.input.node as BaseNode;
+
 
                 dialogueContainerSO.NodeLinkDatas.Add(new NodeLinkData
                 {
@@ -59,134 +62,13 @@ namespace jbzdy.DialogueSystem.SaveLoad
 
         private void SaveNodes(DialogueContainerSO dialogueContainerSO)
         {
-            dialogueContainerSO.DialogueNodeDatas.Clear();
-            dialogueContainerSO.EventNodeDatas.Clear();
-            dialogueContainerSO.StatCheckNodeDatas.Clear();
-            dialogueContainerSO.ItemCheckNodeDatas.Clear();
-            dialogueContainerSO.EndNodeDatas.Clear();
-            dialogueContainerSO.StartNodeDatas.Clear();
-
-            nodes.ForEach(node =>
+            dialogueContainerSO.NodeDatas.Clear();
+            foreach(BaseNode node in _nodes)
             {
-                switch (node)
-                {
-                    case StartNode startNode:
-                        dialogueContainerSO.StartNodeDatas.Add(SaveNodeData(startNode));
-                        break;
-                    case EndNode endNode:
-                        dialogueContainerSO.EndNodeDatas.Add(SaveNodeData(endNode));
-                        break;
-                    case EventNode eventNode:
-                        dialogueContainerSO.EventNodeDatas.Add(SaveNodeData(eventNode));
-                        break;
-                    case DialogueNode dialogueNode:
-                        dialogueContainerSO.DialogueNodeDatas.Add(SaveNodeData(dialogueNode));
-                        break;
-                    case StatCheckNode statCheckNode:
-                        dialogueContainerSO.StatCheckNodeDatas.Add(SaveNodeData(statCheckNode));
-                        break;
-                    case ItemCheckNode itemCheckNode:
-                        dialogueContainerSO.ItemCheckNodeDatas.Add(SaveNodeData(itemCheckNode));
-                        break;
-                    default:
-                        break;
-                }
-            });
-        }
-
-        private DialogueNodeData SaveNodeData(DialogueNode node)
-        {
-            DialogueNodeData dialogueNodeData = new DialogueNodeData
-            {
-                NodeGuid = node.NodeGuid,
-                Position = node.GetPosition().position,
-                TextLanguages = node.Texts,
-                Name = node.NameText,
-                AudioClips = node.AudioClips,
-                npcSprite = node.NpcFaceImage,
-                playerSprite = node.PlayerFaceImage,
-                DialogueNodePorts = new List<DialogueNodePort>(node.DialogueNodePorts)
-            };
-
-            foreach (DialogueNodePort nodePort in dialogueNodeData.DialogueNodePorts)
-            {
-                nodePort.OutputGuid = string.Empty;
-                nodePort.InputGuid = string.Empty;
-                foreach (Edge edge in edges)
-                {
-                    if (edge.output == nodePort.MyPort)
-                    {
-                        nodePort.OutputGuid = (edge.output.node as BaseNode).NodeGuid;
-                        nodePort.InputGuid = (edge.input.node as BaseNode).NodeGuid;
-                    }
-                }
+                dialogueContainerSO.NodeDatas.Add(node.GetDataToSave());
             }
-
-            return dialogueNodeData;
         }
 
-        private StartNodeData SaveNodeData(StartNode node)
-        {
-            StartNodeData nodeData = new StartNodeData()
-            {
-                NodeGuid = node.NodeGuid,
-                Position = node.GetPosition().position,
-            };
-
-            return nodeData;
-        }
-
-        private EndNodeData SaveNodeData(EndNode node)
-        {
-            EndNodeData nodeData = new EndNodeData()
-            {
-                NodeGuid = node.NodeGuid,
-                Position = node.GetPosition().position,
-                EndNodeType = node.EndNodeType
-            };
-
-            return nodeData;
-        }
-
-        private EventNodeData SaveNodeData(EventNode node)
-        {
-            EventNodeData nodeData = new EventNodeData()
-            {
-                NodeGuid = node.NodeGuid,
-                Position = node.GetPosition().position,
-                DialogueEventSO = node.DialogueEvent,
-                QuestSO = node.Quest
-            };
-
-            return nodeData;
-        }
-
-        private ItemCheckNodeData SaveNodeData(ItemCheckNode node)
-        {
-            ItemCheckNodeData nodeData = new ItemCheckNodeData()
-            {
-                NodeGuid = node.NodeGuid,
-                Position = node.GetPosition().position,
-                NodeItem = node.NodeItem,
-                ItemCheckType = node.ItemCheckNodeType,
-                ItemCheckValue = int.Parse(node.ItemCheckValue),
-            };
-         
-            return nodeData;
-        }
-
-        private StatCheckNodeData SaveNodeData(StatCheckNode node)
-        {
-            StatCheckNodeData nodeData = new StatCheckNodeData()
-            {
-                NodeGuid = node.NodeGuid,
-                Position = node.GetPosition().position,
-                StatCheckType = node.CheckType,
-                StatCheckValue = int.Parse(node.StatCheckValue)
-            };
-
-            return nodeData;
-        }
 
 
         #endregion
@@ -195,138 +77,48 @@ namespace jbzdy.DialogueSystem.SaveLoad
 
         private void ClearGraph()
         {
-            edges.ForEach(edge => graphView.RemoveElement(edge));
+            _edges.ForEach(edge => _graphView.RemoveElement(edge));
 
-            foreach (BaseNode node in nodes)
+            foreach (BaseNode node in _nodes)
             {
-                graphView.RemoveElement(node);
+                _graphView.RemoveElement(node);
             }
         }
 
         private void GenerateNodes(DialogueContainerSO dialogueContainer)
         {
-            // Start
-            foreach (StartNodeData node in dialogueContainer.StartNodeDatas)
+            NodeList nodeList = new();
+            foreach (BaseNodeData nodeData in dialogueContainer.NodeDatas)
             {
-                StartNode tempNode = graphView.CreateStartNode(node.Position);
-                tempNode.NodeGuid = node.NodeGuid;
-
-                graphView.AddElement(tempNode);
-            }
-
-            // End Node 
-            foreach (EndNodeData node in dialogueContainer.EndNodeDatas)
-            {
-                EndNode tempNode = graphView.CreateEndNode(node.Position);
-                tempNode.NodeGuid = node.NodeGuid;
-                tempNode.EndNodeType = node.EndNodeType;
-
-                tempNode.LoadValueInToField();
-                graphView.AddElement(tempNode);
-            }
-
-            // Event Node
-            foreach (EventNodeData node in dialogueContainer.EventNodeDatas)
-            {
-                EventNode tempNode = graphView.CreateEventNode(node.Position);
-                tempNode.NodeGuid = node.NodeGuid;
-                tempNode.DialogueEvent = node.DialogueEventSO;
-                tempNode.Quest = node.QuestSO;
-
-                if(tempNode.Quest != null || (tempNode.DialogueEvent != null && tempNode.DialogueEvent.GetType() == typeof(jbzdy.DialogueSystem.Events.EventGetQuest)))
-                {
-                    tempNode.MakeQuest();
-                }
-
-                tempNode.LoadValueInToField();
-                graphView.AddElement(tempNode);
-            }
-
-            // Dialogue Node
-            foreach (DialogueNodeData node in dialogueContainer.DialogueNodeDatas)
-            {
-                DialogueNode tempNode = graphView.CreateDialogueNode(node.Position);
-                tempNode.NodeGuid = node.NodeGuid;
-                tempNode.NameText = node.Name;
-                tempNode.NpcFaceImage = node.npcSprite;
-                tempNode.PlayerFaceImage = node.playerSprite;
-
-                foreach (LanguageGeneric<string> languageGeneric in node.TextLanguages)
-                {
-                    tempNode.Texts.Find(language => language.LanguageType == languageGeneric.LanguageType).LanguageGenericType = languageGeneric.LanguageGenericType;
-                }
-
-                foreach (LanguageGeneric<AudioClip> languageGeneric in node.AudioClips)
-                {
-                    tempNode.AudioClips.Find(language => language.LanguageType == languageGeneric.LanguageType).LanguageGenericType = languageGeneric.LanguageGenericType;
-                }
-
-                foreach (DialogueNodePort nodePort in node.DialogueNodePorts)
-                {
-                    tempNode.AddChoicePort(tempNode, nodePort);
-                }
-
-                tempNode.LoadValueInToField();
-                graphView.AddElement(tempNode);
-            }
-
-            //Stat Check Node
-            foreach (StatCheckNodeData node in dialogueContainer.StatCheckNodeDatas)
-            {
-                StatCheckNode tempNode = graphView.CreateStatCheckNode(node.Position);
-                tempNode.NodeGuid = node.NodeGuid;
-                tempNode.StatCheckValue = node.StatCheckValue.ToString();
-                tempNode.CheckType = node.StatCheckType;
-
-                tempNode.LoadValueInToField();
-                graphView.AddElement(tempNode);
-            }
-
-            //Item Check Node
-            foreach (ItemCheckNodeData node in dialogueContainer.ItemCheckNodeDatas)
-            {
-                ItemCheckNode tempNode = graphView.CreateItemCheckNode(node.Position);
-                tempNode.NodeGuid = node.NodeGuid;
-                tempNode.ItemCheckValue = node.ItemCheckValue.ToString();
-                tempNode.ItemCheckNodeType = node.ItemCheckType;
-                tempNode.NodeItem = node.NodeItem;
-
-                tempNode.LoadValueInToField();
-                graphView.AddElement(tempNode);
+                BaseNode tempNode = nodeList.GenerateNodeBasedOnData(nodeData,_editorWindow,_graphView);
+                _graphView.AddElement(tempNode);
             }
         }
 
         private void ConnectNodes(DialogueContainerSO dialogueContainer)
         {
-            for (int i = 0; i < nodes.Count; i++)
+            foreach (var node in _nodes)
             {
-                List<NodeLinkData> connections = dialogueContainer.NodeLinkDatas.Where(edge => edge.BaseNodeGuid == nodes[i].NodeGuid).ToList();
+                List<NodeLinkData> connections = dialogueContainer.NodeLinkDatas.Where(edge => edge.BaseNodeGuid == node.NodeGuid).ToList();
 
                 for (int j = 0; j < connections.Count; j++)
                 {
                     string targetNodeGuid = connections[j].TargetNodeGuid;
-                    BaseNode targetNode = nodes.First(node => node.NodeGuid == targetNodeGuid);
+                    BaseNode targetNode = _nodes.First(node => node.NodeGuid == targetNodeGuid);
 
-                    if ((nodes[i] is DialogueNode) == false)
+                    if (node.AutoDrawOutputEdges)
                     {
-                        LinkNodesTogether(nodes[i].outputContainer[j].Q<Port>(), (Port)targetNode.inputContainer[0]);
+                        LinkNodesTogether(node.outputContainer[j].Q<Port>(), (Port)targetNode.inputContainer[0]);
                     }
                 }
             }
 
-            List<DialogueNode> dialogueNodes = nodes.FindAll(node => node is DialogueNode).Cast<DialogueNode>().ToList();
-
-            foreach (DialogueNode dialogueNode in dialogueNodes)
+            List<BaseNode> nodesWithSpecificLinkingConditions = _nodes.FindAll(node => node is BaseNode).Cast<BaseNode>().Where(node=>node.AutoDrawOutputEdges==false).ToList();
+            foreach(var node in nodesWithSpecificLinkingConditions)
             {
-                foreach (DialogueNodePort nodePort in dialogueNode.DialogueNodePorts)
-                {
-                    if (nodePort.InputGuid != string.Empty)
-                    {
-                        BaseNode targetNode = nodes.First(Node => Node.NodeGuid == nodePort.InputGuid);
-                        LinkNodesTogether(nodePort.MyPort, (Port)targetNode.inputContainer[0]);
-                    }
-                }
+                node.LinkToOtherNodes(_nodes);
             }
+
         }
 
         private void LinkNodesTogether(Port outputPort, Port inputPort)
@@ -339,7 +131,7 @@ namespace jbzdy.DialogueSystem.SaveLoad
 
             tempEdge.input.Connect(tempEdge);
             tempEdge.output.Connect(tempEdge);
-            graphView.Add(tempEdge);
+            _graphView.Add(tempEdge);
         }
 
         #endregion

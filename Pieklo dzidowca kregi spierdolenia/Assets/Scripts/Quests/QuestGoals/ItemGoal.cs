@@ -16,7 +16,7 @@ public class ItemGoal : QuestGoal
         inventory.OnInventoryItemAdd.AddListener(CheckItemState);
         inventory.OnInventoryItemRemove.AddListener(CheckItemState);
 
-        if (inventory.CheckForItem(item, requiredAmount, false)) CheckItemState();
+        if (inventory.TakeItemFromPlayer(item, requiredAmount, false)) CheckItemState();
     }
 
     void CheckItemState()

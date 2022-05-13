@@ -21,6 +21,7 @@ namespace jbzdy.Actions.Interaction
         
         public new void Awake()
         {
+            item = this.GetComponent<Item>();
             inventory = InventoryClass.Instance;            
         }
         
@@ -33,8 +34,6 @@ namespace jbzdy.Actions.Interaction
 
         private void PickUp()
         {
-            Debug.Log("Picking up item: " + item.name);
-
             InventoryClass.Instance.AddItem(item);
         }
     }

@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Linq;
 
-[CreateAssetMenu(fileName = "Assets/Resources/Quests/New Quest", menuName = "Quest")]
+[CreateAssetMenu(fileName = "New Quest", menuName = "Quest")]
 public class Quest : ScriptableObject 
 {
     public bool isActive { get; set; }
