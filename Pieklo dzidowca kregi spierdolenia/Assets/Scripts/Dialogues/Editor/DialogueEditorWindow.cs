@@ -41,6 +41,12 @@ namespace jbzdy.DialogueSystem.Editor
             Load();
         }
 
+        private void OnLostFocus()
+        {
+            if (EditorApplication.isPlayingOrWillChangePlaymode) return;
+            Save();
+        }
+
         private void OnDisable()
         {
             rootVisualElement.Remove(graphView);
@@ -92,7 +98,7 @@ namespace jbzdy.DialogueSystem.Editor
             rootVisualElement.Add(toolbar);
         }
         
-        private void Save()
+        public void Save()
         {
             if (currentDialogueContainer != null)
             {
@@ -100,7 +106,7 @@ namespace jbzdy.DialogueSystem.Editor
             }
         }
         
-        private void Load()
+        public void Load()
         {
             if (currentDialogueContainer != null)
             {

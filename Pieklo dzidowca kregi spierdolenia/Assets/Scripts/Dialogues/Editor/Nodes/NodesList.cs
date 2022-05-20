@@ -19,6 +19,8 @@ namespace jbzdy.DialogueSystem.Nodes
             List.Add(new NodeListEntry("Item Check Node", new ItemCheckNode(), new ItemCheckNodeData()));
             List.Add(new NodeListEntry("End Node", new EndNode(), new EndNodeData()));
             List.Add(new NodeListEntry("Quest Check Node", new QuestCheckNode(), new QuestCheckNodeData()));
+            List.Add(new NodeListEntry("Create Checkpoint Node", new CreateCheckpointNode(), new CreateCheckpointNodeData()));
+            List.Add(new NodeListEntry("Checkpoint Splitter Node", new CheckpointSplitterNode(), new CheckpointSplitterNodeData()));
         }
 
         public BaseNode GenerateNodeBasedOnData(BaseNodeData nodeData, DialogueEditorWindow newEditorWindow, DialogueGraphView newGraphView)

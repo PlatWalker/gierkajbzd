@@ -13,43 +13,65 @@ MonoBehaviour:
   m_Name: testowy
   m_EditorClassIdentifier: 
   <NodeLinkDatas>k__BackingField:
-  - BaseNodeGuid: 194a62eb-355b-4d9c-bedf-a1e0d0f86594
-    TargetNodeGuid: de8819e0-c6a2-40ff-ab0e-85310e1cc7e6
   - BaseNodeGuid: e8c5cfb0-ee18-4c59-985a-65e9793b750a
+    TargetNodeGuid: da853bb7-4710-4e80-9689-eb1982dd9104
+  - BaseNodeGuid: 0dc2bfe0-ee20-4125-bdd3-abf03056474e
+    TargetNodeGuid: de8819e0-c6a2-40ff-ab0e-85310e1cc7e6
+  - BaseNodeGuid: 194a62eb-355b-4d9c-bedf-a1e0d0f86594
+    TargetNodeGuid: 0dc2bfe0-ee20-4125-bdd3-abf03056474e
+  - BaseNodeGuid: da853bb7-4710-4e80-9689-eb1982dd9104
+    TargetNodeGuid: 6ce9fb19-cd09-43a2-a3fe-31e46ee21646
+  - BaseNodeGuid: da853bb7-4710-4e80-9689-eb1982dd9104
     TargetNodeGuid: 1222f987-2ab9-471c-ae62-e4ca42ece3c1
   - BaseNodeGuid: 1222f987-2ab9-471c-ae62-e4ca42ece3c1
     TargetNodeGuid: 194a62eb-355b-4d9c-bedf-a1e0d0f86594
+  - BaseNodeGuid: 6ce9fb19-cd09-43a2-a3fe-31e46ee21646
+    TargetNodeGuid: de8819e0-c6a2-40ff-ab0e-85310e1cc7e6
   NodeDatas:
-  - rid: 5888294051215835136
-  - rid: 5888294051215835137
-  - rid: 5888294051215835138
-  - rid: 5888294051215835139
+  - rid: 5888294186040427145
+  - rid: 5888294186040427146
+  - rid: 5888294186040427147
+  - rid: 5888294186040427148
+  - rid: 5888294186040427149
+  - rid: 5888294186040427150
+  - rid: 5888294186040427151
   references:
     version: 2
     RefIds:
-    - rid: 5888294051215835136
-      type: {class: EndNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
-      data:
-        <NodeGuid>k__BackingField: de8819e0-c6a2-40ff-ab0e-85310e1cc7e6
-        <Position>k__BackingField: {x: 1748, y: 758}
-        <EndNodeType>k__BackingField: 0
-    - rid: 5888294051215835137
-      type: {class: EventNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
-      data:
-        <NodeGuid>k__BackingField: 194a62eb-355b-4d9c-bedf-a1e0d0f86594
-        <Position>k__BackingField: {x: 1366, y: 752}
-        DialogueEventSO: {fileID: 11400000, guid: 94ef35f1d6368c24a82953d77de19e1b, type: 2}
-        QuestSO: {fileID: 11400000, guid: b0f8d7658cb47324e887da13a0874f4c, type: 2}
-    - rid: 5888294051215835138
+    - rid: 5888294186040427145
       type: {class: StartNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
       data:
         <NodeGuid>k__BackingField: e8c5cfb0-ee18-4c59-985a-65e9793b750a
-        <Position>k__BackingField: {x: 613, y: 744}
-    - rid: 5888294051215835139
+        <Position>k__BackingField: {x: -778, y: 364}
+    - rid: 5888294186040427146
+      type: {class: EndNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: de8819e0-c6a2-40ff-ab0e-85310e1cc7e6
+        <Position>k__BackingField: {x: 1209, y: 425}
+        <EndNodeType>k__BackingField: 0
+    - rid: 5888294186040427147
+      type: {class: CheckpointSplitterNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: da853bb7-4710-4e80-9689-eb1982dd9104
+        <Position>k__BackingField: {x: -556, y: 364}
+        CheckpointTag: 
+        CheckpointName: "Chlor ju\u017C da\u0142 questa"
+        Level: 0
+        PositiveResultGuid: 6ce9fb19-cd09-43a2-a3fe-31e46ee21646
+        NegativeResultGuid: 1222f987-2ab9-471c-ae62-e4ca42ece3c1
+    - rid: 5888294186040427148
+      type: {class: CreateCheckpointNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 0dc2bfe0-ee20-4125-bdd3-abf03056474e
+        <Position>k__BackingField: {x: 865, y: 317}
+        CheckpointTag: Chlorowe
+        CheckpointName: "Chlor ju\u017C da\u0142 questa"
+        Level: 0
+    - rid: 5888294186040427149
       type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
       data:
         <NodeGuid>k__BackingField: 1222f987-2ab9-471c-ae62-e4ca42ece3c1
-        <Position>k__BackingField: {x: 702, y: 707}
+        <Position>k__BackingField: {x: -185, y: 180}
         <DialogueNodePorts>k__BackingField:
         - PortGuid: 2f23d123-3e3e-403f-9eb9-1ea236015be0
           InputGuid: 194a62eb-355b-4d9c-bedf-a1e0d0f86594
@@ -57,6 +79,28 @@ MonoBehaviour:
           Text: super dzieki
         <AudioClip>k__BackingField: {fileID: 8300000, guid: b978e9d8c0a46b147b7c27acdb33058f, type: 3}
         <Text>k__BackingField: Masz tu questa i zapierdalaj zabic 3 doomery
+        <npcSprite>k__BackingField: {fileID: 0}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: 
+    - rid: 5888294186040427150
+      type: {class: EventNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 194a62eb-355b-4d9c-bedf-a1e0d0f86594
+        <Position>k__BackingField: {x: 504, y: 302}
+        DialogueEventSO: {fileID: 11400000, guid: 94ef35f1d6368c24a82953d77de19e1b, type: 2}
+        QuestSO: {fileID: 11400000, guid: b0f8d7658cb47324e887da13a0874f4c, type: 2}
+    - rid: 5888294186040427151
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 6ce9fb19-cd09-43a2-a3fe-31e46ee21646
+        <Position>k__BackingField: {x: -16, y: 613}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: c3253faf-1cf8-4672-a1d0-fdc8bfae39b9
+          InputGuid: de8819e0-c6a2-40ff-ab0e-85310e1cc7e6
+          OutputGuid: 6ce9fb19-cd09-43a2-a3fe-31e46ee21646
+          Text: "Przecie\u017C wiem!"
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Juz dosta\u0142e\u015B questa. Spadaj"
         <npcSprite>k__BackingField: {fileID: 0}
         <playerSprite>k__BackingField: {fileID: 0}
         <Name>k__BackingField: 

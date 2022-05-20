@@ -57,7 +57,7 @@ namespace jbzdy.DialogueSystem.Nodes
 
         public virtual void LinkToOtherNodes(List<BaseNode> allNodes)
         {
-            Debug.Log("Wywołano niezaimplementowaną funckję");
+            Debug.Log("Nastąpiła próba specyficznego łączenia node'ów pomimo braku imlementacji tejże funkcji w nodzie");
         }
         protected Edge MakeNewEdge(Port outputPort, Port inputPort)
         {

@@ -15,7 +15,7 @@ namespace jbzdy.DialogueSystem.NodeDatas
         public QuestGoal NodeTask { get; set; }
         public override void RunNode(DialogueTalk dialogueTalk)
         {
-            if (NodeTask.Completed)//dopisaæ
+            if (NodeTask.Completed)
             {
                 dialogueTalk.GetNodeByGuid(PositiveResultGuid).RunNode(dialogueTalk);
             }
