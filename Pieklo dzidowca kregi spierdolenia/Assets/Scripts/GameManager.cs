@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using jbzdy.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,8 +20,11 @@ public class GameManager : Singleton<GameManager>
 
     private void Awake()
     {
+        PlayerObject = GameObject.FindGameObjectWithTag("Player");
+        
         GameInputController = gameObject.AddComponent<InputController>();
-        dialoguesCheckPointsSO = Resources.FindObjectsOfTypeAll<DialoguesCheckPointsSO>()[0];
+        dialoguesCheckPointsSO = Resources.FindObjectsOfTypeAll<DialoguesCheckPointsSO>().FirstOrDefault();
+        UIControllerInstance = FindObjectOfType<UIController>();
     }
 
     private void Start()
