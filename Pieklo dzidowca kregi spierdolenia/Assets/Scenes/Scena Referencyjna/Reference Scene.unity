@@ -372,7 +372,7 @@ TerrainCollider:
   m_GameObject: {fileID: 561960059}
   m_Material: {fileID: 0}
   m_Enabled: 1
-  m_TerrainData: {fileID: 15600000, guid: 9a3259d1e6b276b4bb060e7c736f4d71, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: 0b7fde534dd366748ae7e079fdd3d7e2, type: 2}
   m_EnableTreeColliders: 1
 --- !u!218 &561960061
 Terrain:
@@ -383,7 +383,7 @@ Terrain:
   m_GameObject: {fileID: 561960059}
   m_Enabled: 1
   serializedVersion: 6
-  m_TerrainData: {fileID: 15600000, guid: 9a3259d1e6b276b4bb060e7c736f4d71, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: 0b7fde534dd366748ae7e079fdd3d7e2, type: 2}
   m_TreeDistance: 5000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
@@ -562,9 +562,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b374279be5765df4599cd3d016916590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentDialogue: {fileID: 11400000, guid: a0dd4d85dcc6fd34082a75497c59d79c, type: 2}
-  dialogueControler: {fileID: 0}
-  audioSource: {fileID: 844848203}
 --- !u!114 &844848202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -578,11 +575,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionZone: {fileID: 1593859608}
-  isInteracting: 0
-  NPCDialogues:
-  - {fileID: 11400000, guid: a0dd4d85dcc6fd34082a75497c59d79c, type: 2}
-  NPCQuests:
-  - {fileID: 11400000, guid: 800fc83122404b949a8d20c359a4a9e7, type: 2}
+  NPCDialogue: {fileID: 0}
+  QuestsToUpdateWhenInteracted: []
 --- !u!82 &844848203
 AudioSource:
   m_ObjectHideFlags: 0
@@ -814,7 +808,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionZone: {fileID: 1986716640}
-  isInteracting: 0
   item: {fileID: 875021467}
   inventory: {fileID: 0}
 --- !u!114 &875021467

@@ -2,6 +2,7 @@ using jbzdy.CharacterStats;
 using System;
 using System.Data.SqlTypes;
 using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -99,5 +100,6 @@ namespace jbzdy.Player
             SetDamage(damageAmount, damageType);
         }
 
+        public void PlaceAt(Vector3 placement) => transform.position = placement;
     } 
 }
