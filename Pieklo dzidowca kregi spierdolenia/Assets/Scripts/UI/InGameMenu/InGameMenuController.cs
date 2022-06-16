@@ -37,12 +37,12 @@ namespace jbzdy.UI
         private void Update()
         {
             // zrobić eventa, moze z zastosowaniem wzorca "observer"?
-            if (GameManager.Instance.GameInputController.uIinputStatus.inGameMenu == true && panel.activeSelf == false)
+            if (GameManager.Instance.GameInputController.uIinputStatus.InGameMenu == true && panel.activeSelf == false)
             {
                 PauseGame();
 
             }
-            else if (GameManager.Instance.GameInputController.uIinputStatus.inGameMenu == true && panel.activeSelf == true)
+            else if (GameManager.Instance.GameInputController.uIinputStatus.InGameMenu == true && panel.activeSelf == true)
             {
                 ResumeGame();
             }

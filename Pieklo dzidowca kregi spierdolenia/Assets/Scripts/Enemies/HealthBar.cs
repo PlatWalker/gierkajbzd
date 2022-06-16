@@ -3,6 +3,7 @@
 ///</summary>
 
 
+using jbzd.Common.Interfaces;
 using UnityEngine;
 
 public class HealthBar : MonoBehaviour

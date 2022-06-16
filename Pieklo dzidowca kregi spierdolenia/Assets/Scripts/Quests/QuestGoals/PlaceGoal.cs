@@ -1,31 +1,33 @@
-﻿using UnityEngine;
+﻿using jbzd.Common.InteractSystem;
+using UnityEngine;
 using UnityEditor;
-using jbzdy.Actions.Interaction;
 
 [System.Serializable]
 public class PlaceGoal : QuestGoal
 {
-    public GameObject place;
+    [SerializeField]
+    private GameObject place;
 
+    private Collider _collider;
+    private Interaction _interaction;
+    
     public override void Init()
     {
         base.Init();
-        InteractionZone.OnPlaceReach += ReachedPlace;
+        
+        _interaction = place.GetComponent<Interaction>();
+        _collider = place.GetComponent<Collider>();
+        
+        _interaction.OnInteractionObjectReach += ReachedPlace;
     }
 
-    void ReachedPlace(GameObject gameObject)
+    private void ReachedPlace(Collider collider)
     {
-        if (place == gameObject)
-        {
-            currentAmount++;
+        if (_collider != collider && collider.gameObject.CompareTag("Player")) return;
+        
+        currentAmount++;
 
-            if (IsReached())
-            {
-                InteractionZone.OnPlaceReach -= ReachedPlace;
-            }
-
-
-        }
+        if (IsReached()) _interaction.OnInteractionObjectReach -= ReachedPlace;
     }
 
     public override void GoalCustomEditor()

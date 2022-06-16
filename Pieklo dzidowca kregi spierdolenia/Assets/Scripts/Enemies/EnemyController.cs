@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using jbzd.Common.Interfaces;
+using UnityEngine;
 using UnityEngine.AI;
 
 /// <summary>

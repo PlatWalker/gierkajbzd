@@ -1,32 +1,35 @@
-﻿using jbzdy.Actions.Interaction;
+﻿using jbzd.Common.InteractSystem;
 using UnityEditor;
 using UnityEngine;
 
 [System.Serializable]
 public class EscortGoal : QuestGoal
 {
-    public GameObject npc;
-    public GameObject place;
-
+    [SerializeField]
+    private GameObject npc;
+    [SerializeField]
+    private GameObject place;
+    
+    private Collider _collider;
+    private Interaction _interaction;
+    
     public override void Init()
     {
         base.Init();
-        InteractionZone.OnNpcPlaceReach += ReachedPlace;
+        
+        _interaction = place.GetComponent<Interaction>();
+        _collider = place.GetComponent<Collider>();
+        
+        _interaction.OnInteractionObjectReach += ReachedPlace;
     }
 
-    void ReachedPlace(GameObject gameObject)
+    private void ReachedPlace(Collider collider)
     {
-        if (place == gameObject)
-        {
-            currentAmount++;
+        if (_collider != collider && collider.gameObject.CompareTag("Npc")) return;
+        
+        currentAmount++;
 
-            if (IsReached())
-            {
-                InteractionZone.OnNpcPlaceReach -= ReachedPlace;
-            }
-
-
-        }
+        if (IsReached()) _interaction.OnInteractionObjectReach -= ReachedPlace;
     }
 
     public override void GoalCustomEditor()

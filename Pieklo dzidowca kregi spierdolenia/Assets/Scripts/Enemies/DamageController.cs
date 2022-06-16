@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using jbzd.Common.Interfaces;
 using UnityEngine;
 
 public class DamageController : MonoBehaviour

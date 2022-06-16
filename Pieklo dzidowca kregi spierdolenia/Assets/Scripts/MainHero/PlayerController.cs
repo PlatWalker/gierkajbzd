@@ -2,6 +2,7 @@ using jbzdy.CharacterStats;
 using System;
 using System.Data.SqlTypes;
 using System.Linq;
+using jbzd.Common.Interfaces;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Serialization;

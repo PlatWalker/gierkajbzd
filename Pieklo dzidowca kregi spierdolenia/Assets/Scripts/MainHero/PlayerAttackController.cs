@@ -21,7 +21,7 @@ namespace jbzdy.Player
 
         public void UpdateCharacterAttack()
         {
-            playerController.IsAttacking = GameManager.Instance.GameInputController.attackInputStatus.basic;
+            playerController.IsAttacking = GameManager.Instance.GameInputController.attackInputStatus.Basic;
 
             if (playerController.IsAttacking)
             {

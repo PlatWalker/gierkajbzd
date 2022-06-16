@@ -41,10 +41,10 @@ namespace jbzdy.Player
         private void UpdateCharacterPosition()
         {
             playerController.MovementVector = Vector3.zero;
-            playerController.MovementVector += Vector3.forward * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.up);
-            playerController.MovementVector += Vector3.back * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.down);
-            playerController.MovementVector += Vector3.left * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.left);
-            playerController.MovementVector += Vector3.right * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.right);
+            playerController.MovementVector += Vector3.forward * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.Up);
+            playerController.MovementVector += Vector3.back * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.Down);
+            playerController.MovementVector += Vector3.left * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.Left);
+            playerController.MovementVector += Vector3.right * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.Right);
             
             StickPlayerToGround();
 

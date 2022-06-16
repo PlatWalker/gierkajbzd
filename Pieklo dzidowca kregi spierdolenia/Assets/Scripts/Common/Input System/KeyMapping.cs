@@ -21,11 +21,17 @@ public struct UIinputKey
     public KeyCode inGameMenu;
 }
 
+public struct Interact
+{
+    public KeyCode InteractKey;
+}
+
 public class KeyMapping : MonoBehaviour
 {
-    private PlayerMovement playerMovement;
-    private PlayerAttack playerAttack;
-    private UIinputKey uIinput;
+    private PlayerMovement _playerMovement;
+    private PlayerAttack _playerAttack;
+    private UIinputKey _uiInput;
+    private Interact _interactKey;
 
     [SerializeField]
     private KeyCode playerMoveUp = KeyCode.W;
@@ -41,21 +47,28 @@ public class KeyMapping : MonoBehaviour
 
     [SerializeField]
     private KeyCode inGameMenu = KeyCode.Escape;
+    
+    [SerializeField]
+    private KeyCode interactKeyCode = KeyCode.E;
+    
+    public PlayerMovement PlayerMovement => _playerMovement;
+    public PlayerAttack PlayerAttack => _playerAttack;
+    public UIinputKey UIinput => _uiInput;
+    public Interact Interact => _interactKey;
 
-    public PlayerMovement PlayerMovement { get => playerMovement; private set => playerMovement = value; }
-    public PlayerAttack PlayerAttack { get => playerAttack; private set => playerAttack = value; }
-    public UIinputKey UIinput { get => uIinput; private set => uIinput = value; }
 
     public void Awake()
     {
         //TODO implement observer pattern for detecting key change
-        playerMovement.up = playerMoveUp;
-        playerMovement.down = playerMoveDown;
-        playerMovement.left = playerMoveLeft;
-        playerMovement.right = playerMoveRight;
+        _playerMovement.up = playerMoveUp;
+        _playerMovement.down = playerMoveDown;
+        _playerMovement.left = playerMoveLeft;
+        _playerMovement.right = playerMoveRight;
 
-        playerAttack.basic = playerBasicAttack;
+        _playerAttack.basic = playerBasicAttack;
 
-        uIinput.inGameMenu = inGameMenu;
+        _uiInput.inGameMenu = inGameMenu;
+
+        _interactKey.InteractKey = interactKeyCode;
     }
 }
