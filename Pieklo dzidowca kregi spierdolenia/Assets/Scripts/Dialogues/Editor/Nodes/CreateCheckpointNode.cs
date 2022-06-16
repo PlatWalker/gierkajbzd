@@ -6,12 +6,13 @@ using UnityEngine;
 using System;
 using UnityEditor.Experimental.GraphView;
 using System.Collections.Generic;
+using UnityEditor;
 
 namespace jbzdy.DialogueSystem.Nodes
 {
     public class CreateCheckpointNode : BaseNode
-    { 
-        
+    {
+
         private string _checkpointName = string.Empty;
         private string _checkpointTag = string.Empty;
         private int _level;
@@ -62,6 +63,12 @@ namespace jbzdy.DialogueSystem.Nodes
                 _level = _levelDropDownField.index;
                 AddCheckpoint(_checkpointName, _checkpointTag, _level);
             });
+            _levelDropDownField.RegisterCallback<BlurEvent>((evt) =>
+            {
+                RemoveCheckpoint(_checkpointName, _checkpointTag, _level);
+                AddCheckpoint(_checkpointName, _checkpointTag, _level);
+                saveSO();
+            });
             mainContainer.Add(_levelDropDownField);
 
             _checkpointTagTextField = new();
@@ -73,6 +80,12 @@ namespace jbzdy.DialogueSystem.Nodes
                 AddCheckpoint(_checkpointName, _checkpointTag, _level);
             });
             _checkpointTagTextField.multiline = false;
+            _checkpointTagTextField.RegisterCallback<BlurEvent>((evt) =>
+             {
+                 RemoveCheckpoint(_checkpointName, _checkpointTag, _level);
+                 AddCheckpoint(_checkpointName, _checkpointTag, _level);
+                 saveSO();
+             });
             mainContainer.Add(_checkpointTagTextField);
 
             _checkpointNameTextField = new();
@@ -84,6 +97,12 @@ namespace jbzdy.DialogueSystem.Nodes
                 AddCheckpoint(_checkpointName, _checkpointTag, _level);
             });
             _checkpointNameTextField.multiline = false;
+            _checkpointNameTextField.RegisterCallback<BlurEvent>((evt) =>
+            {
+                RemoveCheckpoint(_checkpointName, _checkpointTag, _level);
+                AddCheckpoint(_checkpointName, _checkpointTag, _level);
+                saveSO();
+            });
             mainContainer.Add(_checkpointNameTextField);
 
             this.capabilities -= Capabilities.Deletable;
@@ -93,7 +112,15 @@ namespace jbzdy.DialogueSystem.Nodes
             deleteButton.clicked += () =>
             {
                 RemoveCheckpoint(_checkpointName, _checkpointTag, _level);
+                saveSO();
                 graphView.RemoveElement(this);
+                graphView.edges.ForEach((edge)=>
+                {
+                    if(edge.input.Equals(this.inputContainer[0]) || edge.output.Equals(this.outputContainer[0]))
+                    {
+                        graphView.RemoveElement(edge);
+                    }
+                });
             };
             deleteButton.style.backgroundColor = new Color(0.4f, 0, 0);
             mainContainer.Add(deleteButton);
@@ -105,7 +132,12 @@ namespace jbzdy.DialogueSystem.Nodes
         }
         private void AddCheckpoint(string name, string tag, int level)
         {
-            container.CheckpointsList.Add(new DialoguesCheckpoint(name, tag, level));
+            container.CheckpointsList.Add(new DialoguesCheckpoint(name, tag, level)); 
+        }
+        private void saveSO()
+        {
+            EditorUtility.SetDirty(container);
+            AssetDatabase.SaveAssets();
         }
         public override BaseNode CreateNewNode(DialogueEditorWindow newEditorWindow, DialogueGraphView newGraphView)
         {

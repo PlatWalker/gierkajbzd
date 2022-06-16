@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a69ff5ed214494b835d86b8438ac53, type: 3}
+  m_Name: 1_kolejny
+  m_EditorClassIdentifier: 
+  <NodeLinkDatas>k__BackingField:
+  - BaseNodeGuid: d9dfec41-89bb-47c3-885e-e6eab3deb770
+    TargetNodeGuid: 3fccb805-ee2b-44fa-9626-ea5e145ef59c
+  - BaseNodeGuid: f2a441d5-750e-460e-b41a-5a3a61a18810
+    TargetNodeGuid: 5d8ab764-fcf9-4c89-aca3-c41fcaf74774
+  - BaseNodeGuid: 3fccb805-ee2b-44fa-9626-ea5e145ef59c
+    TargetNodeGuid: f2a441d5-750e-460e-b41a-5a3a61a18810
+  NodeDatas:
+  - rid: 4751322032789258472
+  - rid: 4751322032789258473
+  - rid: 4751322032789258474
+  - rid: 4751322032789258475
+  references:
+    version: 2
+    RefIds:
+    - rid: 4751322032789258472
+      type: {class: StartNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: d9dfec41-89bb-47c3-885e-e6eab3deb770
+        <Position>k__BackingField: {x: 187, y: 305}
+    - rid: 4751322032789258473
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 3fccb805-ee2b-44fa-9626-ea5e145ef59c
+        <Position>k__BackingField: {x: 308, y: 304}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 66de4396-7c3a-4761-a08d-8065d5140274
+          InputGuid: f2a441d5-750e-460e-b41a-5a3a61a18810
+          OutputGuid: 3fccb805-ee2b-44fa-9626-ea5e145ef59c
+          Text: Koniec
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Anon, kurwa! Chod\u017A tu natychmiast!"
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 190731da76bf37346aa29beab51e1412, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: f2d2a7d738e8e75488c4fea351131b93, type: 3}
+        <Name>k__BackingField: Madka
+    - rid: 4751322032789258474
+      type: {class: EventNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: f2a441d5-750e-460e-b41a-5a3a61a18810
+        <Position>k__BackingField: {x: 938, y: 310}
+        DialogueEventSO: {fileID: 11400000, guid: 94ef35f1d6368c24a82953d77de19e1b, type: 2}
+        QuestSO: {fileID: 0}
+    - rid: 4751322032789258475
+      type: {class: EndNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 5d8ab764-fcf9-4c89-aca3-c41fcaf74774
+        <Position>k__BackingField: {x: 1241, y: 314}
+        <EndNodeType>k__BackingField: 0

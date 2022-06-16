@@ -23,7 +23,7 @@ public class GameManager : Singleton<GameManager>
         PlayerObject = GameObject.FindGameObjectWithTag("Player");
         
         GameInputController = gameObject.AddComponent<InputController>();
-        dialoguesCheckPointsSO = Resources.FindObjectsOfTypeAll<DialoguesCheckPointsSO>().FirstOrDefault();
+        dialoguesCheckPointsSO = Resources.Load<DialoguesCheckPointsSO>("DONT_RENAME_OR_MOVE_DialogueCheckpointsList");
         UIControllerInstance = FindObjectOfType<UIController>();
     }
 

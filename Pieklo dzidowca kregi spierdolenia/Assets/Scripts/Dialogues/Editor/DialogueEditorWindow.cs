@@ -39,6 +39,15 @@ namespace jbzdy.DialogueSystem.Editor
             ConstructGraphView();
             GenerateToolbar();
             Load();
+            EditorApplication.wantsToQuit += SaveBeforeExitAndConfirm;
+        }
+
+        private bool SaveBeforeExitAndConfirm()
+        {
+            Save();
+            return EditorUtility.DisplayDialog("Zamykanie",
+                "Edytowany dialog został zapisany. Czy chcesz kontynuować zamykanie Unity?",
+                "Tak", "Nie");
         }
 
         private void OnLostFocus()
@@ -50,6 +59,7 @@ namespace jbzdy.DialogueSystem.Editor
         private void OnDisable()
         {
             rootVisualElement.Remove(graphView);
+            EditorApplication.wantsToQuit -= SaveBeforeExitAndConfirm;
         }
 
         private void ConstructGraphView()

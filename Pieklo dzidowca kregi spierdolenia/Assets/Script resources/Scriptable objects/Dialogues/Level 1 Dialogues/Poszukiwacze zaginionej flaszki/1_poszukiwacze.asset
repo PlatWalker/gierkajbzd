@@ -1,0 +1,982 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a69ff5ed214494b835d86b8438ac53, type: 3}
+  m_Name: 1_poszukiwacze
+  m_EditorClassIdentifier: 
+  <NodeLinkDatas>k__BackingField:
+  - BaseNodeGuid: 46d02686-e2dc-4f9a-b1ed-9b2360b3d22c
+    TargetNodeGuid: 61e247de-49c4-40de-a49a-82a9b18c5890
+  - BaseNodeGuid: f6f983fa-8ff3-4268-9bb7-4241362feb73
+    TargetNodeGuid: 46d02686-e2dc-4f9a-b1ed-9b2360b3d22c
+  - BaseNodeGuid: 7ac095d6-b3de-4e27-ac45-9cc4ccd51db0
+    TargetNodeGuid: f61e7ae8-acae-4eea-8503-1af6cce4811d
+  - BaseNodeGuid: 69312c38-72d0-4738-96ed-40aaa395b2d8
+    TargetNodeGuid: d67bad6b-f12b-4621-bca6-60125d417a57
+  - BaseNodeGuid: c023274e-7c71-43bd-9c94-36eb246c834b
+    TargetNodeGuid: e169b628-46f1-4199-a440-c7a2494da0e5
+  - BaseNodeGuid: eeacd5f0-799b-4fe8-9ad6-5b15dcf207bc
+    TargetNodeGuid: f9bfa2ea-b665-4378-8648-24b6008aaf56
+  - BaseNodeGuid: 5d43f0a0-1978-403e-acc9-1a06455f0a5d
+    TargetNodeGuid: a36f1acb-9442-42c5-ae97-91420787d28d
+  - BaseNodeGuid: c8a9a00e-abd9-4acc-9f9e-a0958c5cc48a
+    TargetNodeGuid: 1afe06b3-8d6c-4f56-9c94-dc7cc0b7236b
+  - BaseNodeGuid: a36f1acb-9442-42c5-ae97-91420787d28d
+    TargetNodeGuid: bfb93684-682c-47e9-9061-f6b2c8bd2ae5
+  - BaseNodeGuid: 8ad6f870-5d15-49bf-bdbf-d55651c0cd38
+    TargetNodeGuid: f6f983fa-8ff3-4268-9bb7-4241362feb73
+  - BaseNodeGuid: 8ad6f870-5d15-49bf-bdbf-d55651c0cd38
+    TargetNodeGuid: f61e7ae8-acae-4eea-8503-1af6cce4811d
+  - BaseNodeGuid: 61e247de-49c4-40de-a49a-82a9b18c5890
+    TargetNodeGuid: 7ac095d6-b3de-4e27-ac45-9cc4ccd51db0
+  - BaseNodeGuid: ed3cdbc5-fce3-441e-9e4a-1ddf446da937
+    TargetNodeGuid: b692f3d6-6b8b-4612-b3fd-7a0938fc78bf
+  - BaseNodeGuid: ed3cdbc5-fce3-441e-9e4a-1ddf446da937
+    TargetNodeGuid: 8ad6f870-5d15-49bf-bdbf-d55651c0cd38
+  - BaseNodeGuid: c32ba92c-1871-4ac5-ac5f-32f27ea06696
+    TargetNodeGuid: 8ad6f870-5d15-49bf-bdbf-d55651c0cd38
+  - BaseNodeGuid: c32ba92c-1871-4ac5-ac5f-32f27ea06696
+    TargetNodeGuid: f61e7ae8-acae-4eea-8503-1af6cce4811d
+  - BaseNodeGuid: 26eb3f2f-696b-4ec9-894f-bd402bf58cc4
+    TargetNodeGuid: c32ba92c-1871-4ac5-ac5f-32f27ea06696
+  - BaseNodeGuid: fe00ea1b-a5f2-4d47-b6bd-464bd2c4e62f
+    TargetNodeGuid: ed8e6c2e-2b3c-45f5-a1ca-aad68dbc2040
+  - BaseNodeGuid: fe00ea1b-a5f2-4d47-b6bd-464bd2c4e62f
+    TargetNodeGuid: a20af873-031f-4bf4-9361-ea99c9caee9b
+  - BaseNodeGuid: a20af873-031f-4bf4-9361-ea99c9caee9b
+    TargetNodeGuid: 69312c38-72d0-4738-96ed-40aaa395b2d8
+  - BaseNodeGuid: b692f3d6-6b8b-4612-b3fd-7a0938fc78bf
+    TargetNodeGuid: f61e7ae8-acae-4eea-8503-1af6cce4811d
+  - BaseNodeGuid: ed8e6c2e-2b3c-45f5-a1ca-aad68dbc2040
+    TargetNodeGuid: ea43b2ad-4c32-470b-962b-8ff2c1fe1a13
+  - BaseNodeGuid: ed8e6c2e-2b3c-45f5-a1ca-aad68dbc2040
+    TargetNodeGuid: ed3cdbc5-fce3-441e-9e4a-1ddf446da937
+  - BaseNodeGuid: d67bad6b-f12b-4621-bca6-60125d417a57
+    TargetNodeGuid: 26eb3f2f-696b-4ec9-894f-bd402bf58cc4
+  - BaseNodeGuid: ea43b2ad-4c32-470b-962b-8ff2c1fe1a13
+    TargetNodeGuid: e6d8d41a-25fe-4632-b8d6-554371fb0814
+  - BaseNodeGuid: ea43b2ad-4c32-470b-962b-8ff2c1fe1a13
+    TargetNodeGuid: d44edfb9-7d14-497d-8ef3-7d4bf064082f
+  - BaseNodeGuid: be8ed8ae-ba9d-463d-914b-f4064e3340e3
+    TargetNodeGuid: 4c7184b2-6bd2-4311-9da2-e86cc115312c
+  - BaseNodeGuid: d44edfb9-7d14-497d-8ef3-7d4bf064082f
+    TargetNodeGuid: be8ed8ae-ba9d-463d-914b-f4064e3340e3
+  - BaseNodeGuid: 4c7184b2-6bd2-4311-9da2-e86cc115312c
+    TargetNodeGuid: 39102bf4-81fa-4b9d-a0d4-d8249c78e681
+  - BaseNodeGuid: 39102bf4-81fa-4b9d-a0d4-d8249c78e681
+    TargetNodeGuid: cb62cbc1-c3c6-4630-8caf-97b235b0f071
+  - BaseNodeGuid: cb62cbc1-c3c6-4630-8caf-97b235b0f071
+    TargetNodeGuid: 4b054cf6-768a-473d-b092-d6d2a1156722
+  - BaseNodeGuid: 4b054cf6-768a-473d-b092-d6d2a1156722
+    TargetNodeGuid: d8d9d6a7-f317-4953-9d2c-48971649730f
+  - BaseNodeGuid: d8d9d6a7-f317-4953-9d2c-48971649730f
+    TargetNodeGuid: 7a880d32-0460-4da6-a9e1-19c5bfd0c91c
+  - BaseNodeGuid: 7a880d32-0460-4da6-a9e1-19c5bfd0c91c
+    TargetNodeGuid: c2b0e332-d9e9-415a-9684-63c0f64b5acd
+  - BaseNodeGuid: c2b0e332-d9e9-415a-9684-63c0f64b5acd
+    TargetNodeGuid: 649d4957-1d4f-4f9e-8e60-2f840f7acd63
+  - BaseNodeGuid: 649d4957-1d4f-4f9e-8e60-2f840f7acd63
+    TargetNodeGuid: 0ef7ac2e-8208-4c09-922f-e9a376440135
+  - BaseNodeGuid: 0ef7ac2e-8208-4c09-922f-e9a376440135
+    TargetNodeGuid: 3b1e9075-6701-4cb0-b7cb-ad9439b9953a
+  - BaseNodeGuid: 3b1e9075-6701-4cb0-b7cb-ad9439b9953a
+    TargetNodeGuid: 3c64de65-5f2a-4434-ad28-f6c1d687c072
+  - BaseNodeGuid: 3c64de65-5f2a-4434-ad28-f6c1d687c072
+    TargetNodeGuid: 3dc7e01f-f2de-44b7-a872-c1318e4c4914
+  - BaseNodeGuid: 3dc7e01f-f2de-44b7-a872-c1318e4c4914
+    TargetNodeGuid: c023274e-7c71-43bd-9c94-36eb246c834b
+  - BaseNodeGuid: e169b628-46f1-4199-a440-c7a2494da0e5
+    TargetNodeGuid: a49e32a5-e62c-4ce7-8982-edba65eb8fe9
+  - BaseNodeGuid: a49e32a5-e62c-4ce7-8982-edba65eb8fe9
+    TargetNodeGuid: 3751085e-377f-4a29-860a-8a8388591e08
+  - BaseNodeGuid: 3751085e-377f-4a29-860a-8a8388591e08
+    TargetNodeGuid: f61e7ae8-acae-4eea-8503-1af6cce4811d
+  - BaseNodeGuid: e6d8d41a-25fe-4632-b8d6-554371fb0814
+    TargetNodeGuid: 18f76f86-8020-400d-8866-e02124f2b450
+  - BaseNodeGuid: e6d8d41a-25fe-4632-b8d6-554371fb0814
+    TargetNodeGuid: 8bf60243-cdd9-40e0-a2db-5c003bf90c66
+  - BaseNodeGuid: 8bf60243-cdd9-40e0-a2db-5c003bf90c66
+    TargetNodeGuid: f61e7ae8-acae-4eea-8503-1af6cce4811d
+  - BaseNodeGuid: c2543c56-1014-4dbb-b1f8-17cb65c3924f
+    TargetNodeGuid: 220dcefd-2cb2-47ec-83b6-2c2cb7102820
+  - BaseNodeGuid: 18f76f86-8020-400d-8866-e02124f2b450
+    TargetNodeGuid: 87788e9b-d951-4e52-b286-3477fc3a163e
+  - BaseNodeGuid: 18f76f86-8020-400d-8866-e02124f2b450
+    TargetNodeGuid: c2543c56-1014-4dbb-b1f8-17cb65c3924f
+  - BaseNodeGuid: f9bfa2ea-b665-4378-8648-24b6008aaf56
+    TargetNodeGuid: f61e7ae8-acae-4eea-8503-1af6cce4811d
+  - BaseNodeGuid: f1d978f8-2ff3-4486-a10c-96105f2d8e4f
+    TargetNodeGuid: eeacd5f0-799b-4fe8-9ad6-5b15dcf207bc
+  - BaseNodeGuid: 433abc70-b3a7-4574-8336-06a7ae0e2885
+    TargetNodeGuid: f1d978f8-2ff3-4486-a10c-96105f2d8e4f
+  - BaseNodeGuid: 78e3b331-5a00-4d92-9aa1-03c895edbe91
+    TargetNodeGuid: 433abc70-b3a7-4574-8336-06a7ae0e2885
+  - BaseNodeGuid: 220dcefd-2cb2-47ec-83b6-2c2cb7102820
+    TargetNodeGuid: 78e3b331-5a00-4d92-9aa1-03c895edbe91
+  - BaseNodeGuid: 7b7bb300-25bc-4b94-9c5d-ec47a203758d
+    TargetNodeGuid: f61e7ae8-acae-4eea-8503-1af6cce4811d
+  - BaseNodeGuid: 87788e9b-d951-4e52-b286-3477fc3a163e
+    TargetNodeGuid: 6aa0962a-5fcc-4a88-815c-25e8a60326f5
+  - BaseNodeGuid: 87788e9b-d951-4e52-b286-3477fc3a163e
+    TargetNodeGuid: 7b7bb300-25bc-4b94-9c5d-ec47a203758d
+  - BaseNodeGuid: afd70ba9-e97a-4091-b1b3-ea7da2c219c8
+    TargetNodeGuid: b6eb99ec-a3c4-43e0-b126-8130abc57e01
+  - BaseNodeGuid: 6aa0962a-5fcc-4a88-815c-25e8a60326f5
+    TargetNodeGuid: afd70ba9-e97a-4091-b1b3-ea7da2c219c8
+  - BaseNodeGuid: b6eb99ec-a3c4-43e0-b126-8130abc57e01
+    TargetNodeGuid: f9dbf2db-acd7-46bd-a1c1-0d204e299711
+  - BaseNodeGuid: f9dbf2db-acd7-46bd-a1c1-0d204e299711
+    TargetNodeGuid: 66da9af8-2e8e-4d76-8cfd-35c6869b8be2
+  - BaseNodeGuid: 66da9af8-2e8e-4d76-8cfd-35c6869b8be2
+    TargetNodeGuid: 381f4d1b-c64f-455c-af87-12225340f62f
+  - BaseNodeGuid: 381f4d1b-c64f-455c-af87-12225340f62f
+    TargetNodeGuid: 5d43f0a0-1978-403e-acc9-1a06455f0a5d
+  - BaseNodeGuid: 1afe06b3-8d6c-4f56-9c94-dc7cc0b7236b
+    TargetNodeGuid: 46aab16e-1a91-437d-8094-37e893bcb11e
+  - BaseNodeGuid: 1afe06b3-8d6c-4f56-9c94-dc7cc0b7236b
+    TargetNodeGuid: fe00ea1b-a5f2-4d47-b6bd-464bd2c4e62f
+  NodeDatas:
+  - rid: 4751322063800107175
+  - rid: 4751322063800107176
+  - rid: 4751322063800107177
+  - rid: 4751322063800107178
+  - rid: 4751322063800107179
+  - rid: 4751322063800107180
+  - rid: 4751322063800107181
+  - rid: 4751322063800107182
+  - rid: 4751322063800107183
+  - rid: 4751322063800107184
+  - rid: 4751322063800107185
+  - rid: 4751322063800107186
+  - rid: 4751322063800107187
+  - rid: 4751322063800107188
+  - rid: 4751322063800107189
+  - rid: 4751322063800107190
+  - rid: 4751322063800107191
+  - rid: 4751322063800107192
+  - rid: 4751322063800107193
+  - rid: 4751322063800107194
+  - rid: 4751322063800107195
+  - rid: 4751322063800107196
+  - rid: 4751322063800107197
+  - rid: 4751322063800107198
+  - rid: 4751322063800107199
+  - rid: 4751322063800107200
+  - rid: 4751322063800107201
+  - rid: 4751322063800107202
+  - rid: 4751322063800107203
+  - rid: 4751322063800107204
+  - rid: 4751322063800107205
+  - rid: 4751322063800107206
+  - rid: 4751322063800107207
+  - rid: 4751322063800107208
+  - rid: 4751322063800107209
+  - rid: 4751322063800107210
+  - rid: 4751322063800107211
+  - rid: 4751322063800107212
+  - rid: 4751322063800107213
+  - rid: 4751322063800107214
+  - rid: 4751322063800107215
+  - rid: 4751322063800107216
+  - rid: 4751322063800107217
+  - rid: 4751322063800107218
+  - rid: 4751322063800107219
+  - rid: 4751322063800107220
+  - rid: 4751322063800107221
+  - rid: 4751322063800107222
+  - rid: 4751322063800107223
+  - rid: 4751322063800107224
+  - rid: 4751322063800107225
+  - rid: 4751322063800107226
+  - rid: 4751322063800107227
+  - rid: 4751322063800107228
+  - rid: 4751322063800107229
+  - rid: 4751322063800107230
+  - rid: 4751322063800107231
+  - rid: 4751322063800107232
+  references:
+    version: 2
+    RefIds:
+    - rid: 4751322063800107175
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 8ad6f870-5d15-49bf-bdbf-d55651c0cd38
+        <Position>k__BackingField: {x: 2796, y: 10.5}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: a8e6cab1-4290-4b9d-b299-6803153a1795
+          InputGuid: f6f983fa-8ff3-4268-9bb7-4241362feb73
+          OutputGuid: 8ad6f870-5d15-49bf-bdbf-d55651c0cd38
+          Text: "W porz\u0105dku. Daj pieni\u0105dze."
+        - PortGuid: 53828887-fb66-4071-896a-fead973fbc3d
+          InputGuid: f61e7ae8-acae-4eea-8503-1af6cce4811d
+          OutputGuid: 8ad6f870-5d15-49bf-bdbf-d55651c0cd38
+          Text: "Nie mam czasu na pierdo\u0142y."
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Szefie, nie chodzi o \u017Cadne pieni\u0105dze! Wr\u0119cz
+          przeciwnie, bo akurat mamy dwa z\u0142ote. Chcemy Ci\u0119 poprosi\u0107
+          o drobn\u0105 przys\u0142ug\u0119. Id\u017A do Gra\u017Cyny i kup \u201E\u015Awi\u0119tego
+          Graala\u201D, to takie wino. Stara rura nie chce go sprzeda\u0107, bo to
+          edycja limitowana. Pewnie trzyma dla kogo\u015B innego."
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 01295fa5bd053974990a134185033d40, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: f2d2a7d738e8e75488c4fea351131b93, type: 3}
+        <Name>k__BackingField: Zdzichu Jones
+    - rid: 4751322063800107176
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 61e247de-49c4-40de-a49a-82a9b18c5890
+        <Position>k__BackingField: {x: 3990, y: 73}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 215c9411-ead3-4612-a43b-d18137c55f85
+          InputGuid: 7ac095d6-b3de-4e27-ac45-9cc4ccd51db0
+          OutputGuid: 61e247de-49c4-40de-a49a-82a9b18c5890
+          Text: Koniec
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "\u015Awietnie! Oto dwa z\u0142ote! Pospiesz si\u0119,
+          m\u0142ody, bo nas suszy jak ja pierdole!"
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 4d1d14bab2c7fb343a936edb5a1fe207, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: f2d2a7d738e8e75488c4fea351131b93, type: 3}
+        <Name>k__BackingField: Zdzichu Jones
+    - rid: 4751322063800107177
+      type: {class: GiveOrTakeItemNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 46d02686-e2dc-4f9a-b1ed-9b2360b3d22c
+        <Position>k__BackingField: {x: 3787.5, y: -23.5}
+        <ItemCheckType>k__BackingField: 0
+        <ItemCheckValue>k__BackingField: 2
+        <NodeItem>k__BackingField: {fileID: 0}
+    - rid: 4751322063800107178
+      type: {class: EventNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: f6f983fa-8ff3-4268-9bb7-4241362feb73
+        <Position>k__BackingField: {x: 3485, y: -14}
+        DialogueEventSO: {fileID: 11400000, guid: 94ef35f1d6368c24a82953d77de19e1b, type: 2}
+        QuestSO: {fileID: 0}
+    - rid: 4751322063800107179
+      type: {class: CreateCheckpointNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 7ac095d6-b3de-4e27-ac45-9cc4ccd51db0
+        <Position>k__BackingField: {x: 4631, y: 355.5}
+        CheckpointTag: poszukiwacze
+        CheckpointName: poszuk2
+        Level: 0
+    - rid: 4751322063800107180
+      type: {class: CheckpointSplitterNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: ed3cdbc5-fce3-441e-9e4a-1ddf446da937
+        <Position>k__BackingField: {x: 561.5, y: 52.5}
+        CheckpointTag: poszukiwacze
+        CheckpointName: poszuk2
+        Level: 1
+        PositiveResultGuid: b692f3d6-6b8b-4612-b3fd-7a0938fc78bf
+        NegativeResultGuid: 8ad6f870-5d15-49bf-bdbf-d55651c0cd38
+    - rid: 4751322063800107181
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: c32ba92c-1871-4ac5-ac5f-32f27ea06696
+        <Position>k__BackingField: {x: 2312.5, y: 445}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 91d1a6c0-441b-4b20-a754-d226ffe1340a
+          InputGuid: 8ad6f870-5d15-49bf-bdbf-d55651c0cd38
+          OutputGuid: c32ba92c-1871-4ac5-ac5f-32f27ea06696
+          Text: "Nie mam \u017Cadnych pieni\u0119dzy."
+        - PortGuid: 92f35bb9-f635-42b1-a4ba-ef2d16f894ac
+          InputGuid: f61e7ae8-acae-4eea-8503-1af6cce4811d
+          OutputGuid: c32ba92c-1871-4ac5-ac5f-32f27ea06696
+          Text: Wypierdalaj.
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Kierowniku! Spraw\u0119 mamy do ciebie! Poratujesz?"
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 4d1d14bab2c7fb343a936edb5a1fe207, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: f2d2a7d738e8e75488c4fea351131b93, type: 3}
+        <Name>k__BackingField: Zdzichu Jones
+    - rid: 4751322063800107182
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 26eb3f2f-696b-4ec9-894f-bd402bf58cc4
+        <Position>k__BackingField: {x: 1658.5, y: 260.5}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 1e652b06-8887-413b-a6b9-587cb154fede
+          InputGuid: c32ba92c-1871-4ac5-ac5f-32f27ea06696
+          OutputGuid: 26eb3f2f-696b-4ec9-894f-bd402bf58cc4
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: Kurwa, patrzcie, jaki francuski piesek zajebany! Wino
+          mu nie smakuje...
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 19ad5b6eca17266488f676edaae8fbc5, type: 3}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: Zdzichu Jones
+    - rid: 4751322063800107183
+      type: {class: CheckpointSplitterNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: fe00ea1b-a5f2-4d47-b6bd-464bd2c4e62f
+        <Position>k__BackingField: {x: -319, y: 94.5}
+        CheckpointTag: poszukiwacze
+        CheckpointName: poszuk1
+        Level: 1
+        PositiveResultGuid: ed8e6c2e-2b3c-45f5-a1ca-aad68dbc2040
+        NegativeResultGuid: a20af873-031f-4bf4-9361-ea99c9caee9b
+    - rid: 4751322063800107184
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: a20af873-031f-4bf4-9361-ea99c9caee9b
+        <Position>k__BackingField: {x: -49, y: 299}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 0e355bc1-ac78-4ca9-97e8-ba54bf1708d7
+          InputGuid: 69312c38-72d0-4738-96ed-40aaa395b2d8
+          OutputGuid: a20af873-031f-4bf4-9361-ea99c9caee9b
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Daj spok\xF3j, Andrzejku. We\u017Amiemy co\u015B
+          innego..."
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 01295fa5bd053974990a134185033d40, type: 3}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: Zdzichu Jones
+    - rid: 4751322063800107185
+      type: {class: CreateCheckpointNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 69312c38-72d0-4738-96ed-40aaa395b2d8
+        <Position>k__BackingField: {x: 605, y: 546.5}
+        CheckpointTag: poszukiwacze
+        CheckpointName: poszuk1
+        Level: 0
+    - rid: 4751322063800107186
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: b692f3d6-6b8b-4612-b3fd-7a0938fc78bf
+        <Position>k__BackingField: {x: 921.5, y: 794}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 73f02bb5-f70b-4520-aabb-46c880f7c570
+          InputGuid: f61e7ae8-acae-4eea-8503-1af6cce4811d
+          OutputGuid: b692f3d6-6b8b-4612-b3fd-7a0938fc78bf
+          Text: Koniec
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Pospiesz si\u0119, m\u0142ody!"
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 01295fa5bd053974990a134185033d40, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: f2d2a7d738e8e75488c4fea351131b93, type: 3}
+        <Name>k__BackingField: Zdzichu Jones
+    - rid: 4751322063800107187
+      type: {class: CheckpointSplitterNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: ed8e6c2e-2b3c-45f5-a1ca-aad68dbc2040
+        <Position>k__BackingField: {x: -10.5, y: -9}
+        CheckpointTag: poszukiwacze
+        CheckpointName: poszuk3
+        Level: 1
+        PositiveResultGuid: ea43b2ad-4c32-470b-962b-8ff2c1fe1a13
+        NegativeResultGuid: ed3cdbc5-fce3-441e-9e4a-1ddf446da937
+    - rid: 4751322063800107188
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: d67bad6b-f12b-4621-bca6-60125d417a57
+        <Position>k__BackingField: {x: 1025, y: 249}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 45f60bb4-adc1-4c3e-8d1a-d16e9bfc0078
+          InputGuid: 26eb3f2f-696b-4ec9-894f-bd402bf58cc4
+          OutputGuid: d67bad6b-f12b-4621-bca6-60125d417a57
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Kurwa, sk\u0142adali\u015Bmy si\u0119 czy nie? Wi\u0119c
+          te\u017C mam prawo wybra\u0107. A ja nic poza \u201E\u015Awi\u0119tym Graalem\u201D
+          pi\u0142 nie b\u0119d\u0119!\n"
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 40e44573e52ea0f41941cb9e1d87bb24, type: 3}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: Endrju
+    - rid: 4751322063800107189
+      type: {class: CheckpointSplitterNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: ea43b2ad-4c32-470b-962b-8ff2c1fe1a13
+        <Position>k__BackingField: {x: 265, y: -193}
+        CheckpointTag: 
+        CheckpointName: poszuk4
+        Level: 0
+        PositiveResultGuid: e6d8d41a-25fe-4632-b8d6-554371fb0814
+        NegativeResultGuid: d44edfb9-7d14-497d-8ef3-7d4bf064082f
+    - rid: 4751322063800107190
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: be8ed8ae-ba9d-463d-914b-f4064e3340e3
+        <Position>k__BackingField: {x: 1194, y: -217}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: f68418a3-c013-4e90-acb5-b42fcbec2b1c
+          InputGuid: 4c7184b2-6bd2-4311-9da2-e86cc115312c
+          OutputGuid: be8ed8ae-ba9d-463d-914b-f4064e3340e3
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Nie. Ekspedientka nie ma \u017Cadnego \u201E\u015Awi\u0119tego
+          Graala\u201D. Twierdzi, \u017Ce kto\u015B si\u0119 nie ba\u0142 i zajeba\u0142."
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 01295fa5bd053974990a134185033d40, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: f2d2a7d738e8e75488c4fea351131b93, type: 3}
+        <Name>k__BackingField: Anon
+    - rid: 4751322063800107191
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: d44edfb9-7d14-497d-8ef3-7d4bf064082f
+        <Position>k__BackingField: {x: 551.5, y: -211.5}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 6d1ef038-ef8c-4e12-ae48-839b9bd427bc
+          InputGuid: be8ed8ae-ba9d-463d-914b-f4064e3340e3
+          OutputGuid: d44edfb9-7d14-497d-8ef3-7d4bf064082f
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "I jak, m\u0142ody? Masz t\u0119 flaszk\u0119?"
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 01295fa5bd053974990a134185033d40, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: f2d2a7d738e8e75488c4fea351131b93, type: 3}
+        <Name>k__BackingField: Zdzichu Jones
+    - rid: 4751322063800107192
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 4c7184b2-6bd2-4311-9da2-e86cc115312c
+        <Position>k__BackingField: {x: 1824.5, y: -252.5}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 96b146a2-4079-4e5c-8f2d-673513c8ea9a
+          InputGuid: 39102bf4-81fa-4b9d-a0d4-d8249c78e681
+          OutputGuid: 4c7184b2-6bd2-4311-9da2-e86cc115312c
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Zajeba\u0142?!"
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 40e44573e52ea0f41941cb9e1d87bb24, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: f2d2a7d738e8e75488c4fea351131b93, type: 3}
+        <Name>k__BackingField: Endrju
+    - rid: 4751322063800107193
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 39102bf4-81fa-4b9d-a0d4-d8249c78e681
+        <Position>k__BackingField: {x: 2458, y: -279.5}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 01dd4702-76d5-4650-affc-5794a0e9cada
+          InputGuid: cb62cbc1-c3c6-4630-8caf-97b235b0f071
+          OutputGuid: 39102bf4-81fa-4b9d-a0d4-d8249c78e681
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Te, J\xF3zwa! Cho no tu!"
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 01295fa5bd053974990a134185033d40, type: 3}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: Zdzichu Jones
+    - rid: 4751322063800107194
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: cb62cbc1-c3c6-4630-8caf-97b235b0f071
+        <Position>k__BackingField: {x: 3087.5, y: -288.5}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 9279c06b-4eb7-42b6-8e6c-f142d6d878c9
+          InputGuid: 4b054cf6-768a-473d-b092-d6d2a1156722
+          OutputGuid: cb62cbc1-c3c6-4630-8caf-97b235b0f071
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Czego drzesz mord\u0119?"
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: b20e773fbde419f4ebba247c92965fd0, type: 3}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: "J\xF3zek"
+    - rid: 4751322063800107195
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 4b054cf6-768a-473d-b092-d6d2a1156722
+        <Position>k__BackingField: {x: 3716, y: -296.5}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 4f32b154-be92-4588-acd6-de7d1ae5e009
+          InputGuid: d8d9d6a7-f317-4953-9d2c-48971649730f
+          OutputGuid: 4b054cf6-768a-473d-b092-d6d2a1156722
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Kto\u015B zajeba\u0142 nam \u201E\u015Awi\u0119tego
+          Graala\u201D...\n"
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 01295fa5bd053974990a134185033d40, type: 3}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: Zdzichu Jones
+    - rid: 4751322063800107196
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: d8d9d6a7-f317-4953-9d2c-48971649730f
+        <Position>k__BackingField: {x: 4344, y: -317}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 4e6a06e3-f531-4a15-a92b-1c27d80856ab
+          InputGuid: 7a880d32-0460-4da6-a9e1-19c5bfd0c91c
+          OutputGuid: d8d9d6a7-f317-4953-9d2c-48971649730f
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: Nie pierdol!
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 80d98c0a6bbeac847a7bdb17ba7bd4e5, type: 3}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: "J\xF3zek"
+    - rid: 4751322063800107197
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 7a880d32-0460-4da6-a9e1-19c5bfd0c91c
+        <Position>k__BackingField: {x: 4969, y: -313.5}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 6520de53-c501-45ab-ab94-a47ffcaf4d69
+          InputGuid: c2b0e332-d9e9-415a-9684-63c0f64b5acd
+          OutputGuid: 7a880d32-0460-4da6-a9e1-19c5bfd0c91c
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Musimy znale\u017A\u0107 tego zajebanego z\u0142odzieja.
+          Piszesz si\u0119?"
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 01295fa5bd053974990a134185033d40, type: 3}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: Zdzichu Jones
+    - rid: 4751322063800107198
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: c2b0e332-d9e9-415a-9684-63c0f64b5acd
+        <Position>k__BackingField: {x: 5598.5, y: -315.5}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 1270eb88-2e06-4170-bb71-f6035141b7c2
+          InputGuid: 649d4957-1d4f-4f9e-8e60-2f840f7acd63
+          OutputGuid: c2b0e332-d9e9-415a-9684-63c0f64b5acd
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "W sumie to g\xF3wno w tej sprawie mog\u0119 zrobi\u0107.
+          Ale pierdoln\u0105\u0107 sobie takiego Graala, to bym pierdoln\u0105\u0142..."
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 5804618884b55af47ab30ad4a8ee9877, type: 3}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: "J\xF3zek"
+    - rid: 4751322063800107199
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 649d4957-1d4f-4f9e-8e60-2f840f7acd63
+        <Position>k__BackingField: {x: 6221.5, y: -317.5}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 727d3a7c-4fd3-4aa9-9436-fcbf7141d2e8
+          InputGuid: 0ef7ac2e-8208-4c09-922f-e9a376440135
+          OutputGuid: 649d4957-1d4f-4f9e-8e60-2f840f7acd63
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Chyba ci\u0119 popierdoli\u0142o! Chla\u0107 to ka\u017Cdy,
+          ale robi\u0107 to nie ma komu!"
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 40e44573e52ea0f41941cb9e1d87bb24, type: 3}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: Endrju
+    - rid: 4751322063800107200
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 0ef7ac2e-8208-4c09-922f-e9a376440135
+        <Position>k__BackingField: {x: 6852.5, y: -314.5}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 31a41851-99f2-4b19-bf82-cf3b23c2288e
+          InputGuid: 3b1e9075-6701-4cb0-b7cb-ad9439b9953a
+          OutputGuid: 0ef7ac2e-8208-4c09-922f-e9a376440135
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Spokojnie, Andrzeju, nie denerwuj si\u0119... Akurat
+          znam kogo\u015B, kto m\xF3g\u0142by nam pom\xF3c."
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 5804618884b55af47ab30ad4a8ee9877, type: 3}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: "J\xF3zek"
+    - rid: 4751322063800107201
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 3b1e9075-6701-4cb0-b7cb-ad9439b9953a
+        <Position>k__BackingField: {x: 7480, y: -320}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 2e30f184-82b3-495a-9833-9eca44c5eed0
+          InputGuid: 3c64de65-5f2a-4434-ad28-f6c1d687c072
+          OutputGuid: 3b1e9075-6701-4cb0-b7cb-ad9439b9953a
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: Niby kogo?
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 40e44573e52ea0f41941cb9e1d87bb24, type: 3}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: Endrju
+    - rid: 4751322063800107202
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 3c64de65-5f2a-4434-ad28-f6c1d687c072
+        <Position>k__BackingField: {x: 8099, y: -310.5}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 756d3fd3-d6e1-4841-914e-00d3596f959b
+          InputGuid: 3dc7e01f-f2de-44b7-a872-c1318e4c4914
+          OutputGuid: 3c64de65-5f2a-4434-ad28-f6c1d687c072
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Staszek. Przecie\u017C w wojsku by\u0142. Pewnie
+          potrafi wytropi\u0107 kradn\u0105cych wino skurwysyn\xF3w z odleg\u0142o\u015Bci
+          pi\u0119ciu kilometr\xF3w."
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 5804618884b55af47ab30ad4a8ee9877, type: 3}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: "J\xF3zek"
+    - rid: 4751322063800107203
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 3dc7e01f-f2de-44b7-a872-c1318e4c4914
+        <Position>k__BackingField: {x: 8723.5, y: -311}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 90dd3b99-44c7-4dd8-9009-92d7f95690e2
+          InputGuid: c023274e-7c71-43bd-9c94-36eb246c834b
+          OutputGuid: 3dc7e01f-f2de-44b7-a872-c1318e4c4914
+          Text: "Sk\u0105d mam wiedzie\u0107, gdzie jest Stachu?"
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "M\u0142ody, jeszcze raz musimy ci\u0119 prosi\u0107
+          o przys\u0142ug\u0119. Znajd\u017A Stacha i przekonaj go, \u017Ceby pom\xF3g\u0142
+          nam z\u0142apa\u0107 tego zajebanego kradzieja. Sami by\u015Bmy poszli,
+          ale rozumiesz... Prawdziwy \u017Co\u0142nierz nie opuszcza swojego posterunku."
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 01295fa5bd053974990a134185033d40, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: f2d2a7d738e8e75488c4fea351131b93, type: 3}
+        <Name>k__BackingField: Zdzichu Jones
+    - rid: 4751322063800107204
+      type: {class: CreateCheckpointNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: c023274e-7c71-43bd-9c94-36eb246c834b
+        <Position>k__BackingField: {x: 9369, y: -306}
+        CheckpointTag: poszukiwacze
+        CheckpointName: poszuk4
+        Level: 0
+    - rid: 4751322063800107205
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: e169b628-46f1-4199-a440-c7a2494da0e5
+        <Position>k__BackingField: {x: 9638.5, y: -303}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 197bc450-5a4a-4437-980f-e6755447a905
+          InputGuid: a49e32a5-e62c-4ce7-8982-edba65eb8fe9
+          OutputGuid: e169b628-46f1-4199-a440-c7a2494da0e5
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "To nie b\u0119dzie trudne. Jak go znam, to le\u017Cy
+          najebany na cmentarzu. Odk\u0105d jego szwagier umar\u0142 na marsko\u015B\u0107
+          w\u0105troby, to odwiedza go i chleje, jak to m\xF3wi \u201Erazem z nim\u201D.
+          Jak dla mnie, to zdrowo jest pierdolni\u0119ty..."
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 01295fa5bd053974990a134185033d40, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: f2d2a7d738e8e75488c4fea351131b93, type: 3}
+        <Name>k__BackingField: Zdzichu Jones
+    - rid: 4751322063800107206
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: a49e32a5-e62c-4ce7-8982-edba65eb8fe9
+        <Position>k__BackingField: {x: 10267.5, y: -306.5}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: df1d9c36-d088-4fed-a2ff-cb7648df56aa
+          InputGuid: 3751085e-377f-4a29-860a-8a8388591e08
+          OutputGuid: a49e32a5-e62c-4ce7-8982-edba65eb8fe9
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Troch\u0119 szkoda ch\u0142opa..."
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 997a9e7ffab83554c8db79d1c41ae68e, type: 3}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: Endrju
+    - rid: 4751322063800107207
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 3751085e-377f-4a29-860a-8a8388591e08
+        <Position>k__BackingField: {x: 10911, y: -302.5}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 24d476a0-89c0-496e-9d00-f65acc3b0eae
+          InputGuid: f61e7ae8-acae-4eea-8503-1af6cce4811d
+          OutputGuid: 3751085e-377f-4a29-860a-8a8388591e08
+          Text: Koniec
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Dobra, m\u0142ody. Wiesz, co i jak. B\u0119dziemy
+          tu na was czeka\u0107."
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 01295fa5bd053974990a134185033d40, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: f2d2a7d738e8e75488c4fea351131b93, type: 3}
+        <Name>k__BackingField: Zdzichu Jones
+    - rid: 4751322063800107208
+      type: {class: EndNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: f61e7ae8-acae-4eea-8503-1af6cce4811d
+        <Position>k__BackingField: {x: 5440, y: 388.5}
+        <EndNodeType>k__BackingField: 0
+    - rid: 4751322063800107209
+      type: {class: CheckpointSplitterNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: e6d8d41a-25fe-4632-b8d6-554371fb0814
+        <Position>k__BackingField: {x: 531.5, y: -395.5}
+        CheckpointTag: 
+        CheckpointName: poszuk5
+        Level: 0
+        PositiveResultGuid: 18f76f86-8020-400d-8866-e02124f2b450
+        NegativeResultGuid: 8bf60243-cdd9-40e0-a2db-5c003bf90c66
+    - rid: 4751322063800107210
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 8bf60243-cdd9-40e0-a2db-5c003bf90c66
+        <Position>k__BackingField: {x: 816, y: -492.5}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 2832699c-8546-4b80-9b10-7d2f1f8952e4
+          InputGuid: f61e7ae8-acae-4eea-8503-1af6cce4811d
+          OutputGuid: 8bf60243-cdd9-40e0-a2db-5c003bf90c66
+          Text: Koniec
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Gdzie masz Stacha? Przyprowad\u017A go szybko, bo
+          zaraz si\u0119 odwodnimy!"
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 01295fa5bd053974990a134185033d40, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: f2d2a7d738e8e75488c4fea351131b93, type: 3}
+        <Name>k__BackingField: Zdzichu Jones
+    - rid: 4751322063800107211
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: c2543c56-1014-4dbb-b1f8-17cb65c3924f
+        <Position>k__BackingField: {x: 1154, y: -788}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 3b3f4c65-f4f1-4b6d-a3c1-1754c8ded990
+          InputGuid: 220dcefd-2cb2-47ec-83b6-2c2cb7102820
+          OutputGuid: c2543c56-1014-4dbb-b1f8-17cb65c3924f
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Kurwa, nareszcie jeste\u015Bcie!"
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 01295fa5bd053974990a134185033d40, type: 3}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: Zdzichu Jones
+    - rid: 4751322063800107212
+      type: {class: CheckpointSplitterNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 18f76f86-8020-400d-8866-e02124f2b450
+        <Position>k__BackingField: {x: 787, y: -735.5}
+        CheckpointTag: 
+        CheckpointName: poszuk6
+        Level: 0
+        PositiveResultGuid: 87788e9b-d951-4e52-b286-3477fc3a163e
+        NegativeResultGuid: c2543c56-1014-4dbb-b1f8-17cb65c3924f
+    - rid: 4751322063800107213
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: f9bfa2ea-b665-4378-8648-24b6008aaf56
+        <Position>k__BackingField: {x: 4576, y: -815.5}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 91ac6ef0-7301-493e-897d-2b2a85b7ecff
+          InputGuid: f61e7ae8-acae-4eea-8503-1af6cce4811d
+          OutputGuid: f9bfa2ea-b665-4378-8648-24b6008aaf56
+          Text: Koniec
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Gra\u017Cynka zadzwoni po psy, je\u017Celi b\u0119dziemy
+          za bardzo w\u0119szy\u0107, sam rozumiesz..."
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: b33653120d937da42970224c6d08d2b2, type: 3}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: Stachu
+    - rid: 4751322063800107214
+      type: {class: CreateCheckpointNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: eeacd5f0-799b-4fe8-9ad6-5b15dcf207bc
+        <Position>k__BackingField: {x: 4307.5, y: -816.5}
+        CheckpointTag: poszukiwacze
+        CheckpointName: poszuk6
+        Level: 0
+    - rid: 4751322063800107215
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: f1d978f8-2ff3-4486-a10c-96105f2d8e4f
+        <Position>k__BackingField: {x: 3666.5, y: -810.5}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: f20d8db2-118f-413f-8c8f-adafdd8d63af
+          InputGuid: eeacd5f0-799b-4fe8-9ad6-5b15dcf207bc
+          OutputGuid: f1d978f8-2ff3-4486-a10c-96105f2d8e4f
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "A co WY b\u0119dziecie robi\u0107 w tym czasie?"
+        <npcSprite>k__BackingField: {fileID: 0}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: f2d2a7d738e8e75488c4fea351131b93, type: 3}
+        <Name>k__BackingField: Anon
+    - rid: 4751322063800107216
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 433abc70-b3a7-4574-8336-06a7ae0e2885
+        <Position>k__BackingField: {x: 3037, y: -804.5}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 4aabb59f-6c39-43d3-9084-65b8b8437520
+          InputGuid: f1d978f8-2ff3-4486-a10c-96105f2d8e4f
+          OutputGuid: 433abc70-b3a7-4574-8336-06a7ae0e2885
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "I porozmawiaj z Gra\u017Cynk\u0105, mo\u017Ce ona
+          co\u015B widzia\u0142a!"
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 40e44573e52ea0f41941cb9e1d87bb24, type: 3}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: Endrju
+    - rid: 4751322063800107217
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 78e3b331-5a00-4d92-9aa1-03c895edbe91
+        <Position>k__BackingField: {x: 2407, y: -811}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: a7c86d09-4670-4f40-b130-8abbcd761294
+          InputGuid: 433abc70-b3a7-4574-8336-06a7ae0e2885
+          OutputGuid: 78e3b331-5a00-4d92-9aa1-03c895edbe91
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "M\u0142ody, przeszukaj okolice monopolowego, mo\u017Ce
+          znajdziesz jakie\u015B \u015Blady!"
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 489b378ea2814d7479cc1d2db0094d3e, type: 3}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: Stachu
+    - rid: 4751322063800107218
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 220dcefd-2cb2-47ec-83b6-2c2cb7102820
+        <Position>k__BackingField: {x: 1781.5, y: -808.5}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 378e48d7-9da4-40da-9e73-996b5bea11d5
+          InputGuid: 78e3b331-5a00-4d92-9aa1-03c895edbe91
+          OutputGuid: 220dcefd-2cb2-47ec-83b6-2c2cb7102820
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Do\u015B\u0107 pierdolenia, robota czeka!"
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 489b378ea2814d7479cc1d2db0094d3e, type: 3}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: Stachu
+    - rid: 4751322063800107219
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 7b7bb300-25bc-4b94-9c5d-ec47a203758d
+        <Position>k__BackingField: {x: 1223.5, y: -1159}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: e7cb402b-c318-4c7f-94ee-1e955ca01b90
+          InputGuid: f61e7ae8-acae-4eea-8503-1af6cce4811d
+          OutputGuid: 7b7bb300-25bc-4b94-9c5d-ec47a203758d
+          Text: Koniec
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: No, panowie, za tych, co na rusztowaniu!
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: b33653120d937da42970224c6d08d2b2, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: f2d2a7d738e8e75488c4fea351131b93, type: 3}
+        <Name>k__BackingField: Zdzichu Jones
+    - rid: 4751322063800107220
+      type: {class: QuestCheckNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 87788e9b-d951-4e52-b286-3477fc3a163e
+        <Position>k__BackingField: {x: 886, y: -1088}
+        <PositiveResultGuid>k__BackingField: 6aa0962a-5fcc-4a88-815c-25e8a60326f5
+        <NegativeResultGuid>k__BackingField: 7b7bb300-25bc-4b94-9c5d-ec47a203758d
+        <NodeQuest>k__BackingField: {fileID: 11400000, guid: b0f8d7658cb47324e887da13a0874f4c, type: 2}
+        <NodeTask>k__BackingField: {fileID: -8766848436441149963, guid: b0f8d7658cb47324e887da13a0874f4c, type: 2}
+    - rid: 4751322063800107221
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: afd70ba9-e97a-4091-b1b3-ea7da2c219c8
+        <Position>k__BackingField: {x: 1866, y: -1435.5}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: edec0be8-0e24-4a6c-9677-f4be27d0d556
+          InputGuid: b6eb99ec-a3c4-43e0-b126-8130abc57e01
+          OutputGuid: afd70ba9-e97a-4091-b1b3-ea7da2c219c8
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "To robota profesjonalisty. \u017Badnych \u015Bladow
+          w\u0142amania. Ale za sklepem znalaz\u0142em \u015Blady po rowerze z przyczep\u0105.
+          I du\u017Co szklanych butelek."
+        <npcSprite>k__BackingField: {fileID: 0}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: f2d2a7d738e8e75488c4fea351131b93, type: 3}
+        <Name>k__BackingField: Anon
+    - rid: 4751322063800107222
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 6aa0962a-5fcc-4a88-815c-25e8a60326f5
+        <Position>k__BackingField: {x: 1234.5, y: -1430.5}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: bb14afbc-41f2-47e4-8c98-092e77794641
+          InputGuid: afd70ba9-e97a-4091-b1b3-ea7da2c219c8
+          OutputGuid: 6aa0962a-5fcc-4a88-815c-25e8a60326f5
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "I jak, m\u0142ody? Dowiedzia\u0142e\u015B si\u0119
+          czego\u015B?"
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: b33653120d937da42970224c6d08d2b2, type: 3}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: Stachu
+    - rid: 4751322063800107223
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: b6eb99ec-a3c4-43e0-b126-8130abc57e01
+        <Position>k__BackingField: {x: 2507, y: -1446.5}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 9e56e9dc-7068-4f0f-b7bc-0676014500b3
+          InputGuid: f9dbf2db-acd7-46bd-a1c1-0d204e299711
+          OutputGuid: b6eb99ec-a3c4-43e0-b126-8130abc57e01
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: Mietek...
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 19ad5b6eca17266488f676edaae8fbc5, type: 3}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: Zdzichu Jones
+    - rid: 4751322063800107224
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: f9dbf2db-acd7-46bd-a1c1-0d204e299711
+        <Position>k__BackingField: {x: 3135, y: -1448.5}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 5f750677-fd99-4e0d-b67a-12866516decc
+          InputGuid: 66da9af8-2e8e-4d76-8cfd-35c6869b8be2
+          OutputGuid: f9dbf2db-acd7-46bd-a1c1-0d204e299711
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: Jaki znowu Mietek?
+        <npcSprite>k__BackingField: {fileID: 0}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: f2d2a7d738e8e75488c4fea351131b93, type: 3}
+        <Name>k__BackingField: Anon
+    - rid: 4751322063800107225
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 66da9af8-2e8e-4d76-8cfd-35c6869b8be2
+        <Position>k__BackingField: {x: 3775, y: -1447}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 3e7ad69f-e1d2-4ba9-ac2d-a19bdb89c0c2
+          InputGuid: 381f4d1b-c64f-455c-af87-12225340f62f
+          OutputGuid: 66da9af8-2e8e-4d76-8cfd-35c6869b8be2
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Miejscowy \u015Bmieciarz. \u0141azi codziennie po
+          osiedlu, zbiera puszki i butelki z ka\u017Cdego \u015Bmietnika, potem oddaje
+          do skupu."
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: b33653120d937da42970224c6d08d2b2, type: 3}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: Stachu
+    - rid: 4751322063800107226
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 381f4d1b-c64f-455c-af87-12225340f62f
+        <Position>k__BackingField: {x: 4405.5, y: -1452.5}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 47d3504c-0ca2-44d8-b956-5cd331118db4
+          InputGuid: 5d43f0a0-1978-403e-acc9-1a06455f0a5d
+          OutputGuid: 381f4d1b-c64f-455c-af87-12225340f62f
+          Text: Koniec
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Znajd\u017Amy i zajebmy skurwysyna!"
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 19ad5b6eca17266488f676edaae8fbc5, type: 3}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: Zdzichu Jones
+    - rid: 4751322063800107227
+      type: {class: CreateCheckpointNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 5d43f0a0-1978-403e-acc9-1a06455f0a5d
+        <Position>k__BackingField: {x: 5081.5, y: -1123}
+        CheckpointTag: poszukiwacze
+        CheckpointName: poszukiwaczeend1
+        Level: 0
+    - rid: 4751322063800107228
+      type: {class: StartNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: c8a9a00e-abd9-4acc-9f9e-a0958c5cc48a
+        <Position>k__BackingField: {x: -867, y: 91}
+    - rid: 4751322063800107229
+      type: {class: EndNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 46aab16e-1a91-437d-8094-37e893bcb11e
+        <Position>k__BackingField: {x: -360, y: -85}
+        <EndNodeType>k__BackingField: 0
+    - rid: 4751322063800107230
+      type: {class: CheckpointSplitterNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 1afe06b3-8d6c-4f56-9c94-dc7cc0b7236b
+        <Position>k__BackingField: {x: -691, y: 38}
+        CheckpointTag: poszukiwacze
+        CheckpointName: poszukiwaczeend1
+        Level: 1
+        PositiveResultGuid: 46aab16e-1a91-437d-8094-37e893bcb11e
+        NegativeResultGuid: fe00ea1b-a5f2-4d47-b6bd-464bd2c4e62f
+    - rid: 4751322063800107231
+      type: {class: EventNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: a36f1acb-9442-42c5-ae97-91420787d28d
+        <Position>k__BackingField: {x: 5399, y: -907}
+        DialogueEventSO: {fileID: 0}
+        QuestSO: {fileID: 0}
+    - rid: 4751322063800107232
+      type: {class: EndNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: bfb93684-682c-47e9-9061-f6b2c8bd2ae5
+        <Position>k__BackingField: {x: 5613, y: -908.5}
+        <EndNodeType>k__BackingField: 0

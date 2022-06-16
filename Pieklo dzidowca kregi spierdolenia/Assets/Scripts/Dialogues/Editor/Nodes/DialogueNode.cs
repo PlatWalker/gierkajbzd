@@ -136,9 +136,28 @@ namespace jbzdy.DialogueSystem.Nodes
             };
 
             titleButtonContainer.Add(button);
+            RegisterCallback<MouseDownEvent>((evt) =>
+            {
+                if (evt.button == 0 && evt.ctrlKey) {
+                    DuplicateThisNode();
+                }
+            });
         }
 
+        private void DuplicateThisNode()
+        {
+            DialogueNode duplicate = new DialogueNode(Vector2.zero, editorWindow, graphView);
 
+            Vector2 newPosition = new Vector2(GetPosition().position.x + 50, GetPosition().position.y + 50);
+            duplicate.SetPosition(new Rect(newPosition,defaultNodeSize));
+            graphView.AddElement(duplicate);
+            duplicate.NameText = NameText;
+            duplicate.AudioClip = AudioClip;
+            duplicate.NpcFaceImage = NpcFaceImage;
+            duplicate.PlayerFaceImage = PlayerFaceImage;
+            duplicate.Text = Text;
+            duplicate.LoadValueInToField();
+        }
         public override void LoadValueInToField()
         {
             textField.SetValueWithoutNotify(Text);

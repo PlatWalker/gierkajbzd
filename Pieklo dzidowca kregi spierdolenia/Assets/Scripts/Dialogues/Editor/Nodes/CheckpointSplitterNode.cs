@@ -31,7 +31,7 @@ namespace jbzdy.DialogueSystem.Nodes
 
         public CheckpointSplitterNode(Vector2 position, DialogueEditorWindow newEditorWindow, DialogueGraphView newGraphView)
         {
-            container = Resources.FindObjectsOfTypeAll<DialoguesCheckPointsSO>()[0];
+            container = Resources.Load<DialoguesCheckPointsSO>("DONT_RENAME_OR_MOVE_DialogueCheckpointsList");
             StyleSheet styleSheet = Resources.Load<StyleSheet>("CheckpointSplitterStyleSheet");
             styleSheets.Add(styleSheet);
 
@@ -60,16 +60,20 @@ namespace jbzdy.DialogueSystem.Nodes
             choicesLevel.Add("Kr¹g 8");
             choicesLevel.Add("Kr¹g 9");
             _levelDropDownField.choices = choicesLevel;
+            _levelDropDownField.index = 0;
             _levelDropDownField.RegisterValueChangedCallback(value =>
             {
                 _level = _levelDropDownField.index;
                 PopulateCheckpointsDropDown();
+                PopulateTagsDropdowns();
             });
+            
             mainContainer.Add(_levelDropDownField);
 
             _checkpointTagDropDownField = new();
             _checkpointTagDropDownField.label = "Tag";
             PopulateTagsDropdowns();
+            _checkpointTagDropDownField.index = 0;
             _checkpointTagDropDownField.RegisterValueChangedCallback(value =>
             {
                 _checkpointTag = _checkpointTagDropDownField.choices[_checkpointTagDropDownField.index];
@@ -84,6 +88,13 @@ namespace jbzdy.DialogueSystem.Nodes
                 _checkpointName = _checkpointNameDropDownField.choices[_checkpointNameDropDownField.index];
             });
             mainContainer.Add(_checkpointNameDropDownField);
+
+            this.RegisterCallback<MouseEnterEvent>((evt) =>
+            {
+                PopulateTagsDropdowns();
+                PopulateCheckpointsDropDown();
+            });
+            
         }
         
         private void PopulateCheckpointsDropDown()
@@ -94,6 +105,10 @@ namespace jbzdy.DialogueSystem.Nodes
                 if (checkpoint.Level+1 != _level && _level!=0) continue;
                 if ((!checkpoint.Tag.Equals(_checkpointTag)) && _checkpointTagDropDownField.index != 0) continue;
                 choices.Add(checkpoint.Name);
+            }
+            if (!choices.Contains(_checkpointNameDropDownField.value))
+            {
+                _checkpointNameDropDownField.SetValueWithoutNotify("");
             }
             _checkpointNameDropDownField.choices = choices;
         }
@@ -107,14 +122,21 @@ namespace jbzdy.DialogueSystem.Nodes
 
                 choicesTag.Add(checkpoint.Tag);
             }
+            if (!choicesTag.Contains(_checkpointTagDropDownField.value))
+            {
+                _checkpointTagDropDownField.index = 0;
+            }
             _checkpointTagDropDownField.choices = choicesTag;
         }
         public override void OnSelected()
         {
-            base.OnSelected();
+           
             PopulateTagsDropdowns();
-            
+            PopulateCheckpointsDropDown();
+            base.OnSelected();
+
         }
+        
 
         public override BaseNode CreateNewNode(DialogueEditorWindow newEditorWindow, DialogueGraphView newGraphView)
         {

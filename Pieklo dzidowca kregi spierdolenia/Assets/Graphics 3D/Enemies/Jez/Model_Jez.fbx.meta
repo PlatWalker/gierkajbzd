@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 6a4cea038ef228441ac29a8052194724
 ModelImporter:
-  serializedVersion: 20101
+  serializedVersion: 21202
   internalIDToNameTable:
   - first:
       74: 5154556467538372859
@@ -93,7 +93,17 @@ ModelImporter:
   - first:
       74: -7732775195283964458
     second: Armature|SK_Headhog_Walk_Stop
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SK_Headhog_Enemy
+    second: {fileID: 2100000, guid: e361d6ce266e8c446ba1b10457ef075f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_SK_Headhog_Enemy_Ball
+    second: {fileID: 2100000, guid: bc22646527021564995f3d4250c1e6e8, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -104,6 +114,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -133,6 +144,7 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
     fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -144,6 +156,7 @@ ModelImporter:
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
+    optimizeBones: 1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
@@ -185,6 +198,7 @@ ModelImporter:
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
   additionalBone: 0
   userData: 
   assetBundleName: 
