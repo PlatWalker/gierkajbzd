@@ -34,7 +34,7 @@ namespace jbzdy.Actions.Interaction
             }
         }
 
-        public void Update()
+        public virtual void Update()
         {
             if (interactionZone.IsInRange)
             {

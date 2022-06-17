@@ -12,6 +12,9 @@ GameObject:
   - component: {fileID: 1293935375931316431}
   - component: {fileID: 8989986645984025362}
   - component: {fileID: 1115266993612041387}
+  - component: {fileID: 8588369360561529623}
+  - component: {fileID: 5970922597834921243}
+  - component: {fileID: -7142426576247460193}
   m_Layer: 0
   m_Name: NPC_Jozek
   m_TagString: Untagged
@@ -145,9 +148,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionZone: {fileID: 6632445685779960627}
-  isInteracting: 0
-  NPCDialogues: []
-  NPCQuests: []
+  followDistance: 2
+  NPCDialogue: {fileID: 0}
+  questsToUpdateWhenInteracted: []
+  followPlayer: 0
 --- !u!114 &1115266993612041387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,9 +164,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b374279be5765df4599cd3d016916590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentDialogue: {fileID: 0}
-  dialogueControler: {fileID: 0}
-  audioSource: {fileID: 1293935375931316431}
+--- !u!54 &8588369360561529623
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758766454891143781}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!136 &5970922597834921243
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758766454891143781}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.36
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.6, z: 0}
+--- !u!195 &-7142426576247460193
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758766454891143781}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &6380496589782488832
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -291,6 +344,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Model_Jozek
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 26ddfe2e8d0bdc4448f762952b5ca129, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: a8a79a2f8db5f784a8085f9378c54c32, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26ddfe2e8d0bdc4448f762952b5ca129, type: 3}
 --- !u!4 &8326504201939173425 stripped

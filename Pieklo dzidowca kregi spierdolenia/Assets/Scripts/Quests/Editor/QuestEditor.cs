@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using jbzd.Quests.QuestGoals;
 using UnityEngine;
 using UnityEditor;
 

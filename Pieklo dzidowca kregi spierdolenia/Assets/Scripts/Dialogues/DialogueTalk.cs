@@ -2,7 +2,7 @@
 using UnityEngine.Events;
 using jbzdy.DialogueSystem.NodeDatas;
 using System.Collections.Generic;
-using jbzdy.NPC.Interaction;
+using jbzd.NPC;
 
 
 namespace jbzdy.DialogueSystem
@@ -49,7 +49,7 @@ namespace jbzdy.DialogueSystem
         {
             IsTalking = false;
             DialogueControler.ShowDialogueUI(false);
-            GetComponent<NPCInteraction>().StopInteract();
+            GetComponent<NpcController>().StopInteract();
         }
 
         public void RunNode(BaseNodeData baseNodeData)

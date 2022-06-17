@@ -23,7 +23,7 @@ namespace jbzdy.Player
         {
             playerController.IsAttacking = GameManager.Instance.GameInputController.attackInputStatus.Basic;
 
-            if (playerController.IsAttacking)
+            if (playerController.IsAttacking && playerController.CanPlayerMove)
             {
                 Vector3 flatVector = GameManager.Instance.GameInputController.mousePositionFlat;
                 flatVector.y = playerController.transform.position.y;

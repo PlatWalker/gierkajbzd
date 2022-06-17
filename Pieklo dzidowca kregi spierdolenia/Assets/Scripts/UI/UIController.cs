@@ -21,9 +21,18 @@ namespace jbzdy.UI
 
         private Animator _blackScreenAnimator;
 
-        public void ScreenFadeOut() => _blackScreenAnimator.SetTrigger(BlackScreenAnimatorParameters.StartFadeOutParam);
-        public void ScreenFadeIn() => _blackScreenAnimator.SetTrigger(BlackScreenAnimatorParameters.StartFadeInParam);
-        
+        public void ScreenFadeOut()
+        {
+            _blackScreenAnimator.SetTrigger(BlackScreenAnimatorParameters.StartFadeOutParam);
+            _blackScreenFadeCanvas.sortingOrder = 0;
+        }
+
+        public void ScreenFadeIn()
+        {
+            _blackScreenAnimator.SetTrigger(BlackScreenAnimatorParameters.StartFadeInParam);
+            _blackScreenFadeCanvas.sortingOrder = 2;
+        }
+
         private void Start()
         {
             _blackScreenAnimator = _blackScreenFadeCanvas.GetComponent<Animator>();
@@ -36,10 +45,10 @@ namespace jbzdy.UI
             #region Black Screen parametres
 
             if(_blackScreenAnimator.parameters.Any(x => 
-                   x.name == BlackScreenAnimatorParameters.StartFadeOutParam) == false) 
+                   x.name == BlackScreenAnimatorParameters.StartFadeOutParam) == false && _blackScreenFadeCanvas.enabled) 
                 Debug.Log("Blad w nazwie parametru Zanikania obrazu");
             if(_blackScreenAnimator.parameters.Any(x => 
-                   x.name == BlackScreenAnimatorParameters.StartFadeInParam) == false) 
+                   x.name == BlackScreenAnimatorParameters.StartFadeInParam) == false && _blackScreenFadeCanvas.enabled) 
                 Debug.Log("Blad w nazwie parametru Zanikania obrazu");
 
             #endregion

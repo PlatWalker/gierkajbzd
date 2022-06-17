@@ -12,70 +12,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a69ff5ed214494b835d86b8438ac53, type: 3}
   m_Name: SampleQuestDialogue
   m_EditorClassIdentifier: 
-  NodeLinkDatas:
-  - BaseNodeGuid: af382ae9-3f93-4287-a9e1-eded12ca49bf
-    TargetNodeGuid: 9fa6269b-19f0-41c8-80c9-83d6d2915c73
-  - BaseNodeGuid: 1dbe5726-eca8-4428-9f73-f0fcafa67e36
-    TargetNodeGuid: eacde17c-d1ab-4688-a80c-c34445cc7fe5
-  - BaseNodeGuid: 9fa6269b-19f0-41c8-80c9-83d6d2915c73
-    TargetNodeGuid: 1dbe5726-eca8-4428-9f73-f0fcafa67e36
-  - BaseNodeGuid: 9fa6269b-19f0-41c8-80c9-83d6d2915c73
-    TargetNodeGuid: 47c9d513-9314-4bd3-b6bc-3e3cf4bcc222
-  DialogueNodeDatas:
-  - NodeGuid: 9fa6269b-19f0-41c8-80c9-83d6d2915c73
-    Position: {x: 696, y: 363}
-    DialogueNodePorts:
-    - PortGuid: fe933e60-faec-47dc-9c17-333ec8eb12df
-      InputGuid: 1dbe5726-eca8-4428-9f73-f0fcafa67e36
-      OutputGuid: 9fa6269b-19f0-41c8-80c9-83d6d2915c73
-      TextLanguages:
-      - LanguageType: 0
-        LanguageGenericType: dosta questa
-      - LanguageType: 1
-        LanguageGenericType: Continue
-      - LanguageType: 2
-        LanguageGenericType: Continue
-    - PortGuid: 7db3b6d8-6b4b-40fa-bf01-789bed29fda5
-      InputGuid: 47c9d513-9314-4bd3-b6bc-3e3cf4bcc222
-      OutputGuid: 9fa6269b-19f0-41c8-80c9-83d6d2915c73
-      TextLanguages:
-      - LanguageType: 0
-        LanguageGenericType: wyjdz
-      - LanguageType: 1
-        LanguageGenericType: Continue
-      - LanguageType: 2
-        LanguageGenericType: Continue
-    AudioClips:
-    - LanguageType: 0
-      LanguageGenericType: {fileID: 0}
-    - LanguageType: 1
-      LanguageGenericType: {fileID: 0}
-    - LanguageType: 2
-      LanguageGenericType: {fileID: 0}
-    TextLanguages:
-    - LanguageType: 0
-      LanguageGenericType: test otrzymywania questa
-    - LanguageType: 1
-      LanguageGenericType: 
-    - LanguageType: 2
-      LanguageGenericType: 
-    npcSprite: {fileID: 21300000, guid: 564c1a5b695f8f640a50249fc9acc6da, type: 3}
-    playerSprite: {fileID: 21300000, guid: bbe5d625075627149b83344f82ad4686, type: 3}
-    Name: huh
-  EndNodeDatas:
-  - NodeGuid: eacde17c-d1ab-4688-a80c-c34445cc7fe5
-    Position: {x: 1387, y: 286}
-    EndNodeType: 0
-  - NodeGuid: 47c9d513-9314-4bd3-b6bc-3e3cf4bcc222
-    Position: {x: 1061, y: 497}
-    EndNodeType: 0
-  StartNodeDatas:
-  - NodeGuid: af382ae9-3f93-4287-a9e1-eded12ca49bf
-    Position: {x: 548, y: 368}
-  EventNodeDatas:
-  - NodeGuid: 1dbe5726-eca8-4428-9f73-f0fcafa67e36
-    Position: {x: 992, y: 282}
-    DialogueEventSO: {fileID: 11400000, guid: 94ef35f1d6368c24a82953d77de19e1b, type: 2}
-    QuestSO: {fileID: 11400000, guid: 800fc83122404b949a8d20c359a4a9e7, type: 2}
-  StatCheckNodeDatas: []
-  ItemCheckNodeDatas: []
+  <NodeLinkDatas>k__BackingField:
+  - BaseNodeGuid: 334df24e-d2cd-4e64-84e1-f289d51f68ad
+    TargetNodeGuid: a66432f7-1115-4d01-bda6-ac1f50302076
+  - BaseNodeGuid: acac9f27-1327-4636-a87e-8a0c0410dff9
+    TargetNodeGuid: 934ee1ef-cc77-4a39-9072-4430c7bde6b4
+  - BaseNodeGuid: a66432f7-1115-4d01-bda6-ac1f50302076
+    TargetNodeGuid: acac9f27-1327-4636-a87e-8a0c0410dff9
+  - BaseNodeGuid: a66432f7-1115-4d01-bda6-ac1f50302076
+    TargetNodeGuid: acac9f27-1327-4636-a87e-8a0c0410dff9
+  NodeDatas:
+  - rid: 2104455731236831328
+  - rid: 2104455731236831329
+  - rid: 2104455731236831330
+  - rid: 2104455731236831331
+  references:
+    version: 2
+    RefIds:
+    - rid: 2104455731236831328
+      type: {class: StartNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 334df24e-d2cd-4e64-84e1-f289d51f68ad
+        <Position>k__BackingField: {x: 68, y: 188}
+    - rid: 2104455731236831329
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: a66432f7-1115-4d01-bda6-ac1f50302076
+        <Position>k__BackingField: {x: 234, y: 184}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 86790a19-dc1b-4217-944b-38152988f5d6
+          InputGuid: acac9f27-1327-4636-a87e-8a0c0410dff9
+          OutputGuid: a66432f7-1115-4d01-bda6-ac1f50302076
+          Text: Tak, dawaj!
+        - PortGuid: 3b0036e4-a1de-4140-af6e-867e4e5022b8
+          InputGuid: acac9f27-1327-4636-a87e-8a0c0410dff9
+          OutputGuid: a66432f7-1115-4d01-bda6-ac1f50302076
+          Text: Nie, nie chce, ale musze
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: Hej, mam dla ciebie qyest'a, chcesz?
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 564c1a5b695f8f640a50249fc9acc6da, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: ffc77f2a7c2121e4fb25a623ef2d52ca, type: 3}
+        <Name>k__BackingField: Przeciwnika Name
+    - rid: 2104455731236831330
+      type: {class: EndNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 934ee1ef-cc77-4a39-9072-4430c7bde6b4
+        <Position>k__BackingField: {x: 1269, y: 198}
+        <EndNodeType>k__BackingField: 0
+    - rid: 2104455731236831331
+      type: {class: EventNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: acac9f27-1327-4636-a87e-8a0c0410dff9
+        <Position>k__BackingField: {x: 903, y: 192}
+        DialogueEventSO: {fileID: 11400000, guid: 94ef35f1d6368c24a82953d77de19e1b, type: 2}
+        QuestSO: {fileID: 11400000, guid: 800fc83122404b949a8d20c359a4a9e7, type: 2}

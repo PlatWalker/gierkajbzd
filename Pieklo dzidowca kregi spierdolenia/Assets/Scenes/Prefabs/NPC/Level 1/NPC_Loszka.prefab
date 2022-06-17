@@ -12,6 +12,9 @@ GameObject:
   - component: {fileID: 8839845907643361731}
   - component: {fileID: 1212263963507393537}
   - component: {fileID: 8604668662566557776}
+  - component: {fileID: -6196668307540885398}
+  - component: {fileID: 9189394094201972907}
+  - component: {fileID: -7984649271257200952}
   m_Layer: 0
   m_Name: NPC_Loszka
   m_TagString: Untagged
@@ -145,9 +148,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionZone: {fileID: 8172245224968404618}
-  isInteracting: 0
-  NPCDialogues: []
-  NPCQuests: []
+  followDistance: 2
+  NPCDialogue: {fileID: 0}
+  questsToUpdateWhenInteracted: []
+  followPlayer: 0
 --- !u!114 &8604668662566557776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,9 +164,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b374279be5765df4599cd3d016916590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentDialogue: {fileID: 0}
-  dialogueControler: {fileID: 0}
-  audioSource: {fileID: 8839845907643361731}
+--- !u!54 &-6196668307540885398
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21580377119459197}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!136 &9189394094201972907
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21580377119459197}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.36
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.6, z: 0}
+--- !u!195 &-7984649271257200952
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21580377119459197}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &7767880689945983970
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -218,6 +271,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Model_Loszka
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 69784e3fb4e54a345b80e4b6c4ded711, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 7457eeb328717e643ae742434dbcd918, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69784e3fb4e54a345b80e4b6c4ded711, type: 3}
 --- !u!4 &7802406268905577481 stripped
