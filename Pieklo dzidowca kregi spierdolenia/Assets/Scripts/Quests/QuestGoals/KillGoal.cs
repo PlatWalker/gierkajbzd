@@ -1,45 +1,47 @@
-﻿using UnityEngine;
-using jbzdy.Enemies;
+﻿using jbzdy.Enemies;
 using UnityEditor;
+using UnityEngine;
 
-[System.Serializable]
-public class KillGoal : QuestGoal
+namespace jbzd.Quests.QuestGoals
 {
-    public GameObject enemy;
-
-    public override void Init()
+    [System.Serializable]
+    public class KillGoal : QuestGoal
     {
-        base.Init();
-        EnemyController.OnDeath += EnemyDied;
-    }
+        public GameObject enemy;
 
-    void EnemyDied(EnemyController enemyType)
-    {
-        string enemyName = enemyType.name.Split(new char[] { ' ' })[0];
-
-        if (enemyName == enemy.name)
+        public override void InGameInit()
         {
-            this.currentAmount++;         
-            
-            if (IsReached())
-            {
-                EnemyController.OnDeath -= EnemyDied;
-            }
-
-
+            EnemyController.OnDeath += EnemyDied;
         }
+
+        void EnemyDied(EnemyController enemyType)
+        {
+            string enemyName = enemyType.name.Split(new char[] { ' ' })[0];
+
+            if (enemyName == enemy.name)
+            {
+                this.CurrentAmount++;         
+            
+                if (IsReached())
+                {
+                    EnemyController.OnDeath -= EnemyDied;
+                }
+
+
+            }
+        }
+#if UNITY_EDITOR
+        public override void GoalCustomEditor()
+        {
+            base.GoalCustomEditor();
+
+            enemy = (GameObject)EditorGUILayout.ObjectField(
+                "Przeciwnik",
+                enemy,
+                typeof(GameObject),
+                false
+            );
+        }
+#endif
     }
-
-    public override void GoalCustomEditor()
-    {
-        base.GoalCustomEditor();
-
-        enemy = (GameObject)EditorGUILayout.ObjectField(
-        "Przeciwnik",
-        enemy,
-        typeof(GameObject),
-        false
-        );
-    }
-
 }

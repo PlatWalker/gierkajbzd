@@ -9,10 +9,12 @@ public class ScenePartLoader : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
+        if(!other.gameObject.CompareTag("Player")) return;
+        
+        
         if (enter)
         {
-            SceneManager.LoadSceneAsync(gameObject.name, LoadSceneMode.Additive);     
+            SceneManager.LoadSceneAsync(gameObject.name, LoadSceneMode.Additive);
             enter = false;
         }
         else

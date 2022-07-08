@@ -1,3 +1,4 @@
+using jbzd.Quests;
 using UnityEngine;
 
 namespace jbzdy.DialogueSystem.NodeDatas
@@ -15,7 +16,7 @@ namespace jbzdy.DialogueSystem.NodeDatas
         public QuestGoal NodeTask { get; set; }
         public override void RunNode(DialogueTalk dialogueTalk)
         {
-            if (NodeTask.Completed)
+            if (NodeTask.completed)
             {
                 dialogueTalk.GetNodeByGuid(PositiveResultGuid).RunNode(dialogueTalk);
             }

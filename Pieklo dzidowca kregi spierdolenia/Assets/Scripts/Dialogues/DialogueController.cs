@@ -1,6 +1,7 @@
 ﻿using jbzdy.CharacterStats;
 using jbzdy.DialogueSystem.NodeDatas;
 using System.Collections.Generic;
+using jbzd;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -14,7 +15,8 @@ namespace jbzdy.DialogueSystem
 
         [SerializeField] private PlayerStats playerStats = default;
         [SerializeField] private GameObject dialogueUI = default;
-
+        [SerializeField] private Material transparentMaterial;
+            
         [Header("NPC Texts")]
         [SerializeField] private TMP_Text NPCName = default;
         [SerializeField] private TMP_Text NPCAnswer = default;
@@ -77,6 +79,8 @@ namespace jbzdy.DialogueSystem
             NPCImageGO.SetActive(true);
             playerFaceImage.sprite = playerImage;
             NPCFaceImage.sprite = npcImage;
+
+            if (playerImage == null) playerFaceImage.material = transparentMaterial;
         }
 
         //Setting up buttons to show them in dialogue options

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using jbzd;
+using jbzd.Quests;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -95,7 +97,7 @@ public class QuestLog_UI : MonoBehaviour
         TMP_Text text = questButton.GetComponentInChildren<TMP_Text>();
         text.fontSize = 30;
         text.text = quest.title;
-        text.color = quest.isCompleted ? Color.green : Color.gray;
+        text.color = quest.IsCompleted ? Color.green : Color.gray;
     }
 
     private void UpdateQuestNames(List<Quest> active)
@@ -162,7 +164,7 @@ public class QuestLog_UI : MonoBehaviour
         HighlightQuestButton(questButtons[previousButtonIndex], false);
         HighlightQuestButton(questButton, true);
         previousButtonIndex = questButtons.IndexOf(questButton);
-        currentQuest = questLog.getQuestNo(previousButtonIndex);
+        currentQuest = questLog.GetQuestNo(previousButtonIndex);
         ShowQuestDetails(currentQuest);
     }
 
@@ -189,7 +191,7 @@ public class QuestLog_UI : MonoBehaviour
 
         questDescriptionText.rectTransform.sizeDelta = new Vector2(0, -questNameText.preferredHeight - 50); //gora
         rewardsContent.anchoredPosition = new Vector2(0, -(questDescriptionText.preferredHeight) * 0.66f); //dol
-        rewards.anchoredPosition = new Vector2(0, - quest.tasks[quest.currentTask].goals.Count * 10);
+        rewards.anchoredPosition = new Vector2(0, - quest.tasks[quest.CurrentTask].goals.Count * 10);
         questDescription.sizeDelta = new Vector2(0,  questDescriptionText.preferredHeight - rewardsContent.rect.y + questNameText.preferredHeight);
 
     }
@@ -198,7 +200,7 @@ public class QuestLog_UI : MonoBehaviour
     {
         questObjectiveText.text = "";
 
-        foreach (QuestGoal goal in quest.tasks[quest.currentTask].goals)
+        foreach (QuestGoal goal in quest.tasks[quest.CurrentTask].goals)
         {
             questObjectiveText.text += goal.ToString();
         }

@@ -1,52 +1,53 @@
-﻿using UnityEngine;
-using UnityEditor;
+﻿using jbzdy.Inventory;
 using jbzdy.Items;
-using jbzdy.Inventory;
+using UnityEditor;
 
-[System.Serializable]
-public class ItemGoal : QuestGoal
+namespace jbzd.Quests.QuestGoals
 {
-    public Item item;
-    private InventoryClass inventory;
-
-    public override void Init()
+    [System.Serializable]
+    public class ItemGoal : QuestGoal
     {
-        base.Init();
-        inventory = InventoryClass.Instance;
-        inventory.OnInventoryItemAdd.AddListener(CheckItemState);
-        inventory.OnInventoryItemRemove.AddListener(CheckItemState);
+        public Item item;
+        private InventoryClass inventory;
 
-        if (inventory.TakeItemFromPlayer(item, requiredAmount, false)) CheckItemState();
-    }
-
-    void CheckItemState()
-    {
-        currentAmount = inventory.CheckItemAmount(item);
-
-        if (!IsReached() && Completed)  //jesli ktos mial wszystkie itemki, ale np. wyrzucil
+        public override void InGameInit()
         {
-            Completed = false;
+            inventory = InventoryClass.Instance;
+            inventory.OnInventoryItemAdd.AddListener(CheckItemState);
+            inventory.OnInventoryItemRemove.AddListener(CheckItemState);
+
+            if (inventory.TakeItemFromPlayer(item, RequiredAmount, false)) CheckItemState();
         }
 
+        void CheckItemState()
+        {
+            CurrentAmount = inventory.CheckItemAmount(item);
+
+            if (!IsReached() && completed)  //jesli ktos mial wszystkie itemki, ale np. wyrzucil
+            {
+                completed = false;
+            }
+
+
+        }
+#if UNITY_EDITOR
+        public override void GoalCustomEditor()
+        {
+            base.GoalCustomEditor();
+
+            item = (Item)EditorGUILayout.ObjectField(
+                "Przedmiot",
+                item,
+                typeof(Item),
+                true
+            );
+        }
+#endif
+        public void RemoveListeners()
+        {
+            inventory.OnInventoryItemAdd.RemoveListener(CheckItemState);
+            inventory.OnInventoryItemRemove.RemoveListener(CheckItemState);
+        }
 
     }
-
-    public override void GoalCustomEditor()
-    {
-        base.GoalCustomEditor();
-
-        item = (Item)EditorGUILayout.ObjectField(
-        "Przedmiot",
-        item,
-        typeof(Item),
-        true
-        );
-    }
-
-    public void RemoveListeners()
-    {
-        inventory.OnInventoryItemAdd.RemoveListener(CheckItemState);
-        inventory.OnInventoryItemRemove.RemoveListener(CheckItemState);
-    }
-
 }

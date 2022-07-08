@@ -3,6 +3,7 @@ using jbzdy.CharacterStats;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using jbzd;
 using UnityEngine;
 using UnityEngine.UI;
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using jbzd;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using jbzdy.Player;
@@ -36,7 +37,7 @@ namespace jbzdy.UI
 
         private void Update()
         {
-            // zrobić eventa, moze z zastosowaniem wzorca "observer"?
+            // TODO zrobić eventa, moze z zastosowaniem wzorca "observer"?
             if (GameManager.Instance.GameInputController.uIinputStatus.InGameMenu == true && panel.activeSelf == false)
             {
                 PauseGame();

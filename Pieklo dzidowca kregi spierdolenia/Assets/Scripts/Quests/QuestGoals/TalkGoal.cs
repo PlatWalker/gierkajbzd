@@ -1,43 +1,46 @@
-﻿using UnityEngine;
+﻿using jbzdy.Actions.Interaction;
 using UnityEditor;
-using jbzdy.Actions.Interaction;
+using UnityEngine;
 
-[System.Serializable]
-public class TalkGoal : QuestGoal
+namespace jbzd.Quests.QuestGoals
 {
-    public GameObject npc;
-
-    public override void Init()
+    [System.Serializable]
+    public class TalkGoal : QuestGoal
     {
-        base.Init();
-        Interactable.OnInteraction += InteractionHappend;
-    }
+        public GameObject npc;
 
-    void InteractionHappend(GameObject gameObject)
-    {
-        if(npc == gameObject)
+        public override void InGameInit()
         {
-            this.currentAmount++;
-
-            if (IsReached())
-            {
-                Interactable.OnInteraction -= InteractionHappend;
-            }
-
-
+            Interactable.OnInteraction += InteractionHappend;
         }
+
+        void InteractionHappend(GameObject gameObject)
+        {
+            if(npc == gameObject)
+            {
+                this.CurrentAmount++;
+
+                if (IsReached())
+                {
+                    Interactable.OnInteraction -= InteractionHappend;
+                }
+
+
+            }
+        }
+#if UNITY_EDITOR
+        
+        public override void GoalCustomEditor()
+        {
+            base.GoalCustomEditor();
+
+            npc = (GameObject)EditorGUILayout.ObjectField(
+                "NPC",
+                npc,
+                typeof(GameObject),
+                true
+            );
+        }
+#endif
     }
-
-    public override void GoalCustomEditor()
-    {
-        base.GoalCustomEditor();
-
-        npc = (GameObject)EditorGUILayout.ObjectField(
-        "NPC",
-        npc,
-        typeof(GameObject),
-        true
-        );
-    }
-
 }

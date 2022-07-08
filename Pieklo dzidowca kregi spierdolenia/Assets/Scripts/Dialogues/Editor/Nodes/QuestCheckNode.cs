@@ -3,6 +3,7 @@ using jbzdy.DialogueSystem.NodeDatas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using jbzd.Quests;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -113,7 +114,7 @@ namespace jbzdy.DialogueSystem.Nodes
         public override void LoadValueInToField()
         {
             _questField.SetValueWithoutNotify(_nodeQuest);
-            //dopisaæ uzupe³nienie subtaska
+            //dopisaÄ‡ uzupeÅ‚nienie subtaska
         }
         public override BaseNode CreateNewNode(DialogueEditorWindow newEditorWindow, DialogueGraphView newGraphView)
         {
@@ -135,7 +136,7 @@ namespace jbzdy.DialogueSystem.Nodes
 
             if (connectedEdges.Length != 2)
             {
-                Debug.Log("Podczas zapisu QuestCheck Dialogue Node napotkano inn¹ iloœæ stanów wyjœciowych ni¿ 2!");
+                Debug.Log("Podczas zapisu QuestCheck Dialogue Node napotkano innÄ… iloÅ›Ä‡ stanÃ³w wyjÅ›ciowych niÅ¼ 2!");
             }
 
             foreach (Edge edge in connectedEdges)
@@ -168,18 +169,22 @@ namespace jbzdy.DialogueSystem.Nodes
         {
             if (dataToLoad is not QuestCheckNodeData)
             {
-                Debug.Log("Podano b³êdne dane do node");
+                Debug.Log("Podano bÅ‚Ä™dne dane do node");
                 return;
             }
             var newData = (QuestCheckNodeData)dataToLoad;
             NodeGuid = newData.NodeGuid;
             SetPosition(new Rect(newData.Position, defaultNodeSize));
-            NodeQuest = newData.NodeQuest;
             NodeGoal = newData.NodeTask;
             PositiveResultGuid = newData.PositiveResultGuid;
             NegativeResultGuid = newData.NegativeResultGuid;
-            PopulateDropDownList(NodeQuest);
             LoadValueInToField();
+
+            if (newData.NodeQuest is not null)
+            {
+                NodeQuest = newData.NodeQuest;
+                PopulateDropDownList(NodeQuest);
+            }
 
         }
         

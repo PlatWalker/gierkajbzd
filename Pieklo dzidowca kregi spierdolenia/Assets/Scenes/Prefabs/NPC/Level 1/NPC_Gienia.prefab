@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 1720924307817532768}
   - component: {fileID: 5090133473161444728}
   - component: {fileID: 5240064790553143815}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: NPC_Gienia
-  m_TagString: Untagged
+  m_TagString: Npc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +29,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4168547616060214421}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -149,8 +149,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionZone: {fileID: 3242489130082100269}
   followDistance: 2
-  NPCDialogue: {fileID: 0}
-  questsToUpdateWhenInteracted: []
+  NPCDialogue: {fileID: 11400000, guid: b1a4d561f9b6c4c0f9570cc822218afd, type: 2}
+  questsToUpdateWhenInteracted:
+  - {fileID: 11400000, guid: a9dc4e79b34850f4cacb4747727dc7de, type: 2}
   followPlayer: 0
 --- !u!114 &3356574738283164596
 MonoBehaviour:
@@ -292,6 +293,10 @@ PrefabInstance:
     - target: {fileID: 326297538081522734, guid: 16ebed99a4a4ce84a8587dd305785b5a, type: 3}
       propertyPath: m_Name
       value: InteractionZone
+      objectReference: {fileID: 0}
+    - target: {fileID: 326297538081522736, guid: 16ebed99a4a4ce84a8587dd305785b5a, type: 3}
+      propertyPath: m_Radius
+      value: 2.21
       objectReference: {fileID: 0}
     - target: {fileID: 326297538081522737, guid: 16ebed99a4a4ce84a8587dd305785b5a, type: 3}
       propertyPath: m_RootOrder

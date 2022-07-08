@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using jbzd.Quests;
 using UnityEngine;
 
+//TODO Czy to na pewno ma byc przypiete do gracza? Moze jednak warto byloby dac to do gamemanagera/questmanager?
 public class QuestLog : MonoBehaviour
 {
     private List<Quest> questList;
@@ -38,8 +40,8 @@ public class QuestLog : MonoBehaviour
         onQuestChange.Invoke(questList);
     } 
 
-    public Quest getQuestNo(int index)
+    public Quest GetQuestNo(int index)
     {
-            return questList[index];
+        return questList[index];
     }
 }

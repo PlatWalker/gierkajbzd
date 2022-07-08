@@ -1,114 +1,128 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using jbzd.Quests.QuestGoals;
+using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Quest", menuName = "Quest")]
-public class Quest : ScriptableObject 
+namespace jbzd.Quests
 {
-    public bool isActive { get; set; }
-    public bool isCompleted { get; set; }
-
-    public string title;
-    public string description;
-    public int expReward;
-    public int goldReward;
-
-    public int startAtLevel;
-
-    public List<Task> tasks = new List<Task>();
-
-    public int currentTask { get; set; } = 0;
-
-    [System.Serializable]
-    public class Task
+    [CreateAssetMenu(fileName = "New Quest", menuName = "Quest")]
+    public class Quest : ScriptableObject
     {
-        public List<QuestGoal> goals = new List<QuestGoal>();
-        public int order = 0;
-        public bool showMore = true;
-    }
+        private QuestLog _questLog;
+        
+        public bool IsActive { get; private set; }
+        public bool IsCompleted { get; private set; }
 
-    private void OnEnable()
-    {
-        isActive = false;
-        isCompleted = false;
-        currentTask = 0;
-    }
+        public string title;
+        public string description;
+        public int expReward;
+        public int goldReward;
 
-    public void GetQuest()
-    {
-        isCompleted = false;
-        isActive = true;
-        currentTask = 0;
+        public int startAtLevel;
 
-        InitializeTask(currentTask);
+        public List<Task> tasks = new List<Task>();
 
-        GameManager.Instance.PlayerObject.GetComponent<QuestLog>().AddQuest(this);
-    }
+        public int CurrentTask { get; private set; }
 
-    private void InitializeTask(int index)
-    {
-        foreach (QuestGoal goal in tasks[index].goals)
+        [System.Serializable]
+        public class Task
         {
-            goal.Init();
-        }
-    }
-
-    public void UpdateQuest()
-    {
-        if (isActive)     
-        {
-            CheckGoals();
+            public List<QuestGoal> goals = new List<QuestGoal>();
+            public int order = 0;
+            public bool showMore = true;
         }
 
-    }
-
-    private void Complete()
-    {
-        isActive = false;
-        GameManager.Instance.PlayerObject.GetComponent<QuestLog>().RemoveQuest(this);
-        Debug.Log("koniec questa ");
-    }
-
-    private void CompleteTask()
-    {       
-        isCompleted = false;
-
-        InitializeTask(currentTask);
-
-    }
-
-    public void CheckGoals(bool fromNpc = true)
-    {
-        if(currentTask < tasks.Count)
+        private void OnEnable()
         {
-            foreach (QuestGoal goal in tasks[currentTask].goals)
+            IsActive = false;
+            IsCompleted = false;
+            CurrentTask = 0;
+
+            foreach (var goal in tasks.SelectMany(task => task.goals))
             {
-                if (!goal.Completed) return;
+                goal.ScriptableObjectInit();
+            }
+        }
+
+        public void GetQuest()
+        {
+            IsCompleted = false;
+            IsActive = true;
+            CurrentTask = 0;
+
+            InitializeTask(CurrentTask);
+            
+            _questLog = GameManager.Instance.PlayerObject.GetComponent<QuestLog>();
+            _questLog.AddQuest(this);
+        }
+
+        private void InitializeTask(int index)
+        {
+            foreach (var goal in tasks[index].goals)
+            {
+                goal.InGameInit();
+            }
+        }
+
+        public void UpdateQuest()
+        {
+            if (IsActive)     
+            {
+                CheckGoals();
             }
 
-            if (fromNpc)
+        }
+
+        private void CompleteQuest()
+        {
+            IsActive = false;
+            _questLog.RemoveQuest(this);
+            Debug.Log("koniec questa ");
+        }
+
+        private void CompleteTask()
+        {       
+            IsCompleted = false;
+
+            InitializeTask(CurrentTask);
+
+        }
+
+        public void CheckGoals(bool fromNpc = true)
+        {
+
+            if (CurrentTask < tasks.Count)
             {
-                foreach (ItemGoal goal in tasks[currentTask].goals.OfType<ItemGoal>())
+                foreach (var goal in tasks[CurrentTask].goals)
+                    if (!goal.completed)
+                        return;
+
+                if (fromNpc)
                 {
-                    goal.RemoveListeners();
+                    //TODO czemu mamy usuwanie czegos z itemgoala w klasie odpowiadajacej za ogolne questy?
+                    foreach (var goal in tasks[CurrentTask].goals.OfType<ItemGoal>()) goal.RemoveListeners();
+
+                    CurrentTask++;
+
+                    if (CurrentTask == tasks.Count)
+                        CompleteQuest();
+                    else
+                        CompleteTask();
+                }
+                else
+                {
+                    IsCompleted = true;
                 }
 
-                currentTask++;
-
-                if (currentTask == tasks.Count)
-                    Complete();
-                else
-                    CompleteTask();
+                Debug.Log("koniec zadania");
             }
             else
-                isCompleted = true;
+            {
+                Debug.LogError("Obecna ilosc skonczonych taskow jest wieksza od ich ogolnej ilosci!");
+            }
 
-            Debug.Log("koniec zadania");
+            if (IsCompleted) _questLog.ChangeQuestName();
         }
 
-        if(isCompleted)
-            GameManager.Instance.PlayerObject.GetComponent<QuestLog>().ChangeQuestName();
-
     }
-
 }

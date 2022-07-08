@@ -1,3 +1,4 @@
+using jbzd;
 using UnityEngine;
 
 namespace jbzdy.DialogueSystem.NodeDatas

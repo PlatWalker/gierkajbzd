@@ -1,51 +1,62 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-[System.Serializable]
-public class QuestGoal : ScriptableObject 
+namespace jbzd.Quests
 {
-
-    public string Description;
-    public bool Completed { get; set; }
-    public int requiredAmount = 1;
-    public int currentAmount { get; set; }
-
-    public virtual void Init()
+    [System.Serializable]
+    public abstract class QuestGoal : ScriptableObject 
     {
-        Completed = false;
-        currentAmount = 0;
-    }
+        public string Description { get; set; }
+        public bool completed;// nie moze byc property bo edytor dostaje dałna
+        public int RequiredAmount { get; set; } = 1;
+        public int CurrentAmount { get; set; }
+        // TODO po nalozeniu skryptu (dokladniej SO z tym skryptem) nie
+        // TODO ma mozliwosci jego usuniecia - trzeba naprawic
+        private QuestCompleteEvent _questCompleteEvent;
 
-    protected bool IsReached()
-    {
-
-        if (currentAmount >= requiredAmount)
+        public virtual void InGameInit()
         {
-            Complete();
-            return true;
+            //TODO trzeba dopracowac system wywolywania skrpytu konczacych quest
+            _questCompleteEvent = GameManager.Instance.QuestController;
         }
 
-        return false;
-    }
+        public virtual void ScriptableObjectInit()
+        {
+            completed = false;
+            CurrentAmount = 0;
+        }
+        
+        protected bool IsReached()
+        {
 
-    private void Complete()
-    {
-        Completed = true;
-        Debug.Log("Koniec podzadania");
-    }
+            if (CurrentAmount >= RequiredAmount)
+            {
+                Complete();
+                return true;
+            }
 
-    public override string ToString()
-    {
-        return Description + ": <i>" + currentAmount + "/" + requiredAmount + "</i>\n";
-    }
+            return false;
+        }
 
+        private void Complete()
+        {
+            completed = true;
+            _questCompleteEvent.OnQuestComplete(this);
+            Debug.Log("Koniec podzadania");
+        }
 
-    //metoda która w inspektorze wyświetla pola związane z goalem
-    public virtual void GoalCustomEditor()
-    {
-        EditorGUILayout.LabelField("Opis");
-        Description = EditorGUILayout.TextArea(Description as string, GUILayout.Height(20));
-        requiredAmount = EditorGUILayout.IntField("Potrzebna ilość", requiredAmount);
+        public override string ToString()
+        {
+            return Description + ": <i>" + CurrentAmount + "/" + RequiredAmount + "</i>\n";
+        }
+#if UNITY_EDITOR
+        public virtual void GoalCustomEditor()
+        {
+            EditorGUILayout.LabelField("Opis");
+            Description = EditorGUILayout.TextArea(Description, GUILayout.Height(20));
+            RequiredAmount = EditorGUILayout.IntField("Potrzebna ilość", RequiredAmount);
+        }
+#endif
     }
 }
 

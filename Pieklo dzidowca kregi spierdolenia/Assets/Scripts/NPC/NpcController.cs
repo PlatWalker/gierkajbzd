@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using jbzd.Common;
+using jbzd.Quests;
 using jbzdy.Actions.Interaction;
 using jbzdy.DialogueSystem;
 using jbzdy.DialogueSystem.NodeDatas;
+//TODO trzeba pozbyc sie referencji do namespace'a gracz. skrpyt npc nie powinien sie tym zajmowac
 using jbzdy.Player;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 namespace jbzd.NPC
 {
@@ -37,7 +41,6 @@ namespace jbzd.NPC
         private PlayerController _player;
         private NavMeshAgent _navMeshAgent;
         private Animator _animator;
-
         private void Start()
         {
             _animator = GetComponentInChildren<Animator>();
@@ -51,8 +54,16 @@ namespace jbzd.NPC
             }
             
             _player = GameManager.Instance.PlayerObject.GetComponent<PlayerController>();
+
+            SceneManager.sceneUnloaded += OnSceneUnloaded;
             
             AnimatorParametersCheck();
+            
+        }
+
+        private void OnSceneUnloaded(Scene scene)
+        {
+            if (followPlayer) gameObject.transform.position = _player.transform.position;
         }
 
         private void AnimatorParametersCheck()
@@ -64,23 +75,22 @@ namespace jbzd.NPC
         public override void Interact()
         {
             base.Interact();
-            foreach (var quest in questsToUpdateWhenInteracted.Where(quest => quest.isActive))
+            foreach (var quest in questsToUpdateWhenInteracted.Where(quest => quest.IsActive))
             {
                 quest.UpdateQuest();
             }
             _dialogueTalk.StartDialogue(NPCDialogue);
-            _player.CanPlayerMove = false;
+            _player.IsUiTurnOn = true;
         }
 
         public override void StopInteract()
         {
-            _player.CanPlayerMove = true;
+            _player.IsUiTurnOn = false;
         }
 
         public override void Update()
         {
             base.Update();
-
             if (FollowPlayer)
             {
                 FollowingPlayer();

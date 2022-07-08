@@ -12,10 +12,8 @@ namespace jbzd.Quests.QuestGoals
     
         private Interaction _interaction;
     
-        public override void Init()
+        public override void InGameInit()
         {
-            base.Init();
-        
             _interaction = place.GetComponent<Interaction>();
 
             _interaction.OnInteractionObjectReach += ReachedPlace;
@@ -25,11 +23,11 @@ namespace jbzd.Quests.QuestGoals
         {
             if (!collider.gameObject.CompareTag("Player")) return;
         
-            currentAmount++;
+            CurrentAmount++;
 
             if (IsReached()) _interaction.OnInteractionObjectReach -= ReachedPlace;
         }
-
+#if UNITY_EDITOR
         public override void GoalCustomEditor()
         {
             base.GoalCustomEditor();
@@ -41,6 +39,6 @@ namespace jbzd.Quests.QuestGoals
                 true
             );
         }
-
+#endif
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using jbzd;
 using UnityEngine;
 
 /// <summary>
@@ -23,7 +24,7 @@ namespace jbzdy.Player
         {
             playerController.IsAttacking = GameManager.Instance.GameInputController.attackInputStatus.Basic;
 
-            if (playerController.IsAttacking && playerController.CanPlayerMove)
+            if (playerController.IsAttacking)
             {
                 Vector3 flatVector = GameManager.Instance.GameInputController.mousePositionFlat;
                 flatVector.y = playerController.transform.position.y;

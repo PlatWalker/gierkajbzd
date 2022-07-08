@@ -1,5 +1,7 @@
 
 
+using jbzd.Quests;
+
 namespace jbzdy.DialogueSystem.NodeDatas
 {
 

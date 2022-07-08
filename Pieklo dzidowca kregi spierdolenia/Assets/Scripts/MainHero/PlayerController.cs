@@ -1,9 +1,6 @@
 using jbzdy.CharacterStats;
-using System;
-using System.Data.SqlTypes;
 using System.Linq;
 using jbzd.Common.Interfaces;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -52,6 +49,7 @@ namespace jbzdy.Player
         public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
         public float PlayerSpeed { get => playerSpeed; set => playerSpeed = value; }
         public float DashAttackMovePower { get => dashAttackMovePower; set => dashAttackMovePower = value; }
+        public bool IsUiTurnOn { get; set; }
 
         private void Start()
         {
@@ -73,7 +71,7 @@ namespace jbzdy.Player
 
         private void Update()
         {
-            playerAttackController.UpdateCharacterAttack();
+            if(!IsUiTurnOn) playerAttackController.UpdateCharacterAttack();
         }
 
         private void AnimatorParametersCheck()
