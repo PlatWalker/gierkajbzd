@@ -16,8 +16,7 @@ namespace jbzd.Quests.QuestSpecificScripts.Level1
         public GameObject Place1 { get; private set; }
         [field:SerializeField]
         public GameObject Place2 { get; private set; }
-
-        //TODO to powinna byc lista a nie sztywno dwa npc/miejsca
+        
         public NpcController Npc1Controller { get; set; }
         public NpcController Npc2Controller { get; set; }
         public Interaction Place1Interaction { get; set; }

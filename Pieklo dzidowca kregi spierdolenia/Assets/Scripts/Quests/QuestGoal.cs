@@ -10,13 +10,12 @@ namespace jbzd.Quests
         public bool completed;// nie moze byc property bo edytor dostaje dałna
         public int RequiredAmount { get; set; } = 1;
         public int CurrentAmount { get; set; }
-        // TODO po nalozeniu skryptu (dokladniej SO z tym skryptem) nie
-        // TODO ma mozliwosci jego usuniecia - trzeba naprawic
+
         private QuestCompleteEvent _questCompleteEvent;
 
         public virtual void InGameInit()
         {
-            //TODO trzeba dopracowac system wywolywania skrpytu konczacych quest
+            //TODO To chyba nie jest juz potrzebne? 
             _questCompleteEvent = GameManager.Instance.QuestController;
         }
 
