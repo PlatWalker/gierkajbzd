@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a69ff5ed214494b835d86b8438ac53, type: 3}
+  m_Name: Transition Test
+  m_EditorClassIdentifier: 
+  <NodeLinkDatas>k__BackingField:
+  - BaseNodeGuid: 9b38ced0-d7d2-4e7f-b70f-5e6f6393f1a4
+    TargetNodeGuid: 32e2bd3b-4504-4f4a-aa51-e91cb33d72eb
+  - BaseNodeGuid: 9972acd0-bda1-4d7c-ab90-dfd45a1b1bfd
+    TargetNodeGuid: d66aba4b-e83d-4078-8225-d26eb0086838
+  - BaseNodeGuid: 32e2bd3b-4504-4f4a-aa51-e91cb33d72eb
+    TargetNodeGuid: 9972acd0-bda1-4d7c-ab90-dfd45a1b1bfd
+  - BaseNodeGuid: 32e2bd3b-4504-4f4a-aa51-e91cb33d72eb
+    TargetNodeGuid: d66aba4b-e83d-4078-8225-d26eb0086838
+  NodeDatas:
+  - rid: 1767440806170853398
+  - rid: 1767440806170853399
+  - rid: 1767440806170853400
+  - rid: 1767440806170853401
+  references:
+    version: 2
+    RefIds:
+    - rid: 1767440806170853398
+      type: {class: StartNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 9b38ced0-d7d2-4e7f-b70f-5e6f6393f1a4
+        <Position>k__BackingField: {x: 30, y: 239}
+    - rid: 1767440806170853399
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 32e2bd3b-4504-4f4a-aa51-e91cb33d72eb
+        <Position>k__BackingField: {x: 236, y: 147}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 16a5544a-7332-4709-b414-e6e7324918b4
+          InputGuid: 9972acd0-bda1-4d7c-ab90-dfd45a1b1bfd
+          OutputGuid: 32e2bd3b-4504-4f4a-aa51-e91cb33d72eb
+          Text: TAK
+        - PortGuid: 59bb0bcf-b2a0-4d05-937f-f4b100d4fd2a
+          InputGuid: d66aba4b-e83d-4078-8225-d26eb0086838
+          OutputGuid: 32e2bd3b-4504-4f4a-aa51-e91cb33d72eb
+          Text: NIE
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Siemano!\nLecimy do nast\u0119pnej sceny?"
+        <npcSprite>k__BackingField: {fileID: 0}
+        <playerSprite>k__BackingField: {fileID: 0}
+        <Name>k__BackingField: GM
+    - rid: 1767440806170853400
+      type: {class: EndNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: d66aba4b-e83d-4078-8225-d26eb0086838
+        <Position>k__BackingField: {x: 1271, y: 181}
+        <EndNodeType>k__BackingField: 0
+    - rid: 1767440806170853401
+      type: {class: EventNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 9972acd0-bda1-4d7c-ab90-dfd45a1b1bfd
+        <Position>k__BackingField: {x: 941, y: 127}
+        DialogueEventSO: {fileID: 11400000, guid: 52ee6931b075ee84ebd1f69c092b876c, type: 2}
+        QuestSO: {fileID: 0}

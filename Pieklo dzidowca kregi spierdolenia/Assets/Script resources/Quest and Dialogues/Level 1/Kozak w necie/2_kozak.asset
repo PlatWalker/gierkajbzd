@@ -1,0 +1,167 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a69ff5ed214494b835d86b8438ac53, type: 3}
+  m_Name: 2_kozak
+  m_EditorClassIdentifier: 
+  <NodeLinkDatas>k__BackingField:
+  - BaseNodeGuid: da27e119-37b7-4671-b072-f35cdbbda569
+    TargetNodeGuid: 7664c3e4-6192-46ff-a639-8a937edb4610
+  - BaseNodeGuid: 817dd56e-78a8-4150-ba74-2b04d231224c
+    TargetNodeGuid: e3911c17-ab24-4996-b9dd-8fe029471e2e
+  - BaseNodeGuid: 5e97889a-9de8-4979-8e9b-e099f7fb406c
+    TargetNodeGuid: 1c1ce552-e643-4d2b-b77e-aef5262956d4
+  - BaseNodeGuid: 663f956a-7078-4326-bd9d-224ab8a26d3d
+    TargetNodeGuid: a7b3ad67-f9fb-4c3f-89d7-50c442943b9b
+  - BaseNodeGuid: 663f956a-7078-4326-bd9d-224ab8a26d3d
+    TargetNodeGuid: da27e119-37b7-4671-b072-f35cdbbda569
+  - BaseNodeGuid: a7b3ad67-f9fb-4c3f-89d7-50c442943b9b
+    TargetNodeGuid: 817dd56e-78a8-4150-ba74-2b04d231224c
+  - BaseNodeGuid: 1c1ce552-e643-4d2b-b77e-aef5262956d4
+    TargetNodeGuid: 7664c3e4-6192-46ff-a639-8a937edb4610
+  - BaseNodeGuid: 1c1ce552-e643-4d2b-b77e-aef5262956d4
+    TargetNodeGuid: 25aa019b-c0c9-48df-b90f-53abc5abad8b
+  - BaseNodeGuid: 25aa019b-c0c9-48df-b90f-53abc5abad8b
+    TargetNodeGuid: e3911c17-ab24-4996-b9dd-8fe029471e2e
+  - BaseNodeGuid: 25aa019b-c0c9-48df-b90f-53abc5abad8b
+    TargetNodeGuid: 663f956a-7078-4326-bd9d-224ab8a26d3d
+  - BaseNodeGuid: 7664c3e4-6192-46ff-a639-8a937edb4610
+    TargetNodeGuid: 85f45f0e-811f-41b6-b82e-fa3325fb12bf
+  - BaseNodeGuid: e3911c17-ab24-4996-b9dd-8fe029471e2e
+    TargetNodeGuid: 85f45f0e-811f-41b6-b82e-fa3325fb12bf
+  NodeDatas:
+  - rid: 4751322035347783754
+  - rid: 4751322035347783755
+  - rid: 4751322035347783756
+  - rid: 4751322035347783757
+  - rid: 4751322035347783758
+  - rid: 4751322035347783759
+  - rid: 4751322035347783760
+  - rid: 4751322035347783761
+  - rid: 4751322035347783762
+  - rid: 4751322035347783763
+  references:
+    version: 2
+    RefIds:
+    - rid: 4751322035347783754
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 663f956a-7078-4326-bd9d-224ab8a26d3d
+        <Position>k__BackingField: {x: 425, y: 332}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 482a5192-eefb-473b-852b-56567cb5c961
+          InputGuid: a7b3ad67-f9fb-4c3f-89d7-50c442943b9b
+          OutputGuid: 663f956a-7078-4326-bd9d-224ab8a26d3d
+          Text: "Musz\u0119 odzyska\u0107 portfel..."
+        - PortGuid: 62c8fec0-1052-4ab3-a397-bf24d0d92f88
+          InputGuid: da27e119-37b7-4671-b072-f35cdbbda569
+          OutputGuid: 663f956a-7078-4326-bd9d-224ab8a26d3d
+          Text: Dobra, jebie mnie to!
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "To by\u0142o mi\u0142e, ale mam ju\u017C ch\u0142opaka..."
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 31d167b06cc34f34091bae3c2e075ce9, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: f2d2a7d738e8e75488c4fea351131b93, type: 3}
+        <Name>k__BackingField: Loszka
+    - rid: 4751322035347783755
+      type: {class: CreateCheckpointNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: da27e119-37b7-4671-b072-f35cdbbda569
+        <Position>k__BackingField: {x: 1059, y: 489}
+        CheckpointTag: kozak
+        CheckpointName: kozak_3
+        Level: 0
+    - rid: 4751322035347783756
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: a7b3ad67-f9fb-4c3f-89d7-50c442943b9b
+        <Position>k__BackingField: {x: 1330, y: 358}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 39699c99-e8de-451d-8112-a4d6f4396165
+          InputGuid: 817dd56e-78a8-4150-ba74-2b04d231224c
+          OutputGuid: a7b3ad67-f9fb-4c3f-89d7-50c442943b9b
+          Text: Dalej
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Znowu chcesz dosta\u0107 wpierdol? No dobra. Nie
+          zaruchasz, ale przynajmniej tak mog\u0119 si\u0119 odwdzi\u0119czy\u0107. "
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 51fa06445ce336c4f87a85240a90ddba, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: f2d2a7d738e8e75488c4fea351131b93, type: 3}
+        <Name>k__BackingField: Loszka
+    - rid: 4751322035347783757
+      type: {class: CreateCheckpointNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 817dd56e-78a8-4150-ba74-2b04d231224c
+        <Position>k__BackingField: {x: 1975, y: 361}
+        CheckpointTag: kozak
+        CheckpointName: kozak_4
+        Level: 0
+    - rid: 4751322035347783758
+      type: {class: CheckpointSplitterNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 1c1ce552-e643-4d2b-b77e-aef5262956d4
+        <Position>k__BackingField: {x: -129, y: 45}
+        CheckpointTag: kozak
+        CheckpointName: kozak_3
+        Level: 1
+        PositiveResultGuid: 7664c3e4-6192-46ff-a639-8a937edb4610
+        NegativeResultGuid: 25aa019b-c0c9-48df-b90f-53abc5abad8b
+    - rid: 4751322035347783759
+      type: {class: StartNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 5e97889a-9de8-4979-8e9b-e099f7fb406c
+        <Position>k__BackingField: {x: -322, y: 51}
+    - rid: 4751322035347783760
+      type: {class: EndNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 85f45f0e-811f-41b6-b82e-fa3325fb12bf
+        <Position>k__BackingField: {x: 2843, y: 51}
+        <EndNodeType>k__BackingField: 0
+    - rid: 4751322035347783761
+      type: {class: CheckpointSplitterNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 25aa019b-c0c9-48df-b90f-53abc5abad8b
+        <Position>k__BackingField: {x: 134, y: 730}
+        CheckpointTag: kozak
+        CheckpointName: kozak_4
+        Level: 1
+        PositiveResultGuid: e3911c17-ab24-4996-b9dd-8fe029471e2e
+        NegativeResultGuid: 663f956a-7078-4326-bd9d-224ab8a26d3d
+    - rid: 4751322035347783762
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 7664c3e4-6192-46ff-a639-8a937edb4610
+        <Position>k__BackingField: {x: 1308, y: 26}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: fd909d27-fe52-44ed-9695-3c180d452624
+          InputGuid: 85f45f0e-811f-41b6-b82e-fa3325fb12bf
+          OutputGuid: 7664c3e4-6192-46ff-a639-8a937edb4610
+          Text: Koniec
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Ale jeste\u015B zjebany..."
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: d66d4d08daabbe44f8363ba978368873, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: f2d2a7d738e8e75488c4fea351131b93, type: 3}
+        <Name>k__BackingField: Loszka
+    - rid: 4751322035347783763
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: e3911c17-ab24-4996-b9dd-8fe029471e2e
+        <Position>k__BackingField: {x: 2225, y: 737}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 635bb4d3-e5db-4cb6-bcde-4c9cd157dee4
+          InputGuid: 85f45f0e-811f-41b6-b82e-fa3325fb12bf
+          OutputGuid: e3911c17-ab24-4996-b9dd-8fe029471e2e
+          Text: Koniec
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Dresiarze je\u017Cd\u017C\u0105 niebieskim BMW, parkuj\u0105
+          go w jednym z osiedlowych gara\u017Cy. Mimo wszystko mam nadziej\u0119,
+          \u017Ce co\u015B z nimi zrobisz."
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 31d167b06cc34f34091bae3c2e075ce9, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: f2d2a7d738e8e75488c4fea351131b93, type: 3}
+        <Name>k__BackingField: Loszka

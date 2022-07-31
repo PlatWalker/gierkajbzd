@@ -1,0 +1,199 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a69ff5ed214494b835d86b8438ac53, type: 3}
+  m_Name: 3_kolejny
+  m_EditorClassIdentifier: 
+  <NodeLinkDatas>k__BackingField:
+  - BaseNodeGuid: 7b30aeb0-7ed9-40ad-b006-d8a3aec31bc5
+    TargetNodeGuid: c86c0f18-b983-4e36-b297-e8bd9072d0e9
+  - BaseNodeGuid: c86c0f18-b983-4e36-b297-e8bd9072d0e9
+    TargetNodeGuid: 36a70344-c1b9-4d32-81a0-b2f9995a0e53
+  - BaseNodeGuid: 9a1c17a0-bcd0-422d-a6fd-1e8589703e87
+    TargetNodeGuid: f345b014-f279-43db-a2a0-3fce544baff1
+  - BaseNodeGuid: f345b014-f279-43db-a2a0-3fce544baff1
+    TargetNodeGuid: 7b30aeb0-7ed9-40ad-b006-d8a3aec31bc5
+  - BaseNodeGuid: f345b014-f279-43db-a2a0-3fce544baff1
+    TargetNodeGuid: e4598a5d-2c1e-4519-9c38-045c91fc6e55
+  - BaseNodeGuid: 36a70344-c1b9-4d32-81a0-b2f9995a0e53
+    TargetNodeGuid: d66c35dd-da41-4784-985b-5fbe12aeed90
+  - BaseNodeGuid: e4598a5d-2c1e-4519-9c38-045c91fc6e55
+    TargetNodeGuid: d66c35dd-da41-4784-985b-5fbe12aeed90
+  - BaseNodeGuid: 7b30aeb0-7ed9-40ad-b006-d8a3aec31bc5
+    TargetNodeGuid: 82ad258a-0883-4053-9a0b-2985a479eebe
+  - BaseNodeGuid: 82ad258a-0883-4053-9a0b-2985a479eebe
+    TargetNodeGuid: b217604d-30ef-490d-aedb-3e9be58d995e
+  - BaseNodeGuid: b217604d-30ef-490d-aedb-3e9be58d995e
+    TargetNodeGuid: 2f256710-d635-4a9f-8679-5dfbe07fdc33
+  - BaseNodeGuid: 2f256710-d635-4a9f-8679-5dfbe07fdc33
+    TargetNodeGuid: 01fc35c4-161d-4070-838f-3b8018a0f434
+  - BaseNodeGuid: 01fc35c4-161d-4070-838f-3b8018a0f434
+    TargetNodeGuid: d66c35dd-da41-4784-985b-5fbe12aeed90
+  - BaseNodeGuid: 82ad258a-0883-4053-9a0b-2985a479eebe
+    TargetNodeGuid: 9cb3eb56-a1a7-4a0d-b946-f0b48607aed0
+  - BaseNodeGuid: 9cb3eb56-a1a7-4a0d-b946-f0b48607aed0
+    TargetNodeGuid: 2f256710-d635-4a9f-8679-5dfbe07fdc33
+  NodeDatas:
+  - rid: 4751322035347783690
+  - rid: 4751322035347783691
+  - rid: 4751322035347783692
+  - rid: 4751322035347783693
+  - rid: 4751322035347783694
+  - rid: 4751322035347783695
+  - rid: 4751322035347783696
+  - rid: 4751322035347783697
+  - rid: 4751322035347783698
+  - rid: 4751322035347783699
+  - rid: 4751322035347783700
+  - rid: 4751322035347783701
+  references:
+    version: 2
+    RefIds:
+    - rid: 4751322035347783690
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 7b30aeb0-7ed9-40ad-b006-d8a3aec31bc5
+        <Position>k__BackingField: {x: 9.5, y: -130}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: c642a670-513d-4215-97b5-c967caa2177c
+          InputGuid: c86c0f18-b983-4e36-b297-e8bd9072d0e9
+          OutputGuid: 7b30aeb0-7ed9-40ad-b006-d8a3aec31bc5
+          Text: Jasne, ale zagraj hymn ZSRR
+        - PortGuid: d1a1e4cb-0d4d-4af1-975f-1ebce3e144e0
+          InputGuid: 82ad258a-0883-4053-9a0b-2985a479eebe
+          OutputGuid: 7b30aeb0-7ed9-40ad-b006-d8a3aec31bc5
+          Text: "Nie nosz\u0119 drobnych."
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Te, masz pi\u0119\u0107 z\u0142ote?"
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 45d886faf58a7564398416956b855abe, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: f2d2a7d738e8e75488c4fea351131b93, type: 3}
+        <Name>k__BackingField: Cygan-akordeon
+    - rid: 4751322035347783691
+      type: {class: CreateCheckpointNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 36a70344-c1b9-4d32-81a0-b2f9995a0e53
+        <Position>k__BackingField: {x: 905.5, y: -127}
+        CheckpointTag: kolejny
+        CheckpointName: 3_kolejny_1
+        Level: 0
+    - rid: 4751322035347783692
+      type: {class: GiveOrTakeItemNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: c86c0f18-b983-4e36-b297-e8bd9072d0e9
+        <Position>k__BackingField: {x: 685.5, y: -122.5}
+        <ItemCheckType>k__BackingField: 1
+        <ItemCheckValue>k__BackingField: 5
+        <NodeItem>k__BackingField: {fileID: 0}
+    - rid: 4751322035347783693
+      type: {class: StartNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 9a1c17a0-bcd0-422d-a6fd-1e8589703e87
+        <Position>k__BackingField: {x: -354.5, y: -139}
+    - rid: 4751322035347783694
+      type: {class: CheckpointSplitterNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: f345b014-f279-43db-a2a0-3fce544baff1
+        <Position>k__BackingField: {x: -261, y: -214}
+        CheckpointTag: kolejny
+        CheckpointName: 3_kolejny_1
+        Level: 1
+        PositiveResultGuid: e4598a5d-2c1e-4519-9c38-045c91fc6e55
+        NegativeResultGuid: 7b30aeb0-7ed9-40ad-b006-d8a3aec31bc5
+    - rid: 4751322035347783695
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: e4598a5d-2c1e-4519-9c38-045c91fc6e55
+        <Position>k__BackingField: {x: 6.5, y: -396}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 86ce7296-5901-4f37-9574-b5f32491e15c
+          InputGuid: d66c35dd-da41-4784-985b-5fbe12aeed90
+          OutputGuid: e4598a5d-2c1e-4519-9c38-045c91fc6e55
+          Text: Koniec
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "\u0421\u043E\u044E\u0437 \u043D\u0435\u0440\u0443\u0448\u0438\u043C\u044B\u0439
+          \u0440\u0435\u0441\u043F\u0443\u0431\u043B\u0438\u043A \u0441\u0432\u043E\u0431\u043E\u0434\u043D\u044B\u0445\n\u0421\u043F\u043B\u043E\u0442\u0438\u043B\u0430
+          \u043D\u0430\u0432\u0435\u043A\u0438 \u0412\u0435\u043B\u0438\u043A\u0430\u044F
+          \u0420\u0443\u0441\u044C"
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 45d886faf58a7564398416956b855abe, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: f2d2a7d738e8e75488c4fea351131b93, type: 3}
+        <Name>k__BackingField: Cygan-akordeon
+    - rid: 4751322035347783696
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 82ad258a-0883-4053-9a0b-2985a479eebe
+        <Position>k__BackingField: {x: 652, y: 55.5}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: f02d10e6-60c1-4f65-bcbe-d2e747d3cfc2
+          InputGuid: b217604d-30ef-490d-aedb-3e9be58d995e
+          OutputGuid: 82ad258a-0883-4053-9a0b-2985a479eebe
+          Text: "Dobra, masz tu pi\u0119\u0107 z\u0142otych, ale zagraj hymn ZSRR!"
+        - PortGuid: dee498e4-54dd-4807-b5bf-dabd3cbb9adc
+          InputGuid: 9cb3eb56-a1a7-4a0d-b946-f0b48607aed0
+          OutputGuid: 82ad258a-0883-4053-9a0b-2985a479eebe
+          Text: Wypierdalaj!
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Mog\u0105 by\u0107 grube!"
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 45d886faf58a7564398416956b855abe, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: f2d2a7d738e8e75488c4fea351131b93, type: 3}
+        <Name>k__BackingField: Cygan-akordeon
+    - rid: 4751322035347783697
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: b217604d-30ef-490d-aedb-3e9be58d995e
+        <Position>k__BackingField: {x: 1276, y: -53}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: a0880665-289e-4526-bf01-5870eb59045c
+          InputGuid: 2f256710-d635-4a9f-8679-5dfbe07fdc33
+          OutputGuid: b217604d-30ef-490d-aedb-3e9be58d995e
+          Text: Koniec
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Co? Ty, kurwa, \u015Bmieciu, m\xF3wi\u0142e\u015B,
+          \u017Ce nie masz drobnych! Zaraz ci zagram, ale marsz \u017Ca\u0142obny!
+          Cyganie! Assemble!"
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 69dce0df0e92f54489c596d7f63f2156, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: f2d2a7d738e8e75488c4fea351131b93, type: 3}
+        <Name>k__BackingField: Cygan-akordeon
+    - rid: 4751322035347783698
+      type: {class: GiveOrTakeItemNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 2f256710-d635-4a9f-8679-5dfbe07fdc33
+        <Position>k__BackingField: {x: 1919.5, y: -206}
+        <ItemCheckType>k__BackingField: 1
+        <ItemCheckValue>k__BackingField: 1
+        <NodeItem>k__BackingField: {fileID: 0}
+    - rid: 4751322035347783699
+      type: {class: EventNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 01fc35c4-161d-4070-838f-3b8018a0f434
+        <Position>k__BackingField: {x: 2125, y: -217}
+        DialogueEventSO: {fileID: 11400000, guid: 161687f78108e0a4fbe90b5dd6d49ef9, type: 2}
+        QuestSO: {fileID: 0}
+    - rid: 4751322035347783700
+      type: {class: EndNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: d66c35dd-da41-4784-985b-5fbe12aeed90
+        <Position>k__BackingField: {x: 2321, y: -370.5}
+        <EndNodeType>k__BackingField: 0
+    - rid: 4751322035347783701
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 9cb3eb56-a1a7-4a0d-b946-f0b48607aed0
+        <Position>k__BackingField: {x: 1301, y: 212}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: dc0ecff0-5248-478c-aa69-e02387c5c814
+          InputGuid: 2f256710-d635-4a9f-8679-5dfbe07fdc33
+          OutputGuid: 9cb3eb56-a1a7-4a0d-b946-f0b48607aed0
+          Text: Koniec
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Lins scrotul mare, transpirat \u0219i p\u0103ros!"
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 69dce0df0e92f54489c596d7f63f2156, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: f2d2a7d738e8e75488c4fea351131b93, type: 3}
+        <Name>k__BackingField: Cygan-akordeon

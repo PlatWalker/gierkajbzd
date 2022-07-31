@@ -1,0 +1,161 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a69ff5ed214494b835d86b8438ac53, type: 3}
+  m_Name: TechDemo
+  m_EditorClassIdentifier: 
+  <NodeLinkDatas>k__BackingField:
+  - BaseNodeGuid: c3e2d080-cf43-44f3-9de7-993f04650d21
+    TargetNodeGuid: 2efd943d-cfab-4fdf-8d7d-17ee2edf27f7
+  - BaseNodeGuid: c910af3e-f1c0-4233-929e-0d335d902be3
+    TargetNodeGuid: 2690ff15-c9e4-42eb-b476-f14383261f06
+  - BaseNodeGuid: 8ca35e4f-2f50-43b8-9202-ee0764fdaefe
+    TargetNodeGuid: de80d95b-8680-44bb-a618-1013d3b8a8fd
+  - BaseNodeGuid: f9857585-8c43-4c7e-96b9-21ac1f3a272f
+    TargetNodeGuid: 51dc17e5-b11e-4002-95d7-801313bacdf4
+  - BaseNodeGuid: 2efd943d-cfab-4fdf-8d7d-17ee2edf27f7
+    TargetNodeGuid: 6dce60af-1b77-41d9-8771-430014854120
+  - BaseNodeGuid: 6dce60af-1b77-41d9-8771-430014854120
+    TargetNodeGuid: 318a25cd-d1fc-4737-91a5-69617cc89f98
+  - BaseNodeGuid: 6dce60af-1b77-41d9-8771-430014854120
+    TargetNodeGuid: f12eb4de-5471-4a24-8d4e-1ab444cfa94d
+  - BaseNodeGuid: de80d95b-8680-44bb-a618-1013d3b8a8fd
+    TargetNodeGuid: f9857585-8c43-4c7e-96b9-21ac1f3a272f
+  - BaseNodeGuid: 318a25cd-d1fc-4737-91a5-69617cc89f98
+    TargetNodeGuid: c910af3e-f1c0-4233-929e-0d335d902be3
+  - BaseNodeGuid: f12eb4de-5471-4a24-8d4e-1ab444cfa94d
+    TargetNodeGuid: 8ca35e4f-2f50-43b8-9202-ee0764fdaefe
+  NodeDatas:
+  - rid: 5888294051215835157
+  - rid: 5888294051215835158
+  - rid: 5888294051215835159
+  - rid: 5888294051215835160
+  - rid: 5888294051215835161
+  - rid: 5888294051215835162
+  - rid: 5888294051215835163
+  - rid: 5888294051215835164
+  - rid: 5888294051215835165
+  - rid: 5888294051215835166
+  - rid: 5888294051215835167
+  references:
+    version: 2
+    RefIds:
+    - rid: 5888294051215835157
+      type: {class: StartNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: c3e2d080-cf43-44f3-9de7-993f04650d21
+        <Position>k__BackingField: {x: -997, y: 77}
+    - rid: 5888294051215835158
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 2efd943d-cfab-4fdf-8d7d-17ee2edf27f7
+        <Position>k__BackingField: {x: -810, y: -12}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: 03d58f92-e4a8-4e56-91b2-0bdfb64d1b39
+          InputGuid: 6dce60af-1b77-41d9-8771-430014854120
+          OutputGuid: 2efd943d-cfab-4fdf-8d7d-17ee2edf27f7
+          Text: Czego?
+        <AudioClip>k__BackingField: {fileID: 8300000, guid: b978e9d8c0a46b147b7c27acdb33058f, type: 3}
+        <Text>k__BackingField: 'Witam kierowniku! '
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 775f41285594d5240af8acba4bd130e5, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: 564c1a5b695f8f640a50249fc9acc6da, type: 3}
+        <Name>k__BackingField: "Chlor\u015A\u0106"
+    - rid: 5888294051215835159
+      type: {class: ItemCheckNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 6dce60af-1b77-41d9-8771-430014854120
+        <Position>k__BackingField: {x: -100, y: 15}
+        <PositiveResultGuid>k__BackingField: 318a25cd-d1fc-4737-91a5-69617cc89f98
+        <NegativeResultGuid>k__BackingField: f12eb4de-5471-4a24-8d4e-1ab444cfa94d
+        <ItemCheckValue>k__BackingField: 1
+        <NodeItem>k__BackingField: {fileID: 4856915621746670373, guid: 4915bdf642e8139449fd56f3319f1264, type: 3}
+    - rid: 5888294051215835160
+      type: {class: GiveOrTakeItemNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: c910af3e-f1c0-4233-929e-0d335d902be3
+        <Position>k__BackingField: {x: 1028, y: -153}
+        <ItemCheckType>k__BackingField: 1
+        <ItemCheckValue>k__BackingField: 1
+        <NodeItem>k__BackingField: {fileID: 4856915621746670373, guid: 4915bdf642e8139449fd56f3319f1264, type: 3}
+    - rid: 5888294051215835161
+      type: {class: GiveOrTakeItemNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 8ca35e4f-2f50-43b8-9202-ee0764fdaefe
+        <Position>k__BackingField: {x: 1041, y: 337}
+        <ItemCheckType>k__BackingField: 0
+        <ItemCheckValue>k__BackingField: 1
+        <NodeItem>k__BackingField: {fileID: 4856915621746670373, guid: 4915bdf642e8139449fd56f3319f1264, type: 3}
+    - rid: 5888294051215835162
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: de80d95b-8680-44bb-a618-1013d3b8a8fd
+        <Position>k__BackingField: {x: 1388, y: 341}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: b3b4928d-7dfa-4deb-9f47-e68690c66b6e
+          InputGuid: f9857585-8c43-4c7e-96b9-21ac1f3a272f
+          OutputGuid: de80d95b-8680-44bb-a618-1013d3b8a8fd
+          Text: "Kurde, wiedzia\u0142em, \u017Ce co\u015B za \u0142atwo posz\u0142o."
+        <AudioClip>k__BackingField: {fileID: 8300000, guid: b978e9d8c0a46b147b7c27acdb33058f, type: 3}
+        <Text>k__BackingField: 'Dobra a teraz wykonaj dla mnie tego questa: zabij
+          3 doomery.'
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 564c1a5b695f8f640a50249fc9acc6da, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: 775f41285594d5240af8acba4bd130e5, type: 3}
+        <Name>k__BackingField: Chytry Chlor
+    - rid: 5888294051215835163
+      type: {class: EventNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: f9857585-8c43-4c7e-96b9-21ac1f3a272f
+        <Position>k__BackingField: {x: 2118, y: 386}
+        DialogueEventSO: {fileID: 11400000, guid: 94ef35f1d6368c24a82953d77de19e1b, type: 2}
+        QuestSO: {fileID: 11400000, guid: 800fc83122404b949a8d20c359a4a9e7, type: 2}
+    - rid: 5888294051215835164
+      type: {class: EndNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 51dc17e5-b11e-4002-95d7-801313bacdf4
+        <Position>k__BackingField: {x: 2600, y: 396}
+        <EndNodeType>k__BackingField: 0
+    - rid: 5888294051215835165
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 318a25cd-d1fc-4737-91a5-69617cc89f98
+        <Position>k__BackingField: {x: 303, y: -165}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: bf159b6e-f24e-4f41-a42b-a7ec4b59c773
+          InputGuid: c910af3e-f1c0-4233-929e-0d335d902be3
+          OutputGuid: 318a25cd-d1fc-4737-91a5-69617cc89f98
+          Text: "A\u0142a kurwa, chamie!"
+        <AudioClip>k__BackingField: {fileID: 8300000, guid: b978e9d8c0a46b147b7c27acdb33058f, type: 3}
+        <Text>k__BackingField: "Widz\u0119, \u017Ce masz dzid\u0119, oddawaj!"
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: 564c1a5b695f8f640a50249fc9acc6da, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: 775f41285594d5240af8acba4bd130e5, type: 3}
+        <Name>k__BackingField: Chlor
+    - rid: 5888294051215835166
+      type: {class: EndNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: 2690ff15-c9e4-42eb-b476-f14383261f06
+        <Position>k__BackingField: {x: 1483, y: -146}
+        <EndNodeType>k__BackingField: 0
+    - rid: 5888294051215835167
+      type: {class: DialogueNodeData, ns: jbzdy.DialogueSystem.NodeDatas, asm: Assembly-CSharp}
+      data:
+        <NodeGuid>k__BackingField: f12eb4de-5471-4a24-8d4e-1ab444cfa94d
+        <Position>k__BackingField: {x: 236, y: 368}
+        <DialogueNodePorts>k__BackingField:
+        - PortGuid: e0967865-faaa-4bee-b19f-79034c1fc211
+          InputGuid: 8ca35e4f-2f50-43b8-9202-ee0764fdaefe
+          OutputGuid: f12eb4de-5471-4a24-8d4e-1ab444cfa94d
+          Text: "O ja , dzi\u0119ki! "
+        <AudioClip>k__BackingField: {fileID: 0}
+        <Text>k__BackingField: "Widz\u0119, \u017Ce brak Ci dzidy. Masz tu jedn\u0105
+          ode mnie."
+        <npcSprite>k__BackingField: {fileID: 21300000, guid: bbe5d625075627149b83344f82ad4686, type: 3}
+        <playerSprite>k__BackingField: {fileID: 21300000, guid: 564c1a5b695f8f640a50249fc9acc6da, type: 3}
+        <Name>k__BackingField: Chlor
