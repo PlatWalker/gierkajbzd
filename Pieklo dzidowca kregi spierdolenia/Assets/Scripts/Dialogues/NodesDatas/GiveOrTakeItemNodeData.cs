@@ -12,7 +12,7 @@ namespace jbzdy.DialogueSystem.NodeDatas
         [field: SerializeField]
         public int ItemCheckValue { get; set; }
         [field: SerializeField]
-        public Item NodeItem { get; set; }
+        public SharItem NodeItem { get; set; }
 
         public override void RunNode(DialogueTalk dialogueTalk)
         {

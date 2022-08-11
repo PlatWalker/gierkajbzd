@@ -14,7 +14,7 @@ namespace jbzdy.DialogueSystem.Nodes
     public class ItemCheckNode : BaseNode
     {
         public override bool AutoDrawOutputEdges { get; } = false;
-        private Item nodeItem;
+        private SharItem nodeItem;
         private string itemCheckValue;
 
         private ObjectField itemField;
@@ -22,7 +22,7 @@ namespace jbzdy.DialogueSystem.Nodes
 
         public String NegativeResultGuid { get; private set; }
         public String PositiveResultGuid { get; private set; }
-        public Item NodeItem { get => nodeItem; set => nodeItem = value; }
+        public SharItem NodeItem { get => nodeItem; set => nodeItem = value; }
         public string ItemCheckValue { get => itemCheckValue; set => itemCheckValue = value; }
 
         public ItemCheckNode()
@@ -66,7 +66,7 @@ namespace jbzdy.DialogueSystem.Nodes
 
             itemField = new ObjectField()
             {
-                objectType = typeof(Item),
+                objectType = typeof(SharItem),
                 allowSceneObjects = false,
 
                 value = nodeItem,
@@ -74,7 +74,7 @@ namespace jbzdy.DialogueSystem.Nodes
 
             itemField.RegisterValueChangedCallback(value =>
             {
-                nodeItem = itemField.value as Item;
+                nodeItem = itemField.value as SharItem;
             });
 
             itemField.SetValueWithoutNotify(nodeItem);

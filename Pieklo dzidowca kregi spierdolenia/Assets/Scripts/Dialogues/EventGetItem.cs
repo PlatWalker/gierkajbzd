@@ -9,7 +9,7 @@ namespace jbzdy.DialogueSystem
     [CreateAssetMenu(menuName ="Dialogue/New OpenShop Event", fileName = "OpenShop Event")]
     public class EventGetItemShop : DialogueEventSO
     {
-        [SerializeField] private Item itemToGet;
+        [SerializeField] private SharItem itemToGet;
         public override void RunEvent()
         {
             base.RunEvent();

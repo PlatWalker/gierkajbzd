@@ -7,7 +7,7 @@ namespace jbzd.Quests.QuestGoals
     [System.Serializable]
     public class ItemGoal : QuestGoal
     {
-        public Item item;
+        public SharItem item;
         private InventoryClass inventory;
 
         public override void InGameInit()
@@ -35,10 +35,10 @@ namespace jbzd.Quests.QuestGoals
         {
             base.GoalCustomEditor();
 
-            item = (Item)EditorGUILayout.ObjectField(
+            item = (SharItem)EditorGUILayout.ObjectField(
                 "Przedmiot",
                 item,
-                typeof(Item),
+                typeof(SharItem),
                 true
             );
         }

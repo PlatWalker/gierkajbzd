@@ -12,7 +12,7 @@ namespace jbzdy.DialogueSystem.Nodes
 {
     public class GiveOrTakeItemNode : BaseNode
     {
-        private Item nodeItem;
+        private SharItem nodeItem;
         private ItemCheckNodeType itemCheckType;
         private string itemCheckValue;
 
@@ -20,7 +20,7 @@ namespace jbzdy.DialogueSystem.Nodes
         private ObjectField itemField;
         private TextField itemCheckValueField;
 
-        public Item NodeItem { get => nodeItem; set => nodeItem = value; }
+        public SharItem NodeItem { get => nodeItem; set => nodeItem = value; }
         public string ItemCheckValue { get => itemCheckValue; set => itemCheckValue = value; }
         public ItemCheckNodeType ItemCheckNodeType { get => itemCheckType; set => itemCheckType = value; }
 
@@ -79,7 +79,7 @@ namespace jbzdy.DialogueSystem.Nodes
 
             itemField = new ObjectField()
             {
-                objectType = typeof(Item),
+                objectType = typeof(SharItem),
                 allowSceneObjects = false,
                 
                 value = nodeItem,
@@ -87,7 +87,7 @@ namespace jbzdy.DialogueSystem.Nodes
 
             itemField.RegisterValueChangedCallback(value =>
             {
-                nodeItem = itemField.value as Item;
+                nodeItem = itemField.value as SharItem;
             });
 
             itemField.SetValueWithoutNotify(nodeItem);
