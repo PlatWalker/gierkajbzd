@@ -1,128 +1,86 @@
-﻿using jbzdy.DialogueSystem.NodeDatas;
-using jbzdy.DialogueSystem.SaveLoad;
+using jbzd.Dialogues.Editor.Save;
+using jbzd.Dialogues.Editor.Utilities;
+using jbzd.Dialogues.ScriptableObjects;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Object = System.Object;
 
-
-namespace jbzdy.DialogueSystem.Editor
+namespace jbzd.Dialogues.Editor
 {
     public class DialogueEditorWindow : EditorWindow
     {
-        private DialogueContainerSO currentDialogueContainer;
-        private DialogueGraphView graphView;
-        private DialogueSaveAndLoad saveAndLoad;
-
-        private ToolbarMenu toolbarMenu;
-        private Label nameOfDialougeContainer;
-
-        [OnOpenAsset(1)]
-        public static bool ShowWindow(int instanceId, int line)
-        {
-            Object item = EditorUtility.InstanceIDToObject(instanceId);
-
-            if (item is DialogueContainerSO)
-            {
-                DialogueEditorWindow window = (DialogueEditorWindow)GetWindow(typeof(DialogueEditorWindow));
-                window.titleContent = new GUIContent("Dialogue Editor");
-                window.currentDialogueContainer = item as DialogueContainerSO;
-                window.minSize = new Vector2(500, 250);
-                window.Load();
-            }
-            return false;
-        }
-
-        private void OnEnable()
-        {
-            ConstructGraphView();
-            GenerateToolbar();
-            Load();
-            EditorApplication.wantsToQuit += SaveBeforeExitAndConfirm;
-        }
-
-        private bool SaveBeforeExitAndConfirm()
-        {
-            Save();
-            return EditorUtility.DisplayDialog("Zamykanie",
-                "Edytowany dialog został zapisany. Czy chcesz kontynuować zamykanie Unity?",
-                "Tak", "Nie");
-        }
-
-        private void OnLostFocus()
-        {
-            if (EditorApplication.isPlayingOrWillChangePlaymode) return;
-            Save();
-        }
-
-        private void OnDisable()
-        {
-            rootVisualElement.Remove(graphView);
-            EditorApplication.wantsToQuit -= SaveBeforeExitAndConfirm;
-        }
-
-        private void ConstructGraphView()
-        {
-            graphView = new DialogueGraphView(this);
-            graphView.StretchToParentSize();
-            rootVisualElement.Add(graphView);
-
-            saveAndLoad = new DialogueSaveAndLoad(graphView,this);
-        }
-
-        private void GenerateToolbar()
-        {
-            StyleSheet styleSheet = Resources.Load<StyleSheet>("GraphViewStyleSheet");
-            rootVisualElement.styleSheets.Add(styleSheet);
-
-            Toolbar toolbar = new Toolbar();
-
-            // Save button.
-            Button saveBtn = new Button()
-            {
-                text = "Save"
-            };
-            saveBtn.clicked += () =>
-            {
-                Save();
-            };
-            toolbar.Add(saveBtn);
-
-            // Load button.
-            Button loadBtn = new Button()
-            {
-                text = "Load"
-            };
-            loadBtn.clicked += () =>
-            {
-                Load();
-            };
-            toolbar.Add(loadBtn);
-
-            // Name of current DialigueContainer you have open.
-            nameOfDialougeContainer = new Label("");
-            toolbar.Add(nameOfDialougeContainer);
-            nameOfDialougeContainer.AddToClassList("nameOfDialogueContainer");
-
-            rootVisualElement.Add(toolbar);
-        }
+        public ContainerSO dialogueContainer;
+        private DialogueGraphView _graphView;
         
-        public void Save()
-        {
-            if (currentDialogueContainer != null)
-            {
-                saveAndLoad.Save(currentDialogueContainer);
-            }
-        }
-        
-        public void Load()
-        {
-            if (currentDialogueContainer != null)
-            {
-                nameOfDialougeContainer.text = "Name:   " + currentDialogueContainer.name;
-                saveAndLoad.Load(currentDialogueContainer);
-            }
-        }
+       [OnOpenAsset(1)]
+       public static bool Open(int instanceId, int line)
+       {
+           Object item = EditorUtility.InstanceIDToObject(instanceId);
+           
+           if (item is ContainerSO so)
+           {
+               var window = GetWindow<DialogueEditorWindow>("Dialogue Graph");
+               window.dialogueContainer = so;
+               IOUtility.Load();
+           }
+           else if (item is GraphSaveDataSO gso)
+           {
+               var window = GetWindow<DialogueEditorWindow>("Dialogue Graph");
+               window.dialogueContainer = IOUtility.AssetFromGuid<ContainerSO>(gso.ContainerID);
+               IOUtility.Load();
+           }
+           return false;
+           
+       }
+       
+       private void OnEnable()
+       {
+           AddGraphView();
+           AddToolbar();
+           IOUtility.Initialize(_graphView, this);
+           EditorApplication.wantsToQuit += SaveBeforeExitAndConfirm;
+       }
+       
+       private void OnDisable()
+       {
+           rootVisualElement.Remove(_graphView);
+           EditorApplication.wantsToQuit -= SaveBeforeExitAndConfirm;
+       }
+
+       private void AddToolbar()
+       {
+           Toolbar toolbar = new Toolbar();
+
+           Button saveButton = DialogueElementUtility.CreateButton("Save", IOUtility.Save);
+
+           toolbar.Add(saveButton);
+
+           toolbar.AddStyleSheets("ToolbarStyleSheet");
+           
+           rootVisualElement.Add(toolbar);
+       }
+
+       private void AddGraphView()
+       {
+           _graphView = new DialogueGraphView(this);
+
+           _graphView.StretchToParentSize();
+           _graphView.Init();
+           
+           rootVisualElement.Add(_graphView);
+       }
+       
+       private bool SaveBeforeExitAndConfirm()
+       {
+           IOUtility.Save();
+           return EditorUtility.DisplayDialog("Zamykanie",
+               "Edytowany dialog został zapisany. Czy chcesz kontynuować zamykanie Unity?",
+               "Tak", "Nie");
+       }
+       
     }
+    
 }

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 using jbzd.Common.InputSystem;
+using jbzd.LegacyDialogues.NodesDatas;
 using jbzd.Quests.QuestSpecificScripts.Level1;
 using jbzdy.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using jbzdy.DialogueSystem.NodeDatas;
 
 /// <summary>
 /// by SilverWalker
