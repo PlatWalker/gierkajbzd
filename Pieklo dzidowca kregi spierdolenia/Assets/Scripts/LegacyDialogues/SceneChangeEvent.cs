@@ -1,9 +1,9 @@
-using jbzdy.DialogueSystem.NodeDatas;
+using jbzd.LegacyDialogues.NodesDatas;
 using jbzdy.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace jbzdy.Dialogues
+namespace jbzd.LegacyDialogues
 {
     [System.Serializable]
     [CreateAssetMenu(menuName = "Dialogue/New Scene Transition Event", fileName = "New Scene Transition Event")]
