@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using jbzd;
+using jbzd.Common.InputSystem;
 using jbzd.Quests;
 using UnityEngine;
 using UnityEngine.UI;
@@ -59,24 +60,22 @@ public class QuestLog_UI : MonoBehaviour
         questLog.Initialize();
         QuestLog.onQuestChange += UpdateQuests;
         UpdateQuests(new List<Quest>());
+        GameManager.Instance.GameInputController.GetInput<UserInterfaceInput>().OnQuestLogOpened += OpenQuestLog;
     }
 
-    private void Update()
+    private void OpenQuestLog()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            questLogObject.SetActive(!questLogObject.activeSelf);
+        questLogObject.SetActive(!questLogObject.activeSelf);
 
-            if (questLogObject.activeSelf)
-            {
-                questLog.CheckQuestObjective();
+        if (questLogObject.activeSelf)
+        {
+            questLog.CheckQuestObjective();
                 
-                if(currentQuest != null)
-                    ShowTaskDetails(currentQuest);
-            }
+            if(currentQuest != null)
+                ShowTaskDetails(currentQuest);
         }
     }
-
+    
     //lewa część 
     public void UpdateQuests(List<Quest> active)
     {

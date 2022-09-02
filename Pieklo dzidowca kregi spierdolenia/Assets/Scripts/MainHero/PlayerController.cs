@@ -1,5 +1,7 @@
 using jbzdy.CharacterStats;
 using System.Linq;
+using jbzd.Common.InputSystem;
+using jbzd.Common.InputSystem.Inputs;
 using jbzd.Common.Interfaces;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -23,7 +25,7 @@ namespace jbzdy.Player
         private PlayerStats playerStats;
         private PlayerMovementController playerMovementController;
         public PlayerAttackController playerAttackController { get; private set; }
-
+        public PlayerInput playerInput;
         public bool NextFrameDash { get; set; }
 
         [SerializeField]
@@ -53,6 +55,7 @@ namespace jbzdy.Player
 
         private void Start()
         {
+            playerInput = GameManager.Instance.GameInputController.GetInput<PlayerInput>();
             CharacterAnimator = GetComponentInChildren<Animator>();
             if (CharacterAnimator == null) Debug.Log("Nie znaleziono animatora w postaci gracza!");
             AnimatorParametersCheck();
@@ -60,8 +63,8 @@ namespace jbzdy.Player
             rb = GetComponent<Rigidbody>();
             playerStats = GetComponent<PlayerStats>();
 
-            playerMovementController = new PlayerMovementController(this);
-            playerAttackController = new PlayerAttackController(this);
+            playerMovementController = new PlayerMovementController(this, playerInput);
+            playerAttackController = new PlayerAttackController(this, playerInput);
         }
 
         private void FixedUpdate()

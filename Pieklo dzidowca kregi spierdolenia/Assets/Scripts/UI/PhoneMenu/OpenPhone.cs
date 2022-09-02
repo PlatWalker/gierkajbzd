@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using jbzd.Common.InputSystem;
 using UnityEngine;
 
 public class OpenPhone : MonoBehaviour
@@ -11,13 +12,8 @@ public class OpenPhone : MonoBehaviour
     {
         phone = transform.GetChild(0).gameObject;
         phone.SetActive(false);
+        GameManager.Instance.GameInputController.GetInput<UserInterfaceInput>().OnPlayerMenuOpened += OpenPhoneView;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            phone.SetActive(!phone.activeSelf);
-        }
-    }
+    private void OpenPhoneView() => phone.SetActive(!phone.activeSelf);
 }

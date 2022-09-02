@@ -1,15 +1,8 @@
-﻿using System;
-using System.Linq;
 using jbzd.Common.InputSystem;
 using jbzd.LegacyDialogues.NodesDatas;
 using jbzd.Quests.QuestSpecificScripts.Level1;
 using jbzdy.UI;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-
-/// <summary>
-/// by SilverWalker
-/// </summary>
 
 public class GameManager : Singleton<GameManager>
 {

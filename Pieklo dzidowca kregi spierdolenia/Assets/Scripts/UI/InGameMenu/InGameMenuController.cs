@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using jbzd;
+using jbzd.Common.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using jbzdy.Player;
@@ -12,40 +14,39 @@ namespace jbzdy.UI
         [SerializeField]
         private GameObject panel;
 
-        private float savedTimeScale;
+        private float _savedTimeScale;
+
+        private UserInterfaceInput _uiInput;
+        private PlayerController _playerController;
+        
+        public void Start()
+        {
+            _uiInput = GameManager.Instance.GameInputController.GetInput<UserInterfaceInput>();
+            _playerController = GameManager.Instance.PlayerObject.GetComponent<PlayerController>();
+            
+            _uiInput.OnInGameMenuOpened += ShowOrHideMenu;
+        }
 
         public void QuitToMainMenu()
         {
-            Time.timeScale = savedTimeScale;
+            Time.timeScale = _savedTimeScale;
             SceneManager.LoadScene(0);
         }
 
-        public void PauseGame()
-        {;
-            savedTimeScale = Time.timeScale;
-            Time.timeScale = 0f;
-            GameManager.Instance.PlayerObject.GetComponent<PlayerController>().CanPlayerMove = false;
-            panel.SetActive(true);
-        }
-
-        public void ResumeGame()
+        private void ShowOrHideMenu()
         {
-            Time.timeScale = savedTimeScale;
-            GameManager.Instance.PlayerObject.GetComponent<PlayerController>().CanPlayerMove = true;
-            panel.SetActive(false);
-        }
-
-        private void Update()
-        {
-            // TODO zrobić eventa, moze z zastosowaniem wzorca "observer"?
-            if (GameManager.Instance.GameInputController.uIinputStatus.InGameMenu == true && panel.activeSelf == false)
+            if (panel.activeSelf)
             {
-                PauseGame();
-
+                Time.timeScale = _savedTimeScale;
+                _playerController.CanPlayerMove = true;
+                panel.SetActive(false);
             }
-            else if (GameManager.Instance.GameInputController.uIinputStatus.InGameMenu == true && panel.activeSelf == true)
+            else
             {
-                ResumeGame();
+                _savedTimeScale = Time.timeScale;
+                Time.timeScale = 0f;
+                _playerController.CanPlayerMove = false;
+                panel.SetActive(true);
             }
         }
     } 

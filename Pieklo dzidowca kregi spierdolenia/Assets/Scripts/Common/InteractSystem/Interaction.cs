@@ -1,4 +1,5 @@
 using jbzd.Common.InputSystem;
+using jbzd.Common.InputSystem.Inputs;
 using jbzd.Common.Interfaces;
 using UnityEngine;
 
@@ -15,8 +16,8 @@ namespace jbzd.Common.InteractSystem
         [field:SerializeField] public bool IsStandalone { get; private set; }
         public void Start()
         {
-            InputController.OnInteractButtonClick += OnInteract;
-            
+            GameManager.Instance.GameInputController.GetInput<PlayerInput>().OnInteractClick += OnInteract;
+
             if (GetComponentInParent<IInteractable>() != null)
             {
                 _interactable = GetComponentInParent<IInteractable>();

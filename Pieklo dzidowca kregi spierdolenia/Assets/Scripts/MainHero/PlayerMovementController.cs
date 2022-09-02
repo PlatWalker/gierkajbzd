@@ -1,5 +1,7 @@
 ﻿using System;
 using jbzd;
+using jbzd.Common.InputSystem;
+using jbzd.Common.InputSystem.Inputs;
 using UnityEngine;
 
 /// <summary>
@@ -12,14 +14,15 @@ namespace jbzdy.Player
     public class PlayerMovementController
     {
         private readonly PlayerController playerController;
+        private readonly PlayerInput _playerInput;
         private Vector3 newPositionVector;
         
         private Vector3 velocity = Vector3.zero;
         
-        public PlayerMovementController(PlayerController _playerController)
+        public PlayerMovementController(PlayerController _playerController, PlayerInput playerInput)
         {
             playerController = _playerController;
-            
+            _playerInput = playerInput;
         }
 
         public void UpdateCharacterMovement()
@@ -42,10 +45,10 @@ namespace jbzdy.Player
         private void UpdateCharacterPosition()
         {
             playerController.MovementVector = Vector3.zero;
-            playerController.MovementVector += Vector3.forward * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.Up);
-            playerController.MovementVector += Vector3.back * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.Down);
-            playerController.MovementVector += Vector3.left * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.Left);
-            playerController.MovementVector += Vector3.right * Convert.ToInt32(GameManager.Instance.GameInputController.movementInputStatus.Right);
+            playerController.MovementVector += Vector3.forward * Convert.ToInt32(_playerInput.movementInputStatus.Up);
+            playerController.MovementVector += Vector3.back * Convert.ToInt32(_playerInput.movementInputStatus.Down);
+            playerController.MovementVector += Vector3.left * Convert.ToInt32(_playerInput.movementInputStatus.Left);
+            playerController.MovementVector += Vector3.right * Convert.ToInt32(_playerInput.movementInputStatus.Right);
             
             StickPlayerToGround();
 
@@ -88,7 +91,7 @@ namespace jbzdy.Player
 
         private void DashAttackMove()
         {
-            Vector3 dashVector = GameManager.Instance.GameInputController.mousePositionFlat - playerController.transform.position;
+            Vector3 dashVector = _playerInput.mousePositionFlat - playerController.transform.position;
             
             UpdateCharacterRotation(dashVector.normalized);
 

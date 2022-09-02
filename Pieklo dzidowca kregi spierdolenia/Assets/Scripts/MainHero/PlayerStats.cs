@@ -29,6 +29,7 @@ namespace jbzdy.CharacterStats
 
         private void TestingCheats()
         {
+            /*
             if (Input.GetKeyDown(KeyCode.T))
             {
                 TakeDamage(5);
@@ -49,6 +50,7 @@ namespace jbzdy.CharacterStats
 
                 experienceManager.LevelUp();
             }
+            */
         }
 
         private void AddModifiableStats()
