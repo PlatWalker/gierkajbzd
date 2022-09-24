@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using jbzd;
+using jbzdy.Player;
 using UnityEngine;
+using Zenject;
 
 public class ShowPlayerController : MonoBehaviour
 {
@@ -21,9 +23,18 @@ public class ShowPlayerController : MonoBehaviour
     }
 
     private State state;
+    
+    private PlayerController _playerController;
+        
+    [Inject]
+    public void Construct(PlayerController playerController)
+    {
+        _playerController = playerController;
+    }
+    
     private void Start()
     {
-        playerTransform = GameManager.Instance.PlayerObject.transform;
+        playerTransform = _playerController.transform;
         SizeID = Shader.PropertyToID("_size");
         state = State.notShowing;
     }

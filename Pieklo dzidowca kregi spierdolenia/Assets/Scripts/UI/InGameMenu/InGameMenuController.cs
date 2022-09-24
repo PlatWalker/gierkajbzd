@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using jbzd;
 using jbzd.Common.InputSystem;
+using jbzd.Common.InputSystem.Inputs;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using jbzdy.Player;
+using Zenject;
 
 namespace jbzdy.UI
 {
@@ -16,15 +18,21 @@ namespace jbzdy.UI
 
         private float _savedTimeScale;
 
-        private UserInterfaceInput _uiInput;
         private PlayerController _playerController;
+        private UserInterfaceInput _inputController;
+
+        [Inject]
+        public void Construct(
+            PlayerController playerController,
+            InputController inputController)
+        {
+            _inputController = inputController.GetInput<UserInterfaceInput>();
+            _playerController = playerController;
+        }
         
         public void Start()
         {
-            _uiInput = GameManager.Instance.GameInputController.GetInput<UserInterfaceInput>();
-            _playerController = GameManager.Instance.PlayerObject.GetComponent<PlayerController>();
-            
-            _uiInput.OnInGameMenuOpened += ShowOrHideMenu;
+            _inputController.OnInGameMenuOpened += ShowOrHideMenu;
         }
 
         public void QuitToMainMenu()
@@ -32,7 +40,6 @@ namespace jbzdy.UI
             Time.timeScale = _savedTimeScale;
             SceneManager.LoadScene(0);
         }
-
         private void ShowOrHideMenu()
         {
             if (panel.activeSelf)

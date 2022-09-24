@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace jbzd.Common.InputSystem
+namespace jbzd.Common.InputSystem.Inputs
 {
     public class UserInterfaceInput : IInput
     {

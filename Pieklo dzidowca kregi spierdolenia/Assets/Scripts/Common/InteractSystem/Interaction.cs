@@ -1,7 +1,9 @@
 using jbzd.Common.InputSystem;
 using jbzd.Common.InputSystem.Inputs;
 using jbzd.Common.Interfaces;
+using jbzdy.Player;
 using UnityEngine;
+using Zenject;
 
 namespace jbzd.Common.InteractSystem
 {
@@ -14,9 +16,18 @@ namespace jbzd.Common.InteractSystem
 
         [field:JbzdReadOnly][field:SerializeField] public bool IsInRange { get; private set; }
         [field:SerializeField] public bool IsStandalone { get; private set; }
+        
+        private PlayerInput _inputController;
+        
+        [Inject]
+        public void Construct(InputController inputController)
+        {
+            _inputController = inputController.GetInput<PlayerInput>();
+        }
+        
         public void Start()
         {
-            GameManager.Instance.GameInputController.GetInput<PlayerInput>().OnInteractClick += OnInteract;
+            _inputController.OnInteractClick += OnInteract;
 
             if (GetComponentInParent<IInteractable>() != null)
             {

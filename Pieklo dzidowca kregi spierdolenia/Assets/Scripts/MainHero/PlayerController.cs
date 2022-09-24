@@ -5,6 +5,7 @@ using jbzd.Common.InputSystem.Inputs;
 using jbzd.Common.Interfaces;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Zenject;
 
 /// <summary>
 /// By SilverWalker
@@ -25,7 +26,7 @@ namespace jbzdy.Player
         private PlayerStats playerStats;
         private PlayerMovementController playerMovementController;
         public PlayerAttackController playerAttackController { get; private set; }
-        public PlayerInput playerInput;
+        private PlayerInput _inputController;
         public bool NextFrameDash { get; set; }
 
         [SerializeField]
@@ -51,11 +52,16 @@ namespace jbzdy.Player
         public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
         public float PlayerSpeed { get => playerSpeed; set => playerSpeed = value; }
         public float DashAttackMovePower { get => dashAttackMovePower; set => dashAttackMovePower = value; }
-        public bool IsUiTurnOn { get; set; }
+        public bool IsUiTurnOn { get; set; } //TODO Do wyjebania!
 
+        [Inject]
+        public void Construct(InputController inputController)
+        {
+            _inputController = inputController.GetInput<PlayerInput>();
+        }
+        
         private void Start()
         {
-            playerInput = GameManager.Instance.GameInputController.GetInput<PlayerInput>();
             CharacterAnimator = GetComponentInChildren<Animator>();
             if (CharacterAnimator == null) Debug.Log("Nie znaleziono animatora w postaci gracza!");
             AnimatorParametersCheck();
@@ -63,8 +69,8 @@ namespace jbzdy.Player
             rb = GetComponent<Rigidbody>();
             playerStats = GetComponent<PlayerStats>();
 
-            playerMovementController = new PlayerMovementController(this, playerInput);
-            playerAttackController = new PlayerAttackController(this, playerInput);
+            playerMovementController = new PlayerMovementController(this, _inputController);
+            playerAttackController = new PlayerAttackController(this, _inputController);
         }
 
         private void FixedUpdate()

@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using jbzd;
 using jbzd.Common.InputSystem;
+using jbzd.Common.InputSystem.Inputs;
 using jbzd.Quests;
+using jbzdy.Player;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Zenject;
 
 public class QuestLog_UI : MonoBehaviour
 {
@@ -51,16 +54,27 @@ public class QuestLog_UI : MonoBehaviour
     private Quest currentQuest;
     private int previousButtonIndex;
 
+    private PlayerController _playerController;
+    private UserInterfaceInput _inputController;
+    [Inject]
+    public void Construct(
+        PlayerController playerController,
+        InputController inputController)
+    {
+        _inputController = inputController.GetInput<UserInterfaceInput>();
+        _playerController = playerController;
+        questLog = _playerController.gameObject.GetComponent<QuestLog>();
+    }
+    
     private void Start()    
     {
-        questLog = GameManager.Instance.PlayerObject.GetComponent<QuestLog>();
         questLogObject = transform.GetChild(0).gameObject;
         questLogObject.SetActive(false);
         questButtons = new List<Button>();
         questLog.Initialize();
         QuestLog.onQuestChange += UpdateQuests;
         UpdateQuests(new List<Quest>());
-        GameManager.Instance.GameInputController.GetInput<UserInterfaceInput>().OnQuestLogOpened += OpenQuestLog;
+        _inputController.OnQuestLogOpened += OpenQuestLog;
     }
 
     private void OpenQuestLog()

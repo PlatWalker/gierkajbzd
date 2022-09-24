@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using jbzd.LegacyDialogues.NodesDatas;
 using jbzdy.CharacterStats;
+using jbzdy.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Zenject;
 
 namespace jbzd.LegacyDialogues
 {
@@ -43,6 +45,13 @@ namespace jbzd.LegacyDialogues
         public List<TMP_Text> answerButtonsTexts = new List<TMP_Text>();
         private int statCheckNodeCount = 0;
         
+        private PlayerController _playerController;
+        
+        [Inject]
+        public void Construct(PlayerController playerController)
+        {
+            _playerController = playerController;
+        }
         
         private void Awake()
         {
@@ -58,7 +67,7 @@ namespace jbzd.LegacyDialogues
         private void Start()
         {
             NPCAnswer.enableAutoSizing = true;
-            playerStats = GameManager.Instance.PlayerObject.GetComponent<PlayerStats>();
+            playerStats = _playerController.gameObject.GetComponent<PlayerStats>();
         }
 
         public void ShowDialogueUI(bool show)

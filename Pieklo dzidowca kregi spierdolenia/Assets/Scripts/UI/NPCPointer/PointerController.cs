@@ -1,24 +1,27 @@
 using System.Collections.Generic;
 using jbzd;
+using jbzdy.Player;
 using UnityEngine;
+using Zenject;
 
 namespace UI
 {
     public class PointerController : MonoBehaviour
     {
         private IEnumerable<GameObject> _allNpc;
-        private GameObject _playerObject;
+        private PlayerController _playerController;
+        
+        [Inject]
+        public void Construct(PlayerController playerController)
+        {
+            _playerController = playerController;
+        }
 
         private void Awake()
         {
             _allNpc = GameObject.FindGameObjectsWithTag("Npc");
         }
-
-        private void Start()
-        {
-            _playerObject = GameManager.Instance.PlayerObject;
-        }
-
+        
         private void Update()
         {
             GameObject nearestNPC = null;
@@ -26,7 +29,7 @@ namespace UI
         
             foreach (var NPC in _allNpc)
             {
-                var distanceToNPC = Vector3.Distance(NPC.transform.position, _playerObject.transform.position);
+                var distanceToNPC = Vector3.Distance(NPC.transform.position, _playerController.transform.position);
 
                 if (!(distanceToNPC < distanceToNearestNPC)) continue;
             
@@ -34,7 +37,7 @@ namespace UI
                 distanceToNearestNPC = distanceToNPC;
             }
         
-            var vectorToNearestNPC = nearestNPC.transform.position - _playerObject.transform.position;
+            var vectorToNearestNPC = nearestNPC.transform.position - _playerController.transform.position;
             vectorToNearestNPC.Normalize();
             var angleBetweenVectors = Vector3.Angle(vectorToNearestNPC, Vector3.right);
             if (Vector3.Cross(vectorToNearestNPC, Vector3.right).y < 0) angleBetweenVectors = -angleBetweenVectors;

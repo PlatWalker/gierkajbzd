@@ -4,35 +4,34 @@ using jbzd.Quests.QuestSpecificScripts.Level1;
 using jbzdy.UI;
 using UnityEngine;
 
-public class GameManager : Singleton<GameManager>
+namespace jbzd
 {
-    public InputController GameInputController { get; private set; }
-    public GameObject PlayerObject { get; private set; }
-    public UIController UIControllerInstance { get; private set; }
-    //TODO Na szybko robie, ale trzeba podmienic to bez odpowiedzialnosci na jakis bardziej ogolny questcontroller.
-    //TODO Ale generalnie tak chyba to pwoinno dzialac.
-    public BezOdpowiedzialnosci QuestController { get; private set; }
+    public class GameManager : Singleton<GameManager>
+    {
+        public UIController UIControllerInstance { get; private set; }
+        //TODO Na szybko robie, ale trzeba podmienic to bez odpowiedzialnosci na jakis bardziej ogolny questcontroller.
+        //TODO Ale generalnie tak chyba to pwoinno dzialac.
+        public BezOdpowiedzialnosci QuestController { get; private set; }
     
-    [field: SerializeField]
-    public DialoguesCheckPointsSO dialoguesCheckPointsSO { get; private set; }
+        [field: SerializeField]
+        public DialoguesCheckPointsSO dialoguesCheckPointsSO { get; private set; }
 
-    private void Awake()
-    {
-        Init();
-    }
+        private void Awake()
+        {
+            Init();
+        }
 
-    public void Init()
-    {
-        QuestController = FindObjectOfType<BezOdpowiedzialnosci>();
-        PlayerObject = GameObject.FindGameObjectWithTag("Player");
-
-        GameInputController = gameObject.AddComponent<InputController>();
-        dialoguesCheckPointsSO = Resources.Load<DialoguesCheckPointsSO>("DONT_RENAME_OR_MOVE_DialogueCheckpointsList");
-        UIControllerInstance = FindObjectOfType<UIController>();
-    }
+        public void Init()
+        {
+            QuestController = FindObjectOfType<BezOdpowiedzialnosci>();
+        
+            dialoguesCheckPointsSO = Resources.Load<DialoguesCheckPointsSO>("DONT_RENAME_OR_MOVE_DialogueCheckpointsList");
+            UIControllerInstance = FindObjectOfType<UIController>();
+        }
     
-    private void Start()
-    {
-        dialoguesCheckPointsSO = Instantiate(dialoguesCheckPointsSO);
+        private void Start()
+        {
+            dialoguesCheckPointsSO = Instantiate(dialoguesCheckPointsSO);
+        }
     }
 }

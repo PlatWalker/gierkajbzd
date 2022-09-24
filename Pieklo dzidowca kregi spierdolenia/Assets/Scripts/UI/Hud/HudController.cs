@@ -4,8 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using jbzd;
+using jbzdy.Player;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace jbzdy.UI.HUD
 {
@@ -23,10 +25,18 @@ namespace jbzdy.UI.HUD
 		private Slider manaBar;
 
 		private Text hpNumber;
-
+		
+		private PlayerController _playerController;
+        
+		[Inject]
+		public void Construct(PlayerController playerController)
+		{
+			_playerController = playerController;
+		}
+		
 		public void Start()
 		{
-			playerStats = GameManager.Instance.PlayerObject.GetComponent<PlayerStats>();
+			playerStats = _playerController.gameObject.GetComponent<PlayerStats>();
 
 			hpNumber = GetComponentInChildren<Text>();
 		}

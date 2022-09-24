@@ -12,6 +12,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace jbzd.NPC
 {
@@ -38,9 +39,16 @@ namespace jbzd.NPC
         }
 
         private DialogueTalk _dialogueTalk;
-        private PlayerController _player;
         private NavMeshAgent _navMeshAgent;
         private Animator _animator;
+        private PlayerController _playerController;
+        
+        [Inject]
+        public void Construct(PlayerController playerController)
+        {
+            _playerController = playerController;
+        }
+        
         private void Start()
         {
             _animator = GetComponentInChildren<Animator>();
@@ -52,8 +60,6 @@ namespace jbzd.NPC
                 Debug.LogWarning("Nie znaleziono potrzebnego komponentu!");
                 return;
             }
-            
-            _player = GameManager.Instance.PlayerObject.GetComponent<PlayerController>();
 
             SceneManager.sceneUnloaded += OnSceneUnloaded;
             
@@ -63,7 +69,7 @@ namespace jbzd.NPC
 
         private void OnSceneUnloaded(Scene scene)
         {
-            if (followPlayer) gameObject.transform.position = _player.transform.position;
+            if (followPlayer) gameObject.transform.position = _playerController.transform.position;
         }
 
         private void AnimatorParametersCheck()
@@ -80,12 +86,12 @@ namespace jbzd.NPC
                 quest.UpdateQuest();
             }
             _dialogueTalk.StartDialogue(NPCDialogue);
-            _player.IsUiTurnOn = true;
+            _playerController.IsUiTurnOn = true;
         }
 
         public override void StopInteract()
         {
-            _player.IsUiTurnOn = false;
+            _playerController.IsUiTurnOn = false;
         }
 
         public override void Update()
@@ -103,7 +109,7 @@ namespace jbzd.NPC
 
         private void FollowingPlayer()
         {
-            var playerPosition = _player.gameObject.transform.position;
+            var playerPosition = _playerController.gameObject.transform.position;
             _navMeshAgent.SetDestination
             (
                 playerPosition - followDistance * (playerPosition - transform.position).normalized

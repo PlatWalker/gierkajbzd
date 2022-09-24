@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using jbzd;
+using jbzdy.Player;
 using UnityEngine;
+using Zenject;
 
 ///<summary>
 ///by SilverWalker
@@ -14,10 +16,18 @@ public class CameraController : MonoBehaviour
     private GameObject player;
     private Vector3 velocity = Vector3.zero;
     
+    private PlayerController _playerController;
+        
+    [Inject]
+    public void Construct(PlayerController playerController)
+    {
+        _playerController = playerController;
+    }
+    
     private void Start()
     {
         offset = new Vector3(0, 11, -6);
-        player = GameManager.Instance.PlayerObject;
+        player = _playerController.gameObject;
     }
 
     private void FixedUpdate()

@@ -51,8 +51,8 @@ namespace jbzd.Quests
             CurrentTask = 0;
 
             InitializeTask(CurrentTask);
-            
-            _questLog = GameManager.Instance.PlayerObject.GetComponent<QuestLog>();
+            //TODO nie mozemy tak wyszukiwac instancji, do zmiany
+            _questLog = GameObject.FindGameObjectWithTag("Player").GetComponent<QuestLog>();
             _questLog.AddQuest(this);
         }
 

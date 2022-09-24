@@ -2,8 +2,10 @@
 using jbzd.Items;
 using jbzdy.Items;
 using jbzdy.Inventory;
+using jbzdy.Player;
 using UnityEditor;
 using UnityEngine;
+using Zenject;
 
 // <summary>
 // Napisane przez Sharashino
@@ -23,6 +25,14 @@ namespace jbzdy.Actions.Interaction
         public SharItem Item { get => item; set => item = value; }
 
         public PlaceHolderForItemSO test;
+
+        private PlayerController _playerController;
+        
+        [Inject]
+        public void Construct(PlayerController playerController)
+        {
+            _playerController = playerController;
+        }
         
         public new void Awake()
         {
@@ -42,7 +52,7 @@ namespace jbzdy.Actions.Interaction
             //TODO wywalic
             //PickUp();
             //GameManager.Instance.PlayerObject.GetComponent<jbzdy.Items.ItemEquipper>().EquipWeaponOrTrinket(item);
-            GameManager.Instance.PlayerObject.GetComponent<jbzdy.Items.ItemEquipper>().EquipItem(test.ItemSO);
+            _playerController.GetComponent<jbzdy.Items.ItemEquipper>().EquipItem(test.ItemSO);
         }
 
         private void PickUp()

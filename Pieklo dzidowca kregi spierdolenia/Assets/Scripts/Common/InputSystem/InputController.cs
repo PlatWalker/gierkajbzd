@@ -1,21 +1,24 @@
 using System;
 using System.Collections.Generic;
 using jbzd.Common.InputSystem.Inputs;
+using JetBrains.Annotations;
 using UnityEngine;
+using Zenject;
 
 namespace jbzd.Common.InputSystem
 {
-    public class InputController : MonoBehaviour
+    [UsedImplicitly]
+    public class InputController : ITickable
     {
         private readonly List<IInput> _inputs = new ();
 
-        public void Awake()
+        public InputController()
         {
             _inputs.Add(new UserInterfaceInput());
             _inputs.Add(new PlayerInput());
         }
 
-        private void Update()
+        public void Tick()
         {
             foreach (var input in _inputs)
             {
@@ -32,5 +35,6 @@ namespace jbzd.Common.InputSystem
             Debug.LogWarning("There is no such input class!");
             return default;
         }
+        
     }
 }

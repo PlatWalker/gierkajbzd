@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine;
 
-namespace jbzdy.UI
+namespace jbzd.UI.MainMenu
 {
     public class MainMenu : MonoBehaviour
     {

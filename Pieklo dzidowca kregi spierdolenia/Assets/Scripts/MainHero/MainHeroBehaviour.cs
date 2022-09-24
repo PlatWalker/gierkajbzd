@@ -20,7 +20,8 @@ namespace jbzdy.Player
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             if (playerController == null)
-                playerController = GameManager.Instance.PlayerObject.GetComponent<PlayerController>();
+                //TODO nie mozemy tak wyszukiwac instancji, do zmiany
+                playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
             if (isTransitionState(stateInfo))
                 playerController.CanPlayerMove = true;

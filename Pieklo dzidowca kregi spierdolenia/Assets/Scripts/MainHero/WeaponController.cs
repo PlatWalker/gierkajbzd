@@ -4,6 +4,7 @@ using jbzd;
 using jbzd.Common.Interfaces;
 using jbzdy.Player;
 using UnityEngine;
+using Zenject;
 
 public class WeaponController : MonoBehaviour
 {
@@ -13,13 +14,15 @@ public class WeaponController : MonoBehaviour
     private float CritChance = 0.0f;
     private float CritMultiplier = 1.0f;
 
-    private Animator characterAnimator;
-    private PlayerController playerController;
+    private Animator _characterAnimator;
 
-    public void Start()
+    private PlayerController _playerController;
+
+    [Inject]
+    public void Construct(PlayerController playerController)
     {
-        characterAnimator = GameManager.Instance.PlayerObject.GetComponentInChildren<Animator>();
-        playerController = GameManager.Instance.PlayerObject.GetComponent<PlayerController>();
+        _playerController = playerController;
+        _characterAnimator = _playerController.gameObject.GetComponentInChildren<Animator>();
     }
 
     private void OnTriggerEnter(Collider collidedObject)
@@ -27,11 +30,11 @@ public class WeaponController : MonoBehaviour
         collidedObject.gameObject.TryGetComponent<IDamageable>(out var hitObjectScript);
 
         if (hitObjectScript != null &&
-            characterAnimator.GetBool(StringAnimatorParameters.AttackInProgressParam) &&
-            playerController.playerAttackController.listOfEnemiesColliders.All(x => x != collidedObject))
+            _characterAnimator.GetBool(StringAnimatorParameters.AttackInProgressParam) &&
+            _playerController.playerAttackController.listOfEnemiesColliders.All(x => x != collidedObject))
         {
             hitObjectScript.SetDamage(damageAmount, typeOfDamage, CritMultiplier, CritChance);
-            playerController.playerAttackController.listOfEnemiesColliders.Add(collidedObject);
+            _playerController.playerAttackController.listOfEnemiesColliders.Add(collidedObject);
         }
         /* Debug do refactoru
         else if (hitObjectScript != null)

@@ -2,6 +2,7 @@ using jbzd.LegacyDialogues.NodesDatas;
 using jbzdy.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace jbzd.LegacyDialogues
 {
@@ -12,7 +13,7 @@ namespace jbzd.LegacyDialogues
         [SerializeField] private string _sceneToUnload;
         [SerializeField] private string _sceneToLoad;
         [SerializeField] private Vector3 _playerPlacementOnLoadedScene;
-        
+
         public override void RunEvent()
         {
             base.RunEvent();
@@ -38,7 +39,8 @@ namespace jbzd.LegacyDialogues
 
             if (_playerPlacementOnLoadedScene != default)
             {
-                var playerController = GameManager.Instance.PlayerObject.GetComponent<PlayerController>();
+                //TODO nie mozemy tak wyszukiwac instancji, do zmiany
+                var playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
                 playerController.PlaceAt(_playerPlacementOnLoadedScene);
             }
         }

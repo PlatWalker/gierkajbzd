@@ -6,6 +6,7 @@ using jbzdy.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
+using Zenject;
 
 namespace jbzdy.Scenes
 {
@@ -14,6 +15,15 @@ namespace jbzdy.Scenes
         [SerializeField] private string _sceneToUnload;
         [SerializeField] private string _sceneToLoad;
         [SerializeField] private Vector3 _playerPlacementOnLoadedScene;
+        
+        private PlayerController _playerController;
+        
+        [Inject]
+        public void Construct(PlayerController playerController)
+        {
+            _playerController = playerController;
+        }
+        
         private void Awake()
         {
             if (_sceneToUnload == default) Debug.Log("You forget add name of scene to unload!");
@@ -35,8 +45,7 @@ namespace jbzdy.Scenes
 
             if (_playerPlacementOnLoadedScene != default)
             {
-                var playerController = GameManager.Instance.PlayerObject.GetComponent<PlayerController>();
-                playerController.PlaceAt(_playerPlacementOnLoadedScene);
+                _playerController.PlaceAt(_playerPlacementOnLoadedScene);
             }
         }
     }
