@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using jbzd;
+using jbzd.MainHero;
+using jbzd.UI.NewUI;
 using jbzdy.Player;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +13,7 @@ using Zenject;
 
 namespace jbzdy.UI.HUD
 {
-	public class HudController : MonoBehaviour
+	public class HudController : UserInterfaceController
 	{
 		private PlayerStats playerStats;
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using jbzd.LegacyDialogues.NodesDatas;
+using jbzd.MainHero;
 using jbzdy.CharacterStats;
 using jbzdy.Player;
 using TMPro;

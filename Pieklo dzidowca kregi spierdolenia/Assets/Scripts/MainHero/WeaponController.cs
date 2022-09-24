@@ -2,6 +2,7 @@
 using System.Linq;
 using jbzd;
 using jbzd.Common.Interfaces;
+using jbzd.MainHero;
 using jbzdy.Player;
 using UnityEngine;
 using Zenject;

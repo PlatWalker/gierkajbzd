@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using jbzd;
-using jbzd.Common.InputSystem;
+﻿using jbzd.Common.InputSystem;
 using jbzd.Common.InputSystem.Inputs;
-using UnityEngine.SceneManagement;
-using UnityEngine;
+using jbzd.MainHero;
 using jbzdy.Player;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 
-namespace jbzdy.UI
+namespace jbzd.UI.InGameMenu
 {
     public class InGameMenuController : MonoBehaviour
     {
@@ -24,9 +21,9 @@ namespace jbzdy.UI
         [Inject]
         public void Construct(
             PlayerController playerController,
-            InputController inputController)
+            InputManager inputManager)
         {
-            _inputController = inputController.GetInput<UserInterfaceInput>();
+            _inputController = inputManager.GetInput<UserInterfaceInput>();
             _playerController = playerController;
         }
         

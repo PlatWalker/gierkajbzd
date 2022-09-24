@@ -1,4 +1,5 @@
 ﻿using jbzd;
+using jbzd.MainHero;
 using UnityEngine;
 
 /// <summary>

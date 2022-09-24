@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using jbzd.Common;
 using jbzd.LegacyDialogues.NodesDatas;
+using jbzd.MainHero;
 using jbzd.Quests;
 using jbzdy.Actions.Interaction;
 using jbzdy.DialogueSystem;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using jbzd;
 using jbzd.Common.InputSystem;
 using jbzd.Common.InputSystem.Inputs;
+using jbzd.MainHero;
 using UnityEngine;
 
 /// <summary>

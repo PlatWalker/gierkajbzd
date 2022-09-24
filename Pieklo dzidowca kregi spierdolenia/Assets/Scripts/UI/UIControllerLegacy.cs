@@ -1,8 +1,7 @@
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace jbzdy.UI
+namespace jbzd.UI
 {
     public struct BlackScreenAnimatorParameters
     {
@@ -10,7 +9,7 @@ namespace jbzdy.UI
         public static string StartFadeInParam => "StartFadeIn";
     }
     
-    public class UIController : MonoBehaviour
+    public class UIControllerLegacy : MonoBehaviour
     {
         #region Canvases References
 

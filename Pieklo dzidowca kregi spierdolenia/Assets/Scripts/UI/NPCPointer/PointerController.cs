@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using jbzd;
+using jbzd.MainHero;
 using jbzdy.Player;
 using UnityEngine;
 using Zenject;

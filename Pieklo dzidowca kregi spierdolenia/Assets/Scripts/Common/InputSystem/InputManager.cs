@@ -8,11 +8,11 @@ using Zenject;
 namespace jbzd.Common.InputSystem
 {
     [UsedImplicitly]
-    public class InputController : ITickable
+    public class InputManager : ITickable
     {
         private readonly List<IInput> _inputs = new ();
 
-        public InputController()
+        public InputManager()
         {
             _inputs.Add(new UserInterfaceInput());
             _inputs.Add(new PlayerInput());

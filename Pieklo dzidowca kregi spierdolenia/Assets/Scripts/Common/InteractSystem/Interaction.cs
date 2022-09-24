@@ -20,9 +20,9 @@ namespace jbzd.Common.InteractSystem
         private PlayerInput _inputController;
         
         [Inject]
-        public void Construct(InputController inputController)
+        public void Construct(InputManager inputManager)
         {
-            _inputController = inputController.GetInput<PlayerInput>();
+            _inputController = inputManager.GetInput<PlayerInput>();
         }
         
         public void Start()

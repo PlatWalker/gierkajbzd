@@ -1,4 +1,5 @@
 using jbzd.LegacyDialogues.NodesDatas;
+using jbzd.MainHero;
 using jbzdy.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;

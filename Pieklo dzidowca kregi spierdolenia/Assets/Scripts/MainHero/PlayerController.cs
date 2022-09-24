@@ -1,17 +1,14 @@
-using jbzdy.CharacterStats;
 using System.Linq;
 using jbzd.Common.InputSystem;
 using jbzd.Common.InputSystem.Inputs;
 using jbzd.Common.Interfaces;
+using jbzdy.CharacterStats;
+using jbzdy.Player;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Zenject;
 
-/// <summary>
-/// By SilverWalker
-/// </summary>
-
-namespace jbzdy.Player
+namespace jbzd.MainHero
 {
     public struct StringAnimatorParameters
     {
@@ -55,9 +52,9 @@ namespace jbzdy.Player
         public bool IsUiTurnOn { get; set; } //TODO Do wyjebania!
 
         [Inject]
-        public void Construct(InputController inputController)
+        public void Construct(InputManager inputManager)
         {
-            _inputController = inputController.GetInput<PlayerInput>();
+            _inputController = inputManager.GetInput<PlayerInput>();
         }
         
         private void Start()
