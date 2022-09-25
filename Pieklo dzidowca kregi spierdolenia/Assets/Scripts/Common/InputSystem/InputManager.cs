@@ -8,16 +8,24 @@ using Zenject;
 namespace jbzd.Common.InputSystem
 {
     [UsedImplicitly]
-    public class InputManager : ITickable
+    public class InputManager : ITickable , IInitializable
     {
-        private readonly List<IInput> _inputs = new ();
+        private readonly List<JbzdInput> _inputs = new ();
 
         public InputManager()
         {
             _inputs.Add(new UserInterfaceInput());
             _inputs.Add(new PlayerInput());
         }
-
+        
+        public void Initialize()
+        {
+            foreach (var input in _inputs)
+            {
+                input.Start();
+            }
+        }
+        
         public void Tick()
         {
             foreach (var input in _inputs)
@@ -26,7 +34,7 @@ namespace jbzd.Common.InputSystem
             }
         }
 
-        public T GetInput<T>() where T : IInput
+        public T GetInput<T>() where T : JbzdInput
         {
             var input = (T) _inputs.Find(input => input.GetType() == typeof(T));
             
@@ -35,6 +43,5 @@ namespace jbzd.Common.InputSystem
             Debug.LogWarning("There is no such input class!");
             return default;
         }
-        
     }
 }

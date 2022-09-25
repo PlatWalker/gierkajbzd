@@ -8,8 +8,18 @@ namespace jbzd.UI.PlayerMenu
     {
         public override void ConnectInputToHandler(UserInterfaceInput input)
         {
-            input.OnPlayerMenuOpened += () => gameObject.SetActive(!gameObject.activeSelf);
-            input.OnEscapeClick += () => gameObject.SetActive(false);
+            input.OnPlayerMenuOpened += OnPlayerMenuOpened;
+            input.OnEscapeClick += OnEscapeClick;
+        }
+
+        private void OnEscapeClick()
+        {
+            gameObject.SetActive(false);
+        }
+
+        private void OnPlayerMenuOpened()
+        {
+            gameObject.SetActive(!gameObject.activeSelf);
         }
 
         public override bool InitialActivationState() => false;

@@ -38,10 +38,6 @@ namespace jbzd.UI
         {
             FillListWithVariables();
             CheckIfAllChildrenAreAdded();
-        }
-
-        public void Start()
-        {
             InitializeUserInterfaceControllers();
         }
 
@@ -78,9 +74,9 @@ namespace jbzd.UI
                 Debug.LogError("UserInterfaceController nie posiada wszystkich referencji do ui elementow!");
             }
 
-            foreach (UserInterfaceController fieldValue in fieldValues)
+            foreach (var fieldValue in fieldValues)
             {
-                userInterfaceControllers.Add(fieldValue);
+                userInterfaceControllers.Add(fieldValue as UserInterfaceController);
             }
         }
         

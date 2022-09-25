@@ -1,26 +1,48 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace jbzd.Common.InputSystem.Inputs
 {
-    public class UserInterfaceInput : IInput
+    public class UserInterfaceInput : JbzdInput
     {
-        public delegate void ClickNotify();
         public event ClickNotify OnInventoryOpened;
         public event ClickNotify OnQuestLogOpened;
         public event ClickNotify OnPlayerMenuOpened;
         public event ClickNotify OnInGameMenuOpened;
         public event ClickNotify OnEscapeClick;
 
-        public void UpdateInputs()
+        public override void Start()
         {
-            if (!Input.anyKeyDown) return;
-
-            if (Input.GetKeyDown(KeyMapping.Inventory)) OnInventoryOpened?.Invoke();
-            if (Input.GetKeyDown(KeyMapping.QuestLog)) OnQuestLogOpened?.Invoke();
-            if (Input.GetKeyDown(KeyMapping.PlayerMenu)) OnPlayerMenuOpened?.Invoke();
-            if (Input.GetKeyDown(KeyMapping.InGameMenu)) OnInGameMenuOpened?.Invoke();
-            if (Input.GetKeyDown(KeyMapping.Escape)) OnEscapeClick?.Invoke();
+            ButtonMappings = new List<KeyActionPair>
+            {
+                new()
+                {
+                    KeyMapping = KeyMapping.Inventory,
+                    Action = OnInventoryOpened
+                },
+                new()
+                {
+                    KeyMapping = KeyMapping.QuestLog,
+                    Action = OnQuestLogOpened
+                },
+                new()
+                {
+                    KeyMapping = KeyMapping.PlayerMenu,
+                    Action = OnPlayerMenuOpened
+                },
+                new()
+                {
+                    KeyMapping = KeyMapping.InGameMenu,
+                    Action = OnInGameMenuOpened
+                },
+                new()
+                {
+                    KeyMapping = KeyMapping.Escape,
+                    Action = OnEscapeClick
+                }
+            };
         }
-        
+
     }
 }

@@ -1,11 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 using jbzd.Common.InputSystem.InputStatuses;
 
 namespace jbzd.Common.InputSystem.Inputs
 {
-    public class PlayerInput : IInput
+    public class PlayerInput : JbzdInput
     {
-        public delegate void ClickNotify();
         public event ClickNotify OnInteractClick;
         
         public MovementInputStatus movementInputStatus;
@@ -13,17 +13,25 @@ namespace jbzd.Common.InputSystem.Inputs
         
         public Vector3 mousePositionFlat;
         
-        public void UpdateInputs()
+        public override void Start()
+        {
+            ButtonMappings = new List<KeyActionPair>
+            {
+                new()
+                {
+                    KeyMapping = KeyMapping.Interact,
+                    Action = OnInteractClick
+                }
+            };
+        }
+        
+        public override void UpdateInputs()
         {
             UpdateMovementInput();
             UpdateAttackInput();
-            UpdateInteractInput();
             UpdateMousePosition();
-        }
-
-        private void UpdateInteractInput()
-        {
-            if (Input.GetKeyDown(KeyMapping.Interact)) OnInteractClick?.Invoke();
+            
+            base.UpdateInputs();
         }
 
         private void UpdateAttackInput()
@@ -48,6 +56,5 @@ namespace jbzd.Common.InputSystem.Inputs
             mousePositionFlat.y = 0;
             mousePositionFlat.z = hitInfo.point.z;
         }
-        
     }
 }

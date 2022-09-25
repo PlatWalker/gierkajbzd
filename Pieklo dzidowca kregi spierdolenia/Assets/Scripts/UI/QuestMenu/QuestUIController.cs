@@ -79,7 +79,7 @@ namespace jbzd.UI.QuestMenu
             }
         }
 
-        #region Lewa część
+        #region Lewa czesc
 
         public void UpdateQuests(List<Quest> active)
         {
