@@ -70,12 +70,14 @@ GameObject:
   - component: {fileID: 4856915621746670368}
   - component: {fileID: 4856915621746670371}
   - component: {fileID: 4856915621746670370}
-  - component: {fileID: 4856915621746670373}
   - component: {fileID: 4856915621746670372}
-  - component: {fileID: 2962436979136887951}
   - component: {fileID: 1119376097}
   - component: {fileID: 1119376098}
   - component: {fileID: 1119376101}
+  - component: {fileID: 6703860088596483727}
+  - component: {fileID: 7771789580420240389}
+  - component: {fileID: 4628789212079472637}
+  - component: {fileID: 1119376107}
   m_Layer: 0
   m_Name: ZepsutaDzidaLaserowa - Item
   m_TagString: Item
@@ -149,35 +151,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4856915621746670373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4856915621746670374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a90d963e53fb80a41848721cd206cddd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemID: 4
-  itemName: Zepsuta Dzida Laserowa
-  itemDescription: "Bro\u0144 prawdziwego dzidowca"
-  itemIcon: {fileID: 21300000, guid: 8ed6cece1c4a39f4b978118b2a278bb6, type: 3}
-  inventoryItemSprite: {fileID: 0}
-  itemType: 0
-  itemWidth: 1
-  itemHeight: 4
-  isStackable: 0
-  itemMaxStackSize: 1
-  itemStackSize: 1
-  onUseEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  onPickupEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &4856915621746670372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,20 +164,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionZone: {fileID: 4856915620497512740}
-  item: {fileID: 4856915621746670373}
+  item: {fileID: 0}
   inventory: {fileID: 0}
---- !u!114 &2962436979136887951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4856915621746670374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6543190f53c39440b0d68568032c0db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  test: {fileID: 0}
 --- !u!136 &1119376097
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -243,3 +205,74 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f56423f3d0009046a3af6b32d5d640f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &6703860088596483727
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4856915621746670374}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.15
+  m_Height: 1.38
+  m_Direction: 0
+  m_Center: {x: -0.03247857, y: 0.0006468445, z: 0.0020712316}
+--- !u!114 &7771789580420240389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4856915621746670374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6543190f53c39440b0d68568032c0db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4628789212079472637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4856915621746670374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f56423f3d0009046a3af6b32d5d640f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1119376107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4856915621746670374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a39351a0a24cddc4589de4abb31eba29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemID: 0
+  itemName: dsads
+  itemDescription: dsadasd
+  itemIcon: {fileID: 21300000, guid: 12e736a0db207244689ab7df969d8a3c, type: 3}
+  inventoryItemSprite: {fileID: 21300000, guid: 12e736a0db207244689ab7df969d8a3c, type: 3}
+  itemType: 0
+  itemWidth: 2
+  itemHeight: 4
+  isStackable: 0
+  itemMaxStackSize: 1
+  itemStackSize: 1
+  onUseEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onPickupEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  weaponType: 0
+  weaponInventorySprite: {fileID: 21300000, guid: 12e736a0db207244689ab7df969d8a3c, type: 3}
+  weaponDamage: 0
+  weaponLevel: 0

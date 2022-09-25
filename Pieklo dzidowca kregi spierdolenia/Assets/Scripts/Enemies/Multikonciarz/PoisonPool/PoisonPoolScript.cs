@@ -9,9 +9,8 @@ public class PoisonPoolScript : MonoBehaviour
     public int DamagePerSecond;
     private bool TriggerDamage;
     [SerializeField] DamageController PoisonPoolCollider = null;
-    float timePassed = 0f;
-    int destroyTime = 10;
-    int i = 0;
+    float timePassed;
+    int i;
 
     private void OnTriggerEnter(Collider other) 
     {
@@ -46,10 +45,6 @@ public class PoisonPoolScript : MonoBehaviour
     {
 		PoisonPoolCollider.SetUp(DamagePerSecond);
     }
-
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
     void Update()
     {  
         i = i + 1;

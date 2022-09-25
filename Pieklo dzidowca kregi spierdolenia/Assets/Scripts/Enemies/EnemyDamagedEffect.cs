@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using jbzdy.Enemies;
+using UnityEngine;
 using UnityEngine.AI;
 
-namespace jbzdy.Enemies
+namespace jbzd.Enemies
 {
     public class EnemyDamagedEffect : MonoBehaviour
     {
@@ -11,13 +12,13 @@ namespace jbzdy.Enemies
         private bool effectTrigged = false;
         private float timer;
         [SerializeField] private float maxEffectDuration = .1f;
-        private Rigidbody rigidbody;
-        // Start is called before the first frame update
+        private Rigidbody rb;
+
         void Start()
         {
             EnemyData = GetComponent<EnemyController>().EnemyData;
             NavAgent = GetComponent<EnemyController>().NavAgent;
-            rigidbody = GetComponent<Rigidbody>();
+            rb = GetComponent<Rigidbody>();
         }
         public void ApplyEffect()
         {
@@ -25,12 +26,11 @@ namespace jbzdy.Enemies
             Vector3 pushBackDirection = (transform.position - EnemyData.MainCharacterTransform.position);
             pushBackDirection = pushBackDirection.normalized;
             pushBackDirection *= pushBackStrength;
-            rigidbody.isKinematic = false;
-            if(!NavAgent)
-            NavAgent= GetComponent<EnemyController>().NavAgent;
+            rb.isKinematic = false;
+            if(!NavAgent) NavAgent= GetComponent<EnemyController>().NavAgent;
             NavAgent.isStopped = true; ;
             effectTrigged = true;
-            rigidbody.AddForce(pushBackDirection, ForceMode.Impulse);
+            rb.AddForce(pushBackDirection, ForceMode.Impulse);
         }
         private void Update()
         {
@@ -41,7 +41,7 @@ namespace jbzdy.Enemies
                 {
                     timer = 0f;
                     effectTrigged = false;
-                    if(rigidbody) rigidbody.isKinematic = true;
+                    if(rb) rb.isKinematic = true;
                     NavAgent.velocity = Vector3.zero;
                     NavAgent.isStopped = false;
                     

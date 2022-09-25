@@ -1,8 +1,8 @@
-﻿using UnityEditor;
-using UnityEngine;
-using jbzdy.Items.Drop;
+﻿using jbzdy.Items.Drop;
 using jbzdy.Utility;
+using UnityEditor;
 using UnityEditor.SceneManagement;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // <summary>
@@ -10,10 +10,8 @@ using UnityEngine.SceneManagement;
 //
 // Customowy Edytor do tworzenia Item Dropów
 // </summary>
-namespace jbzdy.Items.DropEditor
+namespace jbzd.Items.Legacy.ItemDrops.Editor
 {
-    [CustomEditor(typeof(ItemDropEditor))]
-    [CanEditMultipleObjects]
     public class ItemDropEditor : EditorWindow
     {
         private GameObject newItemDrop;
@@ -58,7 +56,7 @@ namespace jbzdy.Items.DropEditor
 
                 if (newDrop != null)
                 {
-                    var newEditor = Editor.CreateEditor(newDrop);
+                    var newEditor = UnityEditor.Editor.CreateEditor(newDrop);
                     newEditor.OnInspectorGUI();
                 }
             }
@@ -67,7 +65,7 @@ namespace jbzdy.Items.DropEditor
     }
 
     [CanEditMultipleObjects]
-    public class ItemDropCustomInspector : Editor
+    public class ItemDropCustomInspector : UnityEditor.Editor
     {
         private ItemDrop dropBase;
         

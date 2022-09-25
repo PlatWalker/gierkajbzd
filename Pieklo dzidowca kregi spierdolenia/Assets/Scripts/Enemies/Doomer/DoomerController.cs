@@ -2,6 +2,7 @@
 ///Created by Kumdzio
 ///</summary>
 
+using jbzd.Enemies;
 using UnityEngine;
 namespace jbzdy.Enemies
 {
