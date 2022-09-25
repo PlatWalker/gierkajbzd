@@ -10,6 +10,7 @@ namespace jbzd.Common.InputSystem
         public const KeyCode QuestLog = KeyCode.Q;
         public const KeyCode PlayerMenu = KeyCode.M;
         public const KeyCode InGameMenu = KeyCode.Escape;
+        public const KeyCode Escape = KeyCode.Escape;
         
         #endregion
 

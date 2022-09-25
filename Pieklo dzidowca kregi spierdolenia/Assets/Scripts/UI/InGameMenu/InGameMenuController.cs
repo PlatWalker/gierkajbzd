@@ -1,9 +1,8 @@
 ﻿using jbzd.Common.InputSystem;
 using jbzd.Common.InputSystem.Inputs;
 using jbzd.MainHero;
-using jbzdy.Player;
-using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine;
 using Zenject;
 
 namespace jbzd.UI.InGameMenu

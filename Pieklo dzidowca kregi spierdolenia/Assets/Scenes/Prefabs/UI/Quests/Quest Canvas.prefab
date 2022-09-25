@@ -731,7 +731,7 @@ GameObject:
   - component: {fileID: 4708041462712230219}
   - component: {fileID: 4708041462712230218}
   m_Layer: 5
-  m_Name: Quest Canvas Day
+  m_Name: Quest Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -775,7 +775,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -1000,7 +1000,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 4708041463742442159}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1039,7 +1039,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00012207031, y: -0.000021269963}
+  m_AnchoredPosition: {x: -0.00012207031, y: -0.00003960387}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &4708041463263429264
@@ -2682,7 +2682,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4708041463275359733}
   m_HandleRect: {fileID: 4708041463275359732}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3232,7 +3232,6 @@ GameObject:
   - component: {fileID: 7143324638165302864}
   - component: {fileID: 7143324638165302895}
   - component: {fileID: 7143324638165302894}
-  - component: {fileID: 7143324638165302893}
   m_Layer: 5
   m_Name: ReturnButton
   m_TagString: Untagged
@@ -3343,19 +3342,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7143324638165302893
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7143324638165302891}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33e45cf3ae4bee94388e6b43760cde06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  backgroundCanvasToOpen: {fileID: 0}
 --- !u!1 &7894021590564696633
 GameObject:
   m_ObjectHideFlags: 0
