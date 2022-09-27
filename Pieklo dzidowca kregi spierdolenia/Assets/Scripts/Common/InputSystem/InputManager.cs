@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using jbzd.Common.InputSystem.Inputs;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -14,8 +15,16 @@ namespace jbzd.Common.InputSystem
 
         public InputManager()
         {
-            _inputs.Add(new UserInterfaceInput());
-            _inputs.Add(new PlayerInput());
+            var fieldValues = GetType()
+                .Assembly.GetTypes()
+                .Where(type => type.BaseType == typeof(JbzdInput) 
+                               && !type.IsAbstract
+                               && type.IsClass);
+
+            foreach (var fieldValue in fieldValues)
+            {
+                _inputs.Add(Activator.CreateInstance(fieldValue) as JbzdInput);
+            }
         }
         
         public void Initialize()
