@@ -1,47 +1,36 @@
 ﻿using System.Collections.Generic;
-using jbzd.Quests;
-using UnityEngine;
 
-//TODO Czy to na pewno ma byc przypiete do gracza? Moze jednak warto byloby dac to do gamemanagera/questmanager?
-public class QuestLog : MonoBehaviour
+namespace jbzd.Quests
 {
-    private List<Quest> questList;
-
-    public delegate void OnQuestChange(List<Quest> activeQuests);
-    public static event OnQuestChange onQuestChange;
-
-    public void Initialize()
+    public class QuestLogManager
     {
-        questList = new List<Quest>();
-    }
+        private readonly List<Quest> _questList = new();
 
-    public void AddQuest(Quest quest)
-    {
-        questList.Add(quest);
-        onQuestChange.Invoke(questList);
-    }
+        public delegate void QuestChanged(List<Quest> activeQuests);
+        public static event QuestChanged OnQuestChange;
 
-    public void RemoveQuest(Quest quest)
-    {
-        questList.Remove(quest);
-        onQuestChange.Invoke(questList);
-    }
+        public void ChangeQuestName() => OnQuestChange?.Invoke(_questList);
 
-    public void CheckQuestObjective()
-    {
-        foreach(Quest quest in questList)
+        public Quest GetQuestNo(int index) => _questList[index];
+        
+        public void AddQuest(Quest quest)
         {
-            quest.CheckGoals(false);
+            _questList.Add(quest);
+            OnQuestChange?.Invoke(_questList);
         }
-    }
 
-    public void ChangeQuestName()
-    {
-        onQuestChange.Invoke(questList);
-    } 
+        public void RemoveQuest(Quest quest)
+        {
+            _questList.Remove(quest);
+            OnQuestChange?.Invoke(_questList);
+        }
 
-    public Quest GetQuestNo(int index)
-    {
-        return questList[index];
+        public void CheckQuestObjective()
+        {
+            foreach(var quest in _questList)
+            {
+                quest.CheckGoals(false);
+            }
+        }
     }
 }

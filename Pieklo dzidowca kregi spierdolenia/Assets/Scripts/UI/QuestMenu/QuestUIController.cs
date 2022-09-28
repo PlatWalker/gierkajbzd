@@ -40,22 +40,19 @@ namespace jbzd.UI.QuestMenu
 
         private Quest _currentQuest;
         private int _previousButtonIndex;
-
-        private PlayerController _playerController;
-        private QuestLog _questLog;
+        
+        private QuestLogManager _questLogManager;
     
         [Inject]
-        public void Construct(PlayerController playerController)
+        public void Construct(QuestLogManager questLogManager)
         {
-            _playerController = playerController;
-            _questLog = _playerController.gameObject.GetComponent<QuestLog>();
+            _questLogManager = questLogManager;
         }
     
         private void Start()
         {
             _questButtons = new List<Button>();
-            _questLog.Initialize();
-            QuestLog.onQuestChange += UpdateQuests;
+            QuestLogManager.OnQuestChange += UpdateQuests;
             UpdateQuests(new List<Quest>());
         }
         
@@ -72,7 +69,7 @@ namespace jbzd.UI.QuestMenu
 
             if (gameObject.activeSelf)
             {
-                _questLog.CheckQuestObjective();
+                _questLogManager.CheckQuestObjective();
                 
                 if(_currentQuest != null)
                     ShowTaskDetails(_currentQuest);
@@ -166,7 +163,7 @@ namespace jbzd.UI.QuestMenu
             HighlightQuestButton(_questButtons[_previousButtonIndex], false);
             HighlightQuestButton(questButton, true);
             _previousButtonIndex = _questButtons.IndexOf(questButton);
-            _currentQuest = _questLog.GetQuestNo(_previousButtonIndex);
+            _currentQuest = _questLogManager.GetQuestNo(_previousButtonIndex);
             ShowQuestDetails(_currentQuest);
         }
 

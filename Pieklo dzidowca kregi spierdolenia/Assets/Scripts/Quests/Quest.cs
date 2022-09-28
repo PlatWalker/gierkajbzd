@@ -2,14 +2,13 @@
 using System.Linq;
 using jbzd.Quests.QuestGoals;
 using UnityEngine;
+using Zenject;
 
 namespace jbzd.Quests
 {
     [CreateAssetMenu(fileName = "New Quest", menuName = "Quest")]
     public class Quest : ScriptableObject
     {
-        private QuestLog _questLog;
-        
         public bool IsActive { get; private set; }
         public bool IsCompleted { get; private set; }
 
@@ -20,10 +19,18 @@ namespace jbzd.Quests
 
         public int startAtLevel;
 
-        public List<Task> tasks = new List<Task>();
+        public List<Task> tasks = new();
 
         public int CurrentTask { get; private set; }
-
+        
+        private QuestLogManager _questLogManager;
+    
+        [Inject]
+        public void Construct(QuestLogManager questLogManager)
+        {
+            _questLogManager = questLogManager;
+        }
+        
         [System.Serializable]
         public class Task
         {
@@ -51,9 +58,7 @@ namespace jbzd.Quests
             CurrentTask = 0;
 
             InitializeTask(CurrentTask);
-            //TODO nie mozemy tak wyszukiwac instancji, do zmiany
-            _questLog = GameObject.FindGameObjectWithTag("Player").GetComponent<QuestLog>();
-            _questLog.AddQuest(this);
+            _questLogManager.AddQuest(this);
         }
 
         private void InitializeTask(int index)
@@ -76,7 +81,7 @@ namespace jbzd.Quests
         private void CompleteQuest()
         {
             IsActive = false;
-            _questLog.RemoveQuest(this);
+            _questLogManager.RemoveQuest(this);
             Debug.Log("koniec questa ");
         }
 
@@ -121,7 +126,7 @@ namespace jbzd.Quests
                 Debug.LogError("Obecna ilosc skonczonych taskow jest wieksza od ich ogolnej ilosci!");
             }
 
-            if (IsCompleted) _questLog.ChangeQuestName();
+            if (IsCompleted) _questLogManager.ChangeQuestName();
         }
 
     }
