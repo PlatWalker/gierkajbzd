@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using jbzd.Dialogues.Editor;
 using jbzd.Dialogues.Editor.Save;
+using jbzd.Dialogues.ScriptableObjects;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -30,11 +32,19 @@ namespace jbzd.Dialogues.Editor.Nodes
 
         }
 
+        public bool IsStartingNode()
+        {
+            Port inputPort = (Port)inputContainer.Children().First();
+
+            return !inputPort.connected;
+        }
+
         public abstract void Draw();
 
         public abstract NodeSaveData GetSavedData();
         
         public abstract void Load(NodeSaveData nodeData);
-        
+
+        public abstract NodeSO GetSavedDataForDialogue();
     }
 }

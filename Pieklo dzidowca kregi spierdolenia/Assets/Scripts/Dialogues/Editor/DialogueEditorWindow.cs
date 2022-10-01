@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using jbzd.Dialogues.Editor.Save;
 using jbzd.Dialogues.Editor.Utilities;
 using jbzd.Dialogues.ScriptableObjects;
@@ -14,6 +16,8 @@ namespace jbzd.Dialogues.Editor
     {
         public ContainerSO dialogueContainer;
         private DialogueGraphView _graphView;
+        private Toolbar _warningbar;
+        public List<string> warnings = new();
         
        [OnOpenAsset(1)]
        public static bool Open(int instanceId, int line)
@@ -40,10 +44,20 @@ namespace jbzd.Dialogues.Editor
        {
            AddGraphView();
            AddToolbar();
+           AddWarningbar();
            IOUtility.Initialize(_graphView, this);
            EditorApplication.wantsToQuit += SaveBeforeExitAndConfirm;
        }
-       
+
+       private void AddWarningbar()
+       {
+           _warningbar = new Toolbar();
+
+           _warningbar.AddStyleSheets("WarningbarStyleSheet");
+
+           rootVisualElement.Add(_warningbar);
+       }
+
        private void OnDisable()
        {
            rootVisualElement.Remove(_graphView);
@@ -55,8 +69,10 @@ namespace jbzd.Dialogues.Editor
            Toolbar toolbar = new Toolbar();
 
            Button saveButton = DialogueElementUtility.CreateButton("Save", IOUtility.Save);
+           Button validateButton = DialogueElementUtility.CreateButton("Validate", IOUtility.Validate);
 
            toolbar.Add(saveButton);
+           toolbar.Add(validateButton);
 
            toolbar.AddStyleSheets("ToolbarStyleSheet");
            
@@ -80,7 +96,26 @@ namespace jbzd.Dialogues.Editor
                "Edytowany dialog został zapisany. Czy chcesz kontynuować zamykanie Unity?",
                "Tak", "Nie");
        }
-       
+
+       public void ShowValidationResult(List<string> list)
+       {
+           _warningbar.Clear();
+           
+           if (list.Count == 0)
+           {
+               Label success = DialogueElementUtility.CreateReadOnlyText("Walidacja się powiodła");
+               _warningbar.Add(success);
+
+                   return;
+           }
+
+           foreach (var warning in list)
+           {
+               Label text = DialogueElementUtility.CreateReadOnlyText(warning);
+               
+               _warningbar.Add(text);
+           }
+       }
     }
     
 }

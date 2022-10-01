@@ -1,6 +1,11 @@
+using System.Collections.Generic;
+using System.Linq;
+using jbzd.Dialogues.Data;
 using jbzd.Dialogues.Editor;
 using jbzd.Dialogues.Editor.Save;
 using jbzd.Dialogues.Editor.Utilities;
+using jbzd.Dialogues.ScriptableObjects;
+using NUnit.Framework;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -9,6 +14,8 @@ namespace jbzd.Dialogues.Editor.Nodes
 {
     public class DialogueNode : BasicNode
     {
+        private readonly int textLengthLimit = 10;
+        private Label warning;
         public string Text { get; set; }
         private Sprite NpcImage { get; set; }
         private Sprite PlayerImage { get; set; }
@@ -18,6 +25,7 @@ namespace jbzd.Dialogues.Editor.Nodes
         {
             base.Initialize(position, graphView);
             Text = "Tekst dialogu...";
+            RegisterCallback<KeyUpEvent>(OnWarningFromNode);
         }
 
         public override void Draw()
@@ -53,11 +61,27 @@ namespace jbzd.Dialogues.Editor.Nodes
                 "ds-node__textfield",
                 "ds-node__quote-textfield");
 
+            warning =
+                DialogueElementUtility.CreateReadOnlyText(
+                    "Tekst jest za długi i będzie źle wyglądał w grze. Rozbij na więcej węzłów.");
+            warning.AddClasses("ds-node__warning");
+            
             textFoldout.Add(textField);
             customDataContainer.Add(textFoldout);
             extensionContainer.Add(customDataContainer);
+            extensionContainer.Add(warning);
             
             RefreshExpandedState();
+        }
+
+        private void OnWarningFromNode(KeyUpEvent e)
+        {
+            warning.visible = Text.Length > textLengthLimit;
+        }
+
+        public bool CheckTextLength()
+        {
+            return Text.Length > textLengthLimit;
         }
 
         public override NodeSaveData GetSavedData()
@@ -86,6 +110,17 @@ namespace jbzd.Dialogues.Editor.Nodes
             NpcImage = nData.NpcImage;
             DialogueAudio = nData.Audio;
             
+        }
+
+        public override NodeSO GetSavedDataForDialogue()
+        {
+            DialogueSO nodeSaveData = ScriptableObject.CreateInstance<DialogueSO>();
+
+            var convertedChoices = Choices.Select(choice => choice.convertToChoiceData()).ToList();
+
+            nodeSaveData.Initialize(Text, convertedChoices, DialogueType, IsStartingNode());
+            
+            return nodeSaveData;
         }
     }
 }

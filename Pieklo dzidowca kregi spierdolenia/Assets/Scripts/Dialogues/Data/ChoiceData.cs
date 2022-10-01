@@ -9,6 +9,6 @@ namespace jbzd.Dialogues.Data
     public class ChoiceData 
     {
         [field: SerializeField] public string Text { get; set; }
-        [field: SerializeField] public DialogueSO NextDialogue { get; set; }
+        [field: SerializeField] public NodeSO NextDialogue { get; set; }
     }
 }

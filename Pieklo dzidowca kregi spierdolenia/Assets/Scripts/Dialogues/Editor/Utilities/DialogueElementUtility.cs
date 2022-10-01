@@ -58,6 +58,16 @@ namespace jbzd.Dialogues.Editor.Utilities
             return button;
         }
 
+        public static Label CreateReadOnlyText(string text)
+        {
+            Label label = new Label()
+            {
+                text = text
+            };
+
+            return label;
+        }
+
         public static Port CreatePort(this BasicNode node, string portName = "",
             Orientation orientation = Orientation.Horizontal, Direction direction = Direction.Output, 
             Port.Capacity capacity = Port.Capacity.Single)

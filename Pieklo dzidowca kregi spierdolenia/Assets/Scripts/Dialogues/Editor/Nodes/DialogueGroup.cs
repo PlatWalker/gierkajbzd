@@ -8,7 +8,7 @@ namespace jbzd.Dialogues.Editor.Nodes
     public class DialogueGroup : Group
     {
         public Guid ID { get; set; }
-        private List<BasicNode> Nodes { get; set; }
+        public List<BasicNode> Nodes { get; set; }
         
         public DialogueGroup()
         {

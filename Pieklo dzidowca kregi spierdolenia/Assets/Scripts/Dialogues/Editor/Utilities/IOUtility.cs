@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using jbzd.Dialogues.Data;
 using jbzd.Dialogues.Editor;
 using jbzd.Dialogues.Editor.Nodes;
 using jbzd.Dialogues.Editor.Save;
@@ -72,14 +73,48 @@ namespace jbzd.Dialogues.Editor.Utilities
 
         }
 
-        private static void SaveGroupToScriptableObject(DialogueGroup group)    //part2
+        private static void SaveGroupToScriptableObject(DialogueGroup group)   
         {
             GroupSO groupSo = new GroupSO()
             {
                 GroupName = group.title
             };
+
+            var nodeList = new List<NodeSO>();
+            var nodePairs = new Dictionary<Guid, NodeSO>();
+
+            foreach (var node in group.Nodes)
+            {
+                var newNode = node.GetSavedDataForDialogue();  
+                nodeList.Add(newNode);
+                nodePairs.Add(node.ID, newNode);
+            }
+
+            foreach (var node in group.Nodes)
+            {
+                var choiceList = new List<ChoiceData>();
+                
+                foreach (var choice in node.Choices)
+                {
+                    var choiceToAdd = new ChoiceData
+                    {
+                        Text = choice.Text
+                    };
+
+                    if (choice.NodeID != null)
+                    {
+                        if(nodePairs.ContainsKey((Guid)choice.NodeID))
+                            choiceToAdd.NextDialogue = nodePairs[(Guid)choice.NodeID];
+                    }
+                    choiceList.Add(choiceToAdd);
+                }
+
+                var nodeSO = nodePairs[node.ID]; 
+                nodeSO.Choices = choiceList;
+                SaveAsset(nodeSO);
+            }
             
-            //_dialogueContainer.Groups.Add(groupSo);
+            _dialogueContainer.Groups.Add(groupSo, nodeList);
         }
 
         private static void SaveGroupToGraph(DialogueGroup group, GraphSaveDataSO graphData)
@@ -101,7 +136,6 @@ namespace jbzd.Dialogues.Editor.Utilities
             foreach (var node in _nodes)
             {
                 SaveNodeToGraph(node, graphData);
-                SaveNodesToScriptableObject(node);
             }
             
         }
@@ -114,11 +148,7 @@ namespace jbzd.Dialogues.Editor.Utilities
             nodeData.ID = node.ID.ToString();
             graphData.Nodes.Add(nodeData);
         }
-
-        private static void SaveNodesToScriptableObject(BasicNode node) //part2
-        {
-            
-        }
+        
         #endregion
 
         #region load
@@ -272,6 +302,34 @@ namespace jbzd.Dialogues.Editor.Utilities
                     return;
                 }
             });
+        }
+
+        public static void Validate()
+        {
+            GetElementsFromGraphView();
+
+            List<string> warnings = new List<string>();
+            var warning1 = "Niektóre węzły są poza grupą. Będą one zapisane w edytorze, " +
+                           "ale nie będą używane podczas runtime'a (gry).";
+            var warning2 = "W niektórych węzłach tekst jest za długi i będzie źle wyglądał.";
+            
+            foreach (var node in _nodes)
+            {
+                if (node.GroupID == null && !warnings.Contains(warning1))
+                {
+                    warnings.Add(warning1);
+                }
+
+                if (node.GetType().IsSubclassOf(typeof(DialogueNode)) && !warnings.Contains(warning2))
+                {
+                    if (((DialogueNode)node).CheckTextLength())
+                    {
+                        warnings.Add(warning2);
+                    }
+                }
+            }
+
+            _editorWindow.ShowValidationResult(warnings);
         }
     }
 }
