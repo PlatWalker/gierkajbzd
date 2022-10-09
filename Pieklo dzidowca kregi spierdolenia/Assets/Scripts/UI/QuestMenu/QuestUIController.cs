@@ -3,7 +3,6 @@ using jbzd.Common.InputSystem;
 using jbzd.Common.InputSystem.Inputs;
 using jbzd.MainHero;
 using jbzd.Quests;
-using jbzdy.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

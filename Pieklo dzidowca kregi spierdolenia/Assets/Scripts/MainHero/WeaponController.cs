@@ -3,7 +3,6 @@ using System.Linq;
 using jbzd;
 using jbzd.Common.Interfaces;
 using jbzd.MainHero;
-using jbzdy.Player;
 using UnityEngine;
 using Zenject;
 
@@ -32,10 +31,10 @@ public class WeaponController : MonoBehaviour
 
         if (hitObjectScript != null &&
             _characterAnimator.GetBool(StringAnimatorParameters.AttackInProgressParam) &&
-            _playerController.playerAttackController.listOfEnemiesColliders.All(x => x != collidedObject))
+            _playerController.listOfEnemiesColliders.All(x => x != collidedObject))
         {
             hitObjectScript.SetDamage(damageAmount, typeOfDamage, CritMultiplier, CritChance);
-            _playerController.playerAttackController.listOfEnemiesColliders.Add(collidedObject);
+            _playerController.listOfEnemiesColliders.Add(collidedObject);
         }
         /* Debug do refactoru
         else if (hitObjectScript != null)

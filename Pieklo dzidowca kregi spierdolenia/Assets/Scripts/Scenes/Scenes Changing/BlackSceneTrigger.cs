@@ -3,7 +3,6 @@ using System.Collections;
 using System.Linq;
 using jbzd;
 using jbzd.MainHero;
-using jbzdy.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;

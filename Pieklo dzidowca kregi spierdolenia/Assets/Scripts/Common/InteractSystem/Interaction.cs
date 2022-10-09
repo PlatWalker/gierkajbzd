@@ -1,7 +1,6 @@
 using jbzd.Common.InputSystem;
 using jbzd.Common.InputSystem.Inputs;
 using jbzd.Common.Interfaces;
-using jbzdy.Player;
 using UnityEngine;
 using Zenject;
 

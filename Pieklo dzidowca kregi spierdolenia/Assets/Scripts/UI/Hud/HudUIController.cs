@@ -2,7 +2,6 @@
 using jbzd.Common.InputSystem.Inputs;
 using jbzd.MainHero;
 using jbzdy.CharacterStats;
-using jbzdy.Player;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;

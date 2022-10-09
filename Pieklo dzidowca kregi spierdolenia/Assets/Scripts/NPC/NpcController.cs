@@ -4,11 +4,10 @@ using System.Linq;
 using jbzd.Common;
 using jbzd.LegacyDialogues.NodesDatas;
 using jbzd.MainHero;
+//TODO trzeba pozbyc sie referencji do namespace'a gracz. skrpyt npc nie powinien sie tym zajmowac
 using jbzd.Quests;
 using jbzdy.Actions.Interaction;
 using jbzdy.DialogueSystem;
-//TODO trzeba pozbyc sie referencji do namespace'a gracz. skrpyt npc nie powinien sie tym zajmowac
-using jbzdy.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;

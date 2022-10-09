@@ -3,7 +3,6 @@ using jbzd.Items;
 using jbzd.MainHero;
 using jbzdy.Items;
 using jbzdy.Inventory;
-using jbzdy.Player;
 using UnityEditor;
 using UnityEngine;
 using Zenject;
