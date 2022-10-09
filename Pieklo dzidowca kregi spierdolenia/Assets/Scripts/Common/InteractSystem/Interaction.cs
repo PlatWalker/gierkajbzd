@@ -6,6 +6,7 @@ using Zenject;
 
 namespace jbzd.Common.InteractSystem
 {
+    [RequireComponent(typeof(Collider))]
     public class Interaction : MonoBehaviour
     {
         public delegate void InteractionObjectReached(Collider somethingThatReachedInteractionObject);
@@ -37,8 +38,6 @@ namespace jbzd.Common.InteractSystem
                 Debug.Log("Obiekt interakcji nie posiada rodzica z interfejsem IInteractable" +
                           "lub nie zaznaczyłeś, że jest on wolnostojący!");
             }
-
-            if (GetComponent<Collider>() == null) Debug.Log("Obiekt interakcji musi mieć jakikolwiek collider!");
         }
 
         public void OnInteract()
