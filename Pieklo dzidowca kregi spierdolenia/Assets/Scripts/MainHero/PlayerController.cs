@@ -17,6 +17,7 @@ namespace jbzd.MainHero
         public static string AttackParam => "Attack";
         public static string AttackInProgressParam => "Attacking animation in progress";
         public static string RunParam => "Run";
+        public static string RunSpeed => "Running speed";
     }
 
     public class PlayerController : MonoBehaviour, IDamageable
@@ -164,6 +165,8 @@ namespace jbzd.MainHero
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            //Synchronising running animation with character speed
+            _characterAnimator.SetFloat(StringAnimatorParameters.RunSpeed, _rb.velocity.magnitude);
         }
 
         private void AnimatorParametersCheck()
@@ -174,8 +177,10 @@ namespace jbzd.MainHero
                 Debug.Log("Blad w nazwie parametru progresu animacji atakowania");
             if(_characterAnimator.parameters.Any(x => x.name == StringAnimatorParameters.RunParam) == false)
                 Debug.Log("Blad w nazwie parametru biegania");
+            if (_characterAnimator.parameters.Any(x => x.name == StringAnimatorParameters.RunSpeed) == false)
+                Debug.Log("Blad w nazwie parametru szybkosci biegania");
         }
-        
+
         public void SetDamage(int damageAmount, DamageType damageType)
         {
             _playerStats.Health.BaseValue -= damageAmount;
