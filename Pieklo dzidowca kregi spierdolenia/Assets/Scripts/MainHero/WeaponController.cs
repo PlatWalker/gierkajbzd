@@ -30,11 +30,11 @@ public class WeaponController : MonoBehaviour
         collidedObject.gameObject.TryGetComponent<IDamageable>(out var hitObjectScript);
 
         if (hitObjectScript != null &&
-            _characterAnimator.GetBool(StringAnimatorParameters.AttackInProgressParam) &&
-            _playerController.listOfEnemiesColliders.All(x => x != collidedObject))
+            _characterAnimator.GetBool(PlayerStringAnimParam.AttackInProgressParam) &&
+            _playerController.ListOfEnemiesColliders.All(x => x != collidedObject))
         {
             hitObjectScript.SetDamage(damageAmount, typeOfDamage, CritMultiplier, CritChance);
-            _playerController.listOfEnemiesColliders.Add(collidedObject);
+            _playerController.ListOfEnemiesColliders.Add(collidedObject);
         }
         /* Debug do refactoru
         else if (hitObjectScript != null)

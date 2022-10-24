@@ -86,12 +86,10 @@ namespace jbzd.NPC
                 quest.UpdateQuest();
             }
             _dialogueTalk.StartDialogue(NPCDialogue);
-            _playerController.IsUiTurnOn = true;
         }
 
         public override void StopInteract()
         {
-            _playerController.IsUiTurnOn = false;
         }
 
         public override void Update()

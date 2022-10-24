@@ -1,18 +1,16 @@
-using System;
 using System.Collections.Generic;
 using jbzdy.CharacterStats;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 using jbzd.Common.InputSystem;
 using jbzd.Common.InputSystem.Inputs;
 using jbzd.Common.Interfaces;
-
+using jbzd.MainHero.PlayerStateLogic;
 
 namespace jbzd.MainHero
 {
-    public struct StringAnimatorParameters
+    public struct PlayerStringAnimParam
     {
         public static string AttackParam => "Attack";
         public static string AttackInProgressParam => "Attacking animation in progress";
@@ -33,151 +31,101 @@ namespace jbzd.MainHero
         public float PlayerSpeed { get; private set; }
         [field:SerializeField]
         public float DashAttackMovePower { get; private set; }
+        [SerializeField]
+        private PlayerState playerState = PlayerState.Idle;
         #endregion
 
         #region Public variables
-        public List<Collider> listOfEnemiesColliders = new List<Collider>();
+        public List<Collider> ListOfEnemiesColliders { get; } = new();
         public bool NextFrameDash { get; set; }
-        public bool IsUiTurnOn { get; set; }
+        public Animator CharacterAnimator { get; private set; }
+        public Rigidbody Rb { get; private set; }
         #endregion
 
         #region Private variables
-        private PlayerInput _inputController;
+        private PlayerInput _playerInput;
         private PlayerStats _playerStats;
-        private Animator _characterAnimator;
-        private Rigidbody _rb;
-        private Vector3 _movementVector;
-        private Vector3 _newPositionVector;
+        private List<IPlayerStateLogic> _stateLogicObjects;
         #endregion
 
-        #region Player states
-        private enum PlayerState
-        {
-            Idle,
-            Attack,
-            Move
-        }
-        private PlayerState _playerState;
-        #endregion
-        
         [Inject]
         public void Construct(InputManager inputManager)
         {
-            _inputController = inputManager.GetInput<PlayerInput>();
+            _playerInput = inputManager.GetInput<PlayerInput>();
         }
 
         private void Start()
         {
-            _characterAnimator = GetComponentInChildren<Animator>();
-            if (_characterAnimator == null) Debug.Log("Nie znaleziono animatora w postaci gracza!");
+            RegisterStatesLogic();
+            
+            CharacterAnimator = GetComponentInChildren<Animator>();
+            if (CharacterAnimator == null) Debug.Log("Nie znaleziono animatora w postaci gracza!");
+            
+            var behaviour = CharacterAnimator.GetBehaviours<MainHeroBehaviour>().First();
 
-            var _behaviours = _characterAnimator.GetBehaviours<MainHeroBehaviour>();
-            var _firstBehaviour = _behaviours.First();
-
-            _firstBehaviour.stateControl += OnStateEnterJbzd;
-            _firstBehaviour.stateControl += OnStateExitJbzd;
+            behaviour.OnStateEnterPassed += OnStateEnterJbzd;
+            behaviour.OnStateExitPassed += OnStateExitJbzd;
 
             AnimatorParametersCheck();
             
-            _rb = GetComponent<Rigidbody>();
+            Rb = GetComponent<Rigidbody>();
             _playerStats = GetComponent<PlayerStats>();
         }
+        
+        private void RegisterStatesLogic()
+        {
+            _stateLogicObjects = new List<IPlayerStateLogic>
+            {
+                new PlayerStateIdleUpdate(this, _playerInput),
+                new PlayerStateAttackUpdate(this, _playerInput),
+                new PlayerStateMoveFixedUpdate(this, _playerInput)
+            };
 
+            var temp = new List<IPlayerStateLogic>();
+            
+            foreach (var stateLogicObject in _stateLogicObjects)
+            {
+                if (temp.Any(x =>
+                        x.MonoBehaviourMethodInWhichInvoked() == stateLogicObject.MonoBehaviourMethodInWhichInvoked() &&
+                        x.PlayerStateInWhichInvoked() == stateLogicObject.PlayerStateInWhichInvoked()))
+                {
+                    Debug.LogError("Nie moze być dwoch stateLogicObject przypisanych do tego samego playerstate'u!");
+                }
+                
+                temp.Add(stateLogicObject);
+            }
+        }
+        
         private void FixedUpdate()
         {
-            switch (_playerState)
-            {
-                case PlayerState.Idle:
-                    //in update
-                    break;
-                case PlayerState.Move:
+            var playerStateLogic = _stateLogicObjects.FirstOrDefault(x =>
+                x.MonoBehaviourMethodInWhichInvoked() == MonoBehaviourMethod.FixedUpdate &&
+                x.PlayerStateInWhichInvoked() == playerState);
 
-                    if (NextFrameDash)
-                    {
-                        DashAttackMove();
-                        NextFrameDash = false;
-                        return;
-                    }  
-
-                    if (CanPlayerMove)
-                    {
-                        UpdateCharacterPosition();
-                        UpdateCharacterRotation(_movementVector);
-                        UpdateCharacterAnimation();
-                    }
-
-                    if(_inputController.attackInputStatus.Basic) _playerState = PlayerState.Attack;
-
-                    if(!_inputController.movementInputStatus.Down && !_inputController.movementInputStatus.Up && !_inputController.movementInputStatus.Left && !_inputController.movementInputStatus.Right)
-                    {
-                        _playerState = PlayerState.Idle;
-                    }
-
-                    break;
-                case PlayerState.Attack:
-                    //in update
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            if (playerStateLogic != null) playerState = playerStateLogic.StateLogic();
         }
 
         private void Update()
         {
-            switch (_playerState)
-            {
-                case PlayerState.Idle:
+            var playerStateLogic = _stateLogicObjects.FirstOrDefault(x =>
+                x.MonoBehaviourMethodInWhichInvoked() == MonoBehaviourMethod.Update &&
+                x.PlayerStateInWhichInvoked() == playerState);
 
-                    if(_inputController.attackInputStatus.Basic) _playerState = PlayerState.Attack;
-
-                    if(_inputController.movementInputStatus.Down || _inputController.movementInputStatus.Up || _inputController.movementInputStatus.Left || _inputController.movementInputStatus.Right)
-                    {
-                        _playerState = PlayerState.Move;
-                    } 
-                    
-                    break;
-                case PlayerState.Attack:
-
-                    Vector3 flatVector = _inputController.mousePositionFlat;
-                    flatVector.y = transform.position.y;
-                    transform.LookAt(flatVector);
-                
-                    CanPlayerMove = false;
-                    _characterAnimator.SetBool(StringAnimatorParameters.AttackParam, true);
-                    
-                    if(_inputController.movementInputStatus.Down || _inputController.movementInputStatus.Up || _inputController.movementInputStatus.Left || _inputController.movementInputStatus.Right)
-                    {
-                        CanPlayerMove = true;
-                        _playerState = PlayerState.Move;
-                    }
-
-                    if(!_inputController.movementInputStatus.Down && !_inputController.movementInputStatus.Up && !_inputController.movementInputStatus.Left && !_inputController.movementInputStatus.Right)
-                    {
-                        CanPlayerMove = true;
-                        _playerState = PlayerState.Idle;
-                    }
-
-                    break;
-                case PlayerState.Move:
-                    // in FixedUpdate
-
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            if (playerStateLogic != null) playerState = playerStateLogic.StateLogic();
+            
             //Synchronising running animation with character speed
-            _characterAnimator.SetFloat(StringAnimatorParameters.RunSpeed, _rb.velocity.magnitude);
+            CharacterAnimator.SetFloat(PlayerStringAnimParam.RunSpeed, Rb.velocity.magnitude);
         }
 
         private void AnimatorParametersCheck()
         {
-            if(_characterAnimator.parameters.Any(x => x.name == StringAnimatorParameters.AttackParam) == false) 
+            if(CharacterAnimator.parameters.Any(x => x.name == PlayerStringAnimParam.AttackParam) == false) 
                 Debug.Log("Blad w nazwie parametru atakowania");
-            if(_characterAnimator.parameters.Any(x => x.name == StringAnimatorParameters.AttackInProgressParam) == false)
+            if(CharacterAnimator.parameters.Any(x => x.name == PlayerStringAnimParam.AttackInProgressParam) == false)
                 Debug.Log("Blad w nazwie parametru progresu animacji atakowania");
-            if(_characterAnimator.parameters.Any(x => x.name == StringAnimatorParameters.RunParam) == false)
+            if(CharacterAnimator.parameters.Any(x => x.name == PlayerStringAnimParam.RunParam) == false)
                 Debug.Log("Blad w nazwie parametru biegania");
-            if (_characterAnimator.parameters.Any(x => x.name == StringAnimatorParameters.RunSpeed) == false)
+            if (CharacterAnimator.parameters.Any(x => x.name == PlayerStringAnimParam.RunSpeed) == false)
                 Debug.Log("Blad w nazwie parametru szybkosci biegania");
         }
 
@@ -198,66 +146,6 @@ namespace jbzd.MainHero
 
         public void PlaceAt(Vector3 placement) => transform.position = placement;
 
-        private void UpdateCharacterPosition()
-        {
-            _movementVector = Vector3.zero;
-            _movementVector += Vector3.forward * Convert.ToInt32(_inputController.movementInputStatus.Up);
-            _movementVector += Vector3.back * Convert.ToInt32(_inputController.movementInputStatus.Down);
-            _movementVector += Vector3.left * Convert.ToInt32(_inputController.movementInputStatus.Left);
-            _movementVector += Vector3.right * Convert.ToInt32(_inputController.movementInputStatus.Right);
-            
-            StickPlayerToGround();
-
-            _rb.AddForce(_movementVector.normalized * PlayerSpeed, ForceMode.VelocityChange);
-        }
-
-        private void UpdateCharacterRotation(Vector3 lookDirection)
-        {
-            if (lookDirection.magnitude == 0) return;
-            
-            var rotation = Quaternion.LookRotation(lookDirection);
-            
-            transform.rotation = rotation;
-        }
-
-        private void UpdateCharacterAnimation()
-        {
-            if (_movementVector.z != 0 || _movementVector.x != 0)
-            {
-                _characterAnimator.SetBool(StringAnimatorParameters.RunParam, true);
-            }
-            else
-            {
-                _characterAnimator.SetBool(StringAnimatorParameters.RunParam, false);
-            }
-        }
-        
-        private void StickPlayerToGround()
-        {
-            if (Physics.Raycast(transform.position + Vector3.up, Vector3.down, out RaycastHit hit) 
-                && hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
-                {
-                    _newPositionVector.x = _rb.position.x;
-                    _newPositionVector.y = hit.point.y;
-                    _newPositionVector.z = _rb.position.z;
-
-                    _rb.MovePosition(_newPositionVector);
-                }
-        }
-
-        private void DashAttackMove()
-        {
-            Vector3 dashVector = _inputController.mousePositionFlat - transform.position;
-            
-            UpdateCharacterRotation(dashVector.normalized);
-
-            _rb.AddForce(dashVector.normalized * DashAttackMovePower , ForceMode.Impulse);
-            
-            
-            
-            StickPlayerToGround();
-        }
-
         bool isAttackAnimationPlayingJbzd(AnimatorStateInfo stateInfo) =>
             stateInfo.IsName("Atk1") || stateInfo.IsName("Atk2") || stateInfo.IsName("Atk3") ||
             stateInfo.IsName("Atk4");
@@ -274,19 +162,19 @@ namespace jbzd.MainHero
             if (isAttackAnimationPlayingJbzd(stateInfo))
             {
                 NextFrameDash = true;
-                animator.SetBool(StringAnimatorParameters.AttackInProgressParam, true);
+                animator.SetBool(PlayerStringAnimParam.AttackInProgressParam, true);
             }
 
-            animator.SetBool(StringAnimatorParameters.AttackParam, false);
+            animator.SetBool(PlayerStringAnimParam.AttackParam, false);
         }
 
         private void OnStateExitJbzd(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             if (!isTransitionStateJbzd(stateInfo))
-                animator.SetBool(StringAnimatorParameters.AttackParam, false);
+                animator.SetBool(PlayerStringAnimParam.AttackParam, false);
 
             if (isAttackAnimationPlayingJbzd(stateInfo))
-                animator.SetBool(StringAnimatorParameters.AttackInProgressParam, false);            
+                animator.SetBool(PlayerStringAnimParam.AttackInProgressParam, false);            
         }
     } 
 }
