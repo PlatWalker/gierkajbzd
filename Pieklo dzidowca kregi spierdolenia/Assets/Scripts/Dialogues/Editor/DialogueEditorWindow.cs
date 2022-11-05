@@ -97,11 +97,11 @@ namespace jbzd.Dialogues.Editor
                "Tak", "Nie");
        }
 
-       public void ShowValidationResult(List<string> list)
+       public void ShowValidationResult(List<string> warningList)
        {
            _warningbar.Clear();
            
-           if (list.Count == 0)
+           if (warningList.Count == 0)
            {
                Label success = DialogueElementUtility.CreateReadOnlyText("Walidacja się powiodła");
                _warningbar.Add(success);
@@ -109,7 +109,7 @@ namespace jbzd.Dialogues.Editor
                    return;
            }
 
-           foreach (var warning in list)
+           foreach (var warning in warningList)
            {
                Label text = DialogueElementUtility.CreateReadOnlyText(warning);
                

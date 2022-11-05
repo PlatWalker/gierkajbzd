@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using jbzd.Dialogues.Editor;
 using jbzd.Dialogues.Editor.Nodes;
 using UnityEditor.Experimental.GraphView;
@@ -77,6 +78,29 @@ namespace jbzd.Dialogues.Editor.Utilities
             port.portName = portName;
 
             return port;
+        }
+
+        public static DropdownField CreateDropdownField(List<string> choices, string label = null, string value = null, 
+            EventCallback<ChangeEvent<string>> onValueChanged = null, EventCallback<BlurEvent> onBlur = null)
+        {
+            var dropdownField = new DropdownField
+            {
+                choices = choices,
+                label = label,
+                value = value
+            };
+
+            if (onValueChanged != null)
+            {
+                dropdownField.RegisterValueChangedCallback(onValueChanged);
+            }
+
+            if (onBlur != null)
+            {
+                dropdownField.RegisterCallback(onBlur);
+            }
+            
+            return dropdownField;
         }
 
         public static ObjectField CreateCustomField(Object value, string label, Type type, 

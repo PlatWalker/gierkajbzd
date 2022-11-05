@@ -13,7 +13,7 @@ namespace jbzd.Dialogues.Editor.Nodes
         {
             base.Initialize(position, graphView);
 
-            DialogueType = DialogueType.MultipleChoice;
+            NodeType = NodeType.MultipleChoice;
             
             ChoiceSaveData choiceData = new ChoiceSaveData(){ Text = "Nowy wybor"};
             Choices.Add(choiceData);

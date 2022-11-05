@@ -12,7 +12,7 @@ namespace jbzd.Dialogues.Editor.Nodes
         {
             base.Initialize(position, graphView);
 
-            DialogueType = DialogueType.SingleChoice;
+            NodeType = NodeType.SingleChoice;
 
             ChoiceSaveData choiceData = new ChoiceSaveData(){ Text = "Nastepny dialog"};
             

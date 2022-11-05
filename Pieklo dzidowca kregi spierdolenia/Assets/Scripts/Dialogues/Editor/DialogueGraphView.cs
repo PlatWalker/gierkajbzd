@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using jbzd.Dialogues.Editor.Nodes;
@@ -16,11 +17,13 @@ namespace jbzd.Dialogues.Editor
         private readonly DialogueEditorWindow _editorWindow;
         private SearchWindow _searchWindow;
         private readonly Dictionary<string, Type> _nodesByName;
+        public ObservableCollection<DialogueGroup> Groups { get; set; }
 
         public DialogueGraphView(DialogueEditorWindow editorWindow)
         {
             _editorWindow = editorWindow;
             _nodesByName = new Dictionary<string, Type>();
+            Groups = new ObservableCollection<DialogueGroup>();
         }
 
         public void Init()
@@ -50,8 +53,8 @@ namespace jbzd.Dialogues.Editor
             this.AddManipulator(new SelectionDragger());
             this.AddManipulator(new RectangleSelector());
             
-            this.AddManipulator(CreateNodeContextualMenu("Add Node (Single Choice)", DialogueType.SingleChoice));
-            this.AddManipulator(CreateNodeContextualMenu("Add Node (Multiple Choice)", DialogueType.MultipleChoice));
+            this.AddManipulator(CreateNodeContextualMenu("Add Node (Single Choice)", NodeType.SingleChoice));
+            this.AddManipulator(CreateNodeContextualMenu("Add Node (Multiple Choice)", NodeType.MultipleChoice));
             
             this.AddManipulator(CreateGroupContextualMenu());
         }
@@ -120,15 +123,15 @@ namespace jbzd.Dialogues.Editor
             return compatiblePorts;
         }
 
-        public BasicNode CreateNode(Vector2 position, DialogueType dialogueType, bool shouldDraw = true)
+        public BasicNode CreateNode(Vector2 position, NodeType nodeType, bool shouldDraw = true)
         {
-            var typeName = $"{dialogueType}Node";
+            var typeName = $"{nodeType}Node";
             
             if (_nodesByName.ContainsKey(typeName))
             {
-                Type nodeType = _nodesByName[typeName];
+                Type type = _nodesByName[typeName];
 
-                BasicNode node = (BasicNode)Activator.CreateInstance(nodeType);
+                BasicNode node = (BasicNode)Activator.CreateInstance(type);
 
                 node.Initialize(position, this);
                 
@@ -155,22 +158,47 @@ namespace jbzd.Dialogues.Editor
 
         public DialogueGroup CreateGroup(Vector2 localMousePosition, string title)
         {
-            DialogueGroup group = new DialogueGroup()
+            title = AvailableGroupTitle(title);
+            
+            DialogueGroup group = new DialogueGroup(this)
             {
                 title = title
             };
             
             group.SetPosition(new Rect(localMousePosition, Vector2.zero));
 
+            Groups.Add(group);
+
             return group;
         }
 
-        private IManipulator CreateNodeContextualMenu(string actionTitle, DialogueType dialogueType)
+        public string AvailableGroupTitle(string title, bool exists = false)
+        {
+
+            var tempTitle = title;
+            var number = 0;
+
+            if (exists)
+            {
+                if (Groups.Count(x => x.title == tempTitle) == 1)
+                    return title;
+            }
+            
+            while (Groups.Any(x => x.title == tempTitle))
+            {
+                tempTitle = title+number;
+                number++;
+            }
+
+            return tempTitle;
+        }
+
+        private IManipulator CreateNodeContextualMenu(string actionTitle, NodeType nodeType)
         {
             ContextualMenuManipulator contextualMenuManipulator = new ContextualMenuManipulator(
                 menuEvent => menuEvent.menu.AppendAction(actionTitle, 
                     actionEvent=>AddElement(CreateNode(
-                        GetLocalMousePosition(actionEvent.eventInfo.localMousePosition), dialogueType)))
+                        GetLocalMousePosition(actionEvent.eventInfo.localMousePosition), nodeType)))
             );
 
             return contextualMenuManipulator;
@@ -196,6 +224,7 @@ namespace jbzd.Dialogues.Editor
                 if (changes.elementsToRemove != null)
                 {
                     var edgeType = typeof(Edge);
+                    var groupType = typeof(DialogueGroup);
 
                     foreach (var element in changes.elementsToRemove)
                     {
@@ -204,6 +233,11 @@ namespace jbzd.Dialogues.Editor
                             var edge = (Edge)element;
                             var choiceData = (ChoiceSaveData)edge.output.userData;
                             choiceData.NodeID = null;
+                        }
+
+                        if (element.GetType() == groupType)
+                        {
+                            Groups.Remove((DialogueGroup)element);
                         }
                     }
                 }

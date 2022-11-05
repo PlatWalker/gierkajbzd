@@ -16,7 +16,7 @@ namespace jbzd.Dialogues.Editor.Nodes
     {
         private readonly int textLengthLimit = 10;
         private Label warning;
-        public string Text { get; set; }
+        private string Text { get; set; }
         private Sprite NpcImage { get; set; }
         private Sprite PlayerImage { get; set; }
         private AudioClip DialogueAudio { get; set; }
@@ -90,7 +90,7 @@ namespace jbzd.Dialogues.Editor.Nodes
             {
                 ID = this.ID.ToString(),
                 GroupID = this.GroupID.ToString(),
-                DialogueType = this.DialogueType,
+                NodeType = this.NodeType,
                 Position = this.GetPosition().position,
                 
                 Text = this.Text,
@@ -118,7 +118,7 @@ namespace jbzd.Dialogues.Editor.Nodes
 
             var convertedChoices = Choices.Select(choice => choice.convertToChoiceData()).ToList();
 
-            nodeSaveData.Initialize(Text, convertedChoices, DialogueType, IsStartingNode());
+            nodeSaveData.Initialize(Text, convertedChoices, NodeType, IsStartingNode());
             
             return nodeSaveData;
         }

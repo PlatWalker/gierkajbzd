@@ -9,9 +9,12 @@ namespace jbzd.Dialogues.Editor.Nodes
     {
         public Guid ID { get; set; }
         public List<BasicNode> Nodes { get; set; }
+        private DialogueGraphView GraphView { get; set; }
+        public event EventHandler GroupRenamed;
         
-        public DialogueGroup()
+        public DialogueGroup(DialogueGraphView graphView)
         {
+            GraphView = graphView;
             ID = Guid.NewGuid();
             Nodes = new List<BasicNode>();
         }
@@ -42,5 +45,13 @@ namespace jbzd.Dialogues.Editor.Nodes
                 Nodes.Remove((BasicNode)element);
             }
         }
+
+        protected override void OnGroupRenamed(string oldName, string newName)
+        {
+            EventHandler handler = GroupRenamed;
+            title = GraphView.AvailableGroupTitle(newName, true);
+            handler?.Invoke(this, EventArgs.Empty);
+        }
+        
     }
 }

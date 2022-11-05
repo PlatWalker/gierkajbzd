@@ -10,12 +10,12 @@ namespace jbzd.Dialogues.ScriptableObjects
         [field: SerializeField] [field: TextArea()] public string Text { get; set; }
         [field: SerializeField] public bool IsStartingDialogue { get; set; }
 
-        public void Initialize(string text, List<ChoiceData> choices, DialogueType dialogueType,
+        public void Initialize(string text, List<ChoiceData> choices, NodeType nodeType,
             bool isStartingDialogue)
         {
             Text = text;
             Choices = choices;
-            DialogueType = dialogueType;
+            NodeType = nodeType;
             IsStartingDialogue = isStartingDialogue;
         }
     }

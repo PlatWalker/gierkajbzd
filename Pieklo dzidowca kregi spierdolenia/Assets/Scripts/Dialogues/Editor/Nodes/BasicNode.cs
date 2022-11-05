@@ -13,7 +13,7 @@ namespace jbzd.Dialogues.Editor.Nodes
     {
         public Guid ID { get; set; }
         public List<ChoiceSaveData> Choices { get; set; }
-        protected DialogueType DialogueType { get; set; }
+        protected NodeType NodeType { get; set; }
         public Guid? GroupID { get; set; }
         protected DialogueGraphView GraphView;
 

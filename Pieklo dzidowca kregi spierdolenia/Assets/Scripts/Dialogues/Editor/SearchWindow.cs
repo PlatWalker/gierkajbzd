@@ -34,7 +34,7 @@ namespace jbzd.Dialogues.Editor
                 new SearchTreeGroupEntry(new GUIContent("Dialogue Node"), 1),
             };
 
-            foreach (var type in Enum.GetValues(typeof(DialogueType)))
+            foreach (var type in Enum.GetValues(typeof(NodeType)))
             {
                 searchTreeEntries.Add(new SearchTreeEntry(new GUIContent(type.ToString(), _indentationIcon))
                 {
@@ -51,10 +51,10 @@ namespace jbzd.Dialogues.Editor
             var localMousePosition = _graphView.GetLocalMousePosition(context.screenMousePosition, true);
             var userData = SearchTreeEntry.userData;
             
-            if (Enum.IsDefined(typeof(DialogueType), userData.ToString()))
+            if (Enum.IsDefined(typeof(NodeType), userData.ToString()))
             {
                 var choiceNode = _graphView.CreateNode(localMousePosition, 
-                    (DialogueType)Enum.Parse(typeof(DialogueType), userData.ToString()));
+                    (NodeType)Enum.Parse(typeof(NodeType), userData.ToString()));
                     
                 _graphView.AddElement(choiceNode);
                 

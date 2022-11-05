@@ -68,12 +68,12 @@ namespace jbzd.Dialogues.Editor.Utilities
             foreach (var group in _groups)
             {
                 SaveGroupToGraph(group, graphData);
-                SaveGroupToScriptableObject(group);
+                SaveGroupToContainerSO(group);
             }
 
         }
 
-        private static void SaveGroupToScriptableObject(DialogueGroup group)   
+        private static void SaveGroupToContainerSO(DialogueGroup group)   
         {
             GroupSO groupSo = new GroupSO()
             {
@@ -200,7 +200,7 @@ namespace jbzd.Dialogues.Editor.Utilities
         {
             foreach (var nodeData in graphContainer.Nodes)
             {
-                var node = _graphView.CreateNode(nodeData.Position, nodeData.DialogueType, false);
+                var node = _graphView.CreateNode(nodeData.Position, nodeData.NodeType, false);
                 node.ID = Guid.Parse(nodeData.ID);
                 var clonedChoices = CloneChoices(nodeData.Choices);
                 node.Choices = clonedChoices;
