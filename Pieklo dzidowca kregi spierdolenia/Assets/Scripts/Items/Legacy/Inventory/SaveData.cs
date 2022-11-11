@@ -3,6 +3,7 @@ using jbzdy.Items;
 using UnityEngine;
 using jbzdy.Inventory.Database;
 using System.Collections.Generic;
+using jbzd.Items.Legacy.Inventory.Inventory;
 using UnityEngine.SceneManagement;
 
 namespace jbzdy.Inventory.SaveLoad

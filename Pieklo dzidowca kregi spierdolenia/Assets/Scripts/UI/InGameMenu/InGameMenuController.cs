@@ -14,12 +14,12 @@ namespace jbzd.UI.InGameMenu
 
         private float _savedTimeScale;
 
-        private PlayerController _playerController;
+        private PlayerManager _playerController;
         private UserInterfaceInput _inputController;
 
         [Inject]
         public void Construct(
-            PlayerController playerController,
+            PlayerManager playerController,
             InputManager inputManager)
         {
             _inputController = inputManager.GetInput<UserInterfaceInput>();

@@ -1,0 +1,93 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using jbzd.Items;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
+using Zenject;
+
+namespace jbzd.MainHero.PlayerControllers
+{
+    [RequireComponent(typeof(ItemEquiper))]
+    public class InventoryController : MonoBehaviour , IPlayerController
+    {
+        [SerializeField] private List<ItemSO> itemsInInventory = new();
+        [SerializeField] private Dictionary<ItemTypes, Item> equippedItems = new();
+        public IReadOnlyList<ItemSO> ItemsInInventory => itemsInInventory;
+        public IReadOnlyDictionary<ItemTypes, Item> EquippedItems => equippedItems;
+
+        [field: SerializeField] private Item headArmor;
+        [field: SerializeField] private Item chestArmor;
+        [field: SerializeField] private Item legArmor;
+        [field: SerializeField] private Item bootsArmor;
+        [field: SerializeField] private Item weapon;
+        
+        private ItemEquiper _itemEquiper;
+        private Transform _playerTransform;
+        private Item.Factory _itemFactory;
+
+        [Inject]
+        public void Construct(Item.Factory factory)
+        {
+            _itemFactory = factory;
+        }
+        
+        private void Awake()
+        {
+            _itemEquiper = GetComponent<ItemEquiper>();
+            _playerTransform = GetComponent<Transform>();
+            AssignItemTypes();
+        }
+
+        private void AssignItemTypes()
+        {
+            equippedItems.Add(ItemTypes.Weapon, weapon);
+            equippedItems.Add(ItemTypes.HeadArmor, headArmor);
+            equippedItems.Add(ItemTypes.ChestArmor, chestArmor);
+            equippedItems.Add(ItemTypes.LegArmor, legArmor);
+            equippedItems.Add(ItemTypes.BootsArmor, bootsArmor);
+        }
+
+        public void EquipItem(Item item)
+        {
+            if (!EquippedItems.ContainsKey(item.ItemSO.ItemType))
+            {
+                Debug.LogError("You cannot equip that type of item!");
+                return;
+            }
+            
+            equippedItems[item.ItemSO.ItemType] = item;
+            
+            _itemEquiper.EquipItem(item);
+        }
+
+        public void UnequipItem(Item item)
+        {
+            if (!EquippedItems.ContainsKey(item.ItemSO.ItemType))
+            {
+                Debug.LogError("You cannot unequip that type of item!");
+                return;
+            }
+            
+            _itemEquiper.UnequipItem(item);
+            
+            equippedItems[item.ItemSO.ItemType] = item;
+        }
+
+        public void PickUpItem(ItemSO item)
+        {
+            itemsInInventory.Add(item);
+        }
+
+        public void DropItem(ItemSO item)
+        {
+            var itemSo = itemsInInventory.Find(x => x.Equals(item));
+            var position = _playerTransform.position;
+            itemSo.ItemPrefab.transform.position = new Vector3(position.x, itemSo.ItemPrefab.transform.position.y, position.z);
+            var newItem = _itemFactory.Create(itemSo.ItemPrefab);
+            SceneManager.MoveGameObjectToScene(newItem.gameObject, SceneManager.GetActiveScene());
+            itemsInInventory.Remove(item);
+        }
+    }
+}

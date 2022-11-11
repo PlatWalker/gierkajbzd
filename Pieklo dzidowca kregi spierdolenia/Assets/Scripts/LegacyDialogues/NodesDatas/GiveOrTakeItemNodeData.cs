@@ -1,3 +1,4 @@
+using jbzd.Items.Legacy.Inventory.Inventory;
 using jbzdy.DialogueSystem;
 using jbzdy.Inventory;
 using jbzdy.Items;

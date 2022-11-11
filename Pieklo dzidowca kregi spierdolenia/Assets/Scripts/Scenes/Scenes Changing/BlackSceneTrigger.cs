@@ -16,10 +16,10 @@ namespace jbzdy.Scenes
         [SerializeField] private string _sceneToLoad;
         [SerializeField] private Vector3 _playerPlacementOnLoadedScene;
         
-        private PlayerController _playerController;
+        private PlayerManager _playerController;
         
         [Inject]
-        public void Construct(PlayerController playerController)
+        public void Construct(PlayerManager playerController)
         {
             _playerController = playerController;
         }

@@ -1,4 +1,5 @@
 using jbzd.Common.InputSystem;
+using jbzd.Items;
 using jbzd.UI;
 using jbzd.MainHero;
 using UnityEngine;
@@ -9,20 +10,22 @@ namespace jbzd.ZenjectInstallers
     public class GameplayStuffSceneInstaller : MonoInstaller<GameplayStuffSceneInstaller>
     {
         [SerializeField]
-        private PlayerController playerGameObject;
+        private PlayerManager playerManager;
         [SerializeField]
         private UserInterfaceManager UIManager;
         public override void InstallBindings()
         {
-            if (playerGameObject is null ||
+            if (playerManager is null ||
                 UIManager is null)
             {
                 Debug.LogError("Missing references in installer!");
             }
             
-            Container.BindInstance(playerGameObject).AsSingle().NonLazy();
+            Container.BindInstance(playerManager).AsSingle().NonLazy();
             Container.BindInstance(UIManager).AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<InputManager>().AsSingle().NonLazy();
+            
+            Container.BindFactory<Object, Item, Item.Factory>().FromFactory<PrefabFactory<Item>>();
         }
     }
 }

@@ -16,10 +16,10 @@ public class WeaponController : MonoBehaviour
 
     private Animator _characterAnimator;
 
-    private PlayerController _playerController;
+    private PlayerManager _playerController;
 
     [Inject]
-    public void Construct(PlayerController playerController)
+    public void Construct(PlayerManager playerController)
     {
         _playerController = playerController;
         _characterAnimator = _playerController.gameObject.GetComponentInChildren<Animator>();

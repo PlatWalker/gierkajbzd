@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using jbzdy.Inventory.SaveLoad;
 
 namespace jbzdy.Inventory
 {
+    [Obsolete("Skrypt sharashino ...")]
     public class LevelPoint : MonoBehaviour
     {
         public Transform myTransform;

@@ -40,7 +40,7 @@ namespace jbzd.LegacyDialogues
             if (_playerPlacementOnLoadedScene != default)
             {
                 //TODO nie mozemy tak wyszukiwac instancji, do zmiany
-                var playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+                var playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
                 playerController.PlaceAt(_playerPlacementOnLoadedScene);
             }
         }

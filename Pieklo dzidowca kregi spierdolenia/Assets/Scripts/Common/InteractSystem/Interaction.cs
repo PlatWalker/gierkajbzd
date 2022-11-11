@@ -1,3 +1,4 @@
+using System;
 using jbzd.Common.InputSystem;
 using jbzd.Common.InputSystem.Inputs;
 using jbzd.Common.Interfaces;
@@ -15,8 +16,7 @@ namespace jbzd.Common.InteractSystem
         private IInteractable _interactable;
 
         [field:JbzdReadOnly][field:SerializeField] public bool IsInRange { get; private set; }
-        [field:SerializeField] public bool IsStandalone { get; private set; }
-        
+
         private PlayerInput _inputController;
         
         [Inject]
@@ -25,17 +25,15 @@ namespace jbzd.Common.InteractSystem
             _inputController = inputManager.GetInput<PlayerInput>();
         }
         
-        public void Start()
+        public void Awake()
         {
-            _inputController.OnInteractClick += OnInteract;
-
-            if (GetComponentInParent<IInteractable>() != null)
+            if (TryGetComponent(out _interactable))
             {
-                _interactable = GetComponentInParent<IInteractable>();
+                _inputController.OnInteractClick += OnInteract;
             }
-            else if (!IsStandalone)
+            else
             {
-                Debug.Log("Obiekt interakcji nie posiada rodzica z interfejsem IInteractable" +
+                Debug.LogError("Obiekt interakcji nie posiada rodzica z interfejsem IInteractable" +
                           "lub nie zaznaczyłeś, że jest on wolnostojący!");
             }
         }
@@ -60,5 +58,11 @@ namespace jbzd.Common.InteractSystem
         {
             IsInRange = false;
         }
+
+        public void OnDestroy()
+        {
+            _inputController.OnInteractClick -= OnInteract;
+        }
+
     }
 }

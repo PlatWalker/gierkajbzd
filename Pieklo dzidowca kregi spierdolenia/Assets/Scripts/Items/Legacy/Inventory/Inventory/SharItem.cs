@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using jbzdy.Items.Enums;
+﻿using jbzdy.Items.Enums;
+using UnityEngine;
 using UnityEngine.Events;
 
 /// <summary>
@@ -7,7 +7,7 @@ using UnityEngine.Events;
 /// 
 /// Napisane przez Sharashino
 /// </summary>
-namespace jbzdy.Items
+namespace jbzd.Items.Legacy.Inventory.Inventory
 {
     public class SharItem : MonoBehaviour
     {

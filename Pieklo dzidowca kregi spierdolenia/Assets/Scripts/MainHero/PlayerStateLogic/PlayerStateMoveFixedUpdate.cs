@@ -7,12 +7,12 @@ namespace jbzd.MainHero.PlayerStateLogic
     public class PlayerStateMoveFixedUpdate : IPlayerStateLogic
     {
         private readonly PlayerInput _playerInput;
-        private readonly PlayerController _playerController;
+        private readonly PlayerManager _playerController;
         
         private Vector3 _movementVector;
         private Vector3 _newPositionVector;
         
-        public PlayerStateMoveFixedUpdate(PlayerController playerController, PlayerInput playerInput)
+        public PlayerStateMoveFixedUpdate(PlayerManager playerController, PlayerInput playerInput)
         {
             _playerController = playerController;
             _playerInput = playerInput;

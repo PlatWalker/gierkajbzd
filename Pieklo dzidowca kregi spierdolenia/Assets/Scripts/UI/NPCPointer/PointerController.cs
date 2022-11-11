@@ -8,10 +8,10 @@ namespace UI
     public class PointerController : MonoBehaviour
     {
         private IEnumerable<GameObject> _allNpc;
-        private PlayerController _playerController;
+        private PlayerManager _playerController;
         
         [Inject]
-        public void Construct(PlayerController playerController)
+        public void Construct(PlayerManager playerController)
         {
             _playerController = playerController;
         }

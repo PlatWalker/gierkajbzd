@@ -8,7 +8,7 @@ using Zenject;
 
 namespace jbzd.Common.InputSystem
 {
-    [UsedImplicitly]
+    [UsedImplicitly] //Initiated in installer
     public class InputManager : ITickable , IInitializable
     {
         private readonly List<JbzdInput> _inputs = new ();

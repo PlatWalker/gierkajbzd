@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using jbzd.Common.InteractSystem;
 using jbzd.Items;
 using UnityEngine;
-/// <summary>
-/// Created by Kumdzio
-/// Class responsible for changing in-game 3D equipment
-/// </summary>
-namespace jbzdy.Items
+
+namespace jbzd.MainHero
 {
-    public class ItemEquipper : MonoBehaviour
+    public class ItemEquiper : MonoBehaviour
     {
         private Dictionary<int, Transform> _playerBonesDictionary;
         private Transform[] _bonesTransforms = new Transform[61];
@@ -34,31 +32,31 @@ namespace jbzdy.Items
             TraverseHierarchy(gameObject.transform);
         }
 
-        public void EquipItem(ItemSO item)
+        public void EquipItem(Item item)
         {
-            switch (item.ItemType)
+            switch (item.ItemSO.ItemType)
             {
                 case ItemTypes.HeadArmor:
-                    _helmet = Equip(item.ItemPrefab);
+                    _helmet = Equip(item.gameObject);
                     _headBodyParts.ForEach(Inactive);
                     break;
                 case ItemTypes.ChestArmor:
-                    _chest = Equip(item.ItemPrefab);
+                    _chest = Equip(item.gameObject);
                     _chestBodyParts.ForEach(Inactive);
                     break;
                 case ItemTypes.LegArmor:
-                    _legs = Equip(item.ItemPrefab);
+                    _legs = Equip(item.gameObject);
                     _legsBodyParts.ForEach(Inactive);
                     break;
                 case ItemTypes.BootsArmor:
-                    _boots = Equip(item.ItemPrefab);
+                    _boots = Equip(item.gameObject);
                     _bootsBodyParts.ForEach(Inactive);
                     break;
                 case ItemTypes.Weapon:
-                    _mainHand = SpawnHandItem(item.ItemPrefab,_weaponPlaceholder);
+                    _mainHand = SpawnHandItem(item.gameObject,_weaponPlaceholder);
                     break;
                 case ItemTypes.OffHandItem:
-                    _offHand = SpawnHandItem(item.ItemPrefab,_offHandPlaceholder);
+                    _offHand = SpawnHandItem(item.gameObject,_offHandPlaceholder);
                     break;
                 case ItemTypes.Consumable:
                     //nie zakladamy tego na postac na ten moment.
@@ -68,9 +66,9 @@ namespace jbzdy.Items
             }
         }
 
-        public void UnEquipItem(ItemSO item)
+        public void UnequipItem(Item item)
         {
-            switch (item.ItemType)
+            switch (item.ItemSO.ItemType)
             {
                 case ItemTypes.HeadArmor:
                     if (_helmet)
@@ -159,7 +157,8 @@ namespace jbzdy.Items
         private Transform SpawnHandItem(GameObject item,Transform parent)
         {
             var spawned = Instantiate(item, parent, false);
-            spawned.GetComponent<Actions.Interaction.ItemPickup>().enabled = false;
+            spawned.GetComponent<Interaction>().enabled = false;
+            spawned.GetComponent<Item>().enabled = false;
             spawned.SetActive(true);
             spawned.transform.localPosition = Vector3.zero;
             spawned.transform.localRotation = Quaternion.identity;

@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using jbzdy.Inventory.SaveLoad;
 using System.Collections.Generic;
 using jbzd;
+using jbzd.Items.Legacy.Inventory.Inventory;
 
 // <summary>
 // Główna klasa Inventory odpowiadająca za całą funkcjonalność, spawnowanie itemów i grida

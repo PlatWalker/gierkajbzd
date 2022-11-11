@@ -1,16 +1,14 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using jbzdy.Items;
 using jbzdy.Managers;
 using System.Collections.Generic;
 using jbzdy.CharacterStats.Stats;
 
-// <summary>
-// Napisane przez Sharashino
-// 
-// Skrypt ze statystykami dla gracza
-// </summary>
+
 namespace jbzdy.CharacterStats
 {
+    [Obsolete("Skrypt sharashino ...")]
     public class PlayerStats : CharacterStats
     {
         //[SerializeField] private ExperienceManager experienceManager;

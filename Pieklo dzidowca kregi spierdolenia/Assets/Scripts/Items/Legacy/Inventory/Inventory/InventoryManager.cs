@@ -13,7 +13,8 @@ namespace jbzdy.Inventory
     public class OnInventoryOpen : UnityEvent { }
     [System.Serializable]
     public class OnInventoryClose : UnityEvent { }
-
+    
+    [Obsolete("system sharashino...")]
     public class InventoryManager : MonoBehaviour
     {
         /// InventoryManager aviliable modes

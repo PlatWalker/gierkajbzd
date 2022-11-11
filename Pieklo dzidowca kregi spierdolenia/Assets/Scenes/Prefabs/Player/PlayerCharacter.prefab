@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4127351499569232698}
   - component: {fileID: 4127351499569232699}
   - component: {fileID: 4127351499569232676}
-  - component: {fileID: 8112254510893370960}
   - component: {fileID: 8112254510893370961}
+  - component: {fileID: 7653295810358168500}
   m_Layer: 10
   m_Name: PlayerCharacter
   m_TagString: Player
@@ -81,63 +81,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MaximumHealth>k__BackingField: 0
   <CurrentHealth>k__BackingField: 0
-  <CanPlayerMove>k__BackingField: 1
-  <PlayerSpeed>k__BackingField: 5
-  <DashAttackMovePower>k__BackingField: 400
-  playerState: 1
+  <CanPlayerMove>k__BackingField: 0
+  <PlayerSpeed>k__BackingField: 0
+  <DashAttackMovePower>k__BackingField: 0
+  itemsInInventory: []
   listOfEnemiesColliders: []
---- !u!114 &8112254510893370960
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4127351499569232678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27a31b6aba12f874aacc2fa4d22d0d49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  experiencePoints: 0
-  level: 0
-  maxHealth: 100
-  health:
-    statName: 
-    baseValue: 100
-    modifiers: 
-  mana:
-    statName: 
-    baseValue: 0
-    modifiers: 
-  armor:
-    statName: 
-    baseValue: 0
-    modifiers: 
-  damage:
-    statName: 
-    baseValue: 0
-    modifiers: 
-  strength:
-    statName: 
-    baseValue: 0
-    modifiers: 
-  agility:
-    statName: 
-    baseValue: 0
-    modifiers: 
-  intelligence:
-    statName: 
-    baseValue: 0
-    modifiers: 
-  vitality:
-    statName: 
-    baseValue: 0
-    modifiers: 
-  luck:
-    statName: 
-    baseValue: 0
-    modifiers: 
-  modifiableStatsList: []
 --- !u!114 &8112254510893370961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,6 +113,24 @@ MonoBehaviour:
   - {fileID: 7011722525193641449}
   _weaponPlaceholder: {fileID: 8112254511123299883}
   _offHandPlaceholder: {fileID: 8112254511307346754}
+--- !u!114 &7653295810358168500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4127351499569232678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce2b2dd2e9044c2faecfdbe3ce0b05ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ItemsInInventory>k__BackingField: []
+  <HeadArmor>k__BackingField: {fileID: 0}
+  <ChestArmor>k__BackingField: {fileID: 0}
+  <LegArmor>k__BackingField: {fileID: 0}
+  <BootsArmor>k__BackingField: {fileID: 0}
+  <Weapon>k__BackingField: {fileID: 0}
 --- !u!1 &8112254511123299882
 GameObject:
   m_ObjectHideFlags: 0

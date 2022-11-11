@@ -20,7 +20,7 @@ namespace jbzd.Common.InputSystem.Inputs
                 new()
                 {
                     KeyMapping = KeyMapping.Interact,
-                    Action = OnInteractClick
+                    Action = () => OnInteractClick?.Invoke()
                 }
             };
         }

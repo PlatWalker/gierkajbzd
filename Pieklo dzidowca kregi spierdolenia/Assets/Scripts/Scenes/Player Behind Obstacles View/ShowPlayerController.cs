@@ -21,10 +21,10 @@ public class ShowPlayerController : MonoBehaviour
 
     private State state;
     
-    private PlayerController _playerController;
+    private PlayerManager _playerController;
         
     [Inject]
-    public void Construct(PlayerController playerController)
+    public void Construct(PlayerManager playerController)
     {
         _playerController = playerController;
     }

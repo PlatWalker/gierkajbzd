@@ -6,7 +6,9 @@ using Zenject;
 using jbzd.Common.InputSystem;
 using jbzd.Common.InputSystem.Inputs;
 using jbzd.Common.Interfaces;
+using jbzd.MainHero.PlayerControllers;
 using jbzd.MainHero.PlayerStateLogic;
+
 
 namespace jbzd.MainHero
 {
@@ -18,7 +20,7 @@ namespace jbzd.MainHero
         public static string RunSpeed => "Running speed";
     }
 
-    public class PlayerController : MonoBehaviour, IDamageable
+    public class PlayerManager : MonoBehaviour, IDamageable
     {
         #region Serialized fields
         [field:SerializeField]
@@ -36,8 +38,11 @@ namespace jbzd.MainHero
         #endregion
 
         #region Public variables
+        
         public List<Collider> ListOfEnemiesColliders { get; } = new();
         public bool NextFrameDash { get; set; }
+        public bool IsUiTurnOn { get; set; }
+        
         public Animator CharacterAnimator { get; private set; }
         public Rigidbody Rb { get; private set; }
         #endregion
@@ -46,12 +51,18 @@ namespace jbzd.MainHero
         private PlayerInput _playerInput;
         private PlayerStats _playerStats;
         private List<IPlayerStateLogic> _stateLogicObjects;
+        private readonly List<IPlayerController> _playerControllers = new ();
         #endregion
 
         [Inject]
         public void Construct(InputManager inputManager)
         {
             _playerInput = inputManager.GetInput<PlayerInput>();
+        }
+
+        public void Awake()
+        {
+            _playerControllers.Add(GetComponent<InventoryController>());
         }
 
         private void Start()
@@ -129,6 +140,16 @@ namespace jbzd.MainHero
                 Debug.Log("Blad w nazwie parametru szybkosci biegania");
         }
 
+        public T GetPlayerController<T>() where T : IPlayerController
+        {
+            var playerController = (T) _playerControllers.Find(playerController => playerController.GetType() == typeof(T));
+            
+            if (playerController != null) return playerController;
+
+            Debug.LogWarning("There is no such player controller class!");
+            return default;
+        }
+        
         public void SetDamage(int damageAmount, DamageType damageType)
         {
             _playerStats.Health.BaseValue -= damageAmount;

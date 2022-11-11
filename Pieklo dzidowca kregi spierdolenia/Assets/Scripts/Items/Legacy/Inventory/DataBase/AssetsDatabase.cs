@@ -1,6 +1,7 @@
 ﻿using jbzdy.Items;
 using UnityEngine;
 using System.Collections.Generic;
+using jbzd.Items.Legacy.Inventory.Inventory;
 
 namespace jbzdy.Inventory.Database 
 {

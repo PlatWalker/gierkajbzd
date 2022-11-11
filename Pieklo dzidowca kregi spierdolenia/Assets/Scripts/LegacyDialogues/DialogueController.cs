@@ -45,10 +45,10 @@ namespace jbzd.LegacyDialogues
         public List<TMP_Text> answerButtonsTexts = new List<TMP_Text>();
         private int statCheckNodeCount = 0;
         
-        private PlayerController _playerController;
+        private PlayerManager _playerController;
         
         [Inject]
-        public void Construct(PlayerController playerController)
+        public void Construct(PlayerManager playerController)
         {
             _playerController = playerController;
         }

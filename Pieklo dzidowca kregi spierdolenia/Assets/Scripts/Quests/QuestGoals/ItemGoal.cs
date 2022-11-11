@@ -1,4 +1,5 @@
-﻿using jbzdy.Inventory;
+﻿using jbzd.Items.Legacy.Inventory.Inventory;
+using jbzdy.Inventory;
 using jbzdy.Items;
 using UnityEditor;
 

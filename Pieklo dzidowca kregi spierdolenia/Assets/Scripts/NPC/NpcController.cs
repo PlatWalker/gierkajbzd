@@ -41,10 +41,10 @@ namespace jbzd.NPC
         private DialogueTalk _dialogueTalk;
         private NavMeshAgent _navMeshAgent;
         private Animator _animator;
-        private PlayerController _playerController;
+        private PlayerManager _playerController;
         
         [Inject]
-        public void Construct(PlayerController playerController)
+        public void Construct(PlayerManager playerController)
         {
             _playerController = playerController;
         }

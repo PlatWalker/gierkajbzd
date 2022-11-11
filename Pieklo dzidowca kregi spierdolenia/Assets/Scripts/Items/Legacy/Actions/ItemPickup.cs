@@ -1,5 +1,6 @@
 ﻿using System;
 using jbzd.Items;
+using jbzd.Items.Legacy.Inventory.Inventory;
 using jbzd.MainHero;
 using jbzdy.Items;
 using jbzdy.Inventory;
@@ -24,12 +25,12 @@ namespace jbzdy.Actions.Interaction
 
         public SharItem Item { get => item; set => item = value; }
 
-        public PlaceHolderForItemSO test;
+        //public Item test;
 
-        private PlayerController _playerController;
+        private PlayerManager _playerController;
         
         [Inject]
-        public void Construct(PlayerController playerController)
+        public void Construct(PlayerManager playerController)
         {
             _playerController = playerController;
         }
@@ -37,13 +38,13 @@ namespace jbzdy.Actions.Interaction
         public new void Awake()
         {
             item = this.GetComponent<SharItem>();
-            test = GetComponentInParent<PlaceHolderForItemSO>();
+            //test = GetComponentInParent<Item>();
             inventory = InventoryClass.Instance;            
         }
 
         public void Start()
         {
-            test = GetComponentInParent<PlaceHolderForItemSO>();
+            //test = GetComponentInParent<Item>();
         }
 
         public override void Interact()
@@ -52,7 +53,7 @@ namespace jbzdy.Actions.Interaction
             //TODO wywalic
             //PickUp();
             //GameManager.Instance.PlayerObject.GetComponent<jbzdy.Items.ItemEquipper>().EquipWeaponOrTrinket(item);
-            _playerController.GetComponent<jbzdy.Items.ItemEquipper>().EquipItem(test.ItemSO);
+            //_playerController.GetComponent<jbzdy.Items.ItemEquipper>().EquipItem(test.ItemSO);
         }
 
         private void PickUp()

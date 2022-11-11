@@ -19,10 +19,10 @@ namespace jbzd.UI.Hud
 		[SerializeField]
 		private Slider manaBar;
 		private Text _hpNumber;
-		private PlayerController _playerController;
+		private PlayerManager _playerController;
         
 		[Inject]
-		public void Construct(PlayerController playerController)
+		public void Construct(PlayerManager playerController)
 		{
 			_playerController = playerController;
 		}

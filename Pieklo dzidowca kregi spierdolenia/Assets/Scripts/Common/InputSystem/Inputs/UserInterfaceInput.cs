@@ -19,27 +19,27 @@ namespace jbzd.Common.InputSystem.Inputs
                 new()
                 {
                     KeyMapping = KeyMapping.Inventory,
-                    Action = OnInventoryOpened
+                    Action = () => OnInventoryOpened?.Invoke()
                 },
                 new()
                 {
                     KeyMapping = KeyMapping.QuestLog,
-                    Action = OnQuestLogOpened
+                    Action = () => OnQuestLogOpened?.Invoke()
                 },
                 new()
                 {
                     KeyMapping = KeyMapping.PlayerMenu,
-                    Action = OnPlayerMenuOpened
+                    Action = () => OnPlayerMenuOpened?.Invoke()
                 },
                 new()
                 {
                     KeyMapping = KeyMapping.InGameMenu,
-                    Action = OnInGameMenuOpened
+                    Action = () => OnInGameMenuOpened?.Invoke()
                 },
                 new()
                 {
                     KeyMapping = KeyMapping.Escape,
-                    Action = OnEscapeClick
+                    Action = () => OnEscapeClick?.Invoke()
                 }
             };
         }

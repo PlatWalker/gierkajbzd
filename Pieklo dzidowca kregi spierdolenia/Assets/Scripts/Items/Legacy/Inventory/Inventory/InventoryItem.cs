@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using jbzd.Items.Legacy.Inventory.Inventory;
+using UnityEngine;
 using jbzdy.Items;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;

@@ -1,4 +1,5 @@
-﻿using jbzdy.Items.Enums;
+﻿using jbzd.Items.Legacy.Inventory.Inventory;
+using jbzdy.Items.Enums;
 using UnityEngine;
 
 /// <summary>

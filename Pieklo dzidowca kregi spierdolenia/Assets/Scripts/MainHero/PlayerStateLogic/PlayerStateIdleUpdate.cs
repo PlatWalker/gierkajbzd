@@ -5,9 +5,9 @@ namespace jbzd.MainHero.PlayerStateLogic
     public class PlayerStateIdleUpdate : IPlayerStateLogic
     {
         private readonly PlayerInput _playerInput;
-        private readonly PlayerController _playerController;
+        private readonly PlayerManager _playerController;
         
-        public PlayerStateIdleUpdate(PlayerController playerController, PlayerInput playerInput)
+        public PlayerStateIdleUpdate(PlayerManager playerController, PlayerInput playerInput)
         {
             _playerController = playerController;
             _playerInput = playerInput;

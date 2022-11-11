@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using jbzd.Items.Legacy.Inventory.Inventory;
 using jbzd.LegacyDialogues.NodesDatas;
 using jbzdy.Items;
 using UnityEditor.Experimental.GraphView;

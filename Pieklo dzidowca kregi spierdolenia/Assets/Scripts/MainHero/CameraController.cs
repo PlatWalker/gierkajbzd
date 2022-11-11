@@ -10,10 +10,10 @@ namespace jbzd.MainHero
         private GameObject player;
         private Vector3 velocity = Vector3.zero;
     
-        private PlayerController _playerController;
+        private PlayerManager _playerController;
         
         [Inject]
-        public void Construct(PlayerController playerController)
+        public void Construct(PlayerManager playerController)
         {
             _playerController = playerController;
         }

@@ -1,4 +1,5 @@
-﻿using jbzd.LegacyDialogues.NodesDatas;
+﻿using jbzd.Items.Legacy.Inventory.Inventory;
+using jbzd.LegacyDialogues.NodesDatas;
 using UnityEngine;
 using jbzdy.Items;
 using jbzdy.Inventory;
