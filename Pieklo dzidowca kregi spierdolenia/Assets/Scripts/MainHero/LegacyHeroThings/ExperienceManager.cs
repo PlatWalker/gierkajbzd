@@ -1,6 +1,6 @@
-﻿using UnityEngine;
-using jbzdy.StatCreation;
-using jbzdy.CharacterStats;
+﻿using System;
+using jbzd.MainHero.LegacyHeroThings.Stats;
+using UnityEngine;
 
 // <summary>
 // Napisane przez sharashino   
@@ -8,8 +8,9 @@ using jbzdy.CharacterStats;
 // Zaołożeniem tego skryptu jest monitorowanie oraz umożliwianie zapisu postępu poziomów w grze
 // </summary>
 
-namespace jbzdy.Managers
+namespace jbzd.MainHero.LegacyHeroThings
 {
+    [Obsolete("System sharashino...")]
     public class ExperienceManager : MonoBehaviour
     {
         [SerializeField] private PlayerStats playerStats = default;

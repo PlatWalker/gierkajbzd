@@ -1,15 +1,14 @@
 ﻿using System;
-using UnityEngine;
-using jbzdy.Items;
-using jbzdy.Managers;
 using System.Collections.Generic;
+using jbzd.Common.Interfaces;
+using jbzdy.CharacterStats;
 using jbzdy.CharacterStats.Stats;
+using UnityEngine;
 
-
-namespace jbzdy.CharacterStats
+namespace jbzd.MainHero.LegacyHeroThings.Stats
 {
     [Obsolete("Skrypt sharashino ...")]
-    public class PlayerStats : CharacterStats
+    public class PlayerStats : CharacterStats , IDamageable
     {
         //[SerializeField] private ExperienceManager experienceManager;
 
@@ -58,6 +57,25 @@ namespace jbzdy.CharacterStats
             modifiableStatsList.Add(Intelligence);
             modifiableStatsList.Add(Vitality);
             modifiableStatsList.Add(Luck);
+        }
+
+        [field:SerializeField]
+        public int MaximumHealth { get; private set; }
+        [field:SerializeField]
+        public int CurrentHealth { get; private set; }
+        public void SetDamage(int damageAmount, DamageType damageType)
+        {
+            Health.BaseValue -= damageAmount;
+        }
+
+        public void SetDamage(int damageAmount, DamageType damageType, float criticalMultiplier, float criticalChance)
+        {
+            if (UnityEngine.Random.Range(0.0f, 1.0f) <= criticalChance)
+            {
+                damageAmount = (int)(damageAmount * criticalMultiplier);
+            }
+
+            SetDamage(damageAmount, damageType);
         }
     }
 }

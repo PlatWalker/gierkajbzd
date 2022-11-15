@@ -1,4 +1,6 @@
+using jbzd.Common.Enums;
 using jbzd.Common.InputSystem.Inputs;
+using UnityEngine;
 
 namespace jbzd.MainHero.PlayerStateLogic
 {
@@ -7,12 +9,17 @@ namespace jbzd.MainHero.PlayerStateLogic
         private readonly PlayerInput _playerInput;
         private readonly PlayerManager _playerController;
         
-        public PlayerStateIdleUpdate(PlayerManager playerController, PlayerInput playerInput)
+        public PlayerStateIdleUpdate(
+            PlayerManager playerController,
+            PlayerInput playerInput,
+            MainHeroBehaviour behaviour)
         {
             _playerController = playerController;
             _playerInput = playerInput;
+            behaviour.OnStateEnterPassed += OnIdleStateEnter;
+            behaviour.OnStateExitPassed += OnIdleStateExit;
         }
-        
+
         public MonoBehaviourMethod MonoBehaviourMethodInWhichInvoked() => MonoBehaviourMethod.Update;
 
         public PlayerState PlayerStateInWhichInvoked() => PlayerState.Idle;
@@ -30,5 +37,9 @@ namespace jbzd.MainHero.PlayerStateLogic
 
             return playerState;
         }
+        
+        private void OnIdleStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) { }
+
+        private void OnIdleStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) { }
     }
 }

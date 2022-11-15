@@ -1,3 +1,4 @@
+using jbzd.Common.Enums;
 using jbzd.Common.InputSystem.Inputs;
 using UnityEngine;
 
@@ -8,10 +9,16 @@ namespace jbzd.MainHero.PlayerStateLogic
         private readonly PlayerInput _playerInput;
         private readonly PlayerManager _playerController;
         
-        public PlayerStateAttackUpdate(PlayerManager playerController, PlayerInput playerInput)
+        public PlayerStateAttackUpdate(
+            PlayerManager playerController,
+            PlayerInput playerInput,
+            MainHeroBehaviour behaviour)
         {
             _playerController = playerController;
             _playerInput = playerInput;
+            
+            behaviour.OnStateEnterPassed += OnAttackStateEnter;
+            behaviour.OnStateExitPassed += OnAttackStateExit;
         }
         
         public MonoBehaviourMethod MonoBehaviourMethodInWhichInvoked() => MonoBehaviourMethod.Update;
@@ -42,6 +49,37 @@ namespace jbzd.MainHero.PlayerStateLogic
             }
 
             return playerState;
+        }
+        
+        bool isAttackAnimationPlayingJbzd(AnimatorStateInfo stateInfo) =>
+            stateInfo.IsName("Atk1") || stateInfo.IsName("Atk2") || stateInfo.IsName("Atk3") ||
+            stateInfo.IsName("Atk4");
+
+        bool isTransitionStateJbzd(AnimatorStateInfo stateInfo) => stateInfo.IsName("Transition state");
+        
+        private void OnAttackStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            if (isTransitionStateJbzd(stateInfo))
+            {
+                _playerController.CanPlayerMove = true;
+            }
+            
+            if (isAttackAnimationPlayingJbzd(stateInfo))
+            {
+                _playerController.NextFrameDash = true;
+                animator.SetBool(PlayerStringAnimParam.AttackInProgressParam, true);
+            }
+
+            animator.SetBool(PlayerStringAnimParam.AttackParam, false);
+        }
+
+        private void OnAttackStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            if (!isTransitionStateJbzd(stateInfo))
+                animator.SetBool(PlayerStringAnimParam.AttackParam, false);
+
+            if (isAttackAnimationPlayingJbzd(stateInfo))
+                animator.SetBool(PlayerStringAnimParam.AttackInProgressParam, false); 
         }
     }
 }

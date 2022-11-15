@@ -1,4 +1,5 @@
 using System;
+using jbzd.Common.Enums;
 using jbzd.Common.InputSystem.Inputs;
 using UnityEngine;
 
@@ -8,20 +9,25 @@ namespace jbzd.MainHero.PlayerStateLogic
     {
         private readonly PlayerInput _playerInput;
         private readonly PlayerManager _playerController;
-        
+
         private Vector3 _movementVector;
         private Vector3 _newPositionVector;
         
-        public PlayerStateMoveFixedUpdate(PlayerManager playerController, PlayerInput playerInput)
+        public PlayerStateMoveFixedUpdate(
+            PlayerManager playerController,
+            PlayerInput playerInput,
+            MainHeroBehaviour behaviour)
         {
             _playerController = playerController;
             _playerInput = playerInput;
+            behaviour.OnStateEnterPassed += OnMoveStateEnter;
+            behaviour.OnStateExitPassed += OnMoveStateExit;
         }
         
         public MonoBehaviourMethod MonoBehaviourMethodInWhichInvoked() => MonoBehaviourMethod.FixedUpdate;
 
         public PlayerState PlayerStateInWhichInvoked() => PlayerState.Move;
-
+        
         public PlayerState StateLogic()
         {
             var playerState = PlayerStateInWhichInvoked();
@@ -49,6 +55,10 @@ namespace jbzd.MainHero.PlayerStateLogic
 
             return playerState;
         }
+        
+        private void OnMoveStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex){ }
+        
+        private void OnMoveStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) { }
         
         private void DashAttackMove()
         {

@@ -1,4 +1,4 @@
-namespace jbzd.MainHero.PlayerStateLogic
+namespace jbzd.Common.Enums
 {
     public enum MonoBehaviourMethod
     {

@@ -1,6 +1,7 @@
 ﻿using System;
 using jbzd.Common.InputSystem.Inputs;
 using jbzd.MainHero;
+using jbzd.MainHero.LegacyHeroThings.Stats;
 using jbzdy.CharacterStats;
 using UnityEngine;
 using UnityEngine.UI;

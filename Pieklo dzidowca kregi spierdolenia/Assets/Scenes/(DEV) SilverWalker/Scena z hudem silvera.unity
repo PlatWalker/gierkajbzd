@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -228,136 +228,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2023629189}
-  - {fileID: 1832050513}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1832050512
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1646951121}
-    m_Modifications:
-    - target: {fileID: 5797892788315554048, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
-      propertyPath: m_Name
-      value: Helmsilverowy
-      objectReference: {fileID: 0}
-    - target: {fileID: 5797892788315554049, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5797892788315554049, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 10.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5797892788315554049, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.592
-      objectReference: {fileID: 0}
-    - target: {fileID: 5797892788315554049, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 7.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 5797892788315554049, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5797892788315554049, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5797892788315554049, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5797892788315554049, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5797892788315554049, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5797892788315554049, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5797892788315554049, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
---- !u!4 &1832050513 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5797892788315554049, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
-  m_PrefabInstance: {fileID: 1832050512}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &2023629188
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1646951121}
-    m_Modifications:
-    - target: {fileID: 5797892788315554048, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
-      propertyPath: m_Name
-      value: Helmsilverowy
-      objectReference: {fileID: 0}
-    - target: {fileID: 5797892788315554049, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5797892788315554049, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 10.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5797892788315554049, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.592
-      objectReference: {fileID: 0}
-    - target: {fileID: 5797892788315554049, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.13
-      objectReference: {fileID: 0}
-    - target: {fileID: 5797892788315554049, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5797892788315554049, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5797892788315554049, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5797892788315554049, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5797892788315554049, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5797892788315554049, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5797892788315554049, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
---- !u!4 &2023629189 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5797892788315554049, guid: 92421b3fe5ee7c14d875e19eb917f3ea, type: 3}
-  m_PrefabInstance: {fileID: 2023629188}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2053771817
 PrefabInstance:
   m_ObjectHideFlags: 0

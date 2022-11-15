@@ -1,8 +1,8 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using jbzdy.CharacterStats;
+﻿using System.Collections.Generic;
 using jbzdy.CharacterStats.Stats;
-using System.Collections.Generic;
+using jbzdy.StatCreation;
+using UnityEngine;
+using UnityEngine.UI;
 
 // <summary>
 // Napisane przez sharashino
@@ -11,7 +11,7 @@ using System.Collections.Generic;
 // 
 // Przygotowany do pierwszej kreacji postaci, oraz w przyszłości przy levelowaniu
 // </summary>
-namespace jbzdy.StatCreation
+namespace jbzd.MainHero.LegacyHeroThings.Stats
 {
     [System.Serializable]
     public class StatCreator : MonoBehaviour
