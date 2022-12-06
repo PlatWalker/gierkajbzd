@@ -65,6 +65,7 @@ namespace jbzd.MainHero
         private PlayerStats _playerStats;
         private List<IPlayerStateLogic> _stateLogicObjects;
         private List<IPlayerController> _playerControllers;
+        private Vector3 _newPositionVector;
         
         #endregion
 
@@ -122,6 +123,8 @@ namespace jbzd.MainHero
         
         private void FixedUpdate()
         {
+            StickPlayerToGround();
+
             var playerStateLogic = _stateLogicObjects.FirstOrDefault(x =>
                 x.MonoBehaviourMethodInWhichInvoked() == MonoBehaviourMethod.FixedUpdate &&
                 x.PlayerStateInWhichInvoked() == playerState);
@@ -182,6 +185,19 @@ namespace jbzd.MainHero
 
             if (isAttackAnimationPlayingJbzd(stateInfo))
                 animator.SetBool(PlayerStringAnimParam.AttackInProgressParam, false);            
+        }
+
+        private void StickPlayerToGround()
+        {
+            if (Physics.Raycast(transform.position + Vector3.up, Vector3.down, out RaycastHit hit) 
+                && hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            {
+                _newPositionVector.x = Rb.position.x;
+                _newPositionVector.y = hit.point.y;
+                _newPositionVector.z = Rb.position.z;
+
+                Rb.MovePosition(_newPositionVector);
+            }
         }
     } 
 }
