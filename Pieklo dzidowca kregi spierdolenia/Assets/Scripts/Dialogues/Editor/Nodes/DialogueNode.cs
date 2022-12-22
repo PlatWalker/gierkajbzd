@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using jbzd.Dialogues.Data;
 using jbzd.Dialogues.Editor;
 using jbzd.Dialogues.Editor.Save;
 using jbzd.Dialogues.Editor.Utilities;
-using jbzd.Dialogues.ScriptableObjects;
+using jbzd.Dialogues.RuntimeData;
 using NUnit.Framework;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -84,9 +83,9 @@ namespace jbzd.Dialogues.Editor.Nodes
             return Text.Length > textLengthLimit;
         }
 
-        public override NodeSaveData GetSavedData()
+        public override NodeEditorData GetSavedData()
         {
-            DialogueNodeSaveData nodeSaveData = new DialogueNodeSaveData()
+            DialogueNodeEditorData nodeEditorData = new DialogueNodeEditorData()
             {
                 ID = this.ID.ToString(),
                 GroupID = this.GroupID.ToString(),
@@ -98,12 +97,12 @@ namespace jbzd.Dialogues.Editor.Nodes
                 NpcImage = this.NpcImage,
                 Audio = this.DialogueAudio
             };
-            return nodeSaveData;
+            return nodeEditorData;
         }
 
-        public override void Load(NodeSaveData nodeData)
+        public override void Load(NodeEditorData nodeData)
         {
-            var nData =  nodeData as DialogueNodeSaveData;
+            var nData =  nodeData as DialogueNodeEditorData;
             
             Text = nData.Text;
             PlayerImage = nData.PlayerImage;
@@ -112,11 +111,11 @@ namespace jbzd.Dialogues.Editor.Nodes
             
         }
 
-        public override NodeSO GetSavedDataForDialogue()
+        public override NodeRuntimeData GetSavedDataForDialogue()
         {
-            DialogueSO nodeSaveData = ScriptableObject.CreateInstance<DialogueSO>();
+            DialogueRuntimeData nodeSaveData = new DialogueRuntimeData{ NodeId = ID};
 
-            var convertedChoices = Choices.Select(choice => choice.convertToChoiceData()).ToList();
+            var convertedChoices = Choices.Select(choice => choice.ConvertToChoiceData()).ToList();
 
             nodeSaveData.Initialize(Text, convertedChoices, NodeType, IsStartingNode());
             

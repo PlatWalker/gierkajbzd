@@ -1,12 +1,11 @@
-﻿using UnityEngine;
-using UnityEngine.Events;
-using System.Collections.Generic;
-using jbzd.LegacyDialogues;
+﻿using System.Collections.Generic;
 using jbzd.LegacyDialogues.NodesDatas;
 using jbzd.NPC;
+using jbzdy.DialogueSystem;
+using UnityEngine;
+using UnityEngine.Events;
 
-
-namespace jbzdy.DialogueSystem
+namespace jbzd.LegacyDialogues
 {
     public class DialogueTalk : DialogueGetData
     {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using jbzd.Common;
+using jbzd.LegacyDialogues;
 using jbzd.LegacyDialogues.NodesDatas;
 using jbzd.MainHero;
 //TODO trzeba pozbyc sie referencji do namespace'a gracz. skrpyt npc nie powinien sie tym zajmowac

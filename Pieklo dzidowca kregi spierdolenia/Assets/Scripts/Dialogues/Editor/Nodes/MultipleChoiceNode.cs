@@ -15,7 +15,7 @@ namespace jbzd.Dialogues.Editor.Nodes
 
             NodeType = NodeType.MultipleChoice;
             
-            ChoiceSaveData choiceData = new ChoiceSaveData(){ Text = "Nowy wybor"};
+            ChoiceEditorData choiceData = new ChoiceEditorData(){ Text = "Nowy wybor"};
             Choices.Add(choiceData);
         }
 
@@ -25,7 +25,7 @@ namespace jbzd.Dialogues.Editor.Nodes
 
             Button addChoiceButton = DialogueElementUtility.CreateButton("Dodaj wybor", () =>
             {
-                ChoiceSaveData choiceData = new ChoiceSaveData(){ Text = "Nowy wybor"};
+                ChoiceEditorData choiceData = new ChoiceEditorData(){ Text = "Nowy wybor"};
                 Choices.Add(choiceData);
                 
                 Port choicePort = CreateChoicePort(choiceData);
@@ -53,7 +53,7 @@ namespace jbzd.Dialogues.Editor.Nodes
             Port choicePort = this.CreatePort();
 
             choicePort.userData = userData;
-            ChoiceSaveData choiceData = (ChoiceSaveData)userData;
+            ChoiceEditorData choiceData = (ChoiceEditorData)userData;
 
             Button deleteChoiceButton = DialogueElementUtility.CreateButton("X", () =>
             {

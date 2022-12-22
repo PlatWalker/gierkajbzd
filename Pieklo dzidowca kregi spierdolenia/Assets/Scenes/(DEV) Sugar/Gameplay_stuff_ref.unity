@@ -123,21 +123,13 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &895670616
+--- !u!1001 &1263398635
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2105733123685942106, guid: 2d8b562aefcd26d44afda2415805e3b3, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2105733123685942106, guid: 2d8b562aefcd26d44afda2415805e3b3, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3321015489035479243, guid: 2d8b562aefcd26d44afda2415805e3b3, type: 3}
       propertyPath: m_Name
       value: GameplayStuffSceneContext
@@ -148,15 +140,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3321015489035479246, guid: 2d8b562aefcd26d44afda2415805e3b3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.44
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3321015489035479246, guid: 2d8b562aefcd26d44afda2415805e3b3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.03
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3321015489035479246, guid: 2d8b562aefcd26d44afda2415805e3b3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.33
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3321015489035479246, guid: 2d8b562aefcd26d44afda2415805e3b3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -186,17 +178,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3744466452260822041, guid: 2d8b562aefcd26d44afda2415805e3b3, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3744466452260822041, guid: 2d8b562aefcd26d44afda2415805e3b3, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4127351499275762333, guid: 2d8b562aefcd26d44afda2415805e3b3, type: 3}
-      propertyPath: <PlayerSpeed>k__BackingField
-      value: 10
-      objectReference: {fileID: 0}
+    - target: {fileID: 3321015489035479247, guid: 2d8b562aefcd26d44afda2415805e3b3, type: 3}
+      propertyPath: UIManager
+      value: 
+      objectReference: {fileID: 1754339168}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d8b562aefcd26d44afda2415805e3b3, type: 3}
+--- !u!114 &1754339168 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7573702226731731812, guid: 2d8b562aefcd26d44afda2415805e3b3, type: 3}
+  m_PrefabInstance: {fileID: 1263398635}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3947e6fc51431224a976cc45b4eca7bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

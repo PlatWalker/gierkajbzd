@@ -2,11 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using jbzd.Dialogues.Data;
 using jbzd.Dialogues.Editor;
 using jbzd.Dialogues.Editor.Nodes;
 using jbzd.Dialogues.Editor.Save;
-using jbzd.Dialogues.ScriptableObjects;
+using jbzd.Dialogues.RuntimeData;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -25,7 +24,7 @@ namespace jbzd.Dialogues.Editor.Utilities
         private static List<BasicNode> _nodes;
         private static List<DialogueGroup> _groups;
         private static Dictionary<Guid, DialogueGroup> _loadedGroups;
-        private static Dictionary<Guid, BasicNode> _loadedNodes;
+        private static Dictionary<string, BasicNode> _loadedNodes;
         
         public static void Initialize(DialogueGraphView dialogueGraphView, DialogueEditorWindow dialogueEditorWindow)
         {
@@ -34,7 +33,7 @@ namespace jbzd.Dialogues.Editor.Utilities
             _nodes = new List<BasicNode>();
             _groups = new List<DialogueGroup>();
             _loadedGroups = new Dictionary<Guid, DialogueGroup>();
-            _loadedNodes = new Dictionary<Guid, BasicNode>();
+            _loadedNodes = new Dictionary<string, BasicNode>();
         }
 
         #region save
@@ -75,13 +74,13 @@ namespace jbzd.Dialogues.Editor.Utilities
 
         private static void SaveGroupToContainerSO(DialogueGroup group)   
         {
-            GroupSO groupSo = new GroupSO()
+            GroupRuntimeData groupRuntimeData = new GroupRuntimeData()
             {
                 GroupName = group.title
             };
 
-            var nodeList = new List<NodeSO>();
-            var nodePairs = new Dictionary<Guid, NodeSO>();
+            var nodeList = new List<NodeRuntimeData>();
+            var nodePairs = new Dictionary<string, NodeRuntimeData>();
 
             foreach (var node in group.Nodes)
             {
@@ -92,34 +91,34 @@ namespace jbzd.Dialogues.Editor.Utilities
 
             foreach (var node in group.Nodes)
             {
-                var choiceList = new List<ChoiceData>();
+                var choiceList = new List<ChoiceRuntimeData>();
                 
                 foreach (var choice in node.Choices)
                 {
-                    var choiceToAdd = new ChoiceData
+                    var choiceToAdd = new ChoiceRuntimeData
                     {
                         Text = choice.Text
                     };
 
                     if (choice.NodeID != null)
                     {
-                        if(nodePairs.ContainsKey((Guid)choice.NodeID))
-                            choiceToAdd.NextDialogue = nodePairs[(Guid)choice.NodeID];
+                        if(nodePairs.ContainsKey(choice.NodeID))
+                            choiceToAdd.NextDialogue = choice.NodeID;
                     }
                     choiceList.Add(choiceToAdd);
                 }
 
                 var nodeSO = nodePairs[node.ID]; 
                 nodeSO.Choices = choiceList;
-                SaveAsset(nodeSO);
             }
-            
-            _dialogueContainer.Groups.Add(groupSo, nodeList);
+
+            var wrapper = new ListWrapper{ myList = nodeList};
+            _dialogueContainer.Groups.Add(groupRuntimeData, wrapper);
         }
 
         private static void SaveGroupToGraph(DialogueGroup group, GraphSaveDataSO graphData)
         {
-            GroupSaveData groupData = new GroupSaveData()
+            GroupEditorData groupData = new GroupEditorData()
             {
                 ID = group.ID.ToString(),
                 Name = group.title,
@@ -162,6 +161,7 @@ namespace jbzd.Dialogues.Editor.Utilities
                 var graphContainer = AssetFromGuid<GraphSaveDataSO>(_dialogueContainer.GraphContainerID);
                 if (graphContainer == null)
                 {
+                    _graphView.CreateStartGroup();
                     Debug.Log("Kontener dialogu posiada niepoprawne id kontenera grafu");
                     return;
                 }
@@ -169,6 +169,10 @@ namespace jbzd.Dialogues.Editor.Utilities
                 LoadGroups(graphContainer);
                 LoadNodes(graphContainer);
                 LoadConnections();
+            }
+            else
+            {
+                _graphView.CreateStartGroup();
             }
 
         }
@@ -179,11 +183,11 @@ namespace jbzd.Dialogues.Editor.Utilities
             {
                 foreach (Port choicePort in loadedNode.Value.outputContainer.Children())
                 {
-                    ChoiceSaveData choiceData = (ChoiceSaveData)choicePort.userData;
+                    ChoiceEditorData choiceData = (ChoiceEditorData)choicePort.userData;
 
                     if (choiceData.NodeID != null)
                     {
-                        BasicNode nextNode = _loadedNodes[(Guid)choiceData.NodeID];
+                        BasicNode nextNode = _loadedNodes[choiceData.NodeID];
 
                         Port nextNodeInputPort = (Port) nextNode.inputContainer.Children().First();
 
@@ -201,7 +205,7 @@ namespace jbzd.Dialogues.Editor.Utilities
             foreach (var nodeData in graphContainer.Nodes)
             {
                 var node = _graphView.CreateNode(nodeData.Position, nodeData.NodeType, false);
-                node.ID = Guid.Parse(nodeData.ID);
+                node.ID = nodeData.ID;
                 var clonedChoices = CloneChoices(nodeData.Choices);
                 node.Choices = clonedChoices;
                 
@@ -214,6 +218,13 @@ namespace jbzd.Dialogues.Editor.Utilities
                 if (!string.IsNullOrEmpty(nodeData.GroupID))
                 {
                     DialogueGroup group = _loadedGroups[Guid.Parse(nodeData.GroupID)];
+                    
+                    if (group.name == "Start")
+                    {
+                        group.Nodes[0] = node;
+                        continue;
+                    }
+                    
                     group.AddElement(node);
                 }
             }
@@ -223,8 +234,18 @@ namespace jbzd.Dialogues.Editor.Utilities
         {
             foreach (var groupData in graphContainer.Groups)
             {
-                var group = _graphView.CreateGroup(groupData.Position, groupData.Name);
-                _graphView.AddElement(group);
+                DialogueGroup group = null;
+                
+                if (groupData.Name == "Start")
+                {
+                    group = _graphView.CreateStartGroup(groupData.Position);
+                }
+                else
+                {
+                    group = _graphView.CreateGroup(groupData.Position, groupData.Name);
+                    _graphView.AddElement(group);
+                }
+
                 group.ID = Guid.Parse(groupData.ID);
                 
                 _loadedGroups.Add(group.ID, group);
@@ -249,10 +270,10 @@ namespace jbzd.Dialogues.Editor.Utilities
             return AssetDatabase.LoadAssetAtPath<T>(asset);
         }
         
-        private static List<ChoiceSaveData> CloneChoices(List<ChoiceSaveData> nodeChoices)
+        private static List<ChoiceEditorData> CloneChoices(List<ChoiceEditorData> nodeChoices)
         {
             return nodeChoices.Select(choice => 
-                new ChoiceSaveData
+                new ChoiceEditorData
                 {
                     Text = choice.Text,
                     NodeID = choice.NodeID
@@ -296,9 +317,9 @@ namespace jbzd.Dialogues.Editor.Utilities
                     return;
                 }
 
-                if (element.GetType() == typeof(DialogueGroup))
+                if (element is DialogueGroup group)
                 {
-                    _groups.Add((DialogueGroup)element);
+                    _groups.Add(group);
                     return;
                 }
             });

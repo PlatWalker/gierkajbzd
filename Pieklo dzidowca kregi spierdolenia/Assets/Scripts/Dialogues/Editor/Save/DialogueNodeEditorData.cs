@@ -4,7 +4,7 @@ using UnityEngine;
 namespace jbzd.Dialogues.Editor.Save
 {
     [Serializable]
-    public class DialogueNodeSaveData : NodeSaveData
+    public class DialogueNodeEditorData : NodeEditorData
     {
         [field: SerializeField] public string Text { get; set; }
         [field: SerializeField] public Sprite PlayerImage { get; set; }

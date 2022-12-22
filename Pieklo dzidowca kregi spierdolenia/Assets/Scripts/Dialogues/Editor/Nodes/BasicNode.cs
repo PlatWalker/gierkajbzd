@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using jbzd.Dialogues.Editor;
 using jbzd.Dialogues.Editor.Save;
-using jbzd.Dialogues.ScriptableObjects;
+using jbzd.Dialogues.RuntimeData;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -11,17 +11,17 @@ namespace jbzd.Dialogues.Editor.Nodes
 {
     public abstract class BasicNode : Node
     {
-        public Guid ID { get; set; }
-        public List<ChoiceSaveData> Choices { get; set; }
+        public string ID { get; set; }
+        public List<ChoiceEditorData> Choices { get; set; }
         protected NodeType NodeType { get; set; }
         public Guid? GroupID { get; set; }
         protected DialogueGraphView GraphView;
 
         public virtual void Initialize(Vector2 position, DialogueGraphView graphView)
         {
-            ID = Guid.NewGuid();
+            ID = Guid.NewGuid().ToString();
             title = "Dialog";
-            Choices = new List<ChoiceSaveData>();
+            Choices = new List<ChoiceEditorData>();
             GroupID = null;
 
             GraphView = graphView;
@@ -34,17 +34,24 @@ namespace jbzd.Dialogues.Editor.Nodes
 
         public bool IsStartingNode()
         {
-            Port inputPort = (Port)inputContainer.Children().First();
+            var inputPorts = inputContainer.Children().ToList();
 
+            if (inputPorts.Count == 0)
+            {
+                return true;
+            }
+
+            var inputPort = (Port)inputPorts.First();
+            
             return !inputPort.connected;
         }
 
         public abstract void Draw();
 
-        public abstract NodeSaveData GetSavedData();
+        public abstract NodeEditorData GetSavedData();
         
-        public abstract void Load(NodeSaveData nodeData);
+        public abstract void Load(NodeEditorData nodeData);
 
-        public abstract NodeSO GetSavedDataForDialogue();
+        public abstract NodeRuntimeData GetSavedDataForDialogue();
     }
 }

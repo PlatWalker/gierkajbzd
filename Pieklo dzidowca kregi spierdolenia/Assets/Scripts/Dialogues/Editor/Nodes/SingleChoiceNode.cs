@@ -14,7 +14,7 @@ namespace jbzd.Dialogues.Editor.Nodes
 
             NodeType = NodeType.SingleChoice;
 
-            ChoiceSaveData choiceData = new ChoiceSaveData(){ Text = "Nastepny dialog"};
+            ChoiceEditorData choiceData = new ChoiceEditorData(){ Text = "Nastepny dialog"};
             
             Choices.Add(choiceData);
         }

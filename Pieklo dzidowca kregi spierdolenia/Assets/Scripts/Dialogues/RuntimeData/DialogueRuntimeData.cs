@@ -1,16 +1,14 @@
 using System.Collections.Generic;
-using jbzd.Dialogues.Data;
 using UnityEngine;
 
-namespace jbzd.Dialogues.ScriptableObjects
+namespace jbzd.Dialogues.RuntimeData
 {
 
-    public class DialogueSO : NodeSO
+    public class DialogueRuntimeData : NodeRuntimeData
     {
         [field: SerializeField] [field: TextArea()] public string Text { get; set; }
-        [field: SerializeField] public bool IsStartingDialogue { get; set; }
 
-        public void Initialize(string text, List<ChoiceData> choices, NodeType nodeType,
+        public void Initialize(string text, List<ChoiceRuntimeData> choices, NodeType nodeType,
             bool isStartingDialogue)
         {
             Text = text;

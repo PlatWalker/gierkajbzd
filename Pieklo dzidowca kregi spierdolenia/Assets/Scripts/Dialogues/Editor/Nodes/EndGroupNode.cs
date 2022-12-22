@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using jbzd.Dialogues.Editor.Save;
 using jbzd.Dialogues.Editor.Utilities;
-using jbzd.Dialogues.ScriptableObjects;
+using jbzd.Dialogues.RuntimeData;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -63,9 +63,9 @@ namespace jbzd.Dialogues.Editor.Nodes
             }
         }
 
-        public override NodeSaveData GetSavedData()
+        public override NodeEditorData GetSavedData()
         {
-            EndGroupNodeData nodeSaveData = new EndGroupNodeData()
+            EndGroupNodeEditorData nodeEditorSaveData = new EndGroupNodeEditorData()
             {
                 ID = this.ID.ToString(),
                 GroupID = this.GroupID.ToString(),
@@ -74,21 +74,25 @@ namespace jbzd.Dialogues.Editor.Nodes
                 
                 SelectedGroup = SelectedGroup,
             };
-            return nodeSaveData;
+            return nodeEditorSaveData;
         }
 
-        public override void Load(NodeSaveData nodeData)
+        public override void Load(NodeEditorData nodeData)
         {
-            if(nodeData is EndGroupNodeData nData)
+            if(nodeData is EndGroupNodeEditorData nData)
                 SelectedGroup = nData.SelectedGroup;
         }
 
-        public override NodeSO GetSavedDataForDialogue()
+        public override NodeRuntimeData GetSavedDataForDialogue()
         {
-            EndGroupSO nodeSaveData = ScriptableObject.CreateInstance<EndGroupSO>();
+            EndGroupRuntimeData nodeSaveData = new EndGroupRuntimeData
+            {
+                NodeId = ID,
+                SelectedGroup = SelectedGroup,
+                NodeType = NodeType,
+                IsStartingDialogue = IsStartingNode()
+            };
 
-            nodeSaveData.Initialize(SelectedGroup);
-            
             return nodeSaveData;
         }
     }

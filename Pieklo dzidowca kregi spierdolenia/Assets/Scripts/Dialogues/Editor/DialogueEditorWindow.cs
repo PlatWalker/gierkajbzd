@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using jbzd.Dialogues.Editor.Save;
 using jbzd.Dialogues.Editor.Utilities;
-using jbzd.Dialogues.ScriptableObjects;
+using jbzd.Dialogues.RuntimeData;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEditor.UIElements;

@@ -45,6 +45,26 @@ namespace jbzd.Dialogues.Editor
             }
         }
 
+        public StartGroup CreateStartGroup(Vector2 position = default)
+        {
+            StartGroup group = new StartGroup(this);
+            group.SetPosition(new Rect(position, Vector2.zero));
+            
+            var node = CreateNode(new Vector2(0, 0), NodeType.EndGroup);
+            
+            group.AddElement(node);
+            AddElement(group);
+            AddElement(node);
+            
+            node.inputContainer.RemoveAt(0);
+            
+            group.SetEnabled(false);
+            
+            Groups.Add(group);
+
+            return group;
+        }
+
         private void AddManipulators()
         {
             SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
@@ -215,7 +235,7 @@ namespace jbzd.Dialogues.Editor
                     {
                         var nextNode = (BasicNode)edge.input.node;
 
-                        var choiceData = (ChoiceSaveData)edge.output.userData;
+                        var choiceData = (ChoiceEditorData)edge.output.userData;
 
                         choiceData.NodeID = nextNode.ID;
                     }
@@ -231,7 +251,7 @@ namespace jbzd.Dialogues.Editor
                         if (element.GetType() == edgeType)
                         {
                             var edge = (Edge)element;
-                            var choiceData = (ChoiceSaveData)edge.output.userData;
+                            var choiceData = (ChoiceEditorData)edge.output.userData;
                             choiceData.NodeID = null;
                         }
 
