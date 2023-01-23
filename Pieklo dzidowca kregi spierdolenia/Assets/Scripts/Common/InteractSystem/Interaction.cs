@@ -45,12 +45,16 @@ namespace jbzd.Common.InteractSystem
 
         private void OnTriggerEnter(Collider other)
         {
+            if (other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
+            
             IsInRange = true;
             OnInteractionObjectReach?.Invoke(other);
         }
 
         private void OnTriggerStay(Collider other)
         {
+            if (other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
+
             IsInRange = true;
         }
 

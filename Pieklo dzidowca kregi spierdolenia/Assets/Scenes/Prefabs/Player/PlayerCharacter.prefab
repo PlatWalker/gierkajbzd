@@ -79,13 +79,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0982e7e333bd28146864fd4c863a7ccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaximumHealth>k__BackingField: 0
-  <CurrentHealth>k__BackingField: 0
   <CanPlayerMove>k__BackingField: 0
   <PlayerSpeed>k__BackingField: 0
   <DashAttackMovePower>k__BackingField: 0
-  itemsInInventory: []
-  listOfEnemiesColliders: []
+  playerState: 1
 --- !u!114 &8112254510893370961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,12 +122,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce2b2dd2e9044c2faecfdbe3ce0b05ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ItemsInInventory>k__BackingField: []
-  <HeadArmor>k__BackingField: {fileID: 0}
-  <ChestArmor>k__BackingField: {fileID: 0}
-  <LegArmor>k__BackingField: {fileID: 0}
-  <BootsArmor>k__BackingField: {fileID: 0}
-  <Weapon>k__BackingField: {fileID: 0}
+  itemsInInventory: []
+  headArmor: {fileID: 0}
+  chestArmor: {fileID: 0}
+  legArmor: {fileID: 0}
+  bootsArmor: {fileID: 0}
+  weapon: {fileID: 0}
 --- !u!1 &8112254511123299882
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,7 +515,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: b82668a1d7d0ab74eb93a044d6b2b845, type: 2}
     - target: {fileID: 5866666021909216657, guid: b3c5e18d9ccce624b8aeff8cc98dc14a, type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6182507397140535644, guid: b3c5e18d9ccce624b8aeff8cc98dc14a, type: 3}
       propertyPath: m_Layer

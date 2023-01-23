@@ -1,5 +1,3 @@
-using jbzd.UI.QuestMenu;
-
 namespace jbzd.UI.PlayerMenu
 {
     public class QuestUIOpenButton : OpenAndCloseUserInterface
@@ -9,7 +7,6 @@ namespace jbzd.UI.PlayerMenu
 
         protected override void AssignPropertyUserInterfacesOpenAndClose(UserInterfaceManager userInterfaceManager)
         {
-            UserInterfaceToOpen = userInterfaceManager.GetUIController<QuestUIController>();
             UserInterfaceToClose = userInterfaceManager.GetUIController<PlayerMenuUIController>();
         }
     }

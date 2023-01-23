@@ -37,8 +37,8 @@ namespace jbzd.UI.Hud
 
 		public void Update()
 		{
-			_maxHealth = _playerStats.MaxHealth;
-			currentHealth = _playerStats.Health.BaseValue;
+			_maxHealth = 100;
+			currentHealth = 100;
 
 			healthBar.SetValueWithoutNotify(currentHealth.Remap(0, _maxHealth, 0, 1));
 
