@@ -11,6 +11,10 @@ namespace jbzd.Common.InteractSystem
     public class Interaction : MonoBehaviour
     {
         public delegate void InteractionObjectReached(Collider somethingThatReachedInteractionObject);
+        /// <summary>
+        /// Event is called when object collider that is on layers collider matrix (most likely player)
+        /// collide with this object.
+        /// </summary>
         public event InteractionObjectReached OnInteractionObjectReach;
         
         private IInteractable _interactable;
@@ -25,7 +29,7 @@ namespace jbzd.Common.InteractSystem
             _inputController = inputManager.GetInput<PlayerInput>();
         }
         
-        public void Awake()
+        private void Awake()
         {
             if (TryGetComponent(out _interactable))
             {
@@ -38,7 +42,7 @@ namespace jbzd.Common.InteractSystem
             }
         }
 
-        public void OnInteract()
+        private void OnInteract()
         {
             if (IsInRange) _interactable.OnInteract();
         }
@@ -63,7 +67,7 @@ namespace jbzd.Common.InteractSystem
             IsInRange = false;
         }
 
-        public void OnDestroy()
+        private void OnDestroy()
         {
             _inputController.OnInteractClick -= OnInteract;
         }

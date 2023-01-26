@@ -34,7 +34,7 @@ namespace jbzd.UI
             _input = inputManager.GetInput<UserInterfaceInput>();
         }
 
-        public void Awake()
+        private void Awake()
         {
             FillListWithVariables();
             CheckIfAllChildrenAreAdded();
@@ -80,6 +80,11 @@ namespace jbzd.UI
             }
         }
         
+        /// <summary>
+        /// Method that give access to UI controllers. 
+        /// </summary>
+        /// <typeparam name="T">Required UI controller</typeparam>
+        /// <returns>UI controller that was required</returns>
         public T GetUIController<T>() where T : UserInterfaceController
         {
             var uiController = (T) userInterfaceControllers.Find(ui => ui.GetType() == typeof(T));

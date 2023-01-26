@@ -1,7 +1,8 @@
+using jbzd.MainHero;
 using UnityEngine;
 using Zenject;
 
-namespace jbzd.MainHero
+namespace jbzd.Common
 {
     public class CameraController : MonoBehaviour
     {
