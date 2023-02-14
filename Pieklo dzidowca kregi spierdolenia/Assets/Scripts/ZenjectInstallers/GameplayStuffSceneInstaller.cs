@@ -1,4 +1,5 @@
 using jbzd.Common.InputSystem;
+using jbzd.Common.RunnerThing;
 using jbzd.Items;
 using jbzd.UI;
 using jbzd.MainHero;
@@ -30,6 +31,7 @@ namespace jbzd.ZenjectInstallers
             Container.BindInstance(UIManager).AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<InputManager>().AsSingle().NonLazy();
             Container.BindFactory<Object, Item, Item.Factory>().FromFactory<PrefabFactory<Item>>();
+            Container.BindFactory<object, Runner, RunnerFactory>().FromFactory<CustomRunnerFactory>();
         }
     }
 }
