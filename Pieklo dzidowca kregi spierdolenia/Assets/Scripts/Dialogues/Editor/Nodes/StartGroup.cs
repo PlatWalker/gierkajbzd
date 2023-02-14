@@ -1,3 +1,4 @@
+using System;
 using jbzd.Dialogues;
 using jbzd.Dialogues.Editor.Nodes;
 
@@ -13,5 +14,15 @@ namespace jbzd.Dialogues.Editor.Nodes
             name = "Start";
         }
 
+        public StartGroup(DialogueGraphView graphView, Guid id):base(graphView)
+        {
+            title = "Start";
+            name = "Start";
+            
+            if (id != default)
+            {
+                ID = id;
+            }
+        }
     }
 }

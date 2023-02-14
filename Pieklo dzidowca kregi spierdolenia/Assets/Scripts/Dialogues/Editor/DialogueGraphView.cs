@@ -45,11 +45,11 @@ namespace jbzd.Dialogues.Editor
             }
         }
 
-        public StartGroup CreateStartGroup(Vector2 position = default)
+        public StartGroup CreateStartGroup(Vector2 position = default, Guid id = default)
         {
-            StartGroup group = new StartGroup(this);
+            StartGroup group = new StartGroup(this, id);
             group.SetPosition(new Rect(position, Vector2.zero));
-            
+       
             var node = CreateNode(new Vector2(0, 0), NodeType.EndGroup);
             
             group.AddElement(node);

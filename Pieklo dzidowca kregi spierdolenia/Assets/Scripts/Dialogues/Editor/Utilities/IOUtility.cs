@@ -185,7 +185,7 @@ namespace jbzd.Dialogues.Editor.Utilities
                 {
                     ChoiceEditorData choiceData = (ChoiceEditorData)choicePort.userData;
 
-                    if (choiceData.NodeID != null)
+                    if (!string.IsNullOrEmpty(choiceData.NodeID))
                     {
                         BasicNode nextNode = _loadedNodes[choiceData.NodeID];
 
@@ -212,7 +212,7 @@ namespace jbzd.Dialogues.Editor.Utilities
                 node.Load(nodeData);
 
                 node.Draw();
-                _graphView.AddElement(node);
+                
                 _loadedNodes.Add(node.ID, node);
 
                 if (!string.IsNullOrEmpty(nodeData.GroupID))
@@ -221,11 +221,15 @@ namespace jbzd.Dialogues.Editor.Utilities
                     
                     if (group.name == "Start")
                     {
-                        group.Nodes[0] = node;
+                        group.Nodes[0].Load(nodeData);
                         continue;
                     }
-                    
+                    _graphView.AddElement(node);
                     group.AddElement(node);
+                }
+                else
+                {
+                    _graphView.AddElement(node);
                 }
             }
         }
@@ -238,7 +242,7 @@ namespace jbzd.Dialogues.Editor.Utilities
                 
                 if (groupData.Name == "Start")
                 {
-                    group = _graphView.CreateStartGroup(groupData.Position);
+                    group = _graphView.CreateStartGroup(groupData.Position, Guid.Parse(groupData.ID));
                 }
                 else
                 {

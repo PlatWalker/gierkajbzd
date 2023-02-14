@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ModestTree;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -14,7 +15,7 @@ namespace jbzd.Dialogues.RuntimeData
         [field: SerializeField] public string GraphContainerID { get; set; }
         [field: SerializeField] public string ContainerID { get; set; }
         [field: SerializeField] public SerializedDictionary<GroupRuntimeData, ListWrapper> Groups { get; set; }
-        public Dictionary<GroupRuntimeData, List<NodeRuntimeData>> UtilityGroup { get; set; }
+        public Dictionary<GroupRuntimeData, List<NodeRuntimeData>> UtilityGroup { get; set; } = new();
 
         public void Initialize(string fileName)
         {
@@ -26,10 +27,17 @@ namespace jbzd.Dialogues.RuntimeData
 
         public void LoadGroups()
         {
-            UtilityGroup = new Dictionary<GroupRuntimeData, List<NodeRuntimeData>>();
+            if (!UtilityGroup.IsEmpty()) return;
+            
             foreach (var group in Groups)
             {
-                UtilityGroup.Add(group.Key, group.Value.myList);
+                var newGroup = new GroupRuntimeData()
+                {
+                    GroupName = group.Key.GroupName,
+                    WasGroupUsed = group.Key.WasGroupUsed
+                };
+                
+                UtilityGroup.Add(newGroup, group.Value.myList);
             }
         }
     }

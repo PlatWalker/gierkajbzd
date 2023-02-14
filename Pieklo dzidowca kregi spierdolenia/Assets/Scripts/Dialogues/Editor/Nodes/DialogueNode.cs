@@ -113,11 +113,8 @@ namespace jbzd.Dialogues.Editor.Nodes
 
         public override NodeRuntimeData GetSavedDataForDialogue()
         {
-            DialogueRuntimeData nodeSaveData = new DialogueRuntimeData{ NodeId = ID};
-
             var convertedChoices = Choices.Select(choice => choice.ConvertToChoiceData()).ToList();
-
-            nodeSaveData.Initialize(Text, convertedChoices, NodeType, IsStartingNode());
+            DialogueRuntimeData nodeSaveData = new DialogueRuntimeData(Text, convertedChoices, NodeType, IsStartingNode(), NpcImage, PlayerImage, ID);
             
             return nodeSaveData;
         }

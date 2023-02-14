@@ -20,6 +20,8 @@ namespace jbzd.UI
 
         [UsedImplicitly][SerializeField] private UserInterfaceController playerMenuUIController;
         
+        [UsedImplicitly][SerializeField] private UserInterfaceController dialogueUIController;
+        
         #endregion
         
         [SerializeReference]

@@ -6,6 +6,6 @@ namespace jbzd.Dialogues
         SingleChoice,
         MultipleChoice,
         Checkpoint,
-        EndGroup
+        EndGroup,
     }
 }

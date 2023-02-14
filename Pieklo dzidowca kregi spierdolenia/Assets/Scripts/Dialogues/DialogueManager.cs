@@ -1,25 +1,38 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using jbzd.Common.RunnerThing;
 using jbzd.Dialogues.RuntimeData;
+using jbzd.UI;
 using UnityEngine;
+using Zenject;
 
 namespace jbzd.Dialogues
 {
     public class DialogueManager : MonoBehaviour
     {
-
-        [SerializeField] private ContainerSO data;
+        private ContainerSO _data;
         private string _currentGroup;
+        public NodeRuntimeData CurrentNode;
+        
+        public delegate void DialogueEventOccured();
 
-        private void OnEnable()
+        public event DialogueEventOccured OnDialogueStarted;
+        public event DialogueEventOccured OnDialogueEnded;
+
+        private RunnerFactory _factory;
+
+        [Inject]
+        public void Constructor(RunnerFactory runnerFactory)
         {
-            if (data == null)
-            {
-                Debug.LogError("NPC nie ma przypisanego dialogu!");
-                return;
-            }
+            _factory = runnerFactory;
+        }
+        
+        public void StartDialogue(ContainerSO data)
+        {
             
-            data.LoadGroups();
+            _data = data;
+            _data.LoadGroups();
             
             var startingGroup = ((EndGroupRuntimeData)GetGroupAndNodes("Start").Value.First()).SelectedGroup;
             
@@ -29,7 +42,23 @@ namespace jbzd.Dialogues
                 return;
             }
             
-            _currentGroup = FindCurrentDialogueGroup(startingGroup); 
+            _currentGroup = FindCurrentDialogueGroup(startingGroup);
+
+            OnDialogueStarted?.Invoke();
+            
+            RunNode(GetStartNode());
+        }
+
+        private void RunNode(NodeRuntimeData node)
+        {
+            var runner = _factory.Create(node);
+            CurrentNode = node;
+            runner.Run();
+        }
+        
+        public void RunNode(string node)
+        {
+            RunNode(FindNode(node));
         }
 
         private string FindCurrentDialogueGroup(string group)
@@ -38,19 +67,40 @@ namespace jbzd.Dialogues
             return groupAndNodes.Key.WasGroupUsed ? FindCurrentDialogueGroup(GetEndGroup(groupAndNodes.Value).SelectedGroup) : group;
         }
         
-        public NodeRuntimeData GetStartNode()
+        private NodeRuntimeData GetStartNode()
         {
             return GetGroupAndNodes(_currentGroup).Value.First(x => x.IsStartingDialogue);
         }
 
         private KeyValuePair<GroupRuntimeData,List<NodeRuntimeData>> GetGroupAndNodes(string title)
         {
-            return data.UtilityGroup.FirstOrDefault(x => x.Key.GroupName == title);
+            return _data.UtilityGroup.FirstOrDefault(x => x.Key.GroupName == title);
         }
 
         private EndGroupRuntimeData GetEndGroup(List<NodeRuntimeData> nodeList)
         {
             return (EndGroupRuntimeData)nodeList.Find(x => x.NodeType == NodeType.EndGroup);
+        }
+
+        private NodeRuntimeData FindNode(string nextNodeId)
+        {
+            var nodes = GetGroupAndNodes(_currentGroup).Value;
+            return nodes.Find(x => x.NodeId == nextNodeId);
+        }
+
+        public void ChangeGroupStatus(string groupTitle = null, bool status = true)
+        {
+            groupTitle ??= _currentGroup;
+
+            GetGroupAndNodes(groupTitle).Key.WasGroupUsed = status;
+        }
+
+        public void EndDialogue()
+        {
+            _currentGroup = null;
+            CurrentNode = null;
+            
+            OnDialogueEnded?.Invoke();
         }
     }
 }
