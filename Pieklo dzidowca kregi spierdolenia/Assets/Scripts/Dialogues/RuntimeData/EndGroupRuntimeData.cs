@@ -12,8 +12,7 @@ namespace jbzd.Dialogues.RuntimeData
         [RunMethod]
         public void Run(DialogueManager manager)
         {
-            manager.ChangeGroupStatus();
-            manager.ChangeGroupStatus(SelectedGroup, false);
+            manager.ChangeLastGroup(SelectedGroup);
             manager.EndDialogue();
         }
     }

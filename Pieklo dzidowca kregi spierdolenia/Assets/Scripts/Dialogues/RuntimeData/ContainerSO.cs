@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ModestTree;
 using UnityEditor;
 using UnityEngine;
@@ -8,7 +9,7 @@ using UnityEngine.Rendering;
 namespace jbzd.Dialogues.RuntimeData
 {
     [System.Serializable]
-    [CreateAssetMenu(menuName = "New Dialogue v2")]
+    [CreateAssetMenu(menuName = "New Dialogue")]
     public class ContainerSO : ScriptableObject
     {
         [field: SerializeField] public string FileName { get; set; }
@@ -16,6 +17,7 @@ namespace jbzd.Dialogues.RuntimeData
         [field: SerializeField] public string ContainerID { get; set; }
         [field: SerializeField] public SerializedDictionary<GroupRuntimeData, ListWrapper> Groups { get; set; }
         public Dictionary<GroupRuntimeData, List<NodeRuntimeData>> UtilityGroup { get; set; } = new();
+        [field: NonSerialized] public string CurrentGroup { get; set; } = "Start";
 
         public void Initialize(string fileName)
         {
@@ -31,14 +33,14 @@ namespace jbzd.Dialogues.RuntimeData
             
             foreach (var group in Groups)
             {
-                var newGroup = new GroupRuntimeData()
-                {
-                    GroupName = group.Key.GroupName,
-                    WasGroupUsed = group.Key.WasGroupUsed
-                };
-                
-                UtilityGroup.Add(newGroup, group.Value.myList);
+                UtilityGroup.Add(group.Key, group.Value.myList);
             }
+            
+            CurrentGroup = ((EndGroupRuntimeData)UtilityGroup.
+                FirstOrDefault(x => x.Key.GroupName == CurrentGroup).
+                Value.
+                First()).
+                SelectedGroup;
         }
     }
 

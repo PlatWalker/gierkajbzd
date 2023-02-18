@@ -31,6 +31,8 @@ namespace jbzd.Dialogues.Editor.Nodes
                 x.GroupRenamed += UpdateDropdown;
             });
             SelectedGroup = _groupNames.FirstOrDefault();
+            
+            mainContainer.AddToClassList("ds-end_node__main-container");
         }
         public override void Draw()
         {

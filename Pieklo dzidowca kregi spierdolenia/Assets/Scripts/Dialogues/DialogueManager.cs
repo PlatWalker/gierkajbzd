@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using jbzd.Common.RunnerThing;
 using jbzd.Dialogues.RuntimeData;
-using jbzd.UI;
 using UnityEngine;
 using Zenject;
 
@@ -33,16 +31,8 @@ namespace jbzd.Dialogues
             
             _data = data;
             _data.LoadGroups();
-            
-            var startingGroup = ((EndGroupRuntimeData)GetGroupAndNodes("Start").Value.First()).SelectedGroup;
-            
-            if (startingGroup == null)
-            {
-                Debug.LogError("Użyty dialog ma niepoprawnie zdefiniowany początek - nie można znaleźć grupy 'Start'");
-                return;
-            }
-            
-            _currentGroup = FindCurrentDialogueGroup(startingGroup);
+
+            _currentGroup = _data.CurrentGroup;
 
             OnDialogueStarted?.Invoke();
             
@@ -61,10 +51,17 @@ namespace jbzd.Dialogues
             RunNode(FindNode(node));
         }
 
-        private string FindCurrentDialogueGroup(string group)
+        public void NextNode()
         {
-            var groupAndNodes = GetGroupAndNodes(group);
-            return groupAndNodes.Key.WasGroupUsed ? FindCurrentDialogueGroup(GetEndGroup(groupAndNodes.Value).SelectedGroup) : group;
+            var nextNodeId = CurrentNode.Choices[0].NextDialogue;
+                
+            if (nextNodeId == null)
+            {
+                OnDialogueEnded?.Invoke();
+                return;
+            }
+            
+            RunNode(nextNodeId);
         }
         
         private NodeRuntimeData GetStartNode()
@@ -77,24 +74,17 @@ namespace jbzd.Dialogues
             return _data.UtilityGroup.FirstOrDefault(x => x.Key.GroupName == title);
         }
 
-        private EndGroupRuntimeData GetEndGroup(List<NodeRuntimeData> nodeList)
-        {
-            return (EndGroupRuntimeData)nodeList.Find(x => x.NodeType == NodeType.EndGroup);
-        }
-
         private NodeRuntimeData FindNode(string nextNodeId)
         {
             var nodes = GetGroupAndNodes(_currentGroup).Value;
             return nodes.Find(x => x.NodeId == nextNodeId);
         }
 
-        public void ChangeGroupStatus(string groupTitle = null, bool status = true)
+        public void ChangeLastGroup(string group)
         {
-            groupTitle ??= _currentGroup;
-
-            GetGroupAndNodes(groupTitle).Key.WasGroupUsed = status;
+            _data.CurrentGroup = group;
         }
-
+        
         public void EndDialogue()
         {
             _currentGroup = null;

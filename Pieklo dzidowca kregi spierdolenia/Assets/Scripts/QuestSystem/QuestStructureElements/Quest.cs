@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using jbzd.Common;
@@ -44,7 +45,17 @@ namespace jbzd.QuestSystem.QuestStructureElements
         {
             _questManager = questManager;
         }
-        
+
+        private void Awake()
+        {
+            _questManager.AllQuestsOnActiveMap.Add(this);
+        }
+
+        private void OnDisable()
+        {
+            _questManager.AllQuestsOnActiveMap.Remove(this);
+        }
+
         public void MakeActorPlayInThisQuest(GoalSO passedGoal)
         {
             if (FinishedGoals.Contains(passedGoal)) return;

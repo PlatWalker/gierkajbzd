@@ -8,6 +8,7 @@ namespace jbzd.QuestSystem
     public class QuestManager : MonoBehaviour
     {
         public List<Quest> ActiveQuests { get; set; } = new();
+        public List<Quest> AllQuestsOnActiveMap { get; set; } = new();
         
         public void StartQuest(Quest questToStart)
         {

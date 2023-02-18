@@ -7,7 +7,5 @@ namespace jbzd.Dialogues.RuntimeData
     public class GroupRuntimeData 
     {
         [field: SerializeField] public string GroupName { get; set; }
-        [field: SerializeField] public bool WasGroupUsed { get; set; } = false;
-
     }
 }

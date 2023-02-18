@@ -75,9 +75,13 @@ namespace jbzd.MainHero.PlayerControllers
             equippedItems[item.ItemSO.ItemType] = item;
         }
 
-        public void PickUpItem(ItemSO item)
+        //TODO obsługa większej ilości itemów oraz za dużej ilości itemów w eq
+        public bool PickUpItem(ItemSO item, int numberOfItems = 1)
         {
+            Debug.Log("item podniesiony");
             itemsInInventory.Add(item);
+
+            return true;
         }
 
         public void DropItem(ItemSO item)
@@ -88,6 +92,20 @@ namespace jbzd.MainHero.PlayerControllers
             var newItem = _itemFactory.Create(itemSo.ItemPrefab);
             SceneManager.MoveGameObjectToScene(newItem.gameObject, SceneManager.GetActiveScene());
             itemsInInventory.Remove(item);
+        }
+
+        //TODO obsługa większej ilości itemów
+        public bool RemoveItem(ItemSO item, int numberOfItems = 1)
+        {
+            Debug.Log("item zabrany");
+            
+            if (!itemsInInventory.Remove(item))
+            {
+                Debug.LogWarning("Błąd przy usuwaniu itema z inventory - możliwe, że gracz go nie posiada");
+                return false;
+            }
+
+            return true;
         }
     }
 }

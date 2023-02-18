@@ -121,6 +121,42 @@ namespace jbzd.Dialogues.Editor.Utilities
 
             return customField;
         }
+
+        public static Toggle CreateToggle(string label, bool value = false,
+            EventCallback<ChangeEvent<bool>> onValueChanged = null)
+        {
+
+            var toggle = new Toggle
+            {
+                label = label,
+                value = value
+            };
+            
+            if (onValueChanged != null)
+            {
+                toggle.RegisterValueChangedCallback(onValueChanged);
+            }
+            
+            return toggle;
+        }
+
+        public static IntegerField CreateIntegerField(string label, int value,
+            EventCallback<ChangeEvent<int>> onValueChanged = null)
+        {
+
+            var integerField = new IntegerField
+            {
+                label = label,
+                value = value
+            };
+            
+            if (onValueChanged != null)
+            {
+                integerField.RegisterValueChangedCallback(onValueChanged);
+            }
+            
+            return integerField;
+        }
         
     }
 }

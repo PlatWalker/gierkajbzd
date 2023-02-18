@@ -5,7 +5,11 @@ namespace jbzd.Dialogues
     {
         SingleChoice,
         MultipleChoice,
-        Checkpoint,
+        Quest,
+        Item,
+        CheckQuest,
+        Fight,
+        Cutscene,
         EndGroup,
     }
 }
