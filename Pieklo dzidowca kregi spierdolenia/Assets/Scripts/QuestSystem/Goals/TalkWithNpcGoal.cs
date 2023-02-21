@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using jbzd.Common.RunnerThing;
 using jbzd.QuestSystem.QuestStructureElements;
 using jbzd.QuestSystem.TestFolder;
 using UnityEngine;
@@ -9,7 +10,8 @@ namespace jbzd.QuestSystem.Goals
     [CreateAssetMenu(menuName = "Quest/Goals/Talk with Npc Goal", fileName = "New TalkWithNpcGoal")]
     public class TalkWithNpcGoal : GoalSO
     {
-        public override void ExecuteGoalScenario(List<Actor> actors)
+        [RunMethod]
+        public void ExecuteGoalScenario(List<Actor> actors)
         {
             NpcControllerTest npcController = null;
             
@@ -20,6 +22,6 @@ namespace jbzd.QuestSystem.Goals
             npcController.StartDialogue();
         }
 
-        public override bool GoalEndCondition() => true;
+        public override bool GoalEndCondition(Quest questWithThisGoal) => true;
     }
 }

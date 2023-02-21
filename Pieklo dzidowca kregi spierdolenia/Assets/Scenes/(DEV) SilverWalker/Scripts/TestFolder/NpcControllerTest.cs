@@ -41,17 +41,17 @@ namespace jbzd.QuestSystem.TestFolder
         {
             if (questToStart is not null)
             {
-                Debug.Log("Quest Started");
+                //Debug.Log("Quest Started");
                 _questManager.StartQuest(questToStart);
             }
             else switch (goalToAct)
             {
                 case TalkWithNpcGoal:
-                    Debug.Log("Dialogue opened");
+                    //Debug.Log("Dialogue opened");
                     _questManager.MakeActorPlay(goalToAct);
                     break;
                 case EscortGoal:
-                    Debug.Log("Started Following");
+                    //Debug.Log("Started Following");
                     StartFollow();
                     break;
             }

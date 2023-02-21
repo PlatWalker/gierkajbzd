@@ -20,7 +20,7 @@ namespace jbzd.Items
             _inventoryController = playerManager.GetPlayerController<InventoryController>();
         }
         
-        public void OnInteract()
+        public virtual void OnInteract()
         {
             _inventoryController.PickUpItem(ItemSO);
             Destroy(gameObject);

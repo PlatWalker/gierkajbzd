@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -61,17 +62,21 @@ namespace jbzd.Common.RunnerThing
             
             foreach (var parameterType in _methodInfo.GetParameters().Select(info => info.ParameterType))
             {
-                if (_container.TryResolve(parameterType) == null)
+                switch (_container.TryResolve(parameterType))
                 {
-                    var parameter = additionalParameters.FirstOrDefault(param => param.GetType() == parameterType);
-                    if (parameter != null)
+                    case null or IList {Count: 0}:
                     {
-                        args.Add(parameter);
+                        var parameter = additionalParameters.FirstOrDefault(param => param.GetType() == parameterType);
+                        if (parameter != null)
+                        {
+                            args.Add(parameter);
+                        }
+
+                        break;
                     }
-                }
-                else
-                {
-                    args.Add(_container.Resolve(parameterType));
+                    default:
+                        args.Add(_container.Resolve(parameterType));
+                        break;
                 }
             }
 

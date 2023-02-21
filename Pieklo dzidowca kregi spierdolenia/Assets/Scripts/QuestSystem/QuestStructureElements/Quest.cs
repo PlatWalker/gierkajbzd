@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using jbzd.Common;
+using jbzd.Common.RunnerThing;
+using jbzd.QuestSystem.Goals;
 using UnityEngine;
 using Zenject;
 
@@ -16,6 +18,7 @@ namespace jbzd.QuestSystem.QuestStructureElements
         [field:SerializeField] public List<Actor> Actors { get; set; } = new();
 
         private QuestManager _questManager;
+        private RunnerFactory _runnerFactory;
         
         #region Quest Tracker Variables
 
@@ -36,19 +39,40 @@ namespace jbzd.QuestSystem.QuestStructureElements
         [field: JbzdReadOnly]
         public List<GoalSO> FinishedGoals { get; set; } = new();
 
+        [field: Header("Additional track variables")]
+        [field: SerializeField]
+        [field: JbzdReadOnly]
+        public List<int> GoalItemCollected { get; set; } = new();
+        [field: SerializeField]
+        [field: JbzdReadOnly]
+        public List<int> GoalCompletionItemCount { get; set; } = new();
+        [field: SerializeField]
+        [field: JbzdReadOnly]
+        public List<string> GoalName { get; set; } = new();
+        
         #endregion
         
         #endregion
 
         [Inject]
-        public void Constructor(QuestManager questManager)
+        public void Constructor(QuestManager questManager, RunnerFactory runnerFactory)
         {
             _questManager = questManager;
+            _runnerFactory = runnerFactory;
         }
 
         private void Awake()
         {
             _questManager.AllQuestsOnActiveMap.Add(this);
+
+            foreach (var goal in QuestData.Tasks.SelectMany(task => task.Goals))
+            {
+                if (goal is not PickUpItemGoal pickUpItemGoal) continue;
+                
+                GoalName.Add(goal.name);
+                GoalItemCollected.Add(0);
+                GoalCompletionItemCount.Add(pickUpItemGoal.GoalCompletionItemCount);
+            }
         }
 
         private void OnDisable()
@@ -70,16 +94,33 @@ namespace jbzd.QuestSystem.QuestStructureElements
             
             foreach (var actor in actorsInPassedGoal)
             {
+                try
+                {
+                    //autistic way of checking if gameobject of actor component was destroyed
+                    var kek = actor.gameObject;
+                }
+                catch (MissingReferenceException)
+                {
+                    continue;
+                }
+                
                 Debug.Log($"Actor {actor.name} played scenario in {passedGoal.name}!");
             }
-            passedGoal.ExecuteGoalScenario(actorsInPassedGoal);
+
+            var runner = _runnerFactory.Create(passedGoal);
+            
+            runner.Run(new List<object>
+            {
+                actorsInPassedGoal,
+                this
+            });
             
             CheckFinishCondition(passedGoal);
         }
 
         private void CheckFinishCondition(GoalSO goalToAct)
         {
-            if (goalToAct.GoalEndCondition())
+            if (goalToAct.GoalEndCondition(this))
             {
                 FinishedGoals.Add(goalToAct);
                 Debug.Log($"Finished goal {goalToAct.name}");

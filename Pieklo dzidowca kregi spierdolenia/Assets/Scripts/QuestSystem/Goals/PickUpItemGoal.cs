@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using jbzd.Common.RunnerThing;
 using jbzd.QuestSystem.QuestStructureElements;
-using UnityEditor;
 using UnityEngine;
 
 namespace jbzd.QuestSystem.Goals
@@ -9,16 +9,24 @@ namespace jbzd.QuestSystem.Goals
     [CreateAssetMenu(menuName = "Quest/Goals/Pick Up Item Goal", fileName = "New PickUpItemGoal")]
     public class PickUpItemGoal : GoalSO
     {
-        
-        public override void ExecuteGoalScenario(List<Actor> actors)
+        [field:SerializeField]
+        public int GoalCompletionItemCount { get; private set; }
+
+        [RunMethod]
+        public void ExecuteGoalScenario(Quest questWithThisGoal)
         {
-            //TODO do zrobienia gol
-            throw new NotImplementedException();
+            var index = questWithThisGoal.GoalName.IndexOf(name);
+            questWithThisGoal.GoalItemCollected[index] += 1;
         }
 
-        public override bool GoalEndCondition()
+        public override bool GoalEndCondition(Quest questWithThisGoal)
         {
-            throw new NotImplementedException();
+            var index = questWithThisGoal.GoalName.IndexOf(name);
+            
+            Debug.Assert(questWithThisGoal.GoalItemCollected[index] <= GoalCompletionItemCount, 
+                "GoalItemCollected property out of 'index' of max items collected");
+            
+            return questWithThisGoal.GoalItemCollected[index] == GoalCompletionItemCount;
         }
     }
 }

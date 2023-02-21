@@ -16,7 +16,7 @@ namespace jbzd.UI
 
         [UsedImplicitly][SerializeField] private UserInterfaceController hudUIController;
 
-        [UsedImplicitly][SerializeField] private UserInterfaceController questUIController;
+        //[UsedImplicitly][SerializeField] private UserInterfaceController questUIController;
 
         [UsedImplicitly][SerializeField] private UserInterfaceController playerMenuUIController;
         

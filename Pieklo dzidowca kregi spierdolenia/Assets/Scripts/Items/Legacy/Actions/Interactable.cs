@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using jbzdy.Actions.Interaction;
+using UnityEngine;
 
 // <summary>
 // Napisane przez Sharashino
 // 
 // Główna klasa rzeczy z którymi możemy wchodzić w interakcję, obecnie przyciskiem E (Sklepy, skrzynie, lootowanie, interakcja z postaciami)
 // </summary>
-namespace jbzdy.Actions.Interaction
+namespace jbzd.Items.Legacy.Actions
 {
     public class Interactable : MonoBehaviour
     {
