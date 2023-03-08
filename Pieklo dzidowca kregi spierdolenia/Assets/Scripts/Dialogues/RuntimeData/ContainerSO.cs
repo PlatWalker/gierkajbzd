@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ModestTree;
-using UnityEditor;
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -23,7 +25,9 @@ namespace jbzd.Dialogues.RuntimeData
         {
             FileName = fileName;
             GraphContainerID = null;
+        #if UNITY_EDITOR
             ContainerID = AssetDatabase.GUIDFromAssetPath(AssetDatabase.GetAssetPath(this)).ToString();
+        #endif
             Groups = new SerializedDictionary<GroupRuntimeData, ListWrapper>();
         }
 

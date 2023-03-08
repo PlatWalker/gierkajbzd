@@ -9,15 +9,15 @@ namespace jbzd.UI.MainMenu
         {
             SceneManager.LoadScene("Gameplay_stuff", LoadSceneMode.Additive);
             SceneManager.LoadScene("Level1Triggers", LoadSceneMode.Additive);
-            SceneManager.LoadScene("mapa lvl 1", LoadSceneMode.Additive);
+            SceneManager.LoadScene("Level_1_Smaller", LoadSceneMode.Additive);
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
         {
-            if (arg0.name != "mapa lvl 1") return;
+            if (arg0.name != "Level_1_Smaller") return;
             
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName("mapa lvl 1"));
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName("Level_1_Smaller"));
             SceneManager.UnloadSceneAsync("Main Menu", UnloadSceneOptions.None);
 
             if (FindObjectOfType<GameManager>() != null)

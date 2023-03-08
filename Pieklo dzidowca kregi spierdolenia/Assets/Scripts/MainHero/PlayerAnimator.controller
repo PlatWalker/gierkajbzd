@@ -8,7 +8,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Atk1
-  m_Speed: 1
+  m_Speed: 1.25
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 4604247319342696342}
@@ -22,7 +22,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 2210258633744230179, guid: b3c5e18d9ccce624b8aeff8cc98dc14a, type: 3}
+  m_Motion: {fileID: 2688081205737072487, guid: 19f5ae32386286e4b9059b246c3061da, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -36,7 +36,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Atk2
-  m_Speed: 1
+  m_Speed: 1.25
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -1112902364735521588}
@@ -50,7 +50,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 4214916878827103200, guid: b3c5e18d9ccce624b8aeff8cc98dc14a, type: 3}
+  m_Motion: {fileID: 4968365132718441438, guid: 19f5ae32386286e4b9059b246c3061da, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -136,7 +136,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Atk3 END
-  m_Speed: 3
+  m_Speed: 1.25
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 3392067298420677160}
@@ -149,7 +149,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -6421938493758338960, guid: b3c5e18d9ccce624b8aeff8cc98dc14a, type: 3}
+  m_Motion: {fileID: -3080301274319850128, guid: 19f5ae32386286e4b9059b246c3061da, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -164,7 +164,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: -5730678348831534745, guid: b3c5e18d9ccce624b8aeff8cc98dc14a, type: 3}
+    m_Motion: {fileID: 5745395104066273882, guid: 19f5ae32386286e4b9059b246c3061da, type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -172,26 +172,26 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -1383215394437708262, guid: b3c5e18d9ccce624b8aeff8cc98dc14a, type: 3}
+    m_Motion: {fileID: 4101183097882982094, guid: 19f5ae32386286e4b9059b246c3061da, type: 3}
     m_Threshold: 5
     m_Position: {x: 0, y: 0}
-    m_TimeScale: 0.5
+    m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Running speed
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -1383215394437708262, guid: b3c5e18d9ccce624b8aeff8cc98dc14a, type: 3}
+    m_Motion: {fileID: 4101183097882982094, guid: 19f5ae32386286e4b9059b246c3061da, type: 3}
     m_Threshold: 10
     m_Position: {x: 0, y: 0}
-    m_TimeScale: 1.25
+    m_TimeScale: 1.5
     m_CycleOffset: 0
     m_DirectBlendParameter: Running speed
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -1383215394437708262, guid: b3c5e18d9ccce624b8aeff8cc98dc14a, type: 3}
+    m_Motion: {fileID: 4101183097882982094, guid: 19f5ae32386286e4b9059b246c3061da, type: 3}
     m_Threshold: 20
     m_Position: {x: 0, y: 0}
-    m_TimeScale: 1.5
+    m_TimeScale: 3
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
@@ -210,7 +210,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Atk4 END
-  m_Speed: 5
+  m_Speed: 1.25
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 2159066839855850716}
@@ -223,7 +223,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 4047100859963890978, guid: b3c5e18d9ccce624b8aeff8cc98dc14a, type: 3}
+  m_Motion: {fileID: -8845098011160879413, guid: 19f5ae32386286e4b9059b246c3061da, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -259,7 +259,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Atk2 END
-  m_Speed: 3
+  m_Speed: 1.25
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 4200498376524585462}
@@ -272,7 +272,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7914313838168225817, guid: b3c5e18d9ccce624b8aeff8cc98dc14a, type: 3}
+  m_Motion: {fileID: -751023121574365261, guid: 19f5ae32386286e4b9059b246c3061da, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -286,7 +286,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Atk4
-  m_Speed: 1
+  m_Speed: 1.25
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 6064086576696307055}
@@ -299,7 +299,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 6437660966505666171, guid: b3c5e18d9ccce624b8aeff8cc98dc14a, type: 3}
+  m_Motion: {fileID: -3241642400861541322, guid: 19f5ae32386286e4b9059b246c3061da, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -339,7 +339,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Atk3
-  m_Speed: 1
+  m_Speed: 1.25
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1900556583274764064}
@@ -353,7 +353,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 718844017599170964, guid: b3c5e18d9ccce624b8aeff8cc98dc14a, type: 3}
+  m_Motion: {fileID: -5997325924555830121, guid: 19f5ae32386286e4b9059b246c3061da, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -483,25 +483,25 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Attack
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Attacking animation in progress
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Running speed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Locomotion
@@ -616,7 +616,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Atk1 END
-  m_Speed: 3
+  m_Speed: 1.25
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -2701628839448366630}
@@ -629,7 +629,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -4591756972131061584, guid: b3c5e18d9ccce624b8aeff8cc98dc14a, type: 3}
+  m_Motion: {fileID: 5480838116281712774, guid: 19f5ae32386286e4b9059b246c3061da, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -793,9 +793,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0
+  m_TransitionDuration: 0.062089503
   m_TransitionOffset: 0
-  m_ExitTime: 1
+  m_ExitTime: 0.9963816
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
