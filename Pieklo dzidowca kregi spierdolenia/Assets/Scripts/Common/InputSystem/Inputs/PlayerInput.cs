@@ -49,7 +49,9 @@ namespace jbzd.Common.InputSystem.Inputs
         
         private void UpdateMousePosition()
         {
-            var ray = Camera.main!.ScreenPointToRay(Input.mousePosition);
+            if (Camera.main is null) return;
+            
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Physics.Raycast(ray, out var hitInfo, 600f, LayerMask.GetMask("Ground"));
         
             mousePositionFlat.x = hitInfo.point.x;

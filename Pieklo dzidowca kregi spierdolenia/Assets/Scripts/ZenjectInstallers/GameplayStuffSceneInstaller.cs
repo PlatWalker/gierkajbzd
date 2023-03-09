@@ -1,5 +1,6 @@
 using jbzd.Common.InputSystem;
 using jbzd.Common.RunnerThing;
+using jbzd.Cutscenes;
 using jbzd.Dialogues;
 using jbzd.Items;
 using jbzd.UI;
@@ -31,6 +32,7 @@ namespace jbzd.ZenjectInstallers
                 Debug.LogError("Missing references in installer!");
             }
 
+            Container.Bind<CutscenesManager>().AsSingle().NonLazy();
             Container.BindInstance(playerManager).AsSingle().NonLazy();
             Container.BindInstance(QuestManager).AsSingle().NonLazy();
             Container.BindInstance(DialogueManager).AsSingle().NonLazy();
