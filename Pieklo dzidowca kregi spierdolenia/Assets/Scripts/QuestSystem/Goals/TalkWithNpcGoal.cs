@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using jbzd.Common.RunnerThing;
+using jbzd.NPC;
 using jbzd.QuestSystem.QuestStructureElements;
 using jbzd.QuestSystem.TestFolder;
 using UnityEngine;
@@ -11,17 +12,12 @@ namespace jbzd.QuestSystem.Goals
     public class TalkWithNpcGoal : GoalSO
     {
         [RunMethod]
-        public void ExecuteGoalScenario(List<Actor> actors)
+        public void ExecuteGoalScenario()
         {
-            NpcControllerTest npcController = null;
-            
-            var npcActor = actors.FirstOrDefault(actor => actor.gameObject.TryGetComponent(out npcController));
-
-            if (npcActor is null) Debug.LogError("Something went wrong");
-
-            npcController.StartDialogue();
+            // nothing here is for purpose: if this goal was executed that means player chose right dialogue options,
+            // there is no need for further actions.
         }
 
-        public override bool GoalEndCondition(Quest questWithThisGoal) => true;
+        public override bool GoalEndCondition(Quest questWithThisGoal, List<Actor> actors) => true;
     }
 }

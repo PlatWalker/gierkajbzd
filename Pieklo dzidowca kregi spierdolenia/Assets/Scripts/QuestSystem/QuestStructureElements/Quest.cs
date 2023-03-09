@@ -115,12 +115,12 @@ namespace jbzd.QuestSystem.QuestStructureElements
                 this
             });
             
-            CheckFinishCondition(passedGoal);
+            CheckFinishCondition(passedGoal, actorsInPassedGoal);
         }
 
-        private void CheckFinishCondition(GoalSO goalToAct)
+        private void CheckFinishCondition(GoalSO goalToAct, List<Actor> actorsInPassedGoal)
         {
-            if (goalToAct.GoalEndCondition(this))
+            if (goalToAct.GoalEndCondition(this, actorsInPassedGoal))
             {
                 FinishedGoals.Add(goalToAct);
                 Debug.Log($"Finished goal {goalToAct.name}");

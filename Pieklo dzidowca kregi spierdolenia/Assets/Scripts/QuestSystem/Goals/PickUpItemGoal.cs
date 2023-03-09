@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using jbzd.Common.RunnerThing;
 using jbzd.QuestSystem.QuestStructureElements;
@@ -19,7 +18,7 @@ namespace jbzd.QuestSystem.Goals
             questWithThisGoal.GoalItemCollected[index] += 1;
         }
 
-        public override bool GoalEndCondition(Quest questWithThisGoal)
+        public override bool GoalEndCondition(Quest questWithThisGoal, List<Actor> actors)
         {
             var index = questWithThisGoal.GoalName.IndexOf(name);
             
