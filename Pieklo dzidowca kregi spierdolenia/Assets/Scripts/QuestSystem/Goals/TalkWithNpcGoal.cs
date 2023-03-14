@@ -4,6 +4,7 @@ using jbzd.Common.RunnerThing;
 using jbzd.NPC;
 using jbzd.QuestSystem.QuestStructureElements;
 using jbzd.QuestSystem.TestFolder;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace jbzd.QuestSystem.Goals
@@ -12,6 +13,7 @@ namespace jbzd.QuestSystem.Goals
     public class TalkWithNpcGoal : GoalSO
     {
         [RunMethod]
+        [UsedImplicitly]
         public void ExecuteGoalScenario()
         {
             // nothing here is for purpose: if this goal was executed that means player chose right dialogue options,

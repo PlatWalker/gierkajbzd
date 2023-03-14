@@ -1,17 +1,19 @@
 using System.Collections.Generic;
+using System.Linq;
 using jbzd.Common.RunnerThing;
 using jbzd.NPC;
 using jbzd.QuestSystem.QuestStructureElements;
+using jbzd.QuestSystem.TestFolder;
 using JetBrains.Annotations;
 using UnityEngine;
 
 namespace jbzd.QuestSystem.Goals
 {
-    [CreateAssetMenu(menuName = "Quest/Goals/Escort Goal", fileName = " New EscortGoal")]
-    public class EscortGoal : GoalSO
+    [CreateAssetMenu(menuName = "Quest/Goals/Chase Goal", fileName = "New ChaseGoal")]
+    public class ChaseGoal : GoalSO
     {
         [field:SerializeField]
-        [Tooltip("Npc state that npc should be after stopped following player")]
+        [Tooltip("Npc state that npc should be after catching it")]
         public NpcController.NpcStates ExitNpcState { get; set; } = NpcController.NpcStates.Idle;
         
         [RunMethod]
@@ -19,21 +21,21 @@ namespace jbzd.QuestSystem.Goals
         public void ExecuteGoalScenario(List<Actor> actors)
         {
             var npcController = GetNpcControllerFromActorsList(actors);
-            
-            if (npcController.NpcState is NpcController.NpcStates.FollowPlayer)
+
+            if (npcController.NpcState is NpcController.NpcStates.RunAwayFromPlayer)
             {
                 npcController.NpcState = ExitNpcState;
                 return;
             }
             
-            npcController.NpcState = NpcController.NpcStates.FollowPlayer;
+            npcController.NpcState = NpcController.NpcStates.RunAwayFromPlayer;
         }
 
         public override bool GoalEndCondition(Quest questWithThisGoal, List<Actor> actors)
         {
             var npcController = GetNpcControllerFromActorsList(actors);
 
-            if (npcController.NpcState is NpcController.NpcStates.FollowPlayer) return false;
+            if (npcController.NpcState is NpcController.NpcStates.RunAwayFromPlayer) return false;
             
             npcController.NpcAgent.isStopped = true;
             return true;

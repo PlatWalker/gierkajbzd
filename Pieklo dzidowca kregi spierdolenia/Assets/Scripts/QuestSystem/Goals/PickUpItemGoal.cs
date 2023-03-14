@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using jbzd.Common.RunnerThing;
 using jbzd.QuestSystem.QuestStructureElements;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace jbzd.QuestSystem.Goals
@@ -12,6 +13,7 @@ namespace jbzd.QuestSystem.Goals
         public int GoalCompletionItemCount { get; private set; }
 
         [RunMethod]
+        [UsedImplicitly]
         public void ExecuteGoalScenario(Quest questWithThisGoal)
         {
             var index = questWithThisGoal.GoalName.IndexOf(name);

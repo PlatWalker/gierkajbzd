@@ -14,12 +14,16 @@ namespace jbzd.QuestSystem.TestFolder
     {
         private QuestManager _questManager;
         private PlayerManager _playerManager;
-        private NavMeshAgent _agent;
+        [HideInInspector]
+        public NavMeshAgent _agent;
         public GoalSO goalToAct;
         public Quest questToStart;
 
-        private bool _followPlayer;
-        
+        public bool _followPlayer;
+        public bool _runAwayFromPlayer;
+        public Transform[] waypoints;
+        private int _currentWaypointIndex;
+
         public void Awake()
         {
             _agent = GetComponent<NavMeshAgent>();
@@ -35,6 +39,7 @@ namespace jbzd.QuestSystem.TestFolder
         public void Update()
         {
             if(_followPlayer) _agent.SetDestination(_playerManager.transform.position - Vector3.one);
+            if (_runAwayFromPlayer) RunToWaypoints();
         }
 
         public void OnInteract()
@@ -44,7 +49,8 @@ namespace jbzd.QuestSystem.TestFolder
                 //Debug.Log("Quest Started");
                 _questManager.StartQuest(questToStart);
             }
-            else switch (goalToAct)
+            
+            switch (goalToAct)
             {
                 case TalkWithNpcGoal:
                     //Debug.Log("Dialogue opened");
@@ -53,6 +59,9 @@ namespace jbzd.QuestSystem.TestFolder
                 case EscortGoal:
                     //Debug.Log("Started Following");
                     StartFollow();
+                    break;
+                case ChaseGoal:
+                    _questManager.MakeActorPlay(goalToAct);
                     break;
             }
         }
@@ -80,6 +89,15 @@ namespace jbzd.QuestSystem.TestFolder
         public void StartDialogue()
         {
             Debug.Log("Quest dialogue Started");
+        }
+        
+        private void RunToWaypoints()
+        {
+            if (!(_agent.remainingDistance < 0.01f)) return;
+            if (_currentWaypointIndex > waypoints.Length - 1) return;
+
+            _agent.SetDestination(waypoints[_currentWaypointIndex].position);
+            _currentWaypointIndex += 1;
         }
     }
 }
