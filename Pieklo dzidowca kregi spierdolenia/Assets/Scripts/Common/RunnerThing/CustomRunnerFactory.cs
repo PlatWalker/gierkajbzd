@@ -37,6 +37,8 @@ namespace jbzd.Common.RunnerThing
                 $"There is no method marked with {nameof(RunMethod)} in {nameof(runnerData.GetType)}");
             Debug.Assert(listOfMethods.Count == 1, 
                 $"There can be only one method marked with {nameof(RunMethod)} in {nameof(runnerData.GetType)}" );
+            Debug.Assert(listOfMethods.Count == 0, 
+                $"There need to be at least one method marked with {nameof(RunMethod)} in {nameof(runnerData.GetType)}" );
             
             return new Runner(listOfMethods.First(), _container, runnerData); 
         }
