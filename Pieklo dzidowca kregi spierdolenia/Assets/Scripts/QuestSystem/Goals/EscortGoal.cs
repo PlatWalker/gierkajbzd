@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using jbzd.Common.RunnerThing;
 using jbzd.NPC;
 using jbzd.QuestSystem.QuestStructureElements;
@@ -18,7 +19,7 @@ namespace jbzd.QuestSystem.Goals
         [UsedImplicitly]
         public void ExecuteGoalScenario(List<Actor> actors)
         {
-            var npcController = GetNpcControllerFromActorsList(actors);
+            var npcController = GetComponentFromActorsList<NpcController>(actors).First();
             
             if (npcController.NpcState is NpcController.NpcStates.FollowPlayer)
             {
@@ -31,7 +32,7 @@ namespace jbzd.QuestSystem.Goals
 
         public override bool GoalEndCondition(Quest questWithThisGoal, List<Actor> actors)
         {
-            var npcController = GetNpcControllerFromActorsList(actors);
+            var npcController = GetComponentFromActorsList<NpcController>(actors).First();
 
             if (npcController.NpcState is NpcController.NpcStates.FollowPlayer) return false;
             

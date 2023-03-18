@@ -25,6 +25,7 @@ namespace jbzdy.Enemies
 		public Vector3 GoToPoint { get; protected set; }
 		public NavMeshAgent NavAgent { get; protected set; }
 		public int PatrolStepsCounter { get; protected set; }
+		[field:SerializeField]
 		public virtual int CurrentHealth { get; protected set; }
 		public virtual Vector3 SpawnPoint { get; protected set; }
 		public virtual int MaximumHealth => EnemyData.MaxHealth;
@@ -36,7 +37,7 @@ namespace jbzdy.Enemies
         protected EnemySoundController soundController;
 
         public delegate void EnemyDied(EnemyController enemy);
-        public static event EnemyDied OnDeath;
+        public event EnemyDied OnDeath;
 
 
         protected virtual void Start()

@@ -20,7 +20,7 @@ namespace jbzd.QuestSystem.Goals
         [UsedImplicitly]
         public void ExecuteGoalScenario(List<Actor> actors)
         {
-            var npcController = GetNpcControllerFromActorsList(actors);
+            var npcController = GetComponentFromActorsList<NpcController>(actors).First();
 
             if (npcController.NpcState is NpcController.NpcStates.RunAwayFromPlayer)
             {
@@ -33,7 +33,7 @@ namespace jbzd.QuestSystem.Goals
 
         public override bool GoalEndCondition(Quest questWithThisGoal, List<Actor> actors)
         {
-            var npcController = GetNpcControllerFromActorsList(actors);
+            var npcController = GetComponentFromActorsList<NpcController>(actors).First();
 
             if (npcController.NpcState is NpcController.NpcStates.RunAwayFromPlayer) return false;
             

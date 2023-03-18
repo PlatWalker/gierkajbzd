@@ -7,11 +7,8 @@ using UnityEngine;
 namespace jbzd.QuestSystem.Goals
 {
     [CreateAssetMenu(menuName = "Quest/Goals/Pick Up Item Goal", fileName = "New PickUpItemGoal")]
-    public class PickUpItemGoal : GoalSO
+    public class PickUpItemGoal : GoalInvolvingCollectingSO
     {
-        [field:SerializeField]
-        public int GoalCompletionItemCount { get; private set; }
-
         [RunMethod]
         [UsedImplicitly]
         public void ExecuteGoalScenario(Quest questWithThisGoal)

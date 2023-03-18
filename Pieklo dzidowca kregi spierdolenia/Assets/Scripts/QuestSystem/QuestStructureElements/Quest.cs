@@ -67,11 +67,11 @@ namespace jbzd.QuestSystem.QuestStructureElements
 
             foreach (var goal in QuestData.Tasks.SelectMany(task => task.Goals))
             {
-                if (goal is not PickUpItemGoal pickUpItemGoal) continue;
+                if (goal is not GoalInvolvingCollectingSO goalInvolvingCollecting) continue;
                 
                 GoalName.Add(goal.name);
                 GoalItemCollected.Add(0);
-                GoalCompletionItemCount.Add(pickUpItemGoal.GoalCompletionItemCount);
+                GoalCompletionItemCount.Add(goalInvolvingCollecting.GoalCompletionItemCount);
             }
         }
 
@@ -118,7 +118,7 @@ namespace jbzd.QuestSystem.QuestStructureElements
             CheckFinishCondition(passedGoal, actorsInPassedGoal);
         }
 
-        private void CheckFinishCondition(GoalSO goalToAct, List<Actor> actorsInPassedGoal)
+        public void CheckFinishCondition(GoalSO goalToAct, List<Actor> actorsInPassedGoal)
         {
             if (goalToAct.GoalEndCondition(this, actorsInPassedGoal))
             {

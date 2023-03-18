@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using jbzd.NPC;
 using UnityEngine;
 
 namespace jbzd.QuestSystem.QuestStructureElements
@@ -9,15 +8,20 @@ namespace jbzd.QuestSystem.QuestStructureElements
     {
         [field:SerializeField] public List<ActorSO> ActorsData { get; set; } = new();
         public abstract bool GoalEndCondition(Quest questWithThisGoal, List<Actor> actors);
-        
-        protected NpcController GetNpcControllerFromActorsList(List<Actor> actors)
+        protected List<T> GetComponentFromActorsList<T>(List<Actor> actors) where T : Component
         {
-            NpcController npcController = null;
+            var componentsFromActorsList = new List<T>();
 
-            var npcActor = actors.FirstOrDefault(actor => actor.gameObject.TryGetComponent(out npcController));
+            var actorsWithChosenComponent = actors.Where(actor =>
+            {
+                var isInActorSuchComponent = actor.gameObject.TryGetComponent(out T component);
+                componentsFromActorsList.Add(component);
+                return isInActorSuchComponent;
+            }).ToList();
 
-            if (npcActor is null) Debug.LogError("Something went wrong");
-            return npcController;
+            if (!actorsWithChosenComponent.Any()) Debug.LogError("There are no components of this type in actor list");
+            
+            return componentsFromActorsList;
         }
     }
 }

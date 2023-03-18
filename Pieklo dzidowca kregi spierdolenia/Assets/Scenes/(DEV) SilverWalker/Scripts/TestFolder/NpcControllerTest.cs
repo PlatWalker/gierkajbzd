@@ -63,6 +63,9 @@ namespace jbzd.QuestSystem.TestFolder
                 case ChaseGoal:
                     _questManager.MakeActorPlay(goalToAct);
                     break;
+                case KillEnemiesGoal:
+                    _questManager.MakeActorPlay(goalToAct);
+                    break;
             }
         }
 
