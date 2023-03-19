@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using jbzd.Common;
 using jbzd.Common.RunnerThing;
+using jbzd.Cutscenes;
 using jbzd.QuestSystem.Goals;
 using UnityEngine;
 using Zenject;
@@ -19,6 +20,7 @@ namespace jbzd.QuestSystem.QuestStructureElements
 
         private QuestManager _questManager;
         private RunnerFactory _runnerFactory;
+        private CutscenesManager _cutscenesManager;
         
         #region Quest Tracker Variables
 
@@ -55,10 +57,14 @@ namespace jbzd.QuestSystem.QuestStructureElements
         #endregion
 
         [Inject]
-        public void Constructor(QuestManager questManager, RunnerFactory runnerFactory)
+        public void Constructor(
+            QuestManager questManager,
+            RunnerFactory runnerFactory,
+            CutscenesManager cutscenesManager)
         {
             _questManager = questManager;
             _runnerFactory = runnerFactory;
+            _cutscenesManager = cutscenesManager;
         }
 
         private void Awake()
@@ -112,7 +118,8 @@ namespace jbzd.QuestSystem.QuestStructureElements
             runner.Run(new List<object>
             {
                 actorsInPassedGoal,
-                this
+                this,
+                _cutscenesManager
             });
             
             CheckFinishCondition(passedGoal, actorsInPassedGoal);
