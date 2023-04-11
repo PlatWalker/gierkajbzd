@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f610f74393c5da94b9d6bd751743b438, type: 3}
+  m_Name: GraphDialogue_Main_1_3
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: Dialogue_Main_1_3
+  <ContainerID>k__BackingField: 4b2fbfaff3fc9b243a0691e4723db8c1
+  <GraphContainerID>k__BackingField: ee19166417ac0724a9caf65bab7c2b80
+  <Groups>k__BackingField:
+  - rid: 6426248156766535728
+  - rid: 6426248156766535729
+  <Nodes>k__BackingField:
+  - rid: 6426248156766535730
+  - rid: 6426248156766535731
+  - rid: 6426248156766535732
+  references:
+    version: 2
+    RefIds:
+    - rid: 6426248156766535728
+      type: {class: GroupEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: aea7e947-310c-47aa-9681-2f46dabbe6ea
+        <Name>k__BackingField: Start
+        <Position>k__BackingField: {x: -25, y: -59}
+    - rid: 6426248156766535729
+      type: {class: GroupEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 9b359108-de6b-4108-8e19-b18e47234521
+        <Name>k__BackingField: Grupa
+        <Position>k__BackingField: {x: 247, y: -59}
+    - rid: 6426248156766535730
+      type: {class: EndGroupNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 8d63496e-0919-4840-bc89-74c79fc59fc0
+        <Choices>k__BackingField: []
+        <GroupID>k__BackingField: aea7e947-310c-47aa-9681-2f46dabbe6ea
+        <NodeType>k__BackingField: 7
+        <Position>k__BackingField: {x: 0, y: 0}
+        <SelectedGroup>k__BackingField: Grupa
+    - rid: 6426248156766535731
+      type: {class: EndGroupNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 0e71610b-0fd1-4eaa-9ee1-c1af6b4f19f3
+        <Choices>k__BackingField: []
+        <GroupID>k__BackingField: 9b359108-de6b-4108-8e19-b18e47234521
+        <NodeType>k__BackingField: 7
+        <Position>k__BackingField: {x: 679, y: 0}
+        <SelectedGroup>k__BackingField: Grupa
+    - rid: 6426248156766535732
+      type: {class: DialogueNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 729b781d-d66c-47af-a6f1-3885a142511b
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NodeID>k__BackingField: 0e71610b-0fd1-4eaa-9ee1-c1af6b4f19f3
+        <GroupID>k__BackingField: 9b359108-de6b-4108-8e19-b18e47234521
+        <NodeType>k__BackingField: 0
+        <Position>k__BackingField: {x: 272, y: 0}
+        <Text>k__BackingField: "Anon, do kurwy n\u0119dzy!"
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 190731da76bf37346aa29beab51e1412, type: 3}
+        <Audio>k__BackingField: {fileID: 0}

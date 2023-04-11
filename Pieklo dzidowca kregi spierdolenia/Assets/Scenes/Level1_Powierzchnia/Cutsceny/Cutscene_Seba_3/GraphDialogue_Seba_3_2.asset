@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f610f74393c5da94b9d6bd751743b438, type: 3}
+  m_Name: GraphDialogue_Seba_3_2
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: Dialogue_Seba_3_2
+  <ContainerID>k__BackingField: a6da9d54841c8274284741119b8ec316
+  <GraphContainerID>k__BackingField: 61bce70c8871d544784c484a58248b34
+  <Groups>k__BackingField:
+  - rid: 6426248115997638686
+  - rid: 6426248115997638687
+  <Nodes>k__BackingField:
+  - rid: 6426248115997638688
+  - rid: 6426248115997638689
+  - rid: 6426248115997638690
+  references:
+    version: 2
+    RefIds:
+    - rid: 6426248115997638686
+      type: {class: GroupEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 3018d7d0-7e13-4f61-9534-a1e530939394
+        <Name>k__BackingField: Start
+        <Position>k__BackingField: {x: -25, y: -59}
+    - rid: 6426248115997638687
+      type: {class: GroupEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 622e3bb6-482c-4b56-9f54-aabed0c18bb2
+        <Name>k__BackingField: Grupa
+        <Position>k__BackingField: {x: 247, y: -122}
+    - rid: 6426248115997638688
+      type: {class: EndGroupNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 7f3b5d31-de2a-49f9-ba3b-d90fc09e4e05
+        <Choices>k__BackingField: []
+        <GroupID>k__BackingField: 3018d7d0-7e13-4f61-9534-a1e530939394
+        <NodeType>k__BackingField: 7
+        <Position>k__BackingField: {x: 0, y: 0}
+        <SelectedGroup>k__BackingField: Grupa
+    - rid: 6426248115997638689
+      type: {class: DialogueNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 56b72e90-ef7e-4958-807c-68fb12ff8dc4
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NodeID>k__BackingField: 4ea16ba7-0afe-4790-a434-df2c1777e9f2
+        <GroupID>k__BackingField: 622e3bb6-482c-4b56-9f54-aabed0c18bb2
+        <NodeType>k__BackingField: 0
+        <Position>k__BackingField: {x: 272, y: -63}
+        <Text>k__BackingField: HWDP!
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <NpcImage>k__BackingField: {fileID: 0}
+        <Audio>k__BackingField: {fileID: 0}
+    - rid: 6426248115997638690
+      type: {class: EndGroupNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 4ea16ba7-0afe-4790-a434-df2c1777e9f2
+        <Choices>k__BackingField: []
+        <GroupID>k__BackingField: 622e3bb6-482c-4b56-9f54-aabed0c18bb2
+        <NodeType>k__BackingField: 7
+        <Position>k__BackingField: {x: 703, y: -63}
+        <SelectedGroup>k__BackingField: Grupa

@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14c93c62eb7066244848451977371de8, type: 3}
+  m_Name: Dialogue_Seba_3
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: Dialogue_Seba_3
+  <GraphContainerID>k__BackingField: a5e11012e7eaa764982e18a91b48251d
+  <ContainerID>k__BackingField: 71daa989b2c7ccb4b9f7c73edeb16305
+  <Groups>k__BackingField:
+    m_Keys:
+    - <GroupName>k__BackingField: Start
+    - <GroupName>k__BackingField: Grupa
+    m_Values:
+    - myList:
+      - rid: 6426248115997638682
+    - myList:
+      - rid: 6426248115997638683
+      - rid: 6426248115997638684
+      - rid: 6426248115997638685
+  references:
+    version: 2
+    RefIds:
+    - rid: 6426248115997638682
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 0c489ba9-1948-4215-872a-f9a2f4abac53
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 1
+        <SelectedGroup>k__BackingField: Grupa
+    - rid: 6426248115997638683
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 0f4139ee-2604-4c83-ba65-feaca9fe4c88
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 9812e74a-d0cd-4757-ace3-906d6d8970fe
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 1
+        <Text>k__BackingField: "Dobra, ziomeczki, zapierdalamy podriftowa\u0107 pod
+          biedr\u0119!"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: c0890cb42e541234c87c97d19f2f6f82, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 0}
+    - rid: 6426248115997638684
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 9812e74a-d0cd-4757-ace3-906d6d8970fe
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 14b8917b-e7b5-49c6-ad0b-c1a4a331e070
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: Mati, kopsnij szluga!
+        <NpcImage>k__BackingField: {fileID: 0}
+        <PlayerImage>k__BackingField: {fileID: 0}
+    - rid: 6426248115997638685
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 14b8917b-e7b5-49c6-ad0b-c1a4a331e070
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: Start

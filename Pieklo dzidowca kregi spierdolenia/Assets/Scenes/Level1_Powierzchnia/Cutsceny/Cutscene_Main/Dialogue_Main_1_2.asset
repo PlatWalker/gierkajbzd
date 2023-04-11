@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14c93c62eb7066244848451977371de8, type: 3}
+  m_Name: Dialogue_Main_1_2
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: Dialogue_Main_1_2
+  <GraphContainerID>k__BackingField: 9dd8027b3715d1a4985b5640a96b12dd
+  <ContainerID>k__BackingField: 25bc29d00d483fc4a814aef818a77f13
+  <Groups>k__BackingField:
+    m_Keys:
+    - <GroupName>k__BackingField: Start
+    - <GroupName>k__BackingField: Grupa
+    m_Values:
+    - myList:
+      - rid: 6426248156766535693
+    - myList:
+      - rid: 6426248156766535694
+      - rid: 6426248156766535695
+  references:
+    version: 2
+    RefIds:
+    - rid: 6426248156766535693
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: aa6f27f6-1c7a-49a3-bb4a-31c2d8dfd20a
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 1
+        <SelectedGroup>k__BackingField: Grupa
+    - rid: 6426248156766535694
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: cde5868b-8401-4111-8f0f-cb84b393791b
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 7f57cc6a-042f-44c9-9d77-b25b7f4d1d71
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 1
+        <Text>k__BackingField: I mojego browara?
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: b3acfe7c911c46a43bf97c3d6e97c719, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 0}
+    - rid: 6426248156766535695
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 7f57cc6a-042f-44c9-9d77-b25b7f4d1d71
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: Grupa

@@ -1,0 +1,124 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14c93c62eb7066244848451977371de8, type: 3}
+  m_Name: Dialogue_Zdzichu_end
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: Dialogue_Zdzichu_end
+  <GraphContainerID>k__BackingField: dd5a958ab98fbaf4e89d32568137fd2c
+  <ContainerID>k__BackingField: 903923e1c90b7034a80ceb6a20935aaa
+  <Groups>k__BackingField:
+    m_Keys:
+    - <GroupName>k__BackingField: Start
+    - <GroupName>k__BackingField: Grupa
+    m_Values:
+    - myList:
+      - rid: 6426248040834924826
+    - myList:
+      - rid: 6426248040834924827
+      - rid: 6426248040834924828
+      - rid: 6426248040834924829
+      - rid: 6426248040834924830
+      - rid: 6426248040834924831
+      - rid: 6426248040834924832
+      - rid: 6426248040834924833
+  references:
+    version: 2
+    RefIds:
+    - rid: 6426248040834924826
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: ee1ee573-605e-4d4a-b45d-65297ae3fcd4
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 1
+        <SelectedGroup>k__BackingField: Grupa
+    - rid: 6426248040834924827
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 9d1ce964-8626-46ab-b621-28ccedd220bf
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 8072d25a-a847-4934-b0ca-5179e81b5a18
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 1
+        <Text>k__BackingField: "Osz Ty, z\u0142odziejska kurwo!"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 19ad5b6eca17266488f676edaae8fbc5, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 0}
+    - rid: 6426248040834924828
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 8072d25a-a847-4934-b0ca-5179e81b5a18
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: dfe0e141-01a7-41f7-899e-11f2e6b26eef
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "Co? Przecie\u017C to nie ja!"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 215b529c334a6034a97ed6a927df8245, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 0}
+    - rid: 6426248040834924829
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: dfe0e141-01a7-41f7-899e-11f2e6b26eef
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 1ea3106b-03ae-4d4f-8d8c-8caa9a2a0661
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "Spu\u015B\u0107my mu wpierdol, to go oduczy kradzie\u017Cy!"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 489b378ea2814d7479cc1d2db0094d3e, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 0}
+    - rid: 6426248040834924830
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: a240f29d-367e-4007-a166-5d22d16e4653
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: Grupa
+    - rid: 6426248040834924831
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 1ea3106b-03ae-4d4f-8d8c-8caa9a2a0661
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: b4b25df0-f6e9-4f86-a679-271b5046c68e
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "Jakiej, kurwa, kradzie\u017Cy? To nie ja! To..."
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 215b529c334a6034a97ed6a927df8245, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 0}
+    - rid: 6426248040834924832
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: b4b25df0-f6e9-4f86-a679-271b5046c68e
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: a830b681-4436-485f-a538-9c9c26099d19
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: Zamknij ryja!
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 19ad5b6eca17266488f676edaae8fbc5, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 0}
+    - rid: 6426248040834924833
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: a830b681-4436-485f-a538-9c9c26099d19
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: a240f29d-367e-4007-a166-5d22d16e4653
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "Ej, m\u0142ody! Kurwa, zr\xF3b co\u015B! To nie ja,
+          s\u0142owo!"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 215b529c334a6034a97ed6a927df8245, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 0}

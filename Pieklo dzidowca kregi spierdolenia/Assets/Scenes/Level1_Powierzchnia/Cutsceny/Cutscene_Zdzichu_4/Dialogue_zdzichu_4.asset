@@ -1,0 +1,126 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14c93c62eb7066244848451977371de8, type: 3}
+  m_Name: Dialogue_zdzichu_4
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: Dialogue_zdzichu_4
+  <GraphContainerID>k__BackingField: 4a5b2f821160e6e41bac51b72c0e45ad
+  <ContainerID>k__BackingField: 16be50ca2a91a0549b872c6112ed1f7a
+  <Groups>k__BackingField:
+    m_Keys:
+    - <GroupName>k__BackingField: Start
+    - <GroupName>k__BackingField: Grupa
+    m_Values:
+    - myList:
+      - rid: 6426248040834924770
+    - myList:
+      - rid: 6426248040834924771
+      - rid: 6426248040834924772
+      - rid: 6426248040834924773
+      - rid: 6426248040834924774
+      - rid: 6426248040834924775
+      - rid: 6426248040834924776
+      - rid: 6426248040834924777
+  references:
+    version: 2
+    RefIds:
+    - rid: 6426248040834924770
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 6a9622fe-2c19-4ed7-88f1-fc9888d51a60
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 1
+        <SelectedGroup>k__BackingField: Grupa
+    - rid: 6426248040834924771
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 07711eac-7528-4064-bac4-b487b810ed76
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 39c6652f-74d4-4585-b9ff-a943d9716dbb
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 1
+        <Text>k__BackingField: "Kurwa, nareszcie jeste\u015Bcie!"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 4d1d14bab2c7fb343a936edb5a1fe207, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 0}
+    - rid: 6426248040834924772
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 39c6652f-74d4-4585-b9ff-a943d9716dbb
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 8f02950f-9a78-47d4-a9a9-9711f6d91c10
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "Do\u015B\u0107 pierdolenia, robota czeka!"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 489b378ea2814d7479cc1d2db0094d3e, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 0}
+    - rid: 6426248040834924773
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 8f02950f-9a78-47d4-a9a9-9711f6d91c10
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: fca0be1b-27d4-4fcd-ad6a-4f4df85250a1
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "M\u0142ody, przeszukaj okolice monopolowego, mo\u017Ce
+          znajdziesz jakie\u015B \u015Blady!"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 489b378ea2814d7479cc1d2db0094d3e, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+    - rid: 6426248040834924774
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: fca0be1b-27d4-4fcd-ad6a-4f4df85250a1
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 72e5521e-8815-42fc-a146-55d300815b5d
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "I porozmawiaj z Gra\u017Cynk\u0105, mo\u017Ce ona
+          co\u015B widzia\u0142a!"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: b147af7d5ab7e784c901bc3f32f23346, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 0}
+    - rid: 6426248040834924775
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 72e5521e-8815-42fc-a146-55d300815b5d
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: da6ecd06-166a-437e-8856-3b9f3c8c8abd
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "A co WY b\u0119dziecie robi\u0107 w tym czasie?"
+        <NpcImage>k__BackingField: {fileID: 0}
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 8b0fb904dd04b9e4caf726c0f3ae2379, type: 3}
+    - rid: 6426248040834924776
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: da6ecd06-166a-437e-8856-3b9f3c8c8abd
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 7323f4eb-e931-4675-8a3e-c1763b33d451
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "Gra\u017Cynka zadzwoni po psy, je\u017Celi b\u0119dziemy
+          za bardzo w\u0119szy\u0107, sam rozumiesz..."
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: b823da9b96a205644ae2f0f0a944e584, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 0}
+    - rid: 6426248040834924777
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 7323f4eb-e931-4675-8a3e-c1763b33d451
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: Grupa

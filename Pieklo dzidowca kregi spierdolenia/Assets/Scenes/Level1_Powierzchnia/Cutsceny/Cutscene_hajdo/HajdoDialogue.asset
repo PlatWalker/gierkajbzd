@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14c93c62eb7066244848451977371de8, type: 3}
+  m_Name: HajdoDialogue
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: HajdoDialogue
+  <GraphContainerID>k__BackingField: cc053ee188eaf90408b78e4b282bbe4f
+  <ContainerID>k__BackingField: ca2de3dab26e6424d8f5cd5a0a6b7b59
+  <Groups>k__BackingField:
+    m_Keys:
+    - <GroupName>k__BackingField: Start
+    - <GroupName>k__BackingField: Grupa
+    m_Values:
+    - myList:
+      - rid: 6426248040834924565
+    - myList:
+      - rid: 6426248040834924566
+      - rid: 6426248040834924567
+  references:
+    version: 2
+    RefIds:
+    - rid: 6426248040834924565
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 99f779d8-42d3-4543-99a1-089b1cd6463e
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 1
+        <SelectedGroup>k__BackingField: Grupa
+    - rid: 6426248040834924566
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 18ff39d0-a763-48e5-8c5e-26c2680d7aec
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: Grupa
+    - rid: 6426248040834924567
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: f6820c06-804d-4944-8c12-d62857339666
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 18ff39d0-a763-48e5-8c5e-26c2680d7aec
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 1
+        <Text>k__BackingField: Na rany Chrystusa, to on!
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 279690568ed238f4796072a605b899c6, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 0}

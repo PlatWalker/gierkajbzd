@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14c93c62eb7066244848451977371de8, type: 3}
+  m_Name: Dialogue_Zdzichu_5_2
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: Dialogue_Zdzichu_5_2
+  <GraphContainerID>k__BackingField: 8e8a571f21f200b44a893c8aa4eb9c9a
+  <ContainerID>k__BackingField: 3ac1baffeec809c4eb496b2a91f5a1f5
+  <Groups>k__BackingField:
+    m_Keys:
+    - <GroupName>k__BackingField: Start
+    - <GroupName>k__BackingField: Grupa
+    m_Values:
+    - myList:
+      - rid: 6426248040834924794
+    - myList:
+      - rid: 6426248040834924795
+      - rid: 6426248040834924796
+      - rid: 6426248040834924797
+  references:
+    version: 2
+    RefIds:
+    - rid: 6426248040834924794
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 2497ca37-8c00-438c-878c-762d1571b380
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 1
+        <SelectedGroup>k__BackingField: Grupa
+    - rid: 6426248040834924795
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 6d358487-77c5-4a4c-ad9e-604617399c27
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: b7379a79-bc5e-4edf-bd52-9424dbb4968e
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 1
+        <Text>k__BackingField: "Co jest, w pizd\u0119 palec?!"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: b4e5fe776f4585b4093d15d7e3fa40c8, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 0}
+    - rid: 6426248040834924796
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: b7379a79-bc5e-4edf-bd52-9424dbb4968e
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: e1a26643-4334-4bc3-a9d5-50c380b5a1ed
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "Zamknij mord\u0119! M\u0142ody, przeszukaj mu w\xF3zek!"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 19ad5b6eca17266488f676edaae8fbc5, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 0}
+    - rid: 6426248040834924797
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: e1a26643-4334-4bc3-a9d5-50c380b5a1ed
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: Grupa

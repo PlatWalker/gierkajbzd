@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14c93c62eb7066244848451977371de8, type: 3}
+  m_Name: Dialogue_Hajdo_End
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: Dialogue_Hajdo_End
+  <GraphContainerID>k__BackingField: f5ea7eec6a0c2bd438933adec8f631f9
+  <ContainerID>k__BackingField: 649e2e6042667864584af38ceb0ec6f3
+  <Groups>k__BackingField:
+    m_Keys:
+    - <GroupName>k__BackingField: Start
+    - <GroupName>k__BackingField: Grupa
+    m_Values:
+    - myList:
+      - rid: 6426248040834924573
+    - myList:
+      - rid: 6426248040834924574
+      - rid: 6426248040834924575
+  references:
+    version: 2
+    RefIds:
+    - rid: 6426248040834924573
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: d0f11e31-16b4-42d1-ae2f-2a1c1e408975
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 1
+        <SelectedGroup>k__BackingField: Grupa
+    - rid: 6426248040834924574
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 4febbba5-ea94-460a-8eba-11bb1c562809
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 27a2041a-fbc0-4909-8796-e16b6852607f
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 1
+        <Text>k__BackingField: "Dzi\u0119kujemy ci, m\u0142ody cz\u0142owieku, co
+          by\u015Bmy bez ciebie zrobi\u0142y"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 693384a8fef9a524094c4a7f8e4f6f57, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+    - rid: 6426248040834924575
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 27a2041a-fbc0-4909-8796-e16b6852607f
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: Grupa

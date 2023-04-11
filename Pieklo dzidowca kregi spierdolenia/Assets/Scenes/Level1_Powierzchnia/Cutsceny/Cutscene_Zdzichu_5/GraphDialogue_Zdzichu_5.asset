@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f610f74393c5da94b9d6bd751743b438, type: 3}
+  m_Name: GraphDialogue_Zdzichu_5
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: Dialogue_Zdzichu_5
+  <ContainerID>k__BackingField: 92556be3d97c26c4aa9fc3449678caed
+  <GraphContainerID>k__BackingField: 33ee1c10943389044a354cdfdb8b8a2e
+  <Groups>k__BackingField:
+  - rid: 6426248040834924778
+  - rid: 6426248040834924779
+  <Nodes>k__BackingField:
+  - rid: 6426248040834924780
+  - rid: 6426248040834924781
+  - rid: 6426248040834924782
+  - rid: 6426248040834924783
+  references:
+    version: 2
+    RefIds:
+    - rid: 6426248040834924778
+      type: {class: GroupEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 296aee3f-e503-4334-87bb-adc64188ceb4
+        <Name>k__BackingField: Start
+        <Position>k__BackingField: {x: -25, y: -59}
+    - rid: 6426248040834924779
+      type: {class: GroupEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 91b1422c-575b-483e-bde9-7bd1235ef24c
+        <Name>k__BackingField: Grupa
+        <Position>k__BackingField: {x: 245, y: -144}
+    - rid: 6426248040834924780
+      type: {class: EndGroupNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: f7562d6e-18cd-4875-a915-d4f448d19ef5
+        <Choices>k__BackingField: []
+        <GroupID>k__BackingField: 296aee3f-e503-4334-87bb-adc64188ceb4
+        <NodeType>k__BackingField: 7
+        <Position>k__BackingField: {x: 0, y: 0}
+        <SelectedGroup>k__BackingField: Grupa
+    - rid: 6426248040834924781
+      type: {class: DialogueNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: badd3a52-2869-4106-bf42-5d1c4b636338
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NodeID>k__BackingField: 328ec969-5957-4fde-b263-2b962542ac1f
+        <GroupID>k__BackingField: 91b1422c-575b-483e-bde9-7bd1235ef24c
+        <NodeType>k__BackingField: 0
+        <Position>k__BackingField: {x: 270, y: -85}
+        <Text>k__BackingField: Bingo!
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: b147af7d5ab7e784c901bc3f32f23346, type: 3}
+        <Audio>k__BackingField: {fileID: 0}
+    - rid: 6426248040834924782
+      type: {class: DialogueNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 328ec969-5957-4fde-b263-2b962542ac1f
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NodeID>k__BackingField: 0114f265-3979-474e-a284-2a7f1f2c6c29
+        <GroupID>k__BackingField: 91b1422c-575b-483e-bde9-7bd1235ef24c
+        <NodeType>k__BackingField: 0
+        <Position>k__BackingField: {x: 677, y: -85}
+        <Text>k__BackingField: "Mamy skurwysyna! Pewnie nied\u0142ugo tutaj b\u0119dzie.
+          Przyczaimy si\u0119 na niego w \u015Brodku!"
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 4d1d14bab2c7fb343a936edb5a1fe207, type: 3}
+        <Audio>k__BackingField: {fileID: 0}
+    - rid: 6426248040834924783
+      type: {class: EndGroupNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 0114f265-3979-474e-a284-2a7f1f2c6c29
+        <Choices>k__BackingField: []
+        <GroupID>k__BackingField: 91b1422c-575b-483e-bde9-7bd1235ef24c
+        <NodeType>k__BackingField: 7
+        <Position>k__BackingField: {x: 1257, y: -85}
+        <SelectedGroup>k__BackingField: Grupa

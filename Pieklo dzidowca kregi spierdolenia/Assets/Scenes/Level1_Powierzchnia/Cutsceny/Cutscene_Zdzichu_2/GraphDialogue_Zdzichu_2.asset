@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f610f74393c5da94b9d6bd751743b438, type: 3}
+  m_Name: GraphDialogue_Zdzichu_2
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: Dialogue_Zdzichu_2
+  <ContainerID>k__BackingField: 689cc7e77dfabe54e9985f96fe74f69e
+  <GraphContainerID>k__BackingField: d17b9420f7bb81441bc6218b393be862
+  <Groups>k__BackingField:
+  - rid: 6426248040834924692
+  - rid: 6426248040834924693
+  <Nodes>k__BackingField:
+  - rid: 6426248040834924694
+  - rid: 6426248040834924695
+  - rid: 6426248040834924696
+  references:
+    version: 2
+    RefIds:
+    - rid: 6426248040834924692
+      type: {class: GroupEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 49470f57-177c-463e-91ef-573a784d8322
+        <Name>k__BackingField: Start
+        <Position>k__BackingField: {x: -25, y: -59}
+    - rid: 6426248040834924693
+      type: {class: GroupEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 54f055c7-af91-4d51-ab89-00a3f7d39d43
+        <Name>k__BackingField: Grupa
+        <Position>k__BackingField: {x: 259, y: -112}
+    - rid: 6426248040834924694
+      type: {class: EndGroupNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 8f4801bd-2553-4fae-a3f1-ef3a765f8ce6
+        <Choices>k__BackingField: []
+        <GroupID>k__BackingField: 49470f57-177c-463e-91ef-573a784d8322
+        <NodeType>k__BackingField: 7
+        <Position>k__BackingField: {x: 0, y: 0}
+        <SelectedGroup>k__BackingField: Grupa
+    - rid: 6426248040834924695
+      type: {class: EndGroupNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: f8622924-b8d4-47b6-a389-01b8582ef6ea
+        <Choices>k__BackingField: []
+        <GroupID>k__BackingField: 54f055c7-af91-4d51-ab89-00a3f7d39d43
+        <NodeType>k__BackingField: 7
+        <Position>k__BackingField: {x: 744, y: -53}
+        <SelectedGroup>k__BackingField: Grupa
+    - rid: 6426248040834924696
+      type: {class: DialogueNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: f21123db-68fc-4d13-89ca-af1a1b0c961a
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NodeID>k__BackingField: f8622924-b8d4-47b6-a389-01b8582ef6ea
+        <GroupID>k__BackingField: 54f055c7-af91-4d51-ab89-00a3f7d39d43
+        <NodeType>k__BackingField: 0
+        <Position>k__BackingField: {x: 284, y: -53}
+        <Text>k__BackingField: "Te, J\xF3zwa! Cho no tu!"
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 01295fa5bd053974990a134185033d40, type: 3}
+        <Audio>k__BackingField: {fileID: 0}
