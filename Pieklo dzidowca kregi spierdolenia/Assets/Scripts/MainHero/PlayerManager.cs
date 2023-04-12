@@ -9,7 +9,11 @@ using jbzd.Common.InputSystem.Inputs;
 using jbzd.MainHero.LegacyHeroThings.Stats;
 using jbzd.MainHero.PlayerControllers;
 using jbzd.MainHero.PlayerStateLogic;
-
+using UnityEngine.VFX;
+using System;
+using UnityEngine.XR;
+using UnityEditor;
+using System.Reflection;
 
 namespace jbzd.MainHero
 {
@@ -94,7 +98,7 @@ namespace jbzd.MainHero
             RegisterStatesLogic();
             PlayerStringAnimParam.AnimatorParametersCheck(CharacterAnimator);
         }
-        
+
         private void RegisterStatesLogic()
         {
             var behaviour = CharacterAnimator.GetBehaviours<MainHeroBehaviour>().First();
@@ -134,12 +138,13 @@ namespace jbzd.MainHero
 
         private void Update()
         {
+            
             var playerStateLogic = _stateLogicObjects.FirstOrDefault(x =>
                 x.MonoBehaviourMethodInWhichInvoked() == MonoBehaviourMethod.Update &&
                 x.PlayerStateInWhichInvoked() == playerState);
 
             if (playerStateLogic != null) playerState = playerStateLogic.StateLogic();
-            
+
             //Synchronising running animation with character speed
             CharacterAnimator.SetFloat(PlayerStringAnimParam.RunSpeed, Rb.velocity.magnitude);
         }
@@ -181,10 +186,14 @@ namespace jbzd.MainHero
         private void OnStateExitJbzd(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             if (!isTransitionStateJbzd(stateInfo))
+            {
                 animator.SetBool(PlayerStringAnimParam.AttackParam, false);
+            }
 
             if (isAttackAnimationPlayingJbzd(stateInfo))
-                animator.SetBool(PlayerStringAnimParam.AttackInProgressParam, false);            
+            {
+                animator.SetBool(PlayerStringAnimParam.AttackInProgressParam, false);
+            }
         }
 
         private void StickPlayerToGround()
