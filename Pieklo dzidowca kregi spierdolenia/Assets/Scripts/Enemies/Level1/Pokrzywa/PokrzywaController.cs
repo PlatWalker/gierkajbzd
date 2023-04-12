@@ -1,58 +1,46 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using jbzd.Common.Interfaces;
+﻿using jbzd.Common.Interfaces;
+using TheKiwiCoder;
 using UnityEngine;
 
-namespace jbzdy.Enemies
+namespace jbzd.Enemies.Level1.Pokrzywa
 {
     public class PokrzywaController : MonoBehaviour, IDamageable
     {
+        [SerializeField] private BehaviourTree tree;
         [SerializeField] private EnemyDataContainer PokrzywaData=null;
-        [SerializeField] private float damageDealRatio = 1f;
         [SerializeField] private DamageController damageController;
         public int MaximumHealth { get => PokrzywaData.MaxHealth; }
         public int CurrentHealth { get; private set; }
 
-        private float damageTimer = 0.0f;
-        private float disappearTimer = 0.0f;
-        // Start is called before the first frame update
+        private Context _context;
+
         void Start()
         {
+            _context = CreateBehaviourTreeContext();
+            tree = tree.Clone();
+            tree.Bind(_context);
+
             damageController = GetComponent<DamageController>();
             damageController.SetUp(PokrzywaData.Damage);
+            tree.blackboard.damageController = damageController;
             CurrentHealth = MaximumHealth;
+            tree.blackboard.currentHealth = CurrentHealth;
             GetComponent<Animator>().SetFloat("idlingSpeed", Random.Range(0.5f, 1.5f));
         }
 
-        // Update is called once per frame
         void Update()
         {
-            if (CurrentHealth > 0)
+            if (tree)
             {
-                damageTimer += Time.deltaTime;
-                if (damageTimer >= damageDealRatio)
-                {
-                    damageController.DamageDealed = false;
-                    damageTimer = 0f;
-                }
+                tree.Update();
             }
-            else
-            {
-                GetComponent<Animator>().SetBool("isDying",true);
-                disappearTimer += Time.deltaTime;
-                if (disappearTimer >= PokrzywaData.DisappearAfter) Destroy(this.gameObject);
-            }
-        }
-
-        private void HandleGrownig()
-        {
-
         }
 
         public void SetDamage(int damageAmount, DamageType damageType)
         {
             //for now damage types are ignored
             CurrentHealth -= damageAmount;
+            tree.blackboard.currentHealth = CurrentHealth;
         }
 
         public void SetDamage(int damageAmount, DamageType damageType, float criticalMultiplier, float criticalChance)
@@ -62,6 +50,22 @@ namespace jbzdy.Enemies
                 damageAmount = (int)(damageAmount * criticalMultiplier);
             }
             this.SetDamage(damageAmount, damageType);
+        }
+
+        Context CreateBehaviourTreeContext() {
+            return Context.CreateFromGameObject(gameObject);
+        }
+
+        private void OnDrawGizmosSelected() {
+            if (!tree) {
+                return;
+            }
+
+            BehaviourTree.Traverse(tree.rootNode, (n) => {
+                if (n.drawGizmos) {
+                    n.OnDrawGizmos();
+                }
+            });
         }
     }
 }

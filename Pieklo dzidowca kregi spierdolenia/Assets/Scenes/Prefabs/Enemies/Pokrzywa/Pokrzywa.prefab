@@ -668,7 +668,7 @@ CapsuleCollider:
   m_Center: {x: -0.2, y: 1.4, z: 0}
 --- !u!95 &6462280069282152184
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -685,7 +685,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!114 &6462280069282152187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -710,6 +710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b81e56f3fffa584994a6aee8bfa4da9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tree: {fileID: 11400000, guid: 5cb4e5841de856e41abfe90d2e534c33, type: 2}
   PokrzywaData: {fileID: 11400000, guid: c9d364b092e2f2243a5c150d7f3ba635, type: 2}
   damageDealRatio: 1
   damageController: {fileID: 6462280069282152187}
@@ -725,9 +726,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eabc5620260bb1c4b82701d29d5d6f9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  growUpRatio: 60
-  variesBy: 30
-  maxSpreadDistance: 3
 --- !u!1 &6186072257900130000
 GameObject:
   m_ObjectHideFlags: 0
