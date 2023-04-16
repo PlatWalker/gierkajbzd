@@ -1,0 +1,189 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f610f74393c5da94b9d6bd751743b438, type: 3}
+  m_Name: GraphDialogGlownyCygan
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: DialogGlownyCygan
+  <ContainerID>k__BackingField: e7d266633f08a934290988cc5aa47b0d
+  <GraphContainerID>k__BackingField: 18a50097ab063ee4d9408dd2fedcdc60
+  <Groups>k__BackingField:
+  - rid: 4904837041874534455
+  - rid: 4904837041874534456
+  <Nodes>k__BackingField:
+  - rid: 4904837041874534457
+  - rid: 4904837041874534458
+  - rid: 4904837041874534459
+  - rid: 4904837041874534460
+  - rid: 4904837041874534461
+  - rid: 4904837041874534462
+  - rid: 4904837041874534463
+  - rid: 4904837041874534464
+  - rid: 4904837041874534465
+  - rid: 4904837041874534466
+  - rid: 4904837041874534467
+  references:
+    version: 2
+    RefIds:
+    - rid: 4904837041874534455
+      type: {class: GroupEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: bfea6015-0186-4e3f-a172-a87642930785
+        <Name>k__BackingField: Start
+        <Position>k__BackingField: {x: -25, y: -59}
+    - rid: 4904837041874534456
+      type: {class: GroupEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: dab2410b-9cbf-494c-8d15-664e605a4c02
+        <Name>k__BackingField: Main
+        <Position>k__BackingField: {x: 458.00006, y: -142.00003}
+    - rid: 4904837041874534457
+      type: {class: EndGroupNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: d07f8fc9-f894-448b-83d9-f4eff6184485
+        <Choices>k__BackingField: []
+        <GroupID>k__BackingField: bfea6015-0186-4e3f-a172-a87642930785
+        <NodeType>k__BackingField: 7
+        <Position>k__BackingField: {x: 0, y: 0}
+        <SelectedGroup>k__BackingField: Main
+    - rid: 4904837041874534458
+      type: {class: DialogueNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 779059cd-8682-46f0-af55-e22a2f38d834
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NodeID>k__BackingField: 1e198236-ec6e-40c7-8fd3-f7d0a4861d96
+        <GroupID>k__BackingField: dab2410b-9cbf-494c-8d15-664e605a4c02
+        <NodeType>k__BackingField: 0
+        <Position>k__BackingField: {x: 483, y: 12}
+        <Text>k__BackingField: "Te, masz pi\u0119\u0107 z\u0142ote?"
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <NpcImage>k__BackingField: {fileID: 0}
+        <Audio>k__BackingField: {fileID: 0}
+    - rid: 4904837041874534459
+      type: {class: DialogueNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 7f705de1-dc36-46e1-916f-631c877db917
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NodeID>k__BackingField: 810dbcc6-4b1a-4dc4-a28f-192c3a4a9711
+        <GroupID>k__BackingField: dab2410b-9cbf-494c-8d15-664e605a4c02
+        <NodeType>k__BackingField: 0
+        <Position>k__BackingField: {x: 1478, y: 132}
+        <Text>k__BackingField: "Mog\u0105 by\u0107 grube"
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <NpcImage>k__BackingField: {fileID: 0}
+        <Audio>k__BackingField: {fileID: 0}
+    - rid: 4904837041874534460
+      type: {class: DialogueNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 810dbcc6-4b1a-4dc4-a28f-192c3a4a9711
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: "Dobra, masz tu pi\u0119\u0107 z\u0142otych, ale
+            zagraj hymn ZSRR"
+          <NodeID>k__BackingField: 7a1c6965-9d97-4817-a3e0-e9c82621ae1d
+        - <Text>k__BackingField: Wyperdalaj!
+          <NodeID>k__BackingField: 9c4b51bd-a8c7-4290-a1dd-7bd569db2c3c
+        <GroupID>k__BackingField: dab2410b-9cbf-494c-8d15-664e605a4c02
+        <NodeType>k__BackingField: 1
+        <Position>k__BackingField: {x: 1936, y: 133}
+        <Text>k__BackingField: 
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <NpcImage>k__BackingField: {fileID: 0}
+        <Audio>k__BackingField: {fileID: 0}
+    - rid: 4904837041874534461
+      type: {class: DialogueNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 1e198236-ec6e-40c7-8fd3-f7d0a4861d96
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Jasne, ale zagraj hymn ZSRR
+          <NodeID>k__BackingField: c3361e34-58be-403d-b1c8-a3415ddb6650
+        - <Text>k__BackingField: "Nie nosz\u0119 drobnych"
+          <NodeID>k__BackingField: 7f705de1-dc36-46e1-916f-631c877db917
+        <GroupID>k__BackingField: dab2410b-9cbf-494c-8d15-664e605a4c02
+        <NodeType>k__BackingField: 1
+        <Position>k__BackingField: {x: 953, y: -10}
+        <Text>k__BackingField: 
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <NpcImage>k__BackingField: {fileID: 0}
+        <Audio>k__BackingField: {fileID: 0}
+    - rid: 4904837041874534462
+      type: {class: DialogueNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 9c4b51bd-a8c7-4290-a1dd-7bd569db2c3c
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NodeID>k__BackingField: b677ee60-579b-47d0-826e-8eb1372625a7
+        <GroupID>k__BackingField: dab2410b-9cbf-494c-8d15-664e605a4c02
+        <NodeType>k__BackingField: 0
+        <Position>k__BackingField: {x: 2610, y: 468}
+        <Text>k__BackingField: "Lins scrotul mare, transpirat \u0219i p\u0103ros!"
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <NpcImage>k__BackingField: {fileID: 0}
+        <Audio>k__BackingField: {fileID: 0}
+    - rid: 4904837041874534463
+      type: {class: DialogueNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 7a1c6965-9d97-4817-a3e0-e9c82621ae1d
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NodeID>k__BackingField: b36bcf7e-5fee-4cfa-b78b-085126e9db10
+        <GroupID>k__BackingField: dab2410b-9cbf-494c-8d15-664e605a4c02
+        <NodeType>k__BackingField: 0
+        <Position>k__BackingField: {x: 2540, y: 58}
+        <Text>k__BackingField: "Co? Ty, kurwa, \u015Bmieciu, m\xF3wi\u0142e\u015B,
+          \u017Ce nie masz drobnych! Zaraz ci zagram, ale marsz \u017Ca\u0142obny!
+          Cyganie! Assemble!"
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <NpcImage>k__BackingField: {fileID: 0}
+        <Audio>k__BackingField: {fileID: 0}
+    - rid: 4904837041874534464
+      type: {class: EndGroupNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: b677ee60-579b-47d0-826e-8eb1372625a7
+        <Choices>k__BackingField: []
+        <GroupID>k__BackingField: dab2410b-9cbf-494c-8d15-664e605a4c02
+        <NodeType>k__BackingField: 7
+        <Position>k__BackingField: {x: 3168, y: 478}
+        <SelectedGroup>k__BackingField: Start
+    - rid: 4904837041874534465
+      type: {class: ItemNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: c3361e34-58be-403d-b1c8-a3415ddb6650
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Gracz posiada item
+          <NodeID>k__BackingField: c4e6dc66-5c2e-4236-8832-f70751d1dc9c
+        - <Text>k__BackingField: Gracz nie posiada itemu
+          <NodeID>k__BackingField: c4e6dc66-5c2e-4236-8832-f70751d1dc9c
+        <GroupID>k__BackingField: dab2410b-9cbf-494c-8d15-664e605a4c02
+        <NodeType>k__BackingField: 3
+        <Position>k__BackingField: {x: 1543, y: -83}
+        <Item>k__BackingField: {fileID: 0}
+        <ItemsNumber>k__BackingField: 0
+        <IsItemAdded>k__BackingField: 0
+    - rid: 4904837041874534466
+      type: {class: EndGroupNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: b36bcf7e-5fee-4cfa-b78b-085126e9db10
+        <Choices>k__BackingField: []
+        <GroupID>k__BackingField: dab2410b-9cbf-494c-8d15-664e605a4c02
+        <NodeType>k__BackingField: 7
+        <Position>k__BackingField: {x: 3332, y: 103}
+        <SelectedGroup>k__BackingField: Main
+    - rid: 4904837041874534467
+      type: {class: EndGroupNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: c4e6dc66-5c2e-4236-8832-f70751d1dc9c
+        <Choices>k__BackingField: []
+        <GroupID>k__BackingField: dab2410b-9cbf-494c-8d15-664e605a4c02
+        <NodeType>k__BackingField: 7
+        <Position>k__BackingField: {x: 1942, y: -72}
+        <SelectedGroup>k__BackingField: Main

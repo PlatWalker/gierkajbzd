@@ -75,6 +75,7 @@ namespace jbzd.Dialogues.Editor
             
             this.AddManipulator(CreateNodeContextualMenu("Add Node (Single Choice)", NodeType.SingleChoice));
             this.AddManipulator(CreateNodeContextualMenu("Add Node (Multiple Choice)", NodeType.MultipleChoice));
+            this.AddManipulator(CreateNodeContextualMenu("Add Node (End Group)", NodeType.EndGroup));
             
             this.AddManipulator(CreateGroupContextualMenu());
         }

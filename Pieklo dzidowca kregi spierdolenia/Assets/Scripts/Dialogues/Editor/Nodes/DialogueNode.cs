@@ -13,7 +13,7 @@ namespace jbzd.Dialogues.Editor.Nodes
 {
     public class DialogueNode : BasicNode
     {
-        private readonly int textLengthLimit = 10;
+        private readonly int textLengthLimit = int.MaxValue;
         private Label warning;
         private string Text { get; set; }
         private Sprite NpcImage { get; set; }
