@@ -13,7 +13,11 @@ namespace TheKiwiCoder {
 
         public class Test : UnityEditor.AssetModificationProcessor {
  
-            static AssetDeleteResult OnWillDeleteAsset(string path, RemoveAssetOptions opt) {
+            static AssetDeleteResult OnWillDeleteAsset(string path, RemoveAssetOptions opt)
+            {
+                if(AssetDatabase.GetMainAssetTypeAtPath(path) != typeof(BehaviourTree))
+                    return AssetDeleteResult.DidNotDelete;
+                
                 BehaviourTreeEditorWindow wnd = GetWindow<BehaviourTreeEditorWindow>();
                 wnd.ClearIfSelected(path);
                 return AssetDeleteResult.DidNotDelete;
@@ -172,7 +176,11 @@ namespace TheKiwiCoder {
             treeView.ClearView();
         }
 
-        void ClearIfSelected(string path) {
+        void ClearIfSelected(string path)
+        {
+            if (serializer == null)
+                return;
+            
             if (AssetDatabase.GetAssetPath(serializer.tree) == path) {
                 // Need to delay because this is called from a will delete asset callback
                 EditorApplication.delayCall += () => {
