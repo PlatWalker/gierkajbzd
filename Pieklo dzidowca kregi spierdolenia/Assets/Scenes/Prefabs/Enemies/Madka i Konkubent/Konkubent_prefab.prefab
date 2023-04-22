@@ -711,7 +711,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 181.152, z: 0}
 --- !u!95 &5031858192152749169
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -728,7 +728,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!54 &5031858192152749168
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -773,6 +773,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyData: {fileID: 11400000, guid: 40d217d03165e334a94a0df2b7dcb7d5, type: 2}
   turnOffAI: 0
+  <CurrentHealth>k__BackingField: 0
   _baseballCollider: {fileID: 5031858193191788442}
   _chargeSpeedMultiplier: 1.5
   _chargeDamageMultiplier: 1.5
@@ -994,8 +995,8 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: 18cef7475bf5d2942973486028dee843, type: 3}
-  - {fileID: -6478536213147159724, guid: 18cef7475bf5d2942973486028dee843, type: 3}
+  - {fileID: 2100000, guid: 9e4b9b916ceccc34bafe86ac95a7339f, type: 2}
+  - {fileID: 2100000, guid: 9e4b9b916ceccc34bafe86ac95a7339f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
