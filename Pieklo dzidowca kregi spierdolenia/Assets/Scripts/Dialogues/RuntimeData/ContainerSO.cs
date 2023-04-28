@@ -6,6 +6,7 @@ using ModestTree;
     using UnityEditor;
 #endif
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering;
 
 namespace jbzd.Dialogues.RuntimeData
@@ -20,7 +21,32 @@ namespace jbzd.Dialogues.RuntimeData
         [field: SerializeField] public SerializedDictionary<GroupRuntimeData, ListWrapper> Groups { get; set; }
         public Dictionary<GroupRuntimeData, List<NodeRuntimeData>> UtilityGroup { get; set; } = new();
         [field: NonSerialized] public string CurrentGroup { get; set; } = "Start";
+        static event UnityAction ResetEvent;
+        
+        private void OnEnable()
+        {
+            ResetEvent -= ResetData; ResetEvent += ResetData;
+        }
+        
+        void OnDisable() { ResetEvent -= ResetData; }
 
+        void ResetData()
+        {
+            CurrentGroup = "Start";
+            UtilityGroup.Clear();
+        }
+        
+    #if UNITY_EDITOR
+        static ContainerSO()
+        { 
+            UnityEditor.EditorApplication.playModeStateChanged += LogPlayModeState; 
+        }
+        static void LogPlayModeState(UnityEditor.PlayModeStateChange state) 
+        { if (state is UnityEditor.PlayModeStateChange.EnteredEditMode or UnityEditor.PlayModeStateChange.ExitingEditMode) 
+            { ResetEvent?.Invoke(); } }
+    #endif
+        
+        
         public void Initialize(string fileName)
         {
             FileName = fileName;
