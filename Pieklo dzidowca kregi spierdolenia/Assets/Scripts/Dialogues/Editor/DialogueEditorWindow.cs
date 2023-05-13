@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using jbzd.Dialogues.Editor.Save;
+using jbzd.Dialogues.Editor.Nodes;
 using jbzd.Dialogues.Editor.Utilities;
 using jbzd.Dialogues.RuntimeData;
 using UnityEditor;
@@ -17,105 +19,119 @@ namespace jbzd.Dialogues.Editor
         public ContainerSO dialogueContainer;
         private DialogueGraphView _graphView;
         private Toolbar _warningbar;
-        public List<string> warnings = new();
         
-       [OnOpenAsset(1)]
-       public static bool Open(int instanceId, int line)
-       {
-           Object item = EditorUtility.InstanceIDToObject(instanceId);
+        public List<string> warnings = new();
+        private static int NumberOfWindowsOpened = 0;
+        private int editorIndex = 0;
+        
+
+        
+        [OnOpenAsset(1)]
+        public static bool Open(int instanceId, int line)
+        {
+            Object item = EditorUtility.InstanceIDToObject(instanceId); 
+
+            if (item is ContainerSO so)
+            {
+                NumberOfWindowsOpened++; 
+                var window = CreateInstance<DialogueEditorWindow>();
+                window.title = "Dialogue graph";
+                window.Show();
+                window.dialogueContainer = so;
+                IOUtility.Load(NumberOfWindowsOpened-1);
+                
+            }
+            else if (item is GraphSaveDataSO gso)
+            {
+                NumberOfWindowsOpened++;
+                var window = CreateInstance<DialogueEditorWindow>();
+                window.title = "Dialogue graph";
+                window.Show(); 
+                window.dialogueContainer = IOUtility.AssetFromGuid<ContainerSO>(gso.ContainerID);
+                IOUtility.Load(NumberOfWindowsOpened-1);
+            }     
+            
+            return false;
            
-           if (item is ContainerSO so)
-           {
-               var window = GetWindow<DialogueEditorWindow>("Dialogue Graph");
-               window.dialogueContainer = so;
-               IOUtility.Load();
-           }
-           else if (item is GraphSaveDataSO gso)
-           {
-               var window = GetWindow<DialogueEditorWindow>("Dialogue Graph");
-               window.dialogueContainer = IOUtility.AssetFromGuid<ContainerSO>(gso.ContainerID);
-               IOUtility.Load();
-           }
-           return false;
-           
-       }
-       
-       private void OnEnable()
-       {
-           AddGraphView();
-           AddToolbar();
-           AddWarningbar();
-           IOUtility.Initialize(_graphView, this);
-           EditorApplication.wantsToQuit += SaveBeforeExitAndConfirm;
-       }
+        }
+        private void OnEnable()
+        {
+            editorIndex = NumberOfWindowsOpened;
+            AddGraphView();
+            AddToolbar();
+            AddWarningbar();
+            IOUtility.Initialize(_graphView, this);
+            EditorApplication.wantsToQuit += SaveBeforeExitAndConfirm;
+        }
 
-       private void AddWarningbar()
-       {
-           _warningbar = new Toolbar();
+        private void AddWarningbar()
+        {
+            _warningbar = new Toolbar();
 
-           _warningbar.AddStyleSheets("WarningbarStyleSheet");
+            _warningbar.AddStyleSheets("WarningbarStyleSheet");
 
-           rootVisualElement.Add(_warningbar);
-       }
+            rootVisualElement.Add(_warningbar);
+        }
 
-       private void OnDisable()
-       {
-           rootVisualElement.Remove(_graphView);
-           EditorApplication.wantsToQuit -= SaveBeforeExitAndConfirm;
-       }
+        private void OnDisable()
+        {
+            IOUtility.Delete(editorIndex);
+            rootVisualElement.Remove(_graphView);
+            EditorApplication.wantsToQuit -= SaveBeforeExitAndConfirm;
+        }
 
-       private void AddToolbar()
-       {
-           Toolbar toolbar = new Toolbar();
+        private void AddToolbar()
+        {
+            Toolbar toolbar = new Toolbar();
 
-           Button saveButton = DialogueElementUtility.CreateButton("Save", IOUtility.Save);
-           Button validateButton = DialogueElementUtility.CreateButton("Validate", IOUtility.Validate);
+            Button saveButton = DialogueElementUtility.CreateButton("Save", () => IOUtility.Save(editorIndex));
+            Button validateButton = DialogueElementUtility.CreateButton("Validate",() => IOUtility.Validate(editorIndex));
 
-           toolbar.Add(saveButton);
-           toolbar.Add(validateButton);
+            toolbar.Add(saveButton);
+            toolbar.Add(validateButton);
 
-           toolbar.AddStyleSheets("ToolbarStyleSheet");
-           
-           rootVisualElement.Add(toolbar);
-       }
+            toolbar.AddStyleSheets("ToolbarStyleSheet");
+            
+            rootVisualElement.Add(toolbar);
+        }
 
-       private void AddGraphView()
-       {
-           _graphView = new DialogueGraphView(this);
+        private void AddGraphView()
+        {
+            _graphView = new DialogueGraphView(this);
 
-           _graphView.StretchToParentSize();
-           _graphView.Init();
-           
-           rootVisualElement.Add(_graphView);
-       }
-       
-       private bool SaveBeforeExitAndConfirm()
-       {
-           IOUtility.Save();
-           return EditorUtility.DisplayDialog("Zamykanie",
-               "Edytowany dialog został zapisany. Czy chcesz kontynuować zamykanie Unity?",
-               "Tak", "Nie");
-       }
+            _graphView.StretchToParentSize();
+            _graphView.Init();
+            
+            rootVisualElement.Add(_graphView);
+        }
+        
+        private bool SaveBeforeExitAndConfirm()
+        {
+            IOUtility.Save(editorIndex);
+            return EditorUtility.DisplayDialog("Zamykanie",
+                "Edytowany dialog został zapisany. Czy chcesz kontynuować zamykanie Unity?",
+                "Tak", "Nie");
+        }
 
-       public void ShowValidationResult(List<string> warningList)
-       {
-           _warningbar.Clear();
-           
-           if (warningList.Count == 0)
-           {
-               Label success = DialogueElementUtility.CreateReadOnlyText("Walidacja się powiodła");
-               _warningbar.Add(success);
+        public void ShowValidationResult(List<string> warningList)
+        {
+            _warningbar.Clear();
+            
+            if (warningList.Count == 0)
+            {
+                Label success = DialogueElementUtility.CreateReadOnlyText("Walidacja się powiodła");
+                _warningbar.Add(success);
 
-                   return;
-           }
+                return;
+            }
 
-           foreach (var warning in warningList)
-           {
-               Label text = DialogueElementUtility.CreateReadOnlyText(warning);
-               
-               _warningbar.Add(text);
-           }
-       }
+            foreach (var warning in warningList)
+            {
+                Label text = DialogueElementUtility.CreateReadOnlyText(warning);
+                
+                _warningbar.Add(text);
+            }
+        }
     }
     
 }

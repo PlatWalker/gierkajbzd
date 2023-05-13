@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f610f74393c5da94b9d6bd751743b438, type: 3}
+  m_Name: Graphdialog2
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: dialog2
+  <ContainerID>k__BackingField: 5fda075f733ce22409fc6411edf56545
+  <GraphContainerID>k__BackingField: 6050134d91fcdf14ca1ba4d5402fc7e1
+  <Groups>k__BackingField:
+  - rid: 8942406401614413824
+  <Nodes>k__BackingField:
+  - rid: 8942406401614413825
+  - rid: 8942406401614413826
+  - rid: 8942406401614413827
+  - rid: 8942406401614413828
+  - rid: 8942406401614413829
+  references:
+    version: 2
+    RefIds:
+    - rid: 8942406401614413824
+      type: {class: GroupEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 88e4669d-cfec-41b2-bf19-bd037b81fc7f
+        <Name>k__BackingField: Start
+        <Position>k__BackingField: {x: -25, y: -59}
+    - rid: 8942406401614413825
+      type: {class: EndGroupNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 4881924d-809f-49b5-aa42-d48367e1f47a
+        <Choices>k__BackingField: []
+        <GroupID>k__BackingField: 88e4669d-cfec-41b2-bf19-bd037b81fc7f
+        <NodeType>k__BackingField: 7
+        <Position>k__BackingField: {x: 0, y: 0}
+        <SelectedGroup>k__BackingField: Start
+    - rid: 8942406401614413826
+      type: {class: DialogueNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 7bacbe83-b2bd-4c4c-9a37-21c00dffafdb
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NodeID>k__BackingField: f3887d2d-092d-4db7-aa80-8cd01e3bc3b1
+        <GroupID>k__BackingField: 
+        <NodeType>k__BackingField: 0
+        <Position>k__BackingField: {x: 299, y: 23}
+        <Text>k__BackingField: Tekst dialogu...
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <NpcImage>k__BackingField: {fileID: 0}
+        <Audio>k__BackingField: {fileID: 0}
+    - rid: 8942406401614413827
+      type: {class: DialogueNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: f3887d2d-092d-4db7-aa80-8cd01e3bc3b1
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NodeID>k__BackingField: 7bacbe83-b2bd-4c4c-9a37-21c00dffafdb
+        <GroupID>k__BackingField: 
+        <NodeType>k__BackingField: 0
+        <Position>k__BackingField: {x: 429, y: 397}
+        <Text>k__BackingField: Tekst dialogu...
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <NpcImage>k__BackingField: {fileID: 0}
+        <Audio>k__BackingField: {fileID: 0}
+    - rid: 8942406401614413828
+      type: {class: DialogueNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 4446b70c-570c-436c-b870-f37fe3bf894e
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NodeID>k__BackingField: 7bacbe83-b2bd-4c4c-9a37-21c00dffafdb
+        <GroupID>k__BackingField: 
+        <NodeType>k__BackingField: 0
+        <Position>k__BackingField: {x: -693, y: 233}
+        <Text>k__BackingField: Tekst dialogu...
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <NpcImage>k__BackingField: {fileID: 0}
+        <Audio>k__BackingField: {fileID: 0}
+    - rid: 8942406401614413829
+      type: {class: DialogueNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 0c4a7392-fcb3-4e32-b495-2fd64c043f9d
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NodeID>k__BackingField: 
+        <GroupID>k__BackingField: 
+        <NodeType>k__BackingField: 0
+        <Position>k__BackingField: {x: -108, y: 534}
+        <Text>k__BackingField: Tekst dialogu...
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <NpcImage>k__BackingField: {fileID: 0}
+        <Audio>k__BackingField: {fileID: 0}

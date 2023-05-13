@@ -15,64 +15,71 @@ namespace jbzd.Dialogues.Editor.Utilities
 {
     public static class IOUtility
     {
-        private static string _graphFileName;
-        private static string _graphFilePath;
-        private static ContainerSO _dialogueContainer;
-        private static DialogueGraphView _graphView;
-        private static DialogueEditorWindow _editorWindow;
+        private static List<string> _graphFileNames  = new();
+        private static List<string> _graphFilePaths  = new();
+        private static List<ContainerSO> _dialogueContainers = new();
+        private static List<DialogueGraphView> _graphViews = new();
+        private static List<DialogueEditorWindow> _editorWindows = new();
         
-        private static List<BasicNode> _nodes;
-        private static List<DialogueGroup> _groups;
-        private static Dictionary<Guid, DialogueGroup> _loadedGroups;
-        private static Dictionary<string, BasicNode> _loadedNodes;
+        private static List<List<BasicNode>> _nodes = new();
+        private static List<List<DialogueGroup>> _groups = new();
+        private static List<Dictionary<Guid, DialogueGroup>> _loadedGroups = new();
+        private static List<Dictionary<string, BasicNode>> _loadedNodes = new();
         
+
         public static void Initialize(DialogueGraphView dialogueGraphView, DialogueEditorWindow dialogueEditorWindow)
         {
-            _graphView = dialogueGraphView;
-            _editorWindow = dialogueEditorWindow;
-            _nodes = new List<BasicNode>();
-            _groups = new List<DialogueGroup>();
-            _loadedGroups = new Dictionary<Guid, DialogueGroup>();
-            _loadedNodes = new Dictionary<string, BasicNode>();
+            _graphFileNames.Add("");
+            _graphFilePaths.Add("");
+            _dialogueContainers.Add(new ContainerSO());
+
+            _graphViews.Add(dialogueGraphView);
+            _editorWindows.Add(dialogueEditorWindow);
+            _nodes.Add(new List <BasicNode>());
+            _groups.Add(new List<DialogueGroup>());
+            _loadedGroups.Add(new Dictionary<Guid, DialogueGroup>());
+            _loadedNodes.Add(new Dictionary<string, BasicNode>());
+
+            
         }
 
         #region save
 
-        public static void Save()
+        public static void Save(int ind)
         {
-            PrepareForUse();
-            GetElementsFromGraphView();
+            PrepareForUse(ind);
+            GetElementsFromGraphView(ind);
 
-            _dialogueContainer.Initialize(_graphFileName);
+            _dialogueContainers[ind].Initialize(_graphFileNames[ind]);
             
-            GraphSaveDataSO graphData = CreateAsset<GraphSaveDataSO>(_graphFilePath, $"Graph{_graphFileName}");
+            GraphSaveDataSO graphData = CreateAsset<GraphSaveDataSO>(_graphFilePaths[ind], $"Graph{_graphFileNames[ind]}");
             
-            graphData.Initialize(_graphFileName, _dialogueContainer.ContainerID);
-            _dialogueContainer.GraphContainerID = graphData.GraphContainerID;
+            graphData.Initialize(_graphFileNames[ind], _dialogueContainers[ind].ContainerID);
+            _dialogueContainers[ind].GraphContainerID = graphData.GraphContainerID;
             
 
-            SaveGroups(graphData);
-            SaveNodes(graphData);
+            SaveGroups(graphData,ind);
+            SaveNodes(graphData, ind);
             
             SaveAsset(graphData);
-            SaveAsset(_dialogueContainer);
+            SaveAsset(_dialogueContainers[ind]);
 
         }
 
-        private static void SaveGroups(GraphSaveDataSO graphData)
+        private static void SaveGroups(GraphSaveDataSO graphData, int ind)
         {
 
             graphData.Groups.Clear();
 
-            foreach (var group in _groups)
+            foreach (var group in _groups[ind])
             {
                 SaveGroupToGraph(group, graphData);
-                SaveGroupToContainerSO(group);
+                SaveGroupToContainerSO(group, ind);
             }
 
         }
 
-        private static void SaveGroupToContainerSO(DialogueGroup group)   
+        private static void SaveGroupToContainerSO(DialogueGroup group, int ind)   
         {
             GroupRuntimeData groupRuntimeData = new GroupRuntimeData()
             {
@@ -113,7 +120,7 @@ namespace jbzd.Dialogues.Editor.Utilities
             }
 
             var wrapper = new ListWrapper{ myList = nodeList};
-            _dialogueContainer.Groups.Add(groupRuntimeData, wrapper);
+            _dialogueContainers[ind].Groups.Add(groupRuntimeData, wrapper);
         }
 
         private static void SaveGroupToGraph(DialogueGroup group, GraphSaveDataSO graphData)
@@ -128,11 +135,11 @@ namespace jbzd.Dialogues.Editor.Utilities
             graphData.Groups.Add(groupData);
         }
         
-        private static void SaveNodes(GraphSaveDataSO graphData)
+        private static void SaveNodes(GraphSaveDataSO graphData, int ind)
         {
             graphData.Nodes.Clear();
             
-            foreach (var node in _nodes)
+            foreach (var node in _nodes[ind])
             {
                 SaveNodeToGraph(node, graphData);
             }
@@ -152,34 +159,34 @@ namespace jbzd.Dialogues.Editor.Utilities
 
         #region load
 
-        public static void Load()
+        public static void Load(int ind)
         {
-            PrepareForUse();
+            PrepareForUse(ind);
 
-            if (_dialogueContainer.GraphContainerID != null)
+            if (_dialogueContainers[ind].GraphContainerID != null)
             {
-                var graphContainer = AssetFromGuid<GraphSaveDataSO>(_dialogueContainer.GraphContainerID);
+                var graphContainer = AssetFromGuid<GraphSaveDataSO>(_dialogueContainers[ind].GraphContainerID);
                 if (graphContainer == null)
                 {
-                    _graphView.CreateStartGroup();
+                    _graphViews[ind].CreateStartGroup();
                     Debug.Log("Kontener dialogu posiada niepoprawne id kontenera grafu");
                     return;
                 }
 
-                LoadGroups(graphContainer);
-                LoadNodes(graphContainer);
-                LoadConnections();
+                LoadGroups(graphContainer, ind);
+                LoadNodes(graphContainer, ind);
+                LoadConnections(ind);
             }
             else
             {
-                _graphView.CreateStartGroup();
+                _graphViews[ind].CreateStartGroup();
             }
 
         }
 
-        private static void LoadConnections()
+        private static void LoadConnections(int ind)
         {
-            foreach (var loadedNode in _loadedNodes)
+            foreach (var loadedNode in _loadedNodes[ind])
             {
                 foreach (Port choicePort in loadedNode.Value.outputContainer.Children())
                 {
@@ -187,12 +194,12 @@ namespace jbzd.Dialogues.Editor.Utilities
 
                     if (!string.IsNullOrEmpty(choiceData.NodeID))
                     {
-                        BasicNode nextNode = _loadedNodes[choiceData.NodeID];
+                        BasicNode nextNode = _loadedNodes[ind][choiceData.NodeID];
 
                         Port nextNodeInputPort = (Port) nextNode.inputContainer.Children().First();
 
                         Edge edge = choicePort.ConnectTo(nextNodeInputPort);
-                        _graphView.AddElement(edge);
+                        _graphViews[ind].AddElement(edge);
 
                         loadedNode.Value.RefreshPorts();
                     }
@@ -200,11 +207,11 @@ namespace jbzd.Dialogues.Editor.Utilities
             }
         }
 
-        private static void LoadNodes(GraphSaveDataSO graphContainer)
+        private static void LoadNodes(GraphSaveDataSO graphContainer, int ind)
         {
             foreach (var nodeData in graphContainer.Nodes)
             {
-                var node = _graphView.CreateNode(nodeData.Position, nodeData.NodeType, false);
+                var node = _graphViews[ind].CreateNode(nodeData.Position, nodeData.NodeType, false);
                 node.ID = nodeData.ID;
                 var clonedChoices = CloneChoices(nodeData.Choices);
                 node.Choices = clonedChoices;
@@ -213,28 +220,28 @@ namespace jbzd.Dialogues.Editor.Utilities
 
                 node.Draw();
                 
-                _loadedNodes.Add(node.ID, node);
+                _loadedNodes[ind].Add(node.ID, node);
 
                 if (!string.IsNullOrEmpty(nodeData.GroupID))
                 {
-                    DialogueGroup group = _loadedGroups[Guid.Parse(nodeData.GroupID)];
+                    DialogueGroup group = _loadedGroups[ind][Guid.Parse(nodeData.GroupID)];
                     
                     if (group.name == "Start")
                     {
                         group.Nodes[0].Load(nodeData);
                         continue;
                     }
-                    _graphView.AddElement(node);
+                    _graphViews[ind].AddElement(node);
                     group.AddElement(node);
                 }
                 else
                 {
-                    _graphView.AddElement(node);
+                    _graphViews[ind].AddElement(node);
                 }
             }
         }
 
-        private static void LoadGroups(GraphSaveDataSO graphContainer)
+        private static void LoadGroups(GraphSaveDataSO graphContainer, int ind)
         {
             foreach (var groupData in graphContainer.Groups)
             {
@@ -242,30 +249,30 @@ namespace jbzd.Dialogues.Editor.Utilities
                 
                 if (groupData.Name == "Start")
                 {
-                    group = _graphView.CreateStartGroup(groupData.Position, Guid.Parse(groupData.ID));
+                    group = _graphViews[ind].CreateStartGroup(groupData.Position, Guid.Parse(groupData.ID));
                 }
                 else
                 {
-                    group = _graphView.CreateGroup(groupData.Position, groupData.Name);
-                    _graphView.AddElement(group);
+                    group = _graphViews[ind].CreateGroup(groupData.Position, groupData.Name);
+                    _graphViews[ind].AddElement(group);
                 }
 
                 group.ID = Guid.Parse(groupData.ID);
                 
-                _loadedGroups.Add(group.ID, group);
+                _loadedGroups[ind].Add(group.ID, group);
             }
         }
 
         #endregion
 
-        private static void PrepareForUse()
+        private static void PrepareForUse(int ind)
         {
-            _dialogueContainer = _editorWindow.dialogueContainer;
+            _dialogueContainers[ind] = _editorWindows[ind].dialogueContainer;
 
-            var assetPath = AssetDatabase.GetAssetPath(_dialogueContainer);
+            var assetPath = AssetDatabase.GetAssetPath(_dialogueContainers[ind]);
             
-            _graphFileName = Path.GetFileNameWithoutExtension(assetPath);
-            _graphFilePath = Path.GetDirectoryName(assetPath);
+            _graphFileNames[ind] = Path.GetFileNameWithoutExtension(assetPath);
+            _graphFilePaths[ind] = Path.GetDirectoryName(assetPath);
         }
         
         public static T AssetFromGuid<T>(string guid) where T : Object
@@ -308,37 +315,37 @@ namespace jbzd.Dialogues.Editor.Utilities
             AssetDatabase.Refresh();
         }
 
-        private static void GetElementsFromGraphView()
+        private static void GetElementsFromGraphView(int ind)
         {
-            _nodes.Clear();
-            _groups.Clear();
+            _nodes[ind].Clear();
+            _groups[ind].Clear();
             
-            _graphView.graphElements.ForEach(element =>
+            _graphViews[ind].graphElements.ForEach(element =>
             {
                 if (element is BasicNode node)
                 {
-                    _nodes.Add(node);
+                    _nodes[ind].Add(node);
                     return;
                 }
 
                 if (element is DialogueGroup group)
-                {
-                    _groups.Add(group);
+                {   
+                    _groups[ind].Add(group);
                     return;
                 }
             });
         }
 
-        public static void Validate()
+        public static void Validate(int ind)
         {
-            GetElementsFromGraphView();
+            GetElementsFromGraphView(ind);
 
             List<string> warnings = new List<string>();
             var warning1 = "Niektóre węzły są poza grupą. Będą one zapisane w edytorze, " +
                            "ale nie będą używane podczas runtime'a (gry).";
             var warning2 = "W niektórych węzłach tekst jest za długi i będzie źle wyglądał.";
             
-            foreach (var node in _nodes)
+            foreach (var node in _nodes[ind])
             {
                 if (node.GroupID == null && !warnings.Contains(warning1))
                 {
@@ -354,7 +361,21 @@ namespace jbzd.Dialogues.Editor.Utilities
                 }
             }
 
-            _editorWindow.ShowValidationResult(warnings);
+            _editorWindows[ind].ShowValidationResult(warnings);
+        }
+
+
+
+        public static void Delete(int ind){
+            _graphFileNames[ind] = null;
+            _graphFilePaths[ind] = null;
+            _dialogueContainers[ind] = null;
+            _graphViews[ind] = null;
+            _editorWindows[ind] = null;
+            _nodes[ind] = null;
+            _groups[ind] = null;
+            _loadedGroups[ind] = null;
+            _loadedNodes[ind] = null;           
         }
     }
 }
