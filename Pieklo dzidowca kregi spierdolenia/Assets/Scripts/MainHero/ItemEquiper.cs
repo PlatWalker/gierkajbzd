@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using jbzd.Common.InteractSystem;
+using jbzd.InteractSystem;
 using jbzd.Items;
 using UnityEngine;
 

@@ -1,11 +1,11 @@
-using System;
+using jbzd.Common;
 using jbzd.Common.InputSystem;
 using jbzd.Common.InputSystem.Inputs;
 using jbzd.Common.Interfaces;
 using UnityEngine;
 using Zenject;
 
-namespace jbzd.Common.InteractSystem
+namespace jbzd.InteractSystem
 {
     [RequireComponent(typeof(Collider))]
     public class Interaction : MonoBehaviour
@@ -31,15 +31,22 @@ namespace jbzd.Common.InteractSystem
         
         private void Awake()
         {
-            if (TryGetComponent(out _interactable))
+            if (transform.parent is null)
             {
-                _inputController.OnInteractClick += OnInteract;
+                Debug.LogError("Obiekt interakcji musi mieć rodzica");
+                return;
             }
-            else
+            
+            var interactable = GetComponentInParent<IInteractable>();
+
+            if (interactable is null)
             {
-                Debug.LogError("Obiekt interakcji nie posiada rodzica z interfejsem IInteractable" +
-                          "lub nie zaznaczyłeś, że jest on wolnostojący!");
+                Debug.LogError("Rodzic obiektu interakcji nie posiada interfejsu IInteractable.");
+                return;
             }
+
+            _interactable = interactable;
+            _inputController.OnInteractClick += OnInteract;
         }
 
         private void OnInteract()

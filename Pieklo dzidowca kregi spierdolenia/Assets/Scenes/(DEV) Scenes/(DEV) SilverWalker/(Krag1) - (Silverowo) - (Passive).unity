@@ -7799,18 +7799,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb0d75cf0ea465a8bfe0a99b67d53a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <QuestData>k__BackingField: {fileID: 11400000, guid: 28dca794e6db9b64db4ad06efad8a9ae, type: 2}
-  <Actors>k__BackingField:
-  - {fileID: 1695771962}
-  - {fileID: 627256394}
-  - {fileID: 1897674578}
-  - {fileID: 1249321005}
-  - {fileID: 510270584}
-  - {fileID: 539192934}
-  - {fileID: 1771948876}
-  - {fileID: 213357652}
-  - {fileID: 916824956}
-  - {fileID: 1207129716}
+  <QuestData>k__BackingField: {fileID: 0}
+  <Actors>k__BackingField: []
   <IsCompleted>k__BackingField: 0
   <ActiveTask>k__BackingField: {fileID: 0}
   <FinishedTasks>k__BackingField: []
@@ -9840,7 +9830,6 @@ GameObject:
   - component: {fileID: 2002774990}
   - component: {fileID: 2002774989}
   - component: {fileID: 2002774988}
-  - component: {fileID: 2002774987}
   m_Layer: 7
   m_Name: Npc Start 1
   m_TagString: Untagged
@@ -9863,19 +9852,6 @@ Transform:
   m_Father: {fileID: 676094299}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2002774987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2002774985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0773b4136030464488d963d4ce11128f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <IsInRange>k__BackingField: 0
 --- !u!114 &2002774988
 MonoBehaviour:
   m_ObjectHideFlags: 0

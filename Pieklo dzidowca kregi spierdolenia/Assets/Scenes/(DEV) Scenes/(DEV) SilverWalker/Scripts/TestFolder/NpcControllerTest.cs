@@ -44,6 +44,8 @@ namespace jbzd.QuestSystem.TestFolder
 
         public void OnInteract()
         {
+            Debug.LogError("test");
+            
             if (questToStart is not null)
             {
                 //Debug.Log("Quest Started");
