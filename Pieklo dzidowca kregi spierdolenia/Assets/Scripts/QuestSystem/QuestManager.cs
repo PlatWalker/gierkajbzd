@@ -35,14 +35,14 @@ namespace jbzd.QuestSystem
 
             var numberOfActiveQuests = ActiveQuests.Count;
             
-            foreach (var quest in ActiveQuests.Where(quest => quest.QuestData.IsThereAGoal(goalToAct, out inTask)))
+            /*foreach (var quest in ActiveQuests.Where(quest => quest.QuestData.IsThereAGoal(goalToAct, out inTask)))
             {
                 if (quest.FinishedTasks.Contains(inTask) || quest.ActiveTask != inTask) return;
                 
                 quest.MakeActorPlayInThisQuest(goalToAct);
                 
                 if (numberOfActiveQuests != ActiveQuests.Count) return;
-            }
+            }*/
         }
     }
 }

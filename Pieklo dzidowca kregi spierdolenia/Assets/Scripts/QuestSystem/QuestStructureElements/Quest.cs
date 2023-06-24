@@ -14,43 +14,44 @@ namespace jbzd.QuestSystem.QuestStructureElements
     {
         #region Variables
 
-        [field: Header("Quest Settings")]
-        [field:SerializeField] public QuestSO QuestData { get; set; }
-        [field:SerializeField] public List<Actor> Actors { get; set; } = new();
+        [Header("Quest Settings")]
+        //There is no {get;set;} here because it messes up serialization in QuestEditor.cs
+        [SerializeField] public QuestSO QuestData;
+        [SerializeField] public List<Actor> Actors = new();
 
         private QuestManager _questManager;
         private RunnerFactory _runnerFactory;
         private CutscenesManager _cutscenesManager;
         
         #region Quest Tracker Variables
+        
+        [Header("Quest Tracker Variables")]
+        [SerializeField]
+        [JbzdReadOnly]
+        public bool IsCompleted;
 
-        [field: Header("Quest Tracker Variables")]
-        [field: SerializeField]
-        [field: JbzdReadOnly]
-        public bool IsCompleted { get; set; }
+        [SerializeField]
+        [JbzdReadOnly]
+        public TaskSO ActiveTask;
 
-        [field: SerializeField]
-        [field: JbzdReadOnly]
-        public TaskSO ActiveTask { get; set; }
+        [SerializeField]
+        [JbzdReadOnly]
+        public List<TaskSO> FinishedTasks = new();
 
-        [field: SerializeField]
-        [field: JbzdReadOnly]
-        public List<TaskSO> FinishedTasks { get; set; } = new();
+        [SerializeField]
+        [JbzdReadOnly]
+        public List<GoalSO> FinishedGoals = new();
 
-        [field: SerializeField]
-        [field: JbzdReadOnly]
-        public List<GoalSO> FinishedGoals { get; set; } = new();
-
-        [field: Header("Additional track variables")]
-        [field: SerializeField]
-        [field: JbzdReadOnly]
-        public List<int> GoalItemCollected { get; set; } = new();
-        [field: SerializeField]
-        [field: JbzdReadOnly]
-        public List<int> GoalCompletionItemCount { get; set; } = new();
-        [field: SerializeField]
-        [field: JbzdReadOnly]
-        public List<string> GoalName { get; set; } = new();
+        [Header("Additional track variables")]
+        [SerializeField]
+        [JbzdReadOnly]
+        public List<int> GoalItemCollected = new();
+        [SerializeField]
+        [JbzdReadOnly]
+        public List<int> GoalCompletionItemCount = new();
+        [SerializeField]
+        [JbzdReadOnly]
+        public List<string> GoalName = new();
         
         #endregion
         

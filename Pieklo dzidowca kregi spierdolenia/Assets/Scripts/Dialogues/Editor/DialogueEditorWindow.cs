@@ -56,7 +56,7 @@ namespace jbzd.Dialogues.Editor
         }
         private void OnEnable()
         {
-            editorIndex = NumberOfWindowsOpened;
+            editorIndex = NumberOfWindowsOpened-1;
             AddGraphView();
             AddToolbar();
             AddWarningbar();
