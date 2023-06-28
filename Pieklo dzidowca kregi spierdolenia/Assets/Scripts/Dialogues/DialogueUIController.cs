@@ -33,14 +33,10 @@ namespace jbzd.Dialogues
         public void Construct(DialogueManager dialogueManager)
         {
             _dialogueManager = dialogueManager;
-            _dialogueManager.OnDialogueEnded += ShowDialogueUI;
-            _dialogueManager.OnDialogueStarted += ShowDialogueUI;
+            _dialogueManager.OnDialogueEnded += () => gameObject.SetActive(false);
+            _dialogueManager.OnDialogueStarted += () => gameObject.SetActive(true);
         }
-
-        private void ShowDialogueUI()
-        {
-            gameObject.SetActive(!gameObject.activeSelf);
-        }
+        
 
         private void ButtonClick(int index)
         {
@@ -48,7 +44,7 @@ namespace jbzd.Dialogues
 
             if (nextNodeId == null)
             {
-                ShowDialogueUI();
+                gameObject.SetActive(false);
                 return;
             }
             

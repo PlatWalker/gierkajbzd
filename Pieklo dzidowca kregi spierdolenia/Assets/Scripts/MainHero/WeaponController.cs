@@ -8,6 +8,7 @@ using Zenject;
 
 public class WeaponController : MonoBehaviour
 {
+    [SerializeField]
     private int damageAmount = 10;
     private DamageType typeOfDamage = DamageType.CloseCombat;
 

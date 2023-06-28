@@ -4,6 +4,7 @@ using System.Linq;
 using jbzd.Common;
 using jbzd.Common.RunnerThing;
 using jbzd.Cutscenes;
+using jbzd.Dialogues;
 using jbzd.QuestSystem.Goals;
 using UnityEngine;
 using Zenject;
@@ -22,6 +23,7 @@ namespace jbzd.QuestSystem.QuestStructureElements
         private QuestManager _questManager;
         private RunnerFactory _runnerFactory;
         private CutscenesManager _cutscenesManager;
+        private DialogueManager _dialogueManager;
         
         #region Quest Tracker Variables
         
@@ -61,11 +63,13 @@ namespace jbzd.QuestSystem.QuestStructureElements
         public void Constructor(
             QuestManager questManager,
             RunnerFactory runnerFactory,
-            CutscenesManager cutscenesManager)
+            CutscenesManager cutscenesManager,
+            DialogueManager dialogueManager)
         {
             _questManager = questManager;
             _runnerFactory = runnerFactory;
             _cutscenesManager = cutscenesManager;
+            _dialogueManager = dialogueManager;
         }
 
         private void Awake()
@@ -124,6 +128,12 @@ namespace jbzd.QuestSystem.QuestStructureElements
             });
             
             CheckFinishCondition(passedGoal, actorsInPassedGoal);
+
+            if (passedGoal.DialogueToStartOnGoalComplete is not null &&
+                passedGoal.GoalEndCondition(this, actorsInPassedGoal))
+            {
+                _dialogueManager.StartDialogue(passedGoal.DialogueToStartOnGoalComplete);
+            }
         }
 
         public void CheckFinishCondition(GoalSO goalToAct, List<Actor> actorsInPassedGoal)

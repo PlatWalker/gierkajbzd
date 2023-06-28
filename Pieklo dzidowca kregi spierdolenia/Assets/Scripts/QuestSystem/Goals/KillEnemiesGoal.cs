@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using jbzd.Common.RunnerThing;
+using jbzd.Dialogues;
+using jbzd.Enemies;
 using jbzd.QuestSystem.QuestStructureElements;
 using jbzdy.Enemies;
 using JetBrains.Annotations;
@@ -13,7 +15,7 @@ namespace jbzd.QuestSystem.Goals
     {
         [RunMethod]
         [UsedImplicitly]
-        public void ExecuteGoalScenario(List<Actor> actors, Quest questWithThisGoal)
+        public void ExecuteGoalScenario(List<Actor> actors, Quest questWithThisGoal, DialogueManager dialogueManager)
         {
             var enemiesControllers= GetComponentFromActorsList<EnemyController>(actors);
 
@@ -24,6 +26,30 @@ namespace jbzd.QuestSystem.Goals
                     var index = questWithThisGoal.GoalName.IndexOf(name);
                     questWithThisGoal.GoalItemCollected[index] += 1;
                     questWithThisGoal.CheckFinishCondition(this, actors);
+                    
+                    if (DialogueToStartOnGoalComplete is not null &&
+                        GoalEndCondition(questWithThisGoal, actors))
+                    {
+                        dialogueManager.StartDialogue(DialogueToStartOnGoalComplete);
+                    }
+                };
+            }
+            
+            var enemiesControllersNew= GetComponentFromActorsList<Enemy>(actors);
+            
+            foreach (var enemyController in enemiesControllersNew)
+            {
+                enemyController.OnDeath += () =>
+                {
+                    var index = questWithThisGoal.GoalName.IndexOf(name);
+                    questWithThisGoal.GoalItemCollected[index] += 1;
+                    questWithThisGoal.CheckFinishCondition(this, actors);
+                    
+                    if (DialogueToStartOnGoalComplete is not null &&
+                        GoalEndCondition(questWithThisGoal, actors))
+                    {
+                        dialogueManager.StartDialogue(DialogueToStartOnGoalComplete);
+                    }
                 };
             }
         }

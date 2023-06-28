@@ -4,14 +4,17 @@ using UnityEngine;
 
 namespace jbzd.Enemies.Level1.Pokrzywa
 {
-    public class PokrzywaController : MonoBehaviour, IDamageable
+    public class PokrzywaController : Enemy, IDamageable
     {
         [SerializeField] private BehaviourTree tree;
         [SerializeField] private EnemyDataContainer PokrzywaData=null;
         [SerializeField] private DamageController damageController;
         public int MaximumHealth { get => PokrzywaData.MaxHealth; }
+        [field:SerializeField]
         public int CurrentHealth { get; private set; }
-
+        
+        public override event EnemyDied OnDeath;
+        
         private Context _context;
 
         void Start()
@@ -41,6 +44,11 @@ namespace jbzd.Enemies.Level1.Pokrzywa
             //for now damage types are ignored
             CurrentHealth -= damageAmount;
             tree.blackboard.currentHealth = CurrentHealth;
+
+            if (CurrentHealth <= 0)
+            {
+                OnDeath?.Invoke();
+            }
         }
 
         public void SetDamage(int damageAmount, DamageType damageType, float criticalMultiplier, float criticalChance)
@@ -67,5 +75,6 @@ namespace jbzd.Enemies.Level1.Pokrzywa
                 }
             });
         }
+        
     }
 }

@@ -31,8 +31,9 @@ namespace jbzd.Dialogues.RuntimeData
             
             controller.ShowText(Text);
             controller.SetChoices(Choices);
-            controller.SetNpcImage(NpcImage);
-            controller.SetPlayerImage(PlayerImage);
+            //TODO wysypuje sie w chwili gdy nie ma UI'a
+            //controller.SetNpcImage(NpcImage);
+            //controller.SetPlayerImage(PlayerImage);
         }
     }
 }
