@@ -31,44 +31,36 @@ namespace jbzd.MainHero.PlayerStateLogic
         public PlayerState StateLogic()
         {
             var playerState = PlayerStateInWhichInvoked();
-            
-            if (_playerController.NextFrameDash)
-            {
-                DashAttackMove();
-                _playerController.NextFrameDash = false;
-                return PlayerState.Move;
-            }  
 
+            if (_playerInput.attackInputStatus.Basic)
+            {
+                return PlayerState.Attack;
+            }
+            
             if (_playerController.CanPlayerMove)
             {
                 UpdateCharacterPosition();
-                UpdateCharacterRotation(_movementVector);
+                UpdateCharacterRotation();
                 UpdateCharacterAnimation();
             }
 
-            if(_playerInput.attackInputStatus.Basic) playerState = PlayerState.Attack;
-
-            if(!_playerInput.movementInputStatus.Down && !_playerInput.movementInputStatus.Up && !_playerInput.movementInputStatus.Left && !_playerInput.movementInputStatus.Right)
+            if(IsNotMoving())
             {
                 playerState = PlayerState.Idle;
             }
-
+            
             return playerState;
+            
+            //----------- local functions -----------//
+            
+            bool IsNotMoving() => _playerInput.movementInputStatus is
+                {Down: false, Up: false, Left: false, Right: false};
         }
         
         private void OnMoveStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex){ }
         
         private void OnMoveStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) { }
-        
-        private void DashAttackMove()
-        {
-            var dashVector = _playerInput.mousePositionFlat - _playerController.transform.position;
-            
-            UpdateCharacterRotation(dashVector.normalized);
 
-            _playerController.Rb.AddForce(dashVector.normalized * _playerController.DashAttackMovePower , ForceMode.Impulse);
-        }
-        
         private void UpdateCharacterPosition()
         {
             _movementVector = Vector3.zero;
@@ -80,11 +72,11 @@ namespace jbzd.MainHero.PlayerStateLogic
             _playerController.Rb.AddForce(_movementVector.normalized * _playerController.PlayerSpeed, ForceMode.VelocityChange);
         }
 
-        private void UpdateCharacterRotation(Vector3 lookDirection)
+        private void UpdateCharacterRotation()
         {
-            if (lookDirection.magnitude == 0) return;
+            if (_movementVector.magnitude == 0) return;
             
-            var rotation = Quaternion.LookRotation(lookDirection);
+            var rotation = Quaternion.LookRotation(_movementVector);
             
             _playerController.transform.rotation = rotation;
         }

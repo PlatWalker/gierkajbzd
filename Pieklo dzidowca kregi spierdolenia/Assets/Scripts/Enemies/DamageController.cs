@@ -53,6 +53,7 @@ public class DamageController : MonoBehaviour
         IDamageable hittenObjectScript;
         if (collision.gameObject.TryGetComponent<IDamageable>(out hittenObjectScript))
         {
+            //TODO: zrobic kolizje za pomoca kolizji layerow a nie szukac po tagach
             if (collision.transform.tag == "Enemy") return;
             //Debug.Log("hit made by: " + transform.name + " to: " + collision.gameObject.name);
             hittenObjectScript.SetDamage(damage, damageType, criticalMultiplier, criticalChance);

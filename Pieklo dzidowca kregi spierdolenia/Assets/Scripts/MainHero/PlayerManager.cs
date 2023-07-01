@@ -1,5 +1,6 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
-using jbzdy.CharacterStats;
 using System.Linq;
 using jbzd.Common.Enums;
 using UnityEngine;
@@ -9,11 +10,6 @@ using jbzd.Common.InputSystem.Inputs;
 using jbzd.MainHero.LegacyHeroThings.Stats;
 using jbzd.MainHero.PlayerControllers;
 using jbzd.MainHero.PlayerStateLogic;
-using UnityEngine.VFX;
-using System;
-using UnityEngine.XR;
-using UnityEditor;
-using System.Reflection;
 
 namespace jbzd.MainHero
 {
@@ -40,26 +36,25 @@ namespace jbzd.MainHero
     public class PlayerManager : MonoBehaviour
     {
         #region Serialized fields
-
-        [field:SerializeField]
+        [field: SerializeField]
         public bool CanPlayerMove { get; set; } //TODO nie ma blokady myszki
         [field:SerializeField]
+        [field: Range(1f, 10f)]
         public float PlayerSpeed { get; private set; }
-        [field:SerializeField]
+        [field:SerializeField] 
+        [field: Range(200f, 1500f)]
         public float DashAttackMovePower { get; private set; }
-        [SerializeField]
-        private PlayerState playerState = PlayerState.Idle;
+        [SerializeField] private PlayerState playerState = PlayerState.Idle;
         
         #endregion
 
         #region Public variables
         
         public List<Collider> ListOfEnemiesColliders { get; } = new();
-        public bool NextFrameDash { get; set; }
-        public bool IsUiTurnOn { get; set; }
-        
+
         public Animator CharacterAnimator { get; private set; }
         public Rigidbody Rb { get; private set; }
+        public CapsuleCollider CharacterCollider { get; private set; }
 
         #endregion
 
@@ -86,17 +81,24 @@ namespace jbzd.MainHero
 
         private void Start()
         {
+            CharacterCollider = GetComponent<CapsuleCollider>();
             CharacterAnimator = GetComponentInChildren<Animator>();
             Rb = GetComponent<Rigidbody>();
 
             if (CharacterAnimator is null ||
+                CharacterCollider is null||
                 Rb is null)
             {
                 Debug.LogError("Nie znaleziono wymaganego komponentu na graczu albo w jego dzieciach!");
             }
             
             RegisterStatesLogic();
+            ((PlayerStateAttackFixedUpdate) _stateLogicObjects.First(stateLogicObject => stateLogicObject is PlayerStateAttackFixedUpdate))
+                .OnPlayerStateChanged += state => playerState = state;
+
             PlayerStringAnimParam.AnimatorParametersCheck(CharacterAnimator);
+            
+            CanPlayerMove = true;
         }
 
         private void RegisterStatesLogic()
@@ -106,8 +108,9 @@ namespace jbzd.MainHero
             _stateLogicObjects = new List<IPlayerStateLogic>
             {
                 new PlayerStateIdleUpdate(this, _playerInput, behaviour),
-                new PlayerStateAttackUpdate(this, _playerInput, behaviour),
-                new PlayerStateMoveFixedUpdate(this, _playerInput, behaviour)
+                new PlayerStateAttackFixedUpdate(this, _playerInput, behaviour),
+                new PlayerStateMoveFixedUpdate(this, _playerInput, behaviour),
+                new PlayerStateMoveLateUpdate(_playerInput)
             };
 
             var temp = new List<IPlayerStateLogic>();
@@ -149,6 +152,15 @@ namespace jbzd.MainHero
             CharacterAnimator.SetFloat(PlayerStringAnimParam.RunSpeed, Rb.velocity.magnitude);
         }
 
+        private void LateUpdate()
+        {
+            var playerStateLogic = _stateLogicObjects.FirstOrDefault(x =>
+                x.MonoBehaviourMethodInWhichInvoked() == MonoBehaviourMethod.LateUpdate &&
+                x.PlayerStateInWhichInvoked() == playerState);
+
+            if (playerStateLogic != null) playerState = playerStateLogic.StateLogic();
+        }
+
         public T GetPlayerController<T>() where T : IPlayerController
         {
             var playerController = (T) _playerControllers.Find(playerController => playerController.GetType() == typeof(T));
@@ -160,41 +172,6 @@ namespace jbzd.MainHero
         }
 
         public void PlaceAt(Vector3 placement) => transform.position = placement;
-
-        bool isAttackAnimationPlayingJbzd(AnimatorStateInfo stateInfo) =>
-            stateInfo.IsName("Atk1") || stateInfo.IsName("Atk2") || stateInfo.IsName("Atk3") ||
-            stateInfo.IsName("Atk4");
-
-        bool isTransitionStateJbzd(AnimatorStateInfo stateInfo) => stateInfo.IsName("Transition state");
-
-        private void OnStateEnterJbzd(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-        {
-            if (isTransitionStateJbzd(stateInfo))
-            {
-                CanPlayerMove = true;
-            }
-            
-            if (isAttackAnimationPlayingJbzd(stateInfo))
-            {
-                NextFrameDash = true;
-                animator.SetBool(PlayerStringAnimParam.AttackInProgressParam, true);
-            }
-
-            animator.SetBool(PlayerStringAnimParam.AttackParam, false);
-        }
-
-        private void OnStateExitJbzd(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-        {
-            if (!isTransitionStateJbzd(stateInfo))
-            {
-                animator.SetBool(PlayerStringAnimParam.AttackParam, false);
-            }
-
-            if (isAttackAnimationPlayingJbzd(stateInfo))
-            {
-                animator.SetBool(PlayerStringAnimParam.AttackInProgressParam, false);
-            }
-        }
 
         private void StickPlayerToGround()
         {

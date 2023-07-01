@@ -27,8 +27,8 @@ namespace jbzd.Common.InputSystem.Inputs
         
         public override void UpdateInputs()
         {
-            UpdateMovementInput();
             UpdateAttackInput();
+            UpdateMovementInput();
             UpdateMousePosition();
             
             base.UpdateInputs();
