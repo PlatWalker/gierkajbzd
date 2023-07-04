@@ -5,6 +5,7 @@ using Zenject;
 
 namespace jbzd.Scenes.Triggers
 {
+    [RequireComponent(typeof(Collider))]
     public class DialogueTrigger : MonoBehaviour
     {
         public ContainerSO dialogueToStart;

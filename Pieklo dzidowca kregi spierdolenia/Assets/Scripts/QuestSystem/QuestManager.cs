@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using jbzd.QuestSystem.QuestStructureElements;
 using UnityEngine;
-
+using jbzd.Common.Extensions;
 namespace jbzd.QuestSystem
 {
     public class QuestManager : MonoBehaviour
@@ -14,6 +14,13 @@ namespace jbzd.QuestSystem
         {
             Debug.Log($"Quest {questToStart.name} started");
             ActiveQuests.Add(questToStart);
+
+            if (questToStart.QuestData.Tasks.Count == 0)
+            {
+                Debug.Log($"Quest {questToStart.name} does not have tasks");
+                return;
+            }
+            
             questToStart.ActiveTask = questToStart.QuestData.Tasks.First(task => task.Order == 0);
         }
 
@@ -35,14 +42,14 @@ namespace jbzd.QuestSystem
 
             var numberOfActiveQuests = ActiveQuests.Count;
             
-            /*foreach (var quest in ActiveQuests.Where(quest => quest.QuestData.IsThereAGoal(goalToAct, out inTask)))
+            foreach (var quest in ActiveQuests.Where(quest => quest.QuestData.IsThereAGoal(goalToAct, out inTask)))
             {
                 if (quest.FinishedTasks.Contains(inTask) || quest.ActiveTask != inTask) return;
                 
                 quest.MakeActorPlayInThisQuest(goalToAct);
                 
                 if (numberOfActiveQuests != ActiveQuests.Count) return;
-            }*/
+            }
         }
     }
 }

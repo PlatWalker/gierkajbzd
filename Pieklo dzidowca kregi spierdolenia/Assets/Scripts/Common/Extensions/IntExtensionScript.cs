@@ -1,25 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public static class IntExtensionScript
+﻿namespace jbzd.Common.Extensions
 {
-    /// <summary>
-    /// remaping range of values of type int to new float type range value
-    /// </summary>
-    public static float Remap(this int from, float fromMin, float fromMax, float toMin, float toMax)
+    public static class IntExtensionScript
     {
-        float fromAbs = (float)from - fromMin;
-        float fromMaxAbs = fromMax - fromMin;
+        /// <summary>
+        /// remaping range of values of type int to new float type range value
+        /// </summary>
+        public static float Remap(this int from, float fromMin, float fromMax, float toMin, float toMax)
+        {
+            float fromAbs = (float)from - fromMin;
+            float fromMaxAbs = fromMax - fromMin;
 
-        float normal = fromAbs / fromMaxAbs;
+            float normal = fromAbs / fromMaxAbs;
 
-        float toMaxAbs = toMax - toMin;
-        float toAbs = toMaxAbs * normal;
+            float toMaxAbs = toMax - toMin;
+            float toAbs = toMaxAbs * normal;
 
-        float to = toAbs + toMin;
+            float to = toAbs + toMin;
 
-        return to;
+            return to;
+        }
+
     }
-
 }

@@ -171,7 +171,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueToStart: {fileID: 11400000, guid: 03e53c76b66b1c94d85d3bf4d72a8ab2, type: 2}
-  goalToAct: {fileID: 11400000, guid: 5ec35ea4ba7acf044a319bdc4c04ab9f, type: 2}
   wasTriggered: 0
 --- !u!65 &299352006
 BoxCollider:
@@ -280,19 +279,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb0d75cf0ea465a8bfe0a99b67d53a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <QuestData>k__BackingField: {fileID: 11400000, guid: 3c452fd5664d0494695692b7de497f25, type: 2}
-  <Actors>k__BackingField:
-  - {fileID: 2017305955}
-  - {fileID: 2147229607}
-  - {fileID: 2132454215}
-  - {fileID: 1779757806}
-  <IsCompleted>k__BackingField: 0
-  <ActiveTask>k__BackingField: {fileID: 0}
-  <FinishedTasks>k__BackingField: []
-  <FinishedGoals>k__BackingField: []
-  <GoalItemCollected>k__BackingField: 
-  <GoalCompletionItemCount>k__BackingField: 
-  <GoalName>k__BackingField: []
+  QuestData: {fileID: 0}
+  Actors: []
+  IsCompleted: 0
+  ActiveTask: {fileID: 0}
+  FinishedTasks: []
+  FinishedGoals: []
+  GoalItemCollected: 
+  GoalCompletionItemCount: 
+  GoalName: []
 --- !u!1 &572930891
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,7 +419,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueToStart: {fileID: 11400000, guid: 03e53c76b66b1c94d85d3bf4d72a8ab2, type: 2}
-  goalToAct: {fileID: 11400000, guid: 2c1f2cd9e3d28d440abfa9d5039519af, type: 2}
   wasTriggered: 0
 --- !u!65 &811586796
 BoxCollider:
@@ -503,17 +497,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1779757806 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8993330921852679449, guid: 955e11a0de6534e449f0b3be2930acbf, type: 3}
-  m_PrefabInstance: {fileID: 8993330922556508151}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08ec94c324524a47ac41ab0731342cf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1828553656
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,7 +749,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueToStart: {fileID: 11400000, guid: 03e53c76b66b1c94d85d3bf4d72a8ab2, type: 2}
-  goalToAct: {fileID: 11400000, guid: 4953075baf80b7e40a24d765935bee84, type: 2}
   wasTriggered: 0
 --- !u!65 &2126599550
 BoxCollider:
@@ -929,17 +911,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5893048315798009263, guid: d27a1002715ba724bae9354c267438d3, type: 3}
   m_PrefabInstance: {fileID: 2132454212}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2132454215 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3445120841877964765, guid: d27a1002715ba724bae9354c267438d3, type: 3}
-  m_PrefabInstance: {fileID: 2132454212}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08ec94c324524a47ac41ab0731342cf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2147229604
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -4,11 +4,14 @@ using jbzd.Dialogues.Editor.Utilities;
 using jbzd.Dialogues.RuntimeData;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 namespace jbzd.Dialogues.Editor.Nodes
 {
     public class CutsceneNode : BasicNode
     {
+        public TimelineAsset TimelineAsset { get; set; }
+        
         public override void Initialize(Vector2 position, DialogueGraphView graphView)
         {
             base.Initialize(position, graphView);
@@ -31,6 +34,11 @@ namespace jbzd.Dialogues.Editor.Nodes
             Port outputPort = this.CreatePort(choice.Text);
             outputPort.userData = choice;
             
+            var quest = DialogueElementUtility.CreateCustomField(TimelineAsset, "TimelineAsset: ", typeof(TimelineAsset),
+                callback => TimelineAsset = (TimelineAsset)callback.newValue);
+            
+            extensionContainer.Add(quest);
+            
             outputContainer.Add(outputPort);
             
             RefreshExpandedState();        
@@ -38,12 +46,14 @@ namespace jbzd.Dialogues.Editor.Nodes
 
         public override NodeEditorData GetSavedData()
         {
-            CutsceneNodeEditorData nodeData = new CutsceneNodeEditorData()
+            var nodeData = new CutsceneNodeEditorData()
             {
-                ID = this.ID,
-                GroupID = this.GroupID.ToString(),
-                NodeType = this.NodeType,
-                Position = this.GetPosition().position,
+                ID = ID,
+                GroupID = GroupID.ToString(),
+                NodeType = NodeType,
+                Position = GetPosition().position,
+                
+                TimelineAsset = TimelineAsset
             };
 
             return nodeData;
@@ -52,15 +62,18 @@ namespace jbzd.Dialogues.Editor.Nodes
         public override void Load(NodeEditorData nodeData)
         {
             var nData =  nodeData as CutsceneNodeEditorData;
+            
+            TimelineAsset = nData?.TimelineAsset;
         }
 
         public override NodeRuntimeData GetSavedDataForDialogue()
         {
             var convertedChoices = Choices.Select(choice => choice.ConvertToChoiceData()).ToList();
 
-            CutsceneRuntimeData nodeSaveData = new CutsceneRuntimeData
+            var nodeSaveData = new CutsceneRuntimeData
             {
                 NodeId = ID,
+                TimelineAsset = TimelineAsset,
                 NodeType = NodeType,
                 IsStartingDialogue = IsStartingNode(),
                 Choices = convertedChoices,

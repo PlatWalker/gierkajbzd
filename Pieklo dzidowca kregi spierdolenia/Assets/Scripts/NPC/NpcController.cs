@@ -1,5 +1,11 @@
 using System;
+using System.Linq;
+using jbzd.Common.Interfaces;
+using jbzd.Dialogues;
+using jbzd.Dialogues.RuntimeData;
 using jbzd.MainHero;
+using jbzd.QuestSystem;
+using jbzd.QuestSystem.QuestStructureElements;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
@@ -8,7 +14,7 @@ using Zenject;
 namespace jbzd.NPC
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    public class NpcController : MonoBehaviour
+    public class NpcController : MonoBehaviour , IInteractable
     {
         public enum NpcStates
         {
@@ -33,18 +39,27 @@ namespace jbzd.NPC
         }
 
         [field:SerializeField]
+        public ContainerSO DialogueContainer { get; set; }
+        [field:SerializeField]
+        public TaskSO TaskOnWhichToTalk { get; set; }
+        
+        [field:SerializeField]
         [Tooltip("If Npc need to follow a predefined path in some situation, add waypoints from scene for him to follow" +
                  "them one by one.")]
         public Transform[] Waypoints { get; set; }
         public NavMeshAgent NpcAgent { get; private set; }
 
         private PlayerManager _playerManager;
+        private DialogueManager _dialogueManager;
+        private QuestManager _questManager;
         private int _currentWaypointIndex;
 
         [Inject]
-        public void Constructor(PlayerManager playerManager)
+        public void Constructor(PlayerManager playerManager, DialogueManager dialogueManager, QuestManager questManager)
         {
             _playerManager = playerManager;
+            _dialogueManager = dialogueManager;
+            _questManager = questManager;
         }
         
         public void Awake()
@@ -73,6 +88,15 @@ namespace jbzd.NPC
                     throw new ArgumentOutOfRangeException();
             }
         }
-        
+
+        public void OnInteract()
+        {
+            if (DialogueContainer is null) return;
+            
+            if (_questManager.ActiveQuests.Any(quest => quest.ActiveTask == TaskOnWhichToTalk))
+            {
+                _dialogueManager.StartDialogue(DialogueContainer);
+            }
+        }
     }
 }

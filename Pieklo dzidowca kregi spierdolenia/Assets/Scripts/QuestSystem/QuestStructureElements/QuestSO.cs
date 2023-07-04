@@ -9,7 +9,7 @@ namespace jbzd.QuestSystem.QuestStructureElements
     public class QuestSO : ScriptableObject
     {
         
-        [SerializeField] public List<TaskSO> Tasks = new List<TaskSO>();
+        [SerializeField] public List<TaskSO> Tasks = new();
 
         public void OnEnable()
         {

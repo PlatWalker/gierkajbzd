@@ -1,18 +1,19 @@
+using System.Collections.Generic;
 using jbzd.Dialogues;
 using jbzd.Dialogues.RuntimeData;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
-using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace jbzd
 {
     public class TimelineDialogue : MonoBehaviour
     {
-        private DialogueManager _manager;
         [SerializeField] private PlayableDirector _cutscene;
         [SerializeField] private ContainerSO data;
+        
+        private DialogueManager _manager;
+        
         [Inject]
         public void Construct(DialogueManager manager)
         {
@@ -21,10 +22,10 @@ namespace jbzd
         private void Start()
         {
             _cutscene = GetComponent<PlayableDirector>();
-            _manager.OnDialogueEnded += endPause;
-            _manager.OnDialogueStarted += startPause;
+            _manager.OnDialogueEnded += EndPause;
+            _manager.OnDialogueStarted += StartPause;
         }
-        public void fireDialogue()
+        public void FireDialogue()
         {
             if (data != null)
             {
@@ -32,11 +33,11 @@ namespace jbzd
             }
             
         }
-        private void startPause()
+        private void StartPause()
         {
             _cutscene.Pause();
         }
-        private void endPause()
+        private void EndPause()
         {
             _cutscene.Resume();
         }

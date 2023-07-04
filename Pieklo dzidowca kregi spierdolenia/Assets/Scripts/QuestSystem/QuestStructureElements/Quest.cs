@@ -76,6 +76,12 @@ namespace jbzd.QuestSystem.QuestStructureElements
         {
             _questManager.AllQuestsOnActiveMap.Add(this);
 
+            if (QuestData is null)
+            {
+                Debug.LogError($"Quest {name} doesn't have his QuestData");
+                return;
+            }
+            
             foreach (var goal in QuestData.Tasks.SelectMany(task => task.Goals))
             {
                 if (goal is not GoalInvolvingCollectingSO goalInvolvingCollecting) continue;

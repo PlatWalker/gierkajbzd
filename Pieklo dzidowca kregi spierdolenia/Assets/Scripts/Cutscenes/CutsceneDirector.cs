@@ -24,10 +24,11 @@ namespace jbzd.Cutscenes
             {
                 if (timelineAsset == _playableDirector.playableAsset)
                 {
-                    Debug.Log("Cutscene starts playing");
+                    Debug.Log($"Cutscene{name} starts playing");
                     _playableDirector.Play();
                 }
             };
+            
         }
         
         
