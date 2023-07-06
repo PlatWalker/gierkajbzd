@@ -10,6 +10,8 @@ using jbzd.Common.InputSystem.Inputs;
 using jbzd.MainHero.LegacyHeroThings.Stats;
 using jbzd.MainHero.PlayerControllers;
 using jbzd.MainHero.PlayerStateLogic;
+using jbzd.NPC;
+using UnityEngine.AI;
 
 namespace jbzd.MainHero
 {
@@ -50,6 +52,7 @@ namespace jbzd.MainHero
 
         #region Public variables
         
+        public List<NpcController> ListOfFollowers = new();
         public List<Collider> ListOfEnemiesColliders { get; } = new();
 
         public Animator CharacterAnimator { get; private set; }
@@ -183,6 +186,14 @@ namespace jbzd.MainHero
                 _newPositionVector.z = Rb.position.z;
 
                 Rb.MovePosition(_newPositionVector);
+            }
+        }
+
+        public void WarpFollowers(Vector3 warpPosition)
+        {
+            foreach (var npcController in ListOfFollowers)
+            {
+                npcController.GetComponent<NavMeshAgent>().Warp(warpPosition);
             }
         }
     } 

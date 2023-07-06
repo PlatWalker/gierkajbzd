@@ -19,15 +19,18 @@ namespace jbzd.QuestSystem.Goals
         [UsedImplicitly]
         public void ExecuteGoalScenario(List<Actor> actors)
         {
-            var npcController = GetComponentFromActorsList<NpcController>(actors).First();
-            
-            if (npcController.NpcState is NpcController.NpcStates.FollowPlayer)
+            var npcControllers=GetComponentFromActorsList<NpcController>(actors);
+
+            foreach (var npcController in npcControllers.Where(npcController => npcController != null))
             {
-                npcController.NpcState = ExitNpcState;
-                return;
+                if (npcController.NpcState is NpcController.NpcStates.FollowPlayer)
+                {
+                    npcController.NpcState = ExitNpcState;
+                    continue;
+                }
+
+                npcController.NpcState = NpcController.NpcStates.FollowPlayer;
             }
-            
-            npcController.NpcState = NpcController.NpcStates.FollowPlayer;
         }
 
         public override bool GoalEndCondition(Quest questWithThisGoal, List<Actor> actors)

@@ -35,6 +35,18 @@ namespace jbzd.NPC
                 {
                     _currentWaypointIndex = 0;
                 }
+
+                if (value is NpcStates.FollowPlayer)
+                {
+                    _playerManager.ListOfFollowers.Add(this);
+                }
+
+                if (npcState is NpcStates.FollowPlayer && value is not NpcStates.FollowPlayer)
+                {
+                    _playerManager.ListOfFollowers.Remove(this);
+                }
+                
+                npcState = value;
             } 
         }
 

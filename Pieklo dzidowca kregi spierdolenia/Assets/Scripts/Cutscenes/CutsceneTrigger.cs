@@ -17,17 +17,20 @@ namespace jbzd.Cutscenes
         {
             _manager = manager;
         }
-        public void OnTriggerEnter(Collider other)
+        public virtual void OnTriggerEnter(Collider other)
         {
             if (other.tag == "Player")
                 playableDirector.Play();
         }
-        private void OnTriggerStay(Collider other)
+        protected virtual void OnTriggerStay(Collider other)
         {
             if (other.tag == "Player")
-                _manager.CanPlayerMove = false;
+            {
+                _manager.CanPlayerMove = playableDirector.state != PlayState.Playing;
+            }
+                
         }
-        private void OnTriggerExit(Collider other)
+        protected virtual void OnTriggerExit(Collider other)
         {
             if (other.tag == "Player")
                 _manager.CanPlayerMove = true;

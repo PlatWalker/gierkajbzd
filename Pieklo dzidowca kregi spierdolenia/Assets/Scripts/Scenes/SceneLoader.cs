@@ -5,6 +5,7 @@ using EasyButtons;
 using jbzd.MainHero;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using Zenject;
@@ -179,6 +180,7 @@ namespace jbzd.Scenes
 
                 Debug.Assert(_playerManager is not null, "Zenject didnt injected player manager");
                 _playerManager.PlaceAt(PlayerPositionOnNewMap);
+                _playerManager.WarpFollowers(PlayerPositionOnNewMap);
                 SceneManager.UnloadSceneAsync(gameObject.scene);
             }
         }
