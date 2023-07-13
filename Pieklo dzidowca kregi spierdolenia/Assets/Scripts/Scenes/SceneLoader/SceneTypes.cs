@@ -1,6 +1,6 @@
-namespace jbzd.Scenes
+namespace jbzd.Scenes.SceneLoader
 {
-    public static class SceneType
+    public static class SceneTypes
     {
         public const string Passive = "(Passive)";
         public const string Interactive = "(Interactive)";

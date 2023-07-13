@@ -1,4 +1,4 @@
-namespace jbzd.Scenes
+namespace jbzd.Scenes.SceneLoader
 {
     public static class Kregi
     {

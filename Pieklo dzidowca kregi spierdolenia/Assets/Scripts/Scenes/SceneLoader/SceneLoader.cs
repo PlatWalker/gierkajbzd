@@ -1,22 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EasyButtons;
 using jbzd.MainHero;
+using jbzd.Plugins.DropdownAttributes.Core.Scripts;
+using jbzd.Scenes.SceneLoader.ValueTypes;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using Zenject;
 
-namespace jbzd.Scenes
+namespace jbzd.Scenes.SceneLoader
 {
     public class SceneLoader : MonoBehaviour
     {
-        [field:SerializeField]
-        public Vector3 PlayerPositionOnNewMap { get; set; }
-        
         public List<string> AllKregi { get; set; } = new()
         {
             Kregi.Krag1,
@@ -30,8 +26,9 @@ namespace jbzd.Scenes
             Kregi.Krag9
         };
         public List<string> SceneNames { get; set; } = new();
-
+#if UNITY_EDITOR
         [field: Dropdown(nameof(AllKregi), nameof(OnValidate))]
+#endif
         public string chosenKrag;
 
         [Dropdown(nameof(SceneNames))]
@@ -43,7 +40,12 @@ namespace jbzd.Scenes
         {
             _playerManager = playerManager;
         }
-        
+
+        public void Awake()
+        {
+            Debug.Assert(_playerManager is not null, "Zenject didnt injected player manager");
+        }
+
 #if UNITY_EDITOR
         public void OnValidate()
         {
@@ -61,17 +63,17 @@ namespace jbzd.Scenes
 
                 switch (iteratedScene.SceneType)
                 {
-                    case SceneType.SingleLoad:
+                    case SceneTypes.SingleLoad:
                         SceneNames.Add(iteratedScene.LevelName);
                         break;
-                    case SceneType.Passive:
+                    case SceneTypes.Passive:
                         
                         var isThereInteractiveScene = scenesData.Any(x =>
                         {
                             var scene = new JbzdScene(x);
                             
                             return x.enabled &&
-                                   scene.SceneType == SceneType.Interactive &&
+                                   scene.SceneType == SceneTypes.Interactive &&
                                    scene.LevelName == iteratedScene.LevelName;
                         });
                         
@@ -85,13 +87,13 @@ namespace jbzd.Scenes
                                            "You cant load passive scene without interactive one");
                         }
                         break;
-                    case SceneType.Interactive:
+                    case SceneTypes.Interactive:
                         var isTherePassiveScene = scenesData.Any(x =>
                         {
                             var scene = new JbzdScene(x);
 
                             return x.enabled &&
-                                   scene.SceneType == SceneType.Passive &&
+                                   scene.SceneType == SceneTypes.Passive &&
                                    scene.LevelName == iteratedScene.LevelName;
                         });
                         
@@ -104,19 +106,31 @@ namespace jbzd.Scenes
         
         public void OnTriggerEnter(Collider other)
         {
-            Debug.Assert(EditorBuildSettings.scenes.Length != 0, "there are no scenes registered");
-            var sceneOfThisTrigger = new JbzdScene(EditorBuildSettings.scenes.First(scene => scene.path == gameObject.scene.path));
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            
+            var kragTypeOfThisTrigger = JbzdScene.GetKragType(gameObject.scene.name);
+
             try
             {
                 if (chosenKrag == null) throw new Exception("Krag is not set");
                 
-                if (sceneOfThisTrigger.KragType == chosenKrag)
+                var desiredInteractiveSceneName = JbzdScene.MergeFullSceneName(
+                    new Krag(chosenKrag),
+                    new LevelName(levelNameOfSceneToLoad),
+                    new SceneType(SceneTypes.Interactive));
+                
+                var desiredPassiveSceneName = JbzdScene.MergeFullSceneName(
+                    new Krag(chosenKrag),
+                    new LevelName(levelNameOfSceneToLoad),
+                    new SceneType(SceneTypes.Passive));
+
+                if (kragTypeOfThisTrigger == chosenKrag)
                 {
-                    LoadSceneFromSameKrag();
+                    LoadSceneFromSameKrag(desiredInteractiveSceneName, desiredPassiveSceneName);
                 }
-                else if (sceneOfThisTrigger.KragType != chosenKrag)
+                else if (kragTypeOfThisTrigger != chosenKrag)
                 {
-                    LoadSceneFromDiffrentKrag();
+                    LoadSceneFromDifferentKrag(desiredInteractiveSceneName, desiredPassiveSceneName);
                 }
             }
             catch (Exception e)
@@ -124,65 +138,66 @@ namespace jbzd.Scenes
                 Debug.LogError("Reloading scene failed: " + e);
             }
             
-            void LoadSceneFromDiffrentKrag()
+            void LoadSceneFromDifferentKrag(string interactiveSceneNameToLoad, string passiveSceneNameToLoad)
             {
-                var interactiveSceneToLoad = EditorBuildSettings.scenes.First(sceneData =>
-                {
-                    var tempScene = new JbzdScene(sceneData);
-                    return tempScene.LevelName == levelNameOfSceneToLoad &&
-                           tempScene.SceneType == SceneType.Interactive;
-                });
-                var passiveSceneToLoad = EditorBuildSettings.scenes.First(sceneData =>
-                {
-                    var tempScene = new JbzdScene(sceneData);
-                    return tempScene.LevelName == levelNameOfSceneToLoad &&
-                           tempScene.SceneType == SceneType.Passive;
-                });
-                
-                SceneManager.LoadSceneAsync(interactiveSceneToLoad.path, LoadSceneMode.Additive);
-                SceneManager.LoadSceneAsync(passiveSceneToLoad.path, LoadSceneMode.Additive);
-                
-                _playerManager.PlaceAt(PlayerPositionOnNewMap);
+                SceneManager.LoadSceneAsync(interactiveSceneNameToLoad, LoadSceneMode.Additive);
+                SceneManager.LoadSceneAsync(passiveSceneNameToLoad, LoadSceneMode.Additive);
+
                 for (var i = 0; i < SceneManager.sceneCount; i++)
                 {
                     var iteratedScene = SceneManager.GetSceneAt(i);
-                    var jbzdIteratedScene = new JbzdScene(EditorBuildSettings.scenes.First(scene => scene.path == iteratedScene.path));
+                    var iteratedSceneType = JbzdScene.GetSceneType(iteratedScene.name);
                     
-                    if(jbzdIteratedScene.SceneType == SceneType.SingleLoad ||
-                       sceneOfThisTrigger.KragType == chosenKrag) continue;
+                    if(iteratedSceneType == SceneTypes.SingleLoad ||
+                       kragTypeOfThisTrigger == chosenKrag ||
+                       gameObject.scene.name == iteratedScene.name) continue;
                     
                     SceneManager.UnloadSceneAsync(iteratedScene);
                 }
             }
             
-            void LoadSceneFromSameKrag()
+            void LoadSceneFromSameKrag(string interactiveSceneNameToLoad, string passiveSceneNameToLoad)
             {
-                var interactiveSceneToLoad = EditorBuildSettings.scenes.First(sceneData =>
+                if (!SceneManager.GetSceneByName(interactiveSceneNameToLoad).isLoaded)
                 {
-                    var tempScene = new JbzdScene(sceneData);
-                    return tempScene.LevelName == levelNameOfSceneToLoad &&
-                           tempScene.SceneType == SceneType.Interactive;
-                });
-
-                if (!SceneManager.GetSceneByPath(interactiveSceneToLoad.path).isLoaded)
-                {
-                    SceneManager.LoadSceneAsync(interactiveSceneToLoad.path, LoadSceneMode.Additive);
+                    SceneManager.LoadSceneAsync(interactiveSceneNameToLoad, LoadSceneMode.Additive);
                 }
 
-                var passiveSceneToLoad = EditorBuildSettings.scenes.First(sceneData =>
-                {
-                    var tempScene = new JbzdScene(sceneData);
-                    return tempScene.LevelName == levelNameOfSceneToLoad &&
-                           tempScene.SceneType == SceneType.Passive;
-                });
-
-                SceneManager.LoadSceneAsync(passiveSceneToLoad.path, LoadSceneMode.Additive);
-
-                Debug.Assert(_playerManager is not null, "Zenject didnt injected player manager");
-                _playerManager.PlaceAt(PlayerPositionOnNewMap);
-                _playerManager.WarpFollowers(PlayerPositionOnNewMap);
-                SceneManager.UnloadSceneAsync(gameObject.scene);
+                SceneManager.LoadSceneAsync(passiveSceneNameToLoad, LoadSceneMode.Additive);
             }
         }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode arg1)
+        {
+            if (JbzdScene.GetSceneType(scene.name) != SceneTypes.Passive) return;
+
+            WarpPlayerToLocationOnNewMap(scene);
+            
+            SceneManager.UnloadSceneAsync(gameObject.scene);
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void WarpPlayerToLocationOnNewMap(Scene scene)
+        {
+            var gameObjects = scene.GetRootGameObjects();
+            
+            if (gameObjects.Length is 0)
+            {
+                Debug.LogError("Something went wrong when getting game objects from loaded scene");
+                return;
+            }
+
+            var gameObjectToTeleportTo = gameObjects.FirstOrDefault(gObject => gObject.CompareTag("TeleportDestination"));
+
+            if (gameObjectToTeleportTo is null)
+            {
+                Debug.LogError("There is no object with 'TeleportDestination' tag so there is nothing to teleport to");
+                return;
+            }
+
+            _playerManager.PlaceAt(gameObjectToTeleportTo.transform.position);
+            _playerManager.WarpFollowersToPlayer();
+        }
+        
     }
 }

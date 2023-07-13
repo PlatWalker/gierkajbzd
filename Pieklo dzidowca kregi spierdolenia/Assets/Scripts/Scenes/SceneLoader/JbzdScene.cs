@@ -1,11 +1,13 @@
+using jbzd.Scenes.SceneLoader.ValueTypes;
 using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 
-namespace jbzd.Scenes
+namespace jbzd.Scenes.SceneLoader
 {
     public class JbzdScene
     {
+#if UNITY_EDITOR
         public EditorBuildSettingsScene EditorBuildSettingsScene { get; }
 
         public string FullSceneName => GetSceneNameFromPath();
@@ -18,18 +20,29 @@ namespace jbzd.Scenes
             EditorBuildSettingsScene = editorBuildSettingsScene;
         }
         
-        [CanBeNull]
-        private string GetSceneType(string sceneName)
+        private string GetSceneNameFromPath()
         {
-            if (sceneName.Contains(Scenes.SceneType.SingleLoad)) return Scenes.SceneType.SingleLoad;
-            if (sceneName.Contains(Scenes.SceneType.Passive)) return Scenes.SceneType.Passive;
-            if (sceneName.Contains(Scenes.SceneType.Interactive)) return Scenes.SceneType.Interactive;
+            var scenePath = EditorBuildSettingsScene.path;
+            var slash = scenePath.LastIndexOf('/');
+            var nameWithExtension = scenePath.Substring(slash + 1);
+            var dot = nameWithExtension.LastIndexOf('.');
+            scenePath = nameWithExtension.Substring(0, dot);
+            return scenePath;
+        }
+#endif
+        
+        [CanBeNull]
+        public static string GetSceneType(string sceneName)
+        {
+            if (sceneName.Contains(SceneTypes.SingleLoad)) return SceneTypes.SingleLoad;
+            if (sceneName.Contains(SceneTypes.Passive)) return SceneTypes.Passive;
+            if (sceneName.Contains(SceneTypes.Interactive)) return SceneTypes.Interactive;
             
             Debug.LogError($"scene {sceneName} should contain '(SingleLoad)' or '(Passive)' or '(Interactive)'");
             return null;
         }
         
-        private string GetLevelName(string sceneName)
+        public static string GetLevelName(string sceneName)
         {
             var indexOfSecondOpenBracket = sceneName.IndexOf("(", sceneName.IndexOf("(") + 1);
             var withoutFirstBrackets = sceneName.Substring(indexOfSecondOpenBracket);
@@ -37,8 +50,8 @@ namespace jbzd.Scenes
             var length = withoutFirstBrackets.Length;
             return withoutFirstBrackets.Remove(start, length - start);
         }
-
-        private string GetKragType(string sceneName)
+        
+        public static string GetKragType(string sceneName)
         {
             var firstBrackets = sceneName.Substring(0, sceneName.IndexOf(")") + 1);
 
@@ -61,17 +74,11 @@ namespace jbzd.Scenes
             
             Debug.LogError($"scene {sceneName} has wrongly formatted krag type");
             return null;
-
         }
-        
-        private string GetSceneNameFromPath()
+
+        public static string MergeFullSceneName(Krag krag, LevelName levelName, SceneType sceneType)
         {
-            var scenePath = EditorBuildSettingsScene.path;
-            var slash = scenePath.LastIndexOf('/');
-            var nameWithExtension = scenePath.Substring(slash + 1);
-            var dot = nameWithExtension.LastIndexOf('.');
-            scenePath = nameWithExtension.Substring(0, dot);
-            return scenePath;
+            return krag + " - " + levelName + " - " + sceneType;
         }
     }
 }

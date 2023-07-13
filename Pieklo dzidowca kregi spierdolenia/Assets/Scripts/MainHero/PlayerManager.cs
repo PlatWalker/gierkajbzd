@@ -189,11 +189,11 @@ namespace jbzd.MainHero
             }
         }
 
-        public void WarpFollowers(Vector3 warpPosition)
+        public void WarpFollowersToPlayer()
         {
             foreach (var npcController in ListOfFollowers)
             {
-                npcController.GetComponent<NavMeshAgent>().Warp(warpPosition);
+                npcController.GetComponent<NavMeshAgent>().Warp(transform.position);
             }
         }
     } 
