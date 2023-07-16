@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using jbzd.Common;
 using jbzd.Common.Enums;
 using UnityEngine;
 using Zenject;
@@ -38,8 +39,14 @@ namespace jbzd.MainHero
     public class PlayerManager : MonoBehaviour
     {
         #region Serialized fields
-        [field: SerializeField]
-        public bool CanPlayerMove { get; set; } //TODO nie ma blokady myszki
+
+        [SerializeField][JbzdReadOnly] private bool canPlayerMove = true;
+        public bool CanPlayerMove
+        {
+            get => canPlayerMove;
+            set => canPlayerMove = value;
+        }
+
         [field:SerializeField]
         [field: Range(1f, 10f)]
         public float PlayerSpeed { get; private set; }
@@ -68,7 +75,7 @@ namespace jbzd.MainHero
         private List<IPlayerStateLogic> _stateLogicObjects;
         private List<IPlayerController> _playerControllers;
         private Vector3 _newPositionVector;
-        
+
         #endregion
 
         [Inject]
@@ -100,8 +107,8 @@ namespace jbzd.MainHero
                 .OnPlayerStateChanged += state => playerState = state;
 
             PlayerStringAnimParam.AnimatorParametersCheck(CharacterAnimator);
-            
-            CanPlayerMove = true;
+
+            canPlayerMove = true;
         }
 
         private void RegisterStatesLogic()
@@ -113,7 +120,7 @@ namespace jbzd.MainHero
                 new PlayerStateIdleUpdate(this, _playerInput, behaviour),
                 new PlayerStateAttackFixedUpdate(this, _playerInput, behaviour),
                 new PlayerStateMoveFixedUpdate(this, _playerInput, behaviour),
-                new PlayerStateMoveLateUpdate(_playerInput)
+                new PlayerStateMoveLateUpdate(this, _playerInput)
             };
 
             var temp = new List<IPlayerStateLogic>();

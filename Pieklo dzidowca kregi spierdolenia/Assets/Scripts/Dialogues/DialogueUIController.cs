@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using jbzd.Common.InputSystem.Inputs;
 using jbzd.Dialogues.RuntimeData;
+using jbzd.MainHero;
 using jbzd.UI;
 using TMPro;
 using UnityEngine;
@@ -28,13 +30,26 @@ namespace jbzd.Dialogues
         private RectTransform listTransform;
 
         private List<Button> _choiceButtons = new();
+
+        private PlayerManager _playerManager;
         
         [Inject]
-        public void Construct(DialogueManager dialogueManager)
+        public void Construct(DialogueManager dialogueManager, PlayerManager playerManager)
         {
             _dialogueManager = dialogueManager;
-            _dialogueManager.OnDialogueEnded += () => gameObject.SetActive(false);
-            _dialogueManager.OnDialogueStarted += () => gameObject.SetActive(true);
+            _playerManager = playerManager;
+            _dialogueManager.OnDialogueEnded += () =>
+            {
+                _playerManager.CanPlayerMove = true;
+                Debug.Log($"Dialogue {_dialogueManager.CurrentDialogueContainer.name} unfreeze player");
+                gameObject.SetActive(false);
+            };
+            _dialogueManager.OnDialogueStarted += () =>
+            {
+                _playerManager.CanPlayerMove = false;
+                Debug.Log($"Dialogue {_dialogueManager.CurrentDialogueContainer.name} freeze player");
+                gameObject.SetActive(true);
+            };
         }
         
 
@@ -98,7 +113,7 @@ namespace jbzd.Dialogues
             
             return button;
         }
-        
+
         public override bool InitialActivationState() => false;
         public override void ConnectInputToHandler(UserInterfaceInput input)
         {

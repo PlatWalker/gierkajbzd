@@ -43,6 +43,10 @@ namespace jbzd.MainHero.PlayerStateLogic
                 UpdateCharacterRotation();
                 UpdateCharacterAnimation();
             }
+            else
+            {
+                return PlayerState.Idle;
+            }
 
             if(IsNotMoving())
             {

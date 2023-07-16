@@ -9,7 +9,7 @@ namespace jbzd.Dialogues
 {
     public class DialogueManager : MonoBehaviour
     {
-        private ContainerSO _data;
+        public ContainerSO CurrentDialogueContainer { get; private set; }
         private string _currentGroup;
         public NodeRuntimeData CurrentNode;
         
@@ -29,10 +29,10 @@ namespace jbzd.Dialogues
         public void StartDialogue(ContainerSO data)
         {
             
-            _data = data;
-            _data.LoadGroups();
+            CurrentDialogueContainer = data;
+            CurrentDialogueContainer.LoadGroups();
 
-            _currentGroup = _data.CurrentGroup;
+            _currentGroup = CurrentDialogueContainer.CurrentGroup;
 
             OnDialogueStarted?.Invoke();
             
@@ -57,7 +57,7 @@ namespace jbzd.Dialogues
                 
             if (nextNodeId == null)
             {
-                OnDialogueEnded?.Invoke();
+                EndDialogue();
                 return;
             }
             
@@ -71,7 +71,7 @@ namespace jbzd.Dialogues
 
         private KeyValuePair<GroupRuntimeData,List<NodeRuntimeData>> GetGroupAndNodes(string title)
         {
-            return _data.UtilityGroup.FirstOrDefault(x => x.Key.GroupName == title);
+            return CurrentDialogueContainer.UtilityGroup.FirstOrDefault(x => x.Key.GroupName == title);
         }
 
         private NodeRuntimeData FindNode(string nextNodeId)
@@ -82,14 +82,14 @@ namespace jbzd.Dialogues
 
         public void ChangeLastGroup(string group)
         {
-            _data.CurrentGroup = group;
+            CurrentDialogueContainer.CurrentGroup = group;
         }
         
         public void EndDialogue()
         {
             _currentGroup = null;
             CurrentNode = null;
-            
+
             OnDialogueEnded?.Invoke();
         }
     }

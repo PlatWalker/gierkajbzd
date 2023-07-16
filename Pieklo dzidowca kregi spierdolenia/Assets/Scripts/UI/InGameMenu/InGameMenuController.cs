@@ -14,7 +14,6 @@ namespace jbzd.UI.InGameMenu
 
         private float _savedTimeScale;
 
-        private PlayerManager _playerController;
         private UserInterfaceInput _inputController;
 
         [Inject]
@@ -23,7 +22,6 @@ namespace jbzd.UI.InGameMenu
             InputManager inputManager)
         {
             _inputController = inputManager.GetInput<UserInterfaceInput>();
-            _playerController = playerController;
         }
         
         public void Start()
@@ -41,14 +39,12 @@ namespace jbzd.UI.InGameMenu
             if (panel.activeSelf)
             {
                 Time.timeScale = _savedTimeScale;
-                _playerController.CanPlayerMove = true;
                 panel.SetActive(false);
             }
             else
             {
                 _savedTimeScale = Time.timeScale;
                 Time.timeScale = 0f;
-                _playerController.CanPlayerMove = false;
                 panel.SetActive(true);
             }
         }

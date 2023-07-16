@@ -39,10 +39,17 @@ namespace jbzd.MainHero.PlayerStateLogic
             var playerState = PlayerStateInWhichInvoked();
 
             if (IsAttacking()) return PlayerState.Attack;
-            
-            LookAtMousePosition();
-            Attack();
-            
+
+            if (_playerController.CanPlayerMove)
+            {
+                LookAtMousePosition();
+                Attack();
+            }
+            else
+            {
+                return PlayerState.Idle;
+            }
+
             return playerState;
             
             //----------- local functions -----------//

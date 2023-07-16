@@ -51,14 +51,5 @@ namespace jbzd.Cutscenes
             if (!Check()) return;
             if(other.CompareTag("Player")) playableDirector.Play();
         }
-
-        private void OnTriggerStay(Collider other)
-        {
-            if (other.CompareTag("Player"))
-            {
-                _manager.CanPlayerMove = playableDirector.state != PlayState.Playing;
-            }
-                
-        }
     }
 }

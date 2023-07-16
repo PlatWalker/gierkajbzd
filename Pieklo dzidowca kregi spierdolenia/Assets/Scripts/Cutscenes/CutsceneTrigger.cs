@@ -22,18 +22,5 @@ namespace jbzd.Cutscenes
             if (other.tag == "Player")
                 playableDirector.Play();
         }
-        protected virtual void OnTriggerStay(Collider other)
-        {
-            if (other.tag == "Player")
-            {
-                _manager.CanPlayerMove = playableDirector.state != PlayState.Playing;
-            }
-                
-        }
-        protected virtual void OnTriggerExit(Collider other)
-        {
-            if (other.tag == "Player")
-                _manager.CanPlayerMove = true;
-        }
     }
 }
