@@ -9,7 +9,7 @@ using Zenject;
 namespace jbzd.Common.RunnerThing
 {
     /// <summary>
-    /// That class only exist to wrap a method created from IRunnerData from CustomRunnerFactory.
+    /// That class only exist to wrap a method created from method with <see cref="RunMethod"/> attribute CustomRunnerFactory.
     /// </summary>
     public class Runner
     {
