@@ -99,13 +99,17 @@ namespace jbzd.QuestSystem.QuestStructureElements
 
         public void MakeActorPlayInThisQuest(GoalSO passedGoal)
         {
-            if (FinishedGoals.Contains(passedGoal)) return;
+            if (FinishedGoals.Contains(passedGoal))
+            {
+                Debug.Log($"This quest {name} has goal {passedGoal.name} but this goal is already finished");
+                return;
+            }
             
             var actorsInPassedGoal = Actors.FindAll(actor => passedGoal.ActorsData.Contains(actor.ActorData));
 
             if (actorsInPassedGoal.Count != passedGoal.ActorsData.Count)
             {
-                Debug.LogError($"There are missing actors in {this.name}");
+                Debug.LogError($"There are missing actors in {name}");
                 return;
             }
             

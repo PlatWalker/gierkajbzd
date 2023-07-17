@@ -41,13 +41,36 @@ namespace jbzd.QuestSystem
             TaskSO inTask = null;
 
             var numberOfActiveQuests = ActiveQuests.Count;
+            var questsWithGoalToAct = 
+                ActiveQuests.Where(quest => quest.QuestData.IsThereAGoal(goalToAct, out inTask)).ToList();
             
-            foreach (var quest in ActiveQuests.Where(quest => quest.QuestData.IsThereAGoal(goalToAct, out inTask)))
+            if (questsWithGoalToAct.Count is 0)
             {
-                if (quest.FinishedTasks.Contains(inTask) || quest.ActiveTask != inTask) return;
+                Debug.Log($"Goal: {goalToAct.name} have tried to act but there were no active quests with such goal");
+                return;
+            }
+            
+            foreach (var quest in questsWithGoalToAct)
+            {
+                //TODO need to be tested, why we are returning if we are iterating through quests?
+                if (quest.FinishedTasks.Contains(inTask))
+                {
+                    Debug.Log($"Goal that trying to act ({goalToAct.name})," +
+                              $" is in task{inTask.name} that is already finished");
+                    return;
+                }
+
+                //TODO need to be tested, why we are returning if we are iterating through quests?
+                if (quest.ActiveTask != inTask)
+                {
+                    Debug.Log($"Goal that is trying to act ({goalToAct.name})," +
+                              $" is in task that is not currently active");
+                    return;
+                }
                 
                 quest.MakeActorPlayInThisQuest(goalToAct);
                 
+                // if acting goal finished, and it was last goal in quest thus completing it - quit loop
                 if (numberOfActiveQuests != ActiveQuests.Count) return;
             }
         }

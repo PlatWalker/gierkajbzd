@@ -55,9 +55,9 @@ namespace jbzd.QuestSystem.QuestStructureElements
             var tasksOrders = Tasks.Select(task => task.Order).ToList();
                 
             Debug.Assert(tasksOrders.Distinct().Count() == tasksOrders.Count(),
-                $"Each order numbering in tasks need to be unique! QuestSO: {name}");
+                $"Each order numbering in tasks need to be unique. QuestSO: {name}");
             Debug.Assert(tasksOrders.Zip(tasksOrders.Skip(1), (a,b) => (a+1) == b).All(x => x),
-                $"Order of tasks need to be sequential (increment by one) QuestSO: {name}");
+                $"Order of tasks need to be sequential (increment by one). QuestSO: {name}");
             Debug.Assert(tasksOrders.Contains(0),
                 $"In tasks ordering there need to be order equal to 0. QuestSO: {name}");
         }
