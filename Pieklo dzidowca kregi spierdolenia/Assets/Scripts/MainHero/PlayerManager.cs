@@ -8,7 +8,6 @@ using UnityEngine;
 using Zenject;
 using jbzd.Common.InputSystem;
 using jbzd.Common.InputSystem.Inputs;
-using jbzd.MainHero.LegacyHeroThings.Stats;
 using jbzd.MainHero.PlayerControllers;
 using jbzd.MainHero.PlayerStateLogic;
 using jbzd.NPC;
@@ -71,7 +70,6 @@ namespace jbzd.MainHero
         #region Private variables
         
         private PlayerInput _playerInput;
-        private PlayerStats _playerStats;
         private List<IPlayerStateLogic> _stateLogicObjects;
         private List<IPlayerController> _playerControllers;
         private Vector3 _newPositionVector;

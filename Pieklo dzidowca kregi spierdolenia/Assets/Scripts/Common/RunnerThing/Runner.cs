@@ -37,7 +37,7 @@ namespace jbzd.Common.RunnerThing
                 {
                     args.Add(_container.Resolve(parameterType));
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     Debug.LogError("There are types in method passed to Runner that are not registered in DIcontainer" 
                                    + "maybe try too use a overload of this method");
