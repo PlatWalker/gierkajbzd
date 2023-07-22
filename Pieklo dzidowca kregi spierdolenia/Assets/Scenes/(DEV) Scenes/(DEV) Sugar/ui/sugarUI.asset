@@ -1,0 +1,386 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14c93c62eb7066244848451977371de8, type: 3}
+  m_Name: sugarUI
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: sugarUI
+  <GraphContainerID>k__BackingField: 5f439a4bd53d99e45a010ec597aa571f
+  <ContainerID>k__BackingField: 5149993d5777f37458f40b190ff219d6
+  <Groups>k__BackingField:
+    m_Keys:
+    - <GroupName>k__BackingField: Start
+    - <GroupName>k__BackingField: Grupa
+    - <GroupName>k__BackingField: lorem
+    - <GroupName>k__BackingField: sekwencja
+    - <GroupName>k__BackingField: sekwencja_gracz
+    m_Values:
+    - myList:
+      - rid: 7030356772382310730
+    - myList:
+      - rid: 7030356772382310731
+      - rid: 7030356772382310732
+      - rid: 7030356772382310733
+      - rid: 7030356772382310734
+      - rid: 7030356772382310735
+      - rid: 7030356772382310736
+    - myList:
+      - rid: 7030356772382310737
+      - rid: 7030356772382310738
+    - myList:
+      - rid: 7030356772382310739
+      - rid: 7030356772382310740
+      - rid: 7030356772382310741
+      - rid: 7030356772382310742
+      - rid: 7030356772382310743
+      - rid: 7030356772382310744
+      - rid: 7030356772382310745
+      - rid: 7030356772382310746
+      - rid: 7030356772382310747
+    - myList:
+      - rid: 7030356772382310748
+      - rid: 7030356772382310749
+      - rid: 7030356772382310750
+      - rid: 7030356772382310751
+      - rid: 7030356772382310752
+      - rid: 7030356772382310753
+      - rid: 7030356772382310754
+  references:
+    version: 2
+    RefIds:
+    - rid: 7030356772382310730
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 973f6096-0b76-41bb-a2ac-9335dd7400e7
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 1
+        <SelectedGroup>k__BackingField: Grupa
+    - rid: 7030356772382310731
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: f8ee5abf-b0de-4ff0-b009-07a96ecb7e7d
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: "p\u0119tla"
+          <NextDialogue>k__BackingField: b6e5e7b3-9e99-4790-bc3e-b596d985767e
+        - <Text>k__BackingField: dlugie lorem ipsum
+          <NextDialogue>k__BackingField: 910bfb49-3b0e-4fa1-911b-0443de151c2c
+        - <Text>k__BackingField: dluga sekwencja
+          <NextDialogue>k__BackingField: 4f12e738-5da4-458b-b8b3-ab7fa729cf21
+        - <Text>k__BackingField: sekwencja z graczem
+          <NextDialogue>k__BackingField: c02d11e9-fca3-4c89-831d-96f06ba707dc
+        <NodeType>k__BackingField: 1
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: multi
+        <NpcImage>k__BackingField: {fileID: 0}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <ShowPlayerResponse>k__BackingField: 1
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 7030356772382310732
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 910bfb49-3b0e-4fa1-911b-0443de151c2c
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: lorem
+    - rid: 7030356772382310733
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 4f12e738-5da4-458b-b8b3-ab7fa729cf21
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: sekwencja
+    - rid: 7030356772382310734
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: b6e5e7b3-9e99-4790-bc3e-b596d985767e
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: Grupa
+    - rid: 7030356772382310735
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: c02d11e9-fca3-4c89-831d-96f06ba707dc
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: sekwencja_gracz
+    - rid: 7030356772382310736
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 9f387350-3243-4698-b974-da80494bf0e1
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: f8ee5abf-b0de-4ff0-b009-07a96ecb7e7d
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 1
+        <Text>k__BackingField: wspanialy wstep
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 723f2194857c4ba4d9619cc7c9a6568a, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 9b1ed51078b55414e9b93709a6e8f937, type: 3}
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 1
+    - rid: 7030356772382310737
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 58094d16-2412-48b6-b1c9-d4131fbea216
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 847715e1-2e86-4a90-9e67-c6bdd7d479e0
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 1
+        <Text>k__BackingField: Lorem ipsum dolor sit amet, consectetur adipiscing
+          elit. Etiam sed interdum nunc. Maecenas at nibh sed sem lobortis imperdiet.
+          Maecenas porttitor tincidunt blandit. Ut ornare est nec lacus efficitur,
+          et auctor odio eleifend. Ut pellentesque ex dolor, ac accumsan odio dictum
+          vel. Donec sit amet metus lorem. Nulla efficitur mattis lacus, non rutrum
+          libero. Phasellus ultricies velit ac ipsum mattis pellentesque. Pellentesque
+          habitant morbi tristique senectus et netus et malesuada fames ac turpis
+          egestas. Nunc a orci ante. Orci varius natoque penatibus et magnis dis
+          parturient montes, nascetur ridiculus mus. Donec dictum sem at bibendum
+          porta. Nunc faucibus elit eget risus cursus maximus. Vivamus fringilla
+          iaculis mattis.
+        <NpcImage>k__BackingField: {fileID: 0}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 1
+    - rid: 7030356772382310738
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 847715e1-2e86-4a90-9e67-c6bdd7d479e0
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: Grupa
+    - rid: 7030356772382310739
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 0e913f2c-cd3b-4ef2-aac4-16790c0b1f52
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 4615669c-2106-46e2-9a0a-35ddd2b0f99e
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 1
+        <Text>k__BackingField: 'Ut luctus leo at augue interdum, '
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: e2053f2327600da4490c0e81b603f3b3, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 7030356772382310740
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 4615669c-2106-46e2-9a0a-35ddd2b0f99e
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 3d000d96-52d5-4306-a3b5-c916b557e491
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: 'at tempus lectus congue. Maecenas rhoncus, '
+        <NpcImage>k__BackingField: {fileID: 0}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 7030356772382310741
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 3d000d96-52d5-4306-a3b5-c916b557e491
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: aaeecaf7-545e-4694-a716-317e7d488fea
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: ligula id tincidunt cursus, lectus libero pulvinar
+          neque
+        <NpcImage>k__BackingField: {fileID: 0}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 7030356772382310742
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: aaeecaf7-545e-4694-a716-317e7d488fea
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 31378fa5-52b3-4496-bda8-f1293ee62dbe
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: ', at vestibulum libero sapien eu urna.'
+        <NpcImage>k__BackingField: {fileID: 0}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 7030356772382310743
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 31378fa5-52b3-4496-bda8-f1293ee62dbe
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: ad791158-66d2-4ae0-abee-e304b6eac0e8
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: 'Donec quis hendrerit est, non commodo enim. '
+        <NpcImage>k__BackingField: {fileID: 0}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 7030356772382310744
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: ad791158-66d2-4ae0-abee-e304b6eac0e8
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 52abd0f3-0d10-4848-bb95-6eb036cc03f5
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: Duis commodo, sapien vel semper ultricies, augue lectus
+          elementum massa,
+        <NpcImage>k__BackingField: {fileID: 0}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 7030356772382310745
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 52abd0f3-0d10-4848-bb95-6eb036cc03f5
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 16fefcb5-536a-48e5-a3aa-1e7251d8764a
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: 'viverra pretium nibh odio a ipsum. '
+        <NpcImage>k__BackingField: {fileID: 0}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 1
+    - rid: 7030356772382310746
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 16fefcb5-536a-48e5-a3aa-1e7251d8764a
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 6d19976e-5acb-48ca-88ee-4be303058b0d
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: Donec sagittis vestibulum rutrum. Nulla pulvinar nulla
+          a iaculis ullamcorper.
+        <NpcImage>k__BackingField: {fileID: 0}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 7030356772382310747
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 6d19976e-5acb-48ca-88ee-4be303058b0d
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: Grupa
+    - rid: 7030356772382310748
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: ef99b3e5-73fc-4153-9d59-e0424f08ff63
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Praesent feugiat et nibh eget tristique.
+          <NextDialogue>k__BackingField: 3d7dfc79-0d3f-4aaa-8859-7348a058407d
+        <NodeType>k__BackingField: 1
+        <IsStartingDialogue>k__BackingField: 1
+        <Text>k__BackingField: 'Duis cursus sapien nec purus vehicula consequat. '
+        <NpcImage>k__BackingField: {fileID: 0}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <ShowPlayerResponse>k__BackingField: 1
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 7030356772382310749
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 3d7dfc79-0d3f-4aaa-8859-7348a058407d
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: 'Aliquam laoreet fermentum augue sit amet vehicula. '
+          <NextDialogue>k__BackingField: cc1b6774-d8f1-461e-acf3-3cd783e7922d
+        <NodeType>k__BackingField: 1
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: Sed at tellus eu mauris maximus commodo ultrices ut
+          justo.
+        <NpcImage>k__BackingField: {fileID: 0}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <ShowPlayerResponse>k__BackingField: 1
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 7030356772382310750
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: cc1b6774-d8f1-461e-acf3-3cd783e7922d
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Integer mauris neque,
+          <NextDialogue>k__BackingField: 456af213-d085-48b4-a4c4-27f8b5756af5
+        <NodeType>k__BackingField: 1
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: Maecenas vitae risus justo.
+        <NpcImage>k__BackingField: {fileID: 0}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <ShowPlayerResponse>k__BackingField: 1
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 7030356772382310751
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 456af213-d085-48b4-a4c4-27f8b5756af5
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: 'Vestibulum mauris felis, gravida in consequat sed, '
+          <NextDialogue>k__BackingField: 6666068a-2ded-4065-a3bb-8329b522b589
+        <NodeType>k__BackingField: 1
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: fringilla ac tincidunt sollicitudin, pretium quis
+          quam.
+        <NpcImage>k__BackingField: {fileID: 0}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <ShowPlayerResponse>k__BackingField: 1
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 7030356772382310752
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 6666068a-2ded-4065-a3bb-8329b522b589
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Phasellus iaculis nec felis non semper.
+          <NextDialogue>k__BackingField: 166a41d6-e3e6-4e3f-8064-6fabf6597fb8
+        <NodeType>k__BackingField: 1
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: ' pellentesque ut massa.'
+        <NpcImage>k__BackingField: {fileID: 0}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <ShowPlayerResponse>k__BackingField: 1
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 7030356772382310753
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 166a41d6-e3e6-4e3f-8064-6fabf6597fb8
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: 'Mauris commodo odio consectetur nisi vestibulum,
+            sagittis mollis erat rutrum. '
+          <NextDialogue>k__BackingField: a75b040d-090d-447c-a1ab-a88453a639cf
+        - <Text>k__BackingField: Pellentesque posuere, ligula ac eleifend auctor,
+            lectus erat iaculis leo, convallis tempor metus eros in elit.
+          <NextDialogue>k__BackingField: 
+        <NodeType>k__BackingField: 1
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: Pellentesque posuere, ligula ac eleifend auctor, lectus
+          erat iaculis leo, convallis tempor metus eros in elit.
+        <NpcImage>k__BackingField: {fileID: 0}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <ShowPlayerResponse>k__BackingField: 1
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 7030356772382310754
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: a75b040d-090d-447c-a1ab-a88453a639cf
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: Grupa

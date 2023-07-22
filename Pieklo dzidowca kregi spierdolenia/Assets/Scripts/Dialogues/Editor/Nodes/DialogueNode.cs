@@ -16,6 +16,7 @@ namespace jbzd.Dialogues.Editor.Nodes
         private readonly int textLengthLimit = int.MaxValue;
         private Label warning;
         private string Text { get; set; }
+        private bool IsPlayerTalking { get; set; }
         private Sprite NpcImage { get; set; }
         private Sprite PlayerImage { get; set; }
         private AudioClip DialogueAudio { get; set; }
@@ -33,6 +34,10 @@ namespace jbzd.Dialogues.Editor.Nodes
                 this.CreatePort("Input", Orientation.Horizontal, Direction.Input, Port.Capacity.Multi);
 
             inputContainer.Add(inputPort);
+
+            var isPlayerTalking =
+                DialogueElementUtility.CreateToggle("Czy gracz mowi: ", IsPlayerTalking, 
+                    callback => IsPlayerTalking = callback.newValue);
             
             var npcImage = DialogueElementUtility.CreateCustomField(NpcImage, "obrazek NPC: ", typeof(Sprite),
                 callback => NpcImage = (Sprite)callback.newValue);
@@ -46,6 +51,7 @@ namespace jbzd.Dialogues.Editor.Nodes
             extensionContainer.Add(npcImage);
             extensionContainer.Add(playerImage);
             extensionContainer.Add(dialogueAudio);
+            extensionContainer.Add(isPlayerTalking);
 
             VisualElement customDataContainer = new VisualElement();
             
@@ -95,7 +101,8 @@ namespace jbzd.Dialogues.Editor.Nodes
                 Text = this.Text,
                 PlayerImage = this.PlayerImage,
                 NpcImage = this.NpcImage,
-                Audio = this.DialogueAudio
+                Audio = this.DialogueAudio,
+                IsPlayerTalking = this.IsPlayerTalking
             };
             return nodeEditorData;
         }
@@ -108,14 +115,15 @@ namespace jbzd.Dialogues.Editor.Nodes
             PlayerImage = nData.PlayerImage;
             NpcImage = nData.NpcImage;
             DialogueAudio = nData.Audio;
-            
+            IsPlayerTalking = nData.IsPlayerTalking;
         }
 
         public override NodeRuntimeData GetSavedDataForDialogue()
         {
             var convertedChoices = Choices.Select(choice => choice.ConvertToChoiceData()).ToList();
-            DialogueRuntimeData nodeSaveData = new DialogueRuntimeData(Text, convertedChoices, NodeType, IsStartingNode(), NpcImage, PlayerImage, ID);
-            
+            DialogueRuntimeData nodeSaveData = 
+                new DialogueRuntimeData(Text, convertedChoices, NodeType, IsStartingNode(), NpcImage, PlayerImage, ID,
+                    NodeType != NodeType.SingleChoice, IsPlayerTalking);
             return nodeSaveData;
         }
     }

@@ -11,9 +11,12 @@ namespace jbzd.Dialogues.RuntimeData
         [field: SerializeField] [field: TextArea()] public string Text { get; set; }
         [field: SerializeField] public Sprite NpcImage { get; set; }
         [field: SerializeField] public Sprite PlayerImage { get; set; }
+        [field: SerializeField] public bool ShowPlayerResponse { get; set; }
+        [field: SerializeField] public bool IsPlayerTalking { get; set; }
 
         public DialogueRuntimeData(string text, List<ChoiceRuntimeData> choices, NodeType nodeType,
-            bool isStartingDialogue, Sprite npcImage, Sprite playerImage, string id)
+            bool isStartingDialogue, Sprite npcImage, Sprite playerImage, string id, bool showPlayerResponse,
+            bool isPlayerTalking)
         {
             Text = text;
             Choices = choices;
@@ -22,18 +25,16 @@ namespace jbzd.Dialogues.RuntimeData
             NpcImage = npcImage;
             PlayerImage = playerImage;
             NodeId = id;
+            ShowPlayerResponse = showPlayerResponse;
+            IsPlayerTalking = isPlayerTalking;
         }
 
         [RunMethod]
         public void Run(UserInterfaceManager uiManager)
         {
             var controller = uiManager.GetUIController<DialogueUIController>();
-            
-            controller.ShowText(Text);
-            controller.SetChoices(Choices);
-            //TODO wysypuje sie w chwili gdy nie ma UI'a
-            //controller.SetNpcImage(NpcImage);
-            //controller.SetPlayerImage(PlayerImage);
+
+            controller.ShowInsideUI(Text, IsPlayerTalking, Choices, ShowPlayerResponse, NpcImage, PlayerImage);
         }
     }
 }
