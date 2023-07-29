@@ -1,4 +1,5 @@
 ﻿using jbzd.Common.Interfaces;
+using jbzdy.Enemies;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -6,7 +7,7 @@ using UnityEngine.AI;
 /// Created by Kumdzio.
 /// Abstract class with all needed tolls for simple AI.
 /// </summary>
-namespace jbzdy.Enemies
+namespace jbzd.Enemies
 {
 	public abstract class EnemyController : MonoBehaviour, IDamageable
 	{

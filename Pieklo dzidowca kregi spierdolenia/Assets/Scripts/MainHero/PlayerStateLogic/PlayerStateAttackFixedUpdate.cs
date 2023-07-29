@@ -106,7 +106,7 @@ namespace jbzd.MainHero.PlayerStateLogic
             if(!IsAttackAnimation(stateInfo)) return;
 
             animator.SetBool(PlayerStringAnimParam.AttackInProgressParam, true);
-            _playerController.CanPlayerMove = false;
+            _playerController.AttackInputFreeze = false;
             
             if(!_dash.Item1) return;
             
@@ -123,7 +123,7 @@ namespace jbzd.MainHero.PlayerStateLogic
             if(!IsAttackAnimation(stateInfo)) return;
 
             animator.SetBool(PlayerStringAnimParam.AttackInProgressParam, false);
-            _playerController.CanPlayerMove = true;
+            _playerController.AttackInputFreeze = true;
             
             if(IsMoving())
             {

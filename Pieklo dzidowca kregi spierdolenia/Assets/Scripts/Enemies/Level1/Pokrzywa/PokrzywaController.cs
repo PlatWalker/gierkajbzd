@@ -2,7 +2,6 @@
 using jbzd.Common.Interfaces;
 using TheKiwiCoder;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace jbzd.Enemies.Level1.Pokrzywa
 {
@@ -15,7 +14,8 @@ namespace jbzd.Enemies.Level1.Pokrzywa
         [SerializeField] private bool isInvincible;
         [SerializeField] private float invincibilityDurationSeconds;
         [SerializeField] private Material hitMaterial;
-        public int MaximumHealth { get => PokrzywaData.MaxHealth; }
+        public int MaximumHealth => PokrzywaData.MaxHealth;
+
         [field:SerializeField]
         public int CurrentHealth { get; private set; }
         

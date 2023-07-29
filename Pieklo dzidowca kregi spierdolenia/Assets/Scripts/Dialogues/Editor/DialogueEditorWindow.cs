@@ -35,7 +35,7 @@ namespace jbzd.Dialogues.Editor
             {
                 NumberOfWindowsOpened++; 
                 var window = CreateInstance<DialogueEditorWindow>();
-                window.title = "Dialogue graph";
+                window.title = "Dialogue graph"; //TODO title is obsolete use titleContent.
                 window.Show();
                 window.dialogueContainer = so;
                 IOUtility.Load(NumberOfWindowsOpened-1);
@@ -45,7 +45,7 @@ namespace jbzd.Dialogues.Editor
             {
                 NumberOfWindowsOpened++;
                 var window = CreateInstance<DialogueEditorWindow>();
-                window.title = "Dialogue graph";
+                window.title = "Dialogue graph";//TODO title is obsolete use titleContent.
                 window.Show(); 
                 window.dialogueContainer = IOUtility.AssetFromGuid<ContainerSO>(gso.ContainerID);
                 IOUtility.Load(NumberOfWindowsOpened-1);

@@ -43,23 +43,44 @@ namespace jbzd.MainHero
         public bool CanPlayerMove
         {
             get => canPlayerMove;
-            set => canPlayerMove = value;
+            set
+            {
+                _canAttackUnFreeze = false;
+                canPlayerMove = value;
+            }
         }
 
+        private bool _canAttackUnFreeze = true;
+
+        /// <summary>
+        /// Player freezing, can be used only for freezing player when attacking
+        /// </summary>
+        public bool AttackInputFreeze
+        {
+            set
+            {
+                if (!_canAttackUnFreeze)
+                {
+                    _canAttackUnFreeze = true;
+                    return;
+                }
+                
+                canPlayerMove = value;
+            }
+        }
+        
         [field:SerializeField]
         [field: Range(1f, 10f)]
         public float PlayerSpeed { get; private set; }
-        [field:SerializeField] 
-        [field: Range(200f, 1500f)]
-        public float DashAttackMovePower { get; private set; }
-        [SerializeField] private PlayerState playerState = PlayerState.Idle;
+
+        [SerializeField] 
+        private PlayerState playerState = PlayerState.Idle;
         
         #endregion
 
         #region Public variables
         
         public List<NpcController> ListOfFollowers = new();
-        public List<Collider> ListOfEnemiesColliders { get; } = new();
 
         public Animator CharacterAnimator { get; private set; }
         public Rigidbody Rb { get; private set; }

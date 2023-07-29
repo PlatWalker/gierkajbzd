@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using jbzd.Dialogues.RuntimeData;
+using jbzd.Enemies;
 using UnityEngine;
 
 namespace jbzd.QuestSystem.QuestStructureElements
@@ -24,7 +25,18 @@ namespace jbzd.QuestSystem.QuestStructureElements
                 return isInActorSuchComponent;
             }).ToList();
 
-            if (!actorsWithChosenComponent.Any()) Debug.LogError("There are no components of this type in actor list");
+            if (!actorsWithChosenComponent.Any())
+            {
+                if (typeof(EnemyController) == typeof(T))
+                {
+                    Debug.LogWarning($"There are no components of {nameof(EnemyController)} type in actor list in goal: {name}" + 
+                                     " but enemyController will be deleted.");
+                }
+                else
+                {
+                    Debug.LogError($"There are no components of {typeof(T)} type in actor list in goal: {name}");
+                }
+            }
             
             return componentsFromActorsList;
         }

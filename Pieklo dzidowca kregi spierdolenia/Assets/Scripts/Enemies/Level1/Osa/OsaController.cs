@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using jbzd.Enemies;
 using UnityEngine;
 using UnityEngine.AI;
 

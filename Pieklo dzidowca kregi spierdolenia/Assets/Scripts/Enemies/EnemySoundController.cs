@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using jbzd.Enemies;
+using UnityEngine;
 
 namespace jbzdy.Enemies
 {
