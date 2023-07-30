@@ -9,6 +9,7 @@ namespace jbzd.Dialogues
 {
     public class DialogueManager : MonoBehaviour
     {
+        private bool _isDialogueRunning;
         public ContainerSO CurrentDialogueContainer { get; private set; }
         private string _currentGroup;
         public NodeRuntimeData CurrentNode;
@@ -28,7 +29,11 @@ namespace jbzd.Dialogues
         
         public void StartDialogue(ContainerSO data)
         {
-            
+            if(_isDialogueRunning){
+                Debug.Log("Dialogue is already running");
+                return;
+            }
+            _isDialogueRunning = true;
             CurrentDialogueContainer = data;
             CurrentDialogueContainer.LoadGroups();
 
@@ -87,6 +92,7 @@ namespace jbzd.Dialogues
         
         public void EndDialogue()
         {
+            _isDialogueRunning = false;
             _currentGroup = null;
             CurrentNode = null;
 
