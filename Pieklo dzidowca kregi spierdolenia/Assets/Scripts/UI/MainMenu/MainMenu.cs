@@ -5,25 +5,25 @@ namespace jbzd.UI.MainMenu
 {
     public class MainMenu : MonoBehaviour
     {
+        public GameObject eventSystem;
+        public GameObject mainCamera;
+
         public void PlayGame()
         {
-            SceneManager.LoadScene("Gameplay_stuff", LoadSceneMode.Additive);
-            SceneManager.LoadScene("Level1Triggers", LoadSceneMode.Additive);
-            SceneManager.LoadScene("Level_1_Smaller", LoadSceneMode.Additive);
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            eventSystem.SetActive(false);
+            mainCamera.SetActive(false);
+            
+            SceneManager.LoadSceneAsync("(none) - (GameplayStuff) - (SingleLoad)", LoadSceneMode.Additive);
+            SceneManager.sceneLoaded += SceneLoaded;
         }
 
-        private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+        private void SceneLoaded(Scene arg0, LoadSceneMode loadSceneMode)
         {
-            if (arg0.name != "Level_1_Smaller") return;
-            
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName("Level_1_Smaller"));
-            SceneManager.UnloadSceneAsync("Main Menu", UnloadSceneOptions.None);
+            SceneManager.UnloadSceneAsync("(none) - (Main Menu) - (SingleLoad)");
+            SceneManager.LoadSceneAsync("(Krag1) - (MainScene) - (Passive)", LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync("(Krag1) - (MainScene) - (Interactive)", LoadSceneMode.Additive);
 
-            if (FindObjectOfType<GameManager>() != null)
-            {
-                GameManager.Instance.Init();
-            }
+            SceneManager.sceneLoaded -= SceneLoaded;
         }
 
         public void QuitGame()
