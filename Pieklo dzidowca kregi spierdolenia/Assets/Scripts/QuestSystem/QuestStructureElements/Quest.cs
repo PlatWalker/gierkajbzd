@@ -19,7 +19,6 @@ namespace jbzd.QuestSystem.QuestStructureElements
         //There is no {get;set;} here because it messes up serialization in QuestEditor.cs
         [SerializeField] public QuestSO QuestData;
         [SerializeField] public List<Actor> Actors = new();
-
         private QuestManager _questManager;
         private RunnerFactory _runnerFactory;
         private CutscenesManager _cutscenesManager;

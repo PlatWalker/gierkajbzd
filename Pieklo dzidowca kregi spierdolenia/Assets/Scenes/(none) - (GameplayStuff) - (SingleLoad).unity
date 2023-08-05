@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &467709751 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8077748159960927105, guid: cc74b481f84f0274a8fa8d1b9f0b479f, type: 3}
+  m_PrefabInstance: {fileID: 1032465982}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57c99ead1c3c404c9c4a6bc5d217b8ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1032465982
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -130,6 +141,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 291557960981245961, guid: cc74b481f84f0274a8fa8d1b9f0b479f, type: 3}
+      propertyPath: _questManager
+      value: 
+      objectReference: {fileID: 467709751}
     - target: {fileID: 313669543249890451, guid: cc74b481f84f0274a8fa8d1b9f0b479f, type: 3}
       propertyPath: m_Name
       value: GameplayStuffSceneContext
