@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14c93c62eb7066244848451977371de8, type: 3}
+  m_Name: asd
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: asd
+  <GraphContainerID>k__BackingField: 424481fbfa59d774db50cebe8540f6f1
+  <ContainerID>k__BackingField: f44c96d01367eb8439f8989d1f760146
+  <Groups>k__BackingField:
+    m_Keys:
+    - <GroupName>k__BackingField: Start
+    - <GroupName>k__BackingField: Grupa
+    - <GroupName>k__BackingField: Grupa0
+    m_Values:
+    - myList:
+      - rid: 3466354679942217790
+    - myList:
+      - rid: 3466354679942217791
+      - rid: 3466354679942217792
+      - rid: 3466354679942217793
+    - myList:
+      - rid: 3466354679942217794
+  references:
+    version: 2
+    RefIds:
+    - rid: 3466354679942217790
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: a72b06d5-0721-48e3-aff1-a328f39405db
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 1
+        <SelectedGroup>k__BackingField: Grupa0
+    - rid: 3466354679942217791
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: ecae6a23-4af2-4cbf-9e0f-8e4e1dcaccb9
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 1
+        <Text>k__BackingField: Tekst dialogu...
+        <NpcImage>k__BackingField: {fileID: 0}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 3466354679942217792
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: b7b949c1-974a-4395-a7b1-abeb342e5293
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 1
+        <SelectedGroup>k__BackingField: Start
+    - rid: 3466354679942217793
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 4366012e-4721-4913-b051-568da0b3d477
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 1
+        <SelectedGroup>k__BackingField: Start
+    - rid: 3466354679942217794
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: a934df52-6a10-45f1-baf4-187e48d33b7e
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 1
+        <SelectedGroup>k__BackingField: Grupa

@@ -43,7 +43,6 @@ namespace jbzd.Dialogues.Editor.Nodes
             
             _dropdownField = DialogueElementUtility.CreateDropdownField(_groupNames, "Grupa", SelectedGroup,
                 value => SelectedGroup = value.newValue);
-
             mainContainer.Add(_dropdownField);
             
             RefreshExpandedState();
@@ -83,6 +82,10 @@ namespace jbzd.Dialogues.Editor.Nodes
         {
             if(nodeData is EndGroupNodeEditorData nData)
                 SelectedGroup = nData.SelectedGroup;
+                if(_dropdownField == null){
+                    _dropdownField = new DropdownField();
+                }
+                _dropdownField.value = SelectedGroup;
         }
 
         public override NodeRuntimeData GetSavedDataForDialogue()
