@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using jbzd.Common.Interfaces;
 using jbzd.Dialogues;
 using jbzd.Dialogues.RuntimeData;
@@ -14,7 +13,7 @@ using Zenject;
 namespace jbzd.NPC
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    public class NpcController : MonoBehaviour , IInteractable
+    public class NpcController : MonoBehaviour
     {
         public enum NpcStates
         {
@@ -26,6 +25,7 @@ namespace jbzd.NPC
 
         [SerializeField] private NpcStates npcState = NpcStates.Idle;
         
+
         public NpcStates NpcState
         {
             get => npcState;
@@ -54,6 +54,7 @@ namespace jbzd.NPC
         public ContainerSO DialogueContainer { get; set; }
         [field:SerializeField]
         public TaskSO TaskOnWhichToTalk { get; set; }
+        [SerializeField] private Quest QuestToCheck;
         
         [field:SerializeField]
         [Tooltip("If Npc need to follow a predefined path in some situation, add waypoints from scene for him to follow" +
@@ -73,12 +74,14 @@ namespace jbzd.NPC
             _dialogueManager = dialogueManager;
             _questManager = questManager;
         }
+
+
         
         public void Awake()
         {
             NpcAgent = GetComponent<NavMeshAgent>();
         }
-        
+
         public void Update()
         {
             switch (NpcState)
@@ -101,14 +104,6 @@ namespace jbzd.NPC
             }
         }
 
-        public void OnInteract()
-        {
-            if (DialogueContainer is null) return;
-            
-            if (_questManager.ActiveQuests.Any(quest => quest.ActiveTask == TaskOnWhichToTalk))
-            {
-                _dialogueManager.StartDialogue(DialogueContainer);
-            }
-        }
+        
     }
 }

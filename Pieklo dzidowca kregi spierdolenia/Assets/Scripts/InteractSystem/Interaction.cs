@@ -17,7 +17,7 @@ namespace jbzd.InteractSystem
         /// </summary>
         public event InteractionObjectReached OnInteractionObjectReach;
         
-        private IInteractable _interactable;
+        private IInteractable[] _interactable;
 
         [field:JbzdReadOnly][field:SerializeField] public bool IsInRange { get; private set; }
 
@@ -37,9 +37,10 @@ namespace jbzd.InteractSystem
                 return;
             }
             
-            var interactable = GetComponentInParent<IInteractable>();
+            var interactable = GetComponentsInParent<IInteractable>();
 
-            if (interactable is null)
+            
+            if (interactable.Length == 0)
             {
                 Debug.LogError("Rodzic obiektu interakcji nie posiada interfejsu IInteractable.");
                 return;
@@ -51,7 +52,10 @@ namespace jbzd.InteractSystem
 
         private void OnInteract()
         {
-            if (IsInRange) _interactable.OnInteract();
+            foreach (var interactable in _interactable)
+            {
+                if (IsInRange) interactable.OnInteract();
+            }
         }
 
         private void OnTriggerEnter(Collider other)
