@@ -12,5 +12,6 @@ namespace jbzd.Dialogues
         Cutscene = 6,
         EndGroup = 7,
         GoalScenarioActivation = 8,
+        Comment = 9,
     }
 }
