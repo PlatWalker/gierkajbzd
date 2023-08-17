@@ -33,7 +33,9 @@ namespace jbzd.Scenes.SceneLoader
 
         [Dropdown(nameof(SceneNames))]
         public string levelNameOfSceneToLoad;
-        
+
+        public int Id;
+
         private PlayerManager _playerManager;
         [Inject]
         public void Constructor(PlayerManager playerManager)
@@ -187,11 +189,23 @@ namespace jbzd.Scenes.SceneLoader
                 return;
             }
 
-            var gameObjectToTeleportTo = gameObjects.FirstOrDefault(gObject => gObject.CompareTag("TeleportDestination"));
+            var gameObjectToTeleportTo = gameObjects.FirstOrDefault(gObject => {
+
+                if (!gObject.CompareTag("TeleportDestination")) return false;
+                
+                if (!gObject.TryGetComponent<TeleportDestination>(out var destination))
+                {
+                    Debug.LogError("One of teleport destinations doesnt have script");
+                    return true;
+                }
+
+                return destination.Id == Id; 
+                }
+            );
 
             if (gameObjectToTeleportTo is null)
             {
-                Debug.LogError("There is no object with 'TeleportDestination' tag so there is nothing to teleport to");
+                Debug.LogError("There is no object with 'TeleportDestination' tag so there is nothing to teleport to or such object doesnt have corresponding destination id");
                 return;
             }
 
