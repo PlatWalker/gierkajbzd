@@ -42,7 +42,7 @@ namespace jbzd.InteractSystem
             
             if (interactable.Length == 0)
             {
-                Debug.LogError("Rodzic obiektu interakcji nie posiada interfejsu IInteractable.");
+                Debug.LogError($"Rodzic ({transform.parent.name}) obiektu interakcji nie posiada interfejsu IInteractable.");
                 return;
             }
 

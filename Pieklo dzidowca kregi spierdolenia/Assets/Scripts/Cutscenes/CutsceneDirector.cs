@@ -43,10 +43,6 @@ namespace jbzd.Cutscenes
             
             _playableDirector.stopped += _ =>
             {
-                if (_playableDirector.time < _playableDirector.duration - 0.1 ) return;
-
-                if (_dialogueStarted) return;
-                
                 _playerManager.CanPlayerMove = true;
                 Debug.Log($"{transform.parent.name} unfreeze player");
                 _dialogueEnded = false;
