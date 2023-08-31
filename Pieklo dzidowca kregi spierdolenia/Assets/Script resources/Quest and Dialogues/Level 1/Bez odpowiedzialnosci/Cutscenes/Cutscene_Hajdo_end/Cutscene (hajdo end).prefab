@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6854958670186474308}
   - component: {fileID: 4666016570403993347}
-  m_Layer: 0
+  - component: {fileID: 123273549909802016}
+  m_Layer: 12
   m_Name: Cutscene (hajdo end)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,6 +47,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 6.349243, y: 3.1421356, z: 3.5276337}
   m_Center: {x: -0.010559082, y: 1.0710678, z: -2.0686111}
+--- !u!114 &123273549909802016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2062269348206850760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9513459f7befb04fa9ad25997a08013, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _quest: {fileID: 0}
+  playableDirector: {fileID: 8254274085657162407}
 --- !u!1 &5554948349982403553
 GameObject:
   m_ObjectHideFlags: 0

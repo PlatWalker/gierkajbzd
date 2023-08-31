@@ -5682,7 +5682,8 @@ GameObject:
   - component: {fileID: 3138130204757421908}
   - component: {fileID: 3138130204757421911}
   - component: {fileID: 6950686119900320989}
-  m_Layer: 0
+  - component: {fileID: 4627393675682068790}
+  m_Layer: 12
   m_Name: Cutscene_hajdo_intro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5730,6 +5731,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3dc8a2e88c2e8f47bf1f0cef01372d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playableDirector: {fileID: 3138130204457457976}
+--- !u!114 &4627393675682068790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3138130204757421905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 581908e54d20aff4fb41104a7a66f12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _quest: {fileID: 0}
+  _task: {fileID: 11400000, guid: 371c381d28beb274686e3874db6281c2, type: 2}
   playableDirector: {fileID: 3138130204457457976}
 --- !u!1 &3138130204927770827
 GameObject:

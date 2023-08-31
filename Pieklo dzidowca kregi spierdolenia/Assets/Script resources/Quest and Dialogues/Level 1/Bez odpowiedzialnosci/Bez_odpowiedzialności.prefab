@@ -138,6 +138,7 @@ MonoBehaviour:
   npcState: 1
   <DialogueContainer>k__BackingField: {fileID: 0}
   <TaskOnWhichToTalk>k__BackingField: {fileID: 0}
+  QuestToCheck: {fileID: 0}
   <Waypoints>k__BackingField: []
 --- !u!1 &2736445530920634483
 GameObject:
@@ -262,6 +263,7 @@ MonoBehaviour:
   npcState: 1
   <DialogueContainer>k__BackingField: {fileID: 0}
   <TaskOnWhichToTalk>k__BackingField: {fileID: 0}
+  QuestToCheck: {fileID: 0}
   <Waypoints>k__BackingField: []
 --- !u!1 &2936154267748036355
 GameObject:
@@ -309,7 +311,6 @@ GameObject:
   - component: {fileID: 2936154267769854464}
   - component: {fileID: 2936154267769854471}
   - component: {fileID: 2936154267769854470}
-  - component: {fileID: 2936154267769854466}
   m_Layer: 0
   m_Name: BabciaDestynacja2
   m_TagString: Untagged
@@ -366,19 +367,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ActorData>k__BackingField: {fileID: 11400000, guid: ff1fb4f9f4eee2f4c9bdbd35b35dc678, type: 2}
---- !u!114 &2936154267769854466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2936154267769854469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 470463b8ba470f543b6f2dca5681d3b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _goal: {fileID: 11400000, guid: 38e8b25c9a013184b9eb52248deed2f6, type: 2}
 --- !u!1 &2936154268738882150
 GameObject:
   m_ObjectHideFlags: 0
@@ -2663,10 +2651,6 @@ PrefabInstance:
       value: Cutscene (hajdo end)
       objectReference: {fileID: 0}
     - target: {fileID: 2062269348206850760, guid: 46b8fa3bb6a90214193470e3e6b6663a, type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 2062269348206850760, guid: 46b8fa3bb6a90214193470e3e6b6663a, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -2806,30 +2790,9 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2062269348206850760, guid: 46b8fa3bb6a90214193470e3e6b6663a, type: 3}
   m_PrefabInstance: {fileID: 2936154267753132172}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2936154268916755353
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3756556018610831940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: baa84cd001578ae42a9aa6012b28e84a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playableDirector: {fileID: 6499330107598078507}
-  quest: {fileID: 8214421747608216241}
-  task: {fileID: 0}
-  _goal: {fileID: 0}
 --- !u!1 &5644327256742126608 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7416299921101771932, guid: 46b8fa3bb6a90214193470e3e6b6663a, type: 3}
-  m_PrefabInstance: {fileID: 2936154267753132172}
-  m_PrefabAsset: {fileID: 0}
---- !u!320 &6499330107598078507 stripped
-PlayableDirector:
-  m_CorrespondingSourceObject: {fileID: 8254274085657162407, guid: 46b8fa3bb6a90214193470e3e6b6663a, type: 3}
   m_PrefabInstance: {fileID: 2936154267753132172}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &7325233264132348781 stripped
@@ -5426,10 +5389,6 @@ PrefabInstance:
       value: Cutscene (hajdo intro)
       objectReference: {fileID: 0}
     - target: {fileID: 3138130204757421905, guid: c65a4d5bc96f11d4db9079452c9374fa, type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 3138130204757421905, guid: c65a4d5bc96f11d4db9079452c9374fa, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -5484,32 +5443,11 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 6950686119900320989, guid: c65a4d5bc96f11d4db9079452c9374fa, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c65a4d5bc96f11d4db9079452c9374fa, type: 3}
---- !u!320 &230721568505022683 stripped
-PlayableDirector:
-  m_CorrespondingSourceObject: {fileID: 3138130204457457976, guid: c65a4d5bc96f11d4db9079452c9374fa, type: 3}
-  m_PrefabInstance: {fileID: 2936154267957793251}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &230721568863583922 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3138130204757421905, guid: c65a4d5bc96f11d4db9079452c9374fa, type: 3}
   m_PrefabInstance: {fileID: 2936154267957793251}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2936154269703976568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 230721568863583922}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: baa84cd001578ae42a9aa6012b28e84a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playableDirector: {fileID: 230721568505022683}
-  quest: {fileID: 8214421747608216241}
-  task: {fileID: 11400000, guid: 371c381d28beb274686e3874db6281c2, type: 2}
-  _goal: {fileID: 0}
 --- !u!4 &230721568863583927 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3138130204757421908, guid: c65a4d5bc96f11d4db9079452c9374fa, type: 3}
@@ -6110,22 +6048,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7449201569029712569, guid: 0941c4b3c21377b4c9cc1b87b7d87949, type: 3}
   m_PrefabInstance: {fileID: 2936154269418943111}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2936154269659742478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5755514134191544382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: baa84cd001578ae42a9aa6012b28e84a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playableDirector: {fileID: 2435326015019358289}
-  quest: {fileID: 8214421747608216241}
-  task: {fileID: 0}
-  _goal: {fileID: 11400000, guid: 38e8b25c9a013184b9eb52248deed2f6, type: 2}
 --- !u!1001 &6703045039070787004
 PrefabInstance:
   m_ObjectHideFlags: 0

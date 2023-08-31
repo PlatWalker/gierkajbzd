@@ -269,7 +269,8 @@ GameObject:
   - component: {fileID: 2657109215297221429}
   - component: {fileID: 4269204702908116850}
   - component: {fileID: 2036932563517356874}
-  m_Layer: 0
+  - component: {fileID: 663748601237086145}
+  m_Layer: 12
   m_Name: Cutscene (escort end)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -317,4 +318,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3dc8a2e88c2e8f47bf1f0cef01372d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playableDirector: {fileID: 680981272516455126}
+--- !u!114 &663748601237086145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7449201569029712569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fad2344fef132e4a93ad67b725cf60b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _goal: {fileID: 11400000, guid: 38e8b25c9a013184b9eb52248deed2f6, type: 2}
   playableDirector: {fileID: 680981272516455126}
