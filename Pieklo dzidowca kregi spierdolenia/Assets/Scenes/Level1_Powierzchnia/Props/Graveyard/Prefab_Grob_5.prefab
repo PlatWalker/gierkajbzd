@@ -18,7 +18,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &952975865515584255
 Transform:
@@ -43,7 +43,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 464563646096470085}
-  m_Mesh: {fileID: -5495902117074765545, guid: e36533889bbaa3d438a6ba42da0d7498, type: 3}
+  m_Mesh: {fileID: -6550725848650202163, guid: 3a6568645ac2d3545a896784a8fe13b3, type: 3}
 --- !u!23 &2121910504527778192
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9e4b9b916ceccc34bafe86ac95a7339f, type: 2}
+  - {fileID: 2100000, guid: 2de17336b354cf44686289b176ec7b15, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -166,6 +166,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 3a6568645ac2d3545a896784a8fe13b3, type: 3}
       propertyPath: m_Name
       value: Model_Grob_5
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3a6568645ac2d3545a896784a8fe13b3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a6568645ac2d3545a896784a8fe13b3, type: 3}

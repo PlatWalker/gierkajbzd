@@ -17,7 +17,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1547983657325314524
 Transform:
@@ -152,6 +152,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: fb84cc221e0f9424c87ce2e1c70245eb, type: 3}
       propertyPath: m_Name
       value: Model_Pojemnik
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fb84cc221e0f9424c87ce2e1c70245eb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb84cc221e0f9424c87ce2e1c70245eb, type: 3}
