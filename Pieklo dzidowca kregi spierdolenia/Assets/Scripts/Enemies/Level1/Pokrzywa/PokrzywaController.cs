@@ -2,7 +2,8 @@
 using jbzd.Common.Interfaces;
 using TheKiwiCoder;
 using UnityEngine;
-
+using Zenject;
+using jbzd.MainHero;
 namespace jbzd.Enemies.Level1.Pokrzywa
 {
     [RequireComponent(typeof(Collider))]
@@ -14,22 +15,57 @@ namespace jbzd.Enemies.Level1.Pokrzywa
         [SerializeField] private bool isInvincible;
         [SerializeField] private float invincibilityDurationSeconds;
         [SerializeField] private Material hitMaterial;
+
+
+
+        
+        [SerializeField]
+        [Range(0.0f, 10.0f)]
+        [Tooltip("Wzór: baseTime + Sqrt(Ilość_synów) * squareRootMultiplayer + Ilość_synów * multiplayer + Random.Range(-deviation, deviation)")]
+        private float baseTime;
+        [SerializeField] 
+        [Range(0.0f, 10.0f)]
+        [Tooltip("Wzór: baseTime + Sqrt(Ilość_synów) * squareRootMultiplayer + Ilość_synów * multiplayer + Random.Range(-deviation, deviation)")]
+        private float deviation;
+        [SerializeField] 
+        [Range(0.0f, 5.0f)]
+        [Tooltip("Wzór: baseTime + Sqrt(Ilość_synów) * squareRootMultiplayer + Ilość_synów * multiplayer + Random.Range(-deviation, deviation)")]
+        private float squareRootMultiplayer;
+        [SerializeField] 
+        [Range(0.0f, 1.0f)]
+        [Tooltip("Wzór: baseTime + Sqrt(Ilość_synów) * squareRootMultiplayer + Ilość_synów * multiplayer + Random.Range(-deviation, deviation)")]
+        private float multiplayer;
+
+
+        private PlayerManager _playerManager;
+        
+        [Inject]
+        public void Construct(PlayerManager playerManager)
+        {
+            _playerManager = playerManager;
+        }
+        
+        public bool isMother = true;
         public int MaximumHealth => PokrzywaData.MaxHealth;
 
         [field:SerializeField]
         public int CurrentHealth { get; private set; }
         
         public override event EnemyDied OnDeath;
+
         
-        private Context _context;
+        private TheKiwiCoder.Context _context;
         private SkinnedMeshRenderer _meshRenderer;
         private Collider _collider;
 
         void Start()
         {
+
             _context = CreateBehaviourTreeContext();
             tree = tree.Clone();
             tree.Bind(_context);
+            tree.blackboard._playerManager = _playerManager;
+            tree.blackboard.isMother = isMother;
 
             damageController = GetComponent<DamageController>();
             _meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
@@ -47,6 +83,10 @@ namespace jbzd.Enemies.Level1.Pokrzywa
 
         void Update()
         {
+            tree.blackboard.deviation = deviation;
+            tree.blackboard.baseTime = baseTime;
+            tree.blackboard.multiplayer = multiplayer;
+            tree.blackboard.squareRootMultiplayer = squareRootMultiplayer;
             if (tree)
             {
                 tree.Update();
@@ -98,8 +138,8 @@ namespace jbzd.Enemies.Level1.Pokrzywa
             isInvincible = false;
         }
         
-        private Context CreateBehaviourTreeContext() {
-            return Context.CreateFromGameObject(gameObject);
+        private TheKiwiCoder.Context CreateBehaviourTreeContext() {
+            return TheKiwiCoder.Context.CreateFromGameObject(gameObject);
         }
 
         private void OnDrawGizmosSelected() {

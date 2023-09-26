@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using jbzd.MainHero;
 using UnityEngine;
 
 namespace TheKiwiCoder {
@@ -13,12 +14,18 @@ namespace TheKiwiCoder {
         public DamageController damageController;
         public GameObject pokrzywaPrefab;
         public Vector3 moveToPosition;
-        public float waitBeforeSpreadDuration = 10f;
+        public float waitBeforeSpreadDuration;
         public float dealDamageTimer = 1f;
         public float disappearTimer;
         public bool isDead;
         public bool startTimer;
         public bool deathAnimationDone;
         public int currentHealth;
+        public bool isMother;
+        public float baseTime;
+        public float squareRootMultiplayer;
+        public float multiplayer;
+        public float deviation;
+        public PlayerManager _playerManager;
     }
 }
