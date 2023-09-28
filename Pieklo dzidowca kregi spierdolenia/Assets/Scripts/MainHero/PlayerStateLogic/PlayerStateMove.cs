@@ -1,43 +1,37 @@
 using System;
-using jbzd.Common.Enums;
 using jbzd.Common.InputSystem.Inputs;
 using UnityEngine;
 
 namespace jbzd.MainHero.PlayerStateLogic
 {
-    public class PlayerStateMoveFixedUpdate : IPlayerStateLogic
+    public class PlayerStateMove : IPlayerStateLogic
     {
         private readonly PlayerInput _playerInput;
-        private readonly PlayerManager _playerController;
+        private readonly PlayerManager _playerManager;
 
         private Vector3 _movementVector;
         private Vector3 _newPositionVector;
         
-        public PlayerStateMoveFixedUpdate(
-            PlayerManager playerController,
-            PlayerInput playerInput,
-            MainHeroBehaviour behaviour)
+        public PlayerStateMove(
+            PlayerManager playerManager,
+            PlayerInput playerInput)
         {
-            _playerController = playerController;
+            _playerManager = playerManager;
             _playerInput = playerInput;
-            behaviour.OnStateEnterPassed += OnMoveStateEnter;
-            behaviour.OnStateExitPassed += OnMoveStateExit;
         }
-        
-        public MonoBehaviourMethod MonoBehaviourMethodInWhichInvoked() => MonoBehaviourMethod.FixedUpdate;
 
-        public PlayerState PlayerStateInWhichInvoked() => PlayerState.Move;
-        
-        public PlayerState StateLogic()
+        public PlayerState InitPlayerState => PlayerState.Move;
+
+        public PlayerState StateLogicForFixedUpdate()
         {
-            var playerState = PlayerStateInWhichInvoked();
+            var playerState = InitPlayerState;
 
             if (_playerInput.attackInputStatus.Basic)
             {
                 return PlayerState.Attack;
             }
             
-            if (_playerController.CanPlayerMove)
+            if (_playerManager.CanPlayerMove)
             {
                 UpdateCharacterPosition();
                 UpdateCharacterRotation();
@@ -60,11 +54,22 @@ namespace jbzd.MainHero.PlayerStateLogic
             bool IsNotMoving() => _playerInput.movementInputStatus is
                 {Down: false, Up: false, Left: false, Right: false};
         }
-        
-        private void OnMoveStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex){ }
-        
-        private void OnMoveStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) { }
 
+        public PlayerState StateLogicForUpdate()
+        {
+            return PlayerState.Move;
+        }
+
+        public PlayerState StateLogicForLateUpdate()
+        {
+            if (!_playerManager.CanPlayerMove)
+            {
+                return PlayerState.Idle;
+            }
+            
+            return _playerInput.attackInputStatus.Basic ? PlayerState.Attack : PlayerState.Move;
+        }
+        
         private void UpdateCharacterPosition()
         {
             _movementVector = Vector3.zero;
@@ -73,7 +78,7 @@ namespace jbzd.MainHero.PlayerStateLogic
             _movementVector += Vector3.left * Convert.ToInt32(_playerInput.movementInputStatus.Left);
             _movementVector += Vector3.right * Convert.ToInt32(_playerInput.movementInputStatus.Right);
 
-            _playerController.Rb.AddForce(_movementVector.normalized * _playerController.PlayerSpeed, ForceMode.VelocityChange);
+            _playerManager.Rb.AddForce(_movementVector.normalized * _playerManager.PlayerSpeed, ForceMode.VelocityChange);
         }
 
         private void UpdateCharacterRotation()
@@ -82,18 +87,18 @@ namespace jbzd.MainHero.PlayerStateLogic
             
             var rotation = Quaternion.LookRotation(_movementVector);
             
-            _playerController.transform.rotation = rotation;
+            _playerManager.transform.rotation = rotation;
         }
 
         private void UpdateCharacterAnimation()
         {
             if (_movementVector.z != 0 || _movementVector.x != 0)
             {
-                _playerController.CharacterAnimator.SetBool(PlayerStringAnimParam.RunParam, true);
+                _playerManager.CharacterAnimator.SetBool(PlayerStringAnimParam.RunParam, true);
             }
             else
             {
-                _playerController.CharacterAnimator.SetBool(PlayerStringAnimParam.RunParam, false);
+                _playerManager.CharacterAnimator.SetBool(PlayerStringAnimParam.RunParam, false);
             }
         }
     }

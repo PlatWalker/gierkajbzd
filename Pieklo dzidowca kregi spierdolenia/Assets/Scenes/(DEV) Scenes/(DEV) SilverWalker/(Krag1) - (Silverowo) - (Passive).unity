@@ -185,17 +185,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6221429312013799178, guid: 3f716cf961644e045805954e741b4a74, type: 3}
   m_PrefabInstance: {fileID: 5872950}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5872952 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6221429312013799188, guid: 3f716cf961644e045805954e741b4a74, type: 3}
-  m_PrefabInstance: {fileID: 5872950}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08ec94c324524a47ac41ab0731342cf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &38120875
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,7 +549,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &201427296
 Rigidbody:
@@ -3177,17 +3166,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6221429312013799178, guid: 3f716cf961644e045805954e741b4a74, type: 3}
   m_PrefabInstance: {fileID: 6221429312334725350}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &354619378 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6221429312013799188, guid: 3f716cf961644e045805954e741b4a74, type: 3}
-  m_PrefabInstance: {fileID: 6221429312334725350}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08ec94c324524a47ac41ab0731342cf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &364514932
 GameObject:
   m_ObjectHideFlags: 0
@@ -3232,17 +3210,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb0d75cf0ea465a8bfe0a99b67d53a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <QuestData>k__BackingField: {fileID: 11400000, guid: b5622e5feae56724695abe4360a5c2db, type: 2}
-  <Actors>k__BackingField:
-  - {fileID: 286129942}
-  - {fileID: 438846491}
-  <IsCompleted>k__BackingField: 0
-  <ActiveTask>k__BackingField: {fileID: 0}
-  <FinishedTasks>k__BackingField: []
-  <FinishedGoals>k__BackingField: []
-  <GoalItemCollected>k__BackingField: 
-  <GoalCompletionItemCount>k__BackingField: 
-  <GoalName>k__BackingField: []
+  QuestData: {fileID: 11400000, guid: b5622e5feae56724695abe4360a5c2db, type: 2}
+  Actors: []
+  IsCompleted: 0
+  ActiveTask: {fileID: 0}
+  FinishedTasks: []
+  FinishedGoals: []
+  GoalItemCollected: 
+  GoalCompletionItemCount: 
+  GoalName: []
 --- !u!4 &391722287 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 811204911786879813, guid: a8b53841989a65141914e8b1db9c6166, type: 3}
@@ -3588,17 +3564,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb0d75cf0ea465a8bfe0a99b67d53a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <QuestData>k__BackingField: {fileID: 11400000, guid: 5b200dfaa4a4d484a82f9a1898780bad, type: 2}
-  <Actors>k__BackingField:
-  - {fileID: 1888334816}
-  - {fileID: 1289173878}
-  <IsCompleted>k__BackingField: 0
-  <ActiveTask>k__BackingField: {fileID: 0}
-  <FinishedTasks>k__BackingField: []
-  <FinishedGoals>k__BackingField: []
-  <GoalItemCollected>k__BackingField: 
-  <GoalCompletionItemCount>k__BackingField: 
-  <GoalName>k__BackingField: []
+  QuestData: {fileID: 11400000, guid: 5b200dfaa4a4d484a82f9a1898780bad, type: 2}
+  Actors: []
+  IsCompleted: 0
+  ActiveTask: {fileID: 0}
+  FinishedTasks: []
+  FinishedGoals: []
+  GoalItemCollected: 
+  GoalCompletionItemCount: 
+  GoalName: []
 --- !u!4 &465450014
 Transform:
   m_ObjectHideFlags: 0
@@ -3617,7 +3591,7 @@ Transform:
   - {fileID: 266456014}
   - {fileID: 1730175300}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &474175596
 GameObject:
@@ -5478,15 +5452,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb0d75cf0ea465a8bfe0a99b67d53a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <QuestData>k__BackingField: {fileID: 11400000, guid: e8275c8e74cda26419d6766374863452, type: 2}
-  <Actors>k__BackingField: []
-  <IsCompleted>k__BackingField: 0
-  <ActiveTask>k__BackingField: {fileID: 0}
-  <FinishedTasks>k__BackingField: []
-  <FinishedGoals>k__BackingField: []
-  <GoalItemCollected>k__BackingField: 
-  <GoalCompletionItemCount>k__BackingField: 
-  <GoalName>k__BackingField: []
+  QuestData: {fileID: 11400000, guid: e8275c8e74cda26419d6766374863452, type: 2}
+  Actors: []
+  IsCompleted: 0
+  ActiveTask: {fileID: 0}
+  FinishedTasks: []
+  FinishedGoals: []
+  GoalItemCollected: 
+  GoalCompletionItemCount: 
+  GoalName: []
 --- !u!4 &758334228
 Transform:
   m_ObjectHideFlags: 0
@@ -5502,7 +5476,7 @@ Transform:
   - {fileID: 2125946259}
   - {fileID: 1648561273}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &809569387
 GameObject:
@@ -5540,7 +5514,7 @@ Transform:
   - {fileID: 8847006235553980850}
   - {fileID: 71587897776835860}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &809569389
 MonoBehaviour:
@@ -5554,16 +5528,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb0d75cf0ea465a8bfe0a99b67d53a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <QuestData>k__BackingField: {fileID: 11400000, guid: 47c0b0e50657dbf47a31154e8f427fe1, type: 2}
-  <Actors>k__BackingField:
-  - {fileID: 811204911028298817}
-  <IsCompleted>k__BackingField: 0
-  <ActiveTask>k__BackingField: {fileID: 0}
-  <FinishedTasks>k__BackingField: []
-  <FinishedGoals>k__BackingField: []
-  <GoalItemCollected>k__BackingField: 
-  <GoalCompletionItemCount>k__BackingField: 
-  <GoalName>k__BackingField: []
+  QuestData: {fileID: 11400000, guid: 47c0b0e50657dbf47a31154e8f427fe1, type: 2}
+  Actors: []
+  IsCompleted: 0
+  ActiveTask: {fileID: 0}
+  FinishedTasks: []
+  FinishedGoals: []
+  GoalItemCollected: 
+  GoalCompletionItemCount: 
+  GoalName: []
 --- !u!1001 &810978625
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5945,9 +5918,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0677a2bb60544cf88b296265e91e2991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <PlayerPositionOnNewMap>k__BackingField: {x: 0, y: 0, z: 0}
   chosenKrag: (Krag1)
   levelNameOfSceneToLoad: (MainScene)
+  Id: 0
 --- !u!1 &864075440
 GameObject:
   m_ObjectHideFlags: 0
@@ -5980,7 +5953,7 @@ Transform:
   - {fileID: 1025225236}
   - {fileID: 1832976713}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &864075442
 MonoBehaviour:
@@ -5994,15 +5967,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb0d75cf0ea465a8bfe0a99b67d53a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <QuestData>k__BackingField: {fileID: 11400000, guid: ddd87b703b28b7b4a9c0ec6dfbc53707, type: 2}
-  <Actors>k__BackingField: []
-  <IsCompleted>k__BackingField: 0
-  <ActiveTask>k__BackingField: {fileID: 0}
-  <FinishedTasks>k__BackingField: []
-  <FinishedGoals>k__BackingField: []
-  <GoalItemCollected>k__BackingField: 
-  <GoalCompletionItemCount>k__BackingField: 
-  <GoalName>k__BackingField: []
+  QuestData: {fileID: 11400000, guid: ddd87b703b28b7b4a9c0ec6dfbc53707, type: 2}
+  Actors: []
+  IsCompleted: 0
+  ActiveTask: {fileID: 0}
+  FinishedTasks: []
+  FinishedGoals: []
+  GoalItemCollected: 
+  GoalCompletionItemCount: 
+  GoalName: []
 --- !u!1 &870918041
 GameObject:
   m_ObjectHideFlags: 0
@@ -6047,17 +6020,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb0d75cf0ea465a8bfe0a99b67d53a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <QuestData>k__BackingField: {fileID: 11400000, guid: 6301289dbd5faf04a8b833f6aca0c26c, type: 2}
-  <Actors>k__BackingField:
-  - {fileID: 905560917}
-  - {fileID: 478666137}
-  <IsCompleted>k__BackingField: 0
-  <ActiveTask>k__BackingField: {fileID: 0}
-  <FinishedTasks>k__BackingField: []
-  <FinishedGoals>k__BackingField: []
-  <GoalItemCollected>k__BackingField: 
-  <GoalCompletionItemCount>k__BackingField: 
-  <GoalName>k__BackingField: []
+  QuestData: {fileID: 11400000, guid: 6301289dbd5faf04a8b833f6aca0c26c, type: 2}
+  Actors: []
+  IsCompleted: 0
+  ActiveTask: {fileID: 0}
+  FinishedTasks: []
+  FinishedGoals: []
+  GoalItemCollected: 
+  GoalCompletionItemCount: 
+  GoalName: []
 --- !u!1 &874088061
 GameObject:
   m_ObjectHideFlags: 0
@@ -6919,18 +6890,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb0d75cf0ea465a8bfe0a99b67d53a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <QuestData>k__BackingField: {fileID: 11400000, guid: 88b99fd9abed76c49988808fbd68482f, type: 2}
-  <Actors>k__BackingField:
-  - {fileID: 354619378}
-  - {fileID: 1907827963}
-  - {fileID: 5872952}
-  <IsCompleted>k__BackingField: 0
-  <ActiveTask>k__BackingField: {fileID: 0}
-  <FinishedTasks>k__BackingField: []
-  <FinishedGoals>k__BackingField: []
-  <GoalItemCollected>k__BackingField: 
-  <GoalCompletionItemCount>k__BackingField: 
-  <GoalName>k__BackingField: []
+  QuestData: {fileID: 11400000, guid: 88b99fd9abed76c49988808fbd68482f, type: 2}
+  Actors: []
+  IsCompleted: 0
+  ActiveTask: {fileID: 0}
+  FinishedTasks: []
+  FinishedGoals: []
+  GoalItemCollected: 
+  GoalCompletionItemCount: 
+  GoalName: []
 --- !u!1 &980773114
 GameObject:
   m_ObjectHideFlags: 0
@@ -8210,23 +8178,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb0d75cf0ea465a8bfe0a99b67d53a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <QuestData>k__BackingField: {fileID: 11400000, guid: 0c9d5806856ac9c4599f86e83dfb169d, type: 2}
-  <Actors>k__BackingField:
-  - {fileID: 1710968663}
-  - {fileID: 1744511382}
-  - {fileID: 697598023}
-  - {fileID: 574888161}
-  - {fileID: 94950250}
-  - {fileID: 812087174}
-  - {fileID: 874088064}
-  - {fileID: 1807540437}
-  <IsCompleted>k__BackingField: 0
-  <ActiveTask>k__BackingField: {fileID: 0}
-  <FinishedTasks>k__BackingField: []
-  <FinishedGoals>k__BackingField: []
-  <GoalItemCollected>k__BackingField: 
-  <GoalCompletionItemCount>k__BackingField: 
-  <GoalName>k__BackingField: []
+  QuestData: {fileID: 11400000, guid: 0c9d5806856ac9c4599f86e83dfb169d, type: 2}
+  Actors: []
+  IsCompleted: 0
+  ActiveTask: {fileID: 0}
+  FinishedTasks: []
+  FinishedGoals: []
+  GoalItemCollected: 
+  GoalCompletionItemCount: 
+  GoalName: []
 --- !u!1001 &1302442021
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9663,7 +9623,7 @@ Transform:
   - {fileID: 950129475}
   - {fileID: 1162274339}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1324871348
 GameObject:
@@ -9733,7 +9693,7 @@ Transform:
   - {fileID: 2046925451}
   - {fileID: 1651264416}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1370095819
 GameObject:
@@ -9805,7 +9765,7 @@ Transform:
   - {fileID: 474175597}
   - {fileID: 2002716424}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1488448428
 GameObject:
@@ -10085,15 +10045,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb0d75cf0ea465a8bfe0a99b67d53a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <QuestData>k__BackingField: {fileID: 0}
-  <Actors>k__BackingField: []
-  <IsCompleted>k__BackingField: 0
-  <ActiveTask>k__BackingField: {fileID: 0}
-  <FinishedTasks>k__BackingField: []
-  <FinishedGoals>k__BackingField: []
-  <GoalItemCollected>k__BackingField: 
-  <GoalCompletionItemCount>k__BackingField: 
-  <GoalName>k__BackingField: []
+  QuestData: {fileID: 0}
+  Actors: []
+  IsCompleted: 0
+  ActiveTask: {fileID: 0}
+  FinishedTasks: []
+  FinishedGoals: []
+  GoalItemCollected: 
+  GoalCompletionItemCount: 
+  GoalName: []
 --- !u!1001 &1648561272
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11972,17 +11932,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6221429312013799178, guid: 3f716cf961644e045805954e741b4a74, type: 3}
   m_PrefabInstance: {fileID: 1907827961}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1907827963 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6221429312013799188, guid: 3f716cf961644e045805954e741b4a74, type: 3}
-  m_PrefabInstance: {fileID: 1907827961}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08ec94c324524a47ac41ab0731342cf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1993818749
 GameObject:
   m_ObjectHideFlags: 0
@@ -12502,7 +12451,7 @@ Transform:
   - {fileID: 1150969681}
   - {fileID: 2146076779}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2120867995
 GameObject:

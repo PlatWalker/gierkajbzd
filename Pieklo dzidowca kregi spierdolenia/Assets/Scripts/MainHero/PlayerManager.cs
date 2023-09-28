@@ -1,9 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using jbzd.Common;
-using jbzd.Common.Enums;
 using UnityEngine;
 using Zenject;
 using jbzd.Common.InputSystem;
@@ -18,16 +16,17 @@ namespace jbzd.MainHero
     public struct PlayerStringAnimParam
     {
         public static string AttackParam => "Attack";
-        public static string AttackInProgressParam => "Attacking animation in progress";
+        public static string SecondAttack => "Second attack";
         public static string RunParam => "Run";
         public static string RunSpeed => "Running speed";
         
+        [SuppressMessage("ReSharper", "StringLiteralTypo")]
         public static void AnimatorParametersCheck(Animator characterAnimator)
         {
             if(characterAnimator.parameters.Any(x => x.name == AttackParam) == false) 
                 Debug.Log("Blad w nazwie parametru atakowania");
-            if(characterAnimator.parameters.Any(x => x.name == AttackInProgressParam) == false)
-                Debug.Log("Blad w nazwie parametru progresu animacji atakowania");
+            if (characterAnimator.parameters.Any(x => x.name == SecondAttack) == false)
+                Debug.Log("Blad w nazwie parametru drugiego ataku");
             if(characterAnimator.parameters.Any(x => x.name == RunParam) == false)
                 Debug.Log("Blad w nazwie parametru biegania");
             if (characterAnimator.parameters.Any(x => x.name == RunSpeed) == false)
@@ -37,20 +36,79 @@ namespace jbzd.MainHero
 
     public class PlayerManager : MonoBehaviour
     {
-        #region Serialized fields
+        #region Inspector Fields
 
-        [SerializeField][JbzdReadOnly] private bool canPlayerMove = true;
+        [SerializeField]
+        [JbzdReadOnly] 
+        private bool canPlayerMove = true;
+
+        [field: SerializeField]
+        [field: Range(1f, 10f)]
+        public float PlayerSpeed { get; private set; } = 5;
+
+        [field: Tooltip(
+            "From what point of animation (in percentage) of attack register mouse click for character to perform next attack from combo." +
+            "for ex. 30% will result in ability to click after 30 % animation has passed")]
+        [field: SerializeField]
+        [field: Range(1, 100)]
+        public int ComboClickPercentage { get; set; } = 30;
+
+        [field: Tooltip("How much time in seconds after attack, player can click for combo continuation")]
+        [field: SerializeField]
+        [field: Range(0.01f, 1)]
+        public float ComboClickThreshold { get; set; } = 0.01f;
+        
+        [SerializeField] 
+        private PlayerState playerState = PlayerState.Idle;
+
+        [Range(1,5)]
+        public float dashLength = 2;
+
+        [JbzdReadOnly]
+        public List<NpcController> ListOfFollowers = new();
+        
+        #endregion
+
+        #region Public variables
+
+        private int _countOfComboAttackParts = 2;
+        
+        /// <summary>
+        /// Number of parts of combo for actual equipped weapon
+        /// </summary>
+        public int CountOfComboAttackParts
+        {
+            get => _countOfComboAttackParts;
+            set
+            {
+                if (value is 0 or < 0)
+                {
+                    Debug.LogError($"{nameof(_countOfComboAttackParts)} can't be set to 0 or less");
+                }
+                
+                _countOfComboAttackParts = value;
+            }
+        }
+        
         public bool CanPlayerMove
         {
             get => canPlayerMove;
             set
             {
-                _canAttackUnFreeze = false;
-                canPlayerMove = value;
+                if (value)
+                {
+                    _canAttackUnfreeze = true;
+                    canPlayerMove = true;
+                }
+                else
+                {
+                    _canAttackUnfreeze = false;
+                    canPlayerMove = false;
+                }
             }
         }
 
-        private bool _canAttackUnFreeze = true;
+        private bool _canAttackUnfreeze = true;
 
         /// <summary>
         /// Player freezing, can be used only for freezing player when attacking
@@ -59,29 +117,12 @@ namespace jbzd.MainHero
         {
             set
             {
-                if (!_canAttackUnFreeze)
-                {
-                    _canAttackUnFreeze = true;
-                    return;
-                }
+                if (!_canAttackUnfreeze) return;
                 
-                canPlayerMove = value;
+                canPlayerMove = !value;
             }
         }
         
-        [field:SerializeField]
-        [field: Range(1f, 10f)]
-        public float PlayerSpeed { get; private set; }
-
-        [SerializeField] 
-        private PlayerState playerState = PlayerState.Idle;
-        
-        #endregion
-
-        #region Public variables
-        
-        public List<NpcController> ListOfFollowers = new();
-
         public Animator CharacterAnimator { get; private set; }
         public Rigidbody Rb { get; private set; }
         public CapsuleCollider CharacterCollider { get; private set; }
@@ -122,7 +163,7 @@ namespace jbzd.MainHero
             }
             
             RegisterStatesLogic();
-            ((PlayerStateAttackFixedUpdate) _stateLogicObjects.First(stateLogicObject => stateLogicObject is PlayerStateAttackFixedUpdate))
+            ((PlayerStateAttack) _stateLogicObjects.First(stateLogicObject => stateLogicObject is PlayerStateAttack))
                 .OnPlayerStateChanged += state => playerState = state;
 
             PlayerStringAnimParam.AnimatorParametersCheck(CharacterAnimator);
@@ -136,24 +177,18 @@ namespace jbzd.MainHero
             
             _stateLogicObjects = new List<IPlayerStateLogic>
             {
-                new PlayerStateIdleUpdate(this, _playerInput, behaviour),
-                new PlayerStateAttackFixedUpdate(this, _playerInput, behaviour),
-                new PlayerStateMoveFixedUpdate(this, _playerInput, behaviour),
-                new PlayerStateMoveLateUpdate(this, _playerInput)
+                new PlayerStateAttack(this, _playerInput, behaviour),
+                new PlayerStateMove(this, _playerInput),
+                new PlayerStateIdle(_playerInput)
             };
 
-            var temp = new List<IPlayerStateLogic>();
+            var consistsDuplicates = _stateLogicObjects
+                .GroupBy(x => x.InitPlayerState)
+                .Any(x => x.Count() > 1);
             
-            foreach (var stateLogicObject in _stateLogicObjects)
+            if (consistsDuplicates)
             {
-                if (temp.Any(x =>
-                        x.MonoBehaviourMethodInWhichInvoked() == stateLogicObject.MonoBehaviourMethodInWhichInvoked() &&
-                        x.PlayerStateInWhichInvoked() == stateLogicObject.PlayerStateInWhichInvoked()))
-                {
-                    Debug.LogError("Nie moze być dwoch stateLogicObject przypisanych do tego samego playerstate'u!");
-                }
-                
-                temp.Add(stateLogicObject);
+                Debug.LogError("Nie moze byc dwoch stateObjectow z tym samym inicjalnym player statem");
             }
         }
         
@@ -161,21 +196,27 @@ namespace jbzd.MainHero
         {
             StickPlayerToGround();
 
-            var playerStateLogic = _stateLogicObjects.FirstOrDefault(x =>
-                x.MonoBehaviourMethodInWhichInvoked() == MonoBehaviourMethod.FixedUpdate &&
-                x.PlayerStateInWhichInvoked() == playerState);
+            playerState = GetStateLogicObjectForCurrentPlayerState().StateLogicForFixedUpdate();
+            
+            //----------- local functions -----------//
+            
+            void StickPlayerToGround()
+            {
+                if (Physics.Raycast(transform.position + Vector3.up, Vector3.down, out RaycastHit hit) 
+                    && hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
+                {
+                    _newPositionVector.x = Rb.position.x;
+                    _newPositionVector.y = hit.point.y;
+                    _newPositionVector.z = Rb.position.z;
 
-            if (playerStateLogic != null) playerState = playerStateLogic.StateLogic();
+                    Rb.MovePosition(_newPositionVector);
+                }
+            }
         }
 
         private void Update()
         {
-            
-            var playerStateLogic = _stateLogicObjects.FirstOrDefault(x =>
-                x.MonoBehaviourMethodInWhichInvoked() == MonoBehaviourMethod.Update &&
-                x.PlayerStateInWhichInvoked() == playerState);
-
-            if (playerStateLogic != null) playerState = playerStateLogic.StateLogic();
+            playerState = GetStateLogicObjectForCurrentPlayerState().StateLogicForUpdate();
 
             //Synchronising running animation with character speed
             CharacterAnimator.SetFloat(PlayerStringAnimParam.RunSpeed, Rb.velocity.magnitude);
@@ -183,11 +224,18 @@ namespace jbzd.MainHero
 
         private void LateUpdate()
         {
-            var playerStateLogic = _stateLogicObjects.FirstOrDefault(x =>
-                x.MonoBehaviourMethodInWhichInvoked() == MonoBehaviourMethod.LateUpdate &&
-                x.PlayerStateInWhichInvoked() == playerState);
+            playerState = GetStateLogicObjectForCurrentPlayerState().StateLogicForLateUpdate();
+        }
+        
+        private IPlayerStateLogic GetStateLogicObjectForCurrentPlayerState()
+        {
+            var logic = _stateLogicObjects.FirstOrDefault(x => x.InitPlayerState == playerState);
 
-            if (playerStateLogic != null) playerState = playerStateLogic.StateLogic();
+            if (logic is not null) return logic;
+            
+            Debug.LogError($"missing logic for state {playerState.ToString()}");
+            return new ErrorPlayerState();
+
         }
 
         public T GetPlayerController<T>() where T : IPlayerController
@@ -201,19 +249,6 @@ namespace jbzd.MainHero
         }
 
         public void PlaceAt(Vector3 placement) => transform.position = placement;
-
-        private void StickPlayerToGround()
-        {
-            if (Physics.Raycast(transform.position + Vector3.up, Vector3.down, out RaycastHit hit) 
-                && hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
-            {
-                _newPositionVector.x = Rb.position.x;
-                _newPositionVector.y = hit.point.y;
-                _newPositionVector.z = Rb.position.z;
-
-                Rb.MovePosition(_newPositionVector);
-            }
-        }
 
         public void WarpFollowersToPlayer()
         {
