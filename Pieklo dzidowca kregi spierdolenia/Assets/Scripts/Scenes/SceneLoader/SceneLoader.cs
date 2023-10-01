@@ -11,7 +11,7 @@ using Zenject;
 
 namespace jbzd.Scenes.SceneLoader
 {
-    public class SceneLoader : MonoBehaviour
+    public class SceneLoader : MonoBehaviour, IDisposable
     {
         public List<string> AllKregi { get; set; } = new()
         {
@@ -176,7 +176,7 @@ namespace jbzd.Scenes.SceneLoader
             WarpPlayerToLocationOnNewMap(scene);
             
             SceneManager.UnloadSceneAsync(gameObject.scene);
-            SceneManager.sceneLoaded -= OnSceneLoaded;
+            UnsubscribeSceneLoaded();
         }
 
         private void WarpPlayerToLocationOnNewMap(Scene scene)
@@ -212,6 +212,20 @@ namespace jbzd.Scenes.SceneLoader
             _playerManager.PlaceAt(gameObjectToTeleportTo.transform.position);
             _playerManager.WarpFollowersToPlayer();
         }
+
+        private void UnsubscribeSceneLoaded()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
         
+        public void OnDestroy()
+        {
+            UnsubscribeSceneLoaded();
+        }
+
+        public void Dispose()
+        {
+            UnsubscribeSceneLoaded();
+        }
     }
 }
