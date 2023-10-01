@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace jbzd.Common.Tools
 {
+#if UNITY_EDITOR
     public class MissingScriptsTool
     {
         [MenuItem("Tools/Missing Scripts/Find")]
@@ -38,4 +39,5 @@ namespace jbzd.Common.Tools
             }
         }
     }
+#endif
 }
