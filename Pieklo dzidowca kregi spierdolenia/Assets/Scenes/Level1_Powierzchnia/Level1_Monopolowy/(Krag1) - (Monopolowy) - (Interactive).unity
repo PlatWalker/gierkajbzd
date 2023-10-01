@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657755, g: 0.4964127, b: 0.57481843, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InteractiveSceneContext
       objectReference: {fileID: 0}
+    - target: {fileID: 4793721608067848671, guid: 0a0e6e9a904e640419eae9e40451ce06, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a0e6e9a904e640419eae9e40451ce06, type: 3}
 --- !u!1001 &397551460
@@ -187,9 +191,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -9077038848413754278, guid: f9a7e097ce067b14d9a01659a57c17f1, type: 3}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
+    - target: {fileID: -9077038848413754278, guid: f9a7e097ce067b14d9a01659a57c17f1, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1064259667128050987, guid: f9a7e097ce067b14d9a01659a57c17f1, type: 3}
       propertyPath: m_Name
       value: NPC_Grazyna
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025716080297130760, guid: f9a7e097ce067b14d9a01659a57c17f1, type: 3}
+      propertyPath: <Waypoints>k__BackingField.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7345650941258738843, guid: f9a7e097ce067b14d9a01659a57c17f1, type: 3}
       propertyPath: m_RootOrder

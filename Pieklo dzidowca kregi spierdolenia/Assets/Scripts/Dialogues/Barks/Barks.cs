@@ -97,7 +97,6 @@ namespace jbzd.Dialogues.Barks
 
         private IEnumerator Barking(bool once = false)
         {
-
             do
             {
                 if (!_barking)

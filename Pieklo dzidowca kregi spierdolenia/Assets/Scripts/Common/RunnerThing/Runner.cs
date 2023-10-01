@@ -43,7 +43,6 @@ namespace jbzd.Common.RunnerThing
                                    + "maybe try too use a overload of this method");
                 }
             }
-
             _methodInfo.Invoke(_data, args.ToArray());
         }
         

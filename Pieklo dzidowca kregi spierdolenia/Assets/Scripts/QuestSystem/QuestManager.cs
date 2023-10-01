@@ -39,6 +39,7 @@ namespace jbzd.QuestSystem
         /// <param name="goalToAct">Goal with actors and scenario</param>
         public void MakeActorPlay(GoalSO goalToAct)
         {
+            Debug.Log($"Goal {goalToAct.name} is trying to act");
             TaskSO inTask = null;
 
             var numberOfActiveQuests = ActiveQuests.Count;

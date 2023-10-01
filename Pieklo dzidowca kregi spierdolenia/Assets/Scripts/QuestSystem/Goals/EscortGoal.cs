@@ -20,7 +20,6 @@ namespace jbzd.QuestSystem.Goals
         public void ExecuteGoalScenario(List<Actor> actors)
         {
             var npcControllers=GetComponentFromActorsList<NpcController>(actors);
-
             foreach (var npcController in npcControllers.Where(npcController => npcController != null))
             {
                 if (npcController.NpcState is NpcController.NpcStates.FollowPlayer)
@@ -28,7 +27,6 @@ namespace jbzd.QuestSystem.Goals
                     npcController.NpcState = ExitNpcState;
                     continue;
                 }
-
                 npcController.NpcState = NpcController.NpcStates.FollowPlayer;
             }
         }

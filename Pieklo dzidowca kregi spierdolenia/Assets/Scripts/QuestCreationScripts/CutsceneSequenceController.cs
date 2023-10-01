@@ -23,7 +23,6 @@ namespace jbzd.QuestCreationScripts
         public void OnTriggerEnter(Collider other)
         {
             if (quest.IsCompleted || quest.ActiveTask != task) return;
-            
             _cutscenesManager.PlayCutscene(asset);
         }
     }
