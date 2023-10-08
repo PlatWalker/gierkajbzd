@@ -31,6 +31,8 @@ namespace jbzd.Dialogues.Barks
 
         [field: SerializeField] public BarksDictionary[] barksSets;
 
+        [field: SerializeField] private bool OnStart;
+
         private Coroutine _lastCoroutine = null;
         private RunnerFactory _factory;
         
@@ -47,6 +49,8 @@ namespace jbzd.Dialogues.Barks
             {
                 Debug.LogWarning("Bark nie posiada miejsca na którym może sie wyświetlić");
             }
+
+            if (!OnStart) return;
 
             foreach (var barks in barksSets)
             {

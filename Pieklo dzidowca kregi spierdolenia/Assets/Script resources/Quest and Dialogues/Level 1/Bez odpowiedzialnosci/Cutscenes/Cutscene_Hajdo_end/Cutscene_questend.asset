@@ -21,23 +21,45 @@ MonoBehaviour:
     - <GroupName>k__BackingField: Grupa
     m_Values:
     - myList:
-      - rid: 6426248040834924592
+      - rid: 2858503190056009734
     - myList:
-      - rid: 6426248040834924593
-      - rid: 6426248040834924594
-      - rid: 6426248040834924595
+      - rid: 2858503190056009735
+      - rid: 2858503190056009736
+      - rid: 2858503190056009737
   references:
     version: 2
     RefIds:
-    - rid: 6426248040834924592
+    - rid: 2858503190056009734
       type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
       data:
-        <NodeId>k__BackingField: 49a69dec-cbe8-4ffe-9afa-8fbc03647736
+        <NodeId>k__BackingField: 86e5153a-1fa8-4ece-beef-3f9fafabd973
         <Choices>k__BackingField: []
         <NodeType>k__BackingField: 7
         <IsStartingDialogue>k__BackingField: 1
         <SelectedGroup>k__BackingField: Grupa
-    - rid: 6426248040834924593
+    - rid: 2858503190056009735
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: e39ccd3a-7b46-4a7e-aeb5-2c93382beb0e
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: Grupa
+    - rid: 2858503190056009736
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: c8074b11-41c3-445e-9018-e251dcc78d71
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: e39ccd3a-7b46-4a7e-aeb5-2c93382beb0e
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "Wreszcie poni\xF3s\u0142 odpowiedzialno\u015B\u0107"
+        <NpcImage>k__BackingField: {fileID: 0}
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 1
+    - rid: 2858503190056009737
       type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
       data:
         <NodeId>k__BackingField: 721ecdd5-534d-4ab5-aac7-724ea8540d67
@@ -50,23 +72,5 @@ MonoBehaviour:
           udusz\u0119!"
         <NpcImage>k__BackingField: {fileID: 21300000, guid: 2a1e23c55b242294a892eeee17c2749e, type: 3}
         <PlayerImage>k__BackingField: {fileID: 0}
-    - rid: 6426248040834924594
-      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
-      data:
-        <NodeId>k__BackingField: c8074b11-41c3-445e-9018-e251dcc78d71
-        <Choices>k__BackingField:
-        - <Text>k__BackingField: Nastepny dialog
-          <NextDialogue>k__BackingField: e39ccd3a-7b46-4a7e-aeb5-2c93382beb0e
-        <NodeType>k__BackingField: 0
-        <IsStartingDialogue>k__BackingField: 0
-        <Text>k__BackingField: "Wreszcie poni\xF3s\u0142 odpowiedzialno\u015B\u0107"
-        <NpcImage>k__BackingField: {fileID: 0}
-        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
-    - rid: 6426248040834924595
-      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
-      data:
-        <NodeId>k__BackingField: e39ccd3a-7b46-4a7e-aeb5-2c93382beb0e
-        <Choices>k__BackingField: []
-        <NodeType>k__BackingField: 7
-        <IsStartingDialogue>k__BackingField: 0
-        <SelectedGroup>k__BackingField: Grupa
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0

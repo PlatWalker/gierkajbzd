@@ -270,7 +270,9 @@ GameObject:
   - component: {fileID: 4269204702908116850}
   - component: {fileID: 2036932563517356874}
   - component: {fileID: 663748601237086145}
-  m_Layer: 12
+  - component: {fileID: 4178111011757572796}
+  - component: {fileID: 5621013877887409262}
+  m_Layer: 11
   m_Name: Cutscene (escort end)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -333,3 +335,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _goal: {fileID: 11400000, guid: 38e8b25c9a013184b9eb52248deed2f6, type: 2}
   playableDirector: {fileID: 680981272516455126}
+--- !u!114 &4178111011757572796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7449201569029712569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4539ef0eeb31f224eb98a5e6b7152598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barksTrigger: {fileID: 5621013877887409262}
+  isStart: 0
+--- !u!114 &5621013877887409262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7449201569029712569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69a6e8058fb6da745b030cfae4ffc3b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actors:
+  - {fileID: 0}
