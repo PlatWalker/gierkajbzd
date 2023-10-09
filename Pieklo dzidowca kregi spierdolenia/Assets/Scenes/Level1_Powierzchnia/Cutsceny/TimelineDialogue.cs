@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 using Zenject;
 
-namespace jbzd
+namespace jbzd.QuestCreationScripts
 {
     public class TimelineDialogue : MonoBehaviour
     {

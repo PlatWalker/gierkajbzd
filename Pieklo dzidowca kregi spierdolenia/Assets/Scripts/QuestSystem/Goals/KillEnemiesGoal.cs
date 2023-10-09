@@ -23,6 +23,7 @@ namespace jbzd.QuestSystem.Goals
             {
                 enemyController.OnDeath += _ =>
                 {
+                    Debug.Log($"Enemy {enemyController.gameObject} has died and goal {name} has registered it");
                     var index = questWithThisGoal.GoalName.IndexOf(name);
                     questWithThisGoal.GoalItemCollected[index] += 1;
                     questWithThisGoal.CheckFinishCondition(this, actors);
@@ -32,6 +33,7 @@ namespace jbzd.QuestSystem.Goals
                     {
                         dialogueManager.StartDialogue(DialogueToStartOnGoalComplete);
                     }
+                    
                 };
             }
             
@@ -41,6 +43,7 @@ namespace jbzd.QuestSystem.Goals
             {
                 enemyController.OnDeath += () =>
                 {
+                    Debug.Log($"Enemy {enemyController.gameObject} has died and goal {name} has registered it");
                     var index = questWithThisGoal.GoalName.IndexOf(name);
                     questWithThisGoal.GoalItemCollected[index] += 1;
                     questWithThisGoal.CheckFinishCondition(this, actors);

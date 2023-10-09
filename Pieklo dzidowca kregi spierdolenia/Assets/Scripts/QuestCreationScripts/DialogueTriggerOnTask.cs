@@ -1,6 +1,7 @@
 using jbzd.Common;
 using jbzd.Dialogues;
 using jbzd.Dialogues.RuntimeData;
+using jbzd.QuestSystem;
 using jbzd.QuestSystem.QuestStructureElements;
 using UnityEngine;
 using Zenject;
@@ -12,23 +13,29 @@ namespace jbzd.QuestCreationScripts
 
         [SerializeField] private ContainerSO dialogueToPlay;
         private DialogueManager _dialogueManager;
-        [SerializeField] private Quest questToCheck;
+        private QuestManager _questManager;
         [SerializeField] private TaskSO taskToCheck;
         [SerializeField][JbzdReadOnly] private bool wasTriggered;
 
         [Inject]
-        public void Construct(DialogueManager dialogue)
+        public void Construct(DialogueManager dialogue, QuestManager questManager)
         {
+
             _dialogueManager = dialogue;
+            _questManager = questManager;
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (questToCheck.ActiveTask == taskToCheck && !wasTriggered)
+            foreach (var quest in _questManager.ActiveQuests)
             {
+                if(quest.ActiveTask != taskToCheck || wasTriggered)
+                {
+                    continue;
+                }
                 _dialogueManager.StartDialogue(dialogueToPlay);
                 wasTriggered = true;
-            }   
+            }
         }
     }
 }

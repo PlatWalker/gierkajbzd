@@ -19,7 +19,9 @@ namespace jbzd.QuestCreationScripts
         public void OnTriggerEnter(Collider other)
         {
             if (other.tag == "Player")
+            {
                 playableDirector.Play();
+            }
         }
     }
 }

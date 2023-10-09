@@ -684,9 +684,10 @@ GameObject:
   - component: {fileID: 5031858192152749172}
   - component: {fileID: 5031858192152749175}
   - component: {fileID: 5031858192491105454}
-  m_Layer: 0
+  - component: {fileID: 6442737378332050491}
+  m_Layer: 8
   m_Name: Konkubent_prefab
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -847,6 +848,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1e0b76a4c46fa469eb3006bf5b4135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6442737378332050491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5031858192152749174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08ec94c324524a47ac41ab0731342cf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ActorData>k__BackingField: {fileID: 11400000, guid: 7f1d6d2853a250e4f8ac78d213f84bc5, type: 2}
 --- !u!1 &5031858192152977652
 GameObject:
   m_ObjectHideFlags: 0

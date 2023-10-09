@@ -1,4 +1,3 @@
-using jbzd.Dialogues.RuntimeData;
 using jbzd.QuestSystem;
 using jbzd.QuestSystem.QuestStructureElements;
 using System;
@@ -9,10 +8,10 @@ using Zenject;
 
 namespace jbzd.QuestCreationScripts
 {
-    public class ActivateObjectOnTask : MonoBehaviour
+    public class ActivateObjectAfterQuest : MonoBehaviour
     {
         private QuestManager _questManager;
-        [SerializeField] private TaskSO taskToCheck;
+        [SerializeField] private Quest questToCheck;
         [SerializeField] private GameObject objectToActivate;
 
         [Inject]
@@ -22,12 +21,12 @@ namespace jbzd.QuestCreationScripts
         }
         private void Start()
         {
-            foreach (var quest in _questManager.ActiveQuests)
+            foreach (var quest in _questManager.AllQuestsOnActiveMap)
             {
-                quest.onTaskUpdated += (object sender, EventArgs e) =>
+                quest.onQuestEnded += (object sender, EventArgs e) =>
                 {
-                    if (taskToCheck == null) return;
-                    if (quest.ActiveTask != taskToCheck) return;
+                    if (questToCheck == null) return;
+                    if (quest != questToCheck) return;
                     objectToActivate.SetActive(true);
                 };
             }

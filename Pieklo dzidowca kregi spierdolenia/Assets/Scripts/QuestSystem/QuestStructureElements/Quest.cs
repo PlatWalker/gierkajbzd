@@ -14,23 +14,29 @@ namespace jbzd.QuestSystem.QuestStructureElements
     public class Quest : MonoBehaviour
     {
         #region Variables
-
+        public delegate void QuestEventOccured(Quest quest);
         [Header("Quest Settings")]
         //There is no {get;set;} here because it messes up serialization in QuestEditor.cs
         [SerializeField] public QuestSO QuestData;
         [SerializeField] public List<Actor> Actors = new();
         public event EventHandler onTaskUpdated;
+        public event QuestEventOccured onQuestEnded;
         private QuestManager _questManager;
         private RunnerFactory _runnerFactory;
         private CutscenesManager _cutscenesManager;
         private DialogueManager _dialogueManager;
-        
+
         #region Quest Tracker Variables
-        
+
         [Header("Quest Tracker Variables")]
         [SerializeField]
         [JbzdReadOnly]
-        public bool IsCompleted;
+        private bool isCompleted;
+        public bool IsCompleted {
+            get => isCompleted;
+            set { isCompleted = value;
+                onQuestEnded?.Invoke(this);  }
+        }
 
         [SerializeField]
         [JbzdReadOnly]

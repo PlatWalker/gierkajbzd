@@ -1893,9 +1893,10 @@ GameObject:
   - component: {fileID: 5220138610593633611}
   - component: {fileID: 5220138610593633610}
   - component: {fileID: 4489395087779332213}
+  - component: {fileID: 2922137143122794489}
   m_Layer: 0
   m_Name: Madka_prefab
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1984,6 +1985,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyData: {fileID: 11400000, guid: 127be8790b30a8549a5430876bb0acfd, type: 2}
   turnOffAI: 0
+  <CurrentHealth>k__BackingField: 0
   _runAwayRadius: 5
   _projectileObject:
   - {fileID: 6098825241959534323, guid: 8efa137217a315c4ab1b5c23c8bbe038, type: 3}
@@ -2062,6 +2064,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfe999cc92b35bf43bc6e85f2937c4ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2922137143122794489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4949668991670832291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08ec94c324524a47ac41ab0731342cf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ActorData>k__BackingField: {fileID: 11400000, guid: b09dcfd0ce3880542a837918df30cffe, type: 2}
 --- !u!1 &5206081628868200601
 GameObject:
   m_ObjectHideFlags: 0
