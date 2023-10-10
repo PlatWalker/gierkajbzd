@@ -112,10 +112,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   QuestData: {fileID: 11400000, guid: 7d1869cb7e316494fa96c80be4e1a6ee, type: 2}
-  Actors:
-  - {fileID: 5820819273362396743}
-  - {fileID: 2387756587319741641}
-  IsCompleted: 0
+  Actors: []
+  isCompleted: 0
   ActiveTask: {fileID: 0}
   FinishedTasks: []
   FinishedGoals: []
@@ -2222,17 +2220,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 582369b2829b34744b3d0c6a9e0f8299, type: 3}
---- !u!114 &2387756587319741641 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6442737378332050491, guid: 582369b2829b34744b3d0c6a9e0f8299, type: 3}
-  m_PrefabInstance: {fileID: 8667793714813847794}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08ec94c324524a47ac41ab0731342cf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &4440250337402596508 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5031858192152749166, guid: 582369b2829b34744b3d0c6a9e0f8299, type: 3}
@@ -4222,17 +4209,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5763218932978554393, guid: 738391bb27a818441b516b97053394cd, type: 3}
   m_PrefabInstance: {fileID: 8667793715693896126}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5820819273362396743 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2922137143122794489, guid: 738391bb27a818441b516b97053394cd, type: 3}
-  m_PrefabInstance: {fileID: 8667793715693896126}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08ec94c324524a47ac41ab0731342cf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &8667793715976252992
 PrefabInstance:
   m_ObjectHideFlags: 0

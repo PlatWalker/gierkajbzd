@@ -50,6 +50,16 @@ namespace jbzd.QuestSystem.QuestStructureElements
             }
         }
 
+        /// <summary>
+        /// Checks if there is an passed actor in any of goals.
+        /// </summary>
+        /// <param name="actorData">Actor to look for</param>
+        /// <returns></returns>
+        public bool IsThereAnActor(ActorSO actorData)
+        {
+            return Tasks.Any(task => task.Goals.Any(goal => goal.ActorsData.Contains(actorData)));
+        }
+        
         private void TaskOrderingValidation()
         {
             var tasksOrders = Tasks.Select(task => task.Order).ToList();

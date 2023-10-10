@@ -18,6 +18,7 @@ namespace jbzd.QuestCreationScripts
         {
             _questManager = questManager;
         }
+        
         private void Awake()
         {
             SceneManager.sceneLoaded += StartQuest;

@@ -2,22 +2,30 @@ using System.Collections.Generic;
 using System.Linq;
 using jbzd.QuestSystem.QuestStructureElements;
 using UnityEngine;
-using jbzd.Common.Extensions;
-using System;
+using jbzd.Common;
 
 namespace jbzd.QuestSystem
 {
     public class QuestManager : MonoBehaviour
     {
-        
-        public List<Quest> ActiveQuests { get; } = new();
-        public List<Quest> AllQuestsOnActiveMap { get; } = new();
+        public delegate void QuestActivated(Quest activatedQuest);
+
+        public event QuestActivated OnQuestActivation;
+
+        [field: SerializeField]
+        [field: JbzdReadOnly]
+        public List<Quest> ActiveQuests { get; set; } = new();
+        /// <summary>
+        /// Keeps all quests from maps that were loaded at least once
+        /// </summary>
+        public List<Quest> AllQuestsFromLoadedMaps { get; } = new();
         
         public void StartQuest(Quest questToStart)
         {
             Debug.Log($"Quest {questToStart.name} started");
             ActiveQuests.Add(questToStart);
-
+            OnQuestActivation?.Invoke(questToStart);
+            
             if (questToStart.QuestData.Tasks.Count == 0)
             {
                 Debug.Log($"Quest {questToStart.name} does not have tasks");

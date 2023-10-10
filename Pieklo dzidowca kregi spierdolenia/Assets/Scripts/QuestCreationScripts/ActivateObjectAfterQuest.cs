@@ -21,12 +21,12 @@ namespace jbzd.QuestCreationScripts
         }
         private void Start()
         {
-            foreach (var quest in _questManager.AllQuestsOnActiveMap)
+            foreach (var quest in _questManager.AllQuestsFromLoadedMaps)
             {
-                quest.onQuestEnded += (object sender, EventArgs e) =>
+                quest.onQuestEnded += (questEnded) =>
                 {
                     if (questToCheck == null) return;
-                    if (quest != questToCheck) return;
+                    if (questEnded != questToCheck) return;
                     objectToActivate.SetActive(true);
                 };
             }

@@ -13,7 +13,7 @@ namespace jbzd.Dialogues.RuntimeData
         [RunMethod]
         public void Run(QuestManager questManager, DialogueManager dialogueManager)
         {
-            var quest = questManager.AllQuestsOnActiveMap.FirstOrDefault(x => x.QuestData == Quest);
+            var quest = questManager.AllQuestsFromLoadedMaps.FirstOrDefault(x => x.QuestData == Quest);
             
             Debug.Assert(quest != null, "Nie znaleziono questa na tym poziomie, który by pasował do tego podanego w dialogu");
             

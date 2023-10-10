@@ -18,7 +18,10 @@ namespace jbzd.QuestSystem.QuestStructureElements
         [Header("Quest Settings")]
         //There is no {get;set;} here because it messes up serialization in QuestEditor.cs
         [SerializeField] public QuestSO QuestData;
-        [SerializeField] public List<Actor> Actors = new();
+        [SerializeField]
+        [JbzdReadOnly]
+        [Tooltip("ReadOnly field, dont try too add anything here")]
+        public List<Actor> Actors = new();
         public event EventHandler onTaskUpdated;
         public event QuestEventOccured onQuestEnded;
         private QuestManager _questManager;
@@ -34,8 +37,10 @@ namespace jbzd.QuestSystem.QuestStructureElements
         private bool isCompleted;
         public bool IsCompleted {
             get => isCompleted;
-            set { isCompleted = value;
-                onQuestEnded?.Invoke(this);  }
+            set { 
+                isCompleted = value;
+                onQuestEnded?.Invoke(this);  
+            }
         }
 
         [SerializeField]
@@ -80,7 +85,7 @@ namespace jbzd.QuestSystem.QuestStructureElements
 
         private void Awake()
         {
-            _questManager.AllQuestsOnActiveMap.Add(this);
+            _questManager.AllQuestsFromLoadedMaps.Add(this);
 
             if (QuestData is null)
             {
@@ -100,7 +105,7 @@ namespace jbzd.QuestSystem.QuestStructureElements
 
         private void OnDisable()
         {
-            _questManager.AllQuestsOnActiveMap.Remove(this);
+            _questManager.AllQuestsFromLoadedMaps.Remove(this);
         }
 
         public void MakeActorPlayInThisQuest(GoalSO passedGoal)
