@@ -73,12 +73,12 @@ namespace jbzd.QuestSystem
                 }
 
                 //TODO need to be tested, why we are returning if we are iterating through quests?
-                if (quest.ActiveTask != inTask)
+                /*if (quest.ActiveTask != inTask)
                 {
                     Debug.Log($"Goal that is trying to act ({goalToAct.name})," +
                               $" is in task that is not currently active");
                     return;
-                }
+                }*/
                 
                 quest.MakeActorPlayInThisQuest(goalToAct);
                 

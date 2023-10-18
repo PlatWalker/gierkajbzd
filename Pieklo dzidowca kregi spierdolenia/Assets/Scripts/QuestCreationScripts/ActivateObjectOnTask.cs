@@ -22,7 +22,8 @@ namespace jbzd.QuestCreationScripts
         }
         private void Start()
         {
-            foreach (var quest in _questManager.ActiveQuests)
+            
+            foreach (var quest in _questManager.AllQuestsFromLoadedMaps)
             {
                 quest.onTaskUpdated += (object sender, EventArgs e) =>
                 {
@@ -31,6 +32,7 @@ namespace jbzd.QuestCreationScripts
                     objectToActivate.SetActive(true);
                 };
             }
+
         }
     }
 }

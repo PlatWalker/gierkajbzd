@@ -111,7 +111,7 @@ namespace jbzd.Scenes.SceneLoader
             SceneManager.sceneLoaded += OnSceneLoaded;
             
             var kragTypeOfThisTrigger = JbzdScene.GetKragType(gameObject.scene.name);
-
+            Debug.Log($"Scene Loader from {gameObject.scene.name} named {gameObject.name} will teleport to {levelNameOfSceneToLoad}");
             try
             {
                 if (chosenKrag == null) throw new Exception("Krag is not set");
@@ -174,8 +174,13 @@ namespace jbzd.Scenes.SceneLoader
             if (JbzdScene.GetSceneType(scene.name) != SceneTypes.Passive) return;
 
             WarpPlayerToLocationOnNewMap(scene);
-            
-            SceneManager.UnloadSceneAsync(gameObject.scene);
+
+            var oldPassiveScene = JbzdScene.MergeFullSceneName(
+                new Krag(JbzdScene.GetKragType(gameObject.scene.name)),
+                new LevelName(JbzdScene.GetLevelName(gameObject.scene.name)),
+                new SceneType(SceneTypes.Passive));
+
+            SceneManager.UnloadSceneAsync(oldPassiveScene);
             UnsubscribeSceneLoaded();
         }
 
