@@ -20,8 +20,8 @@ namespace jbzd.UI.MainMenu
         private void SceneLoaded(Scene arg0, LoadSceneMode loadSceneMode)
         {
             SceneManager.UnloadSceneAsync("(none) - (Main Menu) - (SingleLoad)");
-            SceneManager.LoadSceneAsync("(Krag1) - (MainScene) - (Passive)", LoadSceneMode.Additive);
-            SceneManager.LoadSceneAsync("(Krag1) - (MainScene) - (Interactive)", LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync("(Krag1) - (AnonFlat) - (Passive)", LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync("(Krag1) - (AnonFlat) - (Interactive)", LoadSceneMode.Additive);
 
             SceneManager.sceneLoaded -= SceneLoaded;
         }
