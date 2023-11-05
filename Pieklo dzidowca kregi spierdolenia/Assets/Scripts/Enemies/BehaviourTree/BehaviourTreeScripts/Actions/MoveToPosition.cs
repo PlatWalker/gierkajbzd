@@ -23,17 +23,22 @@ public class MoveToPosition : ActionNode {
     }
 
     protected override State OnUpdate() {
+
         if (context.agent.pathPending) {
+
             return State.Running;
         }
 
         if (context.agent.remainingDistance < tolerance) {
+
             return State.Success;
         }
 
         if (context.agent.pathStatus == UnityEngine.AI.NavMeshPathStatus.PathInvalid) {
+
             return State.Failure;
         }
+        
 
         return State.Running;
     }

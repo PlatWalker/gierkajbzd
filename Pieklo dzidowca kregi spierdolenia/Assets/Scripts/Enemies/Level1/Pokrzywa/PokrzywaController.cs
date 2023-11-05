@@ -9,7 +9,7 @@ namespace jbzd.Enemies.Level1.Pokrzywa
     [RequireComponent(typeof(Collider))]
     public class PokrzywaController : Enemy, IDamageable
     {
-        [SerializeField] private BehaviourTree tree;
+        [SerializeField] private TheKiwiCoder.BehaviourTree tree;
         [SerializeField] private EnemyDataContainer PokrzywaData = null;
         [SerializeField] private DamageController damageController;
         [SerializeField] private bool isInvincible;
@@ -147,7 +147,7 @@ namespace jbzd.Enemies.Level1.Pokrzywa
                 return;
             }
 
-            BehaviourTree.Traverse(tree.rootNode, (n) => {
+            TheKiwiCoder.BehaviourTree.Traverse(tree.rootNode, (n) => {
                 if (n.drawGizmos) {
                     n.OnDrawGizmos();
                 }

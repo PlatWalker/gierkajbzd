@@ -19,6 +19,7 @@ public class GrowPokrzywa : ActionNode
     private bool _growPokrzywa;
     private float _timeRemaining;
     private Scene _targetScene;
+    RaycastHit hit;
     private int _numberOfSamples = 20;
     private float _minDistance = 1.4f;
     private int _numberOfSons = 0;
@@ -123,10 +124,22 @@ public class GrowPokrzywa : ActionNode
         {
             Vector3 newPoint = Vector3.zero;
 
-            if(DistanceToPlayer(context.transform.position) > 8f){
+            if(DistanceToPlayer(context.transform.position) > 8f)
+            {
+                Ray ray = new Ray(new Vector3(context.transform.position.x, context.transform.position.y + 2, context.transform.position.z),
+                newPoint - new Vector3(context.transform.position.x, context.transform.position.y + 2, context.transform.position.z));
+            
 
-                blackboard.startTimer = true;
-                return State.Success;
+                if (Physics.Raycast(ray, out hit, _maxSpreadDistance * 200))
+                {
+                    if (hit.transform.tag == "Terrain")
+                    {
+                        // GameObject newOne = Object.Instantiate(blackboard.Prefab, newPoint, context.transform.rotation);
+                        // newOne.gameObject.transform.Rotate(0f, Random.Range(-180f, 180f), 0f);
+                    }
+                    blackboard.startTimer = true;
+                    return State.Success;
+                }
             }
             newPoint = FindLocationForNewSon(2,context.transform.position);
 
@@ -137,7 +150,7 @@ public class GrowPokrzywa : ActionNode
 
             _numberOfSons++;
 
-            GameObject newOne = Object.Instantiate(blackboard.pokrzywaPrefab, newPoint, context.transform.rotation);
+            GameObject newOne = Object.Instantiate(blackboard.Prefab, newPoint, context.transform.rotation);
 
             PokrzywaController newOneController = newOne.GetComponent<PokrzywaController>();
             newOneController.isMother = false;

@@ -1,185 +1,63 @@
-﻿///<summary>
-/// Created by Kumdzio
-///</summary>
-
-using jbzd.Enemies;
+﻿using jbzd.Enemies;
 using UnityEngine;
 using UnityEngine.AI;
-namespace jbzdy.Enemies
+using TheKiwiCoder;
+using jbzd.Common.Interfaces;
+using System.Collections;
+
+
+namespace jbzd.Enemies.Level1.Gowniak
 {
-    public class GowniakController : EnemyController
+    public class GowniakController : EnemyController, IDamageable
     {
         [Header("Gowniak specific")]
-        [SerializeField] private float aggroMaxTime = 2f;
+        [SerializeField] private TheKiwiCoder.BehaviourTree tree;
         [SerializeField] private float spawnWanderRadius = 15f;
         [SerializeField] private float wanderEveryXSeconds = 3f;
-        private static bool aggroCommenced = false;
-        GowniakState currentState;
-        GowniakState resumeState;
-        private enum GowniakState
-        {
-            Idle,
-            Aggro,
-            Chase,
-            Attack,
-            Wander,
-            Dying,
-            AIOff
-        }
+        [SerializeField] private bool isInvincible;
+        [SerializeField] private float invincibilityDurationSeconds;
+        [SerializeField] private Material hitMaterial;
 		[SerializeField] DamageController RHCollider = null;
 		[SerializeField] DamageController LHCollider = null;
-
+        private Context _context;
+        private SkinnedMeshRenderer _meshRenderer;
+        private Collider _collider;
         private EnemyDamagedEffect pushBackEffect;
 
         override protected void Start()
         {
+            _context = CreateBehaviourTreeContext();
+            tree = tree.Clone();
+            tree.Bind(_context);
+
             base.Start();
             easyAnimator = new EasyAnimatorController(GetComponent<Animator>(), new string[] { });
             NavAgent = GetComponent<NavMeshAgent>();
 			RHCollider.SetUp(EnemyData.Damage);
 			LHCollider.SetUp(EnemyData.Damage);
             pushBackEffect = GetComponent<EnemyDamagedEffect>();
+            
+            tree.blackboard.NavAgent = NavAgent;
+            tree.blackboard.easyAnimator = easyAnimator;
+            tree.blackboard.RHCollider = RHCollider;
+            tree.blackboard.LHCollider = LHCollider;
+            tree.blackboard.spawnPoint = SpawnPoint;
+            CurrentHealth = MaximumHealth;
+            tree.blackboard.currentHealth = CurrentHealth;
+            tree.blackboard.wanderEveryXSeconds = wanderEveryXSeconds;
+            tree.blackboard.spawnWanderRadius = spawnWanderRadius;
+
+            GetComponent<Animator>().SetFloat("idlingSpeed", Random.Range(0.5f, 1.5f));
+            _meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+            Debug.Assert(_meshRenderer is not null, $"Mesh renderer component is missing on {name}");
+            _collider = GetComponent<Collider>();
         }
 
         override protected void Update()
         {
-            if (CurrentHealth <= 0 && EnemyAlive)
+            if (tree)
             {
-                currentState = GowniakState.Dying;
-            }
-
-            HandleLogicPerformaceBoost();
-
-            switch (currentState)
-            {
-                case GowniakState.Aggro:
-                    {
-                        MultiUseTimer += Time.deltaTime;
-                        easyAnimator.SetBooleanTrue("Aggro");
-
-                        if (!updateLogicFrame) break;
-
-                        if (MultiUseTimer > aggroMaxTime)
-                        {
-                            MultiUseTimer = 0;
-                            currentState = GowniakState.Chase;
-                        }
-                        if (!playerIsVisible)
-                        {
-                            MultiUseTimer = 0;
-                            currentState = GowniakState.Idle;
-                        }
-                    }
-                    break;
-                case GowniakState.AIOff:
-                    return;
-                case GowniakState.Attack:
-                    {
-                        easyAnimator.SetBooleanTrue("Attack");
-
-                        float clipTime = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime;
-						if (clipTime%1 < 0.2f)
-						{
-							LHCollider.DamageDealed = false;
-							RHCollider.DamageDealed = false;
-						}
-
-                        if (!updateLogicFrame) break;
-
-                        if (!playerIsVisible)
-                        {
-                            GoToPoint = transform.position;
-                            currentState = GowniakState.Wander;
-                        }
-                        if (distanceToMainChar > EnemyData.AttackRadius)
-                        {
-                            currentState = GowniakState.Chase;
-                        }
-                    }
-                    break;
-                case GowniakState.Chase:
-                    {
-                        MoveTo(EnemyData.MainCharacterTransform.position, EnemyData.MovementSpeed, EnemyData.AttackRadius);
-						easyAnimator.SetBooleanTrue("Move");
-
-                        if (!updateLogicFrame) break;
-
-                        if (distanceToMainChar <= EnemyData.AttackRadius)
-						{
-							currentState = GowniakState.Attack;
-							break;
-                        }
-                        if (!playerIsVisible)
-                        {
-                            GoToPoint = transform.position;
-                            currentState = GowniakState.Wander;
-                        }
-                    }
-                    break;
-                case GowniakState.Dying:
-                    {
-                        Die();
-                    }
-                    break;
-                case GowniakState.Idle:
-                    {
-                        easyAnimator.SetBooleanTrue("Idle");
-
-                        if (!updateLogicFrame) break;
-
-                        if (playerIsVisible)
-                        {
-                            if (aggroCommenced)
-                            {
-                                currentState = GowniakState.Chase;
-                            }
-                            else
-                            {
-                                currentState = GowniakState.Aggro;
-                            }
-                        }
-                    }
-                    break;
-                case GowniakState.Wander:
-                    {
-                        MultiUseTimer += Time.deltaTime;
-
-						MoveTo(GoToPoint, EnemyData.MovementSpeed, EnemyData.AttackRadius);
-						if (Vector3.Distance(transform.position, GoToPoint) <= EnemyData.AttackRadius)
-                        {
-                            easyAnimator.SetBooleanTrue("Idle");
-                        }
-                        else
-                        {
-                            easyAnimator.SetBooleanTrue("Move");
-                        }
-
-                        if (!updateLogicFrame) break;
-
-                        if (playerIsVisible)
-                        {
-                            MultiUseTimer = 0f;
-                            currentState = GowniakState.Chase;
-                            break;
-                        }
-
-                        if (Vector3.Distance(transform.position, SpawnPoint) <= spawnWanderRadius)
-                        {
-                            MultiUseTimer = 0f;
-                            currentState = GowniakState.Idle;
-                            break;
-                        }
-
-                        if (MultiUseTimer >= wanderEveryXSeconds)
-                        {
-                            MultiUseTimer = 0f;
-                            GoToPoint = GenerateNewDestination(true);
-                        }
-                    }
-                    break;
-                default:
-                    UnityEngine.Debug.Log("Some Gowniak is in strange and unrecognized state");
-                    break;
+                tree.Update();
             }
         }
 
@@ -188,74 +66,48 @@ namespace jbzdy.Enemies
             return false;
         }
 
-        override public void SwitchAI()
+        public override void SetDamage(int damageAmount, DamageType damageType)
         {
-            base.SwitchAI();
-
-            if (turnOffAI)
-            {
-                resumeState = currentState;
-                currentState = GowniakState.AIOff;
-            }
-            else
-            {
-                currentState = resumeState;
-            }
+            if(isInvincible) return;
+            
+            CurrentHealth -= damageAmount;
+            tree.blackboard.currentHealth = CurrentHealth;
+            
+            //TODO: tymczasowe oznaczenie zadawania obrazn
+            StartCoroutine(BecomeHit());
+            StartCoroutine(BecomeInvincible());
         }
 
-        override public void SetDamage(int damageAmount, DamageType damageType)
+        public override void SetDamage(int damageAmount, DamageType damageType, float criticalMultiplier, float criticalChance)
         {
-            if (currentState == GowniakState.Idle || currentState == GowniakState.Wander)
+            if (Random.Range(0.0f, 1.0f) <= criticalChance)
             {
-                GoToPoint = GenerateNewDestination(currentState == GowniakState.Wander);
+                damageAmount = (int)(damageAmount * criticalMultiplier);
             }
-            pushBackEffect.ApplyEffect();
-            base.SetDamage(damageAmount, damageType);
+            SetDamage(damageAmount, damageType);
         }
 
-        //for further improvement in performance there can be used multitasking
-        //and then do not move until worker call the delegate function to move enemy
-        private Vector3 GenerateNewDestination(bool WanderTowardsSpawn)
+        private IEnumerator BecomeHit()
         {
-            const int TRYXTIMES = 10;
-            int tryCounter = 0;
-            Vector3 newPoint = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            var oldMaterial = _meshRenderer.material;
+            
+            _meshRenderer.material = hitMaterial;
+            
+            yield return new WaitForSeconds(invincibilityDurationSeconds);
 
-            if (WanderTowardsSpawn)
-            {
-                while ((tryCounter < TRYXTIMES) && (Vector3.Distance(newPoint, SpawnPoint) >= Vector3.Distance(transform.position, SpawnPoint)))
-                {
-                    tryCounter++;
-                    newPoint = ChooseNewPatrollingPoint();
-                }
-            }
-            else
-            {
-                while (tryCounter < TRYXTIMES && Vector3.Distance(newPoint, SpawnPoint) > spawnWanderRadius)
-                {
-                    tryCounter++;
-                    newPoint = ChooseNewPatrollingPoint();
-                }
-            }
+            _meshRenderer.material = oldMaterial;
+        }
+        
+        private IEnumerator BecomeInvincible()
+        {
+            isInvincible = true;
+            yield return new WaitForSeconds(invincibilityDurationSeconds);
+            isInvincible = false;
+        }
 
-            if (tryCounter == TRYXTIMES)
-            {
-                if (WanderTowardsSpawn)
-                {
-                    if (Vector3.Distance(newPoint, SpawnPoint) > Vector3.Distance(transform.position, SpawnPoint))
-                    {
-                        return transform.position;
-                    }
-                }
-                else
-                {
-                    if (Vector3.Distance(newPoint, SpawnPoint) > spawnWanderRadius)
-                    {
-                        return transform.position;
-                    }
-                }
-            }
-            return newPoint;
+        Context CreateBehaviourTreeContext()
+        {
+            return Context.CreateFromGameObject(gameObject);
         }
     }
 }

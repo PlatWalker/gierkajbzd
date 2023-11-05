@@ -838,7 +838,7 @@ CapsuleCollider:
   m_Center: {x: 0, y: 0.12, z: 0}
 --- !u!95 &4544957338257843032
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -855,7 +855,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &4544957338257843035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -870,9 +871,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyData: {fileID: 11400000, guid: 0941dd29f0ec1b84eb5fb2a37c3325e0, type: 2}
   turnOffAI: 0
-  aggroMaxTime: 1
+  <CurrentHealth>k__BackingField: 0
+  tree: {fileID: 11400000, guid: 06fa0c19a1e8a0d44b189d39d68f8b9c, type: 2}
   spawnWanderRadius: 5
   wanderEveryXSeconds: 2
+  isInvincible: 0
+  invincibilityDurationSeconds: 0
+  hitMaterial: {fileID: 0}
   RHCollider: {fileID: 4544957337724564284}
   LHCollider: {fileID: 4544957337287730168}
 --- !u!195 &4544957338257843028

@@ -1,7 +1,7 @@
 ﻿using jbzd.Enemies;
 using UnityEngine;
 
-namespace jbzdy.Enemies
+namespace jbzd.Enemies
 {
     public class EnemySoundController : MonoBehaviour
     {

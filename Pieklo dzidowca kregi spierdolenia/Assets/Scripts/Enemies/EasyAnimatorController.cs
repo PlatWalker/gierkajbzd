@@ -4,7 +4,7 @@
 
 
 using UnityEngine;
-namespace jbzdy.Enemies
+namespace jbzd.Enemies
 {
     public class EasyAnimatorController
     {
