@@ -108,7 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   QuestData: {fileID: 11400000, guid: 5acd51e3e10e7e749a81f90b05f6d67a, type: 2}
   Actors: []
-  IsCompleted: 0
+  isCompleted: 0
   ActiveTask: {fileID: 0}
   FinishedTasks: []
   FinishedGoals: []
@@ -420,6 +420,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4009508650640705696, guid: cbd8fa8664b15de42b345f654f9acb26, type: 3}
   m_PrefabInstance: {fileID: 1403803803395525926}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8870040757700721494 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7522109848918914672, guid: cbd8fa8664b15de42b345f654f9acb26, type: 3}
+  m_PrefabInstance: {fileID: 1403803803395525926}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1927806446
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8870040757700721494}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.5539217, y: 1.6333647, z: 1.9069676}
+  m_Center: {x: -0.044251207, y: 0.7669982, z: 0.000000029802326}
 --- !u!1001 &1585043270908416072
 PrefabInstance:
   m_ObjectHideFlags: 0

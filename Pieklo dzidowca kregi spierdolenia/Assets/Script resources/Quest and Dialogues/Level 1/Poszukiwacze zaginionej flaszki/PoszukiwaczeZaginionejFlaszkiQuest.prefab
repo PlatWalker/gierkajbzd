@@ -637,6 +637,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1189679211811417521
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,7 +857,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4632076848079470140}
-  - component: {fileID: 1890977090690777093}
   - component: {fileID: 6726049278458597161}
   - component: {fileID: 64963035057262880}
   - component: {fileID: 2664113682730820534}
@@ -886,19 +886,6 @@ Transform:
   m_Father: {fileID: 2150599802228126898}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1890977090690777093
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1333437009631229739}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6726049278458597161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3097,6 +3084,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599801487975975
 GameObject:
   m_ObjectHideFlags: 0
@@ -3625,6 +3613,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599801499636623
 GameObject:
   m_ObjectHideFlags: 0
@@ -4179,6 +4168,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599801525978678
 GameObject:
   m_ObjectHideFlags: 0
@@ -4952,15 +4942,11 @@ Animator:
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'DEF-f_middle.02.L'\n\tTransform 'DEF-f_ring.02.R'\n\tTransform
-    'DEF-f_index.02.L'\n\tTransform 'DEF-neck'\n\tTransform 'DEF-f_pinky.02.L'\n\tTransform
-    'ORG-palm.01.R'\n\tTransform 'DEF-f_pinky.01.R'\n\tTransform 'ORG-palm.02.R'\n\tTransform
-    'DEF-f_pinky.03.R'\n\tTransform 'ORG-palm.03.R'\n\tand more ..."
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599801565119696
 GameObject:
   m_ObjectHideFlags: 0
@@ -7054,6 +7040,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599801638882870
 GameObject:
   m_ObjectHideFlags: 0
@@ -10146,6 +10133,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599801832072187
 GameObject:
   m_ObjectHideFlags: 0
@@ -10199,6 +10187,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599801836288476
 GameObject:
   m_ObjectHideFlags: 0
@@ -10884,6 +10873,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599801868665414
 GameObject:
   m_ObjectHideFlags: 0
@@ -11771,6 +11761,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599801891023812
 GameObject:
   m_ObjectHideFlags: 0
@@ -14189,6 +14180,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599802023187309
 GameObject:
   m_ObjectHideFlags: 0
@@ -14242,6 +14234,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599802026443454
 GameObject:
   m_ObjectHideFlags: 0
@@ -16840,6 +16833,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599802126836965
 GameObject:
   m_ObjectHideFlags: 0
@@ -17646,6 +17640,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599802171477675
 GameObject:
   m_ObjectHideFlags: 0
@@ -18112,6 +18107,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599802195125108
 GameObject:
   m_ObjectHideFlags: 0
@@ -18440,6 +18436,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599802216689133
 GameObject:
   m_ObjectHideFlags: 0
@@ -19479,6 +19476,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599802252671311
 GameObject:
   m_ObjectHideFlags: 0
@@ -22399,6 +22397,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599802374831299
 GameObject:
   m_ObjectHideFlags: 0
@@ -22655,6 +22654,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599802381886568
 GameObject:
   m_ObjectHideFlags: 0
@@ -24323,6 +24323,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599802473882137
 GameObject:
   m_ObjectHideFlags: 0
@@ -24744,6 +24745,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599802499820939
 GameObject:
   m_ObjectHideFlags: 0
@@ -24798,6 +24800,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599802499870890
 GameObject:
   m_ObjectHideFlags: 0
@@ -25201,6 +25204,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599802526982643
 GameObject:
   m_ObjectHideFlags: 0
@@ -26428,7 +26432,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -28997,6 +29001,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599802744812621
 GameObject:
   m_ObjectHideFlags: 0
@@ -29285,6 +29290,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599802752101017
 GameObject:
   m_ObjectHideFlags: 0
@@ -30088,6 +30094,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599802782564245
 GameObject:
   m_ObjectHideFlags: 0
@@ -30205,6 +30212,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599802786646283
 GameObject:
   m_ObjectHideFlags: 0
@@ -31107,6 +31115,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599802842304764
 GameObject:
   m_ObjectHideFlags: 0
@@ -32716,6 +32725,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599802923281866
 GameObject:
   m_ObjectHideFlags: 0
@@ -37046,6 +37056,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599803195088574
 GameObject:
   m_ObjectHideFlags: 0
@@ -37937,6 +37948,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599803238573221
 GameObject:
   m_ObjectHideFlags: 0
@@ -40106,6 +40118,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599803327181000
 GameObject:
   m_ObjectHideFlags: 0
@@ -40595,6 +40608,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599803350660508
 GameObject:
   m_ObjectHideFlags: 0
@@ -41492,6 +41506,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599803380081423
 GameObject:
   m_ObjectHideFlags: 0
@@ -45228,6 +45243,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &2571580037828207725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45485,7 +45501,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4026756327233000913}
   m_LocalRotation: {x: -0, y: -0.70710707, z: -0, w: 0.70710653}
-  m_LocalPosition: {x: 0.02, y: 0.04, z: 0.06}
+  m_LocalPosition: {x: 0.02, y: 0.04, z: 0.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -45516,7 +45532,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 1.5, z: 1.5}
+  m_Size: {x: 3, y: 1.5, z: 1.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &3039374935501946184
 SphereCollider:
@@ -46641,6 +46657,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6758948233230006159
 GameObject:
   m_ObjectHideFlags: 0
@@ -47297,6 +47314,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &1001580115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47955,12 +47973,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: a8a79a2f8db5f784a8085f9378c54c32, type: 2}
     - target: {fileID: 5866666021909216657, guid: 7613f15ade1630c439398133d89f6aac, type: 3}
       propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tTransform 'DEF-f_middle.02.L'\n\tTransform 'DEF-f_ring.02.R'\n\tTransform
-        'DEF-f_index.02.L'\n\tTransform 'DEF-neck'\n\tTransform 'DEF-f_pinky.02.L'\n\tTransform
-        'ORG-palm.01.R'\n\tTransform 'DEF-f_pinky.01.R'\n\tTransform 'ORG-palm.02.R'\n\tTransform
-        'DEF-f_pinky.03.R'\n\tTransform 'ORG-palm.03.R'\n\tand more ..."
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7613f15ade1630c439398133d89f6aac, type: 3}
