@@ -86,7 +86,10 @@ namespace jbzd.QuestSystem
                     GameObject buttonGO = Instantiate(buttonPrefab, _buttonContainer);
                     Button button = buttonGO.GetComponent<Button>();
                     button.GetComponentInChildren<TMP_Text>().text = quest.name;
-
+                    RectTransform buttonRect = button.GetComponent<RectTransform>();
+                    
+                    float preferredHeight = button.GetComponentInChildren<TMP_Text>().preferredHeight;
+                    buttonRect.sizeDelta = new Vector2(buttonRect.sizeDelta.x, preferredHeight+10f);
                     int questIndex = i;
                     button.onClick.AddListener(() => OnQuestButtonClicked(questIndex));
                 }
