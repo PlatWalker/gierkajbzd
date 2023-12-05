@@ -87,6 +87,7 @@ namespace jbzd.Dialogues
                 _hudCanvas = _uiManager.GetUIController<HudUIController>();
 
             gameObject.SetActive(false);
+            _hudCanvas.gameObject.SetActive(true);
             _playerManager.CanPlayerMove = true;
             Debug.Log($"Dialogue {_dialogueManager.CurrentDialogueContainer.name} unfreeze player");
         }

@@ -14,7 +14,7 @@ namespace jbzd.UI.PlayerMenu
 
         private void OnEscapeClick()
         {
-            gameObject.SetActive(false);
+            gameObject.SetActive(!gameObject.activeSelf);
         }
 
         private void OnPlayerMenuOpened()
