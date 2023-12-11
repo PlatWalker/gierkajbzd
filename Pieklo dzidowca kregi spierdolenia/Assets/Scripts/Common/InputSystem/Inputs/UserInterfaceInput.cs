@@ -11,6 +11,8 @@ namespace jbzd.Common.InputSystem.Inputs
         public event ClickNotify OnPlayerMenuOpened;
         public event ClickNotify OnInGameMenuOpened;
         public event ClickNotify OnEscapeClick;
+        public event ClickNotify OnQuickSaveClick;
+        public event ClickNotify OnTestLoadClick;
 
         public override void Start()
         {
@@ -40,6 +42,16 @@ namespace jbzd.Common.InputSystem.Inputs
                 {
                     KeyMapping = KeyMapping.Escape,
                     Action = () => OnEscapeClick?.Invoke()
+                },
+                new ()
+                {
+                    KeyMapping = KeyMapping.QuickSave,
+                    Action = () => OnQuickSaveClick?.Invoke()
+                },
+                new ()
+                {
+                    KeyMapping = KeyMapping.TestQuickLoad,
+                    Action = () => OnTestLoadClick?.Invoke()
                 }
             };
         }

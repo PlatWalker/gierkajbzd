@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using jbzd.Common;
 using UnityEngine;
 
 
@@ -8,12 +10,21 @@ namespace jbzd.QuestSystem.QuestStructureElements
     [CreateAssetMenu(menuName = "Quest/Quest", fileName = "New Quest Data")]
     public class QuestSO : ScriptableObject
     {
+        [field:JbzdReadOnly]
+        [field:SerializeField]
+        public string Id { get; set; }
+        
         
         [SerializeField] public List<TaskSO> Tasks = new();
 
         public void OnEnable()
         {
             if(Tasks.Count != 0) TaskOrderingValidation();
+            
+            if (string.IsNullOrEmpty(Id))
+            {
+                Id = Guid.NewGuid().ToString();
+            }
         }
 
         public void Awake()
@@ -51,6 +62,24 @@ namespace jbzd.QuestSystem.QuestStructureElements
         }
 
         /// <summary>
+        /// Checks if there is a goal of type T in this quest
+        /// </summary>
+        /// <param name="goals">found goals</param>
+        /// <typeparam name="T">type of goals to look for</typeparam>
+        /// <returns>bool that indicates if we found a goal in quest or not</returns>
+        public bool IsThereAGoalOfType<T>(out List<T> goals) where T : GoalSO
+        {
+            goals = new List<T>();
+            
+            foreach (var task in Tasks)
+            {
+                goals.AddRange((List<T>)task.Goals.Where(goal => goal.GetType() == typeof(T)));
+            }
+
+            return goals.Count is not 0;
+        }
+        
+        /// <summary>
         /// Checks if there is an passed actor in any of goals.
         /// </summary>
         /// <param name="actorData">Actor to look for</param>
@@ -71,5 +100,7 @@ namespace jbzd.QuestSystem.QuestStructureElements
             Debug.Assert(tasksOrders.Contains(0),
                 $"In tasks ordering there need to be order equal to 0. QuestSO: {name}");
         }
+        
+        
     }
 }

@@ -11,6 +11,8 @@ namespace jbzd.Common.InputSystem
         public const KeyCode PlayerMenu = KeyCode.M;
         public const KeyCode InGameMenu = KeyCode.Escape;
         public const KeyCode Escape = KeyCode.Escape;
+        public const KeyCode QuickSave = KeyCode.F4;
+        public const KeyCode TestQuickLoad = KeyCode.F5;
         
         #endregion
 

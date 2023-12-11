@@ -9,6 +9,7 @@ using jbzd.Common.InputSystem.Inputs;
 using jbzd.MainHero.PlayerControllers;
 using jbzd.MainHero.PlayerStateLogic;
 using jbzd.NPC;
+using jbzd.SavingSystem;
 using UnityEngine.AI;
 
 namespace jbzd.MainHero
@@ -34,7 +35,7 @@ namespace jbzd.MainHero
         }
     }
 
-    public class PlayerManager : MonoBehaviour
+    public class PlayerManager : MonoBehaviour, ISaveable
     {
         #region Inspector Fields
 
@@ -238,6 +239,16 @@ namespace jbzd.MainHero
 
         }
 
+        public void LoadData(GameData gameData)
+        {
+            gameObject.transform.position = gameData.playerPosition;
+        }
+
+        public void SaveData(ref GameData gameData)
+        {
+            gameData.playerPosition = gameObject.transform.position;
+        }
+        
         public T GetPlayerController<T>() where T : IPlayerController
         {
             var playerController = (T) _playerControllers.Find(playerController => playerController.GetType() == typeof(T));

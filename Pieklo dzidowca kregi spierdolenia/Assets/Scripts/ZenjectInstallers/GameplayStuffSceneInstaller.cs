@@ -6,6 +6,7 @@ using jbzd.Items;
 using jbzd.UI;
 using jbzd.MainHero;
 using jbzd.QuestSystem;
+using jbzd.SavingSystem;
 using UnityEngine;
 using Zenject;
 
@@ -21,22 +22,27 @@ namespace jbzd.ZenjectInstallers
         private QuestManager QuestManager;
         [SerializeField] 
         private DialogueManager DialogueManager;
+        [SerializeField]
+        private SaveManager SaveManager;
         
         public override void InstallBindings()
         {
             if (playerManager is null ||
                 UIManager is null ||
                 QuestManager is null ||
-                DialogueManager is null)
+                DialogueManager is null ||
+                SaveManager is null)
             {
                 Debug.LogError("Missing references in installer!");
             }
-
-            Container.Bind<CutscenesManager>().AsSingle().NonLazy();
+            
             Container.BindInstance(playerManager).AsSingle().NonLazy();
             Container.BindInstance(QuestManager).AsSingle().NonLazy();
             Container.BindInstance(DialogueManager).AsSingle().NonLazy();
             Container.BindInstance(UIManager).AsSingle().NonLazy();
+            Container.BindInstance(SaveManager).AsSingle().NonLazy();
+            
+            Container.Bind<CutscenesManager>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<InputManager>().AsSingle().NonLazy();
             Container.BindFactory<Object, Item, Item.Factory>().FromFactory<PrefabFactory<Item>>();
             Container.BindFactory<object, Runner, RunnerFactory>().FromFactory<CustomRunnerFactory>();

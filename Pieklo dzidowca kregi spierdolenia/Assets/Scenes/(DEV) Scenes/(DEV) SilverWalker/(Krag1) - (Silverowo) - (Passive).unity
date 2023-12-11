@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -466,6 +466,7 @@ GameObject:
   - component: {fileID: 201427293}
   - component: {fileID: 201427292}
   - component: {fileID: 201427296}
+  - component: {fileID: 201427297}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -549,7 +550,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &201427296
 Rigidbody:
@@ -567,6 +568,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &201427297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 201427291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7cd993795fe4855922edf1335ed1f59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &209291784
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3212,7 +3225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   QuestData: {fileID: 11400000, guid: b5622e5feae56724695abe4360a5c2db, type: 2}
   Actors: []
-  IsCompleted: 0
+  isCompleted: 0
   ActiveTask: {fileID: 0}
   FinishedTasks: []
   FinishedGoals: []
@@ -3551,7 +3564,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &465450013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3566,7 +3579,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   QuestData: {fileID: 11400000, guid: 5b200dfaa4a4d484a82f9a1898780bad, type: 2}
   Actors: []
-  IsCompleted: 0
+  isCompleted: 0
   ActiveTask: {fileID: 0}
   FinishedTasks: []
   FinishedGoals: []
@@ -3591,7 +3604,7 @@ Transform:
   - {fileID: 266456014}
   - {fileID: 1730175300}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &474175596
 GameObject:
@@ -3892,7 +3905,7 @@ Transform:
   - {fileID: 561960062}
   - {fileID: 2120867997}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &510270581
 GameObject:
@@ -4536,6 +4549,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &598194917
 GameObject:
   m_ObjectHideFlags: 0
@@ -5439,7 +5453,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &758334227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5454,7 +5468,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   QuestData: {fileID: 11400000, guid: e8275c8e74cda26419d6766374863452, type: 2}
   Actors: []
-  IsCompleted: 0
+  isCompleted: 0
   ActiveTask: {fileID: 0}
   FinishedTasks: []
   FinishedGoals: []
@@ -5476,7 +5490,7 @@ Transform:
   - {fileID: 2125946259}
   - {fileID: 1648561273}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &809569387
 GameObject:
@@ -5494,7 +5508,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &809569388
 Transform:
   m_ObjectHideFlags: 0
@@ -5514,7 +5528,7 @@ Transform:
   - {fileID: 8847006235553980850}
   - {fileID: 71587897776835860}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &809569389
 MonoBehaviour:
@@ -5530,7 +5544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   QuestData: {fileID: 11400000, guid: 47c0b0e50657dbf47a31154e8f427fe1, type: 2}
   Actors: []
-  IsCompleted: 0
+  isCompleted: 0
   ActiveTask: {fileID: 0}
   FinishedTasks: []
   FinishedGoals: []
@@ -5550,7 +5564,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5328667641903285769, guid: e2f07a512aeb1f749861f8f3d6312425, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5328667641903285769, guid: e2f07a512aeb1f749861f8f3d6312425, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5937,7 +5951,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &864075441
 Transform:
   m_ObjectHideFlags: 0
@@ -5953,7 +5967,7 @@ Transform:
   - {fileID: 1025225236}
   - {fileID: 1832976713}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &864075442
 MonoBehaviour:
@@ -5969,7 +5983,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   QuestData: {fileID: 11400000, guid: ddd87b703b28b7b4a9c0ec6dfbc53707, type: 2}
   Actors: []
-  IsCompleted: 0
+  isCompleted: 0
   ActiveTask: {fileID: 0}
   FinishedTasks: []
   FinishedGoals: []
@@ -6022,7 +6036,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   QuestData: {fileID: 11400000, guid: 6301289dbd5faf04a8b833f6aca0c26c, type: 2}
   Actors: []
-  IsCompleted: 0
+  isCompleted: 0
   ActiveTask: {fileID: 0}
   FinishedTasks: []
   FinishedGoals: []
@@ -6892,7 +6906,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   QuestData: {fileID: 11400000, guid: 88b99fd9abed76c49988808fbd68482f, type: 2}
   Actors: []
-  IsCompleted: 0
+  isCompleted: 0
   ActiveTask: {fileID: 0}
   FinishedTasks: []
   FinishedGoals: []
@@ -8180,7 +8194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   QuestData: {fileID: 11400000, guid: 0c9d5806856ac9c4599f86e83dfb169d, type: 2}
   Actors: []
-  IsCompleted: 0
+  isCompleted: 0
   ActiveTask: {fileID: 0}
   FinishedTasks: []
   FinishedGoals: []
@@ -9605,7 +9619,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1307705365
 Transform:
   m_ObjectHideFlags: 0
@@ -9623,7 +9637,7 @@ Transform:
   - {fileID: 950129475}
   - {fileID: 1162274339}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1324871348
 GameObject:
@@ -9672,7 +9686,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1333586968
 Transform:
   m_ObjectHideFlags: 0
@@ -9693,7 +9707,7 @@ Transform:
   - {fileID: 2046925451}
   - {fileID: 1651264416}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1370095819
 GameObject:
@@ -9742,7 +9756,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1483084250
 Transform:
   m_ObjectHideFlags: 0
@@ -9765,7 +9779,7 @@ Transform:
   - {fileID: 474175597}
   - {fileID: 2002716424}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1488448428
 GameObject:
@@ -9885,6 +9899,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1517173941
 GameObject:
   m_ObjectHideFlags: 0
@@ -10047,7 +10062,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   QuestData: {fileID: 0}
   Actors: []
-  IsCompleted: 0
+  isCompleted: 0
   ActiveTask: {fileID: 0}
   FinishedTasks: []
   FinishedGoals: []
@@ -12328,63 +12343,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!1001 &2053771817
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2133012550958594979, guid: 07b7f91675882a046af4300929251c6c, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2133012550958594979, guid: 07b7f91675882a046af4300929251c6c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2133012550958594979, guid: 07b7f91675882a046af4300929251c6c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2133012550958594979, guid: 07b7f91675882a046af4300929251c6c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2133012550958594979, guid: 07b7f91675882a046af4300929251c6c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2133012550958594979, guid: 07b7f91675882a046af4300929251c6c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2133012550958594979, guid: 07b7f91675882a046af4300929251c6c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2133012550958594979, guid: 07b7f91675882a046af4300929251c6c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2133012550958594979, guid: 07b7f91675882a046af4300929251c6c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2133012550958594979, guid: 07b7f91675882a046af4300929251c6c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2133012550958594979, guid: 07b7f91675882a046af4300929251c6c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2133012550958594981, guid: 07b7f91675882a046af4300929251c6c, type: 3}
-      propertyPath: m_Name
-      value: LevelSceneContext
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 07b7f91675882a046af4300929251c6c, type: 3}
 --- !u!1 &2060500595
 GameObject:
   m_ObjectHideFlags: 0
@@ -12432,7 +12390,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2066876023
 Transform:
   m_ObjectHideFlags: 0
@@ -12451,7 +12409,7 @@ Transform:
   - {fileID: 1150969681}
   - {fileID: 2146076779}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2120867995
 GameObject:
@@ -13114,7 +13072,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1523990829115771338
 Rigidbody:

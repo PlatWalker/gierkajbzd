@@ -13,7 +13,8 @@ public class DestroyGameObject : ActionNode
     }
 
     protected override State OnUpdate() {
-        if (blackboard.isDead == true)
+        
+        if (blackboard.isDead)
         {
             if (blackboard.deathAnimationDone == false)
             {

@@ -199,8 +199,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcState: 1
-  <DialogueContainer>k__BackingField: {fileID: 11400000, guid: fc8a9b43eeb2f2749ad716ff83829d9c, type: 2}
-  <TaskOnWhichToTalk>k__BackingField: {fileID: 11400000, guid: 4dbd3a367b597e542b7f0e1f3e00a62f, type: 2}
   <Waypoints>k__BackingField: []
 --- !u!1001 &6248033688671440354
 PrefabInstance:
@@ -1362,6 +1360,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 69784e3fb4e54a345b80e4b6c4ded711, type: 3}
       propertyPath: m_Name
       value: Model_Loszka
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 69784e3fb4e54a345b80e4b6c4ded711, type: 3}
+      propertyPath: m_TagString
+      value: BlenderModel
       objectReference: {fileID: 0}
     - target: {fileID: 1298531571942814843, guid: 69784e3fb4e54a345b80e4b6c4ded711, type: 3}
       propertyPath: m_LocalPosition.x

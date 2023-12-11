@@ -60,6 +60,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &7057550730241993088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,6 +369,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &851433488308524886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2144,6 +2146,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e36dd0f4ff9b0de4184f59e4aae3aac9, type: 3}
+      propertyPath: m_TagString
+      value: BlenderModel
+      objectReference: {fileID: 0}
     - target: {fileID: 923120576985484234, guid: e36dd0f4ff9b0de4184f59e4aae3aac9, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.009291567
@@ -3188,6 +3194,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3756556018610831940 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2062269348206850760, guid: 46b8fa3bb6a90214193470e3e6b6663a, type: 3}
@@ -7912,6 +7919,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 58ab5924c4a7c814cb48b0cfc59cbb9a, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 58ab5924c4a7c814cb48b0cfc59cbb9a, type: 3}
+      propertyPath: m_TagString
+      value: BlenderModel
       objectReference: {fileID: 0}
     - target: {fileID: 1050741603184537750, guid: 58ab5924c4a7c814cb48b0cfc59cbb9a, type: 3}
       propertyPath: m_LocalPosition.x

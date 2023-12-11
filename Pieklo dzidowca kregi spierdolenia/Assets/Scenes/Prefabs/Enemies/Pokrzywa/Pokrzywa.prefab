@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 1927993927523676778}
   m_Layer: 8
   m_Name: Mesh_Pokrzywa
-  m_TagString: Untagged
+  m_TagString: BlenderModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -525,7 +525,7 @@ GameObject:
   - component: {fileID: 706713186298510472}
   m_Layer: 8
   m_Name: Armature_Pokrzywa
-  m_TagString: Untagged
+  m_TagString: BlenderModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -671,6 +671,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &6462280069282152187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -701,6 +702,11 @@ MonoBehaviour:
   isInvincible: 0
   invincibilityDurationSeconds: 0.2
   hitMaterial: {fileID: 2100000, guid: 02d05e939de2c904e937c766a374213f, type: 2}
+  baseTime: 0
+  deviation: 0
+  squareRootMultiplayer: 0
+  multiplayer: 0
+  isMother: 1
   <CurrentHealth>k__BackingField: 0
 --- !u!65 &2043272192
 BoxCollider:

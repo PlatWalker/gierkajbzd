@@ -3,10 +3,13 @@ using System.Linq;
 using jbzd.QuestSystem.QuestStructureElements;
 using UnityEngine;
 using jbzd.Common;
+using jbzd.QuestSystem.Goals;
+using jbzd.SavingSystem;
+using jbzd.SavingSystem.SaveData;
 
 namespace jbzd.QuestSystem
 {
-    public class QuestManager : MonoBehaviour
+    public class QuestManager : MonoBehaviour, ISaveable
     {
         public delegate void QuestActivated(Quest activatedQuest);
 
@@ -84,6 +87,57 @@ namespace jbzd.QuestSystem
                 
                 // if acting goal finished, and it was last goal in quest thus completing it - quit loop
                 if (numberOfActiveQuests != ActiveQuests.Count) return;
+            }
+        }
+
+        public void LoadData(GameData gameData)
+        {
+            //TODO can be optymalized with use of Gameobject.FindWithTag and assigning all gameobject with a quest a tag.
+            var quests = FindObjectsOfType<Quest>();
+
+            var activeQuests = quests
+                .Where(quest => gameData.questManagerSaveData.activeQuestsId.Contains(quest.QuestData.Id)).ToList();
+            
+            ActiveQuests.AddRange(activeQuests);
+
+            MakeActorsPlayInKillEnemyGoalsOfActiveTasks(gameData);
+        }
+
+        public void SaveData(ref GameData gameData)
+        {
+            gameData.questManagerSaveData = new QuestManagerSaveData
+            {
+                activeQuestsId = ActiveQuests.Select(questData => questData.QuestData.Id).ToList(),
+            };
+        }
+        
+        private void MakeActorsPlayInKillEnemyGoalsOfActiveTasks(GameData gameData)
+        {
+            foreach (var quest in ActiveQuests)
+            {
+                var questSaveData = gameData.questSaveDatas.FirstOrDefault(data => data.questId == quest.QuestData.Id);
+
+                if (questSaveData is null)
+                {
+                    Debug.LogError($"Something went wrong during loading object: {name}");
+                    return;
+                }
+
+                var activeTaskOfQuest = quest.QuestData.Tasks.FirstOrDefault(task => task.Id == questSaveData.idOfActiveTask);
+
+                if (activeTaskOfQuest is null)
+                {
+                    Debug.LogError($"Something went wrong during loading object: {name}");
+                    return;
+                }
+
+                if (activeTaskOfQuest.IsThereAGoalOfType<KillEnemiesGoal>(out var goals))
+                {
+                    foreach (var goal in goals)
+                    {
+                        MakeActorPlay(goal);
+                    }
+                }
             }
         }
     }

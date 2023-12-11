@@ -23,9 +23,10 @@ namespace jbzd.Items
         public virtual void OnInteract()
         {
             _inventoryController.PickUpItem(ItemSO);
+            
             Destroy(gameObject);
         }
-        
+
         [UsedImplicitly] // Factory pattern, nie inicjuje sie
         public class Factory : PlaceholderFactory<Object, Item>
         {

@@ -5,15 +5,17 @@ using jbzd.Common;
 using jbzd.Common.RunnerThing;
 using jbzd.Cutscenes;
 using jbzd.Dialogues;
-using jbzd.QuestSystem.Goals;
+using jbzd.SavingSystem;
+using jbzd.SavingSystem.SaveData;
 using UnityEngine;
 using Zenject;
 
 namespace jbzd.QuestSystem.QuestStructureElements
 {
-    public class Quest : MonoBehaviour
+    public class Quest : MonoBehaviour, ISaveable
     {
         #region Variables
+
         public delegate void QuestEventOccured(Quest quest);
         [Header("Quest Settings")]
         //There is no {get;set;} here because it messes up serialization in QuestEditor.cs
@@ -179,6 +181,85 @@ namespace jbzd.QuestSystem.QuestStructureElements
                     onTaskUpdated?.Invoke(this, EventArgs.Empty);
                 }
             }
+        }
+
+        public void LoadData(GameData gameData)
+        {
+            var saveData = gameData.questSaveDatas.FirstOrDefault(data => data.questId == QuestData.Id);
+
+            if (saveData is null)
+            {
+                Debug.LogError($"Something went wrong during loading object: {name}");
+                return;
+            }
+
+            IsCompleted = saveData.isCompleted;
+            ActiveTask = QuestData.Tasks.FirstOrDefault(task => task.Id == saveData.idOfActiveTask);
+
+            foreach (var idOfActor in saveData.idOfActors.Distinct())
+            {
+                var actors = FindObjectsOfType<Actor>().ToList();
+
+                var actorsWithGivenId = actors.FindAll(actor => actor.ActorData.Id == idOfActor);
+
+                Actors.AddRange(actorsWithGivenId);
+            }
+            
+            foreach (var idOfTask in saveData.idOfFinishedTasks)
+            {
+                var savedTask = QuestData.Tasks.FirstOrDefault(task => task.Id == idOfTask);
+
+                if (savedTask is null)
+                {
+                    Debug.LogError($"Something went wrong during loading object: {name}");
+                    return;
+                }
+                
+                FinishedTasks.Add(savedTask);
+            }
+
+            foreach (var idOfGoal in saveData.idOfFinishedGoals)
+            {
+                GoalSO savedGoal = null;
+                
+                foreach (var task in QuestData.Tasks)
+                {
+                    savedGoal = task.Goals.FirstOrDefault(goal => goal.Id == idOfGoal);
+
+                    if (savedGoal is not null)
+                    {
+                        break;
+                    }
+                }
+                
+                if (savedGoal is null)
+                {
+                    Debug.LogError($"Something went wrong during loading object: {name}");
+                    return;
+                }
+                    
+                FinishedGoals.Add(savedGoal);
+            }
+
+            GoalItemCollected = saveData.goalItemCollected;
+            GoalCompletionItemCount = saveData.goalCompletionItemCount;
+            GoalName = saveData.goalName;
+        }
+
+        public void SaveData(ref GameData gameData)
+        {
+            gameData.questSaveDatas.Add(new QuestSaveData
+            {
+                questId = QuestData.Id,
+                isCompleted = IsCompleted,
+                idOfFinishedTasks = FinishedTasks.Select(task => task.Id).ToList(),
+                idOfFinishedGoals = FinishedGoals.Select(goal => goal.Id).ToList(),
+                goalItemCollected = GoalItemCollected,
+                goalCompletionItemCount = GoalCompletionItemCount,
+                goalName = GoalName,
+                idOfActiveTask = ActiveTask != null ? ActiveTask.Id : null,
+                idOfActors = Actors.Select(actor => actor.ActorData.Id).ToList()
+            });
         }
     }
 }

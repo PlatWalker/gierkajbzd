@@ -110,18 +110,18 @@ namespace jbzd.Scenes.SceneLoader
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
             
-            var kragTypeOfThisTrigger = JbzdScene.GetKragType(gameObject.scene.name);
+            var kragTypeOfThisTrigger = JbzdSceneUtility.GetKragType(gameObject.scene.name);
             Debug.Log($"Scene Loader from {gameObject.scene.name} named {gameObject.name} will teleport to {levelNameOfSceneToLoad}");
             try
             {
                 if (chosenKrag == null) throw new Exception("Krag is not set");
                 
-                var desiredInteractiveSceneName = JbzdScene.MergeFullSceneName(
+                var desiredInteractiveSceneName = JbzdSceneUtility.MergeFullSceneName(
                     new Krag(chosenKrag),
                     new LevelName(levelNameOfSceneToLoad),
                     new SceneType(SceneTypes.Interactive));
                 
-                var desiredPassiveSceneName = JbzdScene.MergeFullSceneName(
+                var desiredPassiveSceneName = JbzdSceneUtility.MergeFullSceneName(
                     new Krag(chosenKrag),
                     new LevelName(levelNameOfSceneToLoad),
                     new SceneType(SceneTypes.Passive));
@@ -148,7 +148,7 @@ namespace jbzd.Scenes.SceneLoader
                 for (var i = 0; i < SceneManager.sceneCount; i++)
                 {
                     var iteratedScene = SceneManager.GetSceneAt(i);
-                    var iteratedSceneType = JbzdScene.GetSceneType(iteratedScene.name);
+                    var iteratedSceneType = JbzdSceneUtility.GetSceneType(iteratedScene.name);
                     
                     if(iteratedSceneType == SceneTypes.SingleLoad ||
                        kragTypeOfThisTrigger == chosenKrag ||
@@ -171,13 +171,13 @@ namespace jbzd.Scenes.SceneLoader
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode arg1)
         {
-            if (JbzdScene.GetSceneType(scene.name) != SceneTypes.Passive) return;
+            if (JbzdSceneUtility.GetSceneType(scene.name) != SceneTypes.Passive) return;
 
             WarpPlayerToLocationOnNewMap(scene);
 
-            var oldPassiveScene = JbzdScene.MergeFullSceneName(
-                new Krag(JbzdScene.GetKragType(gameObject.scene.name)),
-                new LevelName(JbzdScene.GetLevelName(gameObject.scene.name)),
+            var oldPassiveScene = JbzdSceneUtility.MergeFullSceneName(
+                new Krag(JbzdSceneUtility.GetKragType(gameObject.scene.name)),
+                new LevelName(JbzdSceneUtility.GetLevelName(gameObject.scene.name)),
                 new SceneType(SceneTypes.Passive));
 
             SceneManager.UnloadSceneAsync(oldPassiveScene);

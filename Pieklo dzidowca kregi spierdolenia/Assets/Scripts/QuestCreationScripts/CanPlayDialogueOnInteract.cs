@@ -12,7 +12,6 @@ namespace jbzd.QuestCreationScripts
     {
         private DialogueManager _dialogueManager;
         private QuestManager _questManager;
-        [SerializeField] private Quest QuestToCheck;
         [SerializeField] private ContainerSO DialogueContainer;
         [SerializeField] private TaskSO TaskOnWhichToTalk;
         
@@ -34,8 +33,6 @@ namespace jbzd.QuestCreationScripts
         }
         public void OnInteract()
         {
-
-            
             foreach (var quest in _questManager.ActiveQuests)
             {
                 if (TaskOnWhichToTalk == quest.ActiveTask)

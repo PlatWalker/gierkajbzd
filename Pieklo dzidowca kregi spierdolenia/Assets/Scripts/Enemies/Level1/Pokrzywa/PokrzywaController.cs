@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using jbzd.Common.Interfaces;
-using TheKiwiCoder;
 using UnityEngine;
 using Zenject;
 using jbzd.MainHero;
+using jbzd.SavingSystem;
+using Random = UnityEngine.Random;
+
 namespace jbzd.Enemies.Level1.Pokrzywa
 {
     [RequireComponent(typeof(Collider))]
-    public class PokrzywaController : Enemy, IDamageable
+    public class PokrzywaController : Enemy, IDamageable, ISaveable
     {
         [SerializeField] private TheKiwiCoder.BehaviourTree tree;
         [SerializeField] private EnemyDataContainer PokrzywaData = null;
@@ -153,5 +155,12 @@ namespace jbzd.Enemies.Level1.Pokrzywa
                 }
             });
         }
+
+        public void LoadData(GameData gameData)
+        {
+            if (!isMother) Destroy(gameObject);
+        }
+
+        public void SaveData(ref GameData gameData) { }
     }
 }
