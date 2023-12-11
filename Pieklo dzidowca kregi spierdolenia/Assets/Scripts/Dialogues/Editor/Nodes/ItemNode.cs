@@ -64,13 +64,16 @@ namespace jbzd.Dialogues.Editor.Nodes
                     if (IsItemAdded)
                     {
                         title = ADD_ITEM_TITLE;
-                        
+                        Choices[0].Text = ADD_ITEM_OUTPUT_1;
+                        Choices[1].Text = ADD_ITEM_OUTPUT_2;
                         outputs[0].portName = ADD_ITEM_OUTPUT_1;
                         outputs[1].portName = ADD_ITEM_OUTPUT_2;
                     }
                     else
                     {
                         title = REMOVE_ITEM_TITLE;
+                        Choices[0].Text = REMOVE_ITEM_OUTPUT_1;
+                        Choices[1].Text = REMOVE_ITEM_OUTPUT_2;
                         outputs[0].portName = REMOVE_ITEM_OUTPUT_1;
                         outputs[1].portName = REMOVE_ITEM_OUTPUT_2;
                     }
@@ -97,6 +100,7 @@ namespace jbzd.Dialogues.Editor.Nodes
                 Position = this.GetPosition().position,
 
                 Item = this.Item,
+                ItemsNumber = this.ItemsNumber,
                 IsItemAdded = this.IsItemAdded
             };
 

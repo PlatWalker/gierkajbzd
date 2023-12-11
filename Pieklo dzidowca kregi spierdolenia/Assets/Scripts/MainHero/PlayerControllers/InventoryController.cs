@@ -12,9 +12,9 @@ namespace jbzd.MainHero.PlayerControllers
     [RequireComponent(typeof(ItemEquiper))]
     public class InventoryController : MonoBehaviour , IPlayerController
     {
-        [SerializeField] private List<ItemSO> itemsInInventory = new();
+        [SerializeField] private Dictionary<ItemSO, int> itemsInInventory = new();
         [SerializeField] private Dictionary<ItemTypes, Item> equippedItems = new();
-        public IReadOnlyList<ItemSO> ItemsInInventory => itemsInInventory;
+        public IReadOnlyDictionary<ItemSO, int> ItemsInInventory => itemsInInventory;
         public IReadOnlyDictionary<ItemTypes, Item> EquippedItems => equippedItems;
 
         [field: SerializeField] private Item headArmor;
@@ -75,35 +75,42 @@ namespace jbzd.MainHero.PlayerControllers
             equippedItems[item.ItemSO.ItemType] = item;
         }
 
-        //TODO obsługa większej ilości itemów oraz za dużej ilości itemów w eq
+        //TODO obsługa za dużej ilości itemów w eq
         public bool PickUpItem(ItemSO item, int numberOfItems = 1)
         {
             Debug.Log("item podniesiony");
-            itemsInInventory.Add(item);
+
+            if (itemsInInventory.ContainsKey(item))
+                itemsInInventory[item] += numberOfItems;
+            else
+                itemsInInventory.Add(item, numberOfItems);
 
             return true;
         }
 
         public void DropItem(ItemSO item)
         {
-            var itemSo = itemsInInventory.Find(x => x.Equals(item));
+            if (!RemoveItem(item)) return;
+
             var position = _playerTransform.position;
-            itemSo.ItemPrefab.transform.position = new Vector3(position.x, itemSo.ItemPrefab.transform.position.y, position.z);
-            var newItem = _itemFactory.Create(itemSo.ItemPrefab);
+            item.ItemPrefab.transform.position = new Vector3(position.x, item.ItemPrefab.transform.position.y, position.z);
+            var newItem = _itemFactory.Create(item.ItemPrefab);
             SceneManager.MoveGameObjectToScene(newItem.gameObject, SceneManager.GetActiveScene());
-            itemsInInventory.Remove(item);
         }
 
-        //TODO obsługa większej ilości itemów
         public bool RemoveItem(ItemSO item, int numberOfItems = 1)
         {
             Debug.Log("item zabrany");
             
-            if (!itemsInInventory.Remove(item))
+            if (!itemsInInventory.ContainsKey(item) || itemsInInventory[item] < numberOfItems)
             {
                 Debug.LogWarning("Błąd przy usuwaniu itema z inventory - możliwe, że gracz go nie posiada");
                 return false;
             }
+
+            itemsInInventory[item] -= numberOfItems;
+
+            if (itemsInInventory[item] == 0) itemsInInventory.Remove(item);
 
             return true;
         }
