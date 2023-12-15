@@ -31,6 +31,7 @@ namespace TheKiwiCoder {
         public float speed;
         public float wanderEveryXSeconds;
         public float multiUseTimer;
+        public float maxSpreadDistance;
         public int currentHealth;
         public int framesCounter;
         public int tryCounter;
@@ -51,10 +52,13 @@ namespace TheKiwiCoder {
         public bool moveEnemy;
         public bool moved;
         public bool isMother;
+        public bool isInvincible;
         public float baseTime;
         public float squareRootMultiplayer;
         public float multiplayer;
         public float deviation;
+        public float moveDuration;
+        public float maxDimension;
         public PlayerManager _playerManager;
     }
 }

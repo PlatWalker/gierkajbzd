@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using TheKiwiCoder;
 using jbzd.Enemies.Level1.Pokrzywa;
+using jbzd.QuestSystem.QuestStructureElements;  
 using jbzd.Dialogues.RuntimeData;
 using jbzd.Enemies;
 using jbzd.Common.Enums;
@@ -15,15 +16,16 @@ using Zenject;
 public class GrowPokrzywa : ActionNode
 {
     private float _startTime;
-    private float _maxSpreadDistance = 10f;
     private bool _growPokrzywa;
     private float _timeRemaining;
     private Scene _targetScene;
-    RaycastHit hit;
-    private int _numberOfSamples = 20;
-    private float _minDistance = 1.4f;
+    private int _numberOfSamples = 50;
     private int _numberOfSons = 0;
-    List<PokrzywaController> Sons = new List<PokrzywaController>();
+    private float _minDistanceToPlayer = 8f;
+    private float _rangeMultiplier = 1.3f;
+    private float _SphereCastRadiusForDetectingBuildings = 0.5f;
+    private float _SphereCastRadiusForNeighbourhood = 0.333f;
+    private List<PokrzywaController> Sons = new List<PokrzywaController>();
 
     protected override void OnStart() {
         blackboard.waitBeforeSpreadDuration = blackboard.baseTime + Random.Range(-blackboard.deviation, blackboard.deviation) + (float)Sqrt(_numberOfSons) * blackboard.squareRootMultiplayer + _numberOfSons * blackboard.multiplayer;
@@ -31,7 +33,6 @@ public class GrowPokrzywa : ActionNode
             if(SceneManager.GetSceneAt(i).name.Contains("Interactive")){
                 _targetScene = SceneManager.GetSceneAt(i);
             }
-
         }
     }
 
@@ -43,7 +44,13 @@ public class GrowPokrzywa : ActionNode
         _numberOfSons--;
     }
 
-    private float DistanceToClosestSon(Vector3 position)
+    private bool IsInBuilding(Vector3 pokrzywaPosition){
+        Collider[] hitColliders = new Collider[1];
+        int numColliders = Physics.OverlapSphereNonAlloc(pokrzywaPosition, blackboard.maxDimension*_SphereCastRadiusForDetectingBuildings,hitColliders, 1);
+        return numColliders > 0;
+    }
+
+    private float DistanceToClosestSon(Vector3 pokrzywaPosition)
     {
         if(Sons.Count == 0){
             return float.MaxValue;
@@ -53,7 +60,7 @@ public class GrowPokrzywa : ActionNode
         
         foreach (PokrzywaController son in Sons)
         {
-            float distance = Vector3.Distance(position, son.transform.position);
+            float distance = Vector3.Distance(pokrzywaPosition, son.transform.position);
             if (distance < minDistance)
             {
                 minDistance = distance;
@@ -63,8 +70,8 @@ public class GrowPokrzywa : ActionNode
         return minDistance;
     }
 
-    private Vector3 GenerateCoordinates(float range, Vector3 position){
-        Vector3 newPoint = Vector3.zero;
+    private Vector3 GenerateCoordinates(float range, Vector3 pokrzywaPosition){
+        Vector3 newPoint = pokrzywaPosition;
 
         float newx = Random.Range(0, range);
         float newz = Random.Range(0, range);
@@ -75,31 +82,37 @@ public class GrowPokrzywa : ActionNode
             newz = -newz;
         }
 
-        newPoint = new Vector3(position.x + newx, position.y, position.z + newz);
+        newPoint = new Vector3(pokrzywaPosition.x + newx, pokrzywaPosition.y, pokrzywaPosition.z + newz);
         return newPoint;
     }
 
-    private Vector3 FindLocationForNewSon(float range, Vector3 position){
-        if(range > _maxSpreadDistance){
+    private Vector3 FindLocationForNewSon(float range, Vector3 pokrzywaPosition){
+        if(range > blackboard.maxSpreadDistance){
             return Vector3.zero;
         }
         Sons.RemoveAll(item => item == null);
         for(int i = 0; i < _numberOfSamples; i++){
-            Vector3 newPoint = GenerateCoordinates(range, position);
+            Vector3 newPoint = GenerateCoordinates(range, pokrzywaPosition);
             
-            if(DistanceToClosestSon(newPoint) > _minDistance){
+            if(DistanceToClosestSon(newPoint) > blackboard.maxDimension*_SphereCastRadiusForNeighbourhood && !IsInBuilding(newPoint)){
 
                 return newPoint;
 
             }
         }
-        return FindLocationForNewSon(range*1.3f,position);
+        return FindLocationForNewSon(range*_rangeMultiplier,pokrzywaPosition);
     }
 
-    private float DistanceToPlayer(Vector3 position)
+    private float DistanceToPlayer(Vector3 pokrzywaPosition)    
     {
-        return Vector3.Distance(position, blackboard._playerManager.gameObject.transform.position);
+        if(blackboard._playerManager == null){
+            Debug.LogError($"Player manager is null in Pokrzywa");
+            return float.MaxValue;
+        }
+        return Vector3.Distance(pokrzywaPosition, blackboard._playerManager.gameObject.transform.position);
     }
+
+
 
     protected override State OnUpdate() {
         if(!blackboard.isMother){
@@ -122,24 +135,11 @@ public class GrowPokrzywa : ActionNode
 
         if (!blackboard.isDead && _growPokrzywa)
         {
-            Vector3 newPoint = Vector3.zero;
+            Vector3 newPoint = context.transform.position;
 
-            if(DistanceToPlayer(context.transform.position) > 8f)
-            {
-                Ray ray = new Ray(new Vector3(context.transform.position.x, context.transform.position.y + 2, context.transform.position.z),
-                newPoint - new Vector3(context.transform.position.x, context.transform.position.y + 2, context.transform.position.z));
-            
-
-                if (Physics.Raycast(ray, out hit, _maxSpreadDistance * 200))
-                {
-                    if (hit.transform.tag == "Terrain")
-                    {
-                        // GameObject newOne = Object.Instantiate(blackboard.Prefab, newPoint, context.transform.rotation);
-                        // newOne.gameObject.transform.Rotate(0f, Random.Range(-180f, 180f), 0f);
-                    }
-                    blackboard.startTimer = true;
-                    return State.Success;
-                }
+            if(DistanceToPlayer(context.transform.position) > _minDistanceToPlayer){
+                blackboard.startTimer = true;
+                return State.Success;
             }
             newPoint = FindLocationForNewSon(2,context.transform.position);
 
@@ -147,21 +147,28 @@ public class GrowPokrzywa : ActionNode
                 blackboard.startTimer = true;
                 return State.Success;
             }
+            
+            
+            if(!blackboard.isInvincible){
+                _numberOfSons++;
+                GameObject newOne = GameObject.Instantiate(blackboard.Prefab, context.transform.position, context.transform.rotation);
+                PokrzywaController newOneController = newOne.GetComponent<PokrzywaController>();
+                newOne.GetComponent<Actor>().enabled = false;
+                newOneController.isMother = false;
+                newOneController.OnDeath += OnSonsDeath;
+                
+                Sons.Add(newOneController);
 
-            _numberOfSons++;
+                newOne.gameObject.transform.Rotate(0f, Random.Range(-180f, 180f), 0f);
+                SceneManager.MoveGameObjectToScene(newOne, _targetScene);
 
-            GameObject newOne = Object.Instantiate(blackboard.Prefab, newPoint, context.transform.rotation);
-
-            PokrzywaController newOneController = newOne.GetComponent<PokrzywaController>();
-            newOneController.isMother = false;
-            newOneController.OnDeath += OnSonsDeath;
-            Sons.Add(newOneController);
-
-            newOne.gameObject.transform.Rotate(0f, Random.Range(-180f, 180f), 0f);
-            SceneManager.MoveGameObjectToScene(newOne, _targetScene);
+                newOneController.StartGrowing(context.transform.position, newPoint, blackboard.moveDuration);
+            }
 
             blackboard.startTimer = true;
         }
         return State.Success;
     }
+
+
 }

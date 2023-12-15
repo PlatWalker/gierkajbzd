@@ -643,7 +643,7 @@ Transform:
   m_GameObject: {fileID: 6156359865011809977}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 163.84, y: 0.13, z: 130.92}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 706713186298510472}
@@ -697,15 +697,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tree: {fileID: 11400000, guid: 5cb4e5841de856e41abfe90d2e534c33, type: 2}
-  PokrzywaData: {fileID: 11400000, guid: c9d364b092e2f2243a5c150d7f3ba635, type: 2}
+  EnemyData: {fileID: 11400000, guid: c9d364b092e2f2243a5c150d7f3ba635, type: 2}
   damageController: {fileID: 6462280069282152187}
+  prefab: {fileID: 6156359865011809977}
   isInvincible: 0
   invincibilityDurationSeconds: 0.2
   hitMaterial: {fileID: 2100000, guid: 02d05e939de2c904e937c766a374213f, type: 2}
-  baseTime: 0
+  baseTime: 0.02
   deviation: 0
   squareRootMultiplayer: 0
   multiplayer: 0
+  moveDuration: 2
+  whenStartGrowing: 0.8
+  startingScale: 0.2
+  endingScale: 1
+  jumpingHeight: 2.5
   isMother: 1
   <CurrentHealth>k__BackingField: 0
 --- !u!65 &2043272192

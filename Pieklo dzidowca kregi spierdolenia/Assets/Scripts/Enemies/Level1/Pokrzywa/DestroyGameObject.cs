@@ -22,7 +22,7 @@ public class DestroyGameObject : ActionNode
                 blackboard.deathAnimationDone = true;
             }
             blackboard.disappearTimer += Time.deltaTime;
-            if (blackboard.disappearTimer >= blackboard.EnemyData.DisappearAfter) Object.Destroy(this.context.gameObject);
+            if (blackboard.disappearTimer >= blackboard.EnemyData.DisappearAfter)Object.Destroy(this.context.gameObject);
         }
 
         return State.Success;
