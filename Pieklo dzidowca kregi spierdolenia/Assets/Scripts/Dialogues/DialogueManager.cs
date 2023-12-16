@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using jbzd.Common.RunnerThing;
@@ -26,7 +27,8 @@ namespace jbzd.Dialogues
         {
             _factory = runnerFactory;
         }
-        
+
+        [Obsolete("Use StartDialogue from DialogueUIController")]
         public void StartDialogue(ContainerSO data)
         {
             if(_isDialogueRunning){

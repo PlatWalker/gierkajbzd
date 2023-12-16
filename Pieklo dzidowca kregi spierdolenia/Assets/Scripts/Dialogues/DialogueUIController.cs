@@ -250,15 +250,20 @@ namespace jbzd.Dialogues
             return button;
         }
 
-        public void SetButtonChoices(List<string> choiceList, List<UnityEngine.Events.UnityAction> buttonsActions)
+        public void SetButtonChoices(List<string> choiceList, List<UnityEngine.Events.UnityAction> buttonsActions, bool withWypierdalaj = true)
         {
             PrepareChoices();
-
-            for (var i = 0; i < choiceList.Count; i++)
+            var i = 0;
+            for (i = 0; i < choiceList.Count; i++)
             {
                 int index = i;
                 _choiceButtons.Add(InitializeButton(choiceList[index], index, buttonsActions[index]));
             }
+
+            if (!withWypierdalaj) return;
+
+            int lastIndex = i+1;
+            _choiceButtons.Add(InitializeButton("Wypierdalaj", lastIndex, delegate { _dialogueManager.EndDialogue(); }));
         }
 
         public void StartDialogue(List<ContainerSO> dataList)
