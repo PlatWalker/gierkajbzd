@@ -15,6 +15,8 @@ namespace jbzd.QuestSystem
 
         public event QuestActivated OnQuestActivation;
 
+        [SerializeField] private Canvas _questEndedCanvas;
+
         [field: SerializeField]
         [field: JbzdReadOnly]
         public List<Quest> ActiveQuests { get; set; } = new();
@@ -44,6 +46,9 @@ namespace jbzd.QuestSystem
             ActiveQuests.Remove(questToEnd);
             questToEnd.IsCompleted = true;
             questToEnd.ActiveTask = null;
+            //activate canvas for 3 seconds
+            _questEndedCanvas.gameObject.SetActive(true);
+            Invoke(nameof(DeactivateQuestEndedCanvas), 3f);
         }
         
         /// <summary>
@@ -139,6 +144,10 @@ namespace jbzd.QuestSystem
                     }
                 }
             }
+        }
+        private void DeactivateQuestEndedCanvas()
+        {
+            _questEndedCanvas.gameObject.SetActive(false);
         }
     }
 }
