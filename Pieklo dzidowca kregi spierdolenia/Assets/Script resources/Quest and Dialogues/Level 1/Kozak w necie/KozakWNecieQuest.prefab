@@ -1,5 +1,51 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &573547784532938054
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2294802828009670415}
+  - component: {fileID: 3133987988743976748}
+  m_Layer: 0
+  m_Name: Cutscene (BMW) Activator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2294802828009670415
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573547784532938054}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6248033689509315216}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3133987988743976748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573547784532938054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aecf24cfe8ba44347badc08d2263f12d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  taskToCheck: {fileID: 11400000, guid: 9f4a4d38fdbfd4f459b3fc9e69a486df, type: 2}
+  objectToActivate: {fileID: 446638336091018349}
 --- !u!1 &3423543649771881129
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,6 +227,7 @@ Transform:
   - {fileID: 4072420410995331285}
   - {fileID: 585189208756565974}
   - {fileID: 2657109214957143430}
+  - {fileID: 2294802828009670415}
   m_Father: {fileID: 6248033687888609190}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -404,6 +451,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbd8fa8664b15de42b345f654f9acb26, type: 3}
+--- !u!1 &446638336091018349 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1533923364915992907, guid: cbd8fa8664b15de42b345f654f9acb26, type: 3}
+  m_PrefabInstance: {fileID: 1403803803395525926}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1669726558381522495 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 312823609270088473, guid: cbd8fa8664b15de42b345f654f9acb26, type: 3}
@@ -758,7 +810,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 991f69d1f126a8242953f1058fd435a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QuestToCheck: {fileID: 6248033687888609189}
   DialogueContainer: {fileID: 11400000, guid: fc8a9b43eeb2f2749ad716ff83829d9c, type: 2}
   TaskOnWhichToTalk: {fileID: 11400000, guid: 4dbd3a367b597e542b7f0e1f3e00a62f, type: 2}
 --- !u!1001 &8143909790999653373
