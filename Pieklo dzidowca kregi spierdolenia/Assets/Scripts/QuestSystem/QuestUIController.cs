@@ -4,6 +4,7 @@ using jbzd.MainHero;
 using jbzd.UI;
 using jbzd.QuestSystem.QuestStructureElements;
 using jbzd.Common.InputSystem.Inputs;
+using jbzd.Common;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -49,15 +50,19 @@ namespace jbzd.QuestSystem
         private void OnQuestMenuOpened()
         {
             gameObject.SetActive(!gameObject.activeSelf);
+
             if(gameObject.activeSelf){
+                FreezeTime.Freeze();
                 _playerManager.CanPlayerMove = false;
                 CreateQuestList();
                 _questListSlider.onValueChanged.AddListener(OnQuestListSliderValueChanged);
                 _questDescriptionSlider.onValueChanged.AddListener(OnQuestDescriptionSliderValueChanged);
             }
             else{
+                FreezeTime.Unfreeze();
                 _playerManager.CanPlayerMove = true;
             }
+            
         }
 
 
