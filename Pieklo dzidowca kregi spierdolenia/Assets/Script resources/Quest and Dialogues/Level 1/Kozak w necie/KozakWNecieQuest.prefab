@@ -722,6 +722,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6248033689492661040}
     m_Modifications:
+    - target: {fileID: 280180453, guid: 44f2b4331b28c3d498b6548044c95f1a, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 7787535694696309755}
     - target: {fileID: 21580377119459197, guid: 44f2b4331b28c3d498b6548044c95f1a, type: 3}
       propertyPath: m_Name
       value: NPC_Loszka
@@ -812,6 +816,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DialogueContainer: {fileID: 11400000, guid: fc8a9b43eeb2f2749ad716ff83829d9c, type: 2}
   TaskOnWhichToTalk: {fileID: 11400000, guid: 4dbd3a367b597e542b7f0e1f3e00a62f, type: 2}
+--- !u!95 &7787535694696309755 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4226518286878639731, guid: 44f2b4331b28c3d498b6548044c95f1a, type: 3}
+  m_PrefabInstance: {fileID: 6248033688975861128}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8143909790999653373
 PrefabInstance:
   m_ObjectHideFlags: 0

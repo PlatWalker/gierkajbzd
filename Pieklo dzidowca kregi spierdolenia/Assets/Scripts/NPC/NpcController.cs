@@ -54,6 +54,9 @@ namespace jbzd.NPC
         private PlayerManager _playerManager;
         private int _currentWaypointIndex;
 
+        [SerializeField] private Animator animator; 
+
+
         [Inject]
         public void Constructor(PlayerManager playerManager)
         {
@@ -70,11 +73,14 @@ namespace jbzd.NPC
             switch (NpcState)
             {
                 case NpcStates.Idle:
+                    animator.SetBool("isWalking", false);
                     break;
                 case NpcStates.FollowPlayer:
                     NpcAgent.SetDestination(_playerManager.transform.position - Vector3.one);
+                    animator.SetBool("isWalking", true);
                     break;
                 case NpcStates.RunAwayFromPlayer:
+                    animator.SetBool("isWalking", true);
                     if (!(NpcAgent.remainingDistance < 0.01f)) return;
                     if (_currentWaypointIndex > Waypoints.Length - 1) return;
 
