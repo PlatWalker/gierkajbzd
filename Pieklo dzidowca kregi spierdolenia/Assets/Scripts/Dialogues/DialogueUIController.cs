@@ -237,16 +237,21 @@ namespace jbzd.Dialogues
             text.text = buttonText;
             float textHeight = text.preferredHeight;
 
+            RectTransform buttonRect = button.GetComponent<RectTransform>();
+
+            float preferredHeight = button.GetComponentInChildren<TMP_Text>().preferredHeight;
+            buttonRect.sizeDelta = new Vector2(buttonRect.sizeDelta.x, preferredHeight);
+
             if (index == 0)
             {
                 button.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -textHeight / 2);
-                _answerOffset -= textHeight / 4;
+                _answerOffset = -textHeight;
             }
-            else
+            else{
+                _answerOffset -= textHeight/2;
                 button.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, _answerOffset);
-
-            _answerOffset -= textHeight + 0.1f;
-
+                _answerOffset -= textHeight/2;
+            }
             return button;
         }
 

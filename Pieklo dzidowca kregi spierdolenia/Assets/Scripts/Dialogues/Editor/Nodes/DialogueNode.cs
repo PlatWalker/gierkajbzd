@@ -14,8 +14,10 @@ namespace jbzd.Dialogues.Editor.Nodes
     public class DialogueNode : BasicNode
     {
         private readonly int textLengthLimit = int.MaxValue;
-        private Label warning;
+        private Label warning1;
+        private Label warning2;
         private string Text { get; set; }
+        private string placeholderText = "Tekst dialogu...";
         private bool IsPlayerTalking { get; set; }
         private Sprite NpcImage { get; set; }
         private Sprite PlayerImage { get; set; }
@@ -24,7 +26,6 @@ namespace jbzd.Dialogues.Editor.Nodes
         public override void Initialize(Vector2 position, DialogueGraphView graphView)
         {
             base.Initialize(position, graphView);
-            Text = "Tekst dialogu...";
             RegisterCallback<KeyUpEvent>(OnWarningFromNode);
         }
 
@@ -59,29 +60,61 @@ namespace jbzd.Dialogues.Editor.Nodes
 
             Foldout textFoldout = DialogueElementUtility.CreateFoldout("Tekst");
 
+
             TextField textField = DialogueElementUtility.CreateTextArea(Text, null, 
                 callback => Text = callback.newValue);
 
+            if(string.IsNullOrEmpty(Text))textField.value = placeholderText;
+
+            textField.RegisterCallback<FocusInEvent>(evt =>
+            {
+                if (textField.value == placeholderText)
+                {
+                    textField.value = "";
+                }
+            });
+
+            textField.RegisterCallback<FocusOutEvent>(evt =>
+            {
+                if (string.IsNullOrEmpty(textField.value))
+                {
+                    textField.value = placeholderText;
+                }
+            });
+            
             textField.AddClasses(
                 "ds-node__textfield",
                 "ds-node__quote-textfield");
 
-            warning =
+            warning1 =
                 DialogueElementUtility.CreateReadOnlyText(
                     "Tekst jest za długi i będzie źle wyglądał w grze. Rozbij na więcej węzłów.");
-            warning.AddClasses("ds-node__warning");
+            warning2 = 
+                DialogueElementUtility.CreateReadOnlyText(
+                    "Pole na tekst dialogu jest puste.");
+            warning1.AddClasses("ds-node__warning");
+            warning2.AddClasses("ds-node__warning");
             
+            if(Text == null){
+                textField.value = placeholderText;
+                Text = placeholderText;
+            }
+            warning1.visible = Text.Length > textLengthLimit;
+            warning2.visible = (string.IsNullOrEmpty(Text) || Text == placeholderText);
+
             textFoldout.Add(textField);
             customDataContainer.Add(textFoldout);
             extensionContainer.Add(customDataContainer);
-            extensionContainer.Add(warning);
+            extensionContainer.Add(warning2);
+            extensionContainer.Add(warning1);
             
             RefreshExpandedState();
         }
 
         private void OnWarningFromNode(KeyUpEvent e)
         {
-            warning.visible = Text.Length > textLengthLimit;
+            warning1.visible = Text.Length > textLengthLimit;
+            warning2.visible = (string.IsNullOrEmpty(Text) || Text == placeholderText);
         }
 
         public bool CheckTextLength()

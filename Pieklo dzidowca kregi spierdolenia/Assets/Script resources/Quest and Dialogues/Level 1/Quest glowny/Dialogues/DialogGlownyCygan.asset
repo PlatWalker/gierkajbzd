@@ -21,68 +21,28 @@ MonoBehaviour:
     - <GroupName>k__BackingField: Main
     m_Values:
     - myList:
-      - rid: 4904837041874534468
+      - rid: 8340037144314119053
     - myList:
-      - rid: 4904837041874534469
-      - rid: 4904837041874534470
-      - rid: 4904837041874534471
-      - rid: 4904837041874534472
-      - rid: 4904837041874534473
-      - rid: 4904837041874534474
-      - rid: 4904837041874534475
-      - rid: 4904837041874534476
-      - rid: 4904837041874534477
-      - rid: 4904837041874534478
+      - rid: 8340037144314119054
+      - rid: 8340037144314119055
+      - rid: 8340037144314119056
+      - rid: 8340037144314119057
+      - rid: 8340037144314119058
+      - rid: 8340037144314119059
+      - rid: 8340037144314119060
+      - rid: 8340037144314119061
   references:
     version: 2
     RefIds:
-    - rid: 4904837041874534468
+    - rid: 8340037144314119053
       type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
       data:
-        <NodeId>k__BackingField: d07f8fc9-f894-448b-83d9-f4eff6184485
+        <NodeId>k__BackingField: c680f802-aa58-4a48-a30f-2ed6f2ba2f0d
         <Choices>k__BackingField: []
         <NodeType>k__BackingField: 7
         <IsStartingDialogue>k__BackingField: 1
         <SelectedGroup>k__BackingField: Main
-    - rid: 4904837041874534469
-      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
-      data:
-        <NodeId>k__BackingField: 779059cd-8682-46f0-af55-e22a2f38d834
-        <Choices>k__BackingField:
-        - <Text>k__BackingField: Nastepny dialog
-          <NextDialogue>k__BackingField: 1e198236-ec6e-40c7-8fd3-f7d0a4861d96
-        <NodeType>k__BackingField: 0
-        <IsStartingDialogue>k__BackingField: 1
-        <Text>k__BackingField: "Te, masz pi\u0119\u0107 z\u0142ote?"
-        <NpcImage>k__BackingField: {fileID: 0}
-        <PlayerImage>k__BackingField: {fileID: 0}
-    - rid: 4904837041874534470
-      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
-      data:
-        <NodeId>k__BackingField: 1e198236-ec6e-40c7-8fd3-f7d0a4861d96
-        <Choices>k__BackingField:
-        - <Text>k__BackingField: Jasne, ale zagraj hymn ZSRR
-          <NextDialogue>k__BackingField: c3361e34-58be-403d-b1c8-a3415ddb6650
-        - <Text>k__BackingField: "Nie nosz\u0119 drobnych"
-          <NextDialogue>k__BackingField: 7f705de1-dc36-46e1-916f-631c877db917
-        <NodeType>k__BackingField: 1
-        <IsStartingDialogue>k__BackingField: 0
-        <Text>k__BackingField: 
-        <NpcImage>k__BackingField: {fileID: 0}
-        <PlayerImage>k__BackingField: {fileID: 0}
-    - rid: 4904837041874534471
-      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
-      data:
-        <NodeId>k__BackingField: 7f705de1-dc36-46e1-916f-631c877db917
-        <Choices>k__BackingField:
-        - <Text>k__BackingField: Nastepny dialog
-          <NextDialogue>k__BackingField: 810dbcc6-4b1a-4dc4-a28f-192c3a4a9711
-        <NodeType>k__BackingField: 0
-        <IsStartingDialogue>k__BackingField: 0
-        <Text>k__BackingField: "Mog\u0105 by\u0107 grube"
-        <NpcImage>k__BackingField: {fileID: 0}
-        <PlayerImage>k__BackingField: {fileID: 0}
-    - rid: 4904837041874534472
+    - rid: 8340037144314119054
       type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
       data:
         <NodeId>k__BackingField: 810dbcc6-4b1a-4dc4-a28f-192c3a4a9711
@@ -94,10 +54,42 @@ MonoBehaviour:
           <NextDialogue>k__BackingField: 9c4b51bd-a8c7-4290-a1dd-7bd569db2c3c
         <NodeType>k__BackingField: 1
         <IsStartingDialogue>k__BackingField: 0
-        <Text>k__BackingField: 
+        <Text>k__BackingField: "Mog\u0105 by\u0107 grube"
         <NpcImage>k__BackingField: {fileID: 0}
         <PlayerImage>k__BackingField: {fileID: 0}
-    - rid: 4904837041874534473
+        <ShowPlayerResponse>k__BackingField: 1
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 8340037144314119055
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 1e198236-ec6e-40c7-8fd3-f7d0a4861d96
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Jasne, ale zagraj hymn ZSRR
+          <NextDialogue>k__BackingField: c3361e34-58be-403d-b1c8-a3415ddb6650
+        - <Text>k__BackingField: "Nie nosz\u0119 drobnych"
+          <NextDialogue>k__BackingField: 810dbcc6-4b1a-4dc4-a28f-192c3a4a9711
+        <NodeType>k__BackingField: 1
+        <IsStartingDialogue>k__BackingField: 1
+        <Text>k__BackingField: "Te, masz pi\u0119\u0107 z\u0142ote?"
+        <NpcImage>k__BackingField: {fileID: 0}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <ShowPlayerResponse>k__BackingField: 1
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 8340037144314119056
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 9c4b51bd-a8c7-4290-a1dd-7bd569db2c3c
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: b677ee60-579b-47d0-826e-8eb1372625a7
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "Lins scrotul mare, transpirat \u0219i p\u0103ros!"
+        <NpcImage>k__BackingField: {fileID: 0}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 8340037144314119057
       type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
       data:
         <NodeId>k__BackingField: 7a1c6965-9d97-4817-a3e0-e9c82621ae1d
@@ -111,27 +103,9 @@ MonoBehaviour:
           Cyganie! Assemble!"
         <NpcImage>k__BackingField: {fileID: 0}
         <PlayerImage>k__BackingField: {fileID: 0}
-    - rid: 4904837041874534474
-      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
-      data:
-        <NodeId>k__BackingField: b36bcf7e-5fee-4cfa-b78b-085126e9db10
-        <Choices>k__BackingField: []
-        <NodeType>k__BackingField: 7
-        <IsStartingDialogue>k__BackingField: 0
-        <SelectedGroup>k__BackingField: Main
-    - rid: 4904837041874534475
-      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
-      data:
-        <NodeId>k__BackingField: 9c4b51bd-a8c7-4290-a1dd-7bd569db2c3c
-        <Choices>k__BackingField:
-        - <Text>k__BackingField: Nastepny dialog
-          <NextDialogue>k__BackingField: b677ee60-579b-47d0-826e-8eb1372625a7
-        <NodeType>k__BackingField: 0
-        <IsStartingDialogue>k__BackingField: 0
-        <Text>k__BackingField: "Lins scrotul mare, transpirat \u0219i p\u0103ros!"
-        <NpcImage>k__BackingField: {fileID: 0}
-        <PlayerImage>k__BackingField: {fileID: 0}
-    - rid: 4904837041874534476
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 8340037144314119058
       type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
       data:
         <NodeId>k__BackingField: b677ee60-579b-47d0-826e-8eb1372625a7
@@ -139,7 +113,7 @@ MonoBehaviour:
         <NodeType>k__BackingField: 7
         <IsStartingDialogue>k__BackingField: 0
         <SelectedGroup>k__BackingField: Start
-    - rid: 4904837041874534477
+    - rid: 8340037144314119059
       type: {class: ItemRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
       data:
         <NodeId>k__BackingField: c3361e34-58be-403d-b1c8-a3415ddb6650
@@ -151,9 +125,17 @@ MonoBehaviour:
         <NodeType>k__BackingField: 3
         <IsStartingDialogue>k__BackingField: 0
         <Item>k__BackingField: {fileID: 0}
-        <ItemsNumber>k__BackingField: 1
+        <ItemsNumber>k__BackingField: 0
         <IsItemAdded>k__BackingField: 0
-    - rid: 4904837041874534478
+    - rid: 8340037144314119060
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: b36bcf7e-5fee-4cfa-b78b-085126e9db10
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: Main
+    - rid: 8340037144314119061
       type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
       data:
         <NodeId>k__BackingField: c4e6dc66-5c2e-4236-8832-f70751d1dc9c
