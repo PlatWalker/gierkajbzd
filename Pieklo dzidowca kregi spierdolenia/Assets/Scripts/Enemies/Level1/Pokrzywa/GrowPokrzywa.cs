@@ -153,7 +153,9 @@ public class GrowPokrzywa : ActionNode
                 _numberOfSons++;
                 GameObject newOne = GameObject.Instantiate(blackboard.Prefab, context.transform.position, context.transform.rotation);
                 PokrzywaController newOneController = newOne.GetComponent<PokrzywaController>();
-                newOne.GetComponent<Actor>().enabled = false;
+                if(newOne.GetComponent<Actor>() != null){
+                    newOne.GetComponent<Actor>().enabled = false;
+                }
                 newOneController.isMother = false;
                 newOneController.OnDeath += OnSonsDeath;
                 
