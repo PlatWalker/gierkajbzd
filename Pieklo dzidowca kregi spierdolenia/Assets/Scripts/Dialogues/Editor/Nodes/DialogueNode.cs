@@ -1,10 +1,7 @@
-using System.Collections.Generic;
 using System.Linq;
-using jbzd.Dialogues.Editor;
 using jbzd.Dialogues.Editor.Save;
 using jbzd.Dialogues.Editor.Utilities;
 using jbzd.Dialogues.RuntimeData;
-using NUnit.Framework;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -113,7 +110,7 @@ namespace jbzd.Dialogues.Editor.Nodes
 
         private void OnWarningFromNode(KeyUpEvent e)
         {
-            warning1.visible = Text.Length > textLengthLimit;
+            warning1.visible = CheckTextLength();
             warning2.visible = (string.IsNullOrEmpty(Text) || Text == placeholderText);
         }
 
@@ -158,6 +155,18 @@ namespace jbzd.Dialogues.Editor.Nodes
                 new DialogueRuntimeData(Text, convertedChoices, NodeType, IsStartingNode(), NpcImage, PlayerImage, ID,
                     NodeType != NodeType.SingleChoice, IsPlayerTalking);
             return nodeSaveData;
+        }
+
+        public override bool IsRuleViolated()
+        {
+            WarningInfos.Clear();
+
+            if (CheckTextLength())
+                WarningInfos.Add("W niektórych węzłach tekst jest za długi i będzie źle wyglądał.");
+            if(string.IsNullOrEmpty(Text) || Text == placeholderText)
+                WarningInfos.Add("W niektórych węzłach pole na tekst dialogu jest puste.");
+
+            return base.IsRuleViolated();
         }
     }
 }

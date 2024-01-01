@@ -1,8 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
 using jbzd.Dialogues.Editor.Save;
-using jbzd.Dialogues.Editor.Nodes;
 using jbzd.Dialogues.Editor.Utilities;
 using jbzd.Dialogues.RuntimeData;
 using UnityEditor;
@@ -33,27 +30,27 @@ namespace jbzd.Dialogues.Editor
 
             if (item is ContainerSO so)
             {
-                NumberOfWindowsOpened++; 
-                var window = CreateInstance<DialogueEditorWindow>();
-                window.title = "Dialogue graph"; //TODO title is obsolete use titleContent.
-                window.Show();
-                window.dialogueContainer = so;
-                IOUtility.Load(NumberOfWindowsOpened-1);
+                CreateSOWindow(so);
                 
             }
             else if (item is GraphSaveDataSO gso)
             {
-                NumberOfWindowsOpened++;
-                var window = CreateInstance<DialogueEditorWindow>();
-                window.title = "Dialogue graph";//TODO title is obsolete use titleContent.
-                window.Show(); 
-                window.dialogueContainer = IOUtility.AssetFromGuid<ContainerSO>(gso.ContainerID);
-                IOUtility.Load(NumberOfWindowsOpened-1);
+                CreateSOWindow(IOUtility.AssetFromGuid<ContainerSO>(gso.ContainerID));
             }     
             
             return false;
            
+            void CreateSOWindow(ContainerSO container)
+            {
+                NumberOfWindowsOpened++;
+                var window = CreateInstance<DialogueEditorWindow>();
+                window.titleContent = new GUIContent("Dialogue Graph");
+                window.Show();
+                window.dialogueContainer = container;
+                IOUtility.Load(NumberOfWindowsOpened - 1);
+            }
         }
+
         private void OnEnable()
         {
             editorIndex = NumberOfWindowsOpened-1;

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -12,12 +12,13 @@ using UnityEngine.UIElements;
 
 namespace jbzd.Dialogues.Editor
 {
-    public class DialogueGraphView : GraphView
+    public class DialogueGraphView : GraphView, IValidate
     {
         private readonly DialogueEditorWindow _editorWindow;
         private SearchWindow _searchWindow;
         private readonly Dictionary<string, Type> _nodesByName;
         public ObservableCollection<DialogueGroup> Groups { get; set; }
+        public List<string> WarningInfos { get; set; } = new();
 
         public DialogueGraphView(DialogueEditorWindow editorWindow)
         {
@@ -266,6 +267,63 @@ namespace jbzd.Dialogues.Editor
                 return changes;
             };
         }
-        
+
+        public bool IsRuleViolated()
+        {
+            WarningInfos.Clear();
+            var basicNodes = nodes.OfType<BasicNode>().ToList();
+
+            if (basicNodes.Any(node => node.Choices.Any(choice => basicNodes.Where(x => x.ID == choice.NodeID).Any(x => x.GroupID != node.GroupID))))
+            {
+                WarningInfos.Add("Jeden z węzłów jest połączony z węzłem z innej grupy.");
+            }
+
+            if (Groups.Any(x => x.Nodes.Count(node => node.IsStartingNode()) > 1))
+            {
+                WarningInfos.Add("W grupie znajduje się więcej niż 1 węzęł rozpoczynający.");
+            }
+
+            if (nodes.OfType<EndGroupNode>().Any(node => !Groups.Any(group => group.name == node.SelectedGroup)))
+            {
+                WarningInfos.Add("End node wskazuje na nieistniejącą grupę.");
+            }
+
+            var visualElements = nodes.Concat<VisualElement>(Groups);
+
+            for (var i = 0 ; i < visualElements.Count() ;i++)
+            {
+                var visualElement = visualElements.ElementAt(i).worldBound;
+                var x = visualElement.x;
+                var y = visualElement.y;
+                var xMax = visualElement.xMax;
+                var yMax = visualElement.yMax;
+
+                for (var j = 0; j < visualElements.Count(); j++)
+                {
+                    if (i == j) continue;
+
+                    if(visualElements.ElementAt(i) is BasicNode node)
+                    {
+                        if(visualElements.ElementAt(j) is DialogueGroup group)
+                        {
+                            if (node.GroupID == group.ID) continue;
+                        }
+                    }
+
+                    var secondElement = visualElements.ElementAt(j).worldBound;
+                    var x2 = secondElement.x;
+                    var y2 = secondElement.y;
+                    var xMax2 = secondElement.xMax;
+                    var yMax2 = secondElement.yMax;
+
+                    if (x>x2&&y>y2&&xMax<xMax2&&yMax<yMax2) {
+                        WarningInfos.Add("Jeden z elementów jest przysłonięty i przez to niewidoczny.");
+                        return true;
+                    }
+                }
+            }
+
+            return WarningInfos.Count() > 0;
+        }
     }
 }

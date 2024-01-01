@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using jbzd.Dialogues.Editor;
 using jbzd.Dialogues.Editor.Nodes;
 using jbzd.Dialogues.Editor.Save;
 using jbzd.Dialogues.RuntimeData;
@@ -25,7 +24,6 @@ namespace jbzd.Dialogues.Editor.Utilities
         private static List<List<DialogueGroup>> _groups = new();
         private static List<Dictionary<Guid, DialogueGroup>> _loadedGroups = new();
         private static List<Dictionary<string, BasicNode>> _loadedNodes = new();
-        
 
         public static void Initialize(DialogueGraphView dialogueGraphView, DialogueEditorWindow dialogueEditorWindow)
         {
@@ -40,8 +38,9 @@ namespace jbzd.Dialogues.Editor.Utilities
             _loadedGroups.Add(new Dictionary<Guid, DialogueGroup>());
             _loadedNodes.Add(new Dictionary<string, BasicNode>());
 
-            
         }
+
+
 
         #region save
 
@@ -341,27 +340,30 @@ namespace jbzd.Dialogues.Editor.Utilities
             GetElementsFromGraphView(ind);
 
             List<string> warnings = new List<string>();
-            var warning1 = "Niektóre węzły są poza grupą. Będą one zapisane w edytorze, " +
-                           "ale nie będą używane podczas runtime'a (gry).";
-            var warning2 = "W niektórych węzłach tekst jest za długi i będzie źle wyglądał.";
             
-            foreach (var node in _nodes[ind])
+            foreach (var element in _graphViews[ind].graphElements)
             {
-                if (node.GroupID == null && !warnings.Contains(warning1))
-                {
-                    warnings.Add(warning1);
-                }
-
-                if (node.GetType().IsSubclassOf(typeof(DialogueNode)) && !warnings.Contains(warning2))
-                {
-                    if (((DialogueNode)node).CheckTextLength())
-                    {
-                        warnings.Add(warning2);
-                    }
-                }
+                if (element is IValidate validatedObj)
+                    ValidateElement(validatedObj);
             }
 
+            ValidateElement(_graphViews[ind]);
+
             _editorWindows[ind].ShowValidationResult(warnings);
+
+            void ValidateElement(IValidate element)
+            {
+                if (!element.IsRuleViolated()) return;
+                
+                foreach (var warningInfo in element.WarningInfos)
+                {
+                    if (!warnings.Contains(warningInfo))
+                    {
+                        warnings.Add(warningInfo);
+                    }
+                }
+                
+            }
         }
 
 

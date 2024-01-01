@@ -14,7 +14,7 @@ namespace jbzd.Dialogues.Editor.Nodes
     public class EndGroupNode : BasicNode
     {
         private readonly List<string> _groupNames = new();
-        private string SelectedGroup { get; set; }
+        public string SelectedGroup { get; set; }
         private DropdownField _dropdownField;
         
         public override void Initialize(Vector2 position, DialogueGraphView graphView)

@@ -1,20 +1,23 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using jbzd.Dialogues.Editor;
 using jbzd.Dialogues.Editor.Save;
+using jbzd.Dialogues.Editor.Utilities;
 using jbzd.Dialogues.RuntimeData;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace jbzd.Dialogues.Editor.Nodes
 {
-    public abstract class BasicNode : Node
+    public abstract class BasicNode : Node, IValidate
     {
         public string ID { get; set; }
         public List<ChoiceEditorData> Choices { get; set; }
         protected NodeType NodeType { get; set; }
         public Guid? GroupID { get; set; }
+
+        public List<string> WarningInfos { get; set; } = new();
+
         protected DialogueGraphView GraphView;
 
         public virtual void Initialize(Vector2 position, DialogueGraphView graphView)
@@ -53,5 +56,13 @@ namespace jbzd.Dialogues.Editor.Nodes
         public abstract void Load(NodeEditorData nodeData);
 
         public abstract NodeRuntimeData GetSavedDataForDialogue();
+
+        public virtual bool IsRuleViolated() 
+        {
+            if (GroupID == null)
+                WarningInfos.Add("Niektóre węzły są poza grupą. Będą one zapisane w edytorze, ale nie będą używane podczas runtime'a (gry).");
+
+            return WarningInfos.Count > 0;
+        }
     }
 }
