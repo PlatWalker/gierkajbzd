@@ -34,7 +34,7 @@ namespace jbzd.Dialogues.Editor.Nodes
             inputContainer.Add(inputPort);
 
             var isPlayerTalking =
-                DialogueElementUtility.CreateToggle("Czy gracz mowi: ", IsPlayerTalking, 
+                DialogueElementUtility.CreateToggle("Czy dany tekst jest wypowiadany przez gracza: ", IsPlayerTalking, 
                     callback => IsPlayerTalking = callback.newValue);
             
             var npcImage = DialogueElementUtility.CreateCustomField(NpcImage, "obrazek NPC: ", typeof(Sprite),
