@@ -9,7 +9,6 @@ namespace jbzd.QuestCreationScripts
     public class DialogueTriggerOnGroup : MonoBehaviour
     {
         public ContainerSO dialogueToStart;
-        public bool wasTriggered;
         [SerializeField] private string GroupToCheck;
 
         private DialogueManager _dialogueManager;
@@ -22,12 +21,8 @@ namespace jbzd.QuestCreationScripts
 
         public void OnTriggerEnter(Collider other)
         {
-            if(wasTriggered && dialogueToStart.CurrentGroup == GroupToCheck)
-                wasTriggered = false;
+            if (dialogueToStart.CurrentGroup != GroupToCheck) return;
 
-            if (wasTriggered) return;
-
-            wasTriggered = true;
             _dialogueManager.StartDialogue(dialogueToStart);
 
         }
