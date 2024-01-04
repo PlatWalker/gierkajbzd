@@ -2,6 +2,8 @@
 using jbzdy.Enemies;
 using UnityEngine;
 using UnityEngine.AI;
+using jbzd.Cutscenes;
+using Zenject;
 
 /// <summary>
 /// Created by Kumdzio.
@@ -40,6 +42,24 @@ namespace jbzd.Enemies
         public delegate void EnemyDied(EnemyController enemy);
         public event EnemyDied OnDeath;
 
+        private CutscenesManager _cutsceneManager;
+        
+        [Inject]
+        public void Construct(CutscenesManager cutscenesManager)
+        {  
+            _cutsceneManager = cutscenesManager;
+            _cutsceneManager.OnCutsceneStarted += Dissapear;
+            _cutsceneManager.OnCutsceneEnded += Reappear;
+        }
+
+
+        public void Dissapear(){
+            gameObject.SetActive(false);
+        }
+
+        public void Reappear(){
+            gameObject.SetActive(true);
+        }
 
         protected virtual void Start()
 		{

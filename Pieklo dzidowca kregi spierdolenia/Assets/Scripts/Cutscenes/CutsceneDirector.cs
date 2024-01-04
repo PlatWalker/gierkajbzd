@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using jbzd.Dialogues;
 using jbzd.MainHero;
+using jbzd.Cutscenes;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
@@ -46,6 +47,8 @@ namespace jbzd.Cutscenes
                 _playerManager.CanPlayerMove = true;
                 Debug.Log($"{transform.parent.name} unfreeze player");
                 _dialogueEnded = false;
+                _cutsceneManager.EndCutscene();
+
             };
             
             _playableDirector.played += _ =>
@@ -77,7 +80,7 @@ namespace jbzd.Cutscenes
         private IEnumerator WaitForDialogue()
         {
             yield return new WaitUntil(() => _dialogueEnded);
-            
+
             Debug.Log($"{transform.parent.name} freeze player");
             _playerManager.CanPlayerMove = false;
             _dialogueEnded = false;

@@ -1,6 +1,8 @@
 using jbzd.QuestSystem.QuestStructureElements;
+using jbzd.Cutscenes;
 using jbzd.QuestSystem;
 using UnityEngine;
+using UnityEngine.Timeline;
 using UnityEngine.Playables;
 using Zenject;
 
@@ -11,12 +13,14 @@ namespace jbzd.QuestCreationScripts
         [field: SerializeField] private GoalSO _goal;
         
         public PlayableDirector playableDirector;
+        private CutscenesManager _cutscenesManager;
         private QuestManager _questManager;
 
         [Inject]
-        public void Construct(QuestManager questManager)
+        public void Construct(QuestManager questManager, CutscenesManager cutscenesManager)
         {
             _questManager = questManager;
+            _cutscenesManager = cutscenesManager;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -27,7 +31,8 @@ namespace jbzd.QuestCreationScripts
                 _goal.ActorsData.Contains(actor.ActorData))
             {
                 _questManager.MakeActorPlay(_goal);
-                playableDirector.Play();
+                TimelineAsset timelineAsset = playableDirector.playableAsset as TimelineAsset;
+                _cutscenesManager.PlayCutscene(timelineAsset);
             }
         }
     }

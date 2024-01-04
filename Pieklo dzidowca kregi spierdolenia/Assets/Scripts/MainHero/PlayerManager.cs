@@ -6,6 +6,7 @@ using UnityEngine;
 using Zenject;
 using jbzd.Common.InputSystem;
 using jbzd.Common.InputSystem.Inputs;
+using jbzd.Cutscenes;
 using jbzd.MainHero.PlayerControllers;
 using jbzd.MainHero.PlayerStateLogic;
 using jbzd.NPC;
@@ -140,9 +141,11 @@ namespace jbzd.MainHero
         #endregion
 
         [Inject]
-        public void Construct(InputManager inputManager)
+        public void Construct(InputManager inputManager, CutscenesManager cutscenesManager)
         {
             _playerInput = inputManager.GetInput<PlayerInput>();
+            cutscenesManager.OnCutsceneStarted += Dissapear;
+            cutscenesManager.OnCutsceneEnded += Reappear;
         }
 
         public void Awake()
@@ -268,5 +271,32 @@ namespace jbzd.MainHero
                 npcController.GetComponent<NavMeshAgent>().Warp(transform.position);
             }
         }
+
+        public void Dissapear(){
+            MeshRenderer[] meshRenderers = GetComponentsInChildren<MeshRenderer>();
+            foreach (MeshRenderer meshRenderer in meshRenderers)
+            {
+                meshRenderer.enabled = false;
+            }            
+            SkinnedMeshRenderer[] skinnedMeshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
+            foreach (SkinnedMeshRenderer skinnedMeshRenderer in skinnedMeshRenderers)
+            {
+                skinnedMeshRenderer.enabled = false;
+            }
+        }
+
+        public void Reappear(){
+            MeshRenderer[] meshRenderers = GetComponentsInChildren<MeshRenderer>();
+            foreach (MeshRenderer meshRenderer in meshRenderers)
+            {
+                meshRenderer.enabled = true;
+            }
+            SkinnedMeshRenderer[] skinnedMeshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
+            foreach (SkinnedMeshRenderer skinnedMeshRenderer in skinnedMeshRenderers)
+            {
+                skinnedMeshRenderer.enabled = true;
+            }
+        }
+
     } 
 }

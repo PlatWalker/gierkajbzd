@@ -98,7 +98,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e402b0d99b309f64495ada286dfb6ccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameObjectsToDeactivate: []
   _cutscene: {fileID: 0}
   data: {fileID: 11400000, guid: fc8a9b43eeb2f2749ad716ff83829d9c, type: 2}
 --- !u!114 &8130508472147674884
@@ -261,6 +260,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5290435800466696962
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 780377039875797646}
   - component: {fileID: 5977987119622536918}
   - component: {fileID: 7330843678914413653}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cutscene (first encounter)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
