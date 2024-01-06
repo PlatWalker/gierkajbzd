@@ -61,6 +61,7 @@ namespace jbzd.Dialogues.Editor.Nodes
             if (!_groupNames.Contains(SelectedGroup))
             {
                 SelectedGroup = _groupNames.FirstOrDefault();
+                _dropdownField.value = SelectedGroup;
             }
         }
 
