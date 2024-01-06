@@ -19,7 +19,6 @@ namespace jbzd.Cutscenes
         {
             Debug.Log($"Cutscene {timelineAsset.name} CUTSCENE MANAGER");
             
-            StartCutscene();
             OnCutscenePlayDemand?.Invoke(timelineAsset);
         }
         public void StartCutscene()

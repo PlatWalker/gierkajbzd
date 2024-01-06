@@ -4,10 +4,12 @@ using UnityEngine.Timeline;
 using jbzd.Cutscenes;
 using jbzd.Dialogues;
 using Zenject;
+using MyBox;
 
 namespace jbzd.QuestCreationScripts
 { 
     [RequireComponent(typeof(Collider))]
+    [RequireLayer("Player Triggers")]
     public class CutsceneTrigger : MonoBehaviour
     {
         public PlayableDirector playableDirector;
@@ -28,13 +30,6 @@ namespace jbzd.QuestCreationScripts
                 TimelineAsset timelineAsset = playableDirector.playableAsset as TimelineAsset;
                 _cutscenesManager.PlayCutscene(timelineAsset);
                 wasTriggered = true;
-            }
-        }
-
-
-        void Start(){
-            if(gameObject.layer != 12){
-                Debug.Log("CutsceneTrigger: " + gameObject.name + " is not in the Player Triggers layer.");
             }
         }
     }

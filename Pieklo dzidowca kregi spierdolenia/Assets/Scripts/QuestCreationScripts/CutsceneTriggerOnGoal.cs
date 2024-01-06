@@ -5,9 +5,11 @@ using UnityEngine;
 using UnityEngine.Timeline;
 using UnityEngine.Playables;
 using Zenject;
+using MyBox;
 
 namespace jbzd.QuestCreationScripts
-{
+{ 
+    [RequireLayer("Player Triggers")]
     public class CutsceneTriggerOnGoal : MonoBehaviour
     {
         [field: SerializeField] private GoalSO _goal;

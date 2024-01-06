@@ -39,6 +39,7 @@ namespace jbzd.Cutscenes
                 {
                     Debug.Log($"Cutscene {transform.parent.name} starts playing");
                     _playableDirector.Play();
+                    _cutsceneManager.StartCutscene();
                 }
             };
             
