@@ -66,6 +66,7 @@ namespace jbzd.NPC
         public void Awake()
         {
             NpcAgent = GetComponent<NavMeshAgent>();
+            animator = GetComponentInChildren<Animator>();
         }
 
         public void Update()

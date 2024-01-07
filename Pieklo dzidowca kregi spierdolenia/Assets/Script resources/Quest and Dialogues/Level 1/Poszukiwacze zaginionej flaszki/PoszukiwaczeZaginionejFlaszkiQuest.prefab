@@ -3378,7 +3378,6 @@ GameObject:
   - component: {fileID: 2150599801498489985}
   - component: {fileID: 2150599801498489986}
   - component: {fileID: 9220918049712017198}
-  - component: {fileID: 5844668680410061483}
   m_Layer: 0
   m_Name: NPC_Zdzichu_chase
   m_TagString: Untagged
@@ -3595,27 +3594,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DialogueContainer: {fileID: 11400000, guid: 8dcfbc63f74ace045a46fefa2ec2f926, type: 2}
   TaskOnWhichToTalk: {fileID: 11400000, guid: 9d9752ce4b1c7674aa25d78f394887e3, type: 2}
---- !u!95 &5844668680410061483
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2150599801498489984}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2150599801499636623
 GameObject:
   m_ObjectHideFlags: 0
@@ -37830,7 +37808,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueToStart: {fileID: 11400000, guid: 8dcfbc63f74ace045a46fefa2ec2f926, type: 2}
-  wasTriggered: 0
   GroupToCheck: Grupa0
 --- !u!1 &2150599803231168213
 GameObject:

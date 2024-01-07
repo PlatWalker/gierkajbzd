@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using jbzd.Common.Extensions;
 using jbzd.Common.InputSystem;
 using jbzd.Common.InputSystem.Inputs;
@@ -27,9 +29,10 @@ namespace jbzd.SavingSystem
         /// Dictionary tracks all of the gameObjects on interactive scene. So after saving game we will know
         /// if object is destroyed or deactivated. After loading game we can change status of object according to how
         /// it was saved. Key of dictionary is hierarchy of parent game objects of saved game objects. Value is tuple
-        /// where first item is name of game object and second item is reference to this game object.
+        /// where first item is name of game object and second item is reference to this game object and third item is
+        /// name of scene where game object was
         /// </summary>
-        private readonly Dictionary<List<string>, (string, GameObject)> _trackGameObjects = new();
+        private readonly Dictionary<List<string>, (string, GameObject, string)> _trackGameObjects = new();
 
         [Inject]
         public void Constructor(InputManager inputManager)
@@ -73,13 +76,15 @@ namespace jbzd.SavingSystem
                 {
                     foreach (var rootGameObject in rootGameObjects)
                     {
-                        if (!_trackGameObjects.TryAdd(rootGameObject.GetAllParentsNames(), (rootGameObject.name, rootGameObject)))
+                        if (!_trackGameObjects.TryAdd(rootGameObject.GetAllParentsNames(), (rootGameObject.name, rootGameObject, rootGameObject.scene.name)))
                         {
                             Debug.LogError("Save manager trying to track gameobject that is already tracked.");
                         }
                     
                         IterateOverChild(rootGameObject);
                     }
+
+                    return;
 
                     void IterateOverChild(GameObject rootGameObject)
                     {
@@ -90,7 +95,7 @@ namespace jbzd.SavingSystem
                             if (child.CompareTag("BlenderModel")) continue;
 
                             var childGameObject = child.gameObject;
-                            _trackGameObjects.TryAdd(childGameObject.GetAllParentsNames(), (child.name, childGameObject));
+                            _trackGameObjects.TryAdd(childGameObject.GetAllParentsNames(), (child.name, childGameObject, childGameObject.scene.name));
                         
                             IterateOverChild(child.gameObject);
                         }
@@ -117,6 +122,8 @@ namespace jbzd.SavingSystem
                 Debug.LogError("Something went wrong during saving game:" + e);
             }
 
+            return;
+            
             void PopulateByInterface(ref GameData gameData)
             {
                 var saveables = FindSaveables();
@@ -129,7 +136,7 @@ namespace jbzd.SavingSystem
 
             void PopulateWithOpenedScenes(ref GameData gameData)
             {
-                var openedScenes = JbzdSceneUtility.GetOpenedScenes();
+                var openedScenes = JbzdSceneUtility.GetOpenedScenesExceptSingleLoad();
                 gameData.openedScenes.AddRange(openedScenes.Select(scene => scene.name));
             }
 
@@ -139,25 +146,26 @@ namespace jbzd.SavingSystem
                 
                 while (enumerator.MoveNext())
                 {
-                    var (originalGameObjectObjectPath, (originalGameObjectName, originalGameObject)) = enumerator.Current;
+                    var (originalGameObjectObjectPath, (originalGameObjectName, originalGameObject, originalGameObjectScene)) = enumerator.Current;
 
                     if (originalGameObject == null)
                     {
                         gameData.gameObjectsStatusSaveDatas.Add(new DisabledAndDestroyedGameObjectsSaveData
-                        {
-                            objectPath = originalGameObjectObjectPath,
-                            name = originalGameObjectName,
-                            disabledOrDestroyed = DisabledOrDestroyed.Destroyed
-                        });
+                        (
+                            originalGameObjectScene,
+                            originalGameObjectObjectPath,
+                            originalGameObjectName,
+                            DisabledOrDestroyed.Destroyed
+                        ));
                     }
                     else if (originalGameObject.activeSelf is false)
                     {
-                        gameData.gameObjectsStatusSaveDatas.Add(new DisabledAndDestroyedGameObjectsSaveData
-                        {
-                            objectPath = originalGameObjectObjectPath,
-                            name = originalGameObjectName,
-                            disabledOrDestroyed = DisabledOrDestroyed.Disabled
-                        });
+                        gameData.gameObjectsStatusSaveDatas.Add(new DisabledAndDestroyedGameObjectsSaveData(
+                            originalGameObjectScene,
+                            originalGameObjectObjectPath,
+                            originalGameObjectName,
+                            DisabledOrDestroyed.Disabled
+                        ));
                     }
 
                 }
@@ -188,15 +196,17 @@ namespace jbzd.SavingSystem
             }
         }
 
-        public void LoadGame()
+        public async void LoadGame()
         {
             try
             {
+                //TODO show loading page
                 var gameData = LoadDataToVariable();
 
+                await LoadOpenedScenes(gameData);
                 LoadByInterface(gameData);
-                LoadOpenedScenes(gameData);
                 LoadStatusesOfGameObjects(gameData);
+                //TODO quit loading page
                 
                 Debug.Log("GAME LOADED");
             }
@@ -206,33 +216,32 @@ namespace jbzd.SavingSystem
             }
 
             return;
-            
+
             void LoadByInterface(GameData gameData)
             {
-                var saveables = FindSaveables();
-                
-                foreach (var saveable in saveables)
+                foreach (var saveable in FindSaveables())
                 {
                     saveable.LoadData(gameData);
                 }
             }
 
-            void LoadOpenedScenes(GameData gameData)
+            async Task LoadOpenedScenes(GameData gameData)
             {
-                //TODO do odkomentowania gdy loadowanie gry bedzie odbywac sie poprzez menu, zostawiam teraz zeby latwiej
-                //TODO sie debugowalo przy developmencie. Trzeba jeszcze dodac rozladowanie scen odpowiednio do tego w ktorym
-                //TODO menu jestesmy.
-                // foreach (var sceneName in gameData.openedScenes)
-                // {
-                //     SceneManager.LoadSceneAsync(sceneName); // wait for them to load
-                // }
+                var scenes = JbzdSceneUtility.GetOpenedScenesExceptSingleLoad();
+                
+                foreach (var scene in scenes)
+                {
+                    await SceneManager.UnloadSceneAsync(scene);
+                }
+                
+                foreach (var scene in gameData.openedScenes)
+                {
+                    await SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
+                }
             }
 
             void LoadStatusesOfGameObjects(GameData gameData)
             {
-                //TODO Tutaj trzeba uwazac na to gdy dodamy menu. Trzeba odpalic dopiero wtedy gdy bedziemy pewni ze
-                //TODO scena jest zaladowana
-                
                 var interactiveScenes = JbzdSceneUtility.GetInteractiveScenes(JbzdSceneUtility.GetOpenedScenes());
 
                 foreach (var interactiveScene in interactiveScenes)
@@ -241,28 +250,31 @@ namespace jbzd.SavingSystem
                     
                     var gameObjectsWithStatusToChange = new List<GameObject>();
                 
-                    var allSaveData = gameData.gameObjectsStatusSaveDatas;
-                
-                    foreach (var saveData in allSaveData)
+                    var allSaveData = gameData.gameObjectsStatusSaveDatas
+                        .Select(item => item.Clone())
+                        .Cast<DisabledAndDestroyedGameObjectsSaveData>()
+                        .ToList();
+                    
+                    foreach (var saveData in allSaveData.Where(saveData => saveData.SceneName == interactiveScene.name))
                     {
-                        var path = saveData.objectPath;
+                        var path = saveData.ObjectPath;
 
                         var firstParent = roots.First(root => root.name == path.First());
                         path.RemoveAt(0);
                     
-                        IterateThroughChildren(path, firstParent.transform, saveData.name);
+                        IterateThroughChildren(path, firstParent.transform, saveData.Name);
                     }
 
                     foreach (var gameObjectWithWrongStatus in gameObjectsWithStatusToChange)
                     {
-                        var saveDataForObject = allSaveData.FirstOrDefault(data => data.name == gameObjectWithWrongStatus.name);
+                        var saveDataForObject = allSaveData.FirstOrDefault(data => data.Name == gameObjectWithWrongStatus.name);
 
                         if (saveDataForObject is null)
                         {
                             throw new Exception("Didn't found saved object in json");
                         }
                     
-                        switch (saveDataForObject.disabledOrDestroyed)
+                        switch (saveDataForObject.DisabledOrDestroyed)
                         {
                             case DisabledOrDestroyed.Disabled:
                                 gameObjectWithWrongStatus.SetActive(false);
@@ -286,7 +298,7 @@ namespace jbzd.SavingSystem
                                 gameObjectsWithStatusToChange.Add(firstParent.Find(nameOfObject).gameObject);
                                 return;
                             }
-
+                            
                             var nextChild = firstParent.Find(path.First());
                             path.RemoveAt(0);
 

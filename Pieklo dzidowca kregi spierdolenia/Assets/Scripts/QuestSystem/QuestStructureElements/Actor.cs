@@ -28,13 +28,19 @@ namespace jbzd.QuestSystem.QuestStructureElements
                 quest.Actors.Add(this);
             }
 
-            _questManager.OnQuestActivation += activatedQuest =>
-            {
-                if (activatedQuest.QuestData.IsThereAnActor(ActorData) && activatedQuest.Actors.All(actor => actor != this))
-                {
-                    activatedQuest.Actors.Add(this);
-                }
-            };
+            _questManager.OnQuestActivation += AddThisActorToQuest;
+        }
+
+        private void AddThisActorToQuest(Quest activatedQuest)
+        {
+            if (!activatedQuest.QuestData.IsThereAnActor(ActorData) || activatedQuest.Actors.Any(actor => actor == this)) return;
+
+            activatedQuest.Actors.Add(this);
+        }
+
+        public void OnDisable()
+        {
+            _questManager.OnQuestActivation -= AddThisActorToQuest;
         }
     }
 }

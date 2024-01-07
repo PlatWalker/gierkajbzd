@@ -9,6 +9,8 @@ namespace jbzd.Scenes.SceneLoader
 {
     public static class JbzdSceneUtility
     {
+        #region Scene types managment
+
         [CanBeNull]
         public static string GetSceneType(string sceneName)
         {
@@ -58,15 +60,36 @@ namespace jbzd.Scenes.SceneLoader
         {
             return krag + " - " + levelName + " - " + sceneType;
         }
-        
+
+        #endregion
+
+        #region Get scenes
+
         public static List<Scene> GetInteractiveScenes(IEnumerable<Scene> scenesToFilter)
         {
             return scenesToFilter
                 .Where(openedScene => GetSceneType(openedScene.name) == SceneTypes.Interactive)
                 .ToList();
         }
+        
+        public static List<Scene> GetPassiveScenes(IEnumerable<Scene> scenesToFilter)
+        {
+            return scenesToFilter
+                .Where(openedScene => GetSceneType(openedScene.name) == SceneTypes.Passive)
+                .ToList();
+        }
 
+        public static List<Scene> GetOpenedPassiveScenes() => GetPassiveScenes(GetOpenedScenes());
         public static List<Scene> GetOpenedInteractiveScenes() => GetInteractiveScenes(GetOpenedScenes());
+
+        public static List<Scene> GetOpenedScenesExceptSingleLoad()
+        {
+            var allScenes = GetOpenedScenes().ToList();
+            var scenes1 = GetPassiveScenes(allScenes);
+            var scenes2 = GetInteractiveScenes(allScenes);
+
+            return scenes1.Concat(scenes2).ToList();
+        }
 
         public static IEnumerable<Scene> GetOpenedScenes()
         {
@@ -80,5 +103,7 @@ namespace jbzd.Scenes.SceneLoader
 
             return loadedScenes;
         }
+
+        #endregion
     }
 }

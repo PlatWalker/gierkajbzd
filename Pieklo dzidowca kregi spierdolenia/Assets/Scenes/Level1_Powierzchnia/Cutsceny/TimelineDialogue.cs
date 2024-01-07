@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using jbzd.Dialogues;
 using jbzd.Dialogues.RuntimeData;
@@ -41,6 +42,11 @@ namespace jbzd.QuestCreationScripts
         {
             _cutscene.Resume();
         }
-        
+
+        private void OnDisable()
+        {
+            _manager.OnDialogueStarted -= StartPause;
+            _manager.OnDialogueEnded -= EndPause;
+        }
     }
 }

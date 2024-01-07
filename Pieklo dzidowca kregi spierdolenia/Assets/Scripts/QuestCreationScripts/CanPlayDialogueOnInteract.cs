@@ -1,24 +1,27 @@
+using System.Linq;
 using jbzd.Common.Interfaces;
 using jbzd.Dialogues;
 using jbzd.Dialogues.RuntimeData;
 using jbzd.QuestSystem;
 using jbzd.QuestSystem.QuestStructureElements;
+using jbzd.UI;
 using UnityEngine;
 using Zenject;
 
 namespace jbzd.QuestCreationScripts
 {
+    //TODO name of class need to be renamed, it plays dialogue on interact and task!
     public class CanPlayDialogueOnInteract : MonoBehaviour, IInteractable
     {
-        private DialogueManager _dialogueManager;
+        private DialogueUIController _uiController;
         private QuestManager _questManager;
         [SerializeField] private ContainerSO DialogueContainer;
         [SerializeField] private TaskSO TaskOnWhichToTalk;
         
         [Inject]
-        public void Contructor(DialogueManager dialogue, QuestManager quest)
+        public void Constructor(UserInterfaceManager uiManager, QuestManager quest)
         {
-            _dialogueManager = dialogue;
+            _uiController = uiManager.GetUIController<DialogueUIController>();
             _questManager = quest;
         }
         private void Start()
@@ -33,10 +36,9 @@ namespace jbzd.QuestCreationScripts
         }
         public void OnInteract()
         {
-            foreach (var quest in _questManager.ActiveQuests)
+            foreach (var quest in _questManager.ActiveQuests.Where(quest => TaskOnWhichToTalk == quest.ActiveTask))
             {
-                if (TaskOnWhichToTalk == quest.ActiveTask)
-                    _dialogueManager.StartDialogue(DialogueContainer);
+                _uiController.StartDialogue(DialogueContainer);
             }
         }
     }
