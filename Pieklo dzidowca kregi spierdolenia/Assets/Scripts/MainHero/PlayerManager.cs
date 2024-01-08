@@ -206,8 +206,7 @@ namespace jbzd.MainHero
             
             void StickPlayerToGround()
             {
-                if (Physics.Raycast(transform.position + Vector3.up, Vector3.down, out RaycastHit hit) 
-                    && hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
+                if (Physics.Raycast(transform.position + Vector3.up, Vector3.down, out RaycastHit hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Ground")))
                 {
                     _newPositionVector.x = Rb.position.x;
                     _newPositionVector.y = hit.point.y;
