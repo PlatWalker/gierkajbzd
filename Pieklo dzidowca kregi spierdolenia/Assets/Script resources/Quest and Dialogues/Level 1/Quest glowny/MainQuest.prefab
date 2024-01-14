@@ -59,7 +59,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueToStart: {fileID: 11400000, guid: e1ae701ef763c56468e7db9296dfa341, type: 2}
-  wasTriggered: 0
   GroupToCheck: Intro 2
 --- !u!1 &8667793714630933548
 GameObject:
@@ -237,8 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueToStart: {fileID: 11400000, guid: e1ae701ef763c56468e7db9296dfa341, type: 2}
-  wasTriggered: 0
-  GroupToCheck: Intro 1
+  GroupToCheck: Start
 --- !u!1 &8667793715699394706
 GameObject:
   m_ObjectHideFlags: 0
@@ -4251,3 +4249,4 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
