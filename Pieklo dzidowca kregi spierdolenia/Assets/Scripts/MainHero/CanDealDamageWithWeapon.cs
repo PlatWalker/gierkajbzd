@@ -87,6 +87,10 @@ namespace jbzd.MainHero
                 if(coll is null) return;
 
                 coll.gameObject.TryGetComponent<IDamageable>(out var damageableEnemy);
+                if(damageableEnemy is null){
+                    Debug.LogError($"Hit target {coll.gameObject.name} does not implement {nameof(IDamageable)} but it should");
+                    return;
+                }
                 damageableEnemy.SetDamage(WeaponDamage, DamageType.CloseCombat);
             }
         }
