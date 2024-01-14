@@ -10,7 +10,6 @@ namespace jbzd
 
         private void OnTriggerEnter(Collider other)
         {
-
             if (barksTrigger != null)
             {
                 if (isStart)

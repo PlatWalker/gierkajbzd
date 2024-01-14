@@ -9,8 +9,8 @@ using MyBox;
 
 namespace jbzd.QuestCreationScripts
 { 
-    [RequireLayer("Player Triggers")]
-    public class CutsceneTriggerOnGoal : MonoBehaviour
+    [RequireLayer("Player And Npc Triggers")]
+    public class CutsceneTriggerOnGoalNpc : MonoBehaviour
     {
         [field: SerializeField] private GoalSO _goal;
         
@@ -27,7 +27,6 @@ namespace jbzd.QuestCreationScripts
 
         private void OnTriggerEnter(Collider other)
         {
-
             if (_goal != null &&
                 other.gameObject.TryGetComponent<Actor>(out Actor actor) &&
                 _goal.ActorsData.Contains(actor.ActorData))
