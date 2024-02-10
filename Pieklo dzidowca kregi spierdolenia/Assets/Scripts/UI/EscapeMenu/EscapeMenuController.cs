@@ -7,8 +7,15 @@ using Zenject;
 
 namespace jbzd.UI.InGameMenu
 {
-    public class InGameMenuController : MonoBehaviour
+    public class EscapeMenuController : UserInterfaceController
     {
+        public override void ConnectInputToHandler(UserInterfaceInput input)
+        {
+            input.OnEscapeClick += ShowOrHideMenu;
+            
+        }
+        public override bool InitialActivationState() => true;
+        
         [SerializeField]
         private GameObject panel;
 
@@ -23,18 +30,13 @@ namespace jbzd.UI.InGameMenu
         {
             _inputController = inputManager.GetInput<UserInterfaceInput>();
         }
-        
-        public void Start()
-        {
-            _inputController.OnInGameMenuOpened += ShowOrHideMenu;
-        }
 
         public void QuitToMainMenu()
         {
             Time.timeScale = _savedTimeScale;
             SceneManager.LoadScene(0);
         }
-        private void ShowOrHideMenu()
+        public void ShowOrHideMenu()
         {
             if (panel.activeSelf)
             {
@@ -48,5 +50,6 @@ namespace jbzd.UI.InGameMenu
                 panel.SetActive(true);
             }
         }
+        
     } 
 }

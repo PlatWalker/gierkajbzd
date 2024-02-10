@@ -18,9 +18,11 @@ namespace jbzd.UI
 
         [UsedImplicitly][SerializeField] private UserInterfaceController questUIController;
 
-        [UsedImplicitly][SerializeField] private UserInterfaceController playerMenuUIController;
+        [UsedImplicitly][SerializeField] private UserInterfaceController inGameMenuUIController;
         
         [UsedImplicitly][SerializeField] private UserInterfaceController dialogueUIController;
+        
+        [UsedImplicitly][SerializeField] private UserInterfaceController escapeMenuController;
         
         #endregion
         

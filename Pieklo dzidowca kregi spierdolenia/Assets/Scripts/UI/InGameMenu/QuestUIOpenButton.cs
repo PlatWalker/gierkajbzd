@@ -7,7 +7,7 @@ namespace jbzd.UI.PlayerMenu
 
         protected override void AssignPropertyUserInterfacesOpenAndClose(UserInterfaceManager userInterfaceManager)
         {
-            UserInterfaceToClose = userInterfaceManager.GetUIController<PlayerMenuUIController>();
+            UserInterfaceToClose = userInterfaceManager.GetUIController<InGameMenuUIController>();
         }
     }
 }

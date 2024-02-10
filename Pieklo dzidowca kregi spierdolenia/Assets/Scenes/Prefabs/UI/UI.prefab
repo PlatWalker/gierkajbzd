@@ -119,8 +119,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hudUIController: {fileID: 2105733124841126157}
   questUIController: {fileID: 3334686137362278394}
-  playerMenuUIController: {fileID: 4487681782177264651}
+  inGameMenuUIController: {fileID: 0}
   dialogueUIController: {fileID: 4824988142613809269}
+  escapeMenuController: {fileID: 0}
   userInterfaceControllers: []
 --- !u!1001 &4457945667470084892
 PrefabInstance:
@@ -224,17 +225,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4199448493615799151, guid: 67a42b1ba3df8fb4281b1b3c6df0adfd, type: 3}
   m_PrefabInstance: {fileID: 4457945667470084892}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4487681782177264651 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 259730188552716055, guid: 67a42b1ba3df8fb4281b1b3c6df0adfd, type: 3}
-  m_PrefabInstance: {fileID: 4457945667470084892}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2ad329e6de18a54fb4eae6cd968ddaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &4811388725756482493
 PrefabInstance:
   m_ObjectHideFlags: 0
