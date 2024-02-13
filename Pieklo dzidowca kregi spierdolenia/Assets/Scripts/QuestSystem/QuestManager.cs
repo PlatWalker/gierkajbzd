@@ -15,7 +15,9 @@ namespace jbzd.QuestSystem
 
         public event QuestActivated OnQuestActivation;
 
+        [SerializeField] private Canvas _questStartedCanvas;
         [SerializeField] private Canvas _questEndedCanvas;
+        [SerializeField] private Canvas _newTaskCanvas;
 
         [field: SerializeField]
         [field: JbzdReadOnly]
@@ -36,6 +38,8 @@ namespace jbzd.QuestSystem
                 Debug.Log($"Quest {questToStart.name} does not have tasks");
                 return;
             }
+            _questStartedCanvas.gameObject.SetActive(true);
+            Invoke(nameof(DeactivateQuestStartedCanvas), 3f);
             
             questToStart.ActiveTask = questToStart.QuestData.Tasks.First(task => task.Order == 0);
         }
@@ -87,8 +91,12 @@ namespace jbzd.QuestSystem
                               $" is in task that is not currently active");
                     return;
                 }*/
-                
                 quest.MakeActorPlayInThisQuest(goalToAct);
+                if (numberOfActiveQuests == ActiveQuests.Count)
+                {
+                    _newTaskCanvas.gameObject.SetActive(true);
+                    Invoke(nameof(DeactivateNewTaskCanvas), 3f);
+                }
                 
                 // if acting goal finished, and it was last goal in quest thus completing it - quit loop
                 if (numberOfActiveQuests != ActiveQuests.Count) return;
@@ -144,6 +152,14 @@ namespace jbzd.QuestSystem
                     }
                 }
             }
+        }
+        private void DeactivateQuestStartedCanvas()
+        {
+            _questStartedCanvas.gameObject.SetActive(false);
+        }
+        private void DeactivateNewTaskCanvas()
+        {
+            _newTaskCanvas.gameObject.SetActive(false);
         }
         private void DeactivateQuestEndedCanvas()
         {
