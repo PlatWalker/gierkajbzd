@@ -1,10 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using jbzd.Items;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace jbzd.MainHero.PlayerControllers
@@ -12,16 +10,18 @@ namespace jbzd.MainHero.PlayerControllers
     [RequireComponent(typeof(ItemEquiper))]
     public class InventoryController : MonoBehaviour , IPlayerController
     {
-        [SerializeField] private Dictionary<ItemSO, int> itemsInInventory = new();
-        [SerializeField] private Dictionary<ItemTypes, Item> equippedItems = new();
-        public IReadOnlyDictionary<ItemSO, int> ItemsInInventory => itemsInInventory;
-        public IReadOnlyDictionary<ItemTypes, Item> EquippedItems => equippedItems;
+        [SerializeField] private List<InventorySlot> slots;
+        public List<InventorySlot> Slots => slots;
+        public int SlotCount => slots.Count;
 
-        [field: SerializeField] private Item headArmor;
-        [field: SerializeField] private Item chestArmor;
-        [field: SerializeField] private Item legArmor;
-        [field: SerializeField] private Item bootsArmor;
-        [field: SerializeField] private Item weapon;
+        [SerializeField] private Dictionary<ItemTypes, ItemSO> equippedItems = new();
+        public IReadOnlyDictionary<ItemTypes, ItemSO> EquippedItems => equippedItems;
+
+        [field: SerializeField] private ItemSO headArmor;
+        [field: SerializeField] private ItemSO chestArmor;
+        [field: SerializeField] private ItemSO legArmor;
+        [field: SerializeField] private ItemSO bootsArmor;
+        [field: SerializeField] private ItemSO weapon;
         
         private ItemEquiper _itemEquiper;
         private Transform _playerTransform;
@@ -31,6 +31,11 @@ namespace jbzd.MainHero.PlayerControllers
         public void Construct(Item.Factory factory)
         {
             _itemFactory = factory;
+            slots = new List<InventorySlot>();
+            for(int i = 0; i < 20; i++)
+            {
+                slots.Add(new InventorySlot());
+            }
         }
         
         private void Awake()
@@ -49,22 +54,23 @@ namespace jbzd.MainHero.PlayerControllers
             equippedItems.Add(ItemTypes.BootsArmor, bootsArmor);
         }
 
-        public void EquipItem(Item item)
+        public bool EquipItem(ItemSO item)
         {
-            if (!EquippedItems.ContainsKey(item.ItemSO.ItemType))
+            if (!EquippedItems.ContainsKey(item.ItemType))
             {
                 Debug.LogError("You cannot equip that type of item!");
-                return;
+                return false;
             }
             
-            equippedItems[item.ItemSO.ItemType] = item;
+            equippedItems[item.ItemType] = item;
             
-            _itemEquiper.EquipItem(item);
+            _itemEquiper.EquipItem(item.ItemPrefab.GetComponent<Item>());
+            return true;
         }
 
-        public void UnequipItem(Item item)
+        public void UnequipItem(ItemSO item)
         {
-            if (!EquippedItems.ContainsKey(item.ItemSO.ItemType))
+            if (!EquippedItems.ContainsKey(item.ItemType))
             {
                 Debug.LogError("You cannot unequip that type of item!");
                 return;
@@ -72,20 +78,45 @@ namespace jbzd.MainHero.PlayerControllers
             
             _itemEquiper.UnequipItem(item);
             
-            equippedItems[item.ItemSO.ItemType] = item;
+            equippedItems[item.ItemType] = null;
         }
 
-        //TODO obsługa za dużej ilości itemów w eq
+        public bool ContainsItem(ItemSO itemToAdd, out List<InventorySlot> invSlots)
+        {
+            invSlots = slots.Where(i => i.ItemData == itemToAdd).ToList();
+            return invSlots != null;
+        }
+
+        public bool HasFreeSlot(out InventorySlot freeSlot)
+        {
+            freeSlot = slots.FirstOrDefault(i => i.ItemData == null);
+            return freeSlot != null;
+        }
+
         public bool PickUpItem(ItemSO item, int numberOfItems = 1)
         {
             Debug.Log("item podniesiony");
 
-            if (itemsInInventory.ContainsKey(item))
-                itemsInInventory[item] += numberOfItems;
-            else
-                itemsInInventory.Add(item, numberOfItems);
-
-            return true;
+            if (ContainsItem(item, out List<InventorySlot> invSlots))
+            {
+                foreach (var slot in invSlots)
+                {
+                    if (slot.RoomLeftInStack(numberOfItems))
+                    {
+                        slot.AddToStack(numberOfItems);
+                        return true;
+                    }
+                }
+                
+            }
+            
+            if (HasFreeSlot(out InventorySlot freeSlot))
+            {
+                freeSlot.UpdateInventorySlot(item, numberOfItems);
+                return true;
+            }    
+            
+            return false;
         }
 
         public void DropItem(ItemSO item)
@@ -102,15 +133,17 @@ namespace jbzd.MainHero.PlayerControllers
         {
             Debug.Log("item zabrany");
             
-            if (!itemsInInventory.ContainsKey(item) || itemsInInventory[item] < numberOfItems)
+            if (!ContainsItem(item, out List<InventorySlot> invSlots) || invSlots.Sum(x=>x.StackSize) < numberOfItems)
             {
                 Debug.LogWarning("Błąd przy usuwaniu itema z inventory - możliwe, że gracz go nie posiada");
                 return false;
             }
 
-            itemsInInventory[item] -= numberOfItems;
-
-            if (itemsInInventory[item] == 0) itemsInInventory.Remove(item);
+            foreach (InventorySlot slot in invSlots)
+            {
+                int leftNumberOfItems = slot.RemoveFromStack(numberOfItems);
+                if (leftNumberOfItems <= 0) break;                
+            }
 
             return true;
         }

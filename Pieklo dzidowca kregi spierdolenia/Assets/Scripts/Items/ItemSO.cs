@@ -21,11 +21,7 @@ namespace jbzd.Items
         [field:SerializeField]
         public GameObject ItemPrefab { get; set; }
 
-        [field:Range(1,10)]
         [field:SerializeField]
-        public int GridWidth { get; private set; }
-        [field:Range(1,10)]
-        [field:SerializeField]
-        public int GridHeight { get; private set; }
+        public int MaxStackSize { get; private set; }
     }
 }

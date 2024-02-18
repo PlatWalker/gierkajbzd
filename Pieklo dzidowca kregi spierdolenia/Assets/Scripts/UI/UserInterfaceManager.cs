@@ -21,6 +21,7 @@ namespace jbzd.UI
         [UsedImplicitly][SerializeField] private UserInterfaceController inGameMenuUIController;
         
         [UsedImplicitly][SerializeField] private UserInterfaceController dialogueUIController;
+        [UsedImplicitly][SerializeField] private UserInterfaceController inventoryUIController;
         
         [UsedImplicitly][SerializeField] private UserInterfaceController escapeMenuController;
         

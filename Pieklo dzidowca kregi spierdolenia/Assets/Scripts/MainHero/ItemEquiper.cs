@@ -16,6 +16,8 @@ namespace jbzd.MainHero
         [SerializeField] private List<GameObject> _legsBodyParts;
         [SerializeField] private List<GameObject> _bootsBodyParts;
 
+        [SerializeField] private Transform _bonesRoot;
+
         private Transform _boots;
         private Transform _legs;
         private Transform _chest;
@@ -29,7 +31,7 @@ namespace jbzd.MainHero
         private void Start()
         {
             _playerBonesDictionary = new Dictionary<int, Transform>();
-            TraverseHierarchy(gameObject.transform);
+            TraverseHierarchy(_bonesRoot);
         }
 
         public void EquipItem(Item item)
@@ -66,9 +68,9 @@ namespace jbzd.MainHero
             }
         }
 
-        public void UnequipItem(Item item)
+        public void UnequipItem(ItemSO item)
         {
-            switch (item.ItemSO.ItemType)
+            switch (item.ItemType)
             {
                 case ItemTypes.HeadArmor:
                     if (_helmet)
@@ -133,7 +135,14 @@ namespace jbzd.MainHero
 
             for (int i = 0; i < bones.Length; i++)
             {
-                _bonesTransforms[i] = _playerBonesDictionary[bones[i].name.GetHashCode()];
+                var boneHashCode = bones[i].name.GetHashCode();
+
+                if (!_playerBonesDictionary.ContainsKey(boneHashCode))
+                {
+                    Debug.LogWarning($"Item posiada kość {bones[i].name} jednak gracz jej nie ma. Sprawdź nazewnictwo.");
+                    continue;
+                }
+                _bonesTransforms[i] = _playerBonesDictionary[boneHashCode];
             }
             meshRenderer.bones = _bonesTransforms;
             meshRenderer.sharedMesh = renderer.sharedMesh;

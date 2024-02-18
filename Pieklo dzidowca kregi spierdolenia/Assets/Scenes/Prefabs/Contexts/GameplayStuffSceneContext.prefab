@@ -1048,19 +1048,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4580341904434443856, guid: a992b9cbcadeb7c44a4c7c0a2893a0ad, type: 3}
       propertyPath: m_Size
-      value: 0.99821186
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4580341904434443856, guid: a992b9cbcadeb7c44a4c7c0a2893a0ad, type: 3}
       propertyPath: m_Value
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4814431186270301506, guid: a992b9cbcadeb7c44a4c7c0a2893a0ad, type: 3}
       propertyPath: m_Name
       value: Dialogue Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5734696615690712977, guid: a992b9cbcadeb7c44a4c7c0a2893a0ad, type: 3}
+      propertyPath: _inventoryController
+      value: 
+      objectReference: {fileID: 4645756352400928341}
+    - target: {fileID: 5734696615690712988, guid: a992b9cbcadeb7c44a4c7c0a2893a0ad, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6113150126893569432, guid: a992b9cbcadeb7c44a4c7c0a2893a0ad, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -172.55775
+      value: -172.55824
       objectReference: {fileID: 0}
     - target: {fileID: 7504622410365505361, guid: a992b9cbcadeb7c44a4c7c0a2893a0ad, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1281,6 +1289,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4127351499569232697, guid: e33ea193fb1f26e4e859e6a83fcc6f1d, type: 3}
   m_PrefabInstance: {fileID: 3048089448957699553}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4645756352400928341 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7653295810358168500, guid: e33ea193fb1f26e4e859e6a83fcc6f1d, type: 3}
+  m_PrefabInstance: {fileID: 3048089448957699553}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce2b2dd2e9044c2faecfdbe3ce0b05ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7183804859226177093
 PrefabInstance:
   m_ObjectHideFlags: 0
