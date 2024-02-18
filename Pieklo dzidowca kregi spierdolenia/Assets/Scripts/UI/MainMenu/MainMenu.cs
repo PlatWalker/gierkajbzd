@@ -9,9 +9,11 @@ namespace jbzd.UI.MainMenu
         public GameObject eventSystem;
         public GameObject mainCamera;
         private PlayerManager _playerManager;
+        [SerializeField] private LoadingUI _loadingUI;
 
         public void PlayGame()
         {
+            _loadingUI.OnSceneLoaded();
             eventSystem.SetActive(false);
             mainCamera.SetActive(false);
             StartCoroutine(LoadScenesAndTeleportPlayer());
@@ -28,7 +30,7 @@ namespace jbzd.UI.MainMenu
             _playerManager = GameObject.FindWithTag("Player").GetComponent<PlayerManager>();
             GameObject teleportDestination = GameObject.Find("TeleportDestination");
             _playerManager.PlaceAt(teleportDestination.transform.position);
-
+            _loadingUI.OnSceneUnloaded();
         }
 
         public void QuitGame()

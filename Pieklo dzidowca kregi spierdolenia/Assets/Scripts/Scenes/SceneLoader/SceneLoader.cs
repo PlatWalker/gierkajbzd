@@ -37,10 +37,13 @@ namespace jbzd.Scenes.SceneLoader
         public int Id;
 
         private PlayerManager _playerManager;
+        private LoadingUI _loadingUI;
+
         [Inject]
-        public void Constructor(PlayerManager playerManager)
+        public void Constructor(PlayerManager playerManager, LoadingUI loadingUI)
         {
             _playerManager = playerManager;
+            _loadingUI = loadingUI;
         }
 
         public void Awake()
@@ -109,7 +112,8 @@ namespace jbzd.Scenes.SceneLoader
         public void OnTriggerEnter(Collider other)
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
-            
+            _loadingUI.OnSceneLoaded();
+
             var kragTypeOfThisTrigger = JbzdSceneUtility.GetKragType(gameObject.scene.name);
             Debug.Log($"Scene Loader from {gameObject.scene.name} named {gameObject.name} will teleport to {levelNameOfSceneToLoad}");
             try
@@ -139,7 +143,7 @@ namespace jbzd.Scenes.SceneLoader
             {
                 Debug.LogError("Reloading scene failed: " + e);
             }
-            
+
             void LoadSceneFromDifferentKrag(string interactiveSceneNameToLoad, string passiveSceneNameToLoad)
             {
                 SceneManager.LoadSceneAsync(interactiveSceneNameToLoad, LoadSceneMode.Additive);
@@ -165,7 +169,7 @@ namespace jbzd.Scenes.SceneLoader
                     SceneManager.LoadSceneAsync(interactiveSceneNameToLoad, LoadSceneMode.Additive);
                 }
 
-                SceneManager.LoadSceneAsync(passiveSceneNameToLoad, LoadSceneMode.Additive);
+                SceneManager.LoadSceneAsync(passiveSceneNameToLoad, LoadSceneMode.Additive);               
             }
         }
 
@@ -180,7 +184,8 @@ namespace jbzd.Scenes.SceneLoader
                 new LevelName(JbzdSceneUtility.GetLevelName(gameObject.scene.name)),
                 new SceneType(SceneTypes.Passive));
 
-            SceneManager.UnloadSceneAsync(oldPassiveScene);
+            var operation = SceneManager.UnloadSceneAsync(oldPassiveScene);
+            operation.completed += _loadingUI.OnAsyncSceneLoadEnd;
             UnsubscribeSceneLoaded();
         }
 

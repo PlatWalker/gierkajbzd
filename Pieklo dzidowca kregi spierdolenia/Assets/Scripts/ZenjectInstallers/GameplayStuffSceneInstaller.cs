@@ -24,14 +24,17 @@ namespace jbzd.ZenjectInstallers
         private DialogueManager DialogueManager;
         [SerializeField]
         private SaveManager SaveManager;
-        
+        [SerializeField]
+        private LoadingUI LoadingUI;
+
         public override void InstallBindings()
         {
             if (playerManager is null ||
                 UIManager is null ||
                 QuestManager is null ||
                 DialogueManager is null ||
-                SaveManager is null)
+                SaveManager is null ||
+                LoadingUI is null)
             {
                 Debug.LogError("Missing references in installer!");
             }
@@ -41,6 +44,7 @@ namespace jbzd.ZenjectInstallers
             Container.BindInstance(DialogueManager).AsSingle().NonLazy();
             Container.BindInstance(UIManager).AsSingle().NonLazy();
             Container.BindInstance(SaveManager).AsSingle().NonLazy();
+            Container.BindInstance(LoadingUI).AsSingle().NonLazy();
             
             Container.Bind<CutscenesManager>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<InputManager>().AsSingle().NonLazy();
