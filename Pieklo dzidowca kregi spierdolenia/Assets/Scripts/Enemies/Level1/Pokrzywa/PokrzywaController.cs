@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using jbzd.Common.Interfaces;
 using UnityEngine;
 using Zenject;
@@ -230,5 +231,6 @@ namespace jbzd.Enemies.Level1.Pokrzywa
         }
 
         public void SaveData(ref GameData gameData) { }
+        
     }
 }

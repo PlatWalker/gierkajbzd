@@ -48,6 +48,7 @@ namespace jbzd.InteractSystem
 
             _interactable = interactable;
             _inputController.OnInteractClick += OnInteract;
+            
         }
 
         private void OnInteract()
@@ -82,6 +83,5 @@ namespace jbzd.InteractSystem
         {
             _inputController.OnInteractClick -= OnInteract;
         }
-
     }
 }
