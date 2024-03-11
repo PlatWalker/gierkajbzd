@@ -3,6 +3,7 @@ using System.Linq;
 using jbzd.Items;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace jbzd.MainHero.PlayerControllers
@@ -10,11 +11,7 @@ namespace jbzd.MainHero.PlayerControllers
     [RequireComponent(typeof(ItemEquiper))]
     public class InventoryController : MonoBehaviour , IPlayerController
     {
-        [SerializeField] private List<InventorySlot> slots;
-        public List<InventorySlot> Slots => slots;
-        public int SlotCount => slots.Count;
-
-        [SerializeField] private Dictionary<ItemTypes, ItemSO> equippedItems = new();
+        public List<InventorySlot> slots = new();
         public IReadOnlyDictionary<ItemTypes, ItemSO> EquippedItems => equippedItems;
 
         [field: SerializeField] private ItemSO headArmor;
@@ -23,6 +20,7 @@ namespace jbzd.MainHero.PlayerControllers
         [field: SerializeField] private ItemSO bootsArmor;
         [field: SerializeField] private ItemSO weapon;
         
+        private Dictionary<ItemTypes, ItemSO> equippedItems = new();
         private ItemEquiper _itemEquiper;
         private Transform _playerTransform;
         private Item.Factory _itemFactory;
@@ -31,15 +29,14 @@ namespace jbzd.MainHero.PlayerControllers
         public void Construct(Item.Factory factory)
         {
             _itemFactory = factory;
-            slots = new List<InventorySlot>();
-            for(int i = 0; i < 20; i++)
-            {
-                slots.Add(new InventorySlot());
-            }
         }
         
         private void Awake()
         {
+            for(int i = 0; i < 20; i++)
+            {
+                slots.Add(new InventorySlot());
+            }
             _itemEquiper = GetComponent<ItemEquiper>();
             _playerTransform = GetComponent<Transform>();
             AssignItemTypes();
@@ -128,20 +125,20 @@ namespace jbzd.MainHero.PlayerControllers
             var newItem = _itemFactory.Create(item.ItemPrefab);
             SceneManager.MoveGameObjectToScene(newItem.gameObject, SceneManager.GetActiveScene());
         }
-
+        
         public bool RemoveItem(ItemSO item, int numberOfItems = 1)
         {
             Debug.Log("item zabrany");
             
-            if (!ContainsItem(item, out List<InventorySlot> invSlots) || invSlots.Sum(x=>x.StackSize) < numberOfItems)
+            if (!ContainsItem(item, out var invSlots) || invSlots.Sum(x=>x.StackSize) < numberOfItems)
             {
                 Debug.LogWarning("Błąd przy usuwaniu itema z inventory - możliwe, że gracz go nie posiada");
                 return false;
             }
 
-            foreach (InventorySlot slot in invSlots)
+            foreach (var slot in invSlots)
             {
-                int leftNumberOfItems = slot.RemoveFromStack(numberOfItems);
+                var leftNumberOfItems = slot.RemoveFromStack(numberOfItems);
                 if (leftNumberOfItems <= 0) break;                
             }
 

@@ -32,13 +32,7 @@ namespace jbzd.UI.Inventory
         {
             if (transform.childCount > 0)
             {
-                if (itemInfo != null)
-                {
-                    itemInfo.onSlotChanged -= RemoveItem;
-                }
-
                 Destroy(transform.GetChild(0).gameObject);
-
             }
 
             if (item != null)
@@ -46,13 +40,11 @@ namespace jbzd.UI.Inventory
                 GameObject inventoryItemGO = Instantiate(_inventoryItemPrefab, transform);
                 itemInfo = inventoryItemGO.GetComponent<InventoryItemUI>();
                 itemInfo.ShowItem(item, stackSize);
-                itemInfo.onSlotChanged += RemoveItem;
             }
         }
 
         public void RemoveItem()
         {
-            itemInfo.onSlotChanged -= RemoveItem;
             if(_isEquippable)
                 _inventoryController.UnequipItem(itemInfo.item);
             else
@@ -73,8 +65,8 @@ namespace jbzd.UI.Inventory
                 }
                 else
                     _inventorySlot.UpdateInventorySlot(itemInfo.item, itemInfo.stackSize);
-
-                itemInfo.ChangeParent(transform);
+                
+                itemInfo.transform.SetParent(transform);
             }
         }
        

@@ -12,11 +12,8 @@ namespace jbzd.UI.Inventory
         public int stackSize;
         public Image image;
 
-        private Transform _parentAfterDrag;
-
-        public delegate void OnSlotChanged();
-        public event  OnSlotChanged onSlotChanged;
-
+        private InventorySlotUI _draggedFrom;
+        
         public void Awake() 
         {
             image = GetComponent<Image>();    
@@ -33,8 +30,8 @@ namespace jbzd.UI.Inventory
 
         public void OnBeginDrag(PointerEventData eventData)
         {
+            _draggedFrom = transform.parent.GetComponent<InventorySlotUI>();
             image.raycastTarget = false;
-            _parentAfterDrag = transform.parent;
             transform.SetParent(transform.parent.parent);
             transform.SetAsLastSibling();
         }
@@ -47,13 +44,7 @@ namespace jbzd.UI.Inventory
         public void OnEndDrag(PointerEventData eventData)
         {
             image.raycastTarget = true;
-            transform.SetParent(_parentAfterDrag);
-        }
-
-        public void ChangeParent(Transform newParent)
-        {
-            _parentAfterDrag = newParent;
-            onSlotChanged?.Invoke();
+            _draggedFrom.RemoveItem();
         }
     }
 }

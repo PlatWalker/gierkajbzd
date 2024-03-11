@@ -11,7 +11,7 @@ namespace jbzd.UI.Inventory
     public class InventoryUIController : UserInterfaceController
     {
         private PlayerManager _playerManager;
-        [SerializeField] private InventoryController _inventoryController;
+        private InventoryController _inventoryController;
         [SerializeField] private Transform _slotsContainer;
         [SerializeField] private Transform _equippedContainer;
         [SerializeField] private GameObject _slotPrefab;
@@ -27,8 +27,15 @@ namespace jbzd.UI.Inventory
 
         public void Awake()
         {
-            for (int i = 0; i < _inventoryController.Slots.Count; i++) 
+            _inventoryController = _playerManager.GetPlayerController<InventoryController>();
+            for (int i = 0; i < _inventoryController.slots.Count; i++)
             {
+                while  (_slotPrefab.name.Length > 0 && char.IsDigit(_slotPrefab.name[^1]))
+                {
+                    _slotPrefab.name = _slotPrefab.name.Remove(_slotPrefab.name.Length - 1);
+                }
+
+                _slotPrefab.name += i;
                 _slotsUI.Add(Instantiate(_slotPrefab, _slotsContainer).GetComponent<InventorySlotUI>());
             }
 
@@ -42,15 +49,15 @@ namespace jbzd.UI.Inventory
         {
             int i;
 
-            for (i = 0; i < _inventoryController.Slots.Count; i++)
+            for (i = 0; i < _inventoryController.slots.Count; i++)
             {
-                _slotsUI[i].GetComponent<InventorySlotUI>().ShowSlot(_inventoryController.Slots[i]);
+                _slotsUI[i].ShowSlot(_inventoryController.slots[i]);
             }
             i--;
             foreach(var equipment in _inventoryController.EquippedItems)
             {
                 
-                _slotsUI[++i].GetComponent<InventorySlotUI>().ShowSlot(equipment.Value, _inventoryController);
+                _slotsUI[++i].ShowSlot(equipment.Value, _inventoryController);
             }
         }
 

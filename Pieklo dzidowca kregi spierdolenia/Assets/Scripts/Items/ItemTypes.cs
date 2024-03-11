@@ -8,6 +8,7 @@ namespace jbzd.Items
         BootsArmor,
         Weapon,
         OffHandItem,
-        Consumable
+        Consumable,
+        QuestItem
     }
 }

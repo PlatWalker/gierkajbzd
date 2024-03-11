@@ -55,7 +55,7 @@ namespace jbzd.Items
         public int RemoveFromStack(int amount)
         {
             stackSize -= amount;
-            if (stackSize < 0)
+            if (stackSize <= 0)
             {
                 ClearSlot();
                 return -stackSize;

@@ -1,3 +1,4 @@
+using System;
 using jbzd.MainHero;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -5,6 +6,7 @@ using Zenject;
 
 namespace jbzd.Scenes.Scenes_Changing__Obsolete_
 {
+    [Obsolete]
     public class BlackSceneTrigger : MonoBehaviour
     {
         [SerializeField] private string _sceneToUnload;
@@ -27,7 +29,7 @@ namespace jbzd.Scenes.Scenes_Changing__Obsolete_
 
         private void OnTriggerEnter(Collider other)
         {
-            GameManager.Instance.UIControllerInstance.ScreenFadeOut();
+            //GameManager.Instance.UIControllerInstance.ScreenFadeOut();
             var a = SceneManager.UnloadSceneAsync(_sceneToUnload);
             a.completed += LoadScene;
         }
@@ -36,7 +38,7 @@ namespace jbzd.Scenes.Scenes_Changing__Obsolete_
         {
             SceneManager.LoadScene(_sceneToLoad, LoadSceneMode.Additive);
             GetComponent<Collider>().enabled = false;
-            GameManager.Instance.UIControllerInstance.ScreenFadeIn();
+            //GameManager.Instance.UIControllerInstance.ScreenFadeIn();
 
             if (_playerPlacementOnLoadedScene != default)
             {
