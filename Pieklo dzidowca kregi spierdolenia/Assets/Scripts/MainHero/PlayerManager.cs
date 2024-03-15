@@ -222,7 +222,8 @@ namespace jbzd.MainHero
             playerState = GetStateLogicObjectForCurrentPlayerState().StateLogicForUpdate();
 
             //Synchronising running animation with character speed
-            CharacterAnimator.SetFloat(PlayerStringAnimParam.RunSpeed, Rb.velocity.magnitude);
+            var runningSpeed = new Vector3(Rb.velocity.x, 0f, Rb.velocity.z).magnitude;
+            CharacterAnimator.SetFloat(PlayerStringAnimParam.RunSpeed, runningSpeed);
         }
 
         private void LateUpdate()
