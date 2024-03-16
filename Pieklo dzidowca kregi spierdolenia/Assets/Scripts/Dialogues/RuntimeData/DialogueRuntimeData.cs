@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using jbzd.Common.RunnerThing;
 using jbzd.UI;
+using jbzd.UI.Dialogues;
 using UnityEngine;
 
 namespace jbzd.Dialogues.RuntimeData

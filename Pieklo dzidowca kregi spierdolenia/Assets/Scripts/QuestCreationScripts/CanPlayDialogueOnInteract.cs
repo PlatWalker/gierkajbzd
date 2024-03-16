@@ -5,6 +5,7 @@ using jbzd.Dialogues.RuntimeData;
 using jbzd.QuestSystem;
 using jbzd.QuestSystem.QuestStructureElements;
 using jbzd.UI;
+using jbzd.UI.Dialogues;
 using UnityEngine;
 using Zenject;
 

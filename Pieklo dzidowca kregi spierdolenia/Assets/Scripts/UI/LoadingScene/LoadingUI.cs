@@ -1,7 +1,7 @@
 using jbzd.Common;
 using UnityEngine;
 
-namespace jbzd
+namespace jbzd.UI.LoadingScene
 {
     public class LoadingUI : MonoBehaviour
     {

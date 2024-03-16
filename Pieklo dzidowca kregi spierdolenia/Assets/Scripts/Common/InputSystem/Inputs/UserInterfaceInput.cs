@@ -8,7 +8,6 @@ namespace jbzd.Common.InputSystem.Inputs
     {
         public event ClickNotify OnInventoryOpened;
         public event ClickNotify OnQuestLogOpened;
-        public event ClickNotify OnPlayerMenuOpened;
         public event ClickNotify OnInGameMenuOpened;
         public event ClickNotify OnEscapeClick;
         public event ClickNotify OnQuickSaveClick;
@@ -27,11 +26,6 @@ namespace jbzd.Common.InputSystem.Inputs
                 {
                     KeyMapping = KeyMapping.QuestLog,
                     Action = () => OnQuestLogOpened?.Invoke()
-                },
-                new()
-                {
-                    KeyMapping = KeyMapping.PlayerMenu,
-                    Action = () => OnPlayerMenuOpened?.Invoke()
                 },
                 new()
                 {
@@ -55,6 +49,6 @@ namespace jbzd.Common.InputSystem.Inputs
                 }
             };
         }
-
+        
     }
 }

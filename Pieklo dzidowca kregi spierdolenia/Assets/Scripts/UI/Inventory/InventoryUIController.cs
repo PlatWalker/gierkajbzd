@@ -1,8 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using jbzd.Common;
 using jbzd.Common.InputSystem.Inputs;
 using jbzd.MainHero;
 using jbzd.MainHero.PlayerControllers;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -10,86 +12,64 @@ namespace jbzd.UI.Inventory
 {
     public class InventoryUIController : UserInterfaceController
     {
+        [SerializeField] 
+        private GameObject inventoryItemPrefab;
+        
         private PlayerManager _playerManager;
         private InventoryController _inventoryController;
-        [SerializeField] private Transform _slotsContainer;
-        [SerializeField] private Transform _equippedContainer;
-        [SerializeField] private GameObject _slotPrefab;
-        [SerializeField] private GameObject _inventoryItemPrefab;
-
         private List<InventorySlotUI> _slotsUI = new();
 
+        private bool _isFirstTimeAwoken = true;
+        
         [Inject]
         public void Construct(PlayerManager playerManager)
         {
             _playerManager = playerManager;
         }
 
-        public void Awake()
+        public void OnEnable()
         {
-            _inventoryController = _playerManager.GetPlayerController<InventoryController>();
-            for (int i = 0; i < _inventoryController.slots.Count; i++)
+            if (_isFirstTimeAwoken) Init();
+                
+            foreach (var slotUI in _slotsUI)
             {
-                while  (_slotPrefab.name.Length > 0 && char.IsDigit(_slotPrefab.name[^1]))
-                {
-                    _slotPrefab.name = _slotPrefab.name.Remove(_slotPrefab.name.Length - 1);
-                }
-
-                _slotPrefab.name += i;
-                _slotsUI.Add(Instantiate(_slotPrefab, _slotsContainer).GetComponent<InventorySlotUI>());
-            }
-
-            for (int i = 0; i < 6; i++)
-            {
-                _slotsUI.Add(Instantiate(_slotPrefab, _equippedContainer).GetComponent<InventorySlotUI>());
+                slotUI.UpdateContentOfSlot();
             }
         }
 
-        private void PrepareItemsGrid()
+        private void Init()
         {
+            _isFirstTimeAwoken = false;
+            
+            _inventoryController = _playerManager.GetPlayerController<InventoryController>();
+            _slotsUI = GetComponentsInChildren<InventorySlotUI>().ToList();
+            
             int i;
 
             for (i = 0; i < _inventoryController.slots.Count; i++)
             {
-                _slotsUI[i].ShowSlot(_inventoryController.slots[i]);
+                _slotsUI[i].Init(_inventoryController.slots[i], inventoryItemPrefab, _inventoryController, gameObject);
             }
             i--;
             foreach(var equipment in _inventoryController.EquippedItems)
             {
-                
-                _slotsUI[++i].ShowSlot(equipment.Value, _inventoryController);
+                _slotsUI[++i].Init(equipment, inventoryItemPrefab, _inventoryController, gameObject);
             }
         }
-
-        private void OnEscapeClick()
+        
+        /// <summary>
+        /// Use this method only when inventory is displayed
+        /// </summary>
+        public void SortBy(SortingType sortBy)
         {
-            _playerManager.CanPlayerMove = true;
-            gameObject.SetActive(false);
-        }
+            _inventoryController.SortBy(sortBy);
+            
+            int i;
 
-        private void OnInventoryOpened()
-        {
-            gameObject.SetActive(!gameObject.activeSelf);
-
-            if (gameObject.activeSelf)
+            for (i = 0; i < _inventoryController.slots.Count; i++)
             {
-                FreezeTime.Freeze();
-                _playerManager.CanPlayerMove = false;
-                PrepareItemsGrid();
-
+                _slotsUI[i].UpdateContentOfSlot(_inventoryController.slots[i]);
             }
-            else
-            {
-                FreezeTime.Unfreeze();
-                _playerManager.CanPlayerMove = true;
-            }
-
-        }
-
-        public override void ConnectInputToHandler(UserInterfaceInput input)
-        {
-            input.OnEscapeClick += OnEscapeClick;
-            input.OnInventoryOpened += OnInventoryOpened;
         }
 
         public override bool InitialActivationState() => false;

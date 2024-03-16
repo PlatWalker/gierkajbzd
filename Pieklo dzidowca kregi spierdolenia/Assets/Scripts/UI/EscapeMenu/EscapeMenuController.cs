@@ -1,55 +1,25 @@
-﻿using jbzd.Common.InputSystem;
-using jbzd.Common.InputSystem.Inputs;
+﻿using System;
+using jbzd.Common;
 using jbzd.MainHero;
+using jbzd.Scenes.SceneLoader;
 using UnityEngine.SceneManagement;
-using UnityEngine;
 using Zenject;
 
-namespace jbzd.UI.InGameMenu
+namespace jbzd.UI.EscapeMenu
 {
     public class EscapeMenuController : UserInterfaceController
     {
-        public override void ConnectInputToHandler(UserInterfaceInput input)
-        {
-            input.OnEscapeClick += ShowOrHideMenu;
-            
-        }
-        public override bool InitialActivationState() => true;
+        public override bool InitialActivationState() => false;
         
-        [SerializeField]
-        private GameObject panel;
-
-        private float _savedTimeScale;
-
-        private UserInterfaceInput _inputController;
-
-        [Inject]
-        public void Construct(
-            PlayerManager playerController,
-            InputManager inputManager)
-        {
-            _inputController = inputManager.GetInput<UserInterfaceInput>();
-        }
-
         public void QuitToMainMenu()
         {
-            Time.timeScale = _savedTimeScale;
-            SceneManager.LoadScene(0);
-        }
-        public void ShowOrHideMenu()
-        {
-            if (panel.activeSelf)
-            {
-                Time.timeScale = _savedTimeScale;
-                panel.SetActive(false);
-            }
-            else
-            {
-                _savedTimeScale = Time.timeScale;
-                Time.timeScale = 0f;
-                panel.SetActive(true);
-            }
+            SceneManager.LoadScene(0, LoadSceneMode.Single);
         }
         
+        public void Resume()
+        {
+            gameObject.SetActive(false);
+            FreezeTime.Unfreeze();
+        }
     } 
 }

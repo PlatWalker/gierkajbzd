@@ -7,6 +7,7 @@ using jbzd.UI;
 using jbzd.MainHero;
 using jbzd.QuestSystem;
 using jbzd.SavingSystem;
+using jbzd.UI.LoadingScene;
 using UnityEngine;
 using Zenject;
 

@@ -2,6 +2,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using jbzd.MainHero;
+using jbzd.UI.LoadingScene;
+
 namespace jbzd.UI.MainMenu
 {
     public class MainMenu : MonoBehaviour

@@ -36,8 +36,6 @@ namespace jbzd.UI.Hud
 			_hpNumber.text = hpPercentage + " %";
 		}
 
-		public override void ConnectInputToHandler(UserInterfaceInput input) { }
-
 		public override bool InitialActivationState() => true;
 	} 
 }

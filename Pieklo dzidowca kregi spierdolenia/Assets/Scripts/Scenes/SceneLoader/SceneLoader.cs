@@ -4,6 +4,7 @@ using System.Linq;
 using jbzd.MainHero;
 using jbzd.Plugins.DropdownAttributes.Core.Scripts;
 using jbzd.Scenes.SceneLoader.ValueTypes;
+using jbzd.UI.LoadingScene;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;

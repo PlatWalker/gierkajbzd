@@ -6,7 +6,6 @@ using jbzd.Dialogues;
 using jbzd.Dialogues.Barks;
 using jbzd.Dialogues.RuntimeData;
 using jbzd.UI;
-using jbzd.UI.PlayerMenu;
 using jbzd.MainHero;
 using UnityEngine;
 using Zenject;
