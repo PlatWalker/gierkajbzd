@@ -151,14 +151,11 @@ public class GrowPokrzywa : ActionNode
             
             if(!blackboard.isInvincible){
                 _numberOfSons++;
-                GameObject newOne = GameObject.Instantiate(blackboard.Prefab, context.transform.position, context.transform.rotation);
-                PokrzywaController newOneController = newOne.GetComponent<PokrzywaController>();
-                if(newOne.GetComponent<Actor>() != null){
-                    newOne.GetComponent<Actor>().enabled = false;
-                }
+                var newOne = GameObject.Instantiate(blackboard.Prefab, context.transform.position, context.transform.rotation);
+                var newOneController = newOne.GetComponent<PokrzywaController>();
                 newOneController.isMother = false;
                 newOneController.OnDeath += OnSonsDeath;
-                
+                newOneController.Construct(blackboard._playerManager);
                 Sons.Add(newOneController);
 
                 newOne.gameObject.transform.Rotate(0f, Random.Range(-180f, 180f), 0f);

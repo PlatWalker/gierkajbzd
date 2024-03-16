@@ -54,6 +54,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1348671233878068824
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,6 +108,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2095786997456080109
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,6 +239,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3956801776636670864
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,6 +252,7 @@ GameObject:
   - component: {fileID: 680981272516455126}
   - component: {fileID: 1669726558335043724}
   - component: {fileID: 6836139227365066431}
+  - component: {fileID: 3935818857220694521}
   m_Layer: 0
   m_Name: Cutscene_main
   m_TagString: Untagged
@@ -472,6 +476,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &3935818857220694521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3956801776636670864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b9dc46fb7e9468a8eb3f5cb5a48183e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5659281083615425099
 GameObject:
   m_ObjectHideFlags: 0
@@ -5395,6 +5411,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7449201569029712569
 GameObject:
   m_ObjectHideFlags: 0
