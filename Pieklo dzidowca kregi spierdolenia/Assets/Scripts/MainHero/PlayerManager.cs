@@ -138,14 +138,17 @@ namespace jbzd.MainHero
         private List<IPlayerController> _playerControllers;
         private Vector3 _newPositionVector;
 
+        private CutscenesManager _cutscenesManager;
+
         #endregion
 
         [Inject]
         public void Construct(InputManager inputManager, CutscenesManager cutscenesManager)
         {
             _playerInput = inputManager.GetInput<PlayerInput>();
-            cutscenesManager.OnCutsceneStarted += Dissapear;
-            cutscenesManager.OnCutsceneEnded += Reappear;
+            _cutscenesManager = cutscenesManager;
+            _cutscenesManager.OnCutsceneStarted += Dissapear;
+            _cutscenesManager.OnCutsceneEnded += Reappear;
         }
 
         public void Awake()
@@ -296,6 +299,12 @@ namespace jbzd.MainHero
             {
                 skinnedMeshRenderer.enabled = true;
             }
+        }
+
+        public void OnDestroy()
+        {
+            _cutscenesManager.OnCutsceneStarted -= Dissapear;
+            _cutscenesManager.OnCutsceneEnded -= Reappear;
         }
 
     } 
