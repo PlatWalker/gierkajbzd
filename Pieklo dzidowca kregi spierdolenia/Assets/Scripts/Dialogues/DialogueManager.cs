@@ -28,7 +28,9 @@ namespace jbzd.Dialogues
             _factory = runnerFactory;
         }
 
-        [Obsolete("Use StartDialogue from DialogueUIController")]
+        /// <summary>
+        /// Method used by UI controller. If you want to open dialogue window use DialogueUIController.StartDialogue
+        /// </summary>
         public void StartDialogue(ContainerSO data)
         {
             if(_isDialogueRunning){

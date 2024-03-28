@@ -7,6 +7,8 @@ using jbzd.Cutscenes;
 using jbzd.Dialogues;
 using jbzd.SavingSystem;
 using jbzd.SavingSystem.SaveData;
+using jbzd.UI;
+using jbzd.UI.Dialogues;
 using UnityEngine;
 using Zenject;
 
@@ -29,7 +31,7 @@ namespace jbzd.QuestSystem.QuestStructureElements
         private QuestManager _questManager;
         private RunnerFactory _runnerFactory;
         private CutscenesManager _cutscenesManager;
-        private DialogueManager _dialogueManager;
+        private DialogueUIController _dialogueController;
 
         #region Quest Tracker Variables
 
@@ -77,12 +79,12 @@ namespace jbzd.QuestSystem.QuestStructureElements
             QuestManager questManager,
             RunnerFactory runnerFactory,
             CutscenesManager cutscenesManager,
-            DialogueManager dialogueManager)
+            UserInterfaceManager uiManager)
         {
             _questManager = questManager;
             _runnerFactory = runnerFactory;
             _cutscenesManager = cutscenesManager;
-            _dialogueManager = dialogueManager;
+            _dialogueController = uiManager.GetUIController<DialogueUIController>();
         }
 
         private void Awake()
@@ -155,7 +157,7 @@ namespace jbzd.QuestSystem.QuestStructureElements
             if (passedGoal.DialogueToStartOnGoalComplete is not null &&
                 passedGoal.GoalEndCondition(this, actorsInPassedGoal))
             {
-                _dialogueManager.StartDialogue(passedGoal.DialogueToStartOnGoalComplete);
+                _dialogueController.StartDialogue(passedGoal.DialogueToStartOnGoalComplete);
             }
         }
 

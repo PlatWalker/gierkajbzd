@@ -4,6 +4,8 @@ using jbzd.Common.RunnerThing;
 using jbzd.Dialogues;
 using jbzd.Enemies;
 using jbzd.QuestSystem.QuestStructureElements;
+using jbzd.UI;
+using jbzd.UI.Dialogues;
 using jbzdy.Enemies;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -15,9 +17,10 @@ namespace jbzd.QuestSystem.Goals
     {
         [RunMethod]
         [UsedImplicitly]
-        public void ExecuteGoalScenario(List<Actor> actors, Quest questWithThisGoal, DialogueManager dialogueManager)
+        public void ExecuteGoalScenario(List<Actor> actors, Quest questWithThisGoal, UserInterfaceManager uiManager)
         {
             var enemiesControllers= GetComponentFromActorsList<EnemyController>(actors);
+            var dialogueController = uiManager.GetUIController<DialogueUIController>();
 
             foreach (var enemyController in enemiesControllers)
             {
@@ -31,7 +34,7 @@ namespace jbzd.QuestSystem.Goals
                     if (DialogueToStartOnGoalComplete is not null &&
                         GoalEndCondition(questWithThisGoal, actors))
                     {
-                        dialogueManager.StartDialogue(DialogueToStartOnGoalComplete);
+                        dialogueController.StartDialogue(DialogueToStartOnGoalComplete);
                     }
                     
                 };
@@ -51,7 +54,7 @@ namespace jbzd.QuestSystem.Goals
                     if (DialogueToStartOnGoalComplete is not null &&
                         GoalEndCondition(questWithThisGoal, actors))
                     {
-                        dialogueManager.StartDialogue(DialogueToStartOnGoalComplete);
+                        dialogueController.StartDialogue(DialogueToStartOnGoalComplete);
                     }
                 };
             }

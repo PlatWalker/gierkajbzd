@@ -3,6 +3,8 @@ using jbzd.Dialogues;
 using jbzd.Dialogues.RuntimeData;
 using jbzd.QuestSystem;
 using jbzd.QuestSystem.QuestStructureElements;
+using jbzd.UI;
+using jbzd.UI.Dialogues;
 using UnityEngine;
 using Zenject;
 
@@ -12,16 +14,16 @@ namespace jbzd.QuestCreationScripts
     {
 
         [SerializeField] private ContainerSO dialogueToPlay;
-        private DialogueManager _dialogueManager;
+        private DialogueUIController _dialogueController;
         private QuestManager _questManager;
         [SerializeField] private TaskSO taskToCheck;
         [SerializeField][JbzdReadOnly] private bool wasTriggered;
 
         [Inject]
-        public void Construct(DialogueManager dialogue, QuestManager questManager)
+        public void Construct(UserInterfaceManager uiManager, QuestManager questManager)
         {
 
-            _dialogueManager = dialogue;
+            _dialogueController = uiManager.GetUIController<DialogueUIController>();
             _questManager = questManager;
         }
 
@@ -33,7 +35,7 @@ namespace jbzd.QuestCreationScripts
                 {
                     continue;
                 }
-                _dialogueManager.StartDialogue(dialogueToPlay);
+                _dialogueController.StartDialogue(dialogueToPlay);
                 wasTriggered = true;
             }
         }

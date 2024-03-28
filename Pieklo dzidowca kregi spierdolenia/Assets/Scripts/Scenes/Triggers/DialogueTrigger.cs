@@ -4,6 +4,8 @@ using jbzd.Dialogues;
 using jbzd.Dialogues.RuntimeData;
 using jbzd.SavingSystem;
 using jbzd.SavingSystem.SaveData;
+using jbzd.UI;
+using jbzd.UI.Dialogues;
 using UnityEngine;
 using Zenject;
 
@@ -14,13 +16,13 @@ namespace jbzd.Scenes.Triggers
     {
         public ContainerSO dialogueToStart;
         public bool wasTriggered;
-        
-        private DialogueManager _dialogueManager;
-        
+
+        private DialogueUIController _dialogueController;
+
         [Inject]
-        public void Constructor(DialogueManager dialogueManager)
+        public void Constructor(UserInterfaceManager uiManager)
         {
-            _dialogueManager = dialogueManager;
+            _dialogueController = uiManager.GetUIController<DialogueUIController>();
         }
         
         public void OnTriggerEnter(Collider other)
@@ -28,7 +30,7 @@ namespace jbzd.Scenes.Triggers
             if (wasTriggered) return;
             
             wasTriggered = true;
-            _dialogueManager.StartDialogue(dialogueToStart);
+            _dialogueController.StartDialogue(dialogueToStart);
 
         }
 

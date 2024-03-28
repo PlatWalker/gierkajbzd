@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using jbzd.Dialogues;
 using jbzd.Dialogues.RuntimeData;
+using jbzd.UI;
+using jbzd.UI.Dialogues;
 using UnityEngine;
 using UnityEngine.Playables;
 using Zenject;
@@ -14,11 +14,13 @@ namespace jbzd.QuestCreationScripts
         [SerializeField] private ContainerSO data;
         
         private DialogueManager _manager;
+        private DialogueUIController _controller;
         
         [Inject]
-        public void Construct(DialogueManager manager)
+        public void Construct(DialogueManager manager, UserInterfaceManager uiManager)
         {
             _manager = manager;
+            _controller = uiManager.GetUIController<DialogueUIController>();
         }
         private void Start()
         {
@@ -30,7 +32,7 @@ namespace jbzd.QuestCreationScripts
         {
             if (data != null)
             {
-                _manager.StartDialogue(data);
+                _controller.StartDialogue(data);
             }
             
         }
