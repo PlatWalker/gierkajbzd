@@ -48,9 +48,9 @@ namespace jbzd.UI.Inventory
 
         public void UpdateContentOfSlot(InventorySlot newSlot = null)
         {
-            if (transform.childCount > 0)
+            if (transform.childCount > 1)
             {
-                Destroy(transform.GetChild(0).gameObject);
+                Destroy(transform.GetChild(1).gameObject);
             }
 
             if (IsEquippable && _equippedItem?.Value is null)

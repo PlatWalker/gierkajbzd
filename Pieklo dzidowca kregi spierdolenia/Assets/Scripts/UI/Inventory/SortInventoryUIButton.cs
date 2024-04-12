@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace jbzd.UI.Inventory
 {
@@ -7,6 +8,9 @@ namespace jbzd.UI.Inventory
     {
         [SerializeField]
         private SortingType sortingType;
+
+        [SerializeField]
+        private Sprite SortingLabelActivatedSprite;
         
         private InventoryUIController _inventoryUIController;
 
@@ -18,6 +22,7 @@ namespace jbzd.UI.Inventory
         public void OnPointerClick(PointerEventData eventData)
         {
             _inventoryUIController.SortBy(sortingType);
+            gameObject.transform.parent.GetComponent<Image>().sprite = SortingLabelActivatedSprite;
         }
     }
 }
