@@ -31,7 +31,6 @@ namespace jbzd.QuestSystem
         {
             Debug.Log($"Quest {questToStart.name} started");
             ActiveQuests.Add(questToStart);
-            OnQuestActivation?.Invoke(questToStart);
             
             if (questToStart.QuestData.Tasks.Count == 0)
             {
@@ -42,6 +41,8 @@ namespace jbzd.QuestSystem
             Invoke(nameof(DeactivateQuestStartedCanvas), 3f);
             
             questToStart.ActiveTask = questToStart.QuestData.Tasks.First(task => task.Order == 0);
+            
+            OnQuestActivation?.Invoke(questToStart);
         }
 
         public void EndQuest(Quest questToEnd)
