@@ -72,11 +72,16 @@ namespace jbzd.MainHero.PlayerStateLogic
         
         private void UpdateCharacterPosition()
         {
+            var forwardVector = new Vector3(-1,0,1);
+            var backVector = new Vector3(1,0,-1);
+            var leftVector = new Vector3(-1,0,-1);
+            var rightVector = new Vector3(1,0,1);
+            
             _movementVector = Vector3.zero;
-            _movementVector += Vector3.forward * Convert.ToInt32(_playerInput.movementInputStatus.Up);
-            _movementVector += Vector3.back * Convert.ToInt32(_playerInput.movementInputStatus.Down);
-            _movementVector += Vector3.left * Convert.ToInt32(_playerInput.movementInputStatus.Left);
-            _movementVector += Vector3.right * Convert.ToInt32(_playerInput.movementInputStatus.Right);
+            _movementVector += forwardVector * Convert.ToInt32(_playerInput.movementInputStatus.Up);
+            _movementVector += backVector * Convert.ToInt32(_playerInput.movementInputStatus.Down);
+            _movementVector += leftVector * Convert.ToInt32(_playerInput.movementInputStatus.Left);
+            _movementVector += rightVector * Convert.ToInt32(_playerInput.movementInputStatus.Right);
 
             _playerManager.Rb.AddForce(_movementVector.normalized * _playerManager.PlayerSpeed, ForceMode.VelocityChange);
         }
