@@ -9,7 +9,6 @@ using Zenject;
 using jbzd.MainHero;
 using jbzd.MainHero.PlayerControllers;
 using jbzd.Items;
-using static UnityEditor.Progress;
 
 namespace jbzd
 {
