@@ -1,0 +1,411 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f11fe004dc9fa840b00475bd6c81ba8, type: 3}
+  m_Name: AkWwiseProjectData
+  m_EditorClassIdentifier: 
+  AcousticTextureWwu:
+  - PhysicalPath: Virtual Acoustics\Default Work Unit.wwu
+    PathAndIcons:
+    - ElementName: Virtual Acoustics
+      ObjectType: 5
+      guid: 00000000000000000000000000000000
+    - ElementName: Default Work Unit
+      ObjectType: 12
+      guid: e113deb66ad5344dbdd40c4be81ff5ee
+    ParentPath: Virtual Acoustics\Default Work Unit
+    guid: e113deb66ad5344dbdd40c4be81ff5ee
+    GuidInternal: 
+    m_lastTime: -8585013435262670805
+    List: []
+  AuxBusWwu:
+  - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
+    PathAndIcons:
+    - ElementName: Master-Mixer Hierarchy
+      ObjectType: 5
+      guid: 00000000000000000000000000000000
+    - ElementName: Default Work Unit
+      ObjectType: 12
+      guid: 2097ccd12fcffd47a4409500776a50f1
+    ParentPath: Master-Mixer Hierarchy\Default Work Unit
+    guid: 2097ccd12fcffd47a4409500776a50f1
+    GuidInternal: 
+    m_lastTime: -8585013435262097901
+    List:
+    - name: Master Audio Bus
+      guid: d8a41415a61d2a41a17e75ca0c2149f3
+      id: 3803692087
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 2097ccd12fcffd47a4409500776a50f1
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus
+  BankWwu:
+  - PhysicalPath: SoundBanks\Default Work Unit.wwu
+    PathAndIcons:
+    - ElementName: SoundBanks
+      ObjectType: 5
+      guid: 00000000000000000000000000000000
+    - ElementName: Default Work Unit
+      ObjectType: 12
+      guid: 159c58abfcd63e41b91d15449fd1b68b
+    ParentPath: SoundBanks\Default Work Unit
+    guid: 159c58abfcd63e41b91d15449fd1b68b
+    GuidInternal: 
+    m_lastTime: -8584951488959810863
+    List:
+    - name: Poziom_1
+      guid: 6531d2b8c6f323458a5c80dbc24e4da6
+      id: 191353905
+      PathAndIcons:
+      - ElementName: SoundBanks
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 159c58abfcd63e41b91d15449fd1b68b
+      - ElementName: Poziom_1
+        ObjectType: 7
+        guid: 6531d2b8c6f323458a5c80dbc24e4da6
+      Path: SoundBanks\Default Work Unit\Poziom_1
+  - PhysicalPath: SoundBanks\Poziom_pierwszy.wwu
+    PathAndIcons:
+    - ElementName: SoundBanks
+      ObjectType: 5
+      guid: 00000000000000000000000000000000
+    - ElementName: Poziom_pierwszy
+      ObjectType: 12
+      guid: ac326a5b9729ac4db89bf8d3b6843c52
+    ParentPath: SoundBanks\Poziom_pierwszy
+    guid: ac326a5b9729ac4db89bf8d3b6843c52
+    GuidInternal: 
+    m_lastTime: -8585011992874315388
+    List: []
+  EventWwu:
+  - PhysicalPath: Events\Default Work Unit.wwu
+    PathAndIcons:
+    - ElementName: Events
+      ObjectType: 5
+      guid: 00000000000000000000000000000000
+    - ElementName: Default Work Unit
+      ObjectType: 12
+      guid: 0936d81fde74e5419882308bbea417f1
+    ParentPath: Events\Default Work Unit
+    guid: 0936d81fde74e5419882308bbea417f1
+    GuidInternal: 
+    m_lastTime: -8584951488959720848
+    List:
+    - name: Ataki_bohatera
+      guid: ae10b41800b4c343951d9acf455594a5
+      id: 360453464
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 0936d81fde74e5419882308bbea417f1
+      - ElementName: Ataki_bohatera
+        ObjectType: 3
+        guid: ae10b41800b4c343951d9acf455594a5
+      Path: Events\Default Work Unit\Ataki_bohatera
+      maxAttenuation: 0
+      maxDuration: 1.7125521
+      minDuration: 1.4431562
+    - name: Drzewo
+      guid: 0d91c828c07c5e4083e552354b3f3a6b
+      id: 1063916486
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 0936d81fde74e5419882308bbea417f1
+      - ElementName: Drzewo
+        ObjectType: 3
+        guid: 0d91c828c07c5e4083e552354b3f3a6b
+      Path: Events\Default Work Unit\Drzewo
+      maxAttenuation: 25
+      maxDuration: 166.3204
+      minDuration: 166.3204
+    - name: Generyczny_atak
+      guid: 07e26fb56c4b9f429d538dc7152840a9
+      id: 4146123059
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 0936d81fde74e5419882308bbea417f1
+      - ElementName: Generyczny_atak
+        ObjectType: 3
+        guid: 07e26fb56c4b9f429d538dc7152840a9
+      Path: Events\Default Work Unit\Generyczny_atak
+      maxAttenuation: 0
+      maxDuration: 0.229161
+      minDuration: 0.1380272
+    - name: Gowniak_atak
+      guid: a2dcfc5a56665b49b9c4ea5c241e5330
+      id: 2062329039
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 0936d81fde74e5419882308bbea417f1
+      - ElementName: Gowniak_atak
+        ObjectType: 3
+        guid: a2dcfc5a56665b49b9c4ea5c241e5330
+      Path: Events\Default Work Unit\Gowniak_atak
+      maxAttenuation: 0
+      maxDuration: 1.0875417
+      minDuration: 0.8763958
+    - name: Gowniak_otrzymanie_obrazen
+      guid: de7b9ab84c8b1243836d77f404518800
+      id: 2180549182
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 0936d81fde74e5419882308bbea417f1
+      - ElementName: Gowniak_otrzymanie_obrazen
+        ObjectType: 3
+        guid: de7b9ab84c8b1243836d77f404518800
+      Path: Events\Default Work Unit\Gowniak_otrzymanie_obrazen
+      maxAttenuation: 0
+      maxDuration: 6.773375
+      minDuration: 2.5153542
+    - name: Gowniak_smierc
+      guid: 5c00d5219c6db14f87f3536d2440fb55
+      id: 3378031631
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 0936d81fde74e5419882308bbea417f1
+      - ElementName: Gowniak_smierc
+        ObjectType: 3
+        guid: 5c00d5219c6db14f87f3536d2440fb55
+      Path: Events\Default Work Unit\Gowniak_smierc
+      maxAttenuation: 0
+      maxDuration: 1.3198541
+      minDuration: 1.3198541
+    - name: Gowniak_triger
+      guid: 44057f007207dc4f805bb0afa3582792
+      id: 3458684007
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 0936d81fde74e5419882308bbea417f1
+      - ElementName: Gowniak_triger
+        ObjectType: 3
+        guid: 44057f007207dc4f805bb0afa3582792
+      Path: Events\Default Work Unit\Gowniak_triger
+      maxAttenuation: 0
+      maxDuration: 25.164562
+      minDuration: 13.726125
+    - name: Krok_krok
+      guid: 5e387786c0cfaa47954b025934c530a8
+      id: 849186578
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 0936d81fde74e5419882308bbea417f1
+      - ElementName: Krok_krok
+        ObjectType: 3
+        guid: 5e387786c0cfaa47954b025934c530a8
+      Path: Events\Default Work Unit\Krok_krok
+      maxAttenuation: 0
+      maxDuration: 0.904375
+      minDuration: 0.904375
+    - name: Play_Drzewa_szum
+      guid: 2dd807c7cdff934194b78e5c6a37ca1f
+      id: 831257323
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 0936d81fde74e5419882308bbea417f1
+      - ElementName: Play_Drzewa_szum
+        ObjectType: 3
+        guid: 2dd807c7cdff934194b78e5c6a37ca1f
+      Path: Events\Default Work Unit\Play_Drzewa_szum
+      maxAttenuation: 25
+      maxDuration: 72.6505
+      minDuration: 45.431625
+    - name: Play_Gymnop_die_No__1
+      guid: 7b150d826deb7843a434811fdff9baed
+      id: 194427908
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 0936d81fde74e5419882308bbea417f1
+      - ElementName: Play_Gymnop_die_No__1
+        ObjectType: 3
+        guid: 7b150d826deb7843a434811fdff9baed
+      Path: Events\Default Work Unit\Play_Gymnop_die_No__1
+      maxAttenuation: 0
+      maxDuration: 237.81879
+      minDuration: 237.81879
+    - name: Play_Miasto_szum
+      guid: 9191d4d4c7f95b489bb65bb2887cd01e
+      id: 180447167
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 0936d81fde74e5419882308bbea417f1
+      - ElementName: Play_Miasto_szum
+        ObjectType: 3
+        guid: 9191d4d4c7f95b489bb65bb2887cd01e
+      Path: Events\Default Work Unit\Play_Miasto_szum
+      maxAttenuation: 0
+      maxDuration: 172.59393
+      minDuration: 31.857792
+    - name: Rozpoczecie
+      guid: 930dd087e65e474a943cc12ab824192b
+      id: 2049907332
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 0936d81fde74e5419882308bbea417f1
+      - ElementName: Rozpoczecie
+        ObjectType: 3
+        guid: 930dd087e65e474a943cc12ab824192b
+      Path: Events\Default Work Unit\Rozpoczecie
+      maxAttenuation: 0
+      maxDuration: 0.75
+      minDuration: 0.75
+    - name: telewizor
+      guid: b27b5e2ad35c0f40bce534899866f79c
+      id: 1306134814
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 0936d81fde74e5419882308bbea417f1
+      - ElementName: telewizor
+        ObjectType: 3
+        guid: b27b5e2ad35c0f40bce534899866f79c
+      Path: Events\Default Work Unit\telewizor
+      maxAttenuation: 20
+      maxDuration: 492.35593
+      minDuration: 492.35593
+    - name: Triger_przeciwnik
+      guid: 360e68bfa4b25447bc7a2df6ec663194
+      id: 174824095
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 0936d81fde74e5419882308bbea417f1
+      - ElementName: Triger_przeciwnik
+        ObjectType: 3
+        guid: 360e68bfa4b25447bc7a2df6ec663194
+      Path: Events\Default Work Unit\Triger_przeciwnik
+      maxAttenuation: 0
+      maxDuration: 1.828
+      minDuration: 1.5586146
+  RtpcWwu:
+  - PhysicalPath: Game Parameters\Default Work Unit.wwu
+    PathAndIcons:
+    - ElementName: Game Parameters
+      ObjectType: 5
+      guid: 00000000000000000000000000000000
+    - ElementName: Default Work Unit
+      ObjectType: 12
+      guid: bc5881fd92f253428cdb6cf9ed6de707
+    ParentPath: Game Parameters\Default Work Unit
+    guid: bc5881fd92f253428cdb6cf9ed6de707
+    GuidInternal: 
+    m_lastTime: -8585013435262277943
+    List: []
+  StateWwu:
+  - PhysicalPath: States\Default Work Unit.wwu
+    PathAndIcons:
+    - ElementName: States
+      ObjectType: 5
+      guid: 00000000000000000000000000000000
+    - ElementName: Default Work Unit
+      ObjectType: 12
+      guid: b0233c52e3a48f4d8e8ec1bdb13c6701
+    ParentPath: States\Default Work Unit
+    guid: b0233c52e3a48f4d8e8ec1bdb13c6701
+    GuidInternal: 
+    m_lastTime: -8585013435261989607
+    List: []
+  SwitchWwu:
+  - PhysicalPath: Switches\Default Work Unit.wwu
+    PathAndIcons:
+    - ElementName: Switches
+      ObjectType: 5
+      guid: 00000000000000000000000000000000
+    - ElementName: Default Work Unit
+      ObjectType: 12
+      guid: 157c5a04e69dd4479b2372264a9a4d86
+    ParentPath: Switches\Default Work Unit
+    guid: 157c5a04e69dd4479b2372264a9a4d86
+    GuidInternal: 
+    m_lastTime: -8585013435262177921
+    List: []
+  TriggerWwu:
+  - PhysicalPath: Triggers\Default Work Unit.wwu
+    PathAndIcons:
+    - ElementName: Triggers
+      ObjectType: 5
+      guid: 00000000000000000000000000000000
+    - ElementName: Default Work Unit
+      ObjectType: 12
+      guid: 1716348b75140048a44bb04eda9c309a
+    ParentPath: Triggers\Default Work Unit
+    guid: 1716348b75140048a44bb04eda9c309a
+    GuidInternal: 
+    m_lastTime: -8585013435262443997
+    List: []
+  ExpandedFileSystemItemIds: 
+  ExpandedWaapiItemIds: 010000000500000006000000070000000c0000000d000000170000001800000019000000
+  AutoSyncSelection: 1
+  autoPopulateEnabled: 1
+  currentDataSource: 0
+  CurrentPluginConfig: 

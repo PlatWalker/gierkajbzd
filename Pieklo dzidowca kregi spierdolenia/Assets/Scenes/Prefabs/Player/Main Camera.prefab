@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5198764372267886385}
   - component: {fileID: 5198764372267886384}
-  - component: {fileID: 5198764372267886399}
   - component: {fileID: 5198764372267886386}
   - component: {fileID: 5198764372267886387}
   - component: {fileID: 5198764372267886388}
+  - component: {fileID: 4702830093991630725}
+  - component: {fileID: 4678907213584912230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -79,14 +80,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &5198764372267886399
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5198764372267886398}
-  m_Enabled: 1
 --- !u!114 &5198764372267886386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,3 +145,39 @@ MonoBehaviour:
   Size: 2
   transitionDuration: 2
   shaderToCompare: {fileID: -6465566751694194690, guid: bf89f2aae7d46bd498df815f551bcf38, type: 3}
+--- !u!114 &4702830093991630725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5198764372267886398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0126c901a678e8e4ab96272d10920ea1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_listeners:
+    initialListenerList: []
+    useDefaultListeners: 1
+  isEnvironmentAware: 0
+  isStaticObject: 0
+  m_positionOffsetData:
+    KeepMe: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+  m_posOffsetData: {fileID: 0}
+  listenerMask: 1
+--- !u!114 &4678907213584912230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5198764372267886398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c56e6a6d513a894dbeb1855f7423ac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDefaultListener: 1
+  listenerId: 0
