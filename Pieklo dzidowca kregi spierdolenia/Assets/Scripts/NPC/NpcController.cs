@@ -1,4 +1,5 @@
 using System;
+using jbzd.Cutscenes;
 using jbzd.Dialogues.RuntimeData;
 using jbzd.MainHero;
 using jbzd.QuestSystem.QuestStructureElements;
@@ -52,15 +53,17 @@ namespace jbzd.NPC
         public NavMeshAgent NpcAgent { get; private set; }
 
         private PlayerManager _playerManager;
+        private CutscenesManager _cutscenesManager;
         private int _currentWaypointIndex;
 
         [SerializeField] private Animator animator; 
 
 
         [Inject]
-        public void Constructor(PlayerManager playerManager)
+        public void Constructor(PlayerManager playerManager, CutscenesManager cutscenesManager)
         {
             _playerManager = playerManager;
+            _cutscenesManager = cutscenesManager;
         }
 
         public void Awake()
@@ -94,6 +97,33 @@ namespace jbzd.NPC
             }
         }
 
+        void Start()
+        {
+            _cutscenesManager.OnCutsceneStarted += OnCutsceneStarted;
+            _cutscenesManager.OnCutsceneEnded += OnCutsceneEnded;
+        }
         
+        void OnDestroy()
+        {
+            _cutscenesManager.OnCutsceneStarted -= OnCutsceneStarted;
+            _cutscenesManager.OnCutsceneEnded -= OnCutsceneEnded;
+        }
+        
+        private void OnCutsceneStarted()
+        {
+            if (NpcStates.FollowPlayer == NpcState)
+            {
+                NpcAgent.gameObject.transform.position = _playerManager.transform.position;
+                NpcAgent.gameObject.SetActive(false);
+            }
+        }
+
+        private void OnCutsceneEnded()
+        {
+            if (NpcStates.FollowPlayer == NpcState)
+            {
+                NpcAgent.gameObject.SetActive(true);
+            }
+        }
     }
 }
