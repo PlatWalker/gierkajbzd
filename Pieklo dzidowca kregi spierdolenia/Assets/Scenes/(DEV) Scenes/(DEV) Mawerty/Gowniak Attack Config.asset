@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7355cc0a056482348b1023c395f43cf2, type: 3}
+  m_Name: Gowniak Attack Config
+  m_EditorClassIdentifier: 
+  SensorRadius: 5
+  MeleeAttackRadius: 1.25
+  MeleeAttackCost: 1
+  AttackDelay: 1
+  damage: 20
+  criticalMultiplier: 0
+  criticalChance: 0
+  damageType: 1
+  AttackableLayerMask:
+    serializedVersion: 2
+    m_Bits: 1024

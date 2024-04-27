@@ -58,6 +58,25 @@ namespace jbzd.QuestSystem.Goals
                     }
                 };
             }
+
+            var enemiesControllers2 = GetComponentFromActorsList<EnemyBrain>(actors);
+
+            foreach (var enemyBrain in enemiesControllers2)
+            {
+                enemyBrain.OnDeath += _ =>
+                {
+                    Debug.Log($"Enemy {enemyBrain.gameObject} has died and goal {name} has registered it");
+                    var index = questWithThisGoal.GoalName.IndexOf(name);
+                    questWithThisGoal.GoalItemCollected[index] += 1;
+                    questWithThisGoal.CheckFinishCondition(this, actors);
+                    
+                    if (DialogueToStartOnGoalComplete is not null &&
+                        GoalEndCondition(questWithThisGoal, actors))
+                    {
+                        dialogueController.StartDialogue(DialogueToStartOnGoalComplete);
+                    }
+                };
+            }
         }
 
         public override bool GoalEndCondition(Quest questWithThisGoal, List<Actor> actors)
