@@ -14,11 +14,11 @@ namespace jbzd.UI.MainMenu
         private PlayerManager _playerManager;
         [SerializeField] private GameObject _fadeIn;
         [SerializeField] private GameObject _intro;
-        private Animation animation;
+        private Animation _animation;
 
         public void Start()
         {
-            animation = _fadeIn.GetComponent<Animation>();
+            _animation = _fadeIn.GetComponent<Animation>();
         }
 
         public void PlayGame()
@@ -32,7 +32,7 @@ namespace jbzd.UI.MainMenu
         private IEnumerator LoadScenesAndTeleportPlayer()
         {
             _fadeIn.SetActive(true);
-            animation.Play("FadeIn");
+            _animation.Play("FadeIn");
             yield return new WaitForSeconds(1);
             _intro.SetActive(true);
             _fadeIn.SetActive(true);
@@ -47,12 +47,12 @@ namespace jbzd.UI.MainMenu
             _playerManager.PlaceAt(teleportDestination.transform.position);
             
 
-            animation.Play("FadeIn");
+            _animation.Play("FadeIn");
             yield return new WaitForSeconds(1);
             Canvas.SetActive(false);
             _intro.SetActive(false);
             yield return new WaitForSeconds(1.5f);
-            yield return SceneManager.UnloadScene("(none) - (Main Menu) - (SingleLoad)");
+            yield return SceneManager.UnloadSceneAsync("(none) - (Main Menu) - (SingleLoad)");
         }
 
         public void QuitGame()

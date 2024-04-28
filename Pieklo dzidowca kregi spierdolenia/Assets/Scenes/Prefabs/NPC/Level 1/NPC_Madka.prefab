@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 4003098404605603288}
   - component: {fileID: 3321025905326491961}
   - component: {fileID: 1811653379747202358}
+  - component: {fileID: 1407802712}
+  - component: {fileID: 1046748606}
+  - component: {fileID: 1407802711}
   m_Layer: 0
   m_Name: NPC_Madka
   m_TagString: Untagged
@@ -42,7 +45,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4662216256205929440}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.24623215
   m_Height: 1.7923547
@@ -70,6 +73,48 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!65 &1407802712
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4662216256205929440}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 1, z: 3}
+  m_Center: {x: 0, y: 0.1193756, z: 0}
+--- !u!114 &1046748606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4662216256205929440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 991f69d1f126a8242953f1058fd435a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DialogueContainer: {fileID: 11400000, guid: e1ae701ef763c56468e7db9296dfa341, type: 2}
+  TaskOnWhichToTalk: {fileID: 11400000, guid: 1e31b8b22b0fd1d4eaa671dcb2241e44, type: 2}
+--- !u!114 &1407802711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4662216256205929440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0773b4136030464488d963d4ce11128f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  infoHeight: 5
+  infoText: 
+  <IsInRange>k__BackingField: 0
 --- !u!1001 &453416743935739760
 PrefabInstance:
   m_ObjectHideFlags: 0
