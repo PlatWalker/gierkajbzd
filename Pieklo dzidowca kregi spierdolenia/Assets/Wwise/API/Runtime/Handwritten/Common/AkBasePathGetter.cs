@@ -176,12 +176,12 @@ public partial class AkBasePathGetter
 
 		if (LogWarnings)
 		{
-			if (string.IsNullOrEmpty(SoundBankDest))
+			if (string.IsNullOrEmpty(SoundBankDest) && AkWwiseEditorSettings.Instance.WorkingWithoutWwiseProgram is false)
 			{
 				UnityEngine.Debug.LogWarning("WwiseUnity: The platform SoundBank subfolder within the Wwise project could not be found.");
 				return null;
 			}
-
+			
 			try
 			{
 				// Verify if there are banks in there

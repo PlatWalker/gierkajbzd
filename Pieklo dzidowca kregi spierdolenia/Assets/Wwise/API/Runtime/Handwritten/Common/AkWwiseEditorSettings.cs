@@ -33,6 +33,7 @@ public class WwiseSettings
 
 	public static bool Exists { get { return System.IO.File.Exists(Path); } }
 
+	public bool WorkingWithoutWwiseProgram = false;
 	public bool CopySoundBanksAsPreBuildStep = true;
 	public bool GenerateSoundBanksAsPreBuildStep = false;
 	public string SoundbankPath;
@@ -206,7 +207,7 @@ public class AkWwiseEditorSettings
 			public static UnityEngine.GUIContent SoundbankPath = new UnityEngine.GUIContent("SoundBanks Path*", "Location of the SoundBanks relative to (and within) the StreamingAssets folder.");
 			public static UnityEngine.GUIContent CopySoundBanksAsPreBuildStep = new UnityEngine.GUIContent("Copy SoundBanks at pre-Build step", "Copies the SoundBanks in the appropriate location for building and deployment. It is recommended to leave this box checked.");
 			public static UnityEngine.GUIContent GenerateSoundBanksAsPreBuildStep = new UnityEngine.GUIContent("Generate SoundBanks at pre-Build step", "Generates the SoundBanks before copying them during pre-Build step. It is recommended to leave this box unchecked if SoundBanks are generated on a specific build machine.");
-
+			public static UnityEngine.GUIContent WorkingWithoutWwiseProgram = new("Working Without Wwise Program","Inform wwise that you don't have wwise program, turn off some warnings and errors."); 
 #if AK_WWISE_ADDRESSABLES && UNITY_ADDRESSABLES
 			public static UnityEngine.GUIContent GeneratedSoundbankPath = new UnityEngine.GUIContent("Generated SoundBanks Path*", "Destination folder for generated SoundBanks. Changing this will update your wwise project settings");
 #endif
@@ -312,6 +313,14 @@ public class AkWwiseEditorSettings
 			var settings = Instance;
 
 			UnityEngine.GUILayout.Label(string.Format("Wwise v{0} Settings.", AkSoundEngine.WwiseVersion), Styles.Version);
+			UnityEngine.GUILayout.Label("Working without Wwise program", UnityEditor.EditorStyles.boldLabel);
+			using (new UnityEngine.GUILayout.HorizontalScope("box"))
+			{
+				settings.WorkingWithoutWwiseProgram = UnityEditor.EditorGUILayout.Toggle(Styles.WorkingWithoutWwiseProgram, settings.WorkingWithoutWwiseProgram);
+				UnityEngine.GUI.enabled = true;
+				if (UnityEditor.EditorGUI.EndChangeCheck())
+					changed = true;
+			}
 			UnityEngine.GUILayout.Label(Styles.WwiseProject, UnityEditor.EditorStyles.boldLabel);
 
 			using (new UnityEngine.GUILayout.HorizontalScope("box"))

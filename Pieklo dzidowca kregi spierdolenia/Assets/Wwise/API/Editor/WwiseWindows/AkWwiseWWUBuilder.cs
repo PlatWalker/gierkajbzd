@@ -98,7 +98,7 @@ public class AkWwiseWWUBuilder
 	{
 		try
 		{
-			if (string.IsNullOrEmpty(AkWwiseEditorSettings.Instance.WwiseProjectPath))
+			if (string.IsNullOrEmpty(AkWwiseEditorSettings.Instance.WwiseProjectPath) && AkWwiseEditorSettings.Instance.WorkingWithoutWwiseProgram == false)
 			{
 				UnityEngine.Debug.LogError("WwiseUnity: Wwise project needed to populate from Work Units. Aborting.");
 				return;

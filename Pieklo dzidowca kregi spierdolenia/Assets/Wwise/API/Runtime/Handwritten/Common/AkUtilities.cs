@@ -16,9 +16,11 @@ Copyright (c) 2023 Audiokinetic Inc.
 *******************************************************************************/
 
 #if !(UNITY_DASHBOARD_WIDGET || UNITY_WEBPLAYER || UNITY_WII || UNITY_WIIU || UNITY_NACL || UNITY_FLASH || UNITY_BLACKBERRY) // Disable under unsupported platforms.
+using System;
 using System.Linq;
 #if UNITY_EDITOR
 using UnityEditor;
+using UnityEngine;
 
 public enum AkWwiseMenuOrder
 {
@@ -270,7 +272,7 @@ public partial class AkUtilities
 			return "";
 		}
 	}
-
+	
 	public delegate void GetEventDurationsFunc(uint eventID, ref float maximum, ref float minimum);
 	public static GetEventDurationsFunc GetEventDurations = (uint eventID, ref float maximum, ref float minimum) => { maximum = minimum = -1.0f; };
 
