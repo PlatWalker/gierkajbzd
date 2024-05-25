@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6692133615462772343}
   - component: {fileID: 8879914673152662205}
   - component: {fileID: 249249891256708882}
+  - component: {fileID: 249249891256708883}
   m_Layer: 0
   m_Name: Model_Dostawczak
   m_TagString: Untagged
@@ -97,3 +98,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 7.656825, y: 3.7502387, z: 2.6000006}
   m_Center: {x: 0.04558946, y: 1.8884012, z: 0.000030517578}
+--- !u!114 &249249891256708883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6934196699554691944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e06ea6b3ef9b2e4785a9e4d05139301, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeTime: 0.3
+  fadeAmount: 0.5
+  renderers: []

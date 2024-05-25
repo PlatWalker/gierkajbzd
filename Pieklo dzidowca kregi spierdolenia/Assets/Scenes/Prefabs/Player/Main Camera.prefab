@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5198764372267886384}
   - component: {fileID: 5198764372267886386}
   - component: {fileID: 5198764372267886387}
-  - component: {fileID: 5198764372267886388}
   - component: {fileID: 4702830093991630725}
   - component: {fileID: 4678907213584912230}
+  - component: {fileID: 4964180542074896391}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -127,24 +127,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CameraOffset>k__BackingField: {x: 4.12, y: 9.36, z: -6}
   smoothSpeed: 0.05
---- !u!114 &5198764372267886388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5198764372267886398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3386f5904aea83247acbd3bee0c25a59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Mask:
-    serializedVersion: 2
-    m_Bits: 0
-  Size: 2
-  transitionDuration: 2
-  shaderToCompare: {fileID: -6465566751694194690, guid: bf89f2aae7d46bd498df815f551bcf38, type: 3}
 --- !u!114 &4702830093991630725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,3 +163,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDefaultListener: 1
   listenerId: 0
+--- !u!114 &4964180542074896391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5198764372267886398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb8f4d9abb7297047a423f711a792821, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
