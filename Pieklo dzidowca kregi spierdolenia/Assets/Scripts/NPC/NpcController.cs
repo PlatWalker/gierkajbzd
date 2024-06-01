@@ -81,7 +81,14 @@ namespace jbzd.NPC
                     break;
                 case NpcStates.FollowPlayer:
                     NpcAgent.SetDestination(_playerManager.transform.position - Vector3.one);
-                    animator.SetBool("isWalking", true);
+                    if (NpcAgent.remainingDistance > 1f)
+                    {
+                        animator.SetBool("isWalking", true);
+                    }
+                    else
+                    {
+                        animator.SetBool("isWalking", false);
+                    }
                     break;
                 case NpcStates.RunAwayFromPlayer:
                     animator.SetBool("isWalking", true);
