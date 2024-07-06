@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using jbzd.Scenes.Prefabs.UI.Inventory.Elements.Scripts;
 
 namespace jbzd.UI.Inventory
 {
@@ -12,7 +13,10 @@ namespace jbzd.UI.Inventory
         [SerializeField]
         private Sprite SortingLabelActivatedSprite;
         
+        [SerializeField]
+        private ScrollbarSlider _scrollbarSlider;
         private InventoryUIController _inventoryUIController;
+
 
         public void Awake()
         {
@@ -23,6 +27,7 @@ namespace jbzd.UI.Inventory
         {
             _inventoryUIController.SortBy(sortingType);
             gameObject.transform.parent.GetComponent<Image>().sprite = SortingLabelActivatedSprite;
+            _scrollbarSlider.RestartValue();
         }
     }
 }

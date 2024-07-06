@@ -18,11 +18,19 @@ namespace jbzd.Scenes.Prefabs.UI.Inventory.Elements.Scripts
             _slider.onValueChanged.AddListener(OnSliderChanged);
             OnScrollbarChanged(_scrollbar.value);
         }
- 
+
+        private void OnEnable()
+        {
+            RestartValue();
+        }
+
+        public void RestartValue()
+        {
+            _scrollbar.value = 1;
+        }
+
         private void OnSliderChanged(float value)
         {
-            //value = Mathf.Abs(1 - value);
-            
             //normalize value to range 0 - 1
             value = (value - _slider.minValue) / (_slider.maxValue - _slider.minValue);
             if (Mathf.Abs(_scrollbar.value - value) > LABDA) {

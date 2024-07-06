@@ -413,6 +413,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sortingType: 5
   SortingLabelActivatedSprite: {fileID: 21300000, guid: ddabb168c7121b841bf51b9ae6f7e2c0, type: 3}
+  _scrollbarSlider: {fileID: 7370060848817011562}
 --- !u!222 &3936789167600164241
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2285,6 +2286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sortingType: 1
   SortingLabelActivatedSprite: {fileID: 21300000, guid: 3a9399a9b88255041910a4a19b0e62a3, type: 3}
+  _scrollbarSlider: {fileID: 7370060848817011562}
 --- !u!222 &1897242029459903891
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2469,6 +2471,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sortingType: 2
   SortingLabelActivatedSprite: {fileID: 21300000, guid: 28717d338efbadf42aeaf7516727a58f, type: 3}
+  _scrollbarSlider: {fileID: 7370060848817011562}
 --- !u!222 &5587933787003765364
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3071,11 +3074,11 @@ MonoBehaviour:
   m_Content: {fileID: 1181803237523137521}
   m_Horizontal: 0
   m_Vertical: 1
-  m_MovementType: 1
+  m_MovementType: 2
   m_Elasticity: 6.23
-  m_Inertia: 0
-  m_DecelerationRate: 0.135
-  m_ScrollSensitivity: -10
+  m_Inertia: 1
+  m_DecelerationRate: 0.001
+  m_ScrollSensitivity: 5
   m_Viewport: {fileID: 8100946251728067120}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 5529701324887246097}
@@ -3177,7 +3180,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_HandleRect: {fileID: 0}
   m_Direction: 2
-  m_Value: 0.9999998
+  m_Value: 0.9999996
   m_Size: 0.8126619
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -4321,6 +4324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sortingType: 4
   SortingLabelActivatedSprite: {fileID: 21300000, guid: 327eda07e7ea8194bbbe2cac03a0dd81, type: 3}
+  _scrollbarSlider: {fileID: 7370060848817011562}
 --- !u!222 &792410146761442173
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6128,11 +6132,11 @@ RectTransform:
   m_Father: {fileID: 9022706256180838483}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.18733811}
-  m_AnchorMax: {x: 0, y: 0.18733811}
+  m_AnchorMin: {x: 0, y: 0.8126619}
+  m_AnchorMax: {x: 0, y: 0.8126619}
   m_AnchoredPosition: {x: 22.5, y: 0}
   m_SizeDelta: {x: 33, y: 120}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &3869019859118121631
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6392,8 +6396,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000011444092, y: 60.9}
-  m_SizeDelta: {x: 0, y: -132.3873}
+  m_AnchoredPosition: {x: 0, y: -58.450012}
+  m_SizeDelta: {x: -0.0000019073486, y: -134.90002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &882277064673123941
 MonoBehaviour:
@@ -6438,7 +6442,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 0}
   m_HandleRect: {fileID: 9022706256180838483}
-  m_Direction: 3
+  m_Direction: 2
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
@@ -6964,6 +6968,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sortingType: 3
   SortingLabelActivatedSprite: {fileID: 21300000, guid: d5aa807aef2f34f418f59bdefb725ac5, type: 3}
+  _scrollbarSlider: {fileID: 7370060848817011562}
 --- !u!222 &420804846796113518
 CanvasRenderer:
   m_ObjectHideFlags: 0
