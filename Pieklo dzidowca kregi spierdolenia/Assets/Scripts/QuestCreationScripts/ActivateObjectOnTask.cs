@@ -25,7 +25,7 @@ namespace jbzd.QuestCreationScripts
             
             foreach (var quest in _questManager.AllQuestsFromLoadedMaps)
             {
-                quest.onTaskUpdated += (object sender, EventArgs e) =>
+                quest.OnTaskStarted += (_, _) =>
                 {
                     if (taskToCheck == null) return;
                     if (quest.ActiveTask != taskToCheck) return;

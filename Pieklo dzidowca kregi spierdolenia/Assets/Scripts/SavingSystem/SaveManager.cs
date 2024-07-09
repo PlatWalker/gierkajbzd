@@ -26,7 +26,7 @@ namespace jbzd.SavingSystem
         private InputManager _inputManager;
 
         /// <summary>
-        /// Dictionary tracks all of the gameObjects on interactive scene. So after saving game we will know
+        /// Dictionary tracks all the gameObjects on interactive scene. So after saving game we will know
         /// if object is destroyed or deactivated. After loading game we can change status of object according to how
         /// it was saved. Key of dictionary is hierarchy of parent game objects of saved game objects. Value is tuple
         /// where first item is name of game object and second item is reference to this game object and third item is

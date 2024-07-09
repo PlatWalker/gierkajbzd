@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14c93c62eb7066244848451977371de8, type: 3}
+  m_Name: followMeDialogue
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: followMeDialogue
+  <GraphContainerID>k__BackingField: 5ea52d53c94ce904eaacaee835a1e4e0
+  <ContainerID>k__BackingField: e297f32a1e2122f4faee69b9d233c23c
+  <Groups>k__BackingField:
+    m_Keys:
+    - <GroupName>k__BackingField: Start
+    - <GroupName>k__BackingField: Grupa
+    m_Values:
+    - myList:
+      - rid: 3163012909556564433
+    - myList:
+      - rid: 3163012909556564434
+      - rid: 3163012909556564435
+      - rid: 3163012909556564436
+      - rid: 3163012909556564437
+  references:
+    version: 2
+    RefIds:
+    - rid: 3163012909556564433
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: d45aaf9f-fea4-445b-b49f-50b1077f6b5e
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 1
+        <SelectedGroup>k__BackingField: Grupa
+    - rid: 3163012909556564434
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 5e22a9cc-53ba-47c9-9735-f137614ccfdb
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 937bff87-9cb8-44f4-a34a-f1a35f8724e9
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 1
+        <Text>k__BackingField: "Teraz zaczniemy za toba pod\u0105\u017Ca\u0107 m\u0142ody
+          cz\u0142owieku!"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 1420cf8d99147e848a0379e787e6381b, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 3163012909556564435
+      type: {class: QuestRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 937bff87-9cb8-44f4-a34a-f1a35f8724e9
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Output
+          <NextDialogue>k__BackingField: d4ce6385-4774-48e4-9eab-f2d8eb7b0553
+        <NodeType>k__BackingField: 2
+        <IsStartingDialogue>k__BackingField: 0
+        <Quest>k__BackingField: {fileID: 11400000, guid: c1adfc9c6663b5e45a143098d56e4e80, type: 2}
+        <IsQuestStart>k__BackingField: 1
+    - rid: 3163012909556564436
+      type: {class: GoalScenarioActivationNodeRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: d4ce6385-4774-48e4-9eab-f2d8eb7b0553
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Output
+          <NextDialogue>k__BackingField: 7b2777db-97c9-42ba-87d4-39bc9898037b
+        <NodeType>k__BackingField: 8
+        <IsStartingDialogue>k__BackingField: 0
+        <Goal>k__BackingField: {fileID: 11400000, guid: b0164c0eef657f545bfe986c5eef0ca7, type: 2}
+    - rid: 3163012909556564437
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 7b2777db-97c9-42ba-87d4-39bc9898037b
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: Start

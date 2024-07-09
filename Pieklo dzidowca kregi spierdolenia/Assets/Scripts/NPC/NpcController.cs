@@ -1,8 +1,6 @@
 using System;
 using jbzd.Cutscenes;
-using jbzd.Dialogues.RuntimeData;
 using jbzd.MainHero;
-using jbzd.QuestSystem.QuestStructureElements;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
@@ -55,8 +53,9 @@ namespace jbzd.NPC
         private PlayerManager _playerManager;
         private CutscenesManager _cutscenesManager;
         private int _currentWaypointIndex;
-
-        [SerializeField] private Animator animator; 
+        private Animator _animator;
+        
+        private static readonly int IsWalking = Animator.StringToHash("isWalking");
 
 
         [Inject]
@@ -69,7 +68,7 @@ namespace jbzd.NPC
         public void Awake()
         {
             NpcAgent = GetComponent<NavMeshAgent>();
-            animator = GetComponentInChildren<Animator>();
+            _animator = GetComponentInChildren<Animator>();
         }
 
         public void Update()
@@ -77,21 +76,21 @@ namespace jbzd.NPC
             switch (NpcState)
             {
                 case NpcStates.Idle:
-                    animator.SetBool("isWalking", false);
+                    _animator.SetBool(IsWalking, false);
                     break;
                 case NpcStates.FollowPlayer:
                     NpcAgent.SetDestination(_playerManager.transform.position - Vector3.one);
                     if (NpcAgent.remainingDistance > 1f)
                     {
-                        animator.SetBool("isWalking", true);
+                        _animator.SetBool(IsWalking, true);
                     }
                     else
                     {
-                        animator.SetBool("isWalking", false);
+                        _animator.SetBool(IsWalking, false);
                     }
                     break;
                 case NpcStates.RunAwayFromPlayer:
-                    animator.SetBool("isWalking", true);
+                    _animator.SetBool(IsWalking, true);
                     if (!(NpcAgent.remainingDistance < 0.01f)) return;
                     if (_currentWaypointIndex > Waypoints.Length - 1) return;
 
@@ -104,13 +103,13 @@ namespace jbzd.NPC
             }
         }
 
-        void Start()
+        public void Start()
         {
             _cutscenesManager.OnCutsceneStarted += OnCutsceneStarted;
             _cutscenesManager.OnCutsceneEnded += OnCutsceneEnded;
         }
         
-        void OnDestroy()
+        public void OnDestroy()
         {
             _cutscenesManager.OnCutsceneStarted -= OnCutsceneStarted;
             _cutscenesManager.OnCutsceneEnded -= OnCutsceneEnded;

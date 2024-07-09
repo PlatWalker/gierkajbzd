@@ -23,7 +23,7 @@ namespace jbzd.QuestSystem
         [field: JbzdReadOnly]
         public List<Quest> ActiveQuests { get; set; } = new();
         /// <summary>
-        /// Keeps all quests from maps that were loaded at least once
+        /// Keeps all quests from maps that were loaded at least once. List is filled after Awake has ended.
         /// </summary>
         public List<Quest> AllQuestsFromLoadedMaps { get; } = new();
         
@@ -104,6 +104,11 @@ namespace jbzd.QuestSystem
             }
         }
 
+        public Quest GetQuestWithThisTaskSo(TaskSO taskToLookFor)
+        {
+            return AllQuestsFromLoadedMaps.FirstOrDefault(quest => quest.QuestData.Tasks.Contains(taskToLookFor));
+        }
+        
         public void LoadData(GameData gameData)
         {
             //TODO can be optymalized with use of Gameobject.FindWithTag and assigning all gameobject with a quest a tag.

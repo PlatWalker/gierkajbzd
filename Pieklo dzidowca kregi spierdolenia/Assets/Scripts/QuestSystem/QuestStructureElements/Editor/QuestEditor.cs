@@ -25,9 +25,9 @@ public class QuestEditor : Editor
         _questDataProperty = serializedObject.FindProperty("QuestData");
         _actorsProperty = serializedObject.FindProperty("Actors");
         _isCompletedProperty = serializedObject.FindProperty("isCompleted");
-        _activeTaskProperty = serializedObject.FindProperty("ActiveTask");
-
-    }   
+        _activeTaskProperty = serializedObject.FindProperty("activeTask");
+    }
+    
     public override void OnInspectorGUI()
     {
         serializedObject.Update();

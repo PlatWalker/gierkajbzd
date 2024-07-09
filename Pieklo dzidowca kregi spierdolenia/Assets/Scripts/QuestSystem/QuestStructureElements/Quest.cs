@@ -19,6 +19,8 @@ namespace jbzd.QuestSystem.QuestStructureElements
         #region Variables
 
         public delegate void QuestEventOccured(Quest quest);
+
+        public delegate void TaskEventOccured(Quest questInvoked, TaskSO taskUpdated);
         [Header("Quest Settings")]
         //There is no {get;set;} here because it messes up serialization in QuestEditor.cs
         [SerializeField] public QuestSO QuestData;
@@ -26,7 +28,8 @@ namespace jbzd.QuestSystem.QuestStructureElements
         [JbzdReadOnly]
         [Tooltip("ReadOnly field, dont try too add anything here")]
         public List<Actor> Actors = new();
-        public event EventHandler onTaskUpdated;
+        public event TaskEventOccured OnTaskStarted;
+        public event TaskEventOccured OnTaskEnded;
         public event QuestEventOccured onQuestEnded;
         private QuestManager _questManager;
         private RunnerFactory _runnerFactory;
@@ -49,8 +52,19 @@ namespace jbzd.QuestSystem.QuestStructureElements
 
         [SerializeField]
         [JbzdReadOnly]
-        public TaskSO ActiveTask;
+        private TaskSO activeTask;
 
+        public TaskSO ActiveTask
+        {
+            get => activeTask;
+            set
+            {
+                activeTask = value;
+                OnTaskStarted?.Invoke(this, value);
+            }
+        }
+        
+        
         [SerializeField]
         [JbzdReadOnly]
         public List<TaskSO> FinishedTasks = new();
@@ -171,6 +185,7 @@ namespace jbzd.QuestSystem.QuestStructureElements
                 if (ActiveTask.Goals.Intersect(FinishedGoals).Count() == ActiveTask.Goals.Count)
                 {
                     FinishedTasks.Add(ActiveTask);
+                    OnTaskEnded?.Invoke(this, ActiveTask);
                     Debug.Log($"Finished task {ActiveTask.name}");
                     
                     if (QuestData.Tasks.Count == FinishedTasks.Count)
@@ -180,7 +195,7 @@ namespace jbzd.QuestSystem.QuestStructureElements
                     }
 
                     ActiveTask = QuestData.Tasks.FirstOrDefault(task => task.Order == ActiveTask.Order + 1);
-                    onTaskUpdated?.Invoke(this, EventArgs.Empty);
+                    OnTaskStarted?.Invoke(this, ActiveTask);
                 }
             }
         }

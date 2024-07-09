@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f610f74393c5da94b9d6bd751743b438, type: 3}
+  m_Name: GraphfollowMeDialogue
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: followMeDialogue
+  <ContainerID>k__BackingField: e297f32a1e2122f4faee69b9d233c23c
+  <GraphContainerID>k__BackingField: 083e0557624a6a9449c14be2a848f137
+  <Groups>k__BackingField:
+  - rid: 3163012909556564384
+  - rid: 3163012909556564385
+  <Nodes>k__BackingField:
+  - rid: 3163012909556564386
+  - rid: 3163012909556564387
+  references:
+    version: 2
+    RefIds:
+    - rid: 3163012909556564384
+      type: {class: GroupEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 8c707bfb-ccd2-47d2-964a-0af031b98637
+        <Name>k__BackingField: Start
+        <Position>k__BackingField: {x: -25, y: -59}
+    - rid: 3163012909556564385
+      type: {class: GroupEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: c3bb6de5-7b9e-4ae6-ab36-dda914dc7100
+        <Name>k__BackingField: Grupa
+        <Position>k__BackingField: {x: 334, y: -137}
+    - rid: 3163012909556564386
+      type: {class: EndGroupNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 06914cc1-40cc-453c-942c-122c62a0cbf8
+        <Choices>k__BackingField: []
+        <GroupID>k__BackingField: 8c707bfb-ccd2-47d2-964a-0af031b98637
+        <NodeType>k__BackingField: 7
+        <Position>k__BackingField: {x: 0, y: 0}
+        <SelectedGroup>k__BackingField: Start
+    - rid: 3163012909556564387
+      type: {class: DialogueNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 5e22a9cc-53ba-47c9-9735-f137614ccfdb
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NodeID>k__BackingField: 
+        <GroupID>k__BackingField: c3bb6de5-7b9e-4ae6-ab36-dda914dc7100
+        <NodeType>k__BackingField: 0
+        <Position>k__BackingField: {x: 359, y: -78}
+        <Text>k__BackingField: "Teraz zaczniemy za toba pod\u0105\u017Ca\u0107 m\u0142ody
+          cz\u0142owieku!"
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 1420cf8d99147e848a0379e787e6381b, type: 3}
+        <Audio>k__BackingField: {fileID: 0}
+        <IsPlayerTalking>k__BackingField: 0

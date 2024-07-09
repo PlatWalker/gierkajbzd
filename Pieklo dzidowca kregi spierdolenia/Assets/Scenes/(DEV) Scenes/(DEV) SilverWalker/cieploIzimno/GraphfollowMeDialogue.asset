@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f610f74393c5da94b9d6bd751743b438, type: 3}
+  m_Name: GraphfollowMeDialogue
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: followMeDialogue
+  <ContainerID>k__BackingField: e297f32a1e2122f4faee69b9d233c23c
+  <GraphContainerID>k__BackingField: 5ea52d53c94ce904eaacaee835a1e4e0
+  <Groups>k__BackingField:
+  - rid: 3163012909556564426
+  - rid: 3163012909556564427
+  <Nodes>k__BackingField:
+  - rid: 3163012909556564428
+  - rid: 3163012909556564429
+  - rid: 3163012909556564430
+  - rid: 3163012909556564431
+  - rid: 3163012909556564432
+  references:
+    version: 2
+    RefIds:
+    - rid: 3163012909556564426
+      type: {class: GroupEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 8c707bfb-ccd2-47d2-964a-0af031b98637
+        <Name>k__BackingField: Start
+        <Position>k__BackingField: {x: -25, y: -59}
+    - rid: 3163012909556564427
+      type: {class: GroupEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: c3bb6de5-7b9e-4ae6-ab36-dda914dc7100
+        <Name>k__BackingField: Grupa
+        <Position>k__BackingField: {x: 334, y: -137}
+    - rid: 3163012909556564428
+      type: {class: EndGroupNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: d45aaf9f-fea4-445b-b49f-50b1077f6b5e
+        <Choices>k__BackingField: []
+        <GroupID>k__BackingField: 8c707bfb-ccd2-47d2-964a-0af031b98637
+        <NodeType>k__BackingField: 7
+        <Position>k__BackingField: {x: 0, y: 0}
+        <SelectedGroup>k__BackingField: Grupa
+    - rid: 3163012909556564429
+      type: {class: DialogueNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 5e22a9cc-53ba-47c9-9735-f137614ccfdb
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NodeID>k__BackingField: 937bff87-9cb8-44f4-a34a-f1a35f8724e9
+        <GroupID>k__BackingField: c3bb6de5-7b9e-4ae6-ab36-dda914dc7100
+        <NodeType>k__BackingField: 0
+        <Position>k__BackingField: {x: 359, y: -78}
+        <Text>k__BackingField: "Teraz zaczniemy za toba pod\u0105\u017Ca\u0107 m\u0142ody
+          cz\u0142owieku!"
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 1420cf8d99147e848a0379e787e6381b, type: 3}
+        <Audio>k__BackingField: {fileID: 0}
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 3163012909556564430
+      type: {class: QuestNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 937bff87-9cb8-44f4-a34a-f1a35f8724e9
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Output
+          <NodeID>k__BackingField: d4ce6385-4774-48e4-9eab-f2d8eb7b0553
+        <GroupID>k__BackingField: c3bb6de5-7b9e-4ae6-ab36-dda914dc7100
+        <NodeType>k__BackingField: 2
+        <Position>k__BackingField: {x: 806, y: 0}
+        <Quest>k__BackingField: {fileID: 11400000, guid: c1adfc9c6663b5e45a143098d56e4e80, type: 2}
+        <IsQuestStart>k__BackingField: 1
+    - rid: 3163012909556564431
+      type: {class: GoalScenarioActivationNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: d4ce6385-4774-48e4-9eab-f2d8eb7b0553
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Output
+          <NodeID>k__BackingField: 7b2777db-97c9-42ba-87d4-39bc9898037b
+        <GroupID>k__BackingField: c3bb6de5-7b9e-4ae6-ab36-dda914dc7100
+        <NodeType>k__BackingField: 8
+        <Position>k__BackingField: {x: 1186, y: 0}
+        <Goal>k__BackingField: {fileID: 11400000, guid: b0164c0eef657f545bfe986c5eef0ca7, type: 2}
+    - rid: 3163012909556564432
+      type: {class: EndGroupNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 7b2777db-97c9-42ba-87d4-39bc9898037b
+        <Choices>k__BackingField: []
+        <GroupID>k__BackingField: c3bb6de5-7b9e-4ae6-ab36-dda914dc7100
+        <NodeType>k__BackingField: 7
+        <Position>k__BackingField: {x: 1632, y: 0}
+        <SelectedGroup>k__BackingField: Start

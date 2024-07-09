@@ -70,7 +70,7 @@ namespace jbzd
             };
             foreach (var quest in _questManager.AllQuestsFromLoadedMaps)
             {
-                quest.onTaskUpdated += (object sender, EventArgs e) =>
+                quest.OnTaskStarted += (_, _) =>
                 {
                     if (itemsToCheck == null) entranceAvailable = true;
 
