@@ -1098,6 +1098,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0773b4136030464488d963d4ce11128f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsInteractable>k__BackingField: 1
+  <Warning>k__BackingField: "Ten skrypt mo\u017Ce by\u0107 tylko i wylacznie na przygotowanym
+    prefabie znajd\u017A go w assetach. Opisane w dokumentacji."
   infoHeight: 5
   infoText: 
   <IsInRange>k__BackingField: 0
@@ -1142,10 +1145,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6329946741875391315}
+  m_Children: []
   m_Father: {fileID: 2150599802228126898}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1185740135814887656
 MonoBehaviour:
@@ -2253,7 +2255,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcState: 1
   <Waypoints>k__BackingField: []
-  animator: {fileID: 2150599803349186109}
 --- !u!114 &1002044710108790419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3210,7 +3211,7 @@ Transform:
   - {fileID: 2150599802287111381}
   - {fileID: 2150599801564283486}
   m_Father: {fileID: 2150599802228126898}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 128.573, z: 0}
 --- !u!82 &2150599801498490104
 AudioSource:
@@ -3389,7 +3390,6 @@ MonoBehaviour:
   <Waypoints>k__BackingField:
   - {fileID: 1254322309}
   - {fileID: 2016848538}
-  animator: {fileID: 2150599801564283487}
 --- !u!114 &9220918049712017198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5488,6 +5488,7 @@ Transform:
   - {fileID: 6794052190656265588}
   - {fileID: 1563712925}
   - {fileID: 2150599803230879885}
+  - {fileID: 6329946741875391315}
   - {fileID: 6445645609907573956}
   - {fileID: 2150599801498490105}
   - {fileID: 8056799846599306973}
@@ -5509,7 +5510,7 @@ MonoBehaviour:
   QuestData: {fileID: 11400000, guid: b583ad2a0a19c7647bcd722088b49606, type: 2}
   Actors: []
   isCompleted: 0
-  ActiveTask: {fileID: 0}
+  activeTask: {fileID: 0}
   FinishedTasks: []
   FinishedGoals: []
   GoalItemCollected: 
@@ -18956,6 +18957,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0773b4136030464488d963d4ce11128f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsInteractable>k__BackingField: 1
+  <Warning>k__BackingField: "Ten skrypt mo\u017Ce by\u0107 tylko i wylacznie na przygotowanym
+    prefabie znajd\u017A go w assetach. Opisane w dokumentacji."
   infoHeight: 5
   infoText: 
   <IsInRange>k__BackingField: 0
@@ -29775,6 +29779,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0773b4136030464488d963d4ce11128f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsInteractable>k__BackingField: 1
+  <Warning>k__BackingField: "Ten skrypt mo\u017Ce by\u0107 tylko i wylacznie na przygotowanym
+    prefabie znajd\u017A go w assetach. Opisane w dokumentacji."
   infoHeight: 5
   infoText: 
   <IsInRange>k__BackingField: 0
@@ -42352,6 +42359,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0773b4136030464488d963d4ce11128f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsInteractable>k__BackingField: 1
+  <Warning>k__BackingField: "Ten skrypt mo\u017Ce by\u0107 tylko i wylacznie na przygotowanym
+    prefabie znajd\u017A go w assetach. Opisane w dokumentacji."
   infoHeight: 5
   infoText: 
   <IsInRange>k__BackingField: 0
@@ -42414,13 +42424,14 @@ GameObject:
   - component: {fileID: 989459537631987427}
   - component: {fileID: 1597474778399127002}
   - component: {fileID: 4029981728886558023}
+  - component: {fileID: 5060600012637196488}
   m_Layer: 0
   m_Name: Rower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6329946741875391315
 Transform:
   m_ObjectHideFlags: 0
@@ -42429,7 +42440,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3450802481157625367}
   m_LocalRotation: {x: -0, y: -0.9482999, z: -0, w: 0.31737572}
-  m_LocalPosition: {x: -13.56, y: 0.45999998, z: 7.35}
+  m_LocalPosition: {x: -13.559998, y: 0.45999998, z: 7.350006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -42437,8 +42448,8 @@ Transform:
   - {fileID: 3824426240944970042}
   - {fileID: 7185412106818395975}
   - {fileID: 2067103972740251066}
-  m_Father: {fileID: 6445645609907573956}
-  m_RootOrder: 0
+  m_Father: {fileID: 2150599802228126898}
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: -142.991, z: 0}
 --- !u!95 &466910310898625986
 Animator:
@@ -42532,6 +42543,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <GoalToPlay>k__BackingField: {fileID: 11400000, guid: 351f16aae8969724ba311745082f4d84, type: 2}
+--- !u!114 &5060600012637196488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3450802481157625367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff1d8200b1a868a42b5e0b0107895c52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  taskToCheck: {fileID: 11400000, guid: b720de57488bbe043a0c94a993b3a4b3, type: 2}
+  interactionDenialText: {fileID: 0}
+  <ShouldShowDenialText>k__BackingField: 0
 --- !u!1 &3471160576411638085
 GameObject:
   m_ObjectHideFlags: 0
@@ -42737,6 +42763,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0773b4136030464488d963d4ce11128f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsInteractable>k__BackingField: 1
+  <Warning>k__BackingField: "Ten skrypt mo\u017Ce by\u0107 tylko i wylacznie na przygotowanym
+    prefabie znajd\u017A go w assetach. Opisane w dokumentacji."
   infoHeight: 5
   infoText: 
   <IsInRange>k__BackingField: 0
@@ -42992,7 +43021,7 @@ Transform:
   - {fileID: 2419330333925697622}
   - {fileID: 4297218020959199649}
   m_Father: {fileID: 2150599802228126898}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!82 &7756087789423386328
 AudioSource:
@@ -44191,6 +44220,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0773b4136030464488d963d4ce11128f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsInteractable>k__BackingField: 1
+  <Warning>k__BackingField: "Ten skrypt mo\u017Ce by\u0107 tylko i wylacznie na przygotowanym
+    prefabie znajd\u017A go w assetach. Opisane w dokumentacji."
   infoHeight: 5
   infoText: 
   <IsInRange>k__BackingField: 0

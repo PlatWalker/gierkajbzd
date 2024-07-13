@@ -58,7 +58,7 @@ namespace jbzd.QuestCreationScripts
         
         private void Update()
         {
-            if (interactionDenialText is null) return;
+            if (!interactionDenialText) return;
             
             if (_interaction.IsInRange && ShouldShowDenialText)
             {
