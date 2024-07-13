@@ -5,8 +5,6 @@ using jbzd.MainHero;
 using jbzd.MainHero.PlayerControllers;
 using jbzd.QuestSystem;
 using jbzd.QuestSystem.QuestStructureElements;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -14,27 +12,31 @@ namespace jbzd.MapInteractionZones
 {
     public class PlayAnimationGiveItem : MonoBehaviour, IInteractable
     {
-        [SerializeField] private Animator _animator;
-        [SerializeField] private Interaction _interactionScript;
-        [SerializeField] private GoalSO goalToAct;
         [SerializeField] private ItemSO itemToGive;
         [SerializeField] private int itemCount;
-        private QuestManager _questManager;
+        
+        private Interaction _interactionScript;
+        private Animator _animator;
         private InventoryController _playerManager;
+        private static readonly int Interacted = Animator.StringToHash("Interacted");
 
         [Inject]
         public void Construct(QuestManager questManager, PlayerManager playerManager)
         {
-            _questManager = questManager;
             _playerManager = playerManager.GetComponent<InventoryController>();
+        }
+        
+        private void Start()
+        {
+            _interactionScript = GetComponentInChildren<Interaction>();
+            _animator = GetComponentInChildren<Animator>();
         }
 
         public void OnInteract()
         {
-            if (goalToAct != null) _questManager.MakeActorPlay(goalToAct);
+            _animator.SetBool(Interacted, true);
             if (itemToGive != null) _playerManager.PickUpItem(itemToGive, itemCount);
-            _animator.SetBool("Interacted", true);
-            Destroy(_interactionScript.gameObject);
+            _interactionScript.IsInteractable = false;
         }
     }
 }

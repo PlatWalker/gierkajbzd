@@ -4,6 +4,7 @@ using jbzd.Common.InputSystem.Inputs;
 using jbzd.Common.Interfaces;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Zenject;
 
 namespace jbzd.InteractSystem
@@ -11,6 +12,12 @@ namespace jbzd.InteractSystem
     [RequireComponent(typeof(Collider))]
     public class Interaction : MonoBehaviour
     {
+        [field: SerializeField] public bool IsInteractable { get; set; } = true;
+
+        [field:TextArea]
+        [field:SerializeField]
+        public string Warning { get; set; } = "Ten skrypt może być tylko i wylacznie na przygotowanym prefabie znajdź go w assetach. Opisane w dokumentacji.";
+        
         private GameObject _pressE;
         public float infoHeight = 5.0f;
         public string infoText = string.Empty;
@@ -35,6 +42,9 @@ namespace jbzd.InteractSystem
         
         private void Awake()
         {
+            Debug.Assert(gameObject.name is "InteractionSpace" or "IteractionSpace", 
+                $"Ten skrypt może być tylko i wylacznie na przygotowanym prefabie, a jest na {gameObject.name}. Opisane w dokumentacji.");
+            
             if (transform.parent is null)
             {
                 Debug.LogError("Obiekt interakcji musi mieć rodzica");
@@ -42,7 +52,6 @@ namespace jbzd.InteractSystem
             }
             
             var interactable = GetComponentsInParent<IInteractable>();
-
             
             if (interactable.Length == 0)
             {
@@ -69,7 +78,7 @@ namespace jbzd.InteractSystem
         {
             foreach (var interactable in _interactable)
             {
-                if (IsInRange) interactable.OnInteract();
+                if (IsInRange && IsInteractable) interactable.OnInteract();
             }
         }
 

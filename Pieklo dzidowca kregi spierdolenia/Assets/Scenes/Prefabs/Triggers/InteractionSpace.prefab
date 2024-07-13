@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3755583062661376335}
   - component: {fileID: 3755583062661376334}
   m_Layer: 13
-  m_Name: IteractionSpace
+  m_Name: InteractionSpace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,8 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0773b4136030464488d963d4ce11128f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsInteractable>k__BackingField: 1
+  infoHeight: 5
+  infoText: 
   <IsInRange>k__BackingField: 0
-  <IsStandalone>k__BackingField: 1
 --- !u!135 &3755583062661376334
 SphereCollider:
   m_ObjectHideFlags: 0
