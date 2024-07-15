@@ -5,6 +5,7 @@ using UnityEngine.Timeline;
 using UnityEngine.Playables;
 using Zenject;
 using MyBox;
+using jbzd.QuestSystem;
 
 namespace jbzd.QuestCreationScripts
 { 

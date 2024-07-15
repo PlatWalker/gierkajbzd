@@ -5,6 +5,7 @@ using jbzd.Common;
 using jbzd.Dialogues.RuntimeData;
 using jbzd.Enemies;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 namespace jbzd.QuestSystem.QuestStructureElements
 {
@@ -16,6 +17,7 @@ namespace jbzd.QuestSystem.QuestStructureElements
         [field:SerializeField] public List<ActorSO> ActorsData { get; set; } = new();
         [Tooltip("Jesli dodasz tutaj obiekt z dialogiem, zostanie od odpalony po skonczeniu goala. Opcjonalne pole.")]
         [field:SerializeField] public ContainerSO DialogueToStartOnGoalComplete { get; set; }
+        [field:SerializeField] public TimelineAsset CutsceneToStartOnGoalComplete { get; set; }
         public abstract bool GoalEndCondition(Quest questWithThisGoal, List<Actor> actors);
         protected List<T> GetComponentFromActorsList<T>(List<Actor> actors) where T : Component
         {

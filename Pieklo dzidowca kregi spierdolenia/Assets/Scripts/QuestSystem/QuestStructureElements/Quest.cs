@@ -173,6 +173,12 @@ namespace jbzd.QuestSystem.QuestStructureElements
             {
                 _dialogueController.StartDialogue(passedGoal.DialogueToStartOnGoalComplete);
             }
+
+            if (passedGoal.CutsceneToStartOnGoalComplete is not null &&
+                passedGoal.GoalEndCondition(this, actorsInPassedGoal))
+            {
+                _cutscenesManager.PlayCutscene(passedGoal.CutsceneToStartOnGoalComplete);
+            }
         }
 
         public void CheckFinishCondition(GoalSO goalToAct, List<Actor> actorsInPassedGoal)
