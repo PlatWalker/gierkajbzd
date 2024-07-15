@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1386290876753619096}
   - component: {fileID: 3552166377555307553}
   - component: {fileID: 1115103301}
+  - component: {fileID: 4073719944984447046}
   - component: {fileID: 3148304078943749611}
   - component: {fileID: 1260309783332374714}
   m_Layer: 0
@@ -107,6 +108,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ActorData>k__BackingField: {fileID: 11400000, guid: 6108dcdd148234844a34ff9bb17020f2, type: 2}
+--- !u!114 &4073719944984447046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5882311111538542562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e11057e921c4791825b3ac9b816ece3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goalSo: {fileID: 11400000, guid: 5ec35ea4ba7acf044a319bdc4c04ab9f, type: 2}
 --- !u!114 &3148304078943749611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,6 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   taskToCheck: {fileID: 11400000, guid: ad4346c5068e9654596763e7049d1b1c, type: 2}
   interactionDenialText: {fileID: 9199363692984784285}
+  <ShouldShowDenialText>k__BackingField: 1
 --- !u!1 &9199363692984784285
 GameObject:
   m_ObjectHideFlags: 0
