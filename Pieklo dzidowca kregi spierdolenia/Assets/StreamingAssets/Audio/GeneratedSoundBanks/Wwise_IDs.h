@@ -21,9 +21,12 @@ namespace AK
         static const AkUniqueID GOWNIAK_SMIERC = 3378031631U;
         static const AkUniqueID GOWNIAK_TRIGER = 3458684007U;
         static const AkUniqueID KROK_KROK = 849186578U;
+        static const AkUniqueID PLAY_BLOK = 1893962214U;
         static const AkUniqueID PLAY_DRZEWA_SZUM = 831257323U;
         static const AkUniqueID PLAY_GYMNOP_DIE_NO__1 = 194427908U;
         static const AkUniqueID PLAY_MIASTO_SZUM = 180447167U;
+        static const AkUniqueID PLAY_SILNIK_2 = 707719467U;
+        static const AkUniqueID PLAY_SUCHE_DRZEWA = 1850391926U;
         static const AkUniqueID ROZPOCZECIE = 2049907332U;
         static const AkUniqueID TELEWIZOR = 1306134814U;
         static const AkUniqueID TRIGER_PRZECIWNIK = 174824095U;

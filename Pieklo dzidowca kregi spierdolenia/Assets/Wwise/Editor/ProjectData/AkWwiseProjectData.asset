@@ -66,7 +66,7 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: 159c58abfcd63e41b91d15449fd1b68b
     GuidInternal: 
-    m_lastTime: -8584951488959810863
+    m_lastTime: -8584818671555663086
     List:
     - name: Poziom_1
       guid: 6531d2b8c6f323458a5c80dbc24e4da6
@@ -107,7 +107,7 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: 0936d81fde74e5419882308bbea417f1
     GuidInternal: 
-    m_lastTime: -8584951488959720848
+    m_lastTime: -8584818671555829003
     List:
     - name: Ataki_bohatera
       guid: ae10b41800b4c343951d9acf455594a5
@@ -140,9 +140,9 @@ MonoBehaviour:
         ObjectType: 3
         guid: 0d91c828c07c5e4083e552354b3f3a6b
       Path: Events\Default Work Unit\Drzewo
-      maxAttenuation: 25
-      maxDuration: 166.3204
-      minDuration: 166.3204
+      maxAttenuation: 50
+      maxDuration: -1
+      minDuration: -1
     - name: Generyczny_atak
       guid: 07e26fb56c4b9f429d538dc7152840a9
       id: 4146123059
@@ -245,6 +245,23 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 0.904375
       minDuration: 0.904375
+    - name: Play_Blok
+      guid: 23ff3bad5427244a996f6321a6d28a29
+      id: 1893962214
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 0936d81fde74e5419882308bbea417f1
+      - ElementName: Play_Blok
+        ObjectType: 3
+        guid: 23ff3bad5427244a996f6321a6d28a29
+      Path: Events\Default Work Unit\Play_Blok
+      maxAttenuation: 90
+      maxDuration: -1
+      minDuration: -1
     - name: Play_Drzewa_szum
       guid: 2dd807c7cdff934194b78e5c6a37ca1f
       id: 831257323
@@ -259,8 +276,8 @@ MonoBehaviour:
         ObjectType: 3
         guid: 2dd807c7cdff934194b78e5c6a37ca1f
       Path: Events\Default Work Unit\Play_Drzewa_szum
-      maxAttenuation: 25
-      maxDuration: 72.6505
+      maxAttenuation: 50
+      maxDuration: Infinity
       minDuration: 45.431625
     - name: Play_Gymnop_die_No__1
       guid: 7b150d826deb7843a434811fdff9baed
@@ -296,6 +313,40 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 172.59393
       minDuration: 31.857792
+    - name: Play_silnik_2
+      guid: cc9f1f4646fb2942b830927326ae35d5
+      id: 707719467
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 0936d81fde74e5419882308bbea417f1
+      - ElementName: Play_silnik_2
+        ObjectType: 3
+        guid: cc9f1f4646fb2942b830927326ae35d5
+      Path: Events\Default Work Unit\Play_silnik_2
+      maxAttenuation: 75
+      maxDuration: 26.607885
+      minDuration: 26.607885
+    - name: Play_suche_drzewa
+      guid: 51c91e1d236e3f418688a89ddd93028f
+      id: 1850391926
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 0936d81fde74e5419882308bbea417f1
+      - ElementName: Play_suche_drzewa
+        ObjectType: 3
+        guid: 51c91e1d236e3f418688a89ddd93028f
+      Path: Events\Default Work Unit\Play_suche_drzewa
+      maxAttenuation: 50
+      maxDuration: -1
+      minDuration: -1
     - name: Rozpoczecie
       guid: 930dd087e65e474a943cc12ab824192b
       id: 2049907332
@@ -404,7 +455,7 @@ MonoBehaviour:
     m_lastTime: -8585013435262443997
     List: []
   ExpandedFileSystemItemIds: 
-  ExpandedWaapiItemIds: 010000000500000006000000070000000c0000000d000000170000001800000019000000
+  ExpandedWaapiItemIds: 010000000500000006000000070000000c0000000d0000001700000018000000190000001a0000001b0000001c000000
   AutoSyncSelection: 1
   autoPopulateEnabled: 1
   currentDataSource: 0
