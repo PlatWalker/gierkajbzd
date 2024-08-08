@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using jbzd.Common.InputSystem;
 using jbzd.Common.InputSystem.Inputs;
 using jbzd.Dialogues;
 using jbzd.Dialogues.RuntimeData;
@@ -36,9 +37,11 @@ namespace jbzd.UI.Dialogues
 
         [Header("Images")]
         [SerializeField]
-        private Image npcImage;
+        private GameObject npcImageHolder;
         [SerializeField]
-        private Image playerImage;
+        private GameObject playerImageHolder;
+        [SerializeField]
+        private Image imagePrefab;
 
         [Header("AnswerBox")]
         [SerializeField]
@@ -62,12 +65,13 @@ namespace jbzd.UI.Dialogues
         #endregion
 
         [Inject]
-        public void Construct(DialogueManager dialogueManager, PlayerManager playerManager, UserInterfaceManager uiManager)
+        public void Construct(DialogueManager dialogueManager, PlayerManager playerManager, UserInterfaceManager uiManager, InputManager inputManager)
         {
             _uiManager = uiManager;
             _dialogueManager = dialogueManager;
             _playerManager = playerManager;
 
+            inputManager.GetInput<UserInterfaceInput>().OnSpaceClick += FinishSentenceEarly;
             _dialogueManager.OnDialogueEnded += CloseDialogueUI;
             _dialogueManager.OnDialogueStarted += OpenDialogueUI;
 
@@ -105,13 +109,14 @@ namespace jbzd.UI.Dialogues
             _hudCanvas.gameObject.SetActive(false);
         }
 
-        public void ShowInsideUI(string text, bool isPlayerTalking, List<ChoiceRuntimeData> choices, bool showPlayerResponse, Sprite npcSprite, Sprite playerSprite)
+        public void ShowInsideUI(string text, bool isPlayerTalking, List<ChoiceRuntimeData> choices, bool showPlayerResponse, Sprite npcSprite, Sprite playerSprite, List<Sprite> leftAdditionalImages, List<Sprite> rigthAdditionalImages)
         {
             ShowText(text, isPlayerTalking);
             SetChoices(choices, showPlayerResponse);
 
-            SetNpcImage(npcSprite);
-            SetPlayerImage(playerSprite);
+            ClearImages();
+            SetNpcImage(npcSprite, rigthAdditionalImages);
+            SetPlayerImage(playerSprite, leftAdditionalImages);
         }
 
         private void ButtonClick(int index, string text = "", bool showPlayerResponse = true)
@@ -130,13 +135,23 @@ namespace jbzd.UI.Dialogues
             _dialogueManager.RunNode(nextNodeId);
         }
 
+        private void UpdatePreviousTexts()
+        {
+            var prev_texts = scrollContent.GetComponentsInChildren<TMP_Text>();
+
+            foreach(var txt in prev_texts)
+            {
+                txt.color = new Color32(154, 154, 154, 255);
+            }
+        }
+
         private void ShowText(string text, bool isPlayer = false)
         {
             if(dialogSpriteBox.gameObject.activeSelf == false)
                 dialogSpriteBox.gameObject.SetActive(true);
 
             dialogSpriteBox.gameObject.GetComponent<Image>().sprite = isPlayer ? playerSpriteBox : npcSpriteBox;
-
+            UpdatePreviousTexts();
             TMP_Text textLine = Instantiate(textPrefab, scrollContent).GetComponent<TMP_Text>();
             textLine.rectTransform.anchoredPosition = new Vector2(0, _dialogueOffset);
 
@@ -145,9 +160,10 @@ namespace jbzd.UI.Dialogues
                 textLine.margin = new Vector4(145, textLine.margin.y, 0, textLine.margin.w);
             }
 
-            textLine.fontSize = 24;
-            textLine.alignment = isPlayer ? TextAlignmentOptions.TopLeft : TextAlignmentOptions.TopRight;
-            textLine.color = isPlayer ? Color.green : Color.white;
+            textLine.fontSize = 15;
+            textLine.alignment = TextAlignmentOptions.TopLeft;
+            textLine.horizontalAlignment = HorizontalAlignmentOptions.Justified;
+            textLine.color = Color.white;
             textLine.enableAutoSizing = false;
 
             if (_isTyping) FinishSentenceEarly();
@@ -183,28 +199,68 @@ namespace jbzd.UI.Dialogues
             _isTyping = false;
         }
 
-        private void SetNpcImage(Sprite image)
+        private Image CreateImage(Sprite sprite, GameObject parent, int offset = 0, bool darken = false)
         {
-            if (image != null)
+            Image img = Instantiate(imagePrefab, parent.transform);
+            img.sprite = sprite;
+            img.transform.position = new Vector3(img.transform.position.x + offset, img.transform.position.y, img.transform.position.z);
+            if (darken)
             {
-                npcImage.gameObject.SetActive(true);
-                npcImage.sprite = image;
-                return;
+                img.color = new Color32(128, 128, 128, 255);
             }
 
-            npcImage.gameObject.SetActive(false);
+            return img;
         }
 
-        private void SetPlayerImage(Sprite image)
+        private void ClearImages()
+        {
+            var childNum = npcImageHolder.transform.childCount;
+            for (var i = childNum-1; i >= 0; i--)
+            {
+                Destroy(npcImageHolder.transform.GetChild(i).gameObject);
+            }
+
+            childNum = playerImageHolder.transform.childCount;
+            for (var i = childNum-1; i >= 0; i--)
+            {
+                Destroy(playerImageHolder.transform.GetChild(i).gameObject);
+            }
+        }
+
+        private void SetNpcImage(Sprite image, List<Sprite> additionalImages)
         {
             if (image != null)
             {
-                playerImage.gameObject.SetActive(true);
-                playerImage.sprite = image;
+                npcImageHolder.gameObject.SetActive(true);
+                int offset = 0;
+                foreach(var img in additionalImages)
+                {
+                    offset += 60;
+                    CreateImage(img, npcImageHolder, offset, true).transform.parent = npcImageHolder.transform;
+                }
+                CreateImage(image, npcImageHolder).transform.parent = npcImageHolder.transform;
                 return;
             }
 
-            playerImage.gameObject.SetActive(false);
+            npcImageHolder.gameObject.SetActive(false);
+        }
+
+        private void SetPlayerImage(Sprite image, List<Sprite> additionalImages)
+        {
+            if (image != null)
+            {
+                playerImageHolder.gameObject.SetActive(true);
+                int offset = 0;
+                foreach (var img in additionalImages)
+                {
+                    offset -= 60;
+                    CreateImage(img, playerImageHolder, offset, true).transform.parent = playerImageHolder.transform;
+                }
+                CreateImage(image, playerImageHolder).transform.parent = playerImageHolder.transform;
+                return;
+            }
+
+            playerImageHolder.gameObject.SetActive(false);
         }
 
         private void PrepareChoices()

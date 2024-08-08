@@ -12,12 +12,14 @@ namespace jbzd.Dialogues.RuntimeData
         [field: SerializeField] [field: TextArea()] public string Text { get; set; }
         [field: SerializeField] public Sprite NpcImage { get; set; }
         [field: SerializeField] public Sprite PlayerImage { get; set; }
+        [field: SerializeField] public List<Sprite> LeftAdditionalImages;
+        [field: SerializeField] public List<Sprite> RigthAdditionalImages;
         [field: SerializeField] public bool ShowPlayerResponse { get; set; }
         [field: SerializeField] public bool IsPlayerTalking { get; set; }
 
         public DialogueRuntimeData(string text, List<ChoiceRuntimeData> choices, NodeType nodeType,
             bool isStartingDialogue, Sprite npcImage, Sprite playerImage, string id, bool showPlayerResponse,
-            bool isPlayerTalking)
+            bool isPlayerTalking, List<Sprite> leftAdditionalImages, List<Sprite> rigthAdditionalImages)
         {
             Text = text;
             Choices = choices;
@@ -28,6 +30,8 @@ namespace jbzd.Dialogues.RuntimeData
             NodeId = id;
             ShowPlayerResponse = showPlayerResponse;
             IsPlayerTalking = isPlayerTalking;
+            LeftAdditionalImages = leftAdditionalImages;
+            RigthAdditionalImages = rigthAdditionalImages;
         }
 
         [RunMethod]
@@ -35,7 +39,7 @@ namespace jbzd.Dialogues.RuntimeData
         {
             var controller = uiManager.GetUIController<DialogueUIController>();
 
-            controller.ShowInsideUI(Text, IsPlayerTalking, Choices, ShowPlayerResponse, NpcImage, PlayerImage);
+            controller.ShowInsideUI(Text, IsPlayerTalking, Choices, ShowPlayerResponse, NpcImage, PlayerImage, LeftAdditionalImages, RigthAdditionalImages);
         }
     }
 }

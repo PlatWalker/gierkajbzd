@@ -12,6 +12,7 @@ namespace jbzd.Common.InputSystem.Inputs
         public event ClickNotify OnEscapeClick;
         public event ClickNotify OnQuickSaveClick;
         public event ClickNotify OnTestLoadClick;
+        public event ClickNotify OnSpaceClick;
 
         public override void Start()
         {
@@ -46,6 +47,11 @@ namespace jbzd.Common.InputSystem.Inputs
                 {
                     KeyMapping = KeyMapping.TestQuickLoad,
                     Action = () => OnTestLoadClick?.Invoke()
+                },
+                new ()
+                {
+                    KeyMapping = KeyMapping.Space,
+                    Action = () => OnSpaceClick?.Invoke()
                 }
             };
         }

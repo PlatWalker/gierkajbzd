@@ -12,7 +12,7 @@ namespace jbzd.Common.InputSystem
         public const KeyCode Escape = KeyCode.Escape;
         public const KeyCode QuickSave = KeyCode.F4;
         public const KeyCode TestQuickLoad = KeyCode.F5;
-        
+        public const KeyCode Space = KeyCode.Space;
         #endregion
 
         #region PlayerInput

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using jbzd.Dialogues.Editor.Save;
 using jbzd.Dialogues.Editor.Utilities;
@@ -18,6 +19,8 @@ namespace jbzd.Dialogues.Editor.Nodes
         private bool IsPlayerTalking { get; set; }
         private Sprite NpcImage { get; set; }
         private Sprite PlayerImage { get; set; }
+        private List<Sprite> LeftAdditionalImages { get; set; } = new List<Sprite>();
+        private List<Sprite> RigthAdditionalImages { get; set; } = new List<Sprite>();
         private AudioClip DialogueAudio { get; set; }
         
         public override void Initialize(Vector2 position, DialogueGraphView graphView)
@@ -43,11 +46,59 @@ namespace jbzd.Dialogues.Editor.Nodes
             var playerImage = DialogueElementUtility.CreateCustomField(PlayerImage, "obrazek gracza: ", typeof(Sprite),
                 callback => PlayerImage = (Sprite)callback.newValue);
 
+            Foldout imagesFoldout = DialogueElementUtility.CreateFoldout("Dodatkowe obrazki", true);
+            Box rigthImagesBox = new Box();
+            Label rigthImagesLabel = DialogueElementUtility.CreateReadOnlyText("Obrazki prawe");
+            Button addRigthChoiceButton = DialogueElementUtility.CreateButton("Dodaj", () =>
+            {
+                AddImageChoice(RigthAdditionalImages, rigthImagesBox);
+            });
+            Button removeRigthChoiceButton = DialogueElementUtility.CreateButton("Usuń ostatni", () =>
+            {
+                RigthAdditionalImages.RemoveAt(RigthAdditionalImages.Count-1);
+                rigthImagesBox.RemoveAt(rigthImagesBox.childCount - 1);
+            });
+
+
+            Box leftImagesBox = new Box();
+            Label leftImagesLabel = DialogueElementUtility.CreateReadOnlyText("Obrazki lewe");
+            Button addLeftChoiceButton = DialogueElementUtility.CreateButton("Dodaj", () =>
+            {
+                AddImageChoice(LeftAdditionalImages, leftImagesBox);
+            });
+            Button removeLeftChoiceButton = DialogueElementUtility.CreateButton("Usuń ostatni", () =>
+            {
+                LeftAdditionalImages.RemoveAt(LeftAdditionalImages.Count - 1);
+                leftImagesBox.RemoveAt(leftImagesBox.childCount - 1);
+            });
+
             var dialogueAudio = DialogueElementUtility.CreateCustomField(DialogueAudio, "audio: ", typeof(AudioClip),
                 callback => DialogueAudio = (AudioClip)callback.newValue);
 
+            rigthImagesBox.Add(rigthImagesLabel);
+            rigthImagesBox.Add(addRigthChoiceButton);
+            rigthImagesBox.Add(removeRigthChoiceButton);
+            leftImagesBox.Add(leftImagesLabel);
+            leftImagesBox.Add(addLeftChoiceButton);
+            leftImagesBox.Add(removeLeftChoiceButton);
+            imagesFoldout.Add(rigthImagesBox);
+            imagesFoldout.Add(leftImagesBox);
+
+            int RigthAdditionalImagesCount = RigthAdditionalImages.Count;
+            for (int i = 0; i < RigthAdditionalImagesCount; i++)
+            {
+                AddImageChoice(RigthAdditionalImages, rigthImagesBox, RigthAdditionalImages[i]);
+            }
+
+            int LeftAdditionalImagesCount = LeftAdditionalImages.Count;
+            for (int i = 0; i < LeftAdditionalImagesCount; i++)
+            {
+                AddImageChoice(LeftAdditionalImages, leftImagesBox, LeftAdditionalImages[i]);
+            }
+
             extensionContainer.Add(npcImage);
             extensionContainer.Add(playerImage);
+            extensionContainer.Add(imagesFoldout);
             extensionContainer.Add(dialogueAudio);
             extensionContainer.Add(isPlayerTalking);
 
@@ -108,6 +159,20 @@ namespace jbzd.Dialogues.Editor.Nodes
             RefreshExpandedState();
         }
 
+        private void AddImageChoice(List<Sprite> additionalImages, Box imagesBox, Sprite sprite = null)
+        {
+            Sprite newImage = sprite;
+            if( sprite is null )
+                additionalImages.Add(newImage);
+            var additionalImage = DialogueElementUtility.CreateCustomField(newImage, "obrazek: ", typeof(Sprite),
+            callback => {
+                var imageIndex = additionalImages.FindIndex(image => image == newImage);
+                additionalImages[imageIndex] = (Sprite)callback.newValue;
+            });
+
+            imagesBox.Add(additionalImage);            
+        } 
+
         private void OnWarningFromNode(KeyUpEvent e)
         {
             warning1.visible = CheckTextLength();
@@ -131,6 +196,8 @@ namespace jbzd.Dialogues.Editor.Nodes
                 Text = this.Text,
                 PlayerImage = this.PlayerImage,
                 NpcImage = this.NpcImage,
+                RigthAdditionalImages = this.RigthAdditionalImages,
+                LeftAdditionalImages = this.LeftAdditionalImages,
                 Audio = this.DialogueAudio,
                 IsPlayerTalking = this.IsPlayerTalking
             };
@@ -146,6 +213,8 @@ namespace jbzd.Dialogues.Editor.Nodes
             NpcImage = nData.NpcImage;
             DialogueAudio = nData.Audio;
             IsPlayerTalking = nData.IsPlayerTalking;
+            RigthAdditionalImages = nData.RigthAdditionalImages;
+            LeftAdditionalImages = nData.LeftAdditionalImages;
         }
 
         public override NodeRuntimeData GetSavedDataForDialogue()
@@ -153,7 +222,7 @@ namespace jbzd.Dialogues.Editor.Nodes
             var convertedChoices = Choices.Select(choice => choice.ConvertToChoiceData()).ToList();
             DialogueRuntimeData nodeSaveData = 
                 new DialogueRuntimeData(Text, convertedChoices, NodeType, IsStartingNode(), NpcImage, PlayerImage, ID,
-                    NodeType != NodeType.SingleChoice, IsPlayerTalking);
+                    NodeType != NodeType.SingleChoice, IsPlayerTalking, LeftAdditionalImages, RigthAdditionalImages);
             return nodeSaveData;
         }
 
