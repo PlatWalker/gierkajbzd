@@ -8,24 +8,10 @@ using UnityEngine;
 namespace jbzd.QuestSystem.QuestStructureElements
 {
     [CreateAssetMenu(menuName = "Quest/Quest", fileName = "New Quest Data")]
-    public class QuestSO : ScriptableObject
-    {
-        [field:JbzdReadOnly]
-        [field:SerializeField]
-        public string Id { get; set; }
-        
+    public class QuestSO : DuplicatedScriptableObjects
+    {     
         
         [SerializeField] public List<TaskSO> Tasks = new();
-
-        public void OnEnable()
-        {
-            if(Tasks.Count != 0) TaskOrderingValidation();
-            
-            if (string.IsNullOrEmpty(Id))
-            {
-                Id = Guid.NewGuid().ToString();
-            }
-        }
 
         public void Awake()
         {

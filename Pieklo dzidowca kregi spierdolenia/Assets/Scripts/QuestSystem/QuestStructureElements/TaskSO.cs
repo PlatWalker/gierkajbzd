@@ -7,24 +7,13 @@ using UnityEngine;
 namespace jbzd.QuestSystem.QuestStructureElements
 {
     [CreateAssetMenu(menuName = "Quest/Task", fileName = "New Task Data")]
-    public class TaskSO : ScriptableObject
+    public class TaskSO : DuplicatedScriptableObjects
     {
-        [field:JbzdReadOnly]
-        [field:SerializeField]
-        public string Id { get; set; }
         
         [field:SerializeField]
         public List<GoalSO> Goals { get; set; }
         [field:SerializeField]
         public int Order { get; set; }
-
-        public void OnEnable()
-        {
-            if (string.IsNullOrEmpty(Id))
-            {
-                Id = Guid.NewGuid().ToString();
-            }
-        }
         
         /// <summary>
         /// Checks if there is a goal of type T in this task

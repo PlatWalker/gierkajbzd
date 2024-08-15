@@ -9,11 +9,8 @@ using UnityEngine.Timeline;
 
 namespace jbzd.QuestSystem.QuestStructureElements
 {
-    public abstract class GoalSO : ScriptableObject
+    public abstract class GoalSO : DuplicatedScriptableObjects
     {
-        [field:JbzdReadOnly]
-        [field:SerializeField]
-        public string Id { get; set; }
         [field:SerializeField] public List<ActorSO> ActorsData { get; set; } = new();
         [Tooltip("Jesli dodasz tutaj obiekt z dialogiem, zostanie od odpalony po skonczeniu goala. Opcjonalne pole.")]
         [field:SerializeField] public ContainerSO DialogueToStartOnGoalComplete { get; set; }
@@ -47,12 +44,6 @@ namespace jbzd.QuestSystem.QuestStructureElements
             
             return componentsFromActorsList;
         }
-        public void OnEnable()
-        {
-            if (string.IsNullOrEmpty(Id))
-            {
-                Id = Guid.NewGuid().ToString();
-            }
-        }
+
     }
 }
