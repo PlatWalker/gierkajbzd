@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using jbzd.Common;
+using jbzd.Common.AssetsHelper;
 using jbzd.Dialogues.RuntimeData;
 using jbzd.Enemies;
 using UnityEngine;
@@ -11,6 +12,15 @@ namespace jbzd.QuestSystem.QuestStructureElements
 {
     public abstract class GoalSO : DuplicatedScriptableObjects
     {
+        [field: SerializeField]
+        private string description;
+
+        public string Description 
+        { 
+            get => string.IsNullOrEmpty(description) ? name : description;
+            set => description = value;
+        }
+
         [field:SerializeField] public List<ActorSO> ActorsData { get; set; } = new();
         [Tooltip("Jesli dodasz tutaj obiekt z dialogiem, zostanie od odpalony po skonczeniu goala. Opcjonalne pole.")]
         [field:SerializeField] public ContainerSO DialogueToStartOnGoalComplete { get; set; }
@@ -44,6 +54,5 @@ namespace jbzd.QuestSystem.QuestStructureElements
             
             return componentsFromActorsList;
         }
-
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using jbzd.Common;
+using jbzd.Common.AssetsHelper;
 using UnityEngine;
 
 namespace jbzd.QuestSystem.QuestStructureElements

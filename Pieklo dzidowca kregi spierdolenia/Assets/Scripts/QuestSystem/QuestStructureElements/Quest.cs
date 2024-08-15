@@ -83,9 +83,12 @@ namespace jbzd.QuestSystem.QuestStructureElements
         [SerializeField]
         [JbzdReadOnly]
         public List<string> GoalName = new();
-        
+        [SerializeField]
+        [JbzdReadOnly]
+        public bool newUpdate;
+
         #endregion
-        
+
         #endregion
 
         [Inject]
@@ -119,11 +122,6 @@ namespace jbzd.QuestSystem.QuestStructureElements
                 GoalItemCollected.Add(0);
                 GoalCompletionItemCount.Add(goalInvolvingCollecting.GoalCompletionItemCount);
             }
-        }
-
-        private void OnDisable()
-        {
-            _questManager.AllQuestsFromLoadedMaps.Remove(this);
         }
 
         public void MakeActorPlayInThisQuest(GoalSO passedGoal)

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using jbzd.Common;
+using jbzd.Common.AssetsHelper;
 using UnityEngine;
 
 namespace jbzd.QuestSystem.QuestStructureElements
@@ -14,6 +15,9 @@ namespace jbzd.QuestSystem.QuestStructureElements
         public List<GoalSO> Goals { get; set; }
         [field:SerializeField]
         public int Order { get; set; }
+
+        [TextArea]
+        public string Description;
         
         /// <summary>
         /// Checks if there is a goal of type T in this task

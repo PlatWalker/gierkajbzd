@@ -38,6 +38,7 @@ namespace jbzd.QuestSystem
                 return;
             }
             _questStartedCanvas.gameObject.SetActive(true);
+            questToStart.newUpdate = true;
             Invoke(nameof(DeactivateQuestStartedCanvas), 3f);
             
             questToStart.ActiveTask = questToStart.QuestData.Tasks.First(task => task.Order == 0);
@@ -51,6 +52,7 @@ namespace jbzd.QuestSystem
             ActiveQuests.Remove(questToEnd);
             questToEnd.IsCompleted = true;
             questToEnd.ActiveTask = null;
+            questToEnd.newUpdate = true;
             //activate canvas for 3 seconds
             _questEndedCanvas.gameObject.SetActive(true);
             Invoke(nameof(DeactivateQuestEndedCanvas), 3f);
@@ -95,6 +97,7 @@ namespace jbzd.QuestSystem
                 quest.MakeActorPlayInThisQuest(goalToAct);
                 if (numberOfActiveQuests == ActiveQuests.Count)
                 {
+                    quest.newUpdate = true;
                     _newTaskCanvas.gameObject.SetActive(true);
                     Invoke(nameof(DeactivateNewTaskCanvas), 3f);
                 }

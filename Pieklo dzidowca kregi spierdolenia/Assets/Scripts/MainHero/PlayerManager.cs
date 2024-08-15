@@ -40,6 +40,9 @@ namespace jbzd.MainHero
     {
         #region Inspector Fields
 
+        [JbzdReadOnly]
+        public int currentKrag = 1;
+
         [SerializeField]
         [JbzdReadOnly] 
         private bool canPlayerMove = true;

@@ -2,15 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using jbzd.Common;
+using jbzd.Common.AssetsHelper;
 using UnityEngine;
 
 
 namespace jbzd.QuestSystem.QuestStructureElements
 {
     [CreateAssetMenu(menuName = "Quest/Quest", fileName = "New Quest Data")]
+
     public class QuestSO : DuplicatedScriptableObjects
-    {     
-        
+    {
+        [field:SerializeField] public bool IsMain { get; set; } = false;
+        [field:SerializeField] public int Krag { get; set; } = 1;
         [SerializeField] public List<TaskSO> Tasks = new();
 
         public void Awake()

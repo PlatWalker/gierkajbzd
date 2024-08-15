@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
-using jbzd.Common.InputSystem.Inputs;
+using System.Linq;
+using System.Text.RegularExpressions;
 using jbzd.MainHero;
 using jbzd.QuestSystem;
 using jbzd.QuestSystem.QuestStructureElements;
@@ -12,22 +14,32 @@ namespace jbzd.UI.QuestMenu
 {
     public class QuestUIController : UserInterfaceController
     {
-        private PlayerManager _playerManager;
+        private readonly Color _not_read_color = Color.white;
+        private readonly Color _completed_color = new Color32(197, 220, 99, 255);
+        private readonly Color _read_color = new Color32(154, 154, 154, 255);
+
+        #region Variables
         [SerializeField] private QuestManager _questManager;
-        private List<Quest> _activeQuests;
-
-
-        [SerializeField] private Slider _questListSlider;
-        [SerializeField] private Slider _questDescriptionSlider;
+        private List<Quest> _allQuests;
 
         [SerializeField] private TMP_Text _questNameText;
-        [SerializeField] private TMP_Text _questTasks;
 
-        [SerializeField] private ScrollRect _questListScrollRect;
-        [SerializeField] private ScrollRect _questDescriptionScrollRect;
+        [SerializeField] private TMP_Text _levelNumber;
+        [SerializeField] private Button _levelBtnLeft;
+        [SerializeField] private Button _levelBtnRight;
 
-        [SerializeField] private GameObject buttonPrefab;
+        [SerializeField] private GameObject _buttonPrefab;
         [SerializeField] private Transform _buttonContainer;
+
+        [SerializeField] private TMP_Text _textPrefab;
+        [SerializeField] private Transform _textContainer;
+
+        private List<Transform> _descTexts = new List<Transform>();
+        private PlayerManager _playerManager;
+        private int _currentLevel;
+        #endregion
+
+        public override bool InitialActivationState() => false;
 
         [Inject]
         public void Construct(PlayerManager playerManager)
@@ -35,134 +47,153 @@ namespace jbzd.UI.QuestMenu
             _playerManager = playerManager;
         }
 
-        public override bool InitialActivationState() => false;
+        private void Awake()
+        {
+            _levelBtnLeft.onClick.AddListener(() => CreateLevelButtons(_currentLevel - 1));
+            _levelBtnRight.onClick.AddListener(() => CreateLevelButtons(_currentLevel + 1));
+        }
 
         public void OnEnable()
         {
             if (!gameObject.activeSelf) return;
-            CreateQuestList();
-            _questListSlider.onValueChanged.AddListener(OnQuestListSliderValueChanged);
-            _questDescriptionSlider.onValueChanged.AddListener(OnQuestDescriptionSliderValueChanged);
+            _allQuests = _questManager.AllQuestsFromLoadedMaps.Where(quest => quest.IsCompleted == true).ToList();
+            _allQuests.AddRange(_questManager.ActiveQuests);
+            CreateLevelButtons(_playerManager.currentKrag);            
         }
 
+        private void CreateLevelButtons(int level)
+        {
+            _levelNumber.text = level.ToString();
+
+            _levelBtnLeft.interactable = _allQuests.Any(x => x.QuestData.Krag < level);
+            _levelBtnRight.interactable = _allQuests.Any(x => x.QuestData.Krag > level);
+
+            _currentLevel = level;
+            CreateQuestList();
+        }
 
         public void CreateQuestList()
         { 
 
-            _activeQuests = _questManager.ActiveQuests;
+            
+            var _kragQuests = _allQuests.Where(quest => quest.QuestData.Krag == _currentLevel).ToList();
 
             foreach (Transform child in _buttonContainer)
             {
-                Destroy(child.gameObject);
+                if (child.GetComponent<Button>() != null)
+                    Destroy(child.gameObject);
             }
-            if(_activeQuests.Count > 0){
+
+            if(_kragQuests.Count > 0){
                 OnQuestButtonClicked(0);
-                for (int i = 0; i < _activeQuests.Count; i++)
+                for (int i = 0; i < _kragQuests.Count; i++)
                 {
-                    Quest quest = _activeQuests[i];
-                    GameObject buttonGO = Instantiate(buttonPrefab, _buttonContainer);
+                    Quest quest = _kragQuests[i];
+                    GameObject buttonGO = Instantiate(_buttonPrefab, _buttonContainer);
                     Button button = buttonGO.GetComponent<Button>();
-                    button.GetComponentInChildren<TMP_Text>().text = quest.name;
+                    var btnText = button.GetComponentInChildren<TMP_Text>();
+                    btnText.text = MakeReadableText(quest.name);
+                    btnText.color = quest.IsCompleted ? _completed_color : quest.newUpdate ? _not_read_color : _read_color;
+                    btnText.fontSize = quest.QuestData.IsMain ? 28 : 24;    
+
                     RectTransform buttonRect = button.GetComponent<RectTransform>();
                     
                     float preferredHeight = button.GetComponentInChildren<TMP_Text>().preferredHeight;
                     buttonRect.sizeDelta = new Vector2(buttonRect.sizeDelta.x, preferredHeight+10f);
                     int questIndex = i;
-                    button.onClick.AddListener(() => OnQuestButtonClicked(questIndex));
+                    button.onClick.AddListener(() =>
+                    {
+                        UpdateButtons(button);                      
+                        OnQuestButtonClicked(_allQuests.IndexOf(quest));
+                    });
+
+                    if(i == 0)
+                        button.GetComponent<Image>().color = new Color32(255, 255, 255, 51);
                 }
                 
             }
-            else{
-                _questNameText.text = "Nie masz żadnych questów";
-                _questTasks.text = "";
-                DisableScrollRectMovement(_questDescriptionScrollRect);
-                DisableSliderMovement(_questDescriptionSlider);
+        }
+
+        private void UpdateButtons(Button btn)
+        {            
+            foreach (Transform child in _buttonContainer)
+            {
+                if (child.GetComponent<Button>() != null)
+                    child.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
             }
-            if(AreAllElementsVisible(_questListScrollRect)){
-                DisableScrollRectMovement(_questListScrollRect);
-                DisableSliderMovement(_questListSlider);
-            }
-            else{
-                EnableScrollRectMovement(_questListScrollRect);
-                EnableSliderMovement(_questListSlider);
+            btn.GetComponent<Image>().color = new Color32(255, 255, 255, 51);
+
+            var btnText = btn.GetComponentInChildren<TMP_Text>();
+            if (btnText.color == _not_read_color)
+            {
+                btnText.color = _read_color;
             }
         }
 
         private void OnQuestButtonClicked(int questIndex)
         {
-            _questDescriptionSlider.value = 1;
-            _questDescriptionScrollRect.verticalNormalizedPosition = 1;
-            Quest selectedQuest = _activeQuests[questIndex];
-            _questNameText.text =  selectedQuest.name;
-            _questTasks.text = "";
-            foreach(GoalSO goal in selectedQuest.ActiveTask.Goals){
-                if(goal is jbzd.QuestSystem.Goals.KillEnemiesGoal){
-                    int index = selectedQuest.GoalName.IndexOf(goal.name);
-                    _questTasks.text += goal.name + "   " + selectedQuest.GoalItemCollected[index]+"/"+selectedQuest.GoalCompletionItemCount[index] +"\n";
+            Quest selectedQuest = _allQuests[questIndex];
+            _questNameText.text = MakeReadableText(selectedQuest.name);           
+            PrepareDescription();
+            
+            foreach (TaskSO task in selectedQuest.FinishedTasks)
+            {
+                CreateDescriptionText(task.Description, false);
 
+                foreach (GoalSO goal in task.Goals)
+                {
+                    var desc = goal.Description;
+                    if (goal is GoalInvolvingCollectingSO) desc += ": " + selectedQuest.GoalItemCollected[questIndex] + "/" + selectedQuest.GoalCompletionItemCount[questIndex];
+                    CreateDescriptionText(desc, false);
                 }
-                else{
-                    _questTasks.text += goal.name+"\n";
-                }
-            }
-            ResizeTextToFitContent();
-            if(AreAllElementsVisible(_questDescriptionScrollRect)){
-                DisableSliderMovement(_questDescriptionSlider);
-                DisableScrollRectMovement(_questDescriptionScrollRect);
-            }
-            else{
-                EnableScrollRectMovement(_questDescriptionScrollRect);
-                EnableSliderMovement(_questDescriptionSlider);
             }
 
+            if (selectedQuest.ActiveTask != null)
+            {
+                CreateDescriptionText(selectedQuest.ActiveTask.Description, selectedQuest.newUpdate);
+                foreach (GoalSO goal in selectedQuest.ActiveTask.Goals)
+                {
+                    var desc = goal.Description;
+                    if (goal is GoalInvolvingCollectingSO) desc += ": " + selectedQuest.GoalItemCollected[questIndex] + "/" + selectedQuest.GoalCompletionItemCount[questIndex];
+                    CreateDescriptionText(desc, selectedQuest.newUpdate);
+                }
+            }
+
+            selectedQuest.newUpdate = false;
         }
-        private void ResizeTextToFitContent()
+
+        private void PrepareDescription()
         {
-            _questTasks.ForceMeshUpdate();
-            float preferredHeight = _questTasks.preferredHeight;
-            RectTransform _questTasksrectTransform = _questTasks.GetComponent<RectTransform>();
+            foreach (Transform child in _descTexts)
+            {
+                Destroy(child.gameObject);
+            }
+            _descTexts.Clear();
+        }
+
+        private void CreateDescriptionText(string text, bool isNew=true)
+        {
+            TMP_Text textLine = Instantiate(_textPrefab, _textContainer);
+            textLine.text = text;
+            textLine.color = isNew ? _not_read_color : _read_color;
+
+            float preferredHeight = textLine.preferredHeight;
+            RectTransform _questTasksrectTransform = textLine.GetComponent<RectTransform>();
             _questTasksrectTransform.sizeDelta = new Vector2(_questTasksrectTransform.sizeDelta.x, preferredHeight);
+
+            _descTexts.Add(textLine.transform);
         }
 
-        private bool AreAllElementsVisible(ScrollRect scrollRect)
+        private string MakeReadableText(string text)
         {
-            RectTransform contentRect = scrollRect.content;
-            RectTransform viewportRect = scrollRect.viewport;
+            if (string.IsNullOrEmpty(text))
+                return text;
 
+            string result = Regex.Replace(text, "(?<!^)([A-Z])", " $1");
 
-            // Z jakiegos powodu musze updateować layout i to 3 razy, bo inaczej contentRect.rect.height jest zle przy pierwszym odpaleniu
-            LayoutRebuilder.ForceRebuildLayoutImmediate(contentRect);
-            LayoutRebuilder.ForceRebuildLayoutImmediate(viewportRect);
-            LayoutRebuilder.ForceRebuildLayoutImmediate(contentRect);
+            result = char.ToUpper(result[0]) + result[1..].ToLower();
 
-            bool allElementsFullyVisible = contentRect.rect.height < viewportRect.rect.height;
-            return allElementsFullyVisible;
-        }
-
-        private void OnQuestListSliderValueChanged(float value){
-            _questListScrollRect.verticalNormalizedPosition = _questListSlider.value;
-        }
-
-        private void OnQuestDescriptionSliderValueChanged(float value){
-            _questDescriptionScrollRect.verticalNormalizedPosition = _questDescriptionSlider.value;
-        }
-
-        private void DisableScrollRectMovement(ScrollRect scrollRect){
-            scrollRect.vertical = false;
-        }
-
-        private void EnableScrollRectMovement(ScrollRect scrollRect){
-            scrollRect.vertical = true;
-        }
-
-        private void DisableSliderMovement(Slider slider){
-            slider.value = 1;
-            slider.interactable = false;
-        }
-
-        private void EnableSliderMovement(Slider slider){
-            slider.value = 1;
-            slider.interactable = true;
+            return result;
         }
     }
 }
