@@ -238,7 +238,7 @@ namespace jbzd.UI.Dialogues
                     offset += 60;
                     CreateImage(img, npcImageHolder, offset, true).transform.parent = npcImageHolder.transform;
                 }
-                CreateImage(image, npcImageHolder).transform.parent = npcImageHolder.transform;
+                CreateImage(image, npcImageHolder).transform.SetParent(npcImageHolder.transform, false);
                 return;
             }
 
@@ -256,7 +256,7 @@ namespace jbzd.UI.Dialogues
                     offset -= 60;
                     CreateImage(img, playerImageHolder, offset, true).transform.parent = playerImageHolder.transform;
                 }
-                CreateImage(image, playerImageHolder).transform.parent = playerImageHolder.transform;
+                CreateImage(image, playerImageHolder).transform.SetParent(playerImageHolder.transform, false);
                 return;
             }
 

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5519666304008591697}
   - component: {fileID: 3353517122296962258}
+  - component: {fileID: 1533920863913108580}
   m_Layer: 0
   m_Name: prefab_krzak
   m_TagString: Untagged
@@ -75,6 +76,33 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!205 &1533920863913108580
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6837745164146897920}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 1.2238588, y: 1.6548629, z: -1.291553}
+  m_Size: 5.9489174
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.6
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 7372206108799423279}
+  - screenRelativeHeight: 0.3
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 7372206108799423279}
+  - screenRelativeHeight: 0.1
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 7372206108799423279}
+  m_Enabled: 1
 --- !u!1001 &8182692822367260587
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -136,6 +164,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc8bd07771fc70c46a62ff848168efda, type: 3}
+--- !u!23 &7372206108799423279 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: dc8bd07771fc70c46a62ff848168efda, type: 3}
+  m_PrefabInstance: {fileID: 8182692822367260587}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8504056935025977408 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dc8bd07771fc70c46a62ff848168efda, type: 3}

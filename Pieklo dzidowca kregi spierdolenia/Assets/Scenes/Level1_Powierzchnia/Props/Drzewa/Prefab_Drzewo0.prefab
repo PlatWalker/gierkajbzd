@@ -56,11 +56,11 @@ LODGroup:
   - screenRelativeHeight: 0.045024354
     fadeTransitionWidth: 0
     renderers:
-    - renderer: {fileID: 0}
+    - renderer: {fileID: 168069494896316722}
   - screenRelativeHeight: 0.016289065
     fadeTransitionWidth: 0
     renderers:
-    - renderer: {fileID: 0}
+    - renderer: {fileID: 168069494896316722}
   m_Enabled: 1
 --- !u!65 &2675624195370623966
 BoxCollider:
@@ -129,7 +129,7 @@ MonoBehaviour:
     initialListenerList: []
     useDefaultListeners: 1
   isEnvironmentAware: 1
-  isStaticObject: 0
+  isStaticObject: 1
   m_positionOffsetData:
     KeepMe: 0
     positionOffset: {x: 0, y: 0, z: 0}
@@ -250,6 +250,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6adcc4ca9309dde4a899a8133f9e2238, type: 3}
+--- !u!23 &168069494896316722 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 6adcc4ca9309dde4a899a8133f9e2238, type: 3}
+  m_PrefabInstance: {fileID: 1555026038721695158}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1305540916919937629 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6adcc4ca9309dde4a899a8133f9e2238, type: 3}
