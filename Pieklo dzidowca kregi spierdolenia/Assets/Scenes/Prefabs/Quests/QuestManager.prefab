@@ -13,12 +13,12 @@ GameObject:
   - component: {fileID: 2432576756871270363}
   - component: {fileID: 8144288021977380662}
   m_Layer: 5
-  m_Name: QuestEndedCanvas
+  m_Name: QuestUpdatedCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4385858243030883005
 RectTransform:
   m_ObjectHideFlags: 0
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57c99ead1c3c404c9c4a6bc5d217b8ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _questEndedCanvas: {fileID: 6351340868340310136}
+  _questUpdateUI: {fileID: 6236049373802377254}
   <ActiveQuests>k__BackingField: []
 --- !u!1 &8241973830789289928
 GameObject:
@@ -160,12 +160,12 @@ GameObject:
   - component: {fileID: 581159474962287403}
   - component: {fileID: 6236049373802377254}
   m_Layer: 5
-  m_Name: QuestEndedText
+  m_Name: QuestUpdatedText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4832755118840819199
 RectTransform:
   m_ObjectHideFlags: 0
@@ -183,8 +183,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 50}
+  m_AnchoredPosition: {x: 0, y: 220}
+  m_SizeDelta: {x: 1179, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &581159474962287403
 CanvasRenderer:
@@ -216,15 +216,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: Koniec Questa
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 315f35cc16605b34bbd60e3f7098e401, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: ecfe1b42935254e4a9cccbe5ab5db4cd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190335
-  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -241,8 +241,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 28
+  m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

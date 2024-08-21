@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using jbzd.QuestSystem.QuestStructureElements;
 using UnityEngine;
@@ -6,6 +6,7 @@ using jbzd.Common;
 using jbzd.QuestSystem.Goals;
 using jbzd.SavingSystem;
 using jbzd.SavingSystem.SaveData;
+using TMPro;
 
 namespace jbzd.QuestSystem
 {
@@ -15,9 +16,15 @@ namespace jbzd.QuestSystem
 
         public event QuestActivated OnQuestActivation;
 
-        [SerializeField] private Canvas _questStartedCanvas;
-        [SerializeField] private Canvas _questEndedCanvas;
-        [SerializeField] private Canvas _newTaskCanvas;
+        enum QuestInfo
+        {
+            NewQuest,
+            EndQuest,
+            UpdateQuest
+        }
+        
+        [SerializeField] private TMP_Text _questUpdateUI;
+        [SerializeField] private float _questUpdateInfoTime = 3f;
 
         [field: SerializeField]
         [field: JbzdReadOnly]
@@ -37,9 +44,8 @@ namespace jbzd.QuestSystem
                 Debug.Log($"Quest {questToStart.name} does not have tasks");
                 return;
             }
-            _questStartedCanvas.gameObject.SetActive(true);
+            ActivateQuestUpdatedUI(QuestInfo.NewQuest);
             questToStart.newUpdate = true;
-            Invoke(nameof(DeactivateQuestStartedCanvas), 3f);
             
             questToStart.ActiveTask = questToStart.QuestData.Tasks.First(task => task.Order == 0);
             
@@ -53,9 +59,7 @@ namespace jbzd.QuestSystem
             questToEnd.IsCompleted = true;
             questToEnd.ActiveTask = null;
             questToEnd.newUpdate = true;
-            //activate canvas for 3 seconds
-            _questEndedCanvas.gameObject.SetActive(true);
-            Invoke(nameof(DeactivateQuestEndedCanvas), 3f);
+            ActivateQuestUpdatedUI(QuestInfo.EndQuest);
         }
         
         /// <summary>
@@ -98,8 +102,7 @@ namespace jbzd.QuestSystem
                 if (numberOfActiveQuests == ActiveQuests.Count)
                 {
                     quest.newUpdate = true;
-                    _newTaskCanvas.gameObject.SetActive(true);
-                    Invoke(nameof(DeactivateNewTaskCanvas), 3f);
+                    ActivateQuestUpdatedUI(QuestInfo.UpdateQuest);
                 }
                 
                 // if acting goal finished, and it was last goal in quest thus completing it - quit loop
@@ -162,17 +165,28 @@ namespace jbzd.QuestSystem
                 }
             }
         }
-        private void DeactivateQuestStartedCanvas()
+        private void DeactivateQuestUpdatedUI()
         {
-            _questStartedCanvas.gameObject.SetActive(false);
+            _questUpdateUI.gameObject.SetActive(false);
         }
-        private void DeactivateNewTaskCanvas()
+
+        private void ActivateQuestUpdatedUI(QuestInfo questInfo)
         {
-            _newTaskCanvas.gameObject.SetActive(false);
-        }
-        private void DeactivateQuestEndedCanvas()
-        {
-            _questEndedCanvas.gameObject.SetActive(false);
+            switch (questInfo)
+            {
+                case QuestInfo.NewQuest:
+                    _questUpdateUI.text = "Zadanie rozpoczęte";
+                    break;
+                case QuestInfo.EndQuest:
+                    _questUpdateUI.text = "Zadanie zakończone";
+                    break;
+                case QuestInfo.UpdateQuest:
+                    _questUpdateUI.text = "Zadanie zaktualizowane";
+                    break;
+            }
+
+            _questUpdateUI.gameObject.SetActive(true);
+            Invoke(nameof(DeactivateQuestUpdatedUI), _questUpdateInfoTime);
         }
     }
 }
