@@ -1645,6 +1645,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0773b4136030464488d963d4ce11128f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsInteractable>k__BackingField: 1
+  <Warning>k__BackingField: "Ten skrypt mo\u017Ce by\u0107 tylko i wylacznie na przygotowanym
+    prefabie znajd\u017A go w assetach. Opisane w dokumentacji."
+  infoHeight: 5
+  infoText: 
   <IsInRange>k__BackingField: 0
 --- !u!135 &2252486930399463703
 SphereCollider:
@@ -1829,12 +1834,9 @@ GameObject:
   - component: {fileID: 2252486930547656905}
   - component: {fileID: 2252486930547656904}
   - component: {fileID: 2252486930547656911}
-  - component: {fileID: 2252486930547656910}
-  - component: {fileID: 2252486930547656909}
   - component: {fileID: 2252486930547656908}
   - component: {fileID: 2252486930547656915}
-  - component: {fileID: 2252486930547656914}
-  - component: {fileID: 2252486930547656913}
+  - component: {fileID: 7407034810388440733}
   m_Layer: 0
   m_Name: NPC_Grazyna
   m_TagString: Untagged
@@ -2007,34 +2009,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &2252486930547656910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2252486930547656912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 991f69d1f126a8242953f1058fd435a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DialogueContainer: {fileID: 11400000, guid: 8dcfbc63f74ace045a46fefa2ec2f926, type: 2}
-  TaskOnWhichToTalk: {fileID: 11400000, guid: e54f50eeb86b94145bfbdaad72bdb58b, type: 2}
---- !u!114 &2252486930547656909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2252486930547656912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 991f69d1f126a8242953f1058fd435a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DialogueContainer: {fileID: 11400000, guid: 8dcfbc63f74ace045a46fefa2ec2f926, type: 2}
-  TaskOnWhichToTalk: {fileID: 11400000, guid: 62529ae6e0396b045a32a1b2a51835e1, type: 2}
 --- !u!114 &2252486930547656908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2062,8 +2036,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcState: 1
   <Waypoints>k__BackingField: []
-  animator: {fileID: 2252486929195013423}
---- !u!114 &2252486930547656914
+--- !u!114 &7407034810388440733
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2072,25 +2045,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 2252486930547656912}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 991f69d1f126a8242953f1058fd435a1, type: 3}
+  m_Script: {fileID: 11500000, guid: 29580a257ac7ec54c90bb058c2cbdc5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DialogueContainer: {fileID: 11400000, guid: e1ae701ef763c56468e7db9296dfa341, type: 2}
-  TaskOnWhichToTalk: {fileID: 11400000, guid: 304406119d436c2458d5ff9f6e75f03c, type: 2}
---- !u!114 &2252486930547656913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2252486930547656912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 991f69d1f126a8242953f1058fd435a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DialogueContainer: {fileID: 11400000, guid: e1ae701ef763c56468e7db9296dfa341, type: 2}
-  TaskOnWhichToTalk: {fileID: 11400000, guid: 8712ebaf79296654f9c0c9679a8a7ca4, type: 2}
+  InitiateText: "W czym mog\u0119 pom\xF3c?"
+  PlayerImage: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+  NpcImage: {fileID: 21300000, guid: 9e1959b9728628d48ada63dee03adcf3, type: 3}
+  TasksAndDialogues:
+    thisDictItems:
+    - Key: {fileID: 11400000, guid: 304406119d436c2458d5ff9f6e75f03c, type: 2}
+      Value: {fileID: 11400000, guid: e1ae701ef763c56468e7db9296dfa341, type: 2}
+      Value2: "Ja od rodzic\xF3w"
+    - Key: {fileID: 11400000, guid: 8712ebaf79296654f9c0c9679a8a7ca4, type: 2}
+      Value: {fileID: 11400000, guid: e1ae701ef763c56468e7db9296dfa341, type: 2}
+      Value2: "Ja od rodzic\xF3w"
+    - Key: {fileID: 11400000, guid: 62529ae6e0396b045a32a1b2a51835e1, type: 2}
+      Value: {fileID: 11400000, guid: 8dcfbc63f74ace045a46fefa2ec2f926, type: 2}
+      Value2: Ja od meneli
+    - Key: {fileID: 11400000, guid: e54f50eeb86b94145bfbdaad72bdb58b, type: 2}
+      Value: {fileID: 11400000, guid: 8dcfbc63f74ace045a46fefa2ec2f926, type: 2}
+      Value2: Ja od meneli
 --- !u!1 &2252486930577814781
 GameObject:
   m_ObjectHideFlags: 0

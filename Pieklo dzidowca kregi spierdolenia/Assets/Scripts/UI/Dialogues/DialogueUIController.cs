@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using jbzd.Common.InputSystem;
 using jbzd.Common.InputSystem.Inputs;
+using jbzd.Common.Extensions;
 using jbzd.Dialogues;
 using jbzd.Dialogues.RuntimeData;
 using jbzd.MainHero;
@@ -83,7 +84,7 @@ namespace jbzd.UI.Dialogues
             {
                 Destroy(scrollContent.GetChild(i).gameObject);
             }
-
+            ClearImages();
             _dialogueOffset = 0;
             _isTyping = false;
 
@@ -327,11 +328,18 @@ namespace jbzd.UI.Dialogues
             _choiceButtons.Add(InitializeButton("Wypierdalaj", lastIndex, delegate { _dialogueManager.EndDialogue(); }));
         }
 
-        public void StartDialogue(List<ContainerSO> dataList)
+        /// <summary>
+        /// Gives player option of choosing what dialogue to play if there are multiple available. Otherwise it works like standard StartDialogue.
+        /// </summary>
+        /// <param name="dataList">List of tuples of ContainerSO which is dialogue to be played and string which is text that represents this dialogue. If string is empty name of the dialogue will be used.</param>
+        /// <param name="initiateText">Text which is asked by NPC</param>
+        /// <param name="npcSprite">Image on the rigth of the screen</param>
+        /// <param name="playerSprite">Image on the left of the screen</param>
+        public void StartDialogue(List<(ContainerSO, string)> dataList, string initiateText="", Sprite npcSprite = null, Sprite playerSprite=null)
         {
             if (dataList.Count == 1)
             {
-                StartDialogue(dataList[0]);
+                StartDialogue(dataList[0].Item1);
                 return;
             }
 
@@ -339,11 +347,17 @@ namespace jbzd.UI.Dialogues
 
             foreach (var data in dataList)
             {
-                actions.Add(delegate { _dialogueManager.StartDialogue(data); });
+                actions.Add(delegate { _dialogueManager.StartDialogue(data.Item1); });
             }
 
             OpenDialogueUI();
-            SetButtonChoices(dataList.Select(x => x.name).ToList(), actions);
+            ShowText(initiateText, false);
+            SetButtonChoices(dataList.Select(x => {
+                if (string.IsNullOrEmpty(x.Item2)) return x.Item1.name.MakeReadableText();
+                return x.Item2;
+                }).ToList(), actions);
+            SetNpcImage(npcSprite, new List<Sprite>());
+            SetPlayerImage(playerSprite, new List<Sprite>());
         }
 
         public void StartDialogue(ContainerSO data)

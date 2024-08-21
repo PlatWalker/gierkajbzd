@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
+using jbzd.Common.Extensions;
 using jbzd.MainHero;
 using jbzd.QuestSystem;
 using jbzd.QuestSystem.QuestStructureElements;
@@ -92,7 +92,7 @@ namespace jbzd.UI.QuestMenu
                     GameObject buttonGO = Instantiate(_buttonPrefab, _buttonContainer);
                     Button button = buttonGO.GetComponent<Button>();
                     var btnText = button.GetComponentInChildren<TMP_Text>();
-                    btnText.text = MakeReadableText(quest.name);
+                    btnText.text = quest.name.MakeReadableText();
                     btnText.color = quest.IsCompleted ? _completed_color : quest.newUpdate ? _not_read_color : _read_color;
                     btnText.fontSize = quest.QuestData.IsMain ? 28 : 24;    
 
@@ -133,7 +133,7 @@ namespace jbzd.UI.QuestMenu
         private void OnQuestButtonClicked(int questIndex)
         {
             Quest selectedQuest = _allQuests[questIndex];
-            _questNameText.text = MakeReadableText(selectedQuest.name);           
+            _questNameText.text = selectedQuest.name.MakeReadableText();           
             PrepareDescription();
             
             foreach (TaskSO task in selectedQuest.FinishedTasks)
@@ -184,16 +184,5 @@ namespace jbzd.UI.QuestMenu
             _descTexts.Add(textLine.transform);
         }
 
-        private string MakeReadableText(string text)
-        {
-            if (string.IsNullOrEmpty(text))
-                return text;
-
-            string result = Regex.Replace(text, "(?<!^)([A-Z])", " $1");
-
-            result = char.ToUpper(result[0]) + result[1..].ToLower();
-
-            return result;
-        }
     }
 }
