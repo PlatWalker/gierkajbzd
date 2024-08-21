@@ -6,9 +6,9 @@ namespace jbzd.Common.InputSystem
     {
         #region UserInterface
 
-        public const KeyCode Inventory = KeyCode.I;
+        public const KeyCode Inventory = KeyCode.E;
         public const KeyCode QuestLog = KeyCode.Q;
-        public const KeyCode InGameMenu = KeyCode.M;
+        public const KeyCode InGameMenu = KeyCode.Tab;
         public const KeyCode Escape = KeyCode.Escape;
         public const KeyCode QuickSave = KeyCode.F4;
         public const KeyCode TestQuickLoad = KeyCode.F5;
