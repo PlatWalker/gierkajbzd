@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 7313982383912061803}
   - component: {fileID: 7313982383912061802}
   - component: {fileID: 7313982383912061801}
+  - component: {fileID: 8832431547696950119}
   m_Layer: 0
-  m_Name: Test
+  m_Name: Cutscene Director
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7313982383912061800}
   m_LocalRotation: {x: -0, y: 0.2953502, z: -0, w: 0.9553891}
-  m_LocalPosition: {x: -739.31226, y: -6.6158714, z: -138.49542}
+  m_LocalPosition: {x: -754.67, y: -12.33, z: -138.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -106,6 +107,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &8832431547696950119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7313982383912061800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b9dc46fb7e9468a8eb3f5cb5a48183e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7313982384513649589
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,6 +249,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7313982384832898068
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,7 +275,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7313982384832898068}
-  m_LocalRotation: {x: -0, y: -0.2953502, z: -0, w: 0.9553891}
+  m_LocalRotation: {x: 0, y: -0.2953495, z: 0, w: 0.95538926}
   m_LocalPosition: {x: 532.16956, y: 6.6158714, z: 531.5629}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -296,3 +310,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playableDirector: {fileID: 7313982383912061803}
+  wasTriggered: 0

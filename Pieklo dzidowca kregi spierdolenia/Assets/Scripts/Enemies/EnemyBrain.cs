@@ -1,8 +1,8 @@
 using jbzd.Common.Interfaces;
+using jbzd.MinorSystems.Cutscenes;
 using jbzdy.Enemies;
 using UnityEngine;
 using UnityEngine.AI;
-using jbzd.Cutscenes;
 using Zenject;
 
 

@@ -1,5 +1,4 @@
 using System;
-using jbzd.Common.InputSystem.Inputs;
 using UnityEngine;
 
 namespace jbzd.UI

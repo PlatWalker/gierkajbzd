@@ -1,9 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+using MyBox;
 using UnityEngine;
 
-namespace jbzd
+namespace jbzd.Scenes.SceneLoader
 {
+    [RequireTag("TeleportDestination")]
     public class TeleportDestination : MonoBehaviour
     {
         public int Id;

@@ -1,10 +1,10 @@
-using jbzd.Common.InputSystem;
 using jbzd.Common.RunnerThing;
-using jbzd.Cutscenes;
 using jbzd.Dialogues;
 using jbzd.Items;
 using jbzd.UI;
 using jbzd.MainHero;
+using jbzd.MinorSystems.Cutscenes;
+using jbzd.MinorSystems.InputSystem;
 using jbzd.QuestSystem;
 using jbzd.SavingSystem;
 using jbzd.UI.LoadingScene;

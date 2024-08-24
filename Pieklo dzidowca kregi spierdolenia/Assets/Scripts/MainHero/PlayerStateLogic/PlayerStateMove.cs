@@ -1,5 +1,5 @@
 using System;
-using jbzd.Common.InputSystem.Inputs;
+using jbzd.MinorSystems.InputSystem.Inputs;
 using UnityEngine;
 
 namespace jbzd.MainHero.PlayerStateLogic

@@ -1,6 +1,6 @@
 using System;
-using jbzd.Cutscenes;
 using jbzd.MainHero;
+using jbzd.MinorSystems.Cutscenes;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;

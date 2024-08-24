@@ -8,6 +8,7 @@ using jbzd.UI.LoadingScene;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace jbzd.Scenes.SceneLoader
@@ -27,6 +28,11 @@ namespace jbzd.Scenes.SceneLoader
             Kregi.Krag9
         };
         public List<string> SceneNames { get; set; } = new();
+        
+        [Tooltip("Check this box if you want to trigger scene loader with collider")]
+        [SerializeField]
+        private bool colliderTriggerMode = true;
+        
 #if UNITY_EDITOR
         [field: Dropdown(nameof(AllKregi), nameof(OnValidate))]
 #endif
@@ -47,7 +53,7 @@ namespace jbzd.Scenes.SceneLoader
             _loadingUI = loadingUI;
         }
 
-        public void Awake()
+        private void Awake()
         {
             Debug.Assert(_playerManager is not null, "Zenject didnt injected player manager");
         }
@@ -112,6 +118,11 @@ namespace jbzd.Scenes.SceneLoader
         
         public void OnTriggerEnter(Collider other)
         {
+            if (colliderTriggerMode) LoadScene();
+        }
+
+        public void LoadScene()
+        {
             SceneManager.sceneLoaded += OnSceneLoaded;
             _loadingUI.OnSceneLoaded();
 
@@ -145,22 +156,12 @@ namespace jbzd.Scenes.SceneLoader
                 Debug.LogError("Reloading scene failed: " + e);
             }
 
+            return;
+
             void LoadSceneFromDifferentKrag(string interactiveSceneNameToLoad, string passiveSceneNameToLoad)
             {
                 SceneManager.LoadSceneAsync(interactiveSceneNameToLoad, LoadSceneMode.Additive);
                 SceneManager.LoadSceneAsync(passiveSceneNameToLoad, LoadSceneMode.Additive);
-
-                for (var i = 0; i < SceneManager.sceneCount; i++)
-                {
-                    var iteratedScene = SceneManager.GetSceneAt(i);
-                    var iteratedSceneType = JbzdSceneUtility.GetSceneType(iteratedScene.name);
-                    
-                    if(iteratedSceneType == SceneTypes.SingleLoad ||
-                       kragTypeOfThisTrigger == chosenKrag ||
-                       gameObject.scene.name == iteratedScene.name) continue;
-                    
-                    SceneManager.UnloadSceneAsync(iteratedScene);
-                }
             }
             
             void LoadSceneFromSameKrag(string interactiveSceneNameToLoad, string passiveSceneNameToLoad)
@@ -173,7 +174,7 @@ namespace jbzd.Scenes.SceneLoader
                 SceneManager.LoadSceneAsync(passiveSceneNameToLoad, LoadSceneMode.Additive);               
             }
         }
-
+        
         private void OnSceneLoaded(Scene scene, LoadSceneMode arg1)
         {
             if (JbzdSceneUtility.GetSceneType(scene.name) != SceneTypes.Passive) return;
@@ -203,20 +204,21 @@ namespace jbzd.Scenes.SceneLoader
             var gameObjectToTeleportTo = gameObjects.FirstOrDefault(gObject => {
 
                 if (!gObject.CompareTag("TeleportDestination")) return false;
-                
-                if (!gObject.TryGetComponent<TeleportDestination>(out var destination))
-                {
-                    Debug.LogError("One of teleport destinations doesnt have script");
-                    return true;
-                }
 
-                return destination.Id == Id; 
+                if (gObject.TryGetComponent<TeleportDestination>(out var destination)) return destination.Id == Id;
+                
+                Debug.LogError("One of teleport destinations doesnt have script");
+                return true;
+
                 }
             );
 
             if (gameObjectToTeleportTo is null)
             {
-                Debug.LogError("There is no object with 'TeleportDestination' tag so there is nothing to teleport to or such object doesnt have corresponding destination id");
+                Debug.LogError(gameObjects.FirstOrDefault(gObject => gObject.CompareTag("TeleportDestination")) is not null
+                    ? "There is no object with corresponding destination id"
+                    : "There is no object with 'TeleportDestination' tag so there is nothing to teleport to");
+
                 return;
             }
 

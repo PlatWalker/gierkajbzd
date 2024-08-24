@@ -1,5 +1,4 @@
 using jbzd.Common.Interfaces;
-using jbzd.InteractSystem;
 using jbzd.QuestSystem;
 using jbzd.QuestSystem.QuestStructureElements;
 using UnityEngine;

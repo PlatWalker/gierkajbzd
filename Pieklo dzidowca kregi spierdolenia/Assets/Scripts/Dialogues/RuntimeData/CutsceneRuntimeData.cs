@@ -1,5 +1,5 @@
 using jbzd.Common.RunnerThing;
-using jbzd.Cutscenes;
+using jbzd.MinorSystems.Cutscenes;
 using UnityEngine;
 using UnityEngine.Timeline;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using jbzd.InteractSystem;
 using jbzd.Items;
+using jbzd.MinorSystems.Interact;
 using UnityEngine;
 
 namespace jbzd.MainHero

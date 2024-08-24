@@ -1,6 +1,6 @@
 using System;
+using jbzd.MinorSystems.Cutscenes;
 using UnityEngine;
-using jbzd.Cutscenes;
 using Zenject;
 
 namespace jbzd.Enemies

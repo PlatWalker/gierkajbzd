@@ -1,4 +1,4 @@
-using jbzd.Cutscenes;
+using jbzd.MinorSystems.Cutscenes;
 using jbzd.QuestSystem.QuestStructureElements;
 using UnityEngine;
 using UnityEngine.Timeline;

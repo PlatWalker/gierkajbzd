@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using jbzd.Common.InputSystem;
-using jbzd.Common.InputSystem.Inputs;
 using jbzd.Common.Extensions;
 using jbzd.Dialogues;
 using jbzd.Dialogues.RuntimeData;
 using jbzd.MainHero;
+using jbzd.MinorSystems.InputSystem;
+using jbzd.MinorSystems.InputSystem.Inputs;
 using jbzd.UI.Hud;
 using TMPro;
 using UnityEngine;

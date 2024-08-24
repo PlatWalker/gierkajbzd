@@ -143,8 +143,9 @@ GameObject:
   - component: {fileID: 680981272516455126}
   - component: {fileID: 1669726558335043724}
   - component: {fileID: 6836139227365066431}
+  - component: {fileID: 5358027780229862554}
   m_Layer: 0
-  m_Name: Cutscene_hajdo
+  m_Name: Cutscene Director
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -207,9 +208,9 @@ PlayableDirector:
     value: {fileID: 7449201569029712569}
   - key: {fileID: -7516418951614423208, guid: d0d568d203e16124898369d28f3e5697, type: 2}
     value: {fileID: 0}
-  - key: {fileID: 8155488071359737149, guid: dd01898ded878db4c86c374f25c1b777, type: 2}
-    value: {fileID: 0}
-  - key: {fileID: -337287849737658343, guid: dd01898ded878db4c86c374f25c1b777, type: 2}
+  - key: {fileID: -4846364934024732347, guid: dd01898ded878db4c86c374f25c1b777, type: 2}
+    value: {fileID: 7449201569029712569}
+  - key: {fileID: 5621152341811497042, guid: dd01898ded878db4c86c374f25c1b777, type: 2}
     value: {fileID: 2095786997456080109}
   - key: {fileID: 360791057994557619, guid: dd01898ded878db4c86c374f25c1b777, type: 2}
     value: {fileID: 0}
@@ -227,7 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e402b0d99b309f64495ada286dfb6ccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cutscene: {fileID: 0}
+  _cutscene: {fileID: 680981272516455126}
   data: {fileID: 11400000, guid: 4ce398f87ceecc34ab3a673eb0a7ae06, type: 2}
 --- !u!114 &6836139227365066431
 MonoBehaviour:
@@ -259,6 +260,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &5358027780229862554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3956801776636670864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b9dc46fb7e9468a8eb3f5cb5a48183e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7449201569029712569
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,9 +282,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2657109215297221429}
   - component: {fileID: 4269204702908116850}
-  - component: {fileID: 2036932563517356874}
-  - component: {fileID: 4178111011757572796}
-  - component: {fileID: 5621013877887409262}
   - component: {fileID: 2899748822564045666}
   m_Layer: 11
   m_Name: Cutscene (escort end)
@@ -307,49 +317,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 12.671082, y: 3.1421356, z: 3.5276337}
+  m_Size: {x: 4.18, y: 4.64, z: 2.16}
   m_Center: {x: -3.1714783, y: 1.0710678, z: -2.0686111}
---- !u!114 &2036932563517356874
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7449201569029712569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3dc8a2e88c2e8f47bf1f0cef01372d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playableDirector: {fileID: 680981272516455126}
---- !u!114 &4178111011757572796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7449201569029712569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4539ef0eeb31f224eb98a5e6b7152598, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  barksTrigger: {fileID: 5621013877887409262}
-  isStart: 0
---- !u!114 &5621013877887409262
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7449201569029712569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69a6e8058fb6da745b030cfae4ffc3b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actors:
-  - {fileID: 0}
 --- !u!114 &2899748822564045666
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,5 @@
-using System;
-using jbzd.InteractSystem;
+using jbzd.MinorSystems.Barks;
+using jbzd.MinorSystems.Interact;
 using jbzd.QuestSystem;
 using jbzd.QuestSystem.QuestStructureElements;
 using UnityEngine;
@@ -11,19 +11,14 @@ namespace jbzd.QuestCreationScripts
     {
         [SerializeField] private TaskSO taskToCheck;
         
-        [Tooltip("If not added, nothing will be displayed.")]
-        [SerializeField] 
-        private GameObject interactionDenialText;
-        
         [field:SerializeField]
         public bool ShouldShowDenialText { get; set; } = true;
         
         private Quest _questWithTask;
         private QuestManager _questManager;
-        private Camera _camera;
         private Interaction _interaction;
+        private PlayerThoughtBarkController _playerThoughtBarkController;
 
-        
 
         [Inject]
         public void Constructor(QuestManager questManager)
@@ -33,18 +28,25 @@ namespace jbzd.QuestCreationScripts
 
         private void Awake()
         {
-            _camera = Camera.main;
             _interaction = GetComponentInChildren<Interaction>();
             
+            Debug.Assert(taskToCheck, $"Missing configuration field {nameof(taskToCheck)} on object {gameObject.name}");
             Debug.Assert(_interaction, $"Missing interaction script in children on object {gameObject.name}");
+
+            if (ShouldShowDenialText)
+            {
+                _playerThoughtBarkController = GetComponentInChildren<PlayerThoughtBarkController>();
+                Debug.Assert(_playerThoughtBarkController, $"Missing PlayerThoughtBark in children on object {gameObject.name}");
+            }
         }
 
         private void Start()
         {
-            _camera = Camera.main;
+            if (_interaction is null) return;
+            
             _interaction.IsInteractable = false;
+                
             _questWithTask = _questManager.GetQuestWithThisTaskSo(taskToCheck);
-
             _questWithTask.OnTaskStarted += OnTaskStarted;
         }
 
@@ -58,22 +60,19 @@ namespace jbzd.QuestCreationScripts
         
         private void Update()
         {
-            if (!interactionDenialText) return;
-            
-            if (_interaction.IsInRange && ShouldShowDenialText)
+            if (_interaction.IsInRange && ShouldShowDenialText && _interaction.IsInteractable is false)
             {
-                interactionDenialText.SetActive(true);
-                interactionDenialText.transform.LookAt(_camera?.transform);
+                _playerThoughtBarkController?.ShowPlayerThoughtBark();
             }
             else
             {
-                interactionDenialText.SetActive(false);
+                _playerThoughtBarkController?.HidePlayerThoughtBark();
             }
         }
         
         private void OnDestroy()
         {
-            _questWithTask.OnTaskStarted -= OnTaskStarted;
+            if (_questWithTask) _questWithTask.OnTaskStarted -= OnTaskStarted;
         }
     }
 }

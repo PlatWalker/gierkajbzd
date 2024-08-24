@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using jbzd.Common.RunnerThing;
-using jbzd.Cutscenes;
+using jbzd.MinorSystems.Cutscenes;
 using jbzd.QuestSystem.QuestStructureElements;
 using JetBrains.Annotations;
 using UnityEngine;

@@ -1,4 +1,4 @@
-using jbzd.Common.InputSystem.Inputs;
+using jbzd.MinorSystems.InputSystem.Inputs;
 
 namespace jbzd.MainHero.PlayerStateLogic
 {
