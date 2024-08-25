@@ -3,6 +3,7 @@ using jbzd.Dialogues;
 using jbzd.MainHero;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.Timeline;
 using Zenject;
 
 namespace jbzd.MinorSystems.Cutscenes
@@ -30,13 +31,12 @@ namespace jbzd.MinorSystems.Cutscenes
         public void Awake()
         {
             _playableDirector = GetComponent<PlayableDirector>();
-            _cutsceneManager.OnCutscenePlayDemand += timelineAsset =>
+            _cutsceneManager.OnCutsceneStarted += timelineAsset =>
             {
                 if (timelineAsset == _playableDirector.playableAsset)
                 {
                     Debug.Log($"Cutscene {transform.parent.name} starts playing");
                     _playableDirector.Play();
-                    _cutsceneManager.StartCutscene();
                 }
             };
             
@@ -45,7 +45,7 @@ namespace jbzd.MinorSystems.Cutscenes
                 _playerManager.CanPlayerMove = true;
                 Debug.Log($"{transform.parent.name} unfreeze player");
                 _dialogueEnded = false;
-                _cutsceneManager.EndCutscene();
+                _cutsceneManager.EndCutscene(_playableDirector.playableAsset as TimelineAsset);
 
             };
             

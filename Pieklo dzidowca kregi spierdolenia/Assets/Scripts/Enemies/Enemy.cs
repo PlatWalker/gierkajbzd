@@ -1,6 +1,7 @@
 using System;
 using jbzd.MinorSystems.Cutscenes;
 using UnityEngine;
+using UnityEngine.Timeline;
 using Zenject;
 
 namespace jbzd.Enemies
@@ -20,11 +21,11 @@ namespace jbzd.Enemies
             _cutsceneManager.OnCutsceneEnded += Reappear;
         }
 
-        public void Dissapear(){
+        public void Dissapear(TimelineAsset timelineAsset){
             gameObject.SetActive(false);
         }
 
-        public void Reappear(){
+        public void Reappear(TimelineAsset timelineAsset){
             gameObject.SetActive(true);
         }
 

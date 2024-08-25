@@ -12,6 +12,7 @@ using jbzd.MinorSystems.InputSystem.Inputs;
 using jbzd.NPC;
 using jbzd.SavingSystem;
 using UnityEngine.AI;
+using UnityEngine.Timeline;
 
 namespace jbzd.MainHero
 {
@@ -278,7 +279,7 @@ namespace jbzd.MainHero
             }
         }
 
-        public void Dissapear(){
+        public void Dissapear(TimelineAsset timelineAsset){
             MeshRenderer[] meshRenderers = GetComponentsInChildren<MeshRenderer>();
             foreach (MeshRenderer meshRenderer in meshRenderers)
             {
@@ -291,7 +292,7 @@ namespace jbzd.MainHero
             }
         }
 
-        public void Reappear(){
+        public void Reappear(TimelineAsset timelineAsset){
             MeshRenderer[] meshRenderers = GetComponentsInChildren<MeshRenderer>();
             foreach (MeshRenderer meshRenderer in meshRenderers)
             {

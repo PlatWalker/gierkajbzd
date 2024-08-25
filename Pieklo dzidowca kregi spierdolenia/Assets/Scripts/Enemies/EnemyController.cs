@@ -3,6 +3,7 @@ using jbzd.MinorSystems.Cutscenes;
 using jbzdy.Enemies;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Timeline;
 using Zenject;
 
 /// <summary>
@@ -53,11 +54,11 @@ namespace jbzd.Enemies
         }
 
 
-        public void Dissapear(){
+        public void Dissapear(TimelineAsset timelineAsset){
             gameObject.SetActive(false);
         }
 
-        public void Reappear(){
+        public void Reappear(TimelineAsset timelineAsset){
             gameObject.SetActive(true);
         }
 

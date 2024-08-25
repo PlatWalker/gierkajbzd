@@ -8,7 +8,7 @@ namespace jbzd.MinorSystems.Cutscenes
     public class CutscenesManager
     {
         public delegate void CutsceneNeededToBePlayed(TimelineAsset timelineAsset);
-        public delegate void CutsceneEventOccured();
+        public delegate void CutsceneEventOccured(TimelineAsset timelineAsset);
 
         public event CutsceneNeededToBePlayed OnCutscenePlayDemand;
         public event CutsceneEventOccured OnCutsceneStarted;
@@ -19,16 +19,22 @@ namespace jbzd.MinorSystems.Cutscenes
             Debug.Log($"Cutscene {timelineAsset.name} CUTSCENE MANAGER");
             
             OnCutscenePlayDemand?.Invoke(timelineAsset);
+            StartCutscene(timelineAsset);
+
         }
-        public void StartCutscene()
+        private void StartCutscene(TimelineAsset timelineAsset)
         {
             Debug.Log($"Cutscene started CUTSCENE MANAGER");
-            OnCutsceneStarted?.Invoke();
+            OnCutsceneStarted?.Invoke(timelineAsset);
         }
-        public void EndCutscene()
+        /// <summary>
+        /// Only CutsceneDirector script can use this, I know, it's stupid xD
+        /// </summary>
+        /// <param name="timelineAsset"></param>
+        public void EndCutscene(TimelineAsset timelineAsset)
         {
             Debug.Log($"Cutscene ended CUTSCENE MANAGER");
-            OnCutsceneEnded?.Invoke();
+            OnCutsceneEnded?.Invoke(timelineAsset);
         }
     }
 }

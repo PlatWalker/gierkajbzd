@@ -3,6 +3,7 @@ using jbzd.MainHero;
 using jbzd.MinorSystems.Cutscenes;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Timeline;
 using Zenject;
 
 namespace jbzd.NPC
@@ -115,7 +116,7 @@ namespace jbzd.NPC
             _cutscenesManager.OnCutsceneEnded -= OnCutsceneEnded;
         }
         
-        private void OnCutsceneStarted()
+        private void OnCutsceneStarted(TimelineAsset timelineAsset)
         {
             if (NpcStates.FollowPlayer == NpcState)
             {
@@ -124,7 +125,7 @@ namespace jbzd.NPC
             }
         }
 
-        private void OnCutsceneEnded()
+        private void OnCutsceneEnded(TimelineAsset timelineAsset)
         {
             if (NpcStates.FollowPlayer == NpcState)
             {
