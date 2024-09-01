@@ -1,3 +1,4 @@
+using System.Collections;
 using jbzd.QuestSystem;
 using jbzd.QuestSystem.QuestStructureElements;
 using UnityEngine;
@@ -17,6 +18,10 @@ namespace jbzd.MinorSystems.Barks
         
         [SerializeField]
         private Collider area;
+
+        [SerializeField]
+        [Tooltip("Time until barks starts displaying")]
+        private int timeUntilBarksStarts;
         
         private QuestManager _questManager;
         
@@ -41,13 +46,8 @@ namespace jbzd.MinorSystems.Barks
 
             _questWithTask.OnTaskStarted += OnTaskStarted;
             _questWithTask.OnTaskEnded += OnTaskEnded;
-            
-            if (_isInArea == false)
-            {
-                StartBarks();
-            }
         }
-
+        
         public void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.layer != LayerMask.NameToLayer("Area")) return;
@@ -85,11 +85,21 @@ namespace jbzd.MinorSystems.Barks
         private void OnTaskStarted(Quest questInvoked, TaskSO taskUpdated)
         {
             if (taskUpdated != taskTriggeringBarks) return;
-
-            _controller.StartRandomBarks();
+            
+            if (_isInArea == false)
+            {
+                StartCoroutine(StartBarksFromBeginning());
+            }
+            
             _isActive = true;
         }
 
+        private IEnumerator StartBarksFromBeginning()
+        {
+            yield return new WaitForSeconds(timeUntilBarksStarts);
+            StartBarks();
+        }
+        
         public void OnDestroy()
         {
             _questWithTask.OnTaskStarted -= OnTaskStarted;

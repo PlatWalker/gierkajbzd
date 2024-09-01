@@ -801,6 +801,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 865459243610609637}
     m_Modifications:
+    - target: {fileID: 2187084392249194194, guid: 47cfd972f9ffc6d409446f0ff495c085, type: 3}
+      propertyPath: timeBetweenBarks
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2187084392249194194, guid: 47cfd972f9ffc6d409446f0ff495c085, type: 3}
+      propertyPath: barks.Array.data[0]
+      value: "Przej\u015Bcie dla pieszych jest przy ko\u015Bciele m\u0142ody cz\u0142owieku..."
+      objectReference: {fileID: 0}
     - target: {fileID: 3245656586309642186, guid: 47cfd972f9ffc6d409446f0ff495c085, type: 3}
       propertyPath: m_Name
       value: Gienia
@@ -809,6 +817,10 @@ PrefabInstance:
       propertyPath: area
       value: 
       objectReference: {fileID: 1227550169660181947}
+    - target: {fileID: 3325573451320270986, guid: 47cfd972f9ffc6d409446f0ff495c085, type: 3}
+      propertyPath: timeUntilBarksStarts
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 5733581653915378657, guid: 47cfd972f9ffc6d409446f0ff495c085, type: 3}
       propertyPath: m_RootOrder
       value: 0

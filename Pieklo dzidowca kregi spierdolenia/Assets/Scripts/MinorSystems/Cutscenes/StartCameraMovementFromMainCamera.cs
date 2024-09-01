@@ -11,7 +11,7 @@ namespace jbzd.MinorSystems.Cutscenes
     {
         [SerializeField]
         [TextArea(1,6)]
-        private string comment = "Do dzialania tego skryptu nalezy pamietac, ze kamera glowna oraz kamera ktora bedzie uzyta" +
+        public string comment = "Do dzialania tego skryptu nalezy pamietac, ze kamera glowna oraz kamera ktora bedzie uzyta" +
                                  "w cutscenie musza miec wartosci rotacji pomiedzy 0 a 360. W innym przypadku bedzie wam kamera robila obroty z dupy." +
                                  "Dodatkowo nie dodawaj keyframe'a w pierwszej klatce animacji";
         
