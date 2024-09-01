@@ -25,29 +25,45 @@ namespace jbzd.Dialogues.RuntimeData
         [field: SerializeField] public SerializedDictionary<GroupRuntimeData, ListWrapper> Groups { get; set; }
         public Dictionary<GroupRuntimeData, List<NodeRuntimeData>> UtilityGroup { get; set; } = new();
         [field: NonSerialized] public string CurrentGroup { get; set; } = startGroupName;
-        static event UnityAction ResetEvent;
+        private static event UnityAction ResetEvent;
         
         private void OnEnable()
         {
-            ResetEvent -= ResetData; ResetEvent += ResetData;
+            ResetEvent -= ResetData; 
+            ResetEvent += ResetData;
+        }
+
+        private void OnDisable()
+        {
+            ResetEvent -= ResetData;
         }
         
-        void OnDisable() { ResetEvent -= ResetData; }
-
-        void ResetData()
+        public void ResetData()
         {
             CurrentGroup = "Start";
             UtilityGroup.Clear();
+        }
+
+        /// <summary>
+        /// Watch out! It will reset all dialogues to "start" group! Use with caution.
+        /// </summary>
+        public static void ResetDataGlobal()
+        {
+            ResetEvent?.Invoke();
         }
         
     #if UNITY_EDITOR
         static ContainerSO()
         { 
-            UnityEditor.EditorApplication.playModeStateChanged += LogPlayModeState; 
+            EditorApplication.playModeStateChanged += LogPlayModeState; 
         }
-        static void LogPlayModeState(UnityEditor.PlayModeStateChange state) 
-        { if (state is UnityEditor.PlayModeStateChange.EnteredEditMode or UnityEditor.PlayModeStateChange.ExitingEditMode) 
-            { ResetEvent?.Invoke(); } }
+        private static void LogPlayModeState(PlayModeStateChange state) 
+        {
+            if (state is PlayModeStateChange.EnteredEditMode or PlayModeStateChange.ExitingEditMode)
+            {
+                ResetEvent?.Invoke();
+            } 
+        }
     #endif
         
         
