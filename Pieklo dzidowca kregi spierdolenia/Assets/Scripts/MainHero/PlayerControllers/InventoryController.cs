@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using jbzd.Items;
+using jbzd.SavingSystem;
+using jbzd.SavingSystem.SaveData;
 using jbzd.UI.Inventory;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,7 +13,7 @@ using static jbzd.Items.ItemTypes;
 namespace jbzd.MainHero.PlayerControllers
 {
     [RequireComponent(typeof(ItemEquiper))]
-    public class InventoryController : MonoBehaviour , IPlayerController
+    public class InventoryController : MonoBehaviour, IPlayerController, ISaveable 
     {
         public List<InventorySlot> slots = new();
         public IReadOnlyDictionary<ItemTypes, ItemSO> EquippedItems => equippedItems;
@@ -300,6 +302,29 @@ namespace jbzd.MainHero.PlayerControllers
 
                 return 0;
             });
+        }
+
+        public void LoadData(GameData gameData)
+        {
+            slots = gameData.InventorySaveData.InventorySlots;
+            headArmor = gameData.InventorySaveData.headArmor;
+            chestArmor = gameData.InventorySaveData.chestArmor;
+            legArmor = gameData.InventorySaveData.legArmor;
+            bootsArmor = gameData.InventorySaveData.bootsArmor;
+            weapon = gameData.InventorySaveData.weapon;
+        }
+
+        public void SaveData(ref GameData gameData)
+        {
+            gameData.InventorySaveData = new InventoryControllerSaveData
+            {
+                InventorySlots = slots.ToList(),
+                headArmor = headArmor,
+                chestArmor = chestArmor,
+                legArmor = legArmor,
+                bootsArmor = bootsArmor,
+                weapon = weapon
+            };
         }
     }
 }

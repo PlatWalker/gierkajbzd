@@ -31,6 +31,7 @@ namespace jbzd.UI.EscapeMenu
 
         public void QuitToMainMenu()
         {
+            FreezeTime.Unfreeze();
             SceneManager.LoadScene(0, LoadSceneMode.Single);
         }
         

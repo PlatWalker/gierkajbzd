@@ -51,14 +51,13 @@ namespace jbzd.UI.MainMenu
             eventSystem.SetActive(false);
             mainCamera.SetActive(false);
             _animation.Play("FadeIn");
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1.5f);
+            Canvas.SetActive(false);
             yield return SceneManager.LoadSceneAsync("(none) - (GameplayStuff) - (SingleLoad)", LoadSceneMode.Additive);
             _saveManager.LoadGame();
-            _animation.Play("FadeIn");
-            yield return new WaitForSeconds(1);
-            Canvas.SetActive(false);
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(2f);
             yield return SceneManager.UnloadSceneAsync("(none) - (Main Menu) - (SingleLoad)");
+            _animation.Play("FadeIn");
         }
 
         private IEnumerator LoadScenesAndTeleportPlayer()
