@@ -20,8 +20,8 @@ namespace jbzd.SavingSystem
     [UsedImplicitly] // in installer
     public class SaveManager : MonoBehaviour
     {
-        private const string SAVE_DIRECTORY_NAME = "SaveData";
-        private const string SAVE_FILE_NAME = "SaveData.json";
+        public const string SAVE_DIRECTORY_NAME = "SaveData";
+        public const string SAVE_FILE_NAME = "SaveData.json";
 
         private InputManager _inputManager;
 
