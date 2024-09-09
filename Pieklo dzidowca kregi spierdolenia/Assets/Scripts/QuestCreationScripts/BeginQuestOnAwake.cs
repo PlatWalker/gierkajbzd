@@ -1,8 +1,7 @@
+using System;
+using System.Linq;
 using jbzd.QuestSystem;
 using jbzd.QuestSystem.QuestStructureElements;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -12,7 +11,9 @@ namespace jbzd.QuestCreationScripts
     public class BeginQuestOnAwake : MonoBehaviour
     {
         [SerializeField] private Quest questToStart;
+        
         private QuestManager _questManager;
+        
         [Inject]
         public void Constructor(QuestManager questManager)
         {
@@ -22,23 +23,23 @@ namespace jbzd.QuestCreationScripts
         private void Awake()
         {
             SceneManager.sceneLoaded += StartQuest;
-            SceneManager.sceneUnloaded += _ =>
-            {
-                SceneManager.sceneLoaded -= StartQuest;
-            };
         }
 
-        private void StartQuest(Scene arg0, LoadSceneMode arg1)
+        private void StartQuest(Scene loadedScene, LoadSceneMode loadSceneMode)
         {
-            if (arg0.Equals(gameObject.scene))
+            if (!loadedScene.Equals(gameObject.scene)) return;
+            
+            if (_questManager.ActiveQuests.Any(quest => quest == questToStart) || questToStart.IsCompleted)
             {
-                foreach (var quest in _questManager.ActiveQuests)
-                {
-                    if (quest == questToStart) return;
-                }
-                if (questToStart.IsCompleted) return;
-                _questManager.StartQuest(questToStart);
+                return;
             }
+            
+            _questManager.StartQuest(questToStart);
+        }
+
+        public void OnDestroy()
+        {
+            SceneManager.sceneLoaded -= StartQuest;
         }
     }
 }

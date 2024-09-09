@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f610f74393c5da94b9d6bd751743b438, type: 3}
+  m_Name: GraphDialogue_Main_2_1
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: Dialogue_Main_2_1
+  <ContainerID>k__BackingField: 15c256c53aa4373448df76b80c45b5df
+  <GraphContainerID>k__BackingField: 7a33a905d038096408bf88c187bee5dd
+  <Groups>k__BackingField:
+  - rid: 6426248156766535754
+  - rid: 6426248156766535755
+  <Nodes>k__BackingField:
+  - rid: 6426248156766535756
+  - rid: 6426248156766535757
+  - rid: 6426248156766535758
+  references:
+    version: 2
+    RefIds:
+    - rid: 6426248156766535754
+      type: {class: GroupEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 36cc1f49-3288-4fc9-a94a-d4329c0e04dc
+        <Name>k__BackingField: Start
+        <Position>k__BackingField: {x: -25, y: -59}
+    - rid: 6426248156766535755
+      type: {class: GroupEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: e2105432-c5cf-4721-828d-b780212d219c
+        <Name>k__BackingField: Grupa
+        <Position>k__BackingField: {x: 271, y: -86}
+    - rid: 6426248156766535756
+      type: {class: EndGroupNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 6675d055-ea3a-44eb-b1f2-8da7f52532eb
+        <Choices>k__BackingField: []
+        <GroupID>k__BackingField: 36cc1f49-3288-4fc9-a94a-d4329c0e04dc
+        <NodeType>k__BackingField: 7
+        <Position>k__BackingField: {x: 0, y: 0}
+        <SelectedGroup>k__BackingField: Grupa
+    - rid: 6426248156766535757
+      type: {class: DialogueNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 250c102b-6af5-482b-ac02-14bbb76ab6eb
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NodeID>k__BackingField: 442031d8-718a-422c-9619-f97571ed4637
+        <GroupID>k__BackingField: e2105432-c5cf-4721-828d-b780212d219c
+        <NodeType>k__BackingField: 0
+        <Position>k__BackingField: {x: 296, y: -27}
+        <Text>k__BackingField: "Zarzuty dla 43-letniego Janusza N. za pobicie ze
+          skutkiem \u015Bmiertelnym swojego pasierba... zaraz, chwileczk\u0119..."
+        <PlayerImage>k__BackingField: {fileID: 0}
+        <NpcImage>k__BackingField: {fileID: 0}
+        <Audio>k__BackingField: {fileID: 0}
+    - rid: 6426248156766535758
+      type: {class: EndGroupNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 442031d8-718a-422c-9619-f97571ed4637
+        <Choices>k__BackingField: []
+        <GroupID>k__BackingField: e2105432-c5cf-4721-828d-b780212d219c
+        <NodeType>k__BackingField: 7
+        <Position>k__BackingField: {x: 938, y: -27}
+        <SelectedGroup>k__BackingField: Grupa

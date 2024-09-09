@@ -1,3 +1,6 @@
+using System;
+using System.Linq;
+using jbzd.Common;
 using jbzd.MinorSystems.Cutscenes;
 using jbzd.QuestSystem.QuestStructureElements;
 using UnityEngine;
@@ -25,22 +28,19 @@ namespace jbzd.QuestCreationScripts
             _questManager = questManager;
         }
 
+        public void Start()
+        {
+            Debug.Assert(_task, ErrorTemplate.NotAssignedVariable(nameof(_task), gameObject));
+            Debug.Assert(playableDirector, ErrorTemplate.NotAssignedVariable(nameof(playableDirector), gameObject));
+        }
+
         private void OnTriggerEnter(Collider other)
         {
-            if (_task is null)
+            foreach (var _ in _questManager.ActiveQuests.Where(quest => quest.ActiveTask == _task))
             {
-                Debug.Log($"There is a trigger without task on {name}. You need to place a quest or delete component");
-                return;
+                var timelineAsset = playableDirector.playableAsset as TimelineAsset;
+                _cutscenesManager.PlayCutscene(timelineAsset);
             }
-
-            foreach (var quest in _questManager.ActiveQuests)
-            {
-                if (quest.ActiveTask == _task)
-                {
-                    TimelineAsset timelineAsset = playableDirector.playableAsset as TimelineAsset;
-                    _cutscenesManager.PlayCutscene(timelineAsset);
-                }
-            }               
         }
     }
 }
