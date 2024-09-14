@@ -17,7 +17,9 @@ namespace jbzd.MainHero.PlayerControllers
     {
         public List<InventorySlot> slots = new();
         public IReadOnlyDictionary<ItemTypes, ItemSO> EquippedItems => equippedItems;
-
+        public delegate void ItemAcquired(ItemSO itemAcquired, int numberOfItems);
+        public event ItemAcquired OnItemAcquiring;
+        
         [field: SerializeField] private ItemSO headArmor;
         [field: SerializeField] private ItemSO chestArmor;
         [field: SerializeField] private ItemSO legArmor;
@@ -96,28 +98,23 @@ namespace jbzd.MainHero.PlayerControllers
 
         public bool PickUpItem(ItemSO item, int numberOfItems = 1)
         {
-            Debug.Log("item podniesiony");
+            Debug.Log($"item {item.name} podniesiony");
 
-            if (ContainsItem(item, out List<InventorySlot> invSlots))
+            if (ContainsItem(item, out var invSlots))
             {
-                foreach (var slot in invSlots)
+                foreach (var slot in invSlots.Where(slot => slot.RoomLeftInStack(numberOfItems)))
                 {
-                    if (slot.RoomLeftInStack(numberOfItems))
-                    {
-                        slot.AddToStack(numberOfItems);
-                        return true;
-                    }
+                    slot.AddToStack(numberOfItems);
+                    OnItemAcquiring?.Invoke(item, numberOfItems);
+                    return true;
                 }
-                
             }
+
+            if (!HasFreeSlot(out var freeSlot)) return false;
             
-            if (HasFreeSlot(out InventorySlot freeSlot))
-            {
-                freeSlot.UpdateInventorySlot(item, numberOfItems);
-                return true;
-            }    
-            
-            return false;
+            freeSlot.UpdateInventorySlot(item, numberOfItems);
+            OnItemAcquiring?.Invoke(item, numberOfItems);
+            return true;
         }
 
         public void DropItem(ItemSO item)
