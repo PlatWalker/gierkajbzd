@@ -18,8 +18,13 @@ namespace jbzd.UI.MainMenu
         [SerializeField] private GameObject _intro;
         private Animation _animation;
         [Inject] private SaveManager _saveManager;
+        [SerializeField] private GameObject wczytajGreGameObject;
         public void Start()
         {
+            var directoryPath = Path.Combine(Application.persistentDataPath, SaveManager.SAVE_DIRECTORY_NAME);
+            var filePath = Path.Combine(directoryPath, SaveManager.SAVE_FILE_NAME);
+            wczytajGreGameObject.SetActive(File.Exists(filePath));
+
             _animation = _fadeIn.GetComponent<Animation>();
         }
 

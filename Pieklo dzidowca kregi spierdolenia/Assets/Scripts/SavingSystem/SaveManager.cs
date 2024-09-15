@@ -203,6 +203,11 @@ namespace jbzd.SavingSystem
                 //TODO show loading page
                 var gameData = LoadDataToVariable();
 
+                if (gameData is null)
+                {
+                    return;
+                }
+                
                 await LoadOpenedScenes(gameData);
                 LoadByInterface(gameData);
                 LoadStatusesOfGameObjects(gameData);
@@ -312,7 +317,13 @@ namespace jbzd.SavingSystem
             {
                 var directoryPath = Path.Combine(Application.persistentDataPath, SAVE_DIRECTORY_NAME);
                 var filePath = Path.Combine(directoryPath, SAVE_FILE_NAME);
-            
+
+                if (File.Exists(filePath) is false)
+                {
+                    Debug.LogError("Save file does not exist");
+                    return null;
+                }
+                
                 try
                 {
                     var dataToLoad = "";
