@@ -74,7 +74,7 @@ namespace jbzd.UI.MainMenu
             yield return SceneManager.LoadSceneAsync("(Krag1) - (AnonFlat) - (Passive)", LoadSceneMode.Additive);
             
             _playerManager = GameObject.FindWithTag("Player").GetComponent<PlayerManager>();
-            GameObject teleportDestination = GameObject.Find("TeleportDestination");
+            var teleportDestination = GameObject.Find("PlayStartPosition");
             _playerManager.PlaceAt(teleportDestination.transform.position);
             
 

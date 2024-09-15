@@ -5,6 +5,8 @@ using jbzd.Common;
 using jbzd.Common.AssetsHelper;
 using jbzd.Dialogues.RuntimeData;
 using jbzd.Enemies;
+using jbzd.MinorSystems.Cutscenes;
+using jbzd.UI.Dialogues;
 using UnityEngine;
 using UnityEngine.Timeline;
 
@@ -53,6 +55,20 @@ namespace jbzd.QuestSystem.QuestStructureElements
             }
             
             return componentsFromActorsList;
+        }
+        public void OnGoalEndActions(CutscenesManager cutscenesManager, DialogueUIController dialogueUIController, Quest questWithThisGoal, List<Actor> actorsFromThisGoal)
+        {
+            if (DialogueToStartOnGoalComplete is not null &&
+                GoalEndCondition(questWithThisGoal, actorsFromThisGoal))
+            {
+                dialogueUIController.StartDialogue(DialogueToStartOnGoalComplete);
+            }
+
+            if (CutsceneToStartOnGoalComplete is not null &&
+                GoalEndCondition(questWithThisGoal, actorsFromThisGoal))
+            {
+                cutscenesManager.PlayCutscene(CutsceneToStartOnGoalComplete);
+            }
         }
     }
 }

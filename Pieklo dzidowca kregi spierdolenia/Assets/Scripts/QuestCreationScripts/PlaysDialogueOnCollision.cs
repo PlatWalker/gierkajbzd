@@ -12,8 +12,10 @@ namespace jbzd.QuestCreationScripts
     public class PlaysDialogueOnCollision: MonoBehaviour
     {
         private DialogueUIController _uiController;
+        private bool _wasTriggered;
         
         [SerializeField] private ContainerSO dialogueContainer;
+        [SerializeField] private bool playOnlyOnce;
         
         [Inject]
         public void Constructor(UserInterfaceManager uiManager)
@@ -28,6 +30,9 @@ namespace jbzd.QuestCreationScripts
 
         public void OnTriggerEnter(Collider other)
         {
+            if(_wasTriggered && playOnlyOnce) return;
+
+            _wasTriggered = true;
             _uiController.StartDialogue(dialogueContainer);
         }
     }

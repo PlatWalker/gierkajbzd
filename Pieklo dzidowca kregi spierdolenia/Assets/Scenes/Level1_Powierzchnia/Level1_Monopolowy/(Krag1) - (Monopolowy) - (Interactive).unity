@@ -184,6 +184,51 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a0e6e9a904e640419eae9e40451ce06, type: 3}
+--- !u!1 &470019729
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 470019731}
+  - component: {fileID: 470019730}
+  m_Layer: 0
+  m_Name: TeleportDestinationFromMain
+  m_TagString: TeleportDestination
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &470019730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470019729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6367284e65b80124986db0e658902f19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Id: 3
+--- !u!4 &470019731
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470019729}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -14.7, y: 0.321, z: 49.817}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1565396576
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -239,5 +284,91 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC_Grazyna
       objectReference: {fileID: 0}
+    - target: {fileID: 7407034810388440733, guid: f9a7e097ce067b14d9a01659a57c17f1, type: 3}
+      propertyPath: TasksAndDialogues.thisDictItems.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7407034810388440733, guid: f9a7e097ce067b14d9a01659a57c17f1, type: 3}
+      propertyPath: TasksAndDialogues.thisDictItems.Array.data[0].Key
+      value: 
+      objectReference: {fileID: 11400000, guid: 48ea3c3ac6a1d9b44ae1a0f66ff40680, type: 2}
+    - target: {fileID: 7407034810388440733, guid: f9a7e097ce067b14d9a01659a57c17f1, type: 3}
+      propertyPath: TasksAndDialogues.thisDictItems.Array.data[1].Key
+      value: 
+      objectReference: {fileID: 11400000, guid: 62529ae6e0396b045a32a1b2a51835e1, type: 2}
+    - target: {fileID: 7407034810388440733, guid: f9a7e097ce067b14d9a01659a57c17f1, type: 3}
+      propertyPath: TasksAndDialogues.thisDictItems.Array.data[2].Key
+      value: 
+      objectReference: {fileID: 11400000, guid: e54f50eeb86b94145bfbdaad72bdb58b, type: 2}
+    - target: {fileID: 7407034810388440733, guid: f9a7e097ce067b14d9a01659a57c17f1, type: 3}
+      propertyPath: TasksAndDialogues.thisDictItems.Array.data[1].Value
+      value: 
+      objectReference: {fileID: 11400000, guid: 8dcfbc63f74ace045a46fefa2ec2f926, type: 2}
+    - target: {fileID: 7407034810388440733, guid: f9a7e097ce067b14d9a01659a57c17f1, type: 3}
+      propertyPath: TasksAndDialogues.thisDictItems.Array.data[1].Value2
+      value: Ja od meneli
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9a7e097ce067b14d9a01659a57c17f1, type: 3}
+--- !u!1 &1693679333
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1693679336}
+  - component: {fileID: 1693679335}
+  - component: {fileID: 1693679334}
+  m_Layer: 12
+  m_Name: TeleportToMain
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1693679334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693679333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0677a2bb60544cf88b296265e91e2991, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliderTriggerMode: 1
+  chosenKrag: (Krag1)
+  levelNameOfSceneToLoad: (MainScene)
+  Id: 5
+--- !u!65 &1693679335
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693679333}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.57, y: 2.09, z: 0.49}
+  m_Center: {x: 0, y: 0.74, z: 0}
+--- !u!4 &1693679336
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693679333}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -15.969999, y: 0.328, z: 48.481}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

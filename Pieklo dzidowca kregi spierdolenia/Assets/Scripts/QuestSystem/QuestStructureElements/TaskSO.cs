@@ -16,7 +16,7 @@ namespace jbzd.QuestSystem.QuestStructureElements
         [field:SerializeField]
         public int Order { get; set; }
 
-        [TextArea]
+        [TextArea(1,30)]
         public string Description;
         
         /// <summary>

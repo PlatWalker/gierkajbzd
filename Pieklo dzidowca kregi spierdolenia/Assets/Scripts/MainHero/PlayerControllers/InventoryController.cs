@@ -98,14 +98,13 @@ namespace jbzd.MainHero.PlayerControllers
 
         public bool PickUpItem(ItemSO item, int numberOfItems = 1)
         {
-            Debug.Log($"item {item.name} podniesiony");
-
             if (ContainsItem(item, out var invSlots))
             {
                 foreach (var slot in invSlots.Where(slot => slot.RoomLeftInStack(numberOfItems)))
                 {
                     slot.AddToStack(numberOfItems);
                     OnItemAcquiring?.Invoke(item, numberOfItems);
+                    Debug.Log($"podniesiono: {item.name} w ilosci {numberOfItems} i dodano do stacka");
                     return true;
                 }
             }
@@ -114,6 +113,7 @@ namespace jbzd.MainHero.PlayerControllers
             
             freeSlot.UpdateInventorySlot(item, numberOfItems);
             OnItemAcquiring?.Invoke(item, numberOfItems);
+            Debug.Log($"podniesiono: {item.name} w ilosci {numberOfItems} i dodano do wolnego slota");
             return true;
         }
 
@@ -129,14 +129,14 @@ namespace jbzd.MainHero.PlayerControllers
         
         public bool RemoveItem(ItemSO item, int numberOfItems = 1)
         {
-            Debug.Log("item zabrany");
-            
             if (!ContainsItem(item, out var invSlots) || invSlots.Sum(x=>x.StackSize) < numberOfItems)
             {
                 Debug.LogWarning("Błąd przy usuwaniu itema z inventory - możliwe, że gracz go nie posiada");
                 return false;
             }
-
+            
+            Debug.Log($"zabrano: {item.name} w ilosci {numberOfItems}");
+            
             foreach (var slot in invSlots)
             {
                 var leftNumberOfItems = slot.RemoveFromStack(numberOfItems);

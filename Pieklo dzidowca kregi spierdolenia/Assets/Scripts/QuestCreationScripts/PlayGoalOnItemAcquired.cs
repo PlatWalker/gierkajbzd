@@ -17,9 +17,10 @@ namespace jbzd.QuestCreationScripts
         private QuestManager _questManager;
         
         [Inject]
-        public void Constructor(PlayerManager playerManager)
+        public void Constructor(PlayerManager playerManager, QuestManager questManager)
         {
             _inventoryController = playerManager.GetPlayerController<InventoryController>();
+            _questManager = questManager;
         }
 
         private void Start()

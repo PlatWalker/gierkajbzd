@@ -165,18 +165,8 @@ namespace jbzd.QuestSystem.QuestStructureElements
             });
             
             CheckFinishCondition(passedGoal, actorsInPassedGoal);
-
-            if (passedGoal.DialogueToStartOnGoalComplete is not null &&
-                passedGoal.GoalEndCondition(this, actorsInPassedGoal))
-            {
-                _dialogueController.StartDialogue(passedGoal.DialogueToStartOnGoalComplete);
-            }
-
-            if (passedGoal.CutsceneToStartOnGoalComplete is not null &&
-                passedGoal.GoalEndCondition(this, actorsInPassedGoal))
-            {
-                _cutscenesManager.PlayCutscene(passedGoal.CutsceneToStartOnGoalComplete);
-            }
+            
+            passedGoal.OnGoalEndActions(_cutscenesManager, _dialogueController, this, actorsInPassedGoal);
         }
 
         public void CheckFinishCondition(GoalSO goalToAct, List<Actor> actorsInPassedGoal)

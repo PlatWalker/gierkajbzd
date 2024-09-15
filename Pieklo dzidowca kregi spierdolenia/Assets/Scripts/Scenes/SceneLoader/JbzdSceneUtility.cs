@@ -10,20 +10,23 @@ namespace jbzd.Scenes.SceneLoader
     public static class JbzdSceneUtility
     {
         #region Scene types managment
-
-        [CanBeNull]
+        
         public static string GetSceneType(string sceneName)
         {
+            Debug.Assert(string.IsNullOrEmpty(sceneName) is false, $"scene {sceneName} has wrongly formatted krag type");
+            
             if (sceneName.Contains(SceneTypes.SingleLoad)) return SceneTypes.SingleLoad;
             if (sceneName.Contains(SceneTypes.Passive)) return SceneTypes.Passive;
             if (sceneName.Contains(SceneTypes.Interactive)) return SceneTypes.Interactive;
             
             Debug.LogError($"scene {sceneName} should contain '(SingleLoad)' or '(Passive)' or '(Interactive)'");
-            return null;
+            return string.Empty;
         }
         
         public static string GetLevelName(string sceneName)
         {
+            Debug.Assert(string.IsNullOrEmpty(sceneName) is false, $"scene {sceneName} has wrongly formatted krag type");
+            
             var indexOfSecondOpenBracket = sceneName.IndexOf("(", sceneName.IndexOf("(") + 1);
             var withoutFirstBrackets = sceneName.Substring(indexOfSecondOpenBracket);
             var start = withoutFirstBrackets.IndexOf(")") + 1;
@@ -33,6 +36,7 @@ namespace jbzd.Scenes.SceneLoader
         
         public static string GetKragType(string sceneName)
         {
+            Debug.Assert(string.IsNullOrEmpty(sceneName) is false, $"scene {sceneName} has wrongly formatted krag type");
             var firstBrackets = sceneName.Substring(0, sceneName.IndexOf(")") + 1);
 
             var kragTypeName =  firstBrackets switch
