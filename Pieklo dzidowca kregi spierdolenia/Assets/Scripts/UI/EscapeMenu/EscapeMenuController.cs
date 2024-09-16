@@ -4,12 +4,15 @@ using UnityEngine.SceneManagement;
 using Zenject;
 using jbzd.SavingSystem;
 using System.Collections.Generic;
+using jbzd.UI.LoadingScene;
 
 namespace jbzd.UI.EscapeMenu
 {
     public class EscapeMenuController : UserInterfaceController
     {
         private SaveManager _saveManager;
+        private LoadingUI _loadingUI;
+        
         [SerializeField]
         private List<GameObject> _buttonParents = new();
         [SerializeField]
@@ -18,9 +21,10 @@ namespace jbzd.UI.EscapeMenu
         public override bool InitialActivationState() => false;
 
         [Inject]
-        public void Constructor(SaveManager saveManager)
+        public void Constructor(SaveManager saveManager, UserInterfaceManager userInterfaceManager)
         {
             _saveManager = saveManager;
+            _loadingUI = userInterfaceManager.GetUIController<LoadingUI>();
         }
 
         private void OnEnable()
@@ -53,6 +57,7 @@ namespace jbzd.UI.EscapeMenu
 
         public void LoadGame()
         {
+            gameObject.SetActive(false);
             _saveManager.LoadGame();
         }
     } 

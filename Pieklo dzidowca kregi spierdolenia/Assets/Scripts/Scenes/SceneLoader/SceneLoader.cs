@@ -4,6 +4,7 @@ using System.Linq;
 using jbzd.MainHero;
 using jbzd.Plugins.DropdownAttributes.Core.Scripts;
 using jbzd.Scenes.SceneLoader.ValueTypes;
+using jbzd.UI;
 using jbzd.UI.LoadingScene;
 using MyBox;
 using UnityEditor;
@@ -55,10 +56,10 @@ namespace jbzd.Scenes.SceneLoader
         private LoadingUI _loadingUI;
 
         [Inject]
-        public void Constructor(PlayerManager playerManager, LoadingUI loadingUI)
+        public void Constructor(PlayerManager playerManager, UserInterfaceManager userInterfaceManager)
         {
             _playerManager = playerManager;
-            _loadingUI = loadingUI;
+            _loadingUI = userInterfaceManager.GetUIController<LoadingUI>();
         }
 
         private void Awake()
@@ -132,7 +133,7 @@ namespace jbzd.Scenes.SceneLoader
         public void LoadScene()
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
-            _loadingUI.OnSceneLoaded();
+            _loadingUI.ShowLoadingScreen();
 
             var kragTypeOfThisTrigger = JbzdSceneUtility.GetKragType(gameObject.scene.name);
             Debug.Log($"Scene Loader from {gameObject.scene.name} named {gameObject.name} will teleport to {levelNameOfSceneToLoad}");
@@ -214,7 +215,7 @@ namespace jbzd.Scenes.SceneLoader
             if (sceneToUnload.IsValid())
             {
                 var operation = SceneManager.UnloadSceneAsync(sceneToUnload);
-                operation.completed += _loadingUI.OnAsyncSceneLoadEnd;
+                operation.completed += _loadingUI.HideLoadingScreen;
             }
             else
             {

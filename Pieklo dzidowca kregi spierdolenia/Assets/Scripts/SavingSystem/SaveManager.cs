@@ -200,7 +200,6 @@ namespace jbzd.SavingSystem
         {
             try
             {
-                //TODO show loading page
                 var gameData = LoadDataToVariable();
 
                 if (gameData is null)
@@ -211,7 +210,6 @@ namespace jbzd.SavingSystem
                 await LoadOpenedScenes(gameData);
                 LoadByInterface(gameData);
                 LoadStatusesOfGameObjects(gameData);
-                //TODO quit loading page
                 
                 Debug.Log("GAME LOADED");
             }
