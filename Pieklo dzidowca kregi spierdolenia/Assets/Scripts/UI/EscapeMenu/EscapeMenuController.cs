@@ -1,4 +1,5 @@
-﻿using jbzd.Common;
+﻿using System.Collections;
+using jbzd.Common;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -11,7 +12,7 @@ namespace jbzd.UI.EscapeMenu
     public class EscapeMenuController : UserInterfaceController
     {
         private SaveManager _saveManager;
-        private LoadingUI _loadingUI;
+        private UserInterfaceManager _userInterfaceManager;
         
         [SerializeField]
         private List<GameObject> _buttonParents = new();
@@ -24,7 +25,7 @@ namespace jbzd.UI.EscapeMenu
         public void Constructor(SaveManager saveManager, UserInterfaceManager userInterfaceManager)
         {
             _saveManager = saveManager;
-            _loadingUI = userInterfaceManager.GetUIController<LoadingUI>();
+            _userInterfaceManager = userInterfaceManager;
         }
 
         private void OnEnable()
@@ -57,8 +58,16 @@ namespace jbzd.UI.EscapeMenu
 
         public void LoadGame()
         {
+            StartCoroutine(Loading());
+        }
+
+        private IEnumerator Loading()
+        {
+            var loadingUI = _userInterfaceManager.GetUIController<LoadingUI>();
+            loadingUI.ShowLoadingScreen();
+            yield return _saveManager.LoadGame();
+            loadingUI.HideLoadingScreen();
             gameObject.SetActive(false);
-            StartCoroutine(_saveManager.LoadGame());
         }
     } 
 }

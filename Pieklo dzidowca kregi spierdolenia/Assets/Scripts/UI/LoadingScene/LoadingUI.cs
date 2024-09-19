@@ -13,9 +13,19 @@ namespace jbzd.UI.LoadingScene
 
         public void HideLoadingScreen(AsyncOperation asyncOperation)
         {
+            Hide();
+            asyncOperation.completed -= HideLoadingScreen;
+        }
+        
+        public void HideLoadingScreen()
+        {
+            Hide();
+        }
+
+        private void Hide()
+        {
             gameObject.SetActive(false);
             FreezeTime.Unfreeze();
-            asyncOperation.completed -= HideLoadingScreen;
         }
 
         public override bool InitialActivationState() => false;
