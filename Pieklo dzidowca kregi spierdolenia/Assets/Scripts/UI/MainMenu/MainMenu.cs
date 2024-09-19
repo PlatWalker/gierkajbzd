@@ -59,8 +59,7 @@ namespace jbzd.UI.MainMenu
             yield return new WaitForSeconds(1.5f);
             Canvas.SetActive(false);
             yield return SceneManager.LoadSceneAsync("(none) - (GameplayStuff) - (SingleLoad)", LoadSceneMode.Additive);
-            _saveManager.LoadGame();
-            yield return new WaitForSeconds(2f);
+            yield return _saveManager.LoadGame();
             yield return SceneManager.UnloadSceneAsync("(none) - (Main Menu) - (SingleLoad)");
             _animation.Play("FadeIn");
         }

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using jbzd.Common.Extensions;
 using jbzd.Dialogues.RuntimeData;
 using jbzd.MinorSystems.InputSystem;
@@ -11,6 +10,9 @@ using jbzd.MinorSystems.InputSystem.Inputs;
 using jbzd.SavingSystem.SaveData;
 using jbzd.Scenes.SceneLoader;
 using JetBrains.Annotations;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -40,7 +42,6 @@ namespace jbzd.SavingSystem
             _inputManager = inputManager;
             var userInterfaceInput = _inputManager.GetInput<UserInterfaceInput>();
             userInterfaceInput.OnQuickSaveClick += SaveGame;
-            userInterfaceInput.OnTestLoadClick += LoadGame;
         }
 
         public void Start()
@@ -196,29 +197,22 @@ namespace jbzd.SavingSystem
             }
         }
 
-        public async void LoadGame()
+        public IEnumerator LoadGame()
         {
-            try
-            {
-                var gameData = LoadDataToVariable();
+            var gameData = LoadDataToVariable();
 
-                if (gameData is null)
-                {
-                    return;
-                }
-                
-                await LoadOpenedScenes(gameData);
-                LoadByInterface(gameData);
-                LoadStatusesOfGameObjects(gameData);
-                
-                Debug.Log("GAME LOADED");
-            }
-            catch (Exception e)
+            if (gameData is null)
             {
-                Debug.LogError("Something went wrong during loading game:" + e);
+                yield break;
             }
+            
+            yield return LoadOpenedScenes(gameData);
+            LoadByInterface(gameData);
+            LoadStatusesOfGameObjects(gameData);
+                
+            Debug.Log("GAME LOADED");
 
-            return;
+            yield break;
 
             void LoadByInterface(GameData gameData)
             {
@@ -228,19 +222,38 @@ namespace jbzd.SavingSystem
                 }
             }
 
-            async Task LoadOpenedScenes(GameData gameData)
+            IEnumerator LoadOpenedScenes(GameData gameData)
             {
                 var scenes = JbzdSceneUtility.GetOpenedScenesExceptSingleLoad();
                 
                 foreach (var scene in scenes)
                 {
-                    await SceneManager.UnloadSceneAsync(scene);
+                    if (scene.IsValid())
+                    {
+                        yield return SceneManager.UnloadSceneAsync(scene);
+                    }
+                    else
+                    {
+                        Debug.LogError($"Scene \"{scene.name}\" is invalid");
+                    }
                 }
-                
+#if UNITY_EDITOR
                 foreach (var scene in gameData.openedScenes)
                 {
-                    await SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
+                    var sceneToLoad = EditorBuildSettings.scenes.ToList().FirstOrDefault(x=> new JbzdScene(x).FullSceneName == scene);
+                    
+                    if (sceneToLoad is not null)
+                    {
+                        yield return SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
+                    }
+                    else
+                    {
+                        Debug.LogError($"Scene \"{scene}\" does not exist in build settings");
+                    }
+                    
                 }
+#endif
+                yield return null;
             }
 
             void LoadStatusesOfGameObjects(GameData gameData)
@@ -286,7 +299,8 @@ namespace jbzd.SavingSystem
                                 Destroy(gameObjectWithWrongStatus);
                                 break;
                             case DisabledOrDestroyed.Unrecognized:
-                                throw new Exception("During save'ing data status of game object is not set");
+                                Debug.LogError("During save'ing data status of game object is not set");
+                                break;
                             default:
                                 throw new ArgumentOutOfRangeException();
                         }

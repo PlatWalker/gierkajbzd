@@ -58,7 +58,7 @@ namespace jbzd.UI.EscapeMenu
         public void LoadGame()
         {
             gameObject.SetActive(false);
-            _saveManager.LoadGame();
+            StartCoroutine(_saveManager.LoadGame());
         }
     } 
 }
