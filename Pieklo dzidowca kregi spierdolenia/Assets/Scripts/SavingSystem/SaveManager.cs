@@ -10,11 +10,13 @@ using jbzd.MinorSystems.InputSystem.Inputs;
 using jbzd.SavingSystem.SaveData;
 using jbzd.Scenes.SceneLoader;
 using JetBrains.Annotations;
+using TMPro;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace jbzd.SavingSystem
@@ -22,6 +24,13 @@ namespace jbzd.SavingSystem
     [UsedImplicitly] // in installer
     public class SaveManager : MonoBehaviour
     {
+        [SerializeField]
+        private TMP_Text savingSuccessText;
+
+        [Range(1, 10)]
+        [SerializeField]
+        private float textShowingDurationInSeconds;
+        
         public const string SAVE_DIRECTORY_NAME = "SaveData";
         public const string SAVE_FILE_NAME = "SaveData.json";
 
@@ -116,6 +125,8 @@ namespace jbzd.SavingSystem
                 PopulateWithStatusesOfGameObjects(ref gameData);
 
                 SaveDataToFile(gameData);
+
+                StartCoroutine(ShowTextSavingSuccess());
                 Debug.Log("GAME SAVED");
             }
             catch(Exception e)
@@ -195,6 +206,13 @@ namespace jbzd.SavingSystem
                     Debug.LogError("Error occured when trying to save data to file: " + directoryPath + "\n" + e);
                 }
             }
+        }
+
+        private IEnumerator ShowTextSavingSuccess()
+        {
+            savingSuccessText.transform.gameObject.SetActive(true);
+            yield return new WaitForSeconds(textShowingDurationInSeconds);
+            savingSuccessText.transform.gameObject.SetActive(false);
         }
 
         public IEnumerator LoadGame()
