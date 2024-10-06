@@ -6,6 +6,7 @@ using Zenject;
 using jbzd.SavingSystem;
 using System.Collections.Generic;
 using jbzd.UI.LoadingScene;
+using jbzd.Dialogues.RuntimeData;
 
 namespace jbzd.UI.EscapeMenu
 {
@@ -33,21 +34,23 @@ namespace jbzd.UI.EscapeMenu
             _buttonParents.ForEach(p => { p.SetActive(false); });
             _buttonParent.SetActive(true);
         }
+        public void Resume()
+        {
+            FreezeTime.Unfreeze();
+            gameObject.SetActive(false);
+        }
 
         public void QuitToMainMenu()
         {
             FreezeTime.Unfreeze();
+            ContainerSO.ResetDataGlobal();
             SceneManager.LoadScene(0, LoadSceneMode.Single);
         }
         
-        public void Resume()
-        {
-            gameObject.SetActive(false);
-            FreezeTime.Unfreeze();
-        }
-
         public void QuitGame()
         {
+            FreezeTime.Unfreeze();
+            ContainerSO.ResetDataGlobal();
             Application.Quit();
         }
 
