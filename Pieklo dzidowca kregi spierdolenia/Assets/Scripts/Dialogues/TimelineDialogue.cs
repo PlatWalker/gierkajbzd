@@ -1,4 +1,4 @@
-using jbzd.Dialogues;
+using jbzd.Common;
 using jbzd.Dialogues.RuntimeData;
 using jbzd.UI;
 using jbzd.UI.Dialogues;
@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 using Zenject;
 
-namespace jbzd.QuestCreationScripts
+namespace jbzd.Dialogues
 {
     public class TimelineDialogue : MonoBehaviour
     {
@@ -27,23 +27,14 @@ namespace jbzd.QuestCreationScripts
             _cutscene = GetComponent<PlayableDirector>();
             _manager.OnDialogueEnded += EndPause;
             _manager.OnDialogueStarted += StartPause;
-        }
-        public void FireDialogue()
-        {
-            if (data != null)
-            {
-                _controller.StartDialogue(data);
-            }
             
+            Debug.Assert(data, ErrorTemplate.NotAssignedVariable(nameof(data), gameObject));
         }
-        private void StartPause()
-        {
-            _cutscene.Pause();
-        }
-        private void EndPause()
-        {
-            _cutscene.Resume();
-        }
+        public void FireDialogue() => _controller.StartDialogue(data);
+
+        private void StartPause() => _cutscene.Pause();
+
+        private void EndPause() => _cutscene.Resume();
 
         private void OnDisable()
         {

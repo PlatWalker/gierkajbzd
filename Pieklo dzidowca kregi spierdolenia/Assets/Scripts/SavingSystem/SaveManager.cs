@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using jbzd.Common.Extensions;
 using jbzd.Dialogues.RuntimeData;
 using jbzd.MinorSystems.InputSystem;
@@ -11,8 +10,13 @@ using jbzd.MinorSystems.InputSystem.Inputs;
 using jbzd.SavingSystem.SaveData;
 using jbzd.Scenes.SceneLoader;
 using JetBrains.Annotations;
+using TMPro;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace jbzd.SavingSystem
@@ -20,8 +24,15 @@ namespace jbzd.SavingSystem
     [UsedImplicitly] // in installer
     public class SaveManager : MonoBehaviour
     {
-        private const string SAVE_DIRECTORY_NAME = "SaveData";
-        private const string SAVE_FILE_NAME = "SaveData.json";
+        [SerializeField]
+        private TMP_Text savingSuccessText;
+
+        [Range(1, 10)]
+        [SerializeField]
+        private float textShowingDurationInSeconds;
+        
+        public const string SAVE_DIRECTORY_NAME = "SaveData";
+        public const string SAVE_FILE_NAME = "SaveData.json";
 
         private InputManager _inputManager;
 
@@ -40,7 +51,6 @@ namespace jbzd.SavingSystem
             _inputManager = inputManager;
             var userInterfaceInput = _inputManager.GetInput<UserInterfaceInput>();
             userInterfaceInput.OnQuickSaveClick += SaveGame;
-            userInterfaceInput.OnTestLoadClick += LoadGame;
         }
 
         public void Start()
@@ -115,6 +125,8 @@ namespace jbzd.SavingSystem
                 PopulateWithStatusesOfGameObjects(ref gameData);
 
                 SaveDataToFile(gameData);
+
+                StartCoroutine(ShowTextSavingSuccess());
                 Debug.Log("GAME SAVED");
             }
             catch(Exception e)
@@ -196,26 +208,29 @@ namespace jbzd.SavingSystem
             }
         }
 
-        public async void LoadGame()
+        private IEnumerator ShowTextSavingSuccess()
         {
-            try
-            {
-                //TODO show loading page
-                var gameData = LoadDataToVariable();
+            savingSuccessText.transform.gameObject.SetActive(true);
+            yield return new WaitForSeconds(textShowingDurationInSeconds);
+            savingSuccessText.transform.gameObject.SetActive(false);
+        }
 
-                await LoadOpenedScenes(gameData);
-                LoadByInterface(gameData);
-                LoadStatusesOfGameObjects(gameData);
-                //TODO quit loading page
+        public IEnumerator LoadGame()
+        {
+            var gameData = LoadDataToVariable();
+
+            if (gameData is null)
+            {
+                yield break;
+            }
+            
+            yield return LoadOpenedScenes(gameData);
+            LoadByInterface(gameData);
+            LoadStatusesOfGameObjects(gameData);
                 
-                Debug.Log("GAME LOADED");
-            }
-            catch (Exception e)
-            {
-                Debug.LogError("Something went wrong during loading game:" + e);
-            }
+            Debug.Log("GAME LOADED");
 
-            return;
+            yield break;
 
             void LoadByInterface(GameData gameData)
             {
@@ -225,19 +240,38 @@ namespace jbzd.SavingSystem
                 }
             }
 
-            async Task LoadOpenedScenes(GameData gameData)
+            IEnumerator LoadOpenedScenes(GameData gameData)
             {
                 var scenes = JbzdSceneUtility.GetOpenedScenesExceptSingleLoad();
                 
                 foreach (var scene in scenes)
                 {
-                    await SceneManager.UnloadSceneAsync(scene);
+                    if (scene.IsValid())
+                    {
+                        yield return SceneManager.UnloadSceneAsync(scene);
+                    }
+                    else
+                    {
+                        Debug.LogError($"Scene \"{scene.name}\" is invalid");
+                    }
                 }
-                
+#if UNITY_EDITOR
                 foreach (var scene in gameData.openedScenes)
                 {
-                    await SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
+                    var sceneToLoad = EditorBuildSettings.scenes.ToList().FirstOrDefault(x=> new JbzdScene(x).FullSceneName == scene);
+                    
+                    if (sceneToLoad is not null)
+                    {
+                        yield return SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
+                    }
+                    else
+                    {
+                        Debug.LogError($"Scene \"{scene}\" does not exist in build settings");
+                    }
+                    
                 }
+#endif
+                yield return null;
             }
 
             void LoadStatusesOfGameObjects(GameData gameData)
@@ -283,7 +317,8 @@ namespace jbzd.SavingSystem
                                 Destroy(gameObjectWithWrongStatus);
                                 break;
                             case DisabledOrDestroyed.Unrecognized:
-                                throw new Exception("During save'ing data status of game object is not set");
+                                Debug.LogError("During save'ing data status of game object is not set");
+                                break;
                             default:
                                 throw new ArgumentOutOfRangeException();
                         }
@@ -312,7 +347,13 @@ namespace jbzd.SavingSystem
             {
                 var directoryPath = Path.Combine(Application.persistentDataPath, SAVE_DIRECTORY_NAME);
                 var filePath = Path.Combine(directoryPath, SAVE_FILE_NAME);
-            
+
+                if (File.Exists(filePath) is false)
+                {
+                    Debug.LogError("Save file does not exist");
+                    return null;
+                }
+                
                 try
                 {
                     var dataToLoad = "";

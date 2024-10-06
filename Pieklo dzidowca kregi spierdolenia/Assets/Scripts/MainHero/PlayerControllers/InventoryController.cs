@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using jbzd.Items;
+using jbzd.SavingSystem;
+using jbzd.SavingSystem.SaveData;
 using jbzd.UI.Inventory;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,11 +13,13 @@ using static jbzd.Items.ItemTypes;
 namespace jbzd.MainHero.PlayerControllers
 {
     [RequireComponent(typeof(ItemEquiper))]
-    public class InventoryController : MonoBehaviour , IPlayerController
+    public class InventoryController : MonoBehaviour, IPlayerController, ISaveable 
     {
         public List<InventorySlot> slots = new();
         public IReadOnlyDictionary<ItemTypes, ItemSO> EquippedItems => equippedItems;
-
+        public delegate void ItemAcquired(ItemSO itemAcquired, int numberOfItems);
+        public event ItemAcquired OnItemAcquiring;
+        
         [field: SerializeField] private ItemSO headArmor;
         [field: SerializeField] private ItemSO chestArmor;
         [field: SerializeField] private ItemSO legArmor;
@@ -94,28 +98,23 @@ namespace jbzd.MainHero.PlayerControllers
 
         public bool PickUpItem(ItemSO item, int numberOfItems = 1)
         {
-            Debug.Log("item podniesiony");
-
-            if (ContainsItem(item, out List<InventorySlot> invSlots))
+            if (ContainsItem(item, out var invSlots))
             {
-                foreach (var slot in invSlots)
+                foreach (var slot in invSlots.Where(slot => slot.RoomLeftInStack(numberOfItems)))
                 {
-                    if (slot.RoomLeftInStack(numberOfItems))
-                    {
-                        slot.AddToStack(numberOfItems);
-                        return true;
-                    }
+                    slot.AddToStack(numberOfItems);
+                    OnItemAcquiring?.Invoke(item, numberOfItems);
+                    Debug.Log($"podniesiono: {item.name} w ilosci {numberOfItems} i dodano do stacka");
+                    return true;
                 }
-                
             }
+
+            if (!HasFreeSlot(out var freeSlot)) return false;
             
-            if (HasFreeSlot(out InventorySlot freeSlot))
-            {
-                freeSlot.UpdateInventorySlot(item, numberOfItems);
-                return true;
-            }    
-            
-            return false;
+            freeSlot.UpdateInventorySlot(item, numberOfItems);
+            OnItemAcquiring?.Invoke(item, numberOfItems);
+            Debug.Log($"podniesiono: {item.name} w ilosci {numberOfItems} i dodano do wolnego slota");
+            return true;
         }
 
         public void DropItem(ItemSO item)
@@ -130,14 +129,14 @@ namespace jbzd.MainHero.PlayerControllers
         
         public bool RemoveItem(ItemSO item, int numberOfItems = 1)
         {
-            Debug.Log("item zabrany");
-            
             if (!ContainsItem(item, out var invSlots) || invSlots.Sum(x=>x.StackSize) < numberOfItems)
             {
                 Debug.LogWarning("Błąd przy usuwaniu itema z inventory - możliwe, że gracz go nie posiada");
                 return false;
             }
-
+            
+            Debug.Log($"zabrano: {item.name} w ilosci {numberOfItems}");
+            
             foreach (var slot in invSlots)
             {
                 var leftNumberOfItems = slot.RemoveFromStack(numberOfItems);
@@ -300,6 +299,29 @@ namespace jbzd.MainHero.PlayerControllers
 
                 return 0;
             });
+        }
+
+        public void LoadData(GameData gameData)
+        {
+            slots = gameData.InventorySaveData.InventorySlots;
+            headArmor = gameData.InventorySaveData.headArmor;
+            chestArmor = gameData.InventorySaveData.chestArmor;
+            legArmor = gameData.InventorySaveData.legArmor;
+            bootsArmor = gameData.InventorySaveData.bootsArmor;
+            weapon = gameData.InventorySaveData.weapon;
+        }
+
+        public void SaveData(ref GameData gameData)
+        {
+            gameData.InventorySaveData = new InventoryControllerSaveData
+            {
+                InventorySlots = slots.ToList(),
+                headArmor = headArmor,
+                chestArmor = chestArmor,
+                legArmor = legArmor,
+                bootsArmor = bootsArmor,
+                weapon = weapon
+            };
         }
     }
 }

@@ -1,13 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using jbzd.Common;
-using jbzd.MainHero;
 using jbzd.MinorSystems.InputSystem;
 using jbzd.MinorSystems.InputSystem.Inputs;
 using jbzd.UI.Dialogues;
-using jbzd.UI.EscapeMenu;
 using jbzd.UI.Hud;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -31,6 +28,8 @@ namespace jbzd.UI
         
         [UsedImplicitly][SerializeField] private UserInterfaceController inventoryUIController;
         
+        [UsedImplicitly][SerializeField] private UserInterfaceController loadingUIController;
+        
         #endregion
         
         [SerializeReference]
@@ -38,13 +37,11 @@ namespace jbzd.UI
         private List<UserInterfaceController> userInterfaceControllers;
 
         private UserInterfaceInput _input;
-        private PlayerManager _playerManager;
         
         [Inject]
-        public void Construct(InputManager inputManager, PlayerManager playerManager)
+        public void Construct(InputManager inputManager)
         {
             _input = inputManager.GetInput<UserInterfaceInput>();
-            _playerManager = playerManager;
         }
 
         private void Awake()

@@ -3,28 +3,31 @@ using UnityEngine;
 
 namespace jbzd.UI.LoadingScene
 {
-    public class LoadingUI : MonoBehaviour
+    public class LoadingUI : UserInterfaceController
     {
-        [SerializeField] private bool _fromGameplay;
-
-        public void OnSceneLoaded()
+        public void ShowLoadingScreen()
         {
             gameObject.SetActive(true);
             FreezeTime.Freeze();
         }
 
-        public void OnSceneUnloaded()
+        public void HideLoadingScreen(AsyncOperation asyncOperation)
         {
-            if (_fromGameplay)
-                gameObject.SetActive(false);
+            Hide();
+            asyncOperation.completed -= HideLoadingScreen;
+        }
+        
+        public void HideLoadingScreen()
+        {
+            Hide();
+        }
+
+        private void Hide()
+        {
+            gameObject.SetActive(false);
             FreezeTime.Unfreeze();
         }
 
-        public void OnAsyncSceneLoadEnd(AsyncOperation asyncOperation)
-        {
-            OnSceneUnloaded();
-            asyncOperation.completed -= OnAsyncSceneLoadEnd;
-        }
-
+        public override bool InitialActivationState() => false;
     }
 }

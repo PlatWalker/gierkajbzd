@@ -4,11 +4,12 @@ using System.Linq;
 using jbzd.MainHero;
 using jbzd.Plugins.DropdownAttributes.Core.Scripts;
 using jbzd.Scenes.SceneLoader.ValueTypes;
+using jbzd.UI;
 using jbzd.UI.LoadingScene;
+using MyBox;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace jbzd.Scenes.SceneLoader
@@ -33,6 +34,14 @@ namespace jbzd.Scenes.SceneLoader
         [SerializeField]
         private bool colliderTriggerMode = true;
         
+        [Tooltip("Check this box if you want to teleport from different scene than this object belongs to")]
+        [SerializeField]
+        private bool teleportFromDifferentScene;
+        [ConditionalField(nameof(teleportFromDifferentScene))]
+        [Scene]
+        [SerializeField]
+        private string sceneFromWhichToTeleport;
+        
 #if UNITY_EDITOR
         [field: Dropdown(nameof(AllKregi), nameof(OnValidate))]
 #endif
@@ -47,10 +56,10 @@ namespace jbzd.Scenes.SceneLoader
         private LoadingUI _loadingUI;
 
         [Inject]
-        public void Constructor(PlayerManager playerManager, LoadingUI loadingUI)
+        public void Constructor(PlayerManager playerManager, UserInterfaceManager userInterfaceManager)
         {
             _playerManager = playerManager;
-            _loadingUI = loadingUI;
+            _loadingUI = userInterfaceManager.GetUIController<LoadingUI>();
         }
 
         private void Awake()
@@ -124,7 +133,7 @@ namespace jbzd.Scenes.SceneLoader
         public void LoadScene()
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
-            _loadingUI.OnSceneLoaded();
+            _loadingUI.ShowLoadingScreen();
 
             var kragTypeOfThisTrigger = JbzdSceneUtility.GetKragType(gameObject.scene.name);
             Debug.Log($"Scene Loader from {gameObject.scene.name} named {gameObject.name} will teleport to {levelNameOfSceneToLoad}");
@@ -177,17 +186,42 @@ namespace jbzd.Scenes.SceneLoader
         
         private void OnSceneLoaded(Scene scene, LoadSceneMode arg1)
         {
-            if (JbzdSceneUtility.GetSceneType(scene.name) != SceneTypes.Passive) return;
+            var jbzdScene = new JbzdScene(scene);
+            
+            if (jbzdScene.SceneType != SceneTypes.Passive)
+            {
+                return;
+            }
 
-            WarpPlayerToLocationOnNewMap(scene);
+            var desiredInteractiveScene = SceneManager.GetSceneByName(jbzdScene.GetInteractiveScene().FullSceneName);
+            
+            if (desiredInteractiveScene.IsValid())
+            {
+                WarpPlayerToLocationOnNewMap(desiredInteractiveScene);
+            }
+            else
+            {
+                Debug.LogError($"Niepoprawna nazwa sceny: {desiredInteractiveScene.name}, teleportacja nie dziala");
+            }
 
-            var oldPassiveScene = JbzdSceneUtility.MergeFullSceneName(
-                new Krag(JbzdSceneUtility.GetKragType(gameObject.scene.name)),
-                new LevelName(JbzdSceneUtility.GetLevelName(gameObject.scene.name)),
-                new SceneType(SceneTypes.Passive));
+            var thisGameObjectScene = new JbzdScene(gameObject.scene.name);
+            
+            Debug.Assert(thisGameObjectScene.SceneType == SceneTypes.Interactive, "Scene loader powinien byc na scenie interaktywnej!");
+            
+            var sceneToUnload = SceneManager.GetSceneByName(teleportFromDifferentScene ?
+                sceneFromWhichToTeleport :
+                thisGameObjectScene.GetPassiveScene().FullSceneName);
 
-            var operation = SceneManager.UnloadSceneAsync(oldPassiveScene);
-            operation.completed += _loadingUI.OnAsyncSceneLoadEnd;
+            if (sceneToUnload.IsValid())
+            {
+                var operation = SceneManager.UnloadSceneAsync(sceneToUnload);
+                operation.completed += _loadingUI.HideLoadingScreen;
+            }
+            else
+            {
+                Debug.LogError($"There is no scene with name: {sceneToUnload.name}, scene object in unity is invalid");
+            }
+            
             UnsubscribeSceneLoaded();
         }
 

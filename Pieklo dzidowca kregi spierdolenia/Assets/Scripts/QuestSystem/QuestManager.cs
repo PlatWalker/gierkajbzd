@@ -69,44 +69,50 @@ namespace jbzd.QuestSystem
         public void MakeActorPlay(GoalSO goalToAct)
         {
             Debug.Log($"Goal {goalToAct.name} is trying to act");
-            TaskSO inTask = null;
 
             var numberOfActiveQuests = ActiveQuests.Count;
             var questsWithGoalToAct = 
-                ActiveQuests.Where(quest => quest.QuestData.IsThereAGoal(goalToAct, out inTask)).ToList();
+                ActiveQuests.Where(quest => quest.QuestData.IsThereAGoal(goalToAct, out _)).ToList();
             
             if (questsWithGoalToAct.Count is 0)
             {
                 Debug.Log($"Goal: {goalToAct.name} have tried to act but there were no active quests with such goal");
                 return;
             }
-            
-            foreach (var quest in questsWithGoalToAct)
-            {
-                //TODO need to be tested, why we are returning if we are iterating through quests?
-                if (quest.FinishedTasks.Contains(inTask))
-                {
-                    Debug.Log($"Goal that trying to act ({goalToAct.name})," +
-                              $" is in task{inTask.name} that is already finished");
-                    return;
-                }
 
-                //TODO need to be tested, why we are returning if we are iterating through quests?
-                if (quest.ActiveTask != inTask)
+            if (questsWithGoalToAct is {Count: > 1})
+            {
+                Debug.LogError($"There are two or more active quests that have same goal ({goalToAct.name}). Goals can't be reused!");
+                foreach (var quest in questsWithGoalToAct)
                 {
-                    Debug.Log($"Goal that is trying to act ({goalToAct.name})," +
-                              $" is in task that is not currently active");
-                    return;
+                    Debug.LogError($"Quest {quest.name} contains {goalToAct.name}");
                 }
-                quest.MakeActorPlayInThisQuest(goalToAct);
-                if (numberOfActiveQuests == ActiveQuests.Count)
-                {
-                    quest.newUpdate = true;
-                    ActivateQuestUpdatedUI(QuestInfo.UpdateQuest);
-                }
+                return;
+            }
+
+            var questWithGoalToAct = questsWithGoalToAct.First();
+            questWithGoalToAct.QuestData.IsThereAGoal(goalToAct, out var inTask);
+            
+            if (questWithGoalToAct.FinishedTasks.Contains(inTask))
+            {
+                Debug.Log($"Goal that trying to act ({goalToAct.name})," +
+                          $" is in task {inTask.name} that is already finished");
+                return;
+            }
                 
-                // if acting goal finished, and it was last goal in quest thus completing it - quit loop
-                if (numberOfActiveQuests != ActiveQuests.Count) return;
+            if (questWithGoalToAct.ActiveTask != inTask)
+            {
+                Debug.Log($"Goal that is trying to act ({goalToAct.name})," +
+                          $" is in task ({inTask.name}) that is not currently active in quest ({questWithGoalToAct.name})");
+                return;
+            }
+                
+            questWithGoalToAct.MakeActorPlayInThisQuest(goalToAct);
+                
+            if (numberOfActiveQuests == ActiveQuests.Count)
+            {
+                questWithGoalToAct.newUpdate = true;
+                ActivateQuestUpdatedUI(QuestInfo.UpdateQuest);
             }
         }
 

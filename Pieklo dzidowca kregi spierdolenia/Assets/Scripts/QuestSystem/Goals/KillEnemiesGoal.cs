@@ -3,6 +3,7 @@ using System.Linq;
 using jbzd.Common.RunnerThing;
 using jbzd.Dialogues;
 using jbzd.Enemies;
+using jbzd.MinorSystems.Cutscenes;
 using jbzd.QuestSystem.QuestStructureElements;
 using jbzd.UI;
 using jbzd.UI.Dialogues;
@@ -17,7 +18,7 @@ namespace jbzd.QuestSystem.Goals
     {
         [RunMethod]
         [UsedImplicitly]
-        public void ExecuteGoalScenario(List<Actor> actors, Quest questWithThisGoal, UserInterfaceManager uiManager)
+        public void ExecuteGoalScenario(List<Actor> actors, Quest questWithThisGoal, UserInterfaceManager uiManager, CutscenesManager cutscenesManager)
         {
             var enemiesControllers= GetComponentFromActorsList<EnemyController>(actors);
             var dialogueController = uiManager.GetUIController<DialogueUIController>();
@@ -31,12 +32,7 @@ namespace jbzd.QuestSystem.Goals
                     questWithThisGoal.GoalItemCollected[index] += 1;
                     questWithThisGoal.CheckFinishCondition(this, actors);
                     
-                    if (DialogueToStartOnGoalComplete is not null &&
-                        GoalEndCondition(questWithThisGoal, actors))
-                    {
-                        dialogueController.StartDialogue(DialogueToStartOnGoalComplete);
-                    }
-                    
+                    OnGoalEndActions(cutscenesManager, dialogueController, questWithThisGoal, actors);
                 };
             }
             
@@ -51,11 +47,7 @@ namespace jbzd.QuestSystem.Goals
                     questWithThisGoal.GoalItemCollected[index] += 1;
                     questWithThisGoal.CheckFinishCondition(this, actors);
                     
-                    if (DialogueToStartOnGoalComplete is not null &&
-                        GoalEndCondition(questWithThisGoal, actors))
-                    {
-                        dialogueController.StartDialogue(DialogueToStartOnGoalComplete);
-                    }
+                    OnGoalEndActions(cutscenesManager, dialogueController, questWithThisGoal, actors);
                 };
             }
 
@@ -70,11 +62,7 @@ namespace jbzd.QuestSystem.Goals
                     questWithThisGoal.GoalItemCollected[index] += 1;
                     questWithThisGoal.CheckFinishCondition(this, actors);
                     
-                    if (DialogueToStartOnGoalComplete is not null &&
-                        GoalEndCondition(questWithThisGoal, actors))
-                    {
-                        dialogueController.StartDialogue(DialogueToStartOnGoalComplete);
-                    }
+                    OnGoalEndActions(cutscenesManager, dialogueController, questWithThisGoal, actors);
                 };
             }
         }

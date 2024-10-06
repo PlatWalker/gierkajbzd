@@ -1,0 +1,794 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14c93c62eb7066244848451977371de8, type: 3}
+  m_Name: DialogGlowny
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: DialogGlowny
+  <GraphContainerID>k__BackingField: 9197913bba9641f4bae80dacd364ef0f
+  <ContainerID>k__BackingField: e1ae701ef763c56468e7db9296dfa341
+  <Groups>k__BackingField:
+    m_Keys:
+    - <GroupName>k__BackingField: Start
+    - <GroupName>k__BackingField: Intro 1
+    - <GroupName>k__BackingField: Intro 2
+    - <GroupName>k__BackingField: CyganEncounter
+    - <GroupName>k__BackingField: Shop Shenanigans
+    - <GroupName>k__BackingField: Madka Po Powrocie
+    - <GroupName>k__BackingField: Konkubent Po Powrocie
+    - <GroupName>k__BackingField: Madka Po Powrocie 2
+    - <GroupName>k__BackingField: Konkubent Po Powrocie 2
+    - <GroupName>k__BackingField: Anon Odpierdolil
+    - <GroupName>k__BackingField: Walka start
+    m_Values:
+    - myList:
+      - rid: 184509397576450221
+    - myList:
+      - rid: 184509397576450222
+      - rid: 184509397576450223
+      - rid: 184509397576450224
+    - myList:
+      - rid: 184509397576450225
+      - rid: 184509397576450226
+      - rid: 184509397576450227
+      - rid: 184509397576450228
+      - rid: 184509397576450229
+      - rid: 184509397576450230
+      - rid: 184509397576450231
+      - rid: 184509397576450232
+      - rid: 184509397576450233
+      - rid: 184509397576450234
+      - rid: 184509397576450235
+      - rid: 184509397576450236
+      - rid: 184509397576450237
+    - myList:
+      - rid: 184509397576450238
+      - rid: 184509397576450239
+      - rid: 184509397576450240
+      - rid: 184509397576450241
+      - rid: 184509397576450242
+      - rid: 184509397576450243
+      - rid: 184509397576450244
+      - rid: 184509397576450245
+      - rid: 184509397576450246
+      - rid: 184509397576450247
+    - myList:
+      - rid: 184509397576450248
+      - rid: 184509397576450249
+      - rid: 184509397576450250
+      - rid: 184509397576450251
+      - rid: 184509397576450252
+      - rid: 184509397576450253
+      - rid: 184509397576450254
+      - rid: 184509397576450255
+      - rid: 184509397576450256
+    - myList:
+      - rid: 184509397576450257
+      - rid: 184509397576450258
+    - myList:
+      - rid: 184509397576450259
+      - rid: 184509397576450260
+    - myList:
+      - rid: 184509397576450261
+      - rid: 184509397576450262
+    - myList:
+      - rid: 184509397576450263
+      - rid: 184509397576450264
+    - myList:
+      - rid: 184509397576450265
+      - rid: 184509397576450266
+    - myList:
+      - rid: 184509397576450267
+      - rid: 184509397576450268
+      - rid: 184509397576450269
+      - rid: 184509397576450270
+      - rid: 184509397576450271
+  references:
+    version: 2
+    RefIds:
+    - rid: 184509397576450221
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 3798d08e-67bd-4d27-8191-14a4b317e340
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 1
+        <SelectedGroup>k__BackingField: Intro 1
+    - rid: 184509397576450222
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: a958aead-2e2b-44fa-9c47-893e67ee702a
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 043bd23c-0c15-44ab-862a-9f4bc5c63b6d
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 1
+        <Text>k__BackingField: "Anon, kurwa! Chod\u017A tu natychmiast! "
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 9c604109ef88abd47a7c2e719dd189ea, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450223
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: afad093f-24f5-47b4-aafb-77d4948a1f94
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: Intro 2
+    - rid: 184509397576450224
+      type: {class: QuestRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 043bd23c-0c15-44ab-862a-9f4bc5c63b6d
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Output
+          <NextDialogue>k__BackingField: afad093f-24f5-47b4-aafb-77d4948a1f94
+        <NodeType>k__BackingField: 2
+        <IsStartingDialogue>k__BackingField: 0
+        <Quest>k__BackingField: {fileID: 11400000, guid: c8c1c999e5943d943bc3877f904aacfc, type: 2}
+        <IsQuestStart>k__BackingField: 1
+    - rid: 184509397576450225
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 95fd2504-f233-4cab-8a87-05efaaf0a814
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: ada5df45-8321-4234-8e51-8b4637d4ed96
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "Zamknij w ko\u0144cu ten ryj, bo jak ci przypierdole..."
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 37609932c1798044f8695c0547817fa2, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450226
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: ada5df45-8321-4234-8e51-8b4637d4ed96
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: bb37d3f0-2e87-426f-ba37-0c5ee7fdead0
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "Ile razy mam Ci\u0119, kurwa, wo\u0142a\u0107? G\u0142uchy
+          jeste\u015B czy pierdolni\u0119ty?"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 9c604109ef88abd47a7c2e719dd189ea, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450227
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 204e782a-61f2-46e6-a570-73bbbf19036e
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 95fd2504-f233-4cab-8a87-05efaaf0a814
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 1
+        <Text>k__BackingField: "Nic nie robisz, tylko chlejesz piwsko ca\u0142ymi
+          dniami i jeszcze moje wychla\u0142e\u015B! Matka mia\u0142a racj\u0119,
+          co do ciebie...!"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: fb189889408b4ae4f88f77fdbcc0ab35, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450228
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 74124e8d-6e58-4f8e-b805-7a808e6ecaf6
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: fe018d0a-75fe-4c3b-94d0-7903ea991e18
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "Ten komputer ju\u017C ci ca\u0142kiem na m\xF3zg
+          siad\u0142! Wyszed\u0142by\u015B na dw\xF3r, przyda\u0142 si\u0119 do czego\u015B,
+          a nie ca\u0142ymi dniami w tej norze siedzisz! \u017Badnego z ciebie po\u017Cytku,
+          drugi ojciec..."
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 9c604109ef88abd47a7c2e719dd189ea, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450229
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: fe018d0a-75fe-4c3b-94d0-7903ea991e18
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 95363bd9-e821-404d-a7e6-fa23b29a110a
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "Szczym ryj, powiedzia\u0142em ci!"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 37609932c1798044f8695c0547817fa2, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450230
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 95363bd9-e821-404d-a7e6-fa23b29a110a
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 61e927cc-57a1-4118-bead-d985cf211fcb
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: Spierdalaj...
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: fb189889408b4ae4f88f77fdbcc0ab35, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450231
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: bb37d3f0-2e87-426f-ba37-0c5ee7fdead0
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 74124e8d-6e58-4f8e-b805-7a808e6ecaf6
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: Oba...
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 37609932c1798044f8695c0547817fa2, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450232
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 61e927cc-57a1-4118-bead-d985cf211fcb
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 04382071-7f3d-489d-a220-369bb377315c
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "Masz tutaj kas\u0119, p\xF3jdziesz do Gra\u017Cyny
+          po fajki i jaki\u015B czteropak. "
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: fb189889408b4ae4f88f77fdbcc0ab35, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450233
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 04382071-7f3d-489d-a220-369bb377315c
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: a4254933-c27b-4ce3-8630-d3ec0da0bed3
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "Tylko, kurwa, reszt\u0119 przynie\u015B, jak zobacz\u0119,
+          \u017Ce brakuje cho\u0107by z\u0142ot\xF3wki, to tak ci\u0119 usadz\u0119..."
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 37609932c1798044f8695c0547817fa2, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450234
+      type: {class: ItemRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: a4254933-c27b-4ce3-8630-d3ec0da0bed3
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Gracz posiada item
+          <NextDialogue>k__BackingField: cfa23d0a-3d79-4742-a757-9a7dc9f9bdf1
+        - <Text>k__BackingField: Gracz nie posiada itemu
+          <NextDialogue>k__BackingField: 
+        <NodeType>k__BackingField: 3
+        <IsStartingDialogue>k__BackingField: 0
+        <Item>k__BackingField: {fileID: 11400000, guid: af50e01346ded2e41ba1cad7f707180c, type: 2}
+        <ItemsNumber>k__BackingField: 20
+        <IsItemAdded>k__BackingField: 1
+    - rid: 184509397576450235
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: cfa23d0a-3d79-4742-a757-9a7dc9f9bdf1
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 7c11230e-491e-4b78-b5a8-af14bb399cff
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "Bez fajek i piwa si\u0119 tu, kurwa, nie pokazuj,
+          rozumiesz g\xF3wniarzu?"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 37609932c1798044f8695c0547817fa2, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450236
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 0a5d4e82-b55e-44e8-a346-66e31d747576
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: CyganEncounter
+    - rid: 184509397576450237
+      type: {class: GoalScenarioActivationNodeRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 7c11230e-491e-4b78-b5a8-af14bb399cff
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Output
+          <NextDialogue>k__BackingField: 0a5d4e82-b55e-44e8-a346-66e31d747576
+        <NodeType>k__BackingField: 8
+        <IsStartingDialogue>k__BackingField: 0
+        <Goal>k__BackingField: {fileID: 11400000, guid: 713ecb9af4c385844a07af124836785f, type: 2}
+    - rid: 184509397576450238
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 019e410a-01bc-4341-90fc-d04f7ebff5bb
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Jasne, ale zagraj hymn ZSRR
+          <NextDialogue>k__BackingField: 135b32c1-9368-44ce-8008-1704cc732022
+        - <Text>k__BackingField: "Nie nosz\u0119 drobnych"
+          <NextDialogue>k__BackingField: e375e2d3-822f-4925-94ee-bfd1c6a35c3e
+        <NodeType>k__BackingField: 1
+        <IsStartingDialogue>k__BackingField: 1
+        <Text>k__BackingField: "Te, masz pi\u0119\u0107 z\u0142ote?"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 94eb32407f3b1d744a0561f681755a2b, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 1
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450239
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: bc87c278-b4cd-4556-b5f0-65771b57d3eb
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: e72fe9ec-8d3d-47da-9207-9de6a6dbad8c
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "*W okolicy bloku rozbrzmiewa d\u017Awi\u0119k hymnu
+          ZSRR zr\u0119cznie zagranego na akordeonie. \nKiedy si\u0119 ko\u0144czy
+          znika i akordeon, i cygan, i twoje 5 z\u0142otych. B\u0119dziesz musia\u0142
+          znale\u017A\u0107 jaki\u015B\nspos\xF3b na zdobycie kolejnych...*"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450240
+      type: {class: ItemRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 135b32c1-9368-44ce-8008-1704cc732022
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Gracz posiada item
+          <NextDialogue>k__BackingField: bc87c278-b4cd-4556-b5f0-65771b57d3eb
+        - <Text>k__BackingField: Gracz nie posiada itemu
+          <NextDialogue>k__BackingField: 
+        <NodeType>k__BackingField: 3
+        <IsStartingDialogue>k__BackingField: 0
+        <Item>k__BackingField: {fileID: 11400000, guid: af50e01346ded2e41ba1cad7f707180c, type: 2}
+        <ItemsNumber>k__BackingField: 5
+        <IsItemAdded>k__BackingField: 0
+    - rid: 184509397576450241
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: e375e2d3-822f-4925-94ee-bfd1c6a35c3e
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: "Dobra, masz tu pi\u0119\u0107 z\u0142otych, ale
+            zagraj hymn ZSRR"
+          <NextDialogue>k__BackingField: d720bfec-33f9-4f58-baf7-fb5f2f356eb2
+        - <Text>k__BackingField: Wypierdalaj!
+          <NextDialogue>k__BackingField: 10a19a18-44fb-4971-8ab2-f289e6f7eb22
+        <NodeType>k__BackingField: 1
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "Mog\u0105 by\u0107 grube"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 94eb32407f3b1d744a0561f681755a2b, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 1
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450242
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 10a19a18-44fb-4971-8ab2-f289e6f7eb22
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: e4371324-f875-4b4e-9775-e749e02f626a
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "Lins scrotul mare, transpirat \u0219i p\u0103ros!"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 04818e482d9bc6f4eaf47bff8933faa9, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450243
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: d720bfec-33f9-4f58-baf7-fb5f2f356eb2
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: e4371324-f875-4b4e-9775-e749e02f626a
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "Co? Ty, kurwa, \u015Bmieciu, m\xF3wi\u0142e\u015B,
+          \u017Ce nie masz drobnych! Zaraz ci zagram, ale marsz \u017Ca\u0142obny!
+          Cyganie! Assemble!"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 04818e482d9bc6f4eaf47bff8933faa9, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450244
+      type: {class: ItemRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: e4371324-f875-4b4e-9775-e749e02f626a
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Gracz posiada item
+          <NextDialogue>k__BackingField: 9dd90f54-deff-4573-9a42-f96e7b51a477
+        - <Text>k__BackingField: Gracz nie posiada itemu
+          <NextDialogue>k__BackingField: 
+        <NodeType>k__BackingField: 3
+        <IsStartingDialogue>k__BackingField: 0
+        <Item>k__BackingField: {fileID: 11400000, guid: af50e01346ded2e41ba1cad7f707180c, type: 2}
+        <ItemsNumber>k__BackingField: 15
+        <IsItemAdded>k__BackingField: 0
+    - rid: 184509397576450245
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 9dd90f54-deff-4573-9a42-f96e7b51a477
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: e72fe9ec-8d3d-47da-9207-9de6a6dbad8c
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "*Tak szybko jak si\u0119 pojawili, tak szybko znikn\u0119li.
+          Banda\ncygan\xF3w zabra\u0142a twoje ci\u0119\u017Cko po\u017Cyczone pieni\u0105dze.\nMusisz
+          znale\u017A\u0107 jaki\u015B spos\xF3b na odrobienie tego co straci\u0142e\u015B*"
+        <NpcImage>k__BackingField: {fileID: 0}
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450246
+      type: {class: GoalScenarioActivationNodeRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: e72fe9ec-8d3d-47da-9207-9de6a6dbad8c
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Output
+          <NextDialogue>k__BackingField: 379685de-c2b8-4d63-8811-20bdbc93b30a
+        <NodeType>k__BackingField: 8
+        <IsStartingDialogue>k__BackingField: 0
+        <Goal>k__BackingField: {fileID: 11400000, guid: 32a9efbdf629bf44687348eb6bf63468, type: 2}
+    - rid: 184509397576450247
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 379685de-c2b8-4d63-8811-20bdbc93b30a
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: Shop Shenanigans
+    - rid: 184509397576450248
+      type: {class: ItemRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: fe69b282-26a2-4e31-9930-0668e8876ee1
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Gracz posiada item
+          <NextDialogue>k__BackingField: d7b1a57e-840d-4eed-b05d-60824b83ccc1
+        - <Text>k__BackingField: Gracz nie posiada itemu
+          <NextDialogue>k__BackingField: 3da529a0-232d-4833-ad11-bddd685a6b69
+        <NodeType>k__BackingField: 3
+        <IsStartingDialogue>k__BackingField: 0
+        <Item>k__BackingField: {fileID: 11400000, guid: af50e01346ded2e41ba1cad7f707180c, type: 2}
+        <ItemsNumber>k__BackingField: 20
+        <IsItemAdded>k__BackingField: 0
+    - rid: 184509397576450249
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: d7b1a57e-840d-4eed-b05d-60824b83ccc1
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: bf6001ec-56ae-4ddd-819d-3c587e97d365
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "Prosz\u0119 bardzo. Do widzenia."
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 9e1959b9728628d48ada63dee03adcf3, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450250
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 3da529a0-232d-4833-ad11-bddd685a6b69
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 0beaa1cf-12a4-46dc-afa4-6af31463b9a5
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "Panie, jak pan nie ma jak zap\u0142aci\u0107 to po
+          choler\u0119 mi czas marnujesz"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 36dbd3da4d777a2458e0042fc459dec0, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450251
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 406b995a-7b2c-4a35-9c57-9ecdabe035e1
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: "Poprosz\u0119 Chesterfieldy i czteropak harnasia"
+          <NextDialogue>k__BackingField: fe69b282-26a2-4e31-9930-0668e8876ee1
+        - <Text>k__BackingField: Do widzenia
+          <NextDialogue>k__BackingField: c4055b26-f33a-47df-9c31-9ea130586d86
+        <NodeType>k__BackingField: 1
+        <IsStartingDialogue>k__BackingField: 1
+        <Text>k__BackingField: "Dzie\u0144 dobry. Co poda\u0107?"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 9e1959b9728628d48ada63dee03adcf3, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 21300000, guid: 322c97448bea9ca46a04ae059e483d60, type: 3}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 1
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450252
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: c4055b26-f33a-47df-9c31-9ea130586d86
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: Shop Shenanigans
+    - rid: 184509397576450253
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 0beaa1cf-12a4-46dc-afa4-6af31463b9a5
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: Shop Shenanigans
+    - rid: 184509397576450254
+      type: {class: ItemRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: bf6001ec-56ae-4ddd-819d-3c587e97d365
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Gracz posiada item
+          <NextDialogue>k__BackingField: 27cc917f-9b83-4994-97e4-63407f29e4b9
+        - <Text>k__BackingField: Gracz nie posiada itemu
+          <NextDialogue>k__BackingField: 
+        <NodeType>k__BackingField: 3
+        <IsStartingDialogue>k__BackingField: 0
+        <Item>k__BackingField: {fileID: 11400000, guid: d367f4ce88fa6784a95c5a903a7bc430, type: 2}
+        <ItemsNumber>k__BackingField: 1
+        <IsItemAdded>k__BackingField: 1
+    - rid: 184509397576450255
+      type: {class: ItemRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 27cc917f-9b83-4994-97e4-63407f29e4b9
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Gracz posiada item
+          <NextDialogue>k__BackingField: bef9be9c-28d3-4fc3-a967-f1bc78cbd0d3
+        - <Text>k__BackingField: Gracz nie posiada itemu
+          <NextDialogue>k__BackingField: 
+        <NodeType>k__BackingField: 3
+        <IsStartingDialogue>k__BackingField: 0
+        <Item>k__BackingField: {fileID: 11400000, guid: 0b87c16be5c3067419cc9055679532e4, type: 2}
+        <ItemsNumber>k__BackingField: 1
+        <IsItemAdded>k__BackingField: 1
+    - rid: 184509397576450256
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: bef9be9c-28d3-4fc3-a967-f1bc78cbd0d3
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: Madka Po Powrocie
+    - rid: 184509397576450257
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: a0655e98-ce49-4e55-9453-a51121a26f12
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: c50af74c-1e1e-414d-a5a9-55a1a6b1764a
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 1
+        <Text>k__BackingField: To Ty, Anon? Masz moje szlugi?
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: fb189889408b4ae4f88f77fdbcc0ab35, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450258
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: c50af74c-1e1e-414d-a5a9-55a1a6b1764a
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: Konkubent Po Powrocie
+    - rid: 184509397576450259
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 54a80156-e6f0-4dc0-9ec5-f6646a269041
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 4002b78f-8fb1-43f4-bf02-fb7996913770
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 1
+        <Text>k__BackingField: I mojego browara?
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 37609932c1798044f8695c0547817fa2, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450260
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 4002b78f-8fb1-43f4-bf02-fb7996913770
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: Madka Po Powrocie 2
+    - rid: 184509397576450261
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 4c949771-5deb-4aaf-9972-de91a0cee238
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: Konkubent Po Powrocie 2
+    - rid: 184509397576450262
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 972f50fd-f50f-4de4-a9bd-ce06c2d04b48
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 4c949771-5deb-4aaf-9972-de91a0cee238
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 1
+        <Text>k__BackingField: "Anon, do kurwy n\u0119dzy!"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 9c604109ef88abd47a7c2e719dd189ea, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450263
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 44c49743-150c-4b99-b2c5-60f7bd2ebde9
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 9647e620-3648-4fe4-8145-7de98d3c17b0
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 1
+        <Text>k__BackingField: "Dawaj to piwo, bo zaraz ja do ciebie podejd\u0119,
+          a tego by\u015B nie chcia\u0142!"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 37609932c1798044f8695c0547817fa2, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450264
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 9647e620-3648-4fe4-8145-7de98d3c17b0
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: Anon Odpierdolil
+    - rid: 184509397576450265
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 61837bcf-7041-4fb5-958e-9a5df3b35896
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: 30b03207-204d-451d-a010-9f881d1e4533
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 1
+        <Text>k__BackingField: Co jest, kurwa?!
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: d9243d584490e81488960483c0017d43, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450266
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 30b03207-204d-451d-a010-9f881d1e4533
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: Walka start
+    - rid: 184509397576450267
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: b6fa4479-d7e9-4a33-88ce-8ca34c2db179
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: b5e3a40e-ce6f-4f98-a545-b5118546714b
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 1
+        <Text>k__BackingField: "O, ty ma\u0142y kurwiu...\r"
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 37609932c1798044f8695c0547817fa2, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450268
+      type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: b5e3a40e-ce6f-4f98-a545-b5118546714b
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Nastepny dialog
+          <NextDialogue>k__BackingField: adf3339f-67b8-415b-b717-2b20026853b1
+        <NodeType>k__BackingField: 0
+        <IsStartingDialogue>k__BackingField: 0
+        <Text>k__BackingField: "Zawsze wiedzia\u0142am, \u017Ce g\xF3wno z ciebie
+          wyro\u015Bnie. Te ch\u0142opaki od Agnieszki czy And\u017Celi s\u0105 o
+          wiele lepsi od ciebie..."
+        <NpcImage>k__BackingField: {fileID: 21300000, guid: 9c604109ef88abd47a7c2e719dd189ea, type: 3}
+        <PlayerImage>k__BackingField: {fileID: 0}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
+        <ShowPlayerResponse>k__BackingField: 0
+        <IsPlayerTalking>k__BackingField: 0
+    - rid: 184509397576450269
+      type: {class: GoalScenarioActivationNodeRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: adf3339f-67b8-415b-b717-2b20026853b1
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Output
+          <NextDialogue>k__BackingField: e34d1838-6560-40da-b688-83f431ffc15e
+        <NodeType>k__BackingField: 8
+        <IsStartingDialogue>k__BackingField: 0
+        <Goal>k__BackingField: {fileID: 11400000, guid: 5a4fcd19e88d9d0498ab21957c204c34, type: 2}
+    - rid: 184509397576450270
+      type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: 36e6ea0e-33c1-484a-852a-7ea7e5c47d07
+        <Choices>k__BackingField: []
+        <NodeType>k__BackingField: 7
+        <IsStartingDialogue>k__BackingField: 0
+        <SelectedGroup>k__BackingField: Start
+    - rid: 184509397576450271
+      type: {class: GoalScenarioActivationNodeRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: e34d1838-6560-40da-b688-83f431ffc15e
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Output
+          <NextDialogue>k__BackingField: 36e6ea0e-33c1-484a-852a-7ea7e5c47d07
+        <NodeType>k__BackingField: 8
+        <IsStartingDialogue>k__BackingField: 0
+        <Goal>k__BackingField: {fileID: 11400000, guid: 9a94d5d00e4ad3c4caae7ce415de7f3f, type: 2}

@@ -10,6 +10,7 @@ namespace jbzd.SavingSystem
     {
         public Vector3 playerPosition;
         public QuestManagerSaveData questManagerSaveData;
+        public InventoryControllerSaveData InventorySaveData;
 
         public List<DialoguesSaveData> dialoguesSaveDatas = new();
         public List<DialogueTriggerSaveData> dialogueTriggerSaveDatas = new();

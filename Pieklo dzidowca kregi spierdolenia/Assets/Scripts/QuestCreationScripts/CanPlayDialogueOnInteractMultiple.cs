@@ -38,9 +38,9 @@ namespace jbzd.QuestCreationScripts
             var availableDialogues = new List<(ContainerSO, string)>();
             foreach (var quest in _questManager.ActiveQuests)
             {
-                if (TasksAndDialoguesDict.ContainsKey(quest.ActiveTask))
+                if (TasksAndDialoguesDict.TryGetValue(quest.ActiveTask, out var value))
                 {
-                    availableDialogues.Add(TasksAndDialoguesDict[quest.ActiveTask]);
+                    availableDialogues.Add(value);
                 }
             }
 

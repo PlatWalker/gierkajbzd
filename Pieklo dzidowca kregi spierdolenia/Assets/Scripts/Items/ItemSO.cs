@@ -3,7 +3,7 @@ using UnityEngine;
 namespace jbzd.Items
 {
     [CreateAssetMenu(fileName = "new item", menuName = "Item")]
-    public class ItemSO : ScriptableObject
+    public class ItemSO : ScriptableObject //ItemSO need to be in resource folder so it can be found during runtime in built game
     {
         [field:SerializeField] 
         public string ItemName { get; set; }
