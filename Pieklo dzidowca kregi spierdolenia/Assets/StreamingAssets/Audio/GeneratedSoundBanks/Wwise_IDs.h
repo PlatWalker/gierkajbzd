@@ -24,6 +24,7 @@ namespace AK
         static const AkUniqueID PLAY_BLOK = 1893962214U;
         static const AkUniqueID PLAY_DRZEWA_SZUM = 831257323U;
         static const AkUniqueID PLAY_GYMNOP_DIE_NO__1 = 194427908U;
+        static const AkUniqueID PLAY_INTRO = 3103472528U;
         static const AkUniqueID PLAY_MIASTO_SZUM = 180447167U;
         static const AkUniqueID PLAY_SILNIK_2 = 707719467U;
         static const AkUniqueID PLAY_SUCHE_DRZEWA = 1850391926U;

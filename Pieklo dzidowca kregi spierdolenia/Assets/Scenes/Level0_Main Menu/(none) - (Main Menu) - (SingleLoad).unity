@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &33673442 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7790691788549796088, guid: 3b668b8a5b3005a41a13c4b98d8a097b, type: 3}
+  m_PrefabInstance: {fileID: 866938034}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &215329063
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -412,6 +417,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 296703091}
   m_CullTransparentMesh: 0
+--- !u!1 &401965851
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 401965853}
+  - component: {fileID: 401965852}
+  m_Layer: 0
+  m_Name: WwiseGlobal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &401965852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401965851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 646630fbc423e3a4da6e91a799434a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitializationSettings: {fileID: 11400000, guid: 86450505d90040649a1aeab5a1498ad2, type: 2}
+  basePath: 
+  language: 
+  defaultPoolSize: 0
+  lowerPoolSize: 0
+  streamingPoolSize: 0
+  memoryCutoffThreshold: 0
+  monitorPoolSize: 0
+  monitorQueuePoolSize: 0
+  callbackManagerBufferSize: 0
+  spatialAudioPoolSize: 0
+  maxSoundPropagationDepth: 0
+  engineLogging: 0
+--- !u!4 &401965853
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401965851}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &593742547
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,7 +488,7 @@ GameObject:
   - component: {fileID: 593742553}
   - component: {fileID: 593742552}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Menu Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -866,6 +928,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: IntroCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 746852765613369411, guid: 3b668b8a5b3005a41a13c4b98d8a097b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057473259049039887, guid: 3b668b8a5b3005a41a13c4b98d8a097b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b668b8a5b3005a41a13c4b98d8a097b, type: 3}
 --- !u!224 &866938035 stripped
@@ -1096,10 +1166,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventSystem: {fileID: 1669494717}
-  mainCamera: {fileID: 593742547}
   Canvas: {fileID: 1476442307}
   _fadeIn: {fileID: 1606558670}
   _intro: {fileID: 1842867095}
+  _loadText: {fileID: 33673442}
   wczytajGreGameObject: {fileID: 296703091}
 --- !u!4 &1501907976
 Transform:
@@ -1261,7 +1331,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1551504971}
-  - component: {fileID: 1551504970}
   m_Layer: 0
   m_Name: WwiseGlobal
   m_TagString: Untagged
@@ -1269,31 +1338,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1551504970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1551504969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 646630fbc423e3a4da6e91a799434a7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationSettings: {fileID: 11400000, guid: 86450505d90040649a1aeab5a1498ad2, type: 2}
-  basePath: 
-  language: 
-  defaultPoolSize: 0
-  lowerPoolSize: 0
-  streamingPoolSize: 0
-  memoryCutoffThreshold: 0
-  monitorPoolSize: 0
-  monitorQueuePoolSize: 0
-  callbackManagerBufferSize: 0
-  spatialAudioPoolSize: 0
-  maxSoundPropagationDepth: 0
-  engineLogging: 0
 --- !u!4 &1551504971
 Transform:
   m_ObjectHideFlags: 0
@@ -1492,3 +1536,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7cd993795fe4855922edf1335ed1f59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  savingSuccessText: {fileID: 0}
+  textShowingDurationInSeconds: 0

@@ -4,6 +4,7 @@
 
 
 using jbzd.Common.Interfaces;
+using System.Linq;
 using UnityEngine;
 
 public class HealthBar : MonoBehaviour
@@ -17,7 +18,7 @@ public class HealthBar : MonoBehaviour
     {
         if (!(this.transform.parent.gameObject.TryGetComponent<IDamageable>(out parentScript))) Destroy(this.gameObject);
         //there should be manager to get camera from
-        cameraTransform = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
+        cameraTransform = GameObject.FindGameObjectsWithTag("MainCamera").OfType<GameObject>().ToList().First(x=>x.name == "Main Camera").GetComponent<Transform>();
         healthBarTransform = this.gameObject.GetComponent<Transform>();
         healthBarRenderer = this.gameObject.GetComponent<SpriteRenderer>();
     }

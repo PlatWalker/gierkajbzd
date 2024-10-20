@@ -193,6 +193,7 @@ namespace jbzd.UI.Dialogues
 
         private void FinishSentenceEarly()
         {
+            if (_typeDialogueCoroutine is null) return;
             StopCoroutine(_typeDialogueCoroutine);
             _lastTextContainer.text = _lastText;
             _lastTextContainer.rectTransform.sizeDelta =

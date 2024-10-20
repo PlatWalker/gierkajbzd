@@ -66,7 +66,7 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: 159c58abfcd63e41b91d15449fd1b68b
     GuidInternal: 
-    m_lastTime: -8584818671555663086
+    m_lastTime: -8584758586094200505
     List:
     - name: Poziom_1
       guid: 6531d2b8c6f323458a5c80dbc24e4da6
@@ -107,7 +107,7 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: 0936d81fde74e5419882308bbea417f1
     GuidInternal: 
-    m_lastTime: -8584818671555829003
+    m_lastTime: -8584758586094073060
     List:
     - name: Ataki_bohatera
       guid: ae10b41800b4c343951d9acf455594a5
@@ -296,6 +296,23 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 237.81879
       minDuration: 237.81879
+    - name: Play_Intro
+      guid: cb5245d4be9b0145a05113fd0a911402
+      id: 3103472528
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 0936d81fde74e5419882308bbea417f1
+      - ElementName: Play_Intro
+        ObjectType: 3
+        guid: cb5245d4be9b0145a05113fd0a911402
+      Path: Events\Default Work Unit\Play_Intro
+      maxAttenuation: 0
+      maxDuration: 56.424
+      minDuration: 56.424
     - name: Play_Miasto_szum
       guid: 9191d4d4c7f95b489bb65bb2887cd01e
       id: 180447167
@@ -328,8 +345,8 @@ MonoBehaviour:
         guid: cc9f1f4646fb2942b830927326ae35d5
       Path: Events\Default Work Unit\Play_silnik_2
       maxAttenuation: 75
-      maxDuration: 26.607885
-      minDuration: 26.607885
+      maxDuration: -1
+      minDuration: -1
     - name: Play_suche_drzewa
       guid: 51c91e1d236e3f418688a89ddd93028f
       id: 1850391926
