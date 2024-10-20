@@ -20,7 +20,7 @@ namespace jbzd.NPC
         }
 
         [SerializeField] private NpcStates npcState = NpcStates.Idle;
-        
+
         public NpcStates NpcState
         {
             get => npcState;
@@ -40,22 +40,24 @@ namespace jbzd.NPC
                 {
                     _playerManager.ListOfFollowers.Remove(this);
                 }
-                
+
                 npcState = value;
-            } 
+            }
         }
 
         [field:SerializeField]
         [Tooltip("If Npc need to follow a predefined path in some situation, add waypoints from scene for him to follow" +
                  "them one by one.")]
         public Transform[] Waypoints { get; set; }
+        [field: SerializeField] private bool LoopWaypoint { get; set; } = false;
+        [field: SerializeField] private int WaypointIndexToLoop { get; set; } = 0;
         public NavMeshAgent NpcAgent { get; private set; }
 
         private PlayerManager _playerManager;
         private CutscenesManager _cutscenesManager;
         private int _currentWaypointIndex;
         private Animator _animator;
-        
+
         private static readonly int IsWalking = Animator.StringToHash("isWalking");
 
 
@@ -93,8 +95,10 @@ namespace jbzd.NPC
                 case NpcStates.RunAwayFromPlayer:
                     _animator.SetBool(IsWalking, true);
                     if (!(NpcAgent.remainingDistance < 0.01f)) return;
-                    if (_currentWaypointIndex > Waypoints.Length - 1) return;
-
+                    if (_currentWaypointIndex > Waypoints.Length - 1) {
+                        if (!LoopWaypoint) return;
+                        _currentWaypointIndex = WaypointIndexToLoop;
+                    }
                     NpcAgent.SetDestination(Waypoints[_currentWaypointIndex].position);
                     _currentWaypointIndex += 1;
                     break;
@@ -109,7 +113,7 @@ namespace jbzd.NPC
             _cutscenesManager.OnCutsceneStarted += OnCutsceneStarted;
             _cutscenesManager.OnCutsceneEnded += OnCutsceneEnded;
         }
-        
+
         public void OnDestroy()
         {
             _cutscenesManager.OnCutsceneStarted -= OnCutsceneStarted;

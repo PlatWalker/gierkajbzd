@@ -7485,7 +7485,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8034231738022525896}
   - component: {fileID: 8034231738022525898}
-  - component: {fileID: 8034231738022525899}
+  - component: {fileID: 8221946431866436907}
   m_Layer: 12
   m_Name: Cutscene_Zdzichu_5
   m_TagString: Untagged
@@ -7534,7 +7534,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 12.671082, y: 3.1421356, z: 16.28}
   m_Center: {x: -3.1714783, y: 1.0710678, z: -2.0686111}
---- !u!114 &8034231738022525899
+--- !u!114 &8221946431866436907
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7543,12 +7543,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8034231738022525897}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24f9f84396d5ba44d9b2956aeba054d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 359cc2dbdcb30494f9a29b6499835472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quest: {fileID: 0}
-  task: {fileID: 11400000, guid: eab00b53500ad91438a1330100a98bc1, type: 2}
-  asset: {fileID: 11400000, guid: 1173273823032dd42be31a3d60118696, type: 2}
+  _task: {fileID: 11400000, guid: eab00b53500ad91438a1330100a98bc1, type: 2}
+  _goal: {fileID: 11400000, guid: 1c3ed3c6e3da40544bb11c716243ec50, type: 2}
+  _wasTriggered: 0
+  playableDirector: {fileID: 8034231738544839719}
 --- !u!1 &8034231738025777538
 GameObject:
   m_ObjectHideFlags: 0
