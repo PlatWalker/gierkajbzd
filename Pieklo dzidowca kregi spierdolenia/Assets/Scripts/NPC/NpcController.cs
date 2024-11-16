@@ -96,7 +96,11 @@ namespace jbzd.NPC
                     _animator.SetBool(IsWalking, true);
                     if (!(NpcAgent.remainingDistance < 0.01f)) return;
                     if (_currentWaypointIndex > Waypoints.Length - 1) {
-                        if (!LoopWaypoint) return;
+                        if (!LoopWaypoint)
+                        {
+                            NpcState = NpcStates.Idle;
+                            return;
+                        }
                         _currentWaypointIndex = WaypointIndexToLoop;
                     }
                     NpcAgent.SetDestination(Waypoints[_currentWaypointIndex].position);

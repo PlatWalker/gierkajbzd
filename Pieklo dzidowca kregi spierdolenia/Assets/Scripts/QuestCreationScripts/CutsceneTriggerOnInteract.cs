@@ -11,6 +11,7 @@ namespace jbzd.QuestCreationScripts
     {
         public PlayableDirector playableDirector;
         private CutscenesManager _cutscenesManager;
+        private bool _wasTriggered = false;
 
         [Inject]
         public void Construct(CutscenesManager cutscenesManager)
@@ -20,6 +21,8 @@ namespace jbzd.QuestCreationScripts
 
         public void OnInteract()
         {
+            if (_wasTriggered) return;
+            _wasTriggered = true;
             TimelineAsset timelineAsset = playableDirector.playableAsset as TimelineAsset;
             _cutscenesManager.PlayCutscene(timelineAsset);
         }

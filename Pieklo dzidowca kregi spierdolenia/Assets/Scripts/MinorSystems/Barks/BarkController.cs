@@ -69,7 +69,7 @@ namespace jbzd.MinorSystems.Barks
             }
         }
 
-        private void ShowNpcBark(string textToShow)
+        public void ShowNpcBark(string textToShow)
         {
             _shouldFollow = true;
             AlignTextCloud();

@@ -94,13 +94,17 @@ namespace jbzd.UI.Dialogues
             gameObject.SetActive(false);
             _hudCanvas.gameObject.SetActive(true);
             _playerManager.CanPlayerMove = true;
-            Debug.Log($"Dialogue {_dialogueManager.CurrentDialogueContainer.name} unfreeze player");
+            Debug.Log(_dialogueManager.CurrentDialogueContainer
+                ? $"Dialogue {_dialogueManager.CurrentDialogueContainer.name} unfreeze player"
+                : $"Dialogue chooser unfreeze player");
         }
 
         private void OpenDialogueUI()
         {
             _playerManager.CanPlayerMove = false;
-            Debug.Log($"Dialogue {_dialogueManager.CurrentDialogueContainer.name} freeze player");
+            Debug.Log(_dialogueManager.CurrentDialogueContainer
+                ? $"Dialogue {_dialogueManager.CurrentDialogueContainer.name} freeze player"
+                : $"Dialogue chooser freeze player");
 
             gameObject.SetActive(true);
 
