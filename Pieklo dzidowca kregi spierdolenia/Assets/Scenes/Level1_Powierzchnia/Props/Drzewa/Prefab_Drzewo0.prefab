@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5852557999680277857}
   - component: {fileID: 3450299772644898819}
   - component: {fileID: 5694008263057234332}
+  - component: {fileID: 5395551202447735181}
   m_Layer: 0
   m_Name: Prefab_Drzewo0
   m_TagString: Untagged
@@ -56,11 +57,11 @@ LODGroup:
   - screenRelativeHeight: 0.045024354
     fadeTransitionWidth: 0
     renderers:
-    - renderer: {fileID: 168069494896316722}
+    - renderer: {fileID: 0}
   - screenRelativeHeight: 0.016289065
     fadeTransitionWidth: 0
     renderers:
-    - renderer: {fileID: 168069494896316722}
+    - renderer: {fileID: 0}
   m_Enabled: 1
 --- !u!65 &2675624195370623966
 BoxCollider:
@@ -185,6 +186,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!95 &5395551202447735181
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4985847809979589450}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3b8340904a3988442bf287afc34a0d61, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1555026038721695158
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -248,13 +270,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Model_Drzewo1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5474907246367979126, guid: 6adcc4ca9309dde4a899a8133f9e2238, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4b6e4b4e8981faa4e822d6ca1ca1748e, type: 2}
+    - target: {fileID: 5474907246367979126, guid: 6adcc4ca9309dde4a899a8133f9e2238, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8911c65717c8d2147b0f43d601e322d5, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6adcc4ca9309dde4a899a8133f9e2238, type: 3}
---- !u!23 &168069494896316722 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 6adcc4ca9309dde4a899a8133f9e2238, type: 3}
-  m_PrefabInstance: {fileID: 1555026038721695158}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1305540916919937629 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6adcc4ca9309dde4a899a8133f9e2238, type: 3}
@@ -307,3 +332,24 @@ BillboardRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Billboard: {fileID: 0}
+--- !u!95 &4852502507796291609
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825618251673006311}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3b8340904a3988442bf287afc34a0d61, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

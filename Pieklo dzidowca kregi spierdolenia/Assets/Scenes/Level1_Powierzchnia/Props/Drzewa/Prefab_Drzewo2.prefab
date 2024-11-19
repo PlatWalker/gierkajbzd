@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7910552074143345236}
   - component: {fileID: 571273992647599883}
   - component: {fileID: 4310280643100894668}
+  - component: {fileID: 9196785927119857604}
   m_Layer: 0
   m_Name: Prefab_Drzewo2
   m_TagString: Untagged
@@ -55,11 +56,11 @@ LODGroup:
   - screenRelativeHeight: 0.045024354
     fadeTransitionWidth: 0
     renderers:
-    - renderer: {fileID: 3018722706628829646}
+    - renderer: {fileID: 0}
   - screenRelativeHeight: 0.019126676
     fadeTransitionWidth: 0
     renderers:
-    - renderer: {fileID: 3018722706628829646}
+    - renderer: {fileID: 0}
   m_Enabled: 1
 --- !u!65 &463118906133187248
 BoxCollider:
@@ -168,6 +169,27 @@ MonoBehaviour:
   attenuationSphereColor: {r: 1, g: 0, b: 0, a: 0.1}
   LargeModePositions: []
   multiPositionArray: []
+--- !u!95 &9196785927119857604
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8664963470727110774}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3b8340904a3988442bf287afc34a0d61, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &4478053501710564682
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -193,31 +215,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5bb5b5d7e71d76642858ce4774de5ede, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.8390711
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5bb5b5d7e71d76642858ce4774de5ede, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.07603591
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5bb5b5d7e71d76642858ce4774de5ede, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.33400756
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5bb5b5d7e71d76642858ce4774de5ede, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.4226312
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5bb5b5d7e71d76642858ce4774de5ede, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -24.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5bb5b5d7e71d76642858ce4774de5ede, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 32.96
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5bb5b5d7e71d76642858ce4774de5ede, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 46.21
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 5bb5b5d7e71d76642858ce4774de5ede, type: 3}
       propertyPath: m_DynamicOccludee
@@ -235,13 +257,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: Model_Drzewo2
       objectReference: {fileID: 0}
+    - target: {fileID: 8490411937003160022, guid: 5bb5b5d7e71d76642858ce4774de5ede, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bfa41df427ccfeb458830f66c06541e6, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5bb5b5d7e71d76642858ce4774de5ede, type: 3}
---- !u!23 &3018722706628829646 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 5bb5b5d7e71d76642858ce4774de5ede, type: 3}
+--- !u!1 &3667148626056691739 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5bb5b5d7e71d76642858ce4774de5ede, type: 3}
   m_PrefabInstance: {fileID: 4478053501710564682}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &2274864249972202081
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3667148626056691739}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3b8340904a3988442bf287afc34a0d61, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &4156686745298770593 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5bb5b5d7e71d76642858ce4774de5ede, type: 3}
