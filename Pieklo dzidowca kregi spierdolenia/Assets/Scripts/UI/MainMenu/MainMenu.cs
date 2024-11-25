@@ -17,6 +17,7 @@ namespace jbzd.UI.MainMenu
         [SerializeField] private GameObject _fadeIn;
         [SerializeField] private GameObject _intro;
         [SerializeField] private GameObject _loadText;
+        [SerializeField] private GameObject _mainBg;
 
         private Animation _animation;
         private Animator _introAnimation;
@@ -54,6 +55,18 @@ namespace jbzd.UI.MainMenu
             StartCoroutine(StartLoadingGame());
         }
 
+        public void PromptNewGame(GameObject prompt)
+        {
+            if (wczytajGreGameObject.activeSelf)
+            {
+                prompt.SetActive(true);
+                _mainBg.SetActive(false);
+                return;
+            }
+            
+            PlayGame();
+        }
+        
         private IEnumerator StartLoadingGame()
         {
             _fadeIn.SetActive(true);
