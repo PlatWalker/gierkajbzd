@@ -6,6 +6,7 @@ using Zenject;
 
 namespace jbzd.MinorSystems.Cutscenes
 {
+    #if UNITY_EDITOR
     [RequireComponent(typeof(PlayableDirector))]
     public class StartCameraMovementFromMainCamera: MonoBehaviour
     {
@@ -177,4 +178,5 @@ namespace jbzd.MinorSystems.Cutscenes
             _cutscenesManager.OnCutsceneEnded -= CutsceneEnded;
         }
     }
+    #endif
 }

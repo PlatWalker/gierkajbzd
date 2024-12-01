@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace jbzd.Common.AssetsHelper
 {
+#if UNITY_EDITOR
     internal sealed class AssetGUIDAssetPostProcessor : AssetPostprocessor
     {
 #pragma warning disable UNT0033 // Incorrect message case
@@ -52,4 +53,5 @@ namespace jbzd.Common.AssetsHelper
             }).ToList();
         }
     }
+    #endif
 }

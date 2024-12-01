@@ -1,5 +1,5 @@
+using System.Linq;
 using jbzd.Scenes.SceneLoader.ValueTypes;
-using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine.SceneManagement;
 
@@ -7,38 +7,24 @@ namespace jbzd.Scenes.SceneLoader
 {
     public readonly struct JbzdScene
     {
-#if UNITY_EDITOR
+
         public string ScenePath { get; }
         public string FullSceneName => GetSceneNameFromPath(ScenePath);
         public Krag KragType => new(JbzdSceneUtility.GetKragType(FullSceneName));
         public LevelName LevelName => new(JbzdSceneUtility.GetLevelName(FullSceneName));
         public SceneType SceneType => new(JbzdSceneUtility.GetSceneType(FullSceneName));
 
+#if UNITY_EDITOR
         public JbzdScene(EditorBuildSettingsScene editorBuildSettingsScene)
         {
             ScenePath = editorBuildSettingsScene.path;
         }
-
+#endif
         public JbzdScene(Scene unityScene)
         {
             ScenePath = unityScene.path;
         }
 
-        public JbzdScene(string sceneName)
-        {
-            foreach (var scene in EditorBuildSettings.scenes)
-            {
-                var sceneNameInPath = System.IO.Path.GetFileNameWithoutExtension(scene.path);
-
-                if (sceneNameInPath != sceneName) continue;
-                
-                ScenePath = scene.path;
-                return;
-            }
-
-            ScenePath = string.Empty;
-        }
-        
         private string GetSceneNameFromPath(string scenePath)
         {
             var slash = scenePath.LastIndexOf('/');
@@ -48,6 +34,24 @@ namespace jbzd.Scenes.SceneLoader
             return scenePath;
         }
         
+        public JbzdScene(string sceneName)
+        {
+            var sceneCount = SceneManager.sceneCountInBuildSettings;
+
+            for (var i = 0; i < sceneCount; i++)
+            {
+                var scenePath = SceneUtility.GetScenePathByBuildIndex(i);
+                var sceneNameInPath = System.IO.Path.GetFileNameWithoutExtension(scenePath);
+
+                if (sceneNameInPath != sceneName) continue;
+                
+                ScenePath = scenePath;
+                return;
+            }
+
+            ScenePath = string.Empty;
+        }
+
         public JbzdScene GetPassiveScene()
         {
             if (SceneType == SceneTypes.Passive) return this;
@@ -61,6 +65,5 @@ namespace jbzd.Scenes.SceneLoader
 
             return new JbzdScene(JbzdSceneUtility.MergeFullSceneName(KragType, LevelName, new SceneType(SceneTypes.Interactive)));
         }
-#endif
     }
 }
