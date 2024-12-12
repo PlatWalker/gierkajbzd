@@ -1,5 +1,71 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2645168112227543331
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 8461901714696534680}
+    m_Modifications:
+    - target: {fileID: 3912807156427022573, guid: b8a77f308adf1e04297441538164ad3a, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3912807156427022573, guid: b8a77f308adf1e04297441538164ad3a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 909.0909
+      objectReference: {fileID: 0}
+    - target: {fileID: 3912807156427022573, guid: b8a77f308adf1e04297441538164ad3a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3912807156427022573, guid: b8a77f308adf1e04297441538164ad3a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3912807156427022573, guid: b8a77f308adf1e04297441538164ad3a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3912807156427022573, guid: b8a77f308adf1e04297441538164ad3a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3912807156427022573, guid: b8a77f308adf1e04297441538164ad3a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: 3912807156427022573, guid: b8a77f308adf1e04297441538164ad3a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3912807156427022573, guid: b8a77f308adf1e04297441538164ad3a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3912807156427022573, guid: b8a77f308adf1e04297441538164ad3a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3912807156427022573, guid: b8a77f308adf1e04297441538164ad3a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3912807156427022573, guid: b8a77f308adf1e04297441538164ad3a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397419566737668695, guid: b8a77f308adf1e04297441538164ad3a, type: 3}
+      propertyPath: m_Name
+      value: action_point
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b8a77f308adf1e04297441538164ad3a, type: 3}
+--- !u!23 &194710169948320417 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2739940903277796226, guid: b8a77f308adf1e04297441538164ad3a, type: 3}
+  m_PrefabInstance: {fileID: 2645168112227543331}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5003629357655569133
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -75,12 +141,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3467420578930477175, guid: b3f8a340cee4fc842835f9c45e537f01, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3467420578930477449, guid: b3f8a340cee4fc842835f9c45e537f01, type: 3}
       propertyPath: m_Name
       value: AnonMainSceneToFightFlatTeleporter Variant
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3467420578930477169, guid: b3f8a340cee4fc842835f9c45e537f01, type: 3}
+    - {fileID: 3467420578930477172, guid: b3f8a340cee4fc842835f9c45e537f01, type: 3}
+    - {fileID: 3467420578930477175, guid: b3f8a340cee4fc842835f9c45e537f01, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b3f8a340cee4fc842835f9c45e537f01, type: 3}
+--- !u!4 &8461901714696534680 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3467420578930477173, guid: b3f8a340cee4fc842835f9c45e537f01, type: 3}
+  m_PrefabInstance: {fileID: 5003629357655569133}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8461901714696534884 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3467420578930477449, guid: b3f8a340cee4fc842835f9c45e537f01, type: 3}
@@ -100,3 +178,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueContainer: {fileID: 11400000, guid: e1ae701ef763c56468e7db9296dfa341, type: 2}
   groupToSet: Madka Po Powrocie
+--- !u!114 &7260912302494381439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8461901714696534884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f49dcbe725978e4da44c9fcf34c21d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  notInteractableEmissionColor: {r: 0.85882354, g: 0.02745098, b: 0, a: 0}
+  interactableEmissionColor: {r: 0.02745098, g: 0.85882354, b: 0, a: 0}
+  meshRenderer: {fileID: 194710169948320417}

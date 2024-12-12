@@ -7,6 +7,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4975112144462571666, guid: bd85994a617eee5478817975cbe211ac, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4975112144462571666, guid: bd85994a617eee5478817975cbe211ac, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4975112144462571666, guid: bd85994a617eee5478817975cbe211ac, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4975112144462571666, guid: bd85994a617eee5478817975cbe211ac, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434516881868924984, guid: bd85994a617eee5478817975cbe211ac, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 9184469847061894771, guid: bd85994a617eee5478817975cbe211ac, type: 3}
       propertyPath: Id
       value: 1
@@ -73,7 +93,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9184469847061895048, guid: bd85994a617eee5478817975cbe211ac, type: 3}
       propertyPath: m_Name
-      value: AnonNonFightFlatToMainSceneTeleporter
+      value: AnonNonFightFlatToMainSceneTeleporter Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd85994a617eee5478817975cbe211ac, type: 3}
@@ -101,7 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   taskToCheck: {fileID: 11400000, guid: 8712ebaf79296654f9c0c9679a8a7ca4, type: 2}
   <ShouldShowDenialText>k__BackingField: 1
---- !u!114 &334460588
+--- !u!114 &3217006650280376055
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,11 +130,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 265555595950363115}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8b807eb8229405ab7d2067e7c8c593e, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f49dcbe725978e4da44c9fcf34c21d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notInteractableMaterial: {fileID: 2100000, guid: 02d05e939de2c904e937c766a374213f, type: 2}
-  interactableMaterial: {fileID: 2100000, guid: df20931e769eb0a4588e73eb93f968cf, type: 2}
+  notInteractableEmissionColor: {r: 0.85882354, g: 0.02745098, b: 0, a: 0}
+  interactableEmissionColor: {r: 0.02745098, g: 0.85882354, b: 0, a: 0}
+  meshRenderer: {fileID: 2997903374242256286}
+--- !u!23 &2997903374242256286 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6142921979725059069, guid: bd85994a617eee5478817975cbe211ac, type: 3}
+  m_PrefabInstance: {fileID: 8996709648745891427}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8996709649255601645
 PrefabInstance:
   m_ObjectHideFlags: 0
