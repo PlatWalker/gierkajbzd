@@ -242,7 +242,7 @@ namespace jbzd.UI.Dialogues
                 foreach(var img in additionalImages)
                 {
                     offset += 60;
-                    CreateImage(img, npcImageHolder, offset, true).transform.parent = npcImageHolder.transform;
+                    CreateImage(img, npcImageHolder, offset, true).transform.SetParent(npcImageHolder.transform);
                 }
                 CreateImage(image, npcImageHolder).transform.SetParent(npcImageHolder.transform, false);
                 return;
@@ -260,7 +260,7 @@ namespace jbzd.UI.Dialogues
                 foreach (var img in additionalImages)
                 {
                     offset -= 60;
-                    CreateImage(img, playerImageHolder, offset, true).transform.parent = playerImageHolder.transform;
+                    CreateImage(img, playerImageHolder, offset, true).transform.SetParent(playerImageHolder.transform);
                 }
                 CreateImage(image, playerImageHolder).transform.SetParent(playerImageHolder.transform, false);
                 return;
