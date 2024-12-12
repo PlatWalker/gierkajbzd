@@ -211,7 +211,7 @@ namespace jbzd.SavingSystem
         private IEnumerator ShowTextSavingSuccess()
         {
             savingSuccessText.transform.gameObject.SetActive(true);
-            yield return new WaitForSeconds(textShowingDurationInSeconds);
+            yield return new WaitForSecondsRealtime(textShowingDurationInSeconds);
             savingSuccessText.transform.gameObject.SetActive(false);
         }
 
