@@ -36,7 +36,7 @@ namespace jbzd.MinorSystems.InputSystem.Inputs
 
         private void UpdateAttackInput()
         {
-            attackInputStatus.Basic = Input.GetKeyDown(KeyMapping.PlayerBasicAttack);
+            attackInputStatus.Basic = Time.timeScale > 0f && Input.GetKeyDown(KeyMapping.PlayerBasicAttack);
         }
 
         private void UpdateMovementInput()
