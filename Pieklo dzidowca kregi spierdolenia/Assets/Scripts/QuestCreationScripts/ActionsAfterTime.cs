@@ -14,6 +14,7 @@ namespace jbzd.QuestCreationScripts
         private bool timerEnded = false;
         [SerializeField] private NpcController npcController;
         [SerializeField] private BarkController barkController;
+        [SerializeField] private GameObject objectToDisable;
 
         private PlayerManager _playerManager;
         [SerializeField] private GameObject _gameObjectToTeleportTo;
@@ -38,6 +39,7 @@ namespace jbzd.QuestCreationScripts
                 collider.enabled = true;
                 timerEnded = true;
                 npcController.NpcState = NpcController.NpcStates.RunAwayFromPlayer;
+                objectToDisable.SetActive(false);
             }
 
         }
