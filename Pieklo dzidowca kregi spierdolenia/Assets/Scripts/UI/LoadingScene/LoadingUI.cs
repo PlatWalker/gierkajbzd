@@ -5,8 +5,11 @@ namespace jbzd.UI.LoadingScene
 {
     public class LoadingUI : UserInterfaceController
     {
+        public bool isLoading = false;
+        
         public void ShowLoadingScreen()
         {
+            isLoading = true;
             gameObject.SetActive(true);
             FreezeTime.Freeze();
         }
@@ -24,6 +27,7 @@ namespace jbzd.UI.LoadingScene
 
         private void Hide()
         {
+            isLoading = false;
             gameObject.SetActive(false);
             FreezeTime.Unfreeze();
         }

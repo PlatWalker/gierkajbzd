@@ -132,8 +132,10 @@ namespace jbzd.Scenes.SceneLoader
 
         public void LoadScene()
         {
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            if (_loadingUI.isLoading) return;
+            
             _loadingUI.ShowLoadingScreen();
+            SceneManager.sceneLoaded += OnSceneLoaded;
 
             var kragTypeOfThisTrigger = JbzdSceneUtility.GetKragType(gameObject.scene.name);
             Debug.Log($"Scene Loader from {gameObject.scene.name} named {gameObject.name} will teleport to {levelNameOfSceneToLoad}");

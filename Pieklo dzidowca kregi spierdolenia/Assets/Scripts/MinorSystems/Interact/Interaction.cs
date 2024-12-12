@@ -1,3 +1,4 @@
+using System.Collections;
 using jbzd.Common;
 using jbzd.Common.Interfaces;
 using jbzd.MinorSystems.InputSystem;
@@ -13,6 +14,9 @@ namespace jbzd.MinorSystems.Interact
     {
         [field: SerializeField] public bool IsInteractable { get; set; } = true;
 
+        [Tooltip("Time in seconds when player cant interact after last interaction")]
+        [field:SerializeField] float interactCooldownTime = 3;
+        
         [field:TextArea]
         [field:SerializeField]
         public string Warning { get; set; } = "Ten skrypt może być tylko i wylacznie na przygotowanym prefabie znajdź go w assetach. Opisane w dokumentacji.";
@@ -77,8 +81,19 @@ namespace jbzd.MinorSystems.Interact
         {
             foreach (var interactable in _interactable)
             {
-                if (IsInRange && IsInteractable) interactable.OnInteract();
+                if (IsInRange && IsInteractable)
+                {
+                    IsInteractable = false;
+                    interactable.OnInteract();
+                    StartCoroutine(InteractCooldown());
+                }
             }
+        }
+
+        private IEnumerator InteractCooldown()
+        {
+            yield return new WaitForSecondsRealtime(interactCooldownTime);
+            IsInteractable = true;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -87,7 +102,7 @@ namespace jbzd.MinorSystems.Interact
             
             IsInRange = true;
             OnInteractionObjectReach?.Invoke(other);
-            _pressE.SetActive(IsInRange);
+            _pressE.SetActive(IsInRange && IsInteractable);
         }
 
         private void OnTriggerStay(Collider other)
@@ -95,7 +110,7 @@ namespace jbzd.MinorSystems.Interact
             if (other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
 
             IsInRange = true;
-            _pressE.SetActive(IsInRange);
+            _pressE.SetActive(IsInRange && IsInteractable);
         }
 
         private void OnTriggerExit(Collider other)
