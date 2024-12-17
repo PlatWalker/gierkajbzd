@@ -51,7 +51,7 @@ MonoBehaviour:
   teleportFromDifferentScene: 0
   sceneFromWhichToTeleport: 
   chosenKrag: (Krag2)
-  levelNameOfSceneToLoad: (InnaScena)
+  levelNameOfSceneToLoad: (MainScene)
   Id: 15
 --- !u!114 &9184469847061894770
 MonoBehaviour:
@@ -189,6 +189,10 @@ PrefabInstance:
     - target: {fileID: 3755583062661376334, guid: b474cdaf1b5a8c945915169e13bbc439, type: 3}
       propertyPath: m_Radius
       value: 2.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755583062661376335, guid: b474cdaf1b5a8c945915169e13bbc439, type: 3}
+      propertyPath: interactCooldown
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b474cdaf1b5a8c945915169e13bbc439, type: 3}

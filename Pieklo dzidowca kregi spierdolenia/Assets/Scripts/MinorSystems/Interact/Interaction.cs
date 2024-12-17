@@ -14,9 +14,11 @@ namespace jbzd.MinorSystems.Interact
     {
         [field: SerializeField] public bool IsInteractable { get; set; } = true;
 
+        [field:SerializeField] bool interactCooldown = false;
+
         [Tooltip("Time in seconds when player cant interact after last interaction")]
         [field:SerializeField] float interactCooldownTime = 3;
-        
+
         [field:TextArea]
         [field:SerializeField]
         public string Warning { get; set; } = "Ten skrypt może być tylko i wylacznie na przygotowanym prefabie znajdź go w assetach. Opisane w dokumentacji.";
@@ -83,9 +85,9 @@ namespace jbzd.MinorSystems.Interact
             {
                 if (IsInRange && IsInteractable)
                 {
-                    IsInteractable = false;
+                    IsInteractable = !interactCooldown;
                     interactable.OnInteract();
-                    StartCoroutine(InteractCooldown());
+                    if (interactCooldown) StartCoroutine(InteractCooldown());
                 }
             }
         }
