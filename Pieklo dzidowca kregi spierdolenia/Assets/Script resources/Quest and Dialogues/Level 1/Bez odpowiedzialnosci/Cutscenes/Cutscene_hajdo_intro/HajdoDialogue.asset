@@ -21,22 +21,23 @@ MonoBehaviour:
     - <GroupName>k__BackingField: Grupa
     m_Values:
     - myList:
-      - rid: 5897485993071869957
+      - rid: 222056597181169670
     - myList:
-      - rid: 5897485993071869958
-      - rid: 5897485993071869959
+      - rid: 222056597181169671
+      - rid: 222056597181169672
+      - rid: 222056597181169673
   references:
     version: 2
     RefIds:
-    - rid: 5897485993071869957
+    - rid: 222056597181169670
       type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
       data:
-        <NodeId>k__BackingField: 0026930f-8af0-42bb-be8b-a5e2464df475
+        <NodeId>k__BackingField: 5e007c52-c485-4cf4-8afa-0334d448f818
         <Choices>k__BackingField: []
         <NodeType>k__BackingField: 7
         <IsStartingDialogue>k__BackingField: 1
         <SelectedGroup>k__BackingField: Grupa
-    - rid: 5897485993071869958
+    - rid: 222056597181169671
       type: {class: EndGroupRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
       data:
         <NodeId>k__BackingField: 18ff39d0-a763-48e5-8c5e-26c2680d7aec
@@ -44,17 +45,29 @@ MonoBehaviour:
         <NodeType>k__BackingField: 7
         <IsStartingDialogue>k__BackingField: 0
         <SelectedGroup>k__BackingField: Grupa
-    - rid: 5897485993071869959
+    - rid: 222056597181169672
       type: {class: DialogueRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
       data:
         <NodeId>k__BackingField: f6820c06-804d-4944-8c12-d62857339666
         <Choices>k__BackingField:
         - <Text>k__BackingField: Nastepny dialog
-          <NextDialogue>k__BackingField: 18ff39d0-a763-48e5-8c5e-26c2680d7aec
+          <NextDialogue>k__BackingField: ad35b7a2-6820-4dd5-b176-7d54c69f2a7f
         <NodeType>k__BackingField: 0
         <IsStartingDialogue>k__BackingField: 1
         <Text>k__BackingField: Na rany Chrystusa, to on!
         <NpcImage>k__BackingField: {fileID: 21300000, guid: 3007ee15a2cbcbe4ba600322096f0d92, type: 3}
         <PlayerImage>k__BackingField: {fileID: 0}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
         <ShowPlayerResponse>k__BackingField: 0
         <IsPlayerTalking>k__BackingField: 0
+    - rid: 222056597181169673
+      type: {class: GoalScenarioActivationNodeRuntimeData, ns: jbzd.Dialogues.RuntimeData, asm: Assembly-CSharp}
+      data:
+        <NodeId>k__BackingField: ad35b7a2-6820-4dd5-b176-7d54c69f2a7f
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Output
+          <NextDialogue>k__BackingField: 18ff39d0-a763-48e5-8c5e-26c2680d7aec
+        <NodeType>k__BackingField: 8
+        <IsStartingDialogue>k__BackingField: 0
+        <Goal>k__BackingField: {fileID: 11400000, guid: ccf671bf46b1a704f9c5349df64fc01a, type: 2}

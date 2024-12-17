@@ -16,57 +16,71 @@ MonoBehaviour:
   <ContainerID>k__BackingField: ca2de3dab26e6424d8f5cd5a0a6b7b59
   <GraphContainerID>k__BackingField: cc053ee188eaf90408b78e4b282bbe4f
   <Groups>k__BackingField:
-  - rid: 5897485993071869952
-  - rid: 5897485993071869953
+  - rid: 222056597181169664
+  - rid: 222056597181169665
   <Nodes>k__BackingField:
-  - rid: 5897485993071869954
-  - rid: 5897485993071869955
-  - rid: 5897485993071869956
+  - rid: 222056597181169666
+  - rid: 222056597181169667
+  - rid: 222056597181169668
+  - rid: 222056597181169669
   references:
     version: 2
     RefIds:
-    - rid: 5897485993071869952
+    - rid: 222056597181169664
       type: {class: GroupEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
       data:
         <ID>k__BackingField: cefc1b91-a85d-4eab-aa9c-5cfd73944e4e
         <Name>k__BackingField: Start
         <Position>k__BackingField: {x: -25, y: -59}
-    - rid: 5897485993071869953
+    - rid: 222056597181169665
       type: {class: GroupEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
       data:
         <ID>k__BackingField: 5be76936-9928-4d4a-a85f-d9d1396b868a
         <Name>k__BackingField: Grupa
         <Position>k__BackingField: {x: 297, y: -173}
-    - rid: 5897485993071869954
+    - rid: 222056597181169666
       type: {class: EndGroupNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
       data:
-        <ID>k__BackingField: 0026930f-8af0-42bb-be8b-a5e2464df475
+        <ID>k__BackingField: 5e007c52-c485-4cf4-8afa-0334d448f818
         <Choices>k__BackingField: []
         <GroupID>k__BackingField: cefc1b91-a85d-4eab-aa9c-5cfd73944e4e
         <NodeType>k__BackingField: 7
         <Position>k__BackingField: {x: 0, y: 0}
         <SelectedGroup>k__BackingField: Grupa
-    - rid: 5897485993071869955
-      type: {class: EndGroupNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
-      data:
-        <ID>k__BackingField: 18ff39d0-a763-48e5-8c5e-26c2680d7aec
-        <Choices>k__BackingField: []
-        <GroupID>k__BackingField: 5be76936-9928-4d4a-a85f-d9d1396b868a
-        <NodeType>k__BackingField: 7
-        <Position>k__BackingField: {x: 771, y: -114}
-        <SelectedGroup>k__BackingField: Grupa
-    - rid: 5897485993071869956
+    - rid: 222056597181169667
       type: {class: DialogueNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
       data:
         <ID>k__BackingField: f6820c06-804d-4944-8c12-d62857339666
         <Choices>k__BackingField:
         - <Text>k__BackingField: Nastepny dialog
-          <NodeID>k__BackingField: 18ff39d0-a763-48e5-8c5e-26c2680d7aec
+          <NodeID>k__BackingField: ad35b7a2-6820-4dd5-b176-7d54c69f2a7f
         <GroupID>k__BackingField: 5be76936-9928-4d4a-a85f-d9d1396b868a
         <NodeType>k__BackingField: 0
         <Position>k__BackingField: {x: 322, y: -114}
         <Text>k__BackingField: Na rany Chrystusa, to on!
         <PlayerImage>k__BackingField: {fileID: 0}
         <NpcImage>k__BackingField: {fileID: 21300000, guid: 3007ee15a2cbcbe4ba600322096f0d92, type: 3}
+        LeftAdditionalImages: []
+        RigthAdditionalImages: []
         <Audio>k__BackingField: {fileID: 0}
         <IsPlayerTalking>k__BackingField: 0
+    - rid: 222056597181169668
+      type: {class: GoalScenarioActivationNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: ad35b7a2-6820-4dd5-b176-7d54c69f2a7f
+        <Choices>k__BackingField:
+        - <Text>k__BackingField: Output
+          <NodeID>k__BackingField: 18ff39d0-a763-48e5-8c5e-26c2680d7aec
+        <GroupID>k__BackingField: 5be76936-9928-4d4a-a85f-d9d1396b868a
+        <NodeType>k__BackingField: 8
+        <Position>k__BackingField: {x: 758, y: -114}
+        <Goal>k__BackingField: {fileID: 11400000, guid: ccf671bf46b1a704f9c5349df64fc01a, type: 2}
+    - rid: 222056597181169669
+      type: {class: EndGroupNodeEditorData, ns: jbzd.Dialogues.Editor.Save, asm: Assembly-CSharp-Editor}
+      data:
+        <ID>k__BackingField: 18ff39d0-a763-48e5-8c5e-26c2680d7aec
+        <Choices>k__BackingField: []
+        <GroupID>k__BackingField: 5be76936-9928-4d4a-a85f-d9d1396b868a
+        <NodeType>k__BackingField: 7
+        <Position>k__BackingField: {x: 758, y: 25}
+        <SelectedGroup>k__BackingField: Grupa
