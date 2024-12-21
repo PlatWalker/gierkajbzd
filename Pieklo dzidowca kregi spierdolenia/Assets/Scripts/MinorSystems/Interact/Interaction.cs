@@ -81,19 +81,21 @@ namespace jbzd.MinorSystems.Interact
 
         private void OnInteract()
         {
+            var needsCooldown = false;
             foreach (var interactable in _interactable)
             {
                 if (IsInRange && IsInteractable)
                 {
-                    IsInteractable = !interactCooldown;
                     interactable.OnInteract();
-                    if (interactCooldown) StartCoroutine(InteractCooldown());
+                    needsCooldown = true;
                 }
             }
+            if (needsCooldown&&interactCooldown) StartCoroutine(InteractCooldown());
         }
 
         private IEnumerator InteractCooldown()
         {
+            IsInteractable = false;
             yield return new WaitForSecondsRealtime(interactCooldownTime);
             IsInteractable = true;
         }
