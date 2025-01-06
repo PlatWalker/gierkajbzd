@@ -126,7 +126,8 @@ namespace jbzd.UI.Dialogues
 
         private void ButtonClick(int index, string text = "", bool showPlayerResponse = true)
         {
-            var nextNodeId = _dialogueManager.CurrentNode.Choices[index].NextDialogue;
+            var choices = _dialogueManager.CurrentNode.Choices.Where(choice => !choice.WasUsed).ToList();
+            var nextNodeId = choices[index].NextDialogue;
 
             if (nextNodeId == null)
             {
@@ -282,11 +283,11 @@ namespace jbzd.UI.Dialogues
         private void SetChoices(List<ChoiceRuntimeData> choiceList, bool showPlayerResponse = true)
         {
             PrepareChoices();
-
+            choiceList = choiceList.Where(choice => !choice.WasUsed).ToList();
             for (var i = 0; i < choiceList.Count; i++)
             {
                 int index = i;
-                _choiceButtons.Add(InitializeButton(choiceList[index].Text, index, delegate { ButtonClick(index, choiceList[index].Text, showPlayerResponse); }));
+                _choiceButtons.Add(InitializeButton(choiceList[index].Text, index, delegate { ButtonClick(index, choiceList[index].Text, showPlayerResponse); choiceList[index].WasUsed = true; }));
             }
         }
 
