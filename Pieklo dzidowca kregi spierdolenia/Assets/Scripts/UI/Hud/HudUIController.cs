@@ -39,6 +39,12 @@ namespace jbzd.UI.Hud
 			_hpNumber.text = hpPercentage + " %";
 		}
 
+		public void DeathSimulation()
+		{
+			_hpNumber.resizeTextForBestFit = true;
+			_hpNumber.text = "Smierc gracza nie zaimplementowana ze wzgledu na koniec projektu xD";
+		}
+		
 		public override bool InitialActivationState() => true;
 	} 
 }

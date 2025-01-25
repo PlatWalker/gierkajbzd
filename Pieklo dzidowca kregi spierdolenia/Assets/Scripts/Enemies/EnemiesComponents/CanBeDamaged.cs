@@ -68,6 +68,8 @@ namespace jbzd.Enemies.EnemiesComponents
 
         private void Die()
         {
+            if (IsDead) return;
+            
             Debug.Log("Enemy: " + gameObject.name + " has died");
             IsDead = true;
             OnDeath?.Invoke(this);

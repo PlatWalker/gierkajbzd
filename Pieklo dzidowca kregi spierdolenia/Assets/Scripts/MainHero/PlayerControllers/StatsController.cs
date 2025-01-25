@@ -61,7 +61,7 @@ namespace jbzd.MainHero.PlayerControllers
             
             if (CurrentHealth <= 0)
             {
-                Debug.LogError("You dead nigga");
+                _hudUIController.DeathSimulation();
             }
             
             StartCoroutine(BecomeHit());

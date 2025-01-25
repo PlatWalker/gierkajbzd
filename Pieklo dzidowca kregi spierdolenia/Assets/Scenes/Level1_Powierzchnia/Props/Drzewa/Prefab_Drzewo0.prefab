@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3450299772644898819}
   - component: {fileID: 5694008263057234332}
   - component: {fileID: 5395551202447735181}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Prefab_Drzewo0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,6 +31,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4985847809979589450}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 127.32134, y: 0.24846657, z: 100.43061}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -38,7 +39,6 @@ Transform:
   m_Children:
   - {fileID: 1305540916919937629}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &4378510077191805049
 LODGroup:
@@ -71,9 +71,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4985847809979589450}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1, y: 8.880413, z: 1}
   m_Center: {x: 0, y: 3.9402075, z: 0}
 --- !u!65 &2913538953211169238
@@ -84,9 +92,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4985847809979589450}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 2.7615738, y: 2.9839067, z: 5.215248}
   m_Center: {x: 0.12900162, y: 7.8736053, z: 0.40961075}
 --- !u!114 &7717553882744762348
@@ -177,10 +193,21 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4985847809979589450}
-  serializedVersion: 2
+  serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
@@ -188,7 +215,7 @@ Rigidbody:
   m_CollisionDetection: 0
 --- !u!95 &5395551202447735181
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -202,6 +229,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -212,6 +240,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 5655002183965243888}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 6adcc4ca9309dde4a899a8133f9e2238, type: 3}
@@ -259,11 +288,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 6adcc4ca9309dde4a899a8133f9e2238, type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 4b6e4b4e8981faa4e822d6ca1ca1748e, type: 2}
     - target: {fileID: -7511558181221131132, guid: 6adcc4ca9309dde4a899a8133f9e2238, type: 3}
-      propertyPath: m_Materials.Array.data[1]
+      propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 8911c65717c8d2147b0f43d601e322d5, type: 2}
     - target: {fileID: 919132149155446097, guid: 6adcc4ca9309dde4a899a8133f9e2238, type: 3}
@@ -279,26 +308,35 @@ PrefabInstance:
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 5474907246367979126, guid: 6adcc4ca9309dde4a899a8133f9e2238, type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 4b6e4b4e8981faa4e822d6ca1ca1748e, type: 2}
     - target: {fileID: 5474907246367979126, guid: 6adcc4ca9309dde4a899a8133f9e2238, type: 3}
-      propertyPath: m_Materials.Array.data[1]
+      propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 8911c65717c8d2147b0f43d601e322d5, type: 2}
     - target: {fileID: 6905609870639353253, guid: 6adcc4ca9309dde4a899a8133f9e2238, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 7036213049465896255, guid: 6adcc4ca9309dde4a899a8133f9e2238, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 8719771546195959716, guid: 6adcc4ca9309dde4a899a8133f9e2238, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6adcc4ca9309dde4a899a8133f9e2238, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 903569018530396255}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6adcc4ca9309dde4a899a8133f9e2238, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4852502507796291609}
   m_SourcePrefab: {fileID: 100100000, guid: 6adcc4ca9309dde4a899a8133f9e2238, type: 3}
 --- !u!4 &1305540916919937629 stripped
 Transform:
@@ -327,6 +365,9 @@ BillboardRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -354,7 +395,7 @@ BillboardRenderer:
   m_Billboard: {fileID: 0}
 --- !u!95 &4852502507796291609
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -368,6 +409,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1

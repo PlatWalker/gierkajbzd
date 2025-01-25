@@ -1,29 +1,25 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using jbzd.Enemies;
+using jbzd.Enemies.EnemiesComponents;
 using jbzd.Enemies.Obsolete;
-using jbzd.Items;
 using UnityEngine;
 
-namespace jbzd
+namespace jbzd.Items
 {
     [RequireComponent(typeof(BoxCollider))]
     public class ObjectPreventingInteraction : MonoBehaviour
     {
         [SerializeField] private GameObject _collidingObject;
-        private Enemy _object;
+        private CanBeDamaged _object;
         private QuestItem _item;
         
         
         private void Awake()
         {
             _item = GetComponent<QuestItem>();
-            _object = _collidingObject.GetComponent<Enemy>();
-            _object.OnDeath += OnObjectDestroyed; 
+            _object = _collidingObject.GetComponent<CanBeDamaged>();
+            _object.OnDeath += OnObjectDestroyed;
             _item.isInteractable = false;
         }
-        private void OnObjectDestroyed()
+        private void OnObjectDestroyed(CanBeDamaged enemy)
         {
             _item.isInteractable = true;
         }

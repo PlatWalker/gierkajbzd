@@ -126,9 +126,11 @@ GameObject:
   - component: {fileID: 8720855338672306710}
   - component: {fileID: 8720855338672306711}
   - component: {fileID: 2067094769160568045}
+  - component: {fileID: -8964588320094646471}
   - component: {fileID: 8720855338672306708}
   - component: {fileID: 5840708934012057329}
   - component: {fileID: -7602882482192827348}
+  - component: {fileID: -7692898994188370272}
   m_Layer: 12
   m_Name: Projectile
   m_TagString: Untagged
@@ -227,6 +229,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.4, y: 0.11, z: 0.1}
   m_Center: {x: 0.15, y: 0.04, z: 0.001}
+--- !u!65 &-8964588320094646471
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8720855338672306793}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.4, y: 0.11, z: 0.1}
+  m_Center: {x: 0.15, y: 0.04, z: 0.001}
 --- !u!54 &8720855338672306708
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -280,6 +303,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualEffect: {fileID: 543514040500836922}
+--- !u!114 &-7692898994188370272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8720855338672306793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e862fc639534e349122756890b959ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 5
 --- !u!1 &9112384021192290193
 GameObject:
   m_ObjectHideFlags: 0

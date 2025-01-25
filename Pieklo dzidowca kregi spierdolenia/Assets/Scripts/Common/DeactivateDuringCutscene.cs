@@ -1,3 +1,4 @@
+using System;
 using jbzd.MinorSystems.Cutscenes;
 using UnityEngine;
 using UnityEngine.Timeline;
@@ -23,6 +24,12 @@ namespace jbzd.Common
 
         private void Reappear(TimelineAsset timelineAsset){
             gameObject.SetActive(true);
+        }
+
+        public void OnDestroy()
+        {
+            _cutsceneManager.OnCutsceneStarted -= Disappear;
+            _cutsceneManager.OnCutsceneEnded -= Reappear;
         }
     }
 }
