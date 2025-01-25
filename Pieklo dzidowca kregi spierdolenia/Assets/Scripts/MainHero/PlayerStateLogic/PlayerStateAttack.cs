@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using jbzd.MinorSystems.InputSystem.Inputs;
 using UnityEngine;
@@ -12,10 +13,9 @@ namespace jbzd.MainHero.PlayerStateLogic
         
         private readonly PlayerInput _playerInput;
         private readonly PlayerManager _playerManager;
-        
-        private (bool, Vector3) _dash;
-        private bool _shouldContinueCombo;
+
         private bool _isAttacking;
+        private bool _isCapturingClickAttackForCombo;
 
         private int _backfieldVariable = 1;
         private int NextPartOfComboAttack
@@ -30,6 +30,14 @@ namespace jbzd.MainHero.PlayerStateLogic
 
                 _backfieldVariable = value;
             }
+        }
+
+        private ClickAttackCaptureInfo _clickAttackCaptureInfo;
+        
+        private struct ClickAttackCaptureInfo
+        {
+            public Vector3 DashVector;
+            public Vector3 LookDirection;
         }
         
         public PlayerStateAttack(
@@ -55,20 +63,21 @@ namespace jbzd.MainHero.PlayerStateLogic
 
         public PlayerState StateLogicForUpdate()
         {
-            var playerState = InitPlayerState;
-
             if (_isAttacking) return PlayerState.Attack;
 
-            if (_playerManager.CanPlayerMove)
-            {
-                Attack();
-            }
-            else
-            {
-                return PlayerState.Idle;
-            }
+            if (_playerManager.CanPlayerMove is false) return PlayerState.Idle;
 
-            return playerState;
+            if (_isCapturingClickAttackForCombo) return PlayerState.Attack;
+            
+            _clickAttackCaptureInfo = new ClickAttackCaptureInfo
+            {
+                DashVector = DashAttackMoveVector(),
+                LookDirection = _playerInput.mousePositionFlat - _playerManager.transform.position
+            };
+
+            SetAnimTrigger();
+
+            return PlayerState.Attack;
         }
 
         public PlayerState StateLogicForLateUpdate()
@@ -79,41 +88,150 @@ namespace jbzd.MainHero.PlayerStateLogic
         #endregion
 
         #region Animation events
-
+        
         private void OnAttackStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             if(!PlayerStateNameHelper.IsAttacking(stateInfo)) return;
             
+            _isAttacking = true;
             _playerManager.AttackInputFreeze = true;
             
-            if(!_dash.Item1) return;
-
-            const float percentageOfClipLength = 0.05f;
-            // dash should end before animation ends
-            var dashEnd = stateInfo.length - stateInfo.length * percentageOfClipLength;
-            _playerManager.StartCoroutine(MoveOverSeconds(
-                _playerManager.Rb,
-                _dash.Item2,
-                dashEnd));
-
-            _dash = (false, Vector3.zero);
+            Dash();
             
-            _playerManager.StartCoroutine(CaptureMouseClickForCombo(stateInfo));
-        }
+            _playerManager.StartCoroutine(WaitForStartOfCapturingAttackInput());
+            
+            return;
+            
+            void Dash()
+            {
+                UpdateCharacterRotation(_clickAttackCaptureInfo.LookDirection);
+                
+                const float percentageOfClipLength = 0.05f;
+                var dashEnd = stateInfo.length - stateInfo.length * percentageOfClipLength;
+                _playerManager.StartCoroutine(MoveOverSeconds(
+                    _playerManager.Rb,
+                    _clickAttackCaptureInfo.DashVector,
+                    dashEnd));
+                
+                return;
 
+                void UpdateCharacterRotation(Vector3 lookDirection)
+                {
+                    if (lookDirection.magnitude == 0) return;
+                
+                    var rotation = Quaternion.LookRotation(lookDirection);
+            
+                    _playerManager.transform.rotation = rotation;
+                }
+                
+                IEnumerator MoveOverSeconds(Rigidbody rigidbodyToMove, Vector3 end, float seconds)
+                {
+                    float elapsedTime = 0;
+                    var startingPos = rigidbodyToMove.position;
+                    var col = _playerManager.CharacterCollider;
+                    // we want a little smaller radius, it will let us dash even next to ex. wall
+                    var colRadius = (float)(col.radius*0.9);
+                    
+                    while (elapsedTime < seconds)
+                    {
+                        var resultColliders = new Collider[10];
+                        
+                        //https://roundwide.com/physics-overlap-capsule/ quick maths
+                        var direction = new Vector3 {[col.direction] = 1};
+                        var offset = col.height / 2 - colRadius;
+                        var localPoint0 = col.center - direction * offset;
+                        var localPoint1 = col.center + direction * offset;
+                        var point0 = _playerManager.transform.TransformPoint(localPoint0);
+                        var point1 = _playerManager.transform.TransformPoint(localPoint1);
+                        var r = _playerManager. transform.TransformVector(colRadius, colRadius, colRadius);
+                        var radius = Enumerable.Range(0, 3).Select(xyz => xyz == col.direction ? 0 : r[xyz])
+                            .Select(Mathf.Abs).Max();
+                        
+                        // layers that are NOT blocking dash
+                        var ignoreLayers =~ (LayerMask.GetMask("Player") |
+                                             LayerMask.GetMask("Enemies") |
+                                             LayerMask.GetMask("NPC") |
+                                             LayerMask.GetMask("Interaction"));
+
+                        Physics.OverlapCapsuleNonAlloc(point0, point1, radius, resultColliders, ignoreLayers);
+
+                        if (!resultColliders.ToList().All(collider => collider is null)) yield break;
+
+                        rigidbodyToMove.position = Vector3.Lerp(startingPos, end, elapsedTime / seconds);
+                        elapsedTime += Time.deltaTime;
+                        yield return null;
+                    }
+                    
+                    rigidbodyToMove.position = end;
+                }
+            }
+            
+            IEnumerator WaitForStartOfCapturingAttackInput()
+            {
+                var percent = _playerManager.ComboClickPercentage/100f;
+                
+                while (true)
+                {
+                    var currentState = _playerManager.CharacterAnimator.GetCurrentAnimatorStateInfo(1);
+                    
+                    if (currentState.normalizedTime > percent)
+                    {
+                        _playerManager.StartCoroutine(StartCapturingClickAttackForCombo());
+                        yield break;
+                    }
+                    
+                    yield return new WaitForEndOfFrame();
+                }
+                
+                IEnumerator StartCapturingClickAttackForCombo()
+                {
+                    _isCapturingClickAttackForCombo = true;
+                    float timer = 0;
+                    var oldStateName = PlayerStateNameHelper.GetStateName(stateInfo);
+                    
+                    while (timer < _playerManager.ComboClickThreshold)
+                    {
+                        var currentState = _playerManager.CharacterAnimator.GetCurrentAnimatorStateInfo(1);
+                        
+                        if (_playerInput.attackInputStatus.Basic)
+                        {
+                            _clickAttackCaptureInfo = new ClickAttackCaptureInfo
+                            {
+                                DashVector = DashAttackMoveVector(),
+                                LookDirection = _playerInput.mousePositionFlat - _playerManager.transform.position
+                            };
+                            
+                            SetAnimTrigger();
+                            
+                            _isCapturingClickAttackForCombo = false;
+                            yield break;
+                        }
+                        
+                        if (!IsOldAnimationKeepPerforming(currentState))
+                        {
+                            timer += Time.deltaTime;
+                        }
+                        
+                        yield return new WaitForEndOfFrame();
+                    }
+                    
+                    ClearCombo();
+                    _isCapturingClickAttackForCombo = false;
+                    yield break;
+
+                    bool IsOldAnimationKeepPerforming(AnimatorStateInfo animatorStateInfo) => 
+                        animatorStateInfo.normalizedTime <= 1.0f && animatorStateInfo.IsName(oldStateName);
+                }
+            }
+        }
+        
         private void OnAttackStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             if(!PlayerStateNameHelper.IsAttacking(stateInfo)) return;
-
+            
             _isAttacking = false;
             _playerManager.AttackInputFreeze = false;
-
-            if (_shouldContinueCombo)
-            {
-                Attack();
-                _shouldContinueCombo = false;
-            }
-
+            
             if(IsMoving())
             {
                 OnPlayerStateChanged?.Invoke(PlayerState.Move);
@@ -123,6 +241,8 @@ namespace jbzd.MainHero.PlayerStateLogic
             {
                 OnPlayerStateChanged?.Invoke(PlayerState.Idle);
             }
+            
+            return;
 
             //----------- local functions -----------//
             
@@ -136,96 +256,39 @@ namespace jbzd.MainHero.PlayerStateLogic
         }
 
         #endregion
-
-        /// <summary>
-        /// When player want to make combo he need to click again.
-        /// This method capture this click and let's combo continue.
-        /// </summary>
-        private IEnumerator CaptureMouseClickForCombo(AnimatorStateInfo animatorStateInfo)
+        
+        private Vector3 DashAttackMoveVector()
         {
-            float timer = 0;
-            var oldStateName = PlayerStateNameHelper.GetStateName(animatorStateInfo);
-            var percent = _playerManager.ComboClickPercentage/100f;
-            
-            while (timer < _playerManager.ComboClickThreshold)
+            var distanceVector = _playerInput.mousePositionFlat - _playerManager.transform.position;
+
+            var scalingFactor = _playerManager.dashLength/distanceVector.magnitude;
+            var dashVector = new Vector3
             {
-                var currentState = _playerManager.CharacterAnimator.GetCurrentAnimatorStateInfo(1);
-                
-                if (IsOldAnimationKeepPerforming(currentState))
-                {
-                    if (_playerInput.attackInputStatus.Basic && currentState.normalizedTime > percent)
-                    {
-                        _shouldContinueCombo = true;
-                    }
-                }
-                else
-                {
-                    if (_playerInput.attackInputStatus.Basic && !_isAttacking)
-                    {
-                        Attack();
-                        yield break;
-                    }
+                x =  scalingFactor * distanceVector.x,
+                y = 0,
+                z = scalingFactor * distanceVector.z
+            };
                     
-                    timer += Time.deltaTime;
-                }
-                yield return new WaitForEndOfFrame();
-            }
+            dashVector += _playerManager.transform.position;
+            dashVector.y = 0;
 
-            if (!_isAttacking) ClearCombo();
-
-            bool IsOldAnimationKeepPerforming(AnimatorStateInfo stateInfo) => stateInfo.IsName(oldStateName);
+            return dashVector;
         }
         
-        private IEnumerator MoveOverSeconds(Rigidbody rigidbodyToMove, Vector3 end, float seconds)
+        private void SetAnimTrigger()
         {
-            float elapsedTime = 0;
-            var startingPos = rigidbodyToMove.position;
-            var col = _playerManager.CharacterCollider;
-            // we want a little smaller radius, it will let us dash even next to ex. wall
-            var colRadius = (float)(col.radius*0.9);
+            if (_playerManager.CharacterAnimator.GetBool(PlayerStringAnimParam.AttackParam)||
+                _playerManager.CharacterAnimator.GetBool(PlayerStringAnimParam.SecondAttack)||
+                _playerManager.CharacterAnimator.GetBool(PlayerStringAnimParam.ThirdAttack)) return;
             
-            while (elapsedTime < seconds)
-            {
-                var resultColliders = new Collider[10];
-                
-                //https://roundwide.com/physics-overlap-capsule/ quick maths
-                var direction = new Vector3 {[col.direction] = 1};
-                var offset = col.height / 2 - colRadius;
-                var localPoint0 = col.center - direction * offset;
-                var localPoint1 = col.center + direction * offset;
-                var point0 = _playerManager.transform.TransformPoint(localPoint0);
-                var point1 = _playerManager.transform.TransformPoint(localPoint1);
-                var r = _playerManager. transform.TransformVector(colRadius, colRadius, colRadius);
-                var radius = Enumerable.Range(0, 3).Select(xyz => xyz == col.direction ? 0 : r[xyz])
-                    .Select(Mathf.Abs).Max();
-                
-                // layers that are NOT blocking dash
-                var ignoreLayers =~ (LayerMask.GetMask("Player") |
-                                     LayerMask.GetMask("Enemies") |
-                                     LayerMask.GetMask("NPC") |
-                                     LayerMask.GetMask("Interaction"));
-
-                Physics.OverlapCapsuleNonAlloc(point0, point1, radius, resultColliders, ignoreLayers);
-
-                if (!resultColliders.ToList().All(collider => collider is null)) yield break;
-
-                rigidbodyToMove.position = Vector3.Lerp(startingPos, end, elapsedTime / seconds);
-                elapsedTime += Time.deltaTime;
-                yield return null;
-            }
-            
-            rigidbodyToMove.position = end;
-        }
-        
-        private void Attack()
-        {
             var animParam = NextPartOfComboAttack switch
             {
                 1 => PlayerStringAnimParam.AttackParam,
                 2 => PlayerStringAnimParam.SecondAttack,
+                3 => PlayerStringAnimParam.ThirdAttack,
                 _ => "error"
             };
-
+            
             if (animParam == "error")
             {
                 // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
@@ -233,46 +296,18 @@ namespace jbzd.MainHero.PlayerStateLogic
             }
             
             _playerManager.CharacterAnimator.SetTrigger(animParam);
-            _isAttacking = true;
-            DashAttackMove();
-
+            
             NextPartOfComboAttack += 1;
             
             if (NextPartOfComboAttack > _playerManager.CountOfComboAttackParts)
             {
                 ClearCombo();
             }
-            
-            void DashAttackMove()
-            {
-                var distanceVector = _playerInput.mousePositionFlat - _playerManager.transform.position;
-            
-                UpdateCharacterRotation(distanceVector);
-
-                var scalingFactor = _playerManager.dashLength/distanceVector.magnitude;
-                var dashVector = new Vector3
-                {
-                    x =  scalingFactor * distanceVector.x,
-                    y = 0,
-                    z = scalingFactor * distanceVector.z
-                };
-                
-                dashVector += _playerManager.transform.position;
-                dashVector.y = 0;
-                
-                _dash = (true, dashVector);
-            }
-            
-            void UpdateCharacterRotation(Vector3 lookDirection)
-            {
-                if (lookDirection.magnitude == 0) return;
-                
-                var rotation = Quaternion.LookRotation(lookDirection);
-            
-                _playerManager.transform.rotation = rotation;
-            }
         }
-        
-        private void ClearCombo() => NextPartOfComboAttack = 1;
+
+        private void ClearCombo()
+        {
+            NextPartOfComboAttack = 1;
+        }
     }
 }

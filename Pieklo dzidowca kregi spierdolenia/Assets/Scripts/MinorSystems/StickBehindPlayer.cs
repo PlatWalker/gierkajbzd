@@ -30,7 +30,7 @@ namespace jbzd
             }
         
             _rigidbody.useGravity = false; 
-            _rigidbody.drag = 0;          
+            _rigidbody.linearDamping = 0;          
         }
         
         private void FixedUpdate()
@@ -41,7 +41,7 @@ namespace jbzd
             float distance = Vector3.Distance(target.position, desiredPosition);
             _rigidbody.AddForce(forceDirection * (forceStrength * distance));
 
-            _rigidbody.velocity *= drag;
+            _rigidbody.linearVelocity *= drag;
             
             target.rotation = Quaternion.Lerp(target.rotation, _playerTransform.rotation, smoothSpeed * Time.deltaTime);
             target.localScale = Vector3.Lerp(target.localScale, targetScale, smoothSpeed * Time.deltaTime);

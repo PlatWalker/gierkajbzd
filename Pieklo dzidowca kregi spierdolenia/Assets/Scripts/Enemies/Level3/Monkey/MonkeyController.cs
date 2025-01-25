@@ -1,4 +1,5 @@
 ﻿using jbzd.Enemies;
+using jbzd.Enemies.Obsolete;
 using UnityEngine;
 /// <summary>
 /// Created By Kumdzio
@@ -249,7 +250,7 @@ namespace jbzdy.Enemies
 				Rigidbody rigidbody = projectile.GetComponent<Rigidbody>();
 				Vector3 throwDirection = (EnemyData.MainCharacterTransform.position - projectile.transform.position);
 				projectile.AddComponent<DamageController>();
-				projectile.GetComponent<DamageController>().SetUp(EnemyData.Damage,DamageType.Dystansowa);
+				projectile.GetComponent<DamageController>().SetUp(EnemyData.Damage);
                 throwDirection.y += throwTargetHeight;
                 throwDirection *= throwPower;
                 rigidbody.AddForce(throwDirection, ForceMode.Impulse);
@@ -264,10 +265,10 @@ namespace jbzdy.Enemies
             return false;
         }
 
-        public override void SetDamage(int damageAmount,DamageType damageType)
+        public override void SetDamage(int damageAmount,Vector3 damageOriginPoint)
         {
             pushBackEffect.ApplyEffect();
-            base.SetDamage(damageAmount, damageType);
+            base.SetDamage(damageAmount, damageOriginPoint);
         }
 
         override public void SwitchAI()

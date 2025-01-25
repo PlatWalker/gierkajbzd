@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using jbzd.Enemies;
+using jbzd.Enemies.Obsolete;
 using jbzd.Items;
 using UnityEngine;
 

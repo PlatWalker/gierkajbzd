@@ -1,6 +1,7 @@
 ﻿// Developped by Vhart
 
 using jbzd.Enemies;
+using jbzd.Enemies.Obsolete;
 using UnityEngine;
 using UnityEngine.AI;
 namespace jbzdy.Enemies
@@ -168,10 +169,10 @@ namespace jbzdy.Enemies
             }
         }
 
-        public override void SetDamage(int damageAmount,DamageType damageType)
+        public override void SetDamage(int damageAmount, Vector3 damageOriginPoint)
         {
             pushBackEffect.ApplyEffect();
-            base.SetDamage(damageAmount, damageType);
+            base.SetDamage(damageAmount, damageOriginPoint);
         }
 
         public void Damage()

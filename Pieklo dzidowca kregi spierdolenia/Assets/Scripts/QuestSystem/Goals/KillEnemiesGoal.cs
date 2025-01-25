@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
+using jbzd.Common;
 using jbzd.Common.RunnerThing;
 using jbzd.Dialogues;
 using jbzd.Enemies;
+using jbzd.Enemies.EnemiesComponents;
 using jbzd.MinorSystems.Cutscenes;
+using jbzd.Enemies.Obsolete;
 using jbzd.QuestSystem.QuestStructureElements;
 using jbzd.UI;
 using jbzd.UI.Dialogues;
@@ -36,9 +39,8 @@ namespace jbzd.QuestSystem.Goals
                 };
             }
             
-            var enemiesControllersNew= GetComponentFromActorsList<Enemy>(actors);
-            
-            foreach (var enemyController in enemiesControllersNew)
+            var enemiesControllers1= GetComponentFromActorsList<Enemy>(actors);
+            foreach (var enemyController in enemiesControllers1)
             {
                 enemyController.OnDeath += () =>
                 {
@@ -50,14 +52,13 @@ namespace jbzd.QuestSystem.Goals
                     OnGoalEndActions(cutscenesManager, dialogueController, questWithThisGoal, actors);
                 };
             }
-
-            var enemiesControllers2 = GetComponentFromActorsList<EnemyBrain>(actors);
-
-            foreach (var enemyBrain in enemiesControllers2)
+            
+            var enemiesControllers2 = GetComponentFromActorsList<CanBeDamaged>(actors);
+            foreach (var behavior in enemiesControllers2)
             {
-                enemyBrain.OnDeath += _ =>
+                behavior.OnDeath += _ =>
                 {
-                    Debug.Log($"Enemy {enemyBrain.gameObject} has died and goal {name} has registered it");
+                    Debug.Log($"Enemy {behavior.gameObject} has died and goal {name} has registered it");
                     var index = questWithThisGoal.GoalName.IndexOf(name);
                     questWithThisGoal.GoalItemCollected[index] += 1;
                     questWithThisGoal.CheckFinishCondition(this, actors);

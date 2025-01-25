@@ -16,7 +16,7 @@ namespace jbzd
         {
             if (pipelineAsset)
             {
-                GraphicsSettings.renderPipelineAsset = pipelineAsset;
+                GraphicsSettings.defaultRenderPipeline = pipelineAsset;
                 GraphicsSettings.defaultRenderPipeline = pipelineAsset;
                 QualitySettings.renderPipeline = pipelineAsset;
             }

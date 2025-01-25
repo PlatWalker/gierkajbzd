@@ -13,34 +13,19 @@ using jbzd.NPC;
 using jbzd.SavingSystem;
 using UnityEngine.AI;
 using UnityEngine.Timeline;
+using UnityEngine.VFX;
 
 namespace jbzd.MainHero
 {
-    public struct PlayerStringAnimParam
-    {
-        public static string AttackParam => "Attack";
-        public static string SecondAttack => "Second attack";
-        public static string RunParam => "Run";
-        public static string RunSpeed => "Running speed";
-        
-        [SuppressMessage("ReSharper", "StringLiteralTypo")]
-        public static void AnimatorParametersCheck(Animator characterAnimator)
-        {
-            if(characterAnimator.parameters.Any(x => x.name == AttackParam) == false) 
-                Debug.Log("Blad w nazwie parametru atakowania");
-            if (characterAnimator.parameters.Any(x => x.name == SecondAttack) == false)
-                Debug.Log("Blad w nazwie parametru drugiego ataku");
-            if(characterAnimator.parameters.Any(x => x.name == RunParam) == false)
-                Debug.Log("Blad w nazwie parametru biegania");
-            if (characterAnimator.parameters.Any(x => x.name == RunSpeed) == false)
-                Debug.Log("Blad w nazwie parametru szybkosci biegania");
-        }
-    }
-
+    [RequireComponent(typeof(StatsController))]
     public class PlayerManager : MonoBehaviour, ISaveable
     {
         #region Inspector Fields
-
+        
+        public VisualEffect visualEffect1;
+        public VisualEffect visualEffect2;
+        public VisualEffect visualEffect3;
+        
         [JbzdReadOnly]
         public int currentKrag = 1;
 
@@ -72,12 +57,20 @@ namespace jbzd.MainHero
 
         [JbzdReadOnly]
         public List<NpcController> ListOfFollowers = new();
+
+        [field:JbzdReadOnly]
+        [field:SerializeField]
+        private int MaximumHealth { get; set; }
+        
+        [field:JbzdReadOnly]
+        [field:SerializeField]
+        private int CurrentHealth { get; set; }
         
         #endregion
 
         #region Public variables
 
-        private int _countOfComboAttackParts = 2;
+        private int _countOfComboAttackParts = 3;
         
         /// <summary>
         /// Number of parts of combo for actual equipped weapon
@@ -158,10 +151,6 @@ namespace jbzd.MainHero
         public void Awake()
         {
             _playerControllers = GetComponents<IPlayerController>().ToList();
-        }
-
-        private void Start()
-        {
             CharacterCollider = GetComponent<CapsuleCollider>();
             CharacterAnimator = GetComponentInChildren<Animator>();
             Rb = GetComponent<Rigidbody>();
@@ -172,6 +161,18 @@ namespace jbzd.MainHero
             {
                 Debug.LogError("Nie znaleziono wymaganego komponentu na graczu albo w jego dzieciach!");
             }
+        }
+
+        private void Start()
+        {
+            if (_playerControllers.FirstOrDefault(controller => controller is StatsController) is not StatsController statsController)
+            {
+                Debug.LogError($"Did not found {nameof(StatsController)} in player controllers");
+                return;
+            }
+            
+            MaximumHealth = statsController.MaximumHealth;
+            CurrentHealth = statsController.CurrentHealth;
             
             RegisterStatesLogic();
             ((PlayerStateAttack) _stateLogicObjects.First(stateLogicObject => stateLogicObject is PlayerStateAttack))
@@ -184,6 +185,8 @@ namespace jbzd.MainHero
 
         private void RegisterStatesLogic()
         {
+            if(CharacterAnimator is null) return;
+            
             var behaviour = CharacterAnimator.GetBehaviours<MainHeroBehaviour>().First();
             
             _stateLogicObjects = new List<IPlayerStateLogic>
@@ -209,11 +212,13 @@ namespace jbzd.MainHero
 
             playerState = GetStateLogicObjectForCurrentPlayerState().StateLogicForFixedUpdate();
             
+            return;
+
             //----------- local functions -----------//
             
             void StickPlayerToGround()
             {
-                if (Physics.Raycast(transform.position + Vector3.up, Vector3.down, out RaycastHit hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Ground")))
+                if (Physics.Raycast(transform.position + Vector3.up, Vector3.down, out var hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Ground")))
                 {
                     _newPositionVector.x = Rb.position.x;
                     _newPositionVector.y = hit.point.y;
@@ -229,7 +234,7 @@ namespace jbzd.MainHero
             playerState = GetStateLogicObjectForCurrentPlayerState().StateLogicForUpdate();
 
             //Synchronising running animation with character speed
-            var runningSpeed = new Vector3(Rb.velocity.x, 0f, Rb.velocity.z).magnitude;
+            var runningSpeed = new Vector3(Rb.linearVelocity.x, 0f, Rb.linearVelocity.z).magnitude;
             CharacterAnimator.SetFloat(PlayerStringAnimParam.RunSpeed, runningSpeed);
         }
 
@@ -279,27 +284,27 @@ namespace jbzd.MainHero
             }
         }
 
-        public void Dissapear(TimelineAsset timelineAsset){
-            MeshRenderer[] meshRenderers = GetComponentsInChildren<MeshRenderer>();
-            foreach (MeshRenderer meshRenderer in meshRenderers)
+        private void Dissapear(TimelineAsset timelineAsset){
+            var meshRenderers = GetComponentsInChildren<MeshRenderer>();
+            foreach (var meshRenderer in meshRenderers)
             {
                 meshRenderer.enabled = false;
             }            
-            SkinnedMeshRenderer[] skinnedMeshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
-            foreach (SkinnedMeshRenderer skinnedMeshRenderer in skinnedMeshRenderers)
+            var skinnedMeshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
+            foreach (var skinnedMeshRenderer in skinnedMeshRenderers)
             {
                 skinnedMeshRenderer.enabled = false;
             }
         }
 
-        public void Reappear(TimelineAsset timelineAsset){
-            MeshRenderer[] meshRenderers = GetComponentsInChildren<MeshRenderer>();
-            foreach (MeshRenderer meshRenderer in meshRenderers)
+        private void Reappear(TimelineAsset timelineAsset){
+            var meshRenderers = GetComponentsInChildren<MeshRenderer>();
+            foreach (var meshRenderer in meshRenderers)
             {
                 meshRenderer.enabled = true;
             }
-            SkinnedMeshRenderer[] skinnedMeshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
-            foreach (SkinnedMeshRenderer skinnedMeshRenderer in skinnedMeshRenderers)
+            var skinnedMeshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
+            foreach (var skinnedMeshRenderer in skinnedMeshRenderers)
             {
                 skinnedMeshRenderer.enabled = true;
             }
@@ -310,6 +315,29 @@ namespace jbzd.MainHero
             _cutscenesManager.OnCutsceneStarted -= Dissapear;
             _cutscenesManager.OnCutsceneEnded -= Reappear;
         }
-
-    } 
+    }
+    
+    public struct PlayerStringAnimParam
+    {
+        public static string AttackParam => "Attack";
+        public static string SecondAttack => "Second attack";
+        public static string ThirdAttack => "Third attack";
+        public static string RunParam => "Run";
+        public static string RunSpeed => "Running speed";
+        
+        [SuppressMessage("ReSharper", "StringLiteralTypo")]
+        public static void AnimatorParametersCheck(Animator characterAnimator)
+        {
+            if(characterAnimator.parameters.Any(x => x.name == AttackParam) == false) 
+                Debug.Log("Blad w nazwie parametru atakowania");
+            if (characterAnimator.parameters.Any(x => x.name == SecondAttack) == false)
+                Debug.Log("Blad w nazwie parametru drugiego ataku");
+            if (characterAnimator.parameters.Any(x => x.name == ThirdAttack) == false)
+                Debug.Log("Blad w nazwie parametru trzeciego ataku");
+            if(characterAnimator.parameters.Any(x => x.name == RunParam) == false)
+                Debug.Log("Blad w nazwie parametru biegania");
+            if (characterAnimator.parameters.Any(x => x.name == RunSpeed) == false)
+                Debug.Log("Blad w nazwie parametru szybkosci biegania");
+        }
+    }
 }

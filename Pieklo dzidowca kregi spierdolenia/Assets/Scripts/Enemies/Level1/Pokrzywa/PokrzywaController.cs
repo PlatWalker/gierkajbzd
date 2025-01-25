@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using jbzd.Common.Interfaces;
+using jbzd.Enemies.Obsolete;
 using UnityEngine;
 using Zenject;
 using jbzd.MainHero;
@@ -81,7 +82,9 @@ namespace jbzd.Enemies.Level1.Pokrzywa
 
         [field:SerializeField]
         public int CurrentHealth { get; private set; }
-        
+
+        public bool IsInvincible { get; }
+
         public override event EnemyDied OnDeath;
 
         
@@ -134,7 +137,7 @@ namespace jbzd.Enemies.Level1.Pokrzywa
             }
         }
 
-        public void SetDamage(int damageAmount, DamageType damageType)
+        public void SetDamage(int damageAmount, Vector3 damageOriginPoint)
         {
             if(isInvincible) return;
             
@@ -150,15 +153,6 @@ namespace jbzd.Enemies.Level1.Pokrzywa
             //TODO: tymczasowe oznaczenie zadawania obrazn
             StartCoroutine(BecomeHit());
             StartCoroutine(BecomeInvincible());
-        }
-
-        public void SetDamage(int damageAmount, DamageType damageType, float criticalMultiplier, float criticalChance)
-        {
-            if (Random.Range(0.0f, 1.0f) <= criticalChance)
-            {
-                damageAmount = (int)(damageAmount * criticalMultiplier);
-            }
-            SetDamage(damageAmount, damageType);
         }
 
         private IEnumerator BecomeHit()

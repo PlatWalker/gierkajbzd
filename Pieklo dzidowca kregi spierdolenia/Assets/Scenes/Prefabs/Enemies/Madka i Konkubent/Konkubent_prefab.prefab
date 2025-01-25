@@ -730,6 +730,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!54 &5031858192152749168
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -778,6 +779,8 @@ MonoBehaviour:
   _baseballCollider: {fileID: 5031858193191788442}
   _chargeSpeedMultiplier: 1.5
   _chargeDamageMultiplier: 1.5
+  dashVFXGameObject: {fileID: 0}
+  dashMaterial: {fileID: 0}
 --- !u!114 &5031858192152749173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1035,7 +1038,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 7604961617057777046, guid: 18cef7475bf5d2942973486028dee843, type: 3}
+  m_Mesh: {fileID: 7604961617057777046, guid: b09ec1e3f881fd34dad77e51e2e32462, type: 3}
   m_Bones:
   - {fileID: 5031858191669207143}
   - {fileID: 5031858192920627357}

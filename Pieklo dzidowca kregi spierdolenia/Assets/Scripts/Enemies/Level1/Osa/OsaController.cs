@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using jbzd.Enemies;
+using jbzd.Enemies.Obsolete;
 using UnityEngine;
 using UnityEngine.AI;
 

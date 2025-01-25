@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using jbzd.Enemies.Obsolete;
+using UnityEngine;
 
 // Developer: Vhart
 

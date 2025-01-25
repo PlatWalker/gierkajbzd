@@ -1,14 +1,19 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using jbzd.Common;
 using jbzd.Common.Interfaces;
+using MyBox;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace jbzd.MainHero
 {
+    [RequireTag("Player")]
     public class CanDealDamageWithWeapon : MonoBehaviour
     {
-        [System.Serializable]
+        [Serializable]
         public struct AnimationPairs {
             public AnimationClip animation;
             public BoxCollider colliderForDamage;
@@ -17,32 +22,44 @@ namespace jbzd.MainHero
         [Tooltip("Match colliders that are intended to deal damage and specify the animation during which this collider should be active.")]
         public List<AnimationPairs> animationPairsList;
 
-        [Tooltip("If this character is player only enemies will be hit. If character is not player, it will hit player only.")]
-        public bool isPlayer;
+        [SerializeField]
+        private VisualEffect firstComboPartEffect;
+        [SerializeField]
+        private VisualEffect secondComboPartEffect;
+        [SerializeField]
+        private VisualEffect thirdComboPartEffect;
         
         [field:SerializeField]
         public int WeaponDamage { get; set; }
 
-        private const string NAME_OF_TAG_FOR_COLLIDER = "ColliderForDamage";
+        [field: Range(0, 0.8f)]
+        [field: SerializeField]
+        private float AnimationFreezeDurationSeconds { get; set; }
         
-#if UNITY_EDITOR
-        public void OnValidate()
-        {
-            if (UnityEditorInternal.InternalEditorUtility.tags.Any(t => t == NAME_OF_TAG_FOR_COLLIDER)) return;
-            
-            Debug.LogError($"Missing '{NAME_OF_TAG_FOR_COLLIDER}' tag");
-        }
-#endif
+        private AnimationEventHandler _animationEventHandler;
+        
         public void Start()
         {
-            var animationEventHandler = GetComponentInChildren<AnimationEventHandler>();
+            _animationEventHandler = GetComponentInChildren<AnimationEventHandler>();
 
-            if (animationEventHandler is null)
+            if (firstComboPartEffect is null || secondComboPartEffect is null || thirdComboPartEffect is null)
+            {
+                Debug.LogError("Missing one visual effect for combo");
+                return;
+            }
+            
+            if (_animationEventHandler is null)
             {
                 Debug.LogError($"Missing {nameof(AnimationEventHandler)} in children object");
                 return;
             }
 
+            if (animationPairsList.Count == 0)
+            {
+                Debug.LogError($"No animation in pair for passed animation event in {name}");
+                return;
+            }
+            
             foreach (var pair in animationPairsList)
             {
                 if (pair.animation is null || pair.animation?.ToString() == "null")
@@ -58,41 +75,91 @@ namespace jbzd.MainHero
                 }
             }
             
-            animationEventHandler.OnEventFired += HandleEvent;
+            _animationEventHandler.OnEventFired += HandleEvent;
         }
 
         private void HandleEvent(AnimationEvent animationEvent)
         {
+            if (animationEvent.stringParameter is "vfx start")
+            {
+                if (animationEvent.intParameter is 0 or < 0)
+                {
+                    Debug.LogError($"Animation event handled in {gameObject} has string \"vfx start\" string but does not have positive int number parameter!");
+                    return;
+                }
+                
+                switch (animationEvent.intParameter)
+                {
+                    case 1:
+                        firstComboPartEffect.Play();
+                        break;
+                    case 2:
+                        secondComboPartEffect.Play();
+                        break;
+                    case 3:
+                        thirdComboPartEffect.Play();
+                        break;
+                    default:
+                        Debug.LogError($"There is no step {animationEvent.intParameter} in this combo. Change animation event int parameter");
+                        break;
+                }
+                
+            }
+            
             var pairFromEvent = animationPairsList.FirstOrDefault(pair => pair.animation.name == animationEvent.animatorClipInfo.clip.name);
 
-            if (pairFromEvent.animation is null || pairFromEvent.colliderForDamage is null)
+            if (pairFromEvent.colliderForDamage is null)
             {
-                Debug.LogError($"No animation in pair for passed animation event in {name}");
+                Debug.LogError($"{gameObject.name} has missing collider for damage or is mismatch between component and animation node in animation controller");
+                return;
             }
-
-            var damageCollider = pairFromEvent.colliderForDamage!;
             
-            //10 is how much enemies we can hit at once. Why 10? I dont know, its random number. In case of emergency - change it xD
+            var damageCollider = pairFromEvent.colliderForDamage;
+            
+            //10 is how much enemies can holder of script hit at once. Why 10? I dont know, its random number. In case of emergency - change it xD
             var colliders = new Collider[10];
-            var layerToGetHits = isPlayer ? "Enemies" : "Player";
+            
             Physics.OverlapBoxNonAlloc(
                 damageCollider.transform.TransformPoint(damageCollider.center),
-                damageCollider.size / 2,
+                Vector3.Scale(damageCollider.size, damageCollider.transform.lossyScale) * 0.5f,
                 colliders,
                 damageCollider.transform.rotation,
-                LayerMask.GetMask(layerToGetHits));
-
+                LayerMask.GetMask("Enemies"));
+            
             foreach (var coll in colliders)
             {
                 if(coll is null) return;
-
+                
                 coll.gameObject.TryGetComponent<IDamageable>(out var damageableEnemy);
-                if(damageableEnemy is null){
-                    Debug.LogError($"Hit target {coll.gameObject.name} does not implement {nameof(IDamageable)} but it should");
+
+                if (damageableEnemy is null)
+                {
+                    Debug.LogError($"Hit target {coll.gameObject.name} does not implement {nameof(IDamageable)}, but it should");
                     return;
                 }
-                damageableEnemy.SetDamage(WeaponDamage, DamageType.CloseCombat);
+
+                if (!damageableEnemy.IsInvincible)
+                {
+                    var animator = GetComponentInChildren<Animator>();
+                    StartCoroutine(AnimationFreeze(animator));
+                }
+                
+                damageableEnemy.SetDamage(WeaponDamage, gameObject.transform.position);
             }
+
+            return;
+
+            IEnumerator AnimationFreeze(Animator animator)
+            {
+                animator.speed = 0;
+                yield return new WaitForSeconds(AnimationFreezeDurationSeconds);
+                animator.speed = 1;
+            }
+        }
+
+        private void OnDestroy()
+        {
+            _animationEventHandler.OnEventFired -= HandleEvent;
         }
     }
 }

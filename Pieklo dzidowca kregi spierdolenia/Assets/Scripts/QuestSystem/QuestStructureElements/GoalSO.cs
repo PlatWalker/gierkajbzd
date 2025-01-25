@@ -5,6 +5,7 @@ using jbzd.Common;
 using jbzd.Common.AssetsHelper;
 using jbzd.Dialogues.RuntimeData;
 using jbzd.Enemies;
+using jbzd.Enemies.Obsolete;
 using jbzd.MinorSystems.Cutscenes;
 using jbzd.UI.Dialogues;
 using UnityEngine;

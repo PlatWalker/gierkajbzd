@@ -15,17 +15,21 @@ namespace jbzd.UI.Hud
 		[SerializeField]
 		private Slider manaBar;
 		private Text _hpNumber;
-
+		
 		public void Start()
 		{
 			_hpNumber = GetComponentInChildren<Text>();
 		}
 
-		public void Update()
+		public void Init(int maxHealth)
 		{
-			_maxHealth = 100;
-			currentHealth = 100;
-
+			_maxHealth = maxHealth;
+			currentHealth = maxHealth;
+		}
+        
+		public void UpdateHealthBar(int currentHealthUpdate)
+		{
+			currentHealth = currentHealthUpdate;
 			healthBar.SetValueWithoutNotify(currentHealth.Remap(0, _maxHealth, 0, 1));
 
 			float floatCurrentHealth = currentHealth;

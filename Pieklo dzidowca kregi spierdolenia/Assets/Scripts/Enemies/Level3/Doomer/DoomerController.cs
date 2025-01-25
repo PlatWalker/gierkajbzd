@@ -3,6 +3,7 @@
 ///</summary>
 
 using jbzd.Enemies;
+using jbzd.Enemies.Obsolete;
 using UnityEngine;
 namespace jbzdy.Enemies
 {
@@ -381,7 +382,7 @@ namespace jbzdy.Enemies
         }
 
 
-        public override void SetDamage(int damageAmount, DamageType damageType)
+        public override void SetDamage(int damageAmount, Vector3 damageOriginPoint)
         {
             if (!HasDoneAggro) HasDoneAggro = true;
 
@@ -394,7 +395,7 @@ namespace jbzdy.Enemies
 
 			pushBackEffect.ApplyEffect();
 
-			base.SetDamage(damageAmount, damageType);
+			base.SetDamage(damageAmount, damageOriginPoint);
         }
 
 

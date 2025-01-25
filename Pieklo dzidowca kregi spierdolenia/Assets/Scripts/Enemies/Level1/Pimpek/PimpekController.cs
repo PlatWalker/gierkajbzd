@@ -2,6 +2,7 @@ using System;
 using System.Numerics;
 using jbzd.Common.Interfaces;
 using jbzd.Enemies;
+using jbzd.Enemies.Obsolete;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
@@ -197,7 +198,7 @@ namespace jbzdy.Enemies
         {
             if (!other.gameObject.TryGetComponent<IDamageable>(out var hitObjectScript)) return;
             if (other.transform.CompareTag("Enemy")) return;
-            hitObjectScript.SetDamage(EnemyData.Damage, DamageType.CloseCombat, criticalMultiplier , criticalChance);
+            hitObjectScript.SetDamage(EnemyData.Damage, gameObject.transform.position);
         }
     }
 }

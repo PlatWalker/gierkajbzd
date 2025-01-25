@@ -4,6 +4,7 @@ using jbzd.MainHero;
 using UnityEngine;
 using UnityEngine.AI;
 using jbzd.Enemies;
+using jbzd.Enemies.Obsolete;
 
 namespace TheKiwiCoder {
 
