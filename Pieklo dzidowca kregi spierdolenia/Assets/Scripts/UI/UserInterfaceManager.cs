@@ -156,7 +156,7 @@ namespace jbzd.UI
         {
             var activeUserInterfaces = userInterfaceControllers.Where(controller => controller.gameObject.activeSelf).ToList();
             
-            if (activeUserInterfaces.Count(activeUserInterface => activeUserInterface is not HudUIController) != 0)
+            if (activeUserInterfaces.Count(activeUserInterface => activeUserInterface is not HudUIController && activeUserInterface is not DialogueUIController) != 0)
             { 
                 FreezeTime.Freeze();
             }
@@ -169,7 +169,7 @@ namespace jbzd.UI
             {
                 foreach (var uui in activeUserInterfaces.Where(x => 
                              x.GetType() != clickedUserInterfaceController.GetType() &&
-                             x is not HudUIController or DialogueUIController))
+                             x is not HudUIController && x is not DialogueUIController))
                 {
                     uui.gameObject.SetActive(false);
                 }

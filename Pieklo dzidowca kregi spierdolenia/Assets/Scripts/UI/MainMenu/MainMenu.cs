@@ -21,6 +21,7 @@ namespace jbzd.UI.MainMenu
 
         private Animation _animation;
         private Animator _introAnimation;
+        private AudioSource _audioSource;
 
         [Inject] private SaveManager _saveManager;
         [SerializeField] private GameObject wczytajGreGameObject;
@@ -32,6 +33,7 @@ namespace jbzd.UI.MainMenu
 
             _animation = _fadeIn.GetComponent<Animation>();
             _introAnimation = _intro.GetComponent<Animator>();
+            _audioSource = Canvas.GetComponentInChildren<AudioSource>();
         }
 
         public void PlayGame()
@@ -82,6 +84,7 @@ namespace jbzd.UI.MainMenu
 
         private IEnumerator LoadScenesAndTeleportPlayer()
         {
+            _audioSource.Stop();
             _fadeIn.SetActive(true);
             _animation.Play("FadeIn");
             yield return new WaitForSeconds(1);
